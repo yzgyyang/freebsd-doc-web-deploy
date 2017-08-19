@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="euc-jp"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>FreeBSD が初めてという方へ</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=euc-jp" />
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="../../layout/css/fixed.css?20130112" type="text/css" />
+    <script type="text/javascript" src="../../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Header And Logo</h2>
+            <div id="headerlogoleft">
+              <a href=".." title="FreeBSD">
+                <img src="../../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <div class="frontdonateroundbox">
+                <div class="frontdonatetop">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+                <div class="frontdonatecontent">
+                  <a href="https://www.FreeBSDFoundation.org/donate/">FreeBSD への寄付</a>
+                </div>
+                <div class="frontdonatebot">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+              </div>
+              <h2 class="blockhide">Peripheral Links</h2>
+              <div id="searchnav">
+                <ul id="searchnavlist"></ul>
+              </div>
+              <div id="search">
+                <form method="get" id="search" action="https://duckduckgo.com/">
+                  <h2 class="blockhide">
+                    <label for="words">検索</label>
+                  </h2>
+                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
+                  <input type="hidden" name="ka" value="v" />
+                  <input type="hidden" name="kt" value="v" />
+                  <input type="hidden" name="kh" value="1" />
+                  <input type="hidden" name="kj" value="r2" />
+                  <input id="words" name="q" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="検索" />
+                  <span></span>
+                  <input id="submit" name="submit" type="submit" value="検索" />
+                </form>
+              </div>
+            </div>
+          </div>
+          <h2 class="blockhide">Site Navigation</h2>
+          <div id="menu">
+            <ul class="first">
+              <li>
+                <a href="../">ホーム</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../about.html">FreeBSD とは</a>
+                <ul>
+                  <li>
+                    <a href="../projects/newbies.html">FreeBSD が初めてという方へ</a>
+                  </li>
+                  <li>
+                    <a href="../features.html">特徴</a>
+                  </li>
+                  <li>
+                    <a href="../../advocacy/">プロモーション活動</a>
+                  </li>
+                  <li>
+                    <a href="../../marketing/">マーケティング活動</a>
+                  </li>
+                  <li>
+                    <a href="../../privacy.html">プライバシーポリシー</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../where.html">FreeBSD の入手</a>
+                <ul>
+                  <li>
+                    <a href="../releases/">リリース情報</a>
+                  </li>
+                  <li>
+                    <a href="../../releng/">リリースエンジニアリング</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../docs.html">ドキュメント</a>
+                <ul>
+                  <li>
+                    <a href="../../doc/ja_JP.eucJP/books/faq/">FAQ</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/ja_JP.eucJP/books/handbook/">ハンドブック</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/ja_JP.eucJP/books/porters-handbook/">port 作成者のためのハンドブック</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/en_US.ISO8859-1/books/developers-handbook/">開発者のためのハンドブック</a>
+                  </li>
+                  <li>
+                    <a href="../../cgi/man.cgi">マニュアルページ</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/en_US.ISO8859-1/books/fdp-primer">新しい貢献者のためのドキュメンテーションプロジェクト入門</a>
+                  </li>
+                  <li>
+                    <a href="../docs/books.html">すべての Books と Articles</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../community.html">コミュニティ</a>
+                <ul>
+                  <li>
+                    <a href="../community/mailinglists.html">メーリングリスト</a>
+                  </li>
+                  <li>
+                    <a href="https://forums.FreeBSD.org">フォーラム</a>
+                  </li>
+                  <li>
+                    <a href="../usergroups.html">ユーザグループ</a>
+                  </li>
+                  <li>
+                    <a href="../events/events.html">イベント</a>
+                  </li>
+                  <li>
+                    <a href="http://serverfault.com/questions/tagged/freebsd">Q&amp;A (外部)</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../projects/index.html">開発</a>
+                <ul>
+                  <li>
+                    <a href="https://wiki.FreeBSD.org/IdeasPage">プロジェクトアイディア</a>
+                  </li>
+                  <li>
+                    <a href="https://svnweb.FreeBSD.org">SVN リポジトリ</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/freebsd">GIT リポジトリ</a>
+                  </li>
+                  <li>
+                    <a href="http://p4web.FreeBSD.org">Perforce リポジトリ</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../support.html">サポート</a>
+                <ul>
+                  <li>
+                    <a href="../commercial/commercial.html">ベンダ</a>
+                  </li>
+                  <li>
+                    <a href="../security/">セキュリティ情報</a>
+                  </li>
+                  <li>
+                    <a href="https://bugs.freebsd.org/search/">障害報告</a>
+                  </li>
+                  <li>
+                    <a href="https://www.FreeBSD.org/ja/support.html">障害報告の提出</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="https://www.freebsdfoundation.org/">財団</a>
+                <ul>
+                  <li>
+                    <a href="https://www.freebsdfoundation.org/donate/">寄付</a>
+                  </li>
+                  <li>
+                    <a href="../../donations/index.html#systems">ハードウェアの寄贈</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Section Navigation</h2>
+              <ul>
+                <li>
+                  <a href="../docs.html">ドキュメント</a>
+                </li>
+                <li>
+                  <a href="../../doc/ja_JP.eucJP/books/faq/">FAQ</a>
+                </li>
+                <li>
+                  <a href="../../doc/ja_JP.eucJP/books/handbook/">ハンドブック</a>
+                </li>
+                <li>
+                  <a href="//www.FreeBSD.org/cgi/man.cgi">マニュアルページ</a>
+                </li>
+                <li>
+                  <a href="../docs/books.html">Books と Articles</a>
+                </li>
+                <li>
+                  <a href="../publish.html">出版物</a>
+                </li>
+                <li>
+                  <a href="../docs/webresources.html">ウェブ上の情報</a>
+                </li>
+                <li>
+                  <a href="../projects/newbies.html">初めての方向けの情報</a>
+                </li>
+                <li>
+                  <a href="../docproj/">ドキュメンテーションプロジェクト</a>
+                </li>
+                <li>
+                  <a href="https://docs.freebsd.org/doc/">アーカイブ</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap"><h1>FreeBSD が初めてという方へ</h1>
+
+    <h2><a shape="rect">FreeBSD を入手する</a></h2>
+
+    <p>最新の FreeBSD リリースは、<a href="../where.html" shape="rect">ここ</a> から利用可能です。
+      インストールを始める前に <a href="../../doc/ja_JP.eucJP/books/handbook/bsdinstall.html" shape="rect">FreeBSD
+	のインストールガイド</a>
+      を注意深く読んで下さい。</p>
+
+    <h2><a shape="rect">FreeBSD について学ぶ</a></h2>
+
+    <ul>
+      <li><p><a href="../../doc/ja_JP.eucJP/books/handbook/index.html" shape="rect">FreeBSD ハンドブック</a>
+	と <a href="../../doc/ja_JP.eucJP/books/faq/index.html" shape="rect">よくある質問と答え (FAQ)</a>
+	は FreeBSD に関する中心的な文書です。
+	初心者から上級者までを対象とした数多くの話題が書かれています。
+	GUI のインストールに興味を持っているユーザは、<a href="../../doc/ja_JP.eucJP/books/handbook/x11.html" shape="rect">X Windows</a>
+	の章をご覧ください。</p></li>
+	
+      <li><p><a href="//www.FreeBSD.org/cgi/man.cgi" shape="rect">マニュアルページ</a>
+	(<a href="http://www.jp.FreeBSD.org/man-jp/search.html" shape="rect">日本語版</a>)
+	は、よいリファレンスですが、
+	必ずしも初心者にとって最適な入門資料であるとは限りません。
+	一般的に特定のコマンド、
+	ドライバおよびサービスについての情報を提供します。</p></li>
+    </ul>
+
+    <h2><a shape="rect">質問およびサポート</a></h2>
+
+    <ul>
+      <li><p>恐くてとても聞くことができないような質問や、
+	それに対する答えを得るために <a href="http://lists.FreeBSD.org/mailman/listinfo/freebsd-questions" shape="rect">http://lists.FreeBSD.org/mailman/listinfo/freebsd-questions</a>
+	の入力欄に記入して、メーリングリストに参加しましょう。
+        すでになされた質問やその回答は、
+	<a href="../search/search.html#mailinglists" shape="rect">検索</a>
+	ページで探すことができます。</p></li>
+
+      <li><p>FreeBSD <a href="https://forums.freebsd.org" shape="rect">フォーラム</a> は、
+	もう一つのサポートチャネルを提供します。
+	たくさんのユーザがさまざまなチュートリアルを書き、
+	多くの新しいユーザはここで手助けを得ています。</p></li>
+
+      <li><p>ハンドブックや FAQ、ウェブサイト上のすべての内容、
+	FreeBSD メーリングリストのアーカイブを
+	<a href="../search/search.html" shape="rect">検索</a>
+	できます。</p></li>
+
+      <li><p><a href="../support.html" shape="rect">サポート</a> ページには、
+	メーリングリスト、ユーザグループ、ウェブサイト、FTP サイト、
+	リリース情報および UNIX® についての情報へのリンクなど、
+	FreeBSD についての豊富な情報があります。</p></li>
+    </ul>
+
+    <h2><a shape="rect">FreeBSD 由来のプロジェクトについて学ぶ</a></h2>
+
+    <p>FreeBSD は、商用やオープンソースのオペレーティングシステムのベースとして、
+      幅広く利用されています。
+      広く普及していて、入手可能なシステムを以下で紹介します。</p>
+
+    <ul>
+      <li><p><a href="http://www.freenas.org" shape="rect">FreeNAS</a> は、
+	どのハードウェアプラットホーム上でも仮想的にインストール可能な、
+	ネットワーク上でデータを共有するためのストレージソリューションです。
+	すべてのデータの保護、保存、バックアップのために ZFS を使っています。</p></li>
+      <li><p><a href="https://www.trueos.org" shape="rect">TrueOS</a> は、
+	FreeBSD をベースとして、
+	グラフィカルなインストーラと美しいディスクトップツールを加え、
+	カジュアルなコンピュータユーザでも簡単に使えることを目指しています。</p></li>
+
+      <li><p><a href="http://www.pfsense.org" shape="rect">pfSense</a> は、
+	FreeBSD ベースのネットワークソリューションです。
+	pfSense ソフトウェアは package システムにより、
+	商用のファイアウォールと同等もしくはそれ以上の機能を制限なく提供します。
+	世界中でインストールされている数えきれないほどの有名な商用のファイアウォールの置き換えに成功しています。</p></li>
+    </ul>
+
+    <h2><a shape="rect">貢献の仕方</a></h2>
+
+    <p>すべての人は FreeBSD
+      コミュニティへ何らかの形で貢献することができます。
+      初心者でも貢献できます!
+      新しい支持団体を作る仕事で忙しい人もいますし、<a href="../docproj/docproj.html" shape="rect">ドキュメンテーションプロジェクト</a>
+      に査読者として関わっている人もいます。
+      コンピュータに関連するかどうかに関わらず、
+      何か共有するに値する特別な技術や経験を持つ初心者がいるかもしれないし、
+      新しくやってきた初心者と出会い、歓迎したいと思う人もいるでしょう。
+      ただ単にそうするのが好きだからいつも他人を助けている人もいます。</p>
+
+    <p>FreeBSD を使っている友人は偉大な情報源です。
+      同じことに興味を持っている人や成功を分かち合える人、
+      同じことに挑戦している人と電話で話をしたり、
+      一緒にピザを食べながら話すことは、どんな本にも真似できません。
+      もしまわりに FreeBSD を使っている友人が少なかったら、
+      FreeBSD の CDROM を使ってそういう友人を増やしましょう :-)</p>
+
+    <p><a href="../usergroups.html" shape="rect">ユーザグループ</a>
+      は、他の FreeBSD ユーザと出会うのによい場所です。
+      もし近所に住んでいる人がそこにはいなかったら、
+      あなたが最初の一人になってみてはいかがでしょうか？</p>
+
+    <p>コミュニティに関与するためのより詳細な情報を得るには、<a href="../../doc/ja_JP.eucJP/articles/contributing/index.html" shape="rect">FreeBSD への貢献</a> という文書を読んでください。</p>
+  </div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="../search/index-site.html">サイトマップ</a> |
+  <a href="../copyright/">知的財産権について</a> | (C) 1995〓2017 The FreeBSD Project.
+  All rights reserved.</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

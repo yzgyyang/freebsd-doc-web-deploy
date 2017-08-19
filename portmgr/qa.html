@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>Quality Assurance Tasks for the Ports Management Team</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="../layout/css/fixed.css?20130112" type="text/css" />
+    <script type="text/javascript" src="../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Header And Logo</h2>
+            <div id="headerlogoleft">
+              <a href=".." title="FreeBSD">
+                <img src="../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <div class="frontdonateroundbox">
+                <div class="frontdonatetop">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+                <div class="frontdonatecontent">
+                  <a href="https://www.FreeBSDFoundation.org/donate/">Donate to FreeBSD</a>
+                </div>
+                <div class="frontdonatebot">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+              </div>
+              <h2 class="blockhide">Peripheral Links</h2>
+              <div id="searchnav">
+                <ul id="searchnavlist"></ul>
+              </div>
+              <div id="search">
+                <form method="get" id="search" action="https://duckduckgo.com/">
+                  <h2 class="blockhide">
+                    <label for="words">Search</label>
+                  </h2>
+                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
+                  <input type="hidden" name="ka" value="v" />
+                  <input type="hidden" name="kt" value="v" />
+                  <input type="hidden" name="kh" value="1" />
+                  <input type="hidden" name="kj" value="r2" />
+                  <input id="words" name="q" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="Search" />
+                  <span> </span>
+                  <input id="submit" name="submit" type="submit" value="Search" />
+                </form>
+              </div>
+            </div>
+          </div>
+          <h2 class="blockhide">Site Navigation</h2>
+          <div id="menu">
+            <ul class="first">
+              <li>
+                <a href="../">Home</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../about.html">About</a>
+                <ul>
+                  <li>
+                    <a href="../projects/newbies.html">Introduction</a>
+                  </li>
+                  <li>
+                    <a href="../features.html">Features</a>
+                  </li>
+                  <li>
+                    <a href="../advocacy/">Advocacy</a>
+                  </li>
+                  <li>
+                    <a href="../marketing/">Marketing</a>
+                  </li>
+                  <li>
+                    <a href="../privacy.html">Privacy Policy</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../where.html">Get FreeBSD</a>
+                <ul>
+                  <li>
+                    <a href="../releases/">Release Information</a>
+                  </li>
+                  <li>
+                    <a href="../releng/">Release Engineering</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../docs.html">Documentation</a>
+                <ul>
+                  <li>
+                    <a href="../doc/en_US.ISO8859-1/books/faq/">FAQ</a>
+                  </li>
+                  <li>
+                    <a href="../doc/en_US.ISO8859-1/books/handbook/">Handbook</a>
+                  </li>
+                  <li>
+                    <a href="../doc/en_US.ISO8859-1/books/porters-handbook">Porter's Handbook</a>
+                  </li>
+                  <li>
+                    <a href="../doc/en_US.ISO8859-1/books/developers-handbook">Developer's Handbook</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/man.cgi">Manual Pages</a>
+                  </li>
+                  <li>
+                    <a href="../doc/en_US.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
+                  </li>
+                  <li>
+                    <a href="../docs/books.html">All Books and Articles</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../community.html">Community</a>
+                <ul>
+                  <li>
+                    <a href="../community/mailinglists.html">Mailing Lists</a>
+                  </li>
+                  <li>
+                    <a href="https://forums.FreeBSD.org">Forums</a>
+                  </li>
+                  <li>
+                    <a href="../usergroups.html">User Groups</a>
+                  </li>
+                  <li>
+                    <a href="../events/events.html">Events</a>
+                  </li>
+                  <li>
+                    <a href="http://serverfault.com/questions/tagged/freebsd">Q&amp;A (external)</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../projects/index.html">Developers</a>
+                <ul>
+                  <li>
+                    <a href="https://wiki.FreeBSD.org/IdeasPage">Project Ideas</a>
+                  </li>
+                  <li>
+                    <a href="https://svnweb.FreeBSD.org">SVN Repository</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/freebsd">GIT Repository</a>
+                  </li>
+                  <li>
+                    <a href="http://p4web.FreeBSD.org">Perforce Repository</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../support.html">Support</a>
+                <ul>
+                  <li>
+                    <a href="../commercial/commercial.html">Vendors</a>
+                  </li>
+                  <li>
+                    <a href="../security/">Security Information</a>
+                  </li>
+                  <li>
+                    <a href="https://bugs.FreeBSD.org/search/">Bug Reports</a>
+                  </li>
+                  <li>
+                    <a href="https://www.FreeBSD.org/support.html">Submitting Bug Reports</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="https://www.freebsdfoundation.org/">Foundation</a>
+                <ul>
+                  <li>
+                    <a href="https://www.freebsdfoundation.org/donate/">Monetary Donations</a>
+                  </li>
+                  <li>
+                    <a href="../donations/index.html#systems">Hardware Donations</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Section Navigation</h2>
+              <ul>
+                <li>
+                  <a href="../about.html">About</a>
+                </li>
+                <li>
+                  <a href="../features.html">Features</a>
+                </li>
+                <li>
+                  <a href="../applications.html">Applications</a>
+                </li>
+                <li>
+                  <a href="../advocacy/">Advocacy</a>
+                </li>
+                <li>
+                  <a href="../marketing/">Marketing</a>
+                </li>
+                <li>
+                  <a href="../administration.html">Administration</a>
+                </li>
+                <li>
+                  <a href="../news/newsflash.html">News</a>
+                </li>
+                <li>
+                  <a href="../events/events.html">Events</a>
+                </li>
+                <li>
+                  <a href="../news/press.html">Press</a>
+                </li>
+                <li>
+                  <a href="../multimedia/multimedia.html">Multimedia</a>
+                </li>
+                <li>
+                  <a href="../art.html">Artwork</a>
+                </li>
+                <li>
+                  <a href="../logo.html">Logo</a>
+                </li>
+                <li>
+                  <a href="../donations/">Donations</a>
+                </li>
+                <li>
+                  <a href="../copyright/">Legal Notices</a>
+                </li>
+                <li>
+                  <a href="../privacy.html">Privacy Policy</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap"><h1>Quality Assurance Tasks for the Ports Management Team</h1>
+
+<p>There are a number of tasks that the Ports Management Team undertakes
+to try to improve the quality of the Ports Collection.  These fall into
+two main categories:
+<a href="#qa-before-release" shape="rect">activities during a release cycle</a> and
+<a href="#qa-between-releases" shape="rect">activities between release cycles</a>.
+</p>
+
+<h3><a name="qa-before-release" shape="rect" id="qa-before-release">Activities During a Release Cycle</a></h3>
+
+<ul>
+  <li>
+    <p>Work with the
+      <a href="../releng/index.html" shape="rect">Release Engineering Team</a>
+      to coordinate the release schedule.</p>
+  </li>
+
+  <li>
+    <p>Work with the RE team to determine which pre-built packages
+      can be included on the default install ISOs.</p>
+  </li>
+
+  <li>
+    <p>Manage commits to the CVS tree for package builds via the
+      following steps:</p>
+
+    <ol>
+      <li>
+	<p>Institute a freeze and produce packages for all the
+	  appropriate architectures.  Often this process has to be
+	  repeated because either bugs are identified in various ports,
+          or changes to the src tree create a risk that the packages
+	  that have already been built would not work with those
+	  changes.</p>
+
+	<p>To make sure that package builds are consistent and correct,
+	  <i>all</i> commits must be approved by portmgr during a
+	  freeze.  Changes that are generally approved are:</p>
+
+	  <ul>
+	    <li><p>fixes to make a package build at all;</p></li>
+	    <li><p>security fixes to critical packages;</p></li>
+	    <li><p>problems that are noticed with licensing issues.</p></li>
+	  </ul>
+
+	<p>Unfortunately, due to the sheer size of the Ports Collection
+	  and the speed that applications are developed, it is
+	  impossible to fix every single problem for a release.</p>
+      </li>
+
+      <li>
+	<p>The tree is then locked for all commits and a CVS tag is laid
+	  down.</p>
+      </li>
+
+      <li>
+	<p>The tree is then unlocked and a <tt>slush</tt> is
+	  announced.  The intent of this state is to allow routine
+	  changes to be made to the Ports Collection, but with the note
+	  that these changes will not ship on the release ISOs.  What
+	  we particularly want to avoid is
+	  <a href="implementation.html#sweeping_changes" shape="rect">
+	  sweeping changes</a>.</p>
+
+	<p>The reason we want to avoid these commits is if some kind
+	  of show-stopper problem is found (either security- or license-
+	  related) such that we need to make a change that can go on
+	  the release ISOs, we will need to slip the CVS tag on the
+	  changed file(s).  By allowing unlimited commits, the risk is
+	  high that any such change would involve having to recreate all
+	  the packages all over again, resulting in an endless release
+	  cycle.</p>
+      </li>
+    </ol>
+
+    <p>Only once the RE team and portmgr are happy with the final
+      state of the release ISOs is the ports tree completely available
+      for commits again.</p>
+  </li>
+
+</ul>
+
+<h3><a name="qa-between-releases" shape="rect" id="qa-between-releases">Activities Between Release Cycles</a></h3>
+
+<ul>
+  <li>
+    <p>Manage the <a href="http://pointyhat.FreeBSD.org" shape="rect">Ports Build
+      Cluster</a> machines.  These machines continually build packages
+      on all possible combinations of OS release and CPU architecture
+      (in our terminology, <tt>build environments</tt>.)</p>
+
+    <p>These builds also produce error logs for packages that do not
+      build correctly (see the above URL).  Periodically, the team
+      marks these ports as BROKEN so that maintainers may be notified.
+      (See below.)</p>
+
+    <p>Successfully built packages (at least, the ones that are freely
+      redistributable) are also copied to the master FTP server and thus
+      become the default "latest package" for installations
+      that use packages rather than ports.</p>
+  </li>
+
+  <li>
+    <p>Notify the FreeBSD community of problems within the Ports
+      Collection so that problems do not get overlooked.  To do this,
+      there are a number of emailed reports.  Ones marked
+      <tt>public</tt> are posted to freebsd-ports.</p>
+
+    <ul>
+
+      <li><p>a public list of all ports to be removed due to security
+	problems, build failures, or general obsolescence, unless they
+	are fixed first.</p></li>
+
+      <li><p>private email to all maintainers of the affected ports
+	(including ports dependent on the above).</p></li>
+
+      <li><p>private email to all maintainers of ports that are already
+	marked BROKEN and/or FORBIDDEN.</p></li>
+
+      <li><p>private email to maintainers who are not committers, who have
+	PRs filed against their ports (to flag PRs that might never have
+	been Cc:ed to them).</p></li>
+
+      <li><p>public email about port commits that break building of
+	INDEX.</p></li>
+
+      <li><p>public email about port commits that send the revision
+	metadata backwards (and thus confuse tools like portupgrade).</p></li>
+
+      <li><p>a public list of all ports that have at least one file
+	that fails to fetch from any non-FreeBSD mastersite.  For the
+	complete list of results for all files versus all mastersites,
+	see <a href="http://people.freebsd.org/~ehaupt/distilator/" shape="rect">
+	Emanuel Haupt's port survey</a>.</p></li>
+
+      <li><p>private email to an affected port maintainer when a port
+	is about to be marked BROKEN, Cc:ed to the last committer to
+	the port.  (This email is not automated but it should be sent
+	as a courtesy.)</p></li>
+
+    </ul>
+
+  </li>
+
+  <li>
+    <p>Remove expired ports.  Ports that have been marked BROKEN for
+      some time are marked DEPRECATED (with an EXPIRATION_DATE) and then
+      are removed if no one has fixed them by that time.  The intent of
+      this this process is to try to insure that if a user installs a port,
+      there is the best possible change that it can be made to work.</p>
+
+    <p>In other cases, ports are marked DEPRECATED when they have been
+      replaced by a newer version and the older version is no longer
+      maintained by the authors.  The EXPIRATION_DATE should generally
+      be set at least two months in the future to allow everyone sufficient
+      time to upgrade.</p>
+  </li>
+</ul>
+
+</div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="../search/index-site.html">Site Map</a> |
+  <a href="../copyright/">Legal Notices</a> | © 1995&#8211;2017 The FreeBSD Project.
+  All rights reserved.</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

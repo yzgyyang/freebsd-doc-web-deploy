@@ -1,0 +1,1139 @@
+<?xml version="1.0" encoding="iso-8859-2"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>A FreeBSD Projekt szervezeti
+  felépítése</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-2" />
+    <link rel="shortcut icon" href="./../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="./../layout/css/fixed.css?20130112" type="text/css" />
+    <script type="text/javascript" src="./../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Fejléc és logo</h2>
+            <div id="headerlogoleft">
+              <a href="." title="FreeBSD">
+                <img src="./../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <h2 class="blockhide">Külső linkek</h2>
+              <div id="SEARCHNAV">
+                <ul id="SEARCHNAVLIST">
+                  <li>
+                    <a href="./../donations/" title="Adomány">Adomány</a>
+                  </li>
+                  <li class="last-child">
+                    <a href="./mailto.html" title="Kapcsolat">Kapcsolat</a>
+                  </li>
+                </ul>
+              </div>
+              <div id="SEARCH">
+                <form action="//www.FreeBSD.org/cgi/search.cgi" method="get">
+                  <div>
+                    <h2 class="blockhide">
+                      <label for="WORDS">Keresés</label>
+                    </h2>
+                    <div>
+                      <input type="hidden" name="max" value="25" />
+                      <input type="hidden" name="source" value="www" />
+                      <input id="words" name="words" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="Keresés" />
+                      <span> </span>
+                      <input id="submit" name="submit" type="submit" value="Keresés" />
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div id="menu">
+            <ul class="first">
+              <li>
+                <a href="./">Kezdőlap</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="./about.html">Bemutatkozunk</a>
+                <ul>
+                  <li>
+                    <a href="./../projects/newbies.html">Bemutatkozunk</a>
+                  </li>
+                  <li>
+                    <a href="./features.html">Adottságok</a>
+                  </li>
+                  <li>
+                    <a href="./advocacy/">Képviselet</a>
+                  </li>
+                  <li>
+                    <a href="./../marketing/">Marketing</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="./where.html">Letöltés</a>
+                <ul>
+                  <li>
+                    <a href="./../releases/">Kiadási információk</a>
+                  </li>
+                  <li>
+                    <a href="./../releng/">A kiadások ütemezése</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="./docs.html">Dokumentáció</a>
+                <ul>
+                  <li>
+                    <a href="./../doc/hu/books/faq/">GYIK</a>
+                  </li>
+                  <li>
+                    <a href="./../doc/hu/books/handbook/">Kézikönyv</a>
+                  </li>
+                  <li>
+                    <a href="./../doc/en/books/porters-handbook/">Porterek
+	    kézikönyve</a>
+                  </li>
+                  <li>
+                    <a href="./../doc/en/books/developers-handbook/">Fejlesztők
+	    kézikönyve</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/man.cgi">Man oldalak</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="./community.html">Közösség</a>
+                <ul>
+                  <li>
+                    <a href="./community/mailinglists.html">Levelezési
+	    listák</a>
+                  </li>
+                  <li>
+                    <a href="http://forums.freebsd.org">Fórumok</a>
+                  </li>
+                  <li>
+                    <a href="./../usergroups.html">Felhasználói
+	    csoportok</a>
+                  </li>
+                  <li>
+                    <a href="./events/events.html">Rendezvények</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="./projects/index.html">Fejlesztők</a>
+                <ul>
+                  <li>
+                    <a href="./../projects/ideas/ideas.html">Projektötletek</a>
+                  </li>
+                  <li>
+                    <a href="http://svn.FreeBSD.org/viewvc/base/">SVN
+	    repository</a>
+                  </li>
+                  <li>
+                    <a href="http://cvsweb.FreeBSD.org">CVS repository</a>
+                  </li>
+                  <li>
+                    <a href="http://p4web.FreeBSD.org">Perforce repository</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="./support.html">Támogatás</a>
+                <ul>
+                  <li>
+                    <a href="./../commercial/commercial.html">Terjesztők</a>
+                  </li>
+                  <li>
+                    <a href="./security/security.html">Biztonsági
+	    tudnivalók</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/query-pr-summary.cgi">Hibajelentések</a>
+                  </li>
+                  <li>
+                    <a href="./send-pr.html">Hibajelentések
+	    küldése</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="http://www.freebsdfoundation.org/">Alapítvány</a>
+                <ul>
+                  <li>
+                    <a href="http://www.freebsdfoundation.org/donate/">Felajánlás</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Fejezetek közti navigáció</h2>
+              <ul>
+                <li>
+                  <a href="./about.html">Bemutatkozunk</a>
+                </li>
+                <li>
+                  <a href="./features.html">Adottságok</a>
+                </li>
+                <li>
+                  <a href="./applications.html">Alkalmazások</a>
+                </li>
+                <li>
+                  <a href="./internet.html">Hálózatkezelés</a>
+                </li>
+                <li>
+                  <a href="./advocacy/">Képviselet</a>
+                </li>
+                <li>
+                  <a href="./../marketing/">Marketing</a>
+                </li>
+                <li>
+                  <a href="./administration.html">Szervezeti felépítés</a>
+                </li>
+                <li>
+                  <a href="./news/newsflash.html">Hírek</a>
+                </li>
+                <li>
+                  <a href="./events/events.html">Rendezvények</a>
+                </li>
+                <li>
+                  <a href="./news/press.html">Sajtó</a>
+                </li>
+                <li>
+                  <a href="./../multimedia/multimedia.html">Multimédia anyagok</a>
+                </li>
+                <li>
+                  <a href="./art.html">Illusztrációk</a>
+                </li>
+                <li>
+                  <a href="./logo.html">Logó</a>
+                </li>
+                <li>
+                  <a href="./../donations/">Adományok</a>
+                </li>
+                <li>
+                  <a href="./copyright/">Jogi megjegyzések</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap"><h1>A FreeBSD Projekt szervezeti
+  felépítése</h1>
+
+  <h2>Bevezetés</h2>
+
+  <p>Ez az oldal tartalmazza a FreeBSD Projektben kiemelt szereppel
+    és felelősséggel bíró csoportokat
+    és személyeket, illetve az azon belül
+    betöltött szerepük rövid
+    leírását, valamint
+    elérhetőségeiket.</p>
+
+  <ul>
+    <li>A Projekt vezetősége
+      <ul>
+	<li><a href="#t-core" shape="rect">A Core Team</a></li>
+
+	<li><a href="#t-doceng" shape="rect">A Documentation Engineering Team</a></li>
+
+	<li><a href="#t-portmgr" shape="rect">A Port Management Team</a></li>
+      </ul>
+    </li>
+
+    <li>Kiadások tervezése és ütemezése
+      <ul>
+	<li><a href="#t-re" shape="rect">Elsődleges Release Engineering Team</a>
+	  </li>
+
+	<li><a href="#t-re-amd64" shape="rect">FreeBSD/amd64 Release Engineering Team</a>
+	  </li>
+
+	<li><a href="#t-re-ia64" shape="rect">FreeBSD/ia64 Release Engineering Team</a>
+	  </li>
+
+	<li><a href="#t-re-x86" shape="rect">FreeBSD/i386 Release Engineering Team</a>
+	  </li>
+
+	<li><a href="#t-re-pc98" shape="rect">FreeBSD/pc98 Release Engineering Team</a>
+	  </li>
+
+	<li><a href="#t-re-ppc" shape="rect">FreeBSD/ppc Release Engineering Team</a>
+	  </li>
+
+	<li><a href="#t-re-sparc64" shape="rect">FreeBSD/sparc64 Release Engineering Team</a>
+	  </li>
+      </ul>
+    </li>
+
+    <li>További csoportok
+      <ul>
+	<li><a href="#t-donations" shape="rect">Donations Team</a></li>
+
+	<li><a href="#t-marketing" shape="rect">Marketing Team</a></li>
+
+	<li><a href="#t-secteam" shape="rect">Security Team</a></li>
+
+	<li><a href="#t-vendor" shape="rect">Vendor Relations Team</a></li>
+      </ul>
+    </li>
+
+    <li>Titkárok
+      <ul>
+	<li><a href="#t-core-secretary" shape="rect">Core Team titkár</a></li>
+
+	<li><a href="#t-portmgr-secretary" shape="rect">Port Management Team titkár</a>
+	  </li>
+
+	<li><a href="#t-secteam-secretary" shape="rect">Security Team titkár</a>
+	  </li>
+      </ul>
+    </li>
+
+    <li>Belső ügyintézés
+      <ul>
+	<li><a href="#t-accounts" shape="rect">Hozzáférések</a>
+	  </li>
+
+	<li><a href="#t-backups" shape="rect">Biztonsági mentések</a>
+	  </li>
+
+	<li><a href="#t-bugmeister" shape="rect">Bugmeisterek és GNATS rendszergazdák</a>
+	  </li>
+
+	<li><a href="#t-clusteradm" shape="rect">Klaszter rendszergazdák</a>
+	  </li>
+
+	<li><a href="#t-dcvs" shape="rect">doc/www CVS repository megbízottak</a>
+	  </li>
+
+	<li><a href="#t-pcvs" shape="rect">ports CVS repository megbízottak</a>
+	  </li>
+
+	<li><a href="#t-ncvs" shape="rect">src CVS repository megbízottak</a>
+	  </li>
+
+	<li><a href="#t-cvsup-master" shape="rect">A CVSup tükrözések koordinátorai</a>
+	  </li>
+
+	<li><a href="#t-dnsadm" shape="rect">DNS rendszergazdák</a>
+	  </li>
+
+	<li><a href="#t-mirror-admin" shape="rect">Az FTP/WWW tükrözések koordinátorai</a>
+	  </li>
+
+	<li><a href="#t-perforce-admin" shape="rect">Perforce repository rendszergazdák</a>
+	  </li>
+
+	<li><a href="#t-postmaster" shape="rect">Postamesterek</a></li>
+
+	<li><a href="#t-refadm" shape="rect">A referencia rendszerek rendszergazdái</a>
+	  </li>
+
+	<li><a href="#t-webmaster" shape="rect">Webmesterek</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <hr />
+
+  <h3><a name="t-core" shape="rect" id="t-core">FreeBSD Core Team</a>
+    &lt;<a href="mailto:core@FreeBSD.org" shape="rect">core@FreeBSD.org</a>&gt;</h3>
+
+  <p>A FreeBSD Core Team képezi a Projekt
+    <q>igazgatótanácsát</q>.  A Projekt
+    általános céljainak
+    meghatározásáért és a FreeBSD egyes
+    területeinek kézbentartásáért
+    felelős.  A Core Team tagjait a Projekt aktív
+    fejlesztői választják.</p>
+
+  <ul>
+    <li>John Baldwin &lt;<a href="mailto:jhb@FreeBSD.org" shape="rect">jhb@FreeBSD.org</a>&gt;</li>
+    <li>Konstantin Belousov &lt;<a href="mailto:kib@FreeBSD.org" shape="rect">kib@FreeBSD.org</a>&gt;</li>
+    <li>Brooks Davis &lt;<a href="mailto:brooks@FreeBSD.org" shape="rect">brooks@FreeBSD.org</a>&gt;</li>
+    <li>Wilko Bulte &lt;<a href="mailto:wilko@FreeBSD.org" shape="rect">wilko@FreeBSD.org</a>&gt;</li>
+    <li>Warner Losh &lt;<a href="mailto:imp@FreeBSD.org" shape="rect">imp@FreeBSD.org</a>&gt;</li>
+    <li>Pav Lucistnik &lt;<a href="mailto:pav@FreeBSD.org" shape="rect">pav@FreeBSD.org</a>&gt;</li>
+    <li>Colin Percival &lt;<a href="mailto:cperciva@FreeBSD.org" shape="rect">cperciva@FreeBSD.org</a>&gt;</li>
+    <li>Hiroki Sato &lt;<a href="mailto:hrs@FreeBSD.org" shape="rect">hrs@FreeBSD.org</a>&gt;</li>
+    <li>Robert Watson &lt;<a href="mailto:rwatson@FreeBSD.org" shape="rect">rwatson@FreeBSD.org</a>&gt;</li>
+  </ul>
+
+  <h3><a name="t-doceng" shape="rect" id="t-doceng">FreeBSD Documentation Engineering Team</a>
+    &lt;<a href="mailto:doceng@FreeBSD.org" shape="rect">doceng@FreeBSD.org</a>&gt;</h3>
+
+  <p>A FreeBSD Documentation Engineering Team a Dokumentációs
+    Projekt résztvevői számára jelöli ki
+    a dokumentációval kapcsolatos célokat.  A <a href="./../internal/doceng.html" shape="rect">doceng szabadalomlevele</a>
+    nagy részletességgel ismerteti a Documentation
+    Engineering Team feladatait és
+    kötelezettségeit.</p>
+
+  <ul>
+    <li>Nik Clayton &lt;<a href="mailto:nik@FreeBSD.org" shape="rect">nik@FreeBSD.org</a>&gt;</li>
+    <li>Marc Fonvieille &lt;<a href="mailto:blackend@FreeBSD.org" shape="rect">blackend@FreeBSD.org</a>&gt;</li>
+    <li>Hiroki Sato &lt;<a href="mailto:hrs@FreeBSD.org" shape="rect">hrs@FreeBSD.org</a>&gt;</li>
+    <li>Giorgos Keramidas &lt;<a href="mailto:keramida@FreeBSD.org" shape="rect">keramida@FreeBSD.org</a>&gt;</li>
+  </ul>
+
+  <h3><a name="t-portmgr" shape="rect" id="t-portmgr">FreeBSD Port Management Team</a>
+    &lt;<a href="mailto:portmgr@FreeBSD.org" shape="rect">portmgr@FreeBSD.org</a>&gt;</h3>
+
+  <p>A FreeBSD Port Management Team elsődleges feladata gondoskodni
+    arról, hogy a portokon dolgozó fejlesztői
+    közösség egy működő, stabil
+    és naprakész Portgyűjteményt
+    nyújtson a felhasználók számára.
+    A másodlagos feladata a committerek és a
+    Portgyűjteményen dolgozó fejlesztők
+    közti koordináció.  A <a href="./../portmgr/charter.html" shape="rect">portmgr szabadalomlevele</a>
+    részleteiben mutatja be a Port Management Team
+    kötelességeit és felelősségeit.</p>
+
+  <ul>
+    <li>Joe Marcus Clarke &lt;<a href="mailto:marcus@FreeBSD.org" shape="rect">marcus@FreeBSD.org</a>&gt;</li>
+    <li>Erwin Lansing &lt;<a href="mailto:erwin@FreeBSD.org" shape="rect">erwin@FreeBSD.org</a>&gt;</li>
+    <li>Mark Linimon &lt;<a href="mailto:linimon@FreeBSD.org" shape="rect">linimon@FreeBSD.org</a>&gt;</li>
+    <li>Pav Lucistnik &lt;<a href="mailto:pav@FreeBSD.org" shape="rect">pav@FreeBSD.org</a>&gt;</li>
+    <li>Ion-Mihai Tetcu &lt;<a href="mailto:itetcu@FreeBSD.org" shape="rect">itetcu@FreeBSD.org</a>&gt;</li>
+    <li>Florent Thoumie &lt;<a href="mailto:flz@FreeBSD.org" shape="rect">flz@FreeBSD.org</a>&gt;</li>
+    <li>Martin Wilke &lt;<a href="mailto:miwi@FreeBSD.org" shape="rect">miwi@FreeBSD.org</a>&gt;</li>
+  </ul>
+
+  <hr />
+
+  <h3><a name="t-re" shape="rect" id="t-re">Elsődleges Release Engineering Team</a>
+    &lt;<a href="mailto:re@FreeBSD.org" shape="rect">re@FreeBSD.org</a>&gt;</h3>
+
+  <p>Az Elsődleges Release Engineering Team a FreeBSD hivatalos
+    kiadásainak időbeosztását határozza
+    meg és hirdeti ki.  Több más tennivaló
+    mellett bejelenti a kód befagyasztását
+    és karbantartja a <code>RELENG_*</code> ágakat.  A <a href="./../releng/charter.html" shape="rect">releng szabadalomlevele</a>
+    részletesen ismerteti az Elsődleges Release Engineering
+    Team feladatait és kötelezettségeit.</p>
+
+  <ul>
+    <li>Konstantin Belousov &lt;<a href="mailto:kib@FreeBSD.org" shape="rect">kib@FreeBSD.org</a>&gt;</li>
+    <li>Marc Fonvieille &lt;<a href="mailto:blackend@FreeBSD.org" shape="rect">blackend@FreeBSD.org</a>&gt;</li>
+    <li>Maxime Henrion &lt;<a href="mailto:mux@FreeBSD.org" shape="rect">mux@FreeBSD.org</a>&gt;</li>
+    <li>George V. Neville-Neil &lt;<a href="mailto:gnn@FreeBSD.org" shape="rect">gnn@FreeBSD.org</a>&gt;</li>
+    <li>Hiroki Sato &lt;<a href="mailto:hrs@FreeBSD.org" shape="rect">hrs@FreeBSD.org</a>&gt;</li>
+    <li>Ken Smith &lt;<a href="mailto:kensmith@FreeBSD.org" shape="rect">kensmith@FreeBSD.org</a>&gt;
+      (Vezető)</li>
+    <li>Robert Watson &lt;<a href="mailto:rwatson@FreeBSD.org" shape="rect">rwatson@FreeBSD.org</a>&gt;</li>
+    <li>Doug White &lt;<a href="mailto:dwhite@FreeBSD.org" shape="rect">dwhite@FreeBSD.org</a>&gt;</li>
+    <li>Bjoern A. Zeeb &lt;<a href="mailto:bz@FreeBSD.org" shape="rect">bz@FreeBSD.org</a>&gt;</li>
+  </ul>
+
+  <h3><a name="t-re-amd64" shape="rect" id="t-re-amd64">FreeBSD/amd64 Release Engineering Team</a>
+    &lt;<a href="mailto:re-amd64@FreeBSD.org" shape="rect">re-amd64@FreeBSD.org</a>&gt;</h3>
+
+  <p>A FreeBSD/amd64 Release Engineering Team a FreeBSD/amd64 platform
+    egyéni kiadási problémáiért
+    felelős.</p>
+
+  <ul>
+    <li>David O'Brien &lt;<a href="mailto:obrien@FreeBSD.org" shape="rect">obrien@FreeBSD.org</a>&gt;</li>
+  </ul>
+
+  <h3><a name="t-re-ia64" shape="rect" id="t-re-ia64">FreeBSD/ia64 Release Engineering Team</a>
+    &lt;<a href="mailto:re-ia64@FreeBSD.org" shape="rect">re-ia64@FreeBSD.org</a>&gt;</h3>
+
+  <p>A FreeBSD/ia64 Release Engineering Team a FreeBSD/ia64 platform
+    egyéni kiadási problémáiért
+    felelős.</p>
+
+  <ul>
+    <li>Marcel Moolenaar &lt;<a href="mailto:marcel@FreeBSD.org" shape="rect">marcel@FreeBSD.org</a>&gt;</li>
+  </ul>
+
+  <h3><a name="t-re-x86" shape="rect" id="t-re-x86">FreeBSD/i386 Release Engineering Team</a>
+    &lt;<a href="mailto:re-x86@FreeBSD.org" shape="rect">re-x86@FreeBSD.org</a>&gt;</h3>
+
+  <p>A FreeBSD/i386 Release Engineering Team a FreeBSD/i386 platform
+    egyéni kiadási problémáiért
+    felelős.</p>
+
+  <ul>
+    <li>Robert Watson &lt;<a href="mailto:rwatson@FreeBSD.org" shape="rect">rwatson@FreeBSD.org</a>&gt;</li>
+  </ul>
+
+  <h3><a name="t-re-pc98" shape="rect" id="t-re-pc98">FreeBSD/pc98 Release Engineering Team</a>
+    &lt;<a href="mailto:re-pc98@FreeBSD.org" shape="rect">re-pc98@FreeBSD.org</a>&gt;</h3>
+
+  <p>A FreeBSD/pc98 Release Engineering Team a FreeBSD/pc98 platform
+    egyéni kiadási problémáiért
+    felelős.</p>
+
+  <ul>
+    <li>Yoshihiro Takahashi &lt;<a href="mailto:nyan@FreeBSD.org" shape="rect">nyan@FreeBSD.org</a>&gt;</li>
+  </ul>
+
+  <h3><a name="t-re-ppc" shape="rect" id="t-re-ppc">FreeBSD/ppc Release Engineering Team</a>
+    &lt;<a href="mailto:re-ppc@FreeBSD.org" shape="rect">re-ppc@FreeBSD.org</a>&gt;</h3>
+
+  <p>A FreeBSD/ppc Release Engineering Team a FreeBSD/ppc platform
+    egyéni kiadási problémáiért
+    felelős.</p>
+
+  <ul>
+    <li>Peter Grehan &lt;<a href="mailto:grehan@FreeBSD.org" shape="rect">grehan@FreeBSD.org</a>&gt;</li>
+    <li>Marcel Moolenaar &lt;<a href="mailto:marcel@FreeBSD.org" shape="rect">marcel@FreeBSD.org</a>&gt;</li>
+  </ul>
+
+  <h3><a name="t-re-sparc64" shape="rect" id="t-re-sparc64">FreeBSD/sparc64 Release Engineering Team</a>
+    &lt;<a href="mailto:re-sparc64@FreeBSD.org" shape="rect">re-sparc64@FreeBSD.org</a>&gt;</h3>
+
+  <p>A FreeBSD/sparc64 Release Engineering Team a FreeBSD/sparc64 platform
+    egyéni kiadási problémáiért
+    felelős.</p>
+
+  <ul>
+    <li>Jake Burkholder &lt;<a href="mailto:jake@FreeBSD.org" shape="rect">jake@FreeBSD.org</a>&gt;</li>
+    <li>Poul-Henning Kamp &lt;<a href="mailto:phk@FreeBSD.org" shape="rect">phk@FreeBSD.org</a>&gt;</li>
+    <li>Thomas Möstl &lt;<a href="mailto:tmm@FreeBSD.org" shape="rect">tmm@FreeBSD.org</a>&gt;</li>
+    <li>David O'Brien &lt;<a href="mailto:obrien@FreeBSD.org" shape="rect">obrien@FreeBSD.org</a>&gt;</li>
+    <li>Ken Smith &lt;<a href="mailto:kensmith@FreeBSD.org" shape="rect">kensmith@FreeBSD.org</a>&gt;</li>
+    <li>Robert Watson &lt;<a href="mailto:rwatson@FreeBSD.org" shape="rect">rwatson@FreeBSD.org</a>&gt;</li>
+  </ul>
+
+  <hr />
+
+  <h3><a name="t-donations" shape="rect" id="t-donations">Donations Team</a>
+    &lt;<a href="mailto:donations@FreeBSD.org" shape="rect">donations@FreeBSD.org</a>&gt;</h3>
+
+  <p>A FreeBSD Donations Team köteles a felajánlott
+    adományokra válaszolni, kiépíteni az
+    adományozási irányelveket és
+    módszereket és koordinálni az
+    érkező adományokat a FreeBSD
+    közösségén belül.  A Donations Team
+    munkájáról részletesebb
+    leírást a <a href="./../donations/" shape="rect">FreeBSD Donations Liaison</a> oldalon
+    találhatunk.</p>
+
+  <ul>
+    <li>Glen Barber &lt;<a href="mailto:gjb@FreeBSD.org" shape="rect">gjb@FreeBSD.org</a>&gt;</li>
+    <li>Wilko Bulte &lt;<a href="mailto:wilko@FreeBSD.org" shape="rect">wilko@FreeBSD.org</a>&gt;</li>
+    <li>Pietro Cerutti &lt;<a href="mailto:gahr@FreeBSD.org" shape="rect">gahr@FreeBSD.org</a>&gt;</li>
+    <li>Philip M. Gollucci &lt;<a href="mailto:pgollucci@FreeBSD.org" shape="rect">pgollucci@FreeBSD.org</a>&gt;</li>
+    <li>Steven Kreuzer &lt;<a href="mailto:skreuzer@FreeBSD.org" shape="rect">skreuzer@FreeBSD.org</a>&gt;</li>
+    <li>David O'Brien &lt;<a href="mailto:obrien@FreeBSD.org" shape="rect">obrien@FreeBSD.org</a>&gt;</li>
+    <li>Tom Rhodes &lt;<a href="mailto:trhodes@FreeBSD.org" shape="rect">trhodes@FreeBSD.org</a>&gt;</li>
+    <li>Daniel Seuffert &lt;<a href="mailto:ds@FreeBSD.org" shape="rect">ds@FreeBSD.org</a>&gt;</li>
+    <li>Robert Watson &lt;<a href="mailto:rwatson@FreeBSD.org" shape="rect">rwatson@FreeBSD.org</a>&gt;</li>
+  </ul>
+
+  <h3><a name="t-marketing" shape="rect" id="t-marketing">Marketing Team</a>
+    &lt;<a href="mailto:marketing@FreeBSD.org" shape="rect">marketing@FreeBSD.org</a>&gt;</h3>
+
+  <p>Médiakapcsolat, marketing, interjúk,
+    információk.</p>
+
+  <ul>
+    <li>Steven Beedle &lt;<a href="mailto:steven@zna.com" shape="rect">steven@zna.com</a>&gt;
+      </li>
+
+    <li>Denise Ebery &lt;<a href="mailto:denise@ixsystems.com" shape="rect">denise@ixsystems.com</a>&gt;
+      </li>
+
+    <li>Deb Goodkin &lt;<a href="mailto:deb@FreeBSD.org" shape="rect">deb@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Joseph Koshy &lt;<a href="mailto:jkoshy@FreeBSD.org" shape="rect">jkoshy@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Dru Lavigne &lt;<a href="mailto:dlavigne6@sympatico.ca" shape="rect">dlavigne6@sympatico.ca</a>&gt;
+      </li>
+
+    <li>Michael W. Lucas &lt;<a href="mailto:mwlucas@FreeBSD.org" shape="rect">mwlucas@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Warner Losh &lt;<a href="mailto:imp@FreeBSD.org" shape="rect">imp@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Kris Moore &lt;<a href="mailto:kris@pcbsd.org" shape="rect">kris@pcbsd.org</a>&gt;
+      </li>
+
+    <li>Murray Stokely &lt;<a href="mailto:murray@FreeBSD.org" shape="rect">murray@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Matt Olander &lt;<a href="mailto:matt@FreeBSD.org" shape="rect">matt@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Jeremy C. Reed &lt;<a href="mailto:reed@reedmedia.net" shape="rect">reed@reedmedia.net</a>&gt;
+      </li>
+
+    <li>Robert Watson &lt;<a href="mailto:rwatson@FreeBSD.org" shape="rect">rwatson@FreeBSD.org</a>&gt;
+      </li>
+  </ul>
+
+
+  <h3><a name="t-secteam" shape="rect" id="t-secteam">Security Team</a>
+    &lt;<a href="mailto:secteam@FreeBSD.org" shape="rect">secteam@FreeBSD.org</a>&gt;</h3>
+
+  <p>A FreeBSD Security Team (a Security Officer
+    irányításával) azért
+    felelős, hogy felhívja a közösség
+    figyelmét az src és ports forrásokat
+    érintő hibákra és biztonsági
+    kockázatokra, valamint összegyűjtse és
+    publikálja a FreeBSD biztonságos
+    futtatásához szükséges
+    információkat.  Továbbá felelős a
+    FreeBSD-t érintő biztonsági hibák
+    kijavításáért és velük
+    kapcsolatos biztonsági figyelmeztetések
+    kiadásáért.  A <a href="security/charter.html" shape="rect">FreeBSD Security Officer szabadalomlevele</a>
+    nagyobb részletességgel írja le a Security
+    Officer feladatait és kötelezettségeit.</p>
+
+  <ul>
+    <li>Qing Li &lt;<a href="mailto:qingli@FreeBSD.org" shape="rect">qingli@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Xin Li &lt;<a href="mailto:delphij@FreeBSD.org" shape="rect">delphij@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Remko Lodder &lt;<a href="mailto:remko@FreeBSD.org" shape="rect">remko@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Simon L. B. Nielsen &lt;<a href="mailto:simon@FreeBSD.org" shape="rect">simon@FreeBSD.org</a>&gt;
+      (Officer helyettes)</li>
+
+    <li>Philip Paeps &lt;<a href="mailto:philip@FreeBSD.org" shape="rect">philip@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Colin Percival &lt;<a href="mailto:cperciva@FreeBSD.org" shape="rect">cperciva@FreeBSD.org</a>&gt;
+      (Officer)</li>
+
+    <li>Christian S.J. Peron &lt;<a href="mailto:csjp@FreeBSD.org" shape="rect">csjp@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Stanislav Sedov &lt;<a href="mailto:stas@FreeBSD.org" shape="rect">stas@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Robert Watson &lt;<a href="mailto:rwatson@FreeBSD.org" shape="rect">rwatson@FreeBSD.org</a>&gt;
+	  (Core Team kapcsolattartó)</li>
+
+    <li>Martin Wilke &lt;<a href="mailto:miwi@FreeBSD.org" shape="rect">miwi@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Bjoern A. Zeeb &lt;<a href="mailto:bz@FreeBSD.org" shape="rect">bz@FreeBSD.org</a>&gt;
+      </li>
+  </ul>
+
+  <h3><a name="t-vendor" shape="rect" id="t-vendor">Vendor Relations Team</a>
+    &lt;<a href="mailto:vendor-relations@FreeBSD.org" shape="rect">vendor-relations@FreeBSD.org</a>&gt;</h3>
+
+  <p>Kapcsolattartás a terjesztőkkel.</p>
+
+  <ul>
+    <li>Sebastien Gioria &lt;<a href="mailto:gioria@FreeBSD.org" shape="rect">gioria@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>John-Mark Gurney &lt;<a href="mailto:jmg@FreeBSD.org" shape="rect">jmg@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Roman Kurakin &lt;<a href="mailto:rik@FreeBSD.org" shape="rect">rik@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Philip Paeps &lt;<a href="mailto:philip@FreeBSD.org" shape="rect">philip@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Hiten Pandya &lt;<a href="mailto:hmp@FreeBSD.org" shape="rect">hmp@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Mark Santcroos &lt;<a href="mailto:marks@FreeBSD.org" shape="rect">marks@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Murray Stokely &lt;<a href="mailto:murray@FreeBSD.org" shape="rect">murray@FreeBSD.org</a>&gt;
+      </li>
+  </ul>
+
+  <hr />
+
+  <h3><a name="t-core-secretary" shape="rect" id="t-core-secretary">Core Team titkár</a>
+    &lt;<a href="mailto:core-secretary@FreeBSD.org" shape="rect">core-secretary@FreeBSD.org</a>&gt;</h3>
+
+  <p>A FreeBSD Core Team titkára a Core Team egy szavazati joggal
+    nem rendelkező tagja, aki a Core Team munkájának
+    dokumentálásáért, a tanács
+    teendőinek nyomon követéséért
+    és a külső tagokkal való
+    kapcsolattartásért felel, továbbá egy
+    új committer felvételekor ő közvetíti
+    az új hozzáférések iránti
+    igényt az adminisztrátorok felé.  A Core Team
+    titkár szintén köteles havi
+    rendszerességű helyzetjelentéseket küldeni a
+    FreeBSD fejlesztői közössége felé,
+    amelyben röviden összegzi a Core Team legutóbbi
+    döntéseit és
+    tevékenységét.</p>
+
+  <ul>
+    <li>Philip Paeps &lt;<a href="mailto:philip@FreeBSD.org" shape="rect">philip@FreeBSD.org</a>&gt;
+      </li>
+  </ul>
+
+  <h3><a name="t-portmgr-secretary" shape="rect" id="t-portmgr-secretary">Port Management Team titkár</a>
+    &lt;<a href="mailto:portmgr-secretary@FreeBSD.org" shape="rect">portmgr-secretary@FreeBSD.org</a>&gt;</h3>
+
+  <p>A FreeBSD Port Management Team titkára a Port Management Team
+    egy szavazati joggal nem rendelkező tagja, aki a portmgr
+    munkáját dokumentálja és
+    nyomonköveti a a szavazásokat, illetve a többi
+    team, különösen a Core és az
+    adminisztrátorok felé közvetít azokat.  A
+    Port Management Team titkár szintén köteles havi
+    rendszerességű helyzetjelentéseket küldeni a
+    FreeBSD fejlesztői közösség felé, amelyben
+    összegzi a Port Management Team legutóbbi
+    döntéseit és
+    tevékenységét.</p>
+
+  <ul>
+    <li>Thomas Abthorpe &lt;<a href="mailto:tabthorpe@FreeBSD.org" shape="rect">tabthorpe@FreeBSD.org</a>&gt;
+      </li>
+  </ul>
+
+  <h3><a name="t-secteam-secretary" shape="rect" id="t-secteam-secretary">Security Team titkár</a>
+    &lt;<a href="mailto:secteam-secretary@FreeBSD.org" shape="rect">secteam-secretary@FreeBSD.org</a>&gt;</h3>
+
+  <p>A FreeBSD Security Team titkára gondoskodik róla, hogy a
+    Security Team felé érkező leveleket rendesen
+    megválaszolják.  Visszaigazolja a levelek
+    megérkezését és nyomon követi a
+    folyamatot a Security Team keretein belül.  Szükség
+    esetén kapcsolatba lép a Security Team tagjaival, hogy
+    tájékoztassa őket a folyamatban lévő
+    események fejleményeiről.  Jelenleg a Security
+    Team titkára nem foglalkozik a Security Officer Team
+    feladataival.</p>
+
+  <ul>
+    <li>Remko Lodder &lt;<a href="mailto:remko@FreeBSD.org" shape="rect">remko@FreeBSD.org</a>&gt;
+      </li>
+  </ul>
+
+  <hr />
+
+  <h3><a name="t-accounts" shape="rect" id="t-accounts">Hozzáférések</a>
+    
+    &lt;accounts@&gt;</h3>
+
+  <p>A hozzáférésekkel foglalkozó csoport
+    tagjai a Projekten belül az új committerek
+    hozzáféréseinek
+    létrehozásáért felelősek.  Az
+    új hozzáférések iránti
+    kérelmeket addig nem teljesítik, amíg a
+    felelős szerv azt jóvá nem hagyja.</p>
+
+  <ul>
+    <li>Mark Murray &lt;<a href="mailto:markm@FreeBSD.org" shape="rect">markm@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Simon L. B. Nielsen &lt;<a href="mailto:simon@FreeBSD.org" shape="rect">simon@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Ken Smith &lt;<a href="mailto:kensmith@FreeBSD.org" shape="rect">kensmith@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>David Wolfskill &lt;<a href="mailto:dhw@FreeBSD.org" shape="rect">dhw@FreeBSD.org</a>&gt;
+      </li>
+  </ul>
+
+  <h3><a name="t-backups" shape="rect" id="t-backups">Biztonsági mentések</a>
+    
+    &lt;backups@&gt;</h3>
+
+  <p>A biztonsági mentésekért felelős
+    rendszergazdák kezelik a FreeBSD klaszter biztonsági
+    mentéseit.</p>
+
+  <ul>
+    <li>Simon L. B. Nielsen &lt;<a href="mailto:simon@FreeBSD.org" shape="rect">simon@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Ken Smith &lt;<a href="mailto:kensmith@FreeBSD.org" shape="rect">kensmith@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>David Wolfskill &lt;<a href="mailto:dhw@FreeBSD.org" shape="rect">dhw@FreeBSD.org</a>&gt;
+      </li>
+  </ul>
+
+  <h3><a name="t-bugmeister" shape="rect" id="t-bugmeister">Bugmeisterek és GNATS rendszergazdák</a>
+    &lt;<a href="mailto:bugmeister@FreeBSD.org" shape="rect">bugmeister@FreeBSD.org</a>&gt;</h3>
+
+  <p>A bugmeisterek és GNATS rendszergazdák a
+    hibajelentéseket tároló adatbázis
+    megfelelő működéséért
+    felelősek.  A bejegyzéseknek megfelelően
+    kategorizálva kell lenniük és az
+    adatbázisban nem lehetnek érvénytelen
+    bejegyzések.</p>
+
+  <ul>
+    <li>Gavin Atkinson &lt;<a href="mailto:gavin@FreeBSD.org" shape="rect">gavin@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Mark Linimon &lt;<a href="mailto:linimon@FreeBSD.org" shape="rect">linimon@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Remko Lodder &lt;<a href="mailto:remko@FreeBSD.org" shape="rect">remko@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Volker Werth &lt;<a href="mailto:vwe@FreeBSD.org" shape="rect">vwe@FreeBSD.org</a>&gt;
+      </li>
+  </ul>
+
+  <h3><a name="t-clusteradm" shape="rect" id="t-clusteradm">Klaszter rendszergazdák</a>
+    
+    &lt;clusteradm@&gt;</h3>
+
+  <p>A klaszter rendszergazdái a Projekt elosztott
+    munkájában és a szinkronizált
+    kommunikációjában fontos szerepet
+    betöltő számítógépeket
+    tartják karban.  Elsősorban azokból az
+    emberekből áll, akik fizikailag is
+    hozzáférnek ezekhez a szerverekhez.  A Projekt
+    infrastruktúrájával és az újabb
+    számítógépek
+    beállításával kapcsolatos
+    kérelmeket ennek a csoportnak kell címezni.</p>
+
+  <ul>
+    <li>Ben Haga &lt;<a href="mailto:bhaga@FreeBSD.org" shape="rect">bhaga@FreeBSD.org</a>&gt;</li>
+    <li>Brad Davis &lt;<a href="mailto:brd@FreeBSD.org" shape="rect">brd@FreeBSD.org</a>&gt;</li>
+    <li>Bjoern A. Zeeb &lt;<a href="mailto:bz@FreeBSD.org" shape="rect">bz@FreeBSD.org</a>&gt;</li>
+    <li>Ken Smith &lt;<a href="mailto:kensmith@FreeBSD.org" shape="rect">kensmith@FreeBSD.org</a>&gt;</li>
+    <li>Peter Wemm &lt;<a href="mailto:peter@FreeBSD.org" shape="rect">peter@FreeBSD.org</a>&gt;</li>
+    <li>Sean Bruno &lt;<a href="mailto:sbruno@FreeBSD.org" shape="rect">sbruno@FreeBSD.org</a>&gt;</li>
+    <li>Simon L. B. Nielsen &lt;<a href="mailto:simon@FreeBSD.org" shape="rect">simon@FreeBSD.org</a>&gt;</li>
+  </ul>
+
+  <h3><a name="t-dcvs" shape="rect" id="t-dcvs">doc/www CVS repository megbízottak</a>
+    &lt;<a href="mailto:dcvs@FreeBSD.org" shape="rect">dcvs@FreeBSD.org</a>&gt;</h3>
+
+  <p>A doc/www CVS repository megbízottjai a CVS
+    eszközök nélkül, közvetlenül
+    módosíthatják a repositoryt.  Az ő
+    felelősségük, hogy a repositoryval kapcsolatban
+    felmerülő problémákat gyorsan
+    orvosolják.  A doc/www CVS repository megbízottjainak
+    joga van visszaállítani egy commit műveletet, ha
+    ez szükséges a technikai probléma
+    megoldásához.  A repo-copy iránti
+    kérelmeket is ők kezelik.</p>
+
+  <ul>
+    <li>Josef Karthauser &lt;<a href="mailto:joe@FreeBSD.org" shape="rect">joe@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Jun Kuriyama &lt;<a href="mailto:kuriyama@FreeBSD.org" shape="rect">kuriyama@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Mark Murray &lt;<a href="mailto:markm@FreeBSD.org" shape="rect">markm@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Simon L. B. Nielsen &lt;<a href="mailto:simon@FreeBSD.org" shape="rect">simon@FreeBSD.org</a>&gt;
+      </li>
+  </ul>
+
+  <h3><a name="t-pcvs" shape="rect" id="t-pcvs">ports CVS repository megbízottak</a>
+    &lt;<a href="mailto:pcvs@FreeBSD.org" shape="rect">pcvs@FreeBSD.org</a>&gt;</h3>
+
+  <p>A ports CVS repository megbízottjai a CVS eszközök
+    nélkül, közvetlenül
+    módosíthatják a repositoryt.  Az ő
+    felelősségük, hogy a repositoryval kapcsolatban
+    felmerülő problémákat gyorsan
+    orvosolják.  A ports CVS repository megbízottaknak
+    joga van visszaállítani egy commit műveletet, ha
+    ez szükséges a technikai probléma
+    megoldásához.  A repo-copy iránti
+    kérelmeket is ők kezelik.</p>
+
+  <ul>
+    <li>Joe Marcus Clarke &lt;<a href="mailto:marcus@FreeBSD.org" shape="rect">marcus@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Josef Karthauser &lt;<a href="mailto:joe@FreeBSD.org" shape="rect">joe@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Jun Kuriyama &lt;<a href="mailto:kuriyama@FreeBSD.org" shape="rect">kuriyama@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Mark Murray &lt;<a href="mailto:markm@FreeBSD.org" shape="rect">markm@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Simon L. B. Nielsen &lt;<a href="mailto:simon@FreeBSD.org" shape="rect">simon@FreeBSD.org</a>&gt;
+      </li>
+  </ul>
+
+  <h3><a name="t-ncvs" shape="rect" id="t-ncvs">src CVS repository megbízottak</a>
+    &lt;<a href="mailto:ncvs@FreeBSD.org" shape="rect">ncvs@FreeBSD.org</a>&gt;</h3>
+
+  <p>Az src CVS repository megbízottjai a CVS eszközök
+    nélkül, közvetlenül
+    módosíthatják a repositoryt.  Az ő
+    felelősségük, hogy a repositoryval kapcsolatban
+    felmerülő problémákat gyorsan
+    orvosolják.  Az src CVS repository megbízottjainak
+    joga van visszaállítani egy commit műveletet, ha
+    ez szükséges a technikai probléma
+    megoldásához.  A repo-copy iránti
+    kérelmeket is ők kezelik.</p>
+
+  <ul>
+    <li>Josef Karthauser &lt;<a href="mailto:joe@FreeBSD.org" shape="rect">joe@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Jun Kuriyama &lt;<a href="mailto:kuriyama@FreeBSD.org" shape="rect">kuriyama@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Mark Murray &lt;<a href="mailto:markm@FreeBSD.org" shape="rect">markm@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Simon L. B. Nielsen &lt;<a href="mailto:simon@FreeBSD.org" shape="rect">simon@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Peter Wemm &lt;<a href="mailto:peter@FreeBSD.org" shape="rect">peter@FreeBSD.org</a>&gt;
+      </li>
+  </ul>
+
+  <h3><a name="t-cvsup-master" shape="rect" id="t-cvsup-master">A CVSup tükrözések koordinátorai</a>
+    &lt;<a href="mailto:cvsup-master@FreeBSD.org" shape="rect">cvsup-master@FreeBSD.org</a>&gt;</h3>
+
+  <p>A CVSup tükrözések koordinátorai
+    hangolják össze a tükörszerverek
+    rendszergazdáinak munkáit, ezáltal gondoskodnak
+    róla, hogy a tükrözésekről a FreeBSD
+    mindig naprakész verziója legyen elérhető
+    és elég kapacitással rendelkezzenek ahhoz, hogy
+    a nagyobb frissítéseket képesek legyenek
+    követni.  Emellett arra is ügyelnek, hogy a
+    közösség könnyen elérhesse a
+    legközelebbi CVSup tükrözést.</p>
+
+  <ul>
+    <li>Jun Kuriyama &lt;<a href="mailto:kuriyama@FreeBSD.org" shape="rect">kuriyama@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>John Polstra &lt;<a href="mailto:jdp@FreeBSD.org" shape="rect">jdp@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Ken Smith &lt;<a href="mailto:kensmith@FreeBSD.org" shape="rect">kensmith@FreeBSD.org</a>&gt;
+      </li>
+  </ul>
+
+  <h3><a name="t-dnsadm" shape="rect" id="t-dnsadm">DNS rendszergazdák</a>
+    
+    &lt;dnsadm@&gt;</h3>
+
+  <p>A DNS rendszergazdák a névfeloldásért
+    és a hozzá kapcsolódó
+    szolgáltatásokért felelősek.</p>
+
+  <ul>
+    <li>Bill Fumerola &lt;<a href="mailto:billf@FreeBSD.org" shape="rect">billf@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>David Greenman &lt;<a href="mailto:dg@FreeBSD.org" shape="rect">dg@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Paul Saab &lt;<a href="mailto:ps@FreeBSD.org" shape="rect">ps@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Ken Smith &lt;<a href="mailto:kensmith@FreeBSD.org" shape="rect">kensmith@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Peter Wemm &lt;<a href="mailto:peter@FreeBSD.org" shape="rect">peter@FreeBSD.org</a>&gt;
+      </li>
+  </ul>
+
+  <h3><a name="t-mirror-admin" shape="rect" id="t-mirror-admin">Az FTP/WWW tükrözések koordinátorai</a>
+    &lt;<a href="mailto:mirror-admin@FreeBSD.org" shape="rect">mirror-admin@FreeBSD.org</a>&gt;</h3>
+
+  <p>Az FTP/WWW tükrözések koordinátorai
+    hangolják össze a tükörszerverek
+    rendszergazdáinak munkáját, így
+    gondoskodnak róla, hogy a tükrözésekről
+    mindig a FreeBSD naprakész verziója legyen
+    elérhető, és elegendő kapacitással
+    rendelkezzenek a nagyobb frissítések
+    követéséhez.  Továbbá
+    felügyelik, hogy a közösség mindig
+    könnyen elérhesse a legközelebbi FTP/WWW
+    tükrözést.</p>
+
+  <ul>
+    <li>Jun Kuriyama &lt;<a href="mailto:kuriyama@FreeBSD.org" shape="rect">kuriyama@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Ken Smith &lt;<a href="mailto:kensmith@FreeBSD.org" shape="rect">kensmith@FreeBSD.org</a>&gt;
+      </li>
+  </ul>
+
+  <h3><a name="t-perforce-admin" shape="rect" id="t-perforce-admin">Perforce repository rendszergazdák</a>
+    &lt;<a href="mailto:perforce-admin@FreeBSD.org" shape="rect">perforce-admin@FreeBSD.org</a>&gt;</h3>
+
+  <p>A Perforce repository rendszergazdák a FreeBSD Perforce
+    repository karbantartásáért és az
+    új Perforce hozzáférések
+    létrehozásáért felelnek.  A nem
+    committer felhasználók részére
+    igényelt hozzáféréseket
+    feléjük kell küldeni.</p>
+
+  <ul>
+    <li>Scott Long &lt;<a href="mailto:scottl@FreeBSD.org" shape="rect">scottl@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Ken Smith &lt;<a href="mailto:kensmith@FreeBSD.org" shape="rect">kensmith@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Gordon Tetlow &lt;<a href="mailto:gordon@FreeBSD.org" shape="rect">gordon@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Robert Watson &lt;<a href="mailto:rwatson@FreeBSD.org" shape="rect">rwatson@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Peter Wemm &lt;<a href="mailto:peter@FreeBSD.org" shape="rect">peter@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>David Wolfskill &lt;<a href="mailto:dhw@FreeBSD.org" shape="rect">dhw@FreeBSD.org</a>&gt;
+      </li>
+  </ul>
+
+  <h3><a name="t-postmaster" shape="rect" id="t-postmaster">Postamasterek</a>
+    &lt;<a href="mailto:postmaster@FreeBSD.org" shape="rect">postmaster@FreeBSD.org</a>&gt;</h3>
+
+  <p>A postmasterek felelnek azért, hogy az e-mailek mindig
+    megfelelően kézbesítésre kerüljenek a
+    committerek felé, illetve, hogy a levelezési
+    listák rendesen működjenek, valamint gondoskodjanak
+    a troll-, spam- és
+    vírusszűrésről.</p>
+
+  <ul>
+    <li>Jonathan M. Bresler &lt;<a href="mailto:jmb@FreeBSD.org" shape="rect">jmb@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Brad Davis &lt;<a href="mailto:brd@FreeBSD.org" shape="rect">brd@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>David Wolfskill &lt;<a href="mailto:dhw@FreeBSD.org" shape="rect">dhw@FreeBSD.org</a>&gt;
+      </li>
+  </ul>
+
+  <h3><a name="t-refadm" shape="rect" id="t-refadm">A referencia rendszerek rendszergazdái</a>
+    
+    &lt;refadm@&gt;</h3>
+
+  <p>A referencia rendszerek rendszergazdái felelősek a FreeBSD
+    klaszterben található referencia rendszerek
+    megfelelő működtetéséért,
+    frissítéséért és
+    karbantartásáért.  Ezek a rendszerek minden
+    committer számára elérhetőek.</p>
+
+  <ul>
+    <li>Jake Burkholder &lt;<a href="mailto:jake@FreeBSD.org" shape="rect">jake@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Bill Fumerola &lt;<a href="mailto:billf@FreeBSD.org" shape="rect">billf@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Mark Murray &lt;<a href="mailto:markm@FreeBSD.org" shape="rect">markm@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Simon L. B. Nielsen &lt;<a href="mailto:simon@FreeBSD.org" shape="rect">simon@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>David O'Brien &lt;<a href="mailto:obrien@FreeBSD.org" shape="rect">obrien@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Paul Saab &lt;<a href="mailto:ps@FreeBSD.org" shape="rect">ps@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Ken Smith &lt;<a href="mailto:kensmith@FreeBSD.org" shape="rect">kensmith@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Peter Wemm &lt;<a href="mailto:peter@FreeBSD.org" shape="rect">peter@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>David Wolfskill &lt;<a href="mailto:dhw@FreeBSD.org" shape="rect">dhw@FreeBSD.org</a>&gt;
+      </li>
+  </ul>
+
+  <h3><a name="t-webmaster" shape="rect" id="t-webmaster">Webmesterek</a>
+    &lt;<a href="mailto:webmaster@FreeBSD.org" shape="rect">webmaster@FreeBSD.org</a>&gt;</h3>
+
+  <p>A webmesterek az elsődleges FreeBSD webszerver megfelelő
+    működéséért felelősek.
+    Hozzájuk tartozik a webszerver konfigurációja,
+    a CGI scriptek, a weboldal és a levelezési
+    listák keresése.  A webbel kapcsolatos minden
+    technikai dolog a webmesterek felügyelete alá esik,
+    kivéve a dokumentációs hibákat.</p>
+
+  <ul>
+    <li>Nik Clayton &lt;<a href="mailto:nik@FreeBSD.org" shape="rect">nik@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Jun Kuriyama &lt;<a href="mailto:kuriyama@FreeBSD.org" shape="rect">kuriyama@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Simon L. B. Nielsen &lt;<a href="mailto:simon@FreeBSD.org" shape="rect">simon@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Jesus Rodriguez &lt;<a href="mailto:jesusr@FreeBSD.org" shape="rect">jesusr@FreeBSD.org</a>&gt;
+      </li>
+
+    <li>Wolfram Schneider &lt;<a href="mailto:wosch@FreeBSD.org" shape="rect">wosch@FreeBSD.org</a>&gt;
+      </li>
+   </ul>
+
+  </div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="./search/index-site.html">Oldaltérkép</a> |
+  <a href="./../copyright/">Jogi Megjegyzések</a> | (c) 1995-2010 A FreeBSD Projekt.
+  Minden jog fenntartva.</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

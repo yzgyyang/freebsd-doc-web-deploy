@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="euc-jp"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>FreeBSD News Flash</title>
+    <link>http://www.FreeBSD.org/ja/news/</link>
+    <description>FreeBSD プロジェクトの最新ニュース</description>
+    <language>ja-jp</language>
+    <webMaster>freebsd-www@FreeBSD.org (Webmaster Team)</webMaster>
+    <managingEditor>freebsd-www@FreeBSD.org (Webmaster Team)</managingEditor>
+    <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+    <ttl>120</ttl>
+    <image>
+      <url>http://www.FreeBSD.org/logo/logo-full.png</url>
+      <title>FreeBSD News Flash</title>
+      <link>http://www.FreeBSD.org/ja/news/</link>
+    </image>
+    <atom:link href="http://www.FreeBSD.org/ja/news/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>FreeBSD〓11.1-RELEASE 公開</title>
+      <description>FreeBSD 11.1-RELEASE が公開されました。 インストール前に リリースノート および リリース Errata を読み、11.1 に関する最新情報や問題点などを確認してください。 FreeBSD のリリースに関するより詳しい情報については リリース情報 をご覧ください。</description>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20170726:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20170726:01</guid>
+      <pubDate>Wed, 26 Jul 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>新コミッタ就任: Marcin Wojtas (src)</title>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20170718:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20170718:01</guid>
+      <pubDate>Tue, 18 Jul 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD〓11.1-RC3 公開</title>
+      <description>FreeBSD〓11.1 リリースサイクルから、 3 回目のリリース候補版が公開されました (アナウンス)。 FreeBSD ミラーサイト から amd64, armv6, i386, aarch64, powerpc, powerpc64 および sparc64 アーキテクチャの ISO イメージを入手できます。</description>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20170715:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20170715:01</guid>
+      <pubDate>Sat, 15 Jul 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>新コミッタ就任: Matt Joras (src)</title>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20170712:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20170712:01</guid>
+      <pubDate>Wed, 12 Jul 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD〓11.1-RC2 公開</title>
+      <description>FreeBSD〓11.1 リリースサイクルから、 2 回目のリリース候補版が公開されました (アナウンス)。 FreeBSD ミラーサイト から amd64, armv6, i386, aarch64, powerpc, powerpc64 および sparc64 アーキテクチャの ISO イメージを入手できます。</description>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20170708:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20170708:01</guid>
+      <pubDate>Sat, 8 Jul 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD〓11.1-RC1 公開</title>
+      <description>FreeBSD〓11.1 リリースサイクルから、 最初のリリース候補版が公開されました (アナウンス)。 FreeBSD ミラーサイト から amd64, armv6, i386, aarch64, powerpc, powerpc64 および sparc64 アーキテクチャの ISO イメージを入手できます。</description>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20170701:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20170701:01</guid>
+      <pubDate>Sat, 1 Jul 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD〓11.1-BETA3 公開</title>
+      <description>FreeBSD〓11.1 リリースサイクルから 3 回目の BETA ビルドが公開されました (アナウンス)。 FreeBSD ミラーサイト から amd64, armv6, i386, aarch64, powerpc, powerpc64 および sparc64 アーキテクチャの ISO イメージを入手できます。</description>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20170624:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20170624:01</guid>
+      <pubDate>Sat, 24 Jun 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>新コミッタ就任: Kyle Evans (src)</title>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20170620:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20170620:01</guid>
+      <pubDate>Tue, 20 Jun 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD〓11.1-BETA2 公開</title>
+      <description>FreeBSD〓11.1 リリースサイクルから 2 回目の BETA ビルドが公開されました (アナウンス)。 FreeBSD ミラーサイト から amd64, armv6, i386, aarch64, powerpc, powerpc64 および sparc64 アーキテクチャの ISO イメージを入手できます。</description>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20170617:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20170617:01</guid>
+      <pubDate>Sat, 17 Jun 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD〓11.1-BETA1 公開</title>
+      <description>FreeBSD〓11.1 リリースサイクルから最初の BETA ビルドが公開されました (アナウンス)。 FreeBSD ミラーサイト から amd64, armv6, i386, aarch64, powerpc, powerpc64 および sparc64 アーキテクチャの ISO イメージを入手できます。</description>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20170610:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20170610:01</guid>
+      <pubDate>Sat, 10 Jun 2017 00:00:00 PST</pubDate>
+    </item>
+  </channel>
+</rss>

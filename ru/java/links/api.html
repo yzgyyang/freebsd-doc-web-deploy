@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="koi8-r"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>Проект FreeBSD Java(R): API</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=koi8-r" />
+    <link rel="shortcut icon" href="../../../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="../../../layout/css/fixed.css?20130112" type="text/css" />
+    <script type="text/javascript" src="../../../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Header And Logo</h2>
+            <div id="headerlogoleft">
+              <a href="../.." title="FreeBSD">
+                <img src="../../../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <div class="frontdonateroundbox">
+                <div class="frontdonatetop">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+                <div class="frontdonatecontent">
+                  <a href="https://www.FreeBSDFoundation.org/donate/">Donate to FreeBSD</a>
+                </div>
+                <div class="frontdonatebot">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+              </div>
+              <h2 class="blockhide">Peripheral Links</h2>
+              <div id="searchnav">
+                <ul id="searchnavlist"></ul>
+              </div>
+              <div id="search">
+                <form method="get" id="search" action="https://duckduckgo.com/">
+                  <h2 class="blockhide">
+                    <label for="words">Поиск</label>
+                  </h2>
+                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
+                  <input type="hidden" name="ka" value="v" />
+                  <input type="hidden" name="kt" value="v" />
+                  <input type="hidden" name="kh" value="1" />
+                  <input type="hidden" name="kj" value="r2" />
+                  <input id="words" name="q" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="Поиск" />
+                  <span> </span>
+                  <input id="submit" name="submit" type="submit" value="Поиск" />
+                </form>
+              </div>
+            </div>
+          </div>
+          <h2 class="blockhide">Site Navigation</h2>
+          <div id="menu">
+            <ul class="first">
+              <li>
+                <a href="../../">На главную</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../about.html">О FreeBSD</a>
+                <ul>
+                  <li>
+                    <a href="../../projects/newbies.html">Введение</a>
+                  </li>
+                  <li>
+                    <a href="../../features.html">Возможности</a>
+                  </li>
+                  <li>
+                    <a href="../../../advocacy/">Адвокатура</a>
+                  </li>
+                  <li>
+                    <a href="../../../marketing/">Маркетинг</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../where.html">Получение FreeBSD</a>
+                <ul>
+                  <li>
+                    <a href="../../releases/">Информация о релизах</a>
+                  </li>
+                  <li>
+                    <a href="../../releng/">Информация о подготовке релизов</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../docs.html">Документация</a>
+                <ul>
+                  <li>
+                    <a href="../../../doc/ru_RU.KOI8-R/books/faq/">Часто задаваемые вопросы</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/ru_RU.KOI8-R/books/handbook/">Руководство пользователя</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/ru_RU.KOI8-R/books/porters-handbook">Руководство портера</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/en_US.ISO8859-1/books/developers-handbook">Руководство разработчика</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/man.cgi">Страницы справочника</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../community.html">Сообщество</a>
+                <ul>
+                  <li>
+                    <a href="../../community/mailinglists.html">Списки рассылки</a>
+                  </li>
+                  <li>
+                    <a href="http://forums.freebsd.org">Форумы</a>
+                  </li>
+                  <li>
+                    <a href="../../usergroups.html">Группы пользователей</a>
+                  </li>
+                  <li>
+                    <a href="../../events/events.html">События</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../projects/index.html">Разработка</a>
+                <ul>
+                  <li>
+                    <a href="http://wiki.FreeBSD.org/IdeasPage">Идеи для проекта</a>
+                  </li>
+                  <li>
+                    <a href="http://svn.FreeBSD.org/viewvc/base/">SVN репозиторий</a>
+                  </li>
+                  <li>
+                    <a href="http://cvsweb.FreeBSD.org">CVS репозиторий</a>
+                  </li>
+                  <li>
+                    <a href="http://p4web.FreeBSD.org">Perforce репозиторий</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../support.html">Поддержка</a>
+                <ul>
+                  <li>
+                    <a href="../../commercial/commercial.html">Коммерческие предложения</a>
+                  </li>
+                  <li>
+                    <a href="../../security/">Информация о безопасности</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/query-pr-summary.cgi">Сообщения об ошибках</a>
+                  </li>
+                  <li>
+                    <a href="../../send-pr.html">Отправить сообщение об ошибке</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="http://www.freebsdfoundation.org/">Фонд</a>
+                <ul>
+                  <li>
+                    <a href="http://www.freebsdfoundation.org/donate/">Пожертвования</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Навигация по разделу</h2>
+              <ul>
+                <li>
+                  <a href="../../projects/index.html">Разработчики</a>
+                </li>
+                <li>
+                  <a href="../../../doc/en_US.ISO8859-1/books/developers-handbook">Руководство разработчика</a>
+                </li>
+                <li>
+                  <a href="../../../doc/ru_RU.KOI8-R/books/porters-handbook">Руководство по созданию портов</a>
+                </li>
+                <li>
+                  <a href="../../developers/cvs.html">CVS репозиторий</a>
+                </li>
+                <li>
+                  <a href="../../releng/index.html">Подготовка релизов</a>
+                </li>
+                <li>
+                  <a href="../../platforms/">Платформы</a>
+                </li>
+                <li>
+                  <a href="http://wiki.freebsd.org/IdeasPage">Идеи для проекта</a>
+                </li>
+                <li>
+                  <a href="../../../doc/ru_RU.KOI8-R/articles/contributing/index.html">Содействие проекту</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap"><h1>Проект FreeBSD Java(R): API</h1>
+
+      <h2>Расширения API от Sun Microsystems</h2>
+
+      В нижеследующем списке содержатся некоторые части доступных определений
+      API и их реализаций от SUN (а для начала посмотрите страницу
+      <a href="http://java.sun.com/products" shape="rect">Java Products</a> и, например,
+      Standard Extensions)
+
+    <ul>
+      <li><a href="http://java.sun.com/products/jfc" shape="rect">JFC (Java Foundation Classes)</a><br clear="none" />
+	Отсюда пришел Swing.  Дополнительная информация имеется на странице
+	<a href="http://java.sun.com/products/jfc/tsc" shape="rect">The Swing Connection</a>.</li>
+      <li> <a href="http://java.sun.com/products/java-media/jmf/index.html" shape="rect">Java<sup><font size="-2">TM</font></sup> Media Framework</a><br clear="none" />
+	Программный интерфейс Java Media Framework (JMF) 1.0 API описывает
+	простую, унифицированную архитектуру, протокол обмена сообщениями
+	и программный интерфейс для воспроизведения носителей.	Этот API
+	был разработан компаниями Sun Microsystems, Inc., Silicon Graphics
+	Inc., и Intel Corporation.
+	<br clear="none" />
+	Java Media Framework (JMF) 2.0 API расширяет 1.0 API, предоставляя
+	функции захвата изображения, заменяемые кодеки, сохранение файлов,
+	широковещание RTP и возможность доступа и манипулирования данными
+	до их воспроизведения.	Этот API доступен для обзора и был разработан
+	компаниями Sun Microsystems, Inc. и IBM.</li>
+      <li> <a href="http://java.sun.com/products/java-media/jai/index.html" shape="rect">Java<sup><font size="-2">TM</font></sup> Advanced Imaging</a><br clear="none" />
+	Java Advanced Imaging (JAI) API - это расширяемый сетевой программный
+	интерфейс для создания сложных приложений и апплет для работы с
+	графикой на языке программирования Java.  Java Advanced Imaging API
+	включает богатый набор возможностей обработки изображений, таких
+	как tiling, deferred execution и многопроцессорную масштабируемость.
+	Имея полную совместимость с Java 2D API, разработчики могут легко
+	расширять возможности и производительность стандартных приложений
+	Java 2D с помощью Java Advanced Imaging API.</li>
+      <li> <a href="http://java.sun.com/products/javacomm/" shape="rect">Java<sup><font size="-2">TM</font></sup> Serial Port (COMM)</a> <br clear="none" />
+	Java Serial Port может быть использован для разработки
+	платформо-независимых коммуникационных приложений для таких
+	технологий, как голосовая почта, факс и электронные карты.  Текущая
+	версия поддерживает последовательные порты RS232 и параллельные порты
+	IEEE 1284.</li>
+      <li> <a href="http://java.sun.com/products/java-media/3D/index.html" shape="rect">Java 3D<sup><font size="-2">TM</font></sup></a><br clear="none" />
+	Java 3DTM 1.1 API является набором классов для написания приложений
+	для работы с трехмерной графикой и 3D-апплет.  Это дает разработчикам
+	высокоуровневые примитивы для создания и манипуляции трехмерными
+	объектами и построения структур, используемых для вывода этих
+	объектов.  Прикладные программисты могут могут описать очень большие
+	виртуальные миры с помощью этих конструкций, что позволяет Java 3D
+	эффективно отображать эти миры.</li>
+      <li> <a href="http://java.sun.com/products/javamail/index.html" shape="rect">JavaMail</a><br clear="none" />
+	JavaMail API дает набор абстрактных классов, которые моделируют
+	почтовую систему.  В API дается независимый от платформы и протоколов
+	инструмент для построения приложений для работы с почтовыми и другими
+	сообщениями на языке Java.</li>
+      <li> <a href="http://java.sun.com/products/javahelp/index.html" shape="rect">JavaHelp<sup><font size="-2">TM</font></sup></a><br clear="none" />
+	JavaHelp - это справочная система для платформы Java: она
+	представляет собой платформонезависимую систему помощи, основанную
+	на Java, которая позволяет разработчикам Java использовать онлайновую
+	помощь в различных целях, включая компоненты Java, приложения
+	(сетевые и несетевые), десктопы и страницы HTML.</li>
+      <li> <a href="http://java.sun.com/products/beans/glasgow/jaf.html" shape="rect">JavaBeans<sup><font size="-2">TM</font></sup> Activation Framework (JAF)</a><br clear="none" />
+	С JavaBeans Activation Framework (JAF) разработчики могут
+	использовать все возможности стандартных сервисов для определения
+	типа конкретной части данных, инкапсуляции доступа к нему,
+	определения набора допустимых над ней операций и порождения
+	экземпляров соответствующих компонент JavaBeans для выполнения этих
+	операций.</li>
+      <li> <a href="http://java.sun.com/products/servlet/index.html" shape="rect">Java<sup><font size="-2">TM</font></sup> Servlet</a><br clear="none" />
+	Java Servlet дает стандартный, поддерживаемый всеми интерфейс для
+	расширения возможностей веб-сервера при помощи независимых от
+	платформы и используемого веб-сервера компонент, написанных на языке
+	Java.</li>
+      <li> <a href="http://java.sun.com/products/jce/index.html" shape="rect">Java<sup><font size="-2">TM</font></sup> Cryptography (JCE)</a><br clear="none" />
+	Java Cryptography Extension (JCE) 1.2 дает методы и реализации для
+	шифрования, генерации ключей и их согласования, а также алгоритмов
+	Message Authentication Code (MAC).  Поддержка шифрования включает в
+	себя симметричные, асимметричные, блочные и потоковые шифры.
+	Программное обеспечение поддерживает также защищенные потоки и
+	"опломбированные" объекты.</li>
+      <li><a href="http://java.sun.com/products/beans/infobus/index.html" shape="rect">InfoBus</a><br clear="none" />
+	InfoBus позволяет динамически обмениваться данными между компонентами
+	JavaBeans, определяя небольшой набор интерфейсов между совместно
+	работающими элементами Beans и указывая протокол, используемый этими
+	интерфейсами.<br clear="none" />
+	Протоколы основываются на концепции информационной магистрали.	Все
+	компоненты, реализующие эти интерфейсы, могут подключаться к
+	магистрали.  Как участник магистрали, любой компонент может
+	обмениваться структурированными данными, включая массивы, таблицы,
+	выборки строк баз данных, с любым другим компонентом.</li>
+      <li><a href="http://java.sun.com/products/jndi/index.html" shape="rect">Java Naming and Directory Interface<font size="1"><sup>TM</sup></font> (JNDI)</a><br clear="none" />
+	Дает унифицированный промышленный стандарт и прозрачное подключение
+	с платформы Java к источникам бизнес-информации, что позволит
+	разработчикам предложить приложения со стандартным доступом ко многим
+	службам каталогов и имен, имеющихся в эксплуатации.</li>
+      <li> <a href="http://java.sun.com/xml" shape="rect">The XML Project</a><br clear="none" />
+	Проект фирмы Sun по комбинирования технологий XML и Java</li>
+    </ul>
+    <h2> Пакеты третьих фирм... </h2>
+    <ul>
+      <li> <a href="http://www.objectspace.com/products/jglOverview.htm" shape="rect">JGL (Java Generic Library)</a><br clear="none" />
+	Реализация различных коллекций, включая связные списки и пр.
+	Этот API будет включен как CollcetionAPI в JDK1.2.</li>
+      <li> <a href="http://www.alphaworks.ibm.com/tech/xml4j" shape="rect">XML4J</a><br clear="none" />
+	XML Parser для java от IBM</li>
+    </ul>
+</div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="../../search/index-site.html">Карта сайта</a> |
+  <a href="../../copyright/">Условия использования</a> | © 1995-2014
+  Проект FreeBSD. Все права защищены.</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

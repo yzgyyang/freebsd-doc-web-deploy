@@ -1,0 +1,894 @@
+<?xml version="1.0" encoding="koi8-r"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>Проект FreeBSD/amd64 -- материнские платы</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=koi8-r" />
+    <link rel="shortcut icon" href="../../../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="../../../layout/css/fixed.css?20130112" type="text/css" />
+    <script type="text/javascript" src="../../../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Header And Logo</h2>
+            <div id="headerlogoleft">
+              <a href="../.." title="FreeBSD">
+                <img src="../../../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <div class="frontdonateroundbox">
+                <div class="frontdonatetop">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+                <div class="frontdonatecontent">
+                  <a href="https://www.FreeBSDFoundation.org/donate/">Donate to FreeBSD</a>
+                </div>
+                <div class="frontdonatebot">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+              </div>
+              <h2 class="blockhide">Peripheral Links</h2>
+              <div id="searchnav">
+                <ul id="searchnavlist"></ul>
+              </div>
+              <div id="search">
+                <form method="get" id="search" action="https://duckduckgo.com/">
+                  <h2 class="blockhide">
+                    <label for="words">Поиск</label>
+                  </h2>
+                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
+                  <input type="hidden" name="ka" value="v" />
+                  <input type="hidden" name="kt" value="v" />
+                  <input type="hidden" name="kh" value="1" />
+                  <input type="hidden" name="kj" value="r2" />
+                  <input id="words" name="q" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="Поиск" />
+                  <span> </span>
+                  <input id="submit" name="submit" type="submit" value="Поиск" />
+                </form>
+              </div>
+            </div>
+          </div>
+          <h2 class="blockhide">Site Navigation</h2>
+          <div id="menu">
+            <ul class="first">
+              <li>
+                <a href="../../">На главную</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../about.html">О FreeBSD</a>
+                <ul>
+                  <li>
+                    <a href="../../projects/newbies.html">Введение</a>
+                  </li>
+                  <li>
+                    <a href="../../features.html">Возможности</a>
+                  </li>
+                  <li>
+                    <a href="../../../advocacy/">Адвокатура</a>
+                  </li>
+                  <li>
+                    <a href="../../../marketing/">Маркетинг</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../where.html">Получение FreeBSD</a>
+                <ul>
+                  <li>
+                    <a href="../../releases/">Информация о релизах</a>
+                  </li>
+                  <li>
+                    <a href="../../releng/">Информация о подготовке релизов</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../docs.html">Документация</a>
+                <ul>
+                  <li>
+                    <a href="../../../doc/ru_RU.KOI8-R/books/faq/">Часто задаваемые вопросы</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/ru_RU.KOI8-R/books/handbook/">Руководство пользователя</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/ru_RU.KOI8-R/books/porters-handbook">Руководство портера</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/en_US.ISO8859-1/books/developers-handbook">Руководство разработчика</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/man.cgi">Страницы справочника</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../community.html">Сообщество</a>
+                <ul>
+                  <li>
+                    <a href="../../community/mailinglists.html">Списки рассылки</a>
+                  </li>
+                  <li>
+                    <a href="http://forums.freebsd.org">Форумы</a>
+                  </li>
+                  <li>
+                    <a href="../../usergroups.html">Группы пользователей</a>
+                  </li>
+                  <li>
+                    <a href="../../events/events.html">События</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../projects/index.html">Разработка</a>
+                <ul>
+                  <li>
+                    <a href="http://wiki.FreeBSD.org/IdeasPage">Идеи для проекта</a>
+                  </li>
+                  <li>
+                    <a href="http://svn.FreeBSD.org/viewvc/base/">SVN репозиторий</a>
+                  </li>
+                  <li>
+                    <a href="http://cvsweb.FreeBSD.org">CVS репозиторий</a>
+                  </li>
+                  <li>
+                    <a href="http://p4web.FreeBSD.org">Perforce репозиторий</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../support.html">Поддержка</a>
+                <ul>
+                  <li>
+                    <a href="../../commercial/commercial.html">Коммерческие предложения</a>
+                  </li>
+                  <li>
+                    <a href="../../security/">Информация о безопасности</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/query-pr-summary.cgi">Сообщения об ошибках</a>
+                  </li>
+                  <li>
+                    <a href="../../send-pr.html">Отправить сообщение об ошибке</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="http://www.freebsdfoundation.org/">Фонд</a>
+                <ul>
+                  <li>
+                    <a href="http://www.freebsdfoundation.org/donate/">Пожертвования</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Навигация по разделу</h2>
+              <ul>
+                <li>
+                  <a href="../../projects/index.html">Разработчики</a>
+                </li>
+                <li>
+                  <a href="../../../doc/en_US.ISO8859-1/books/developers-handbook">Руководство разработчика</a>
+                </li>
+                <li>
+                  <a href="../../../doc/ru_RU.KOI8-R/books/porters-handbook">Руководство по созданию портов</a>
+                </li>
+                <li>
+                  <a href="../../developers/cvs.html">CVS репозиторий</a>
+                </li>
+                <li>
+                  <a href="../../releng/index.html">Подготовка релизов</a>
+                </li>
+                <li>
+                  <a href="../../platforms/">Платформы</a>
+                </li>
+                <li>
+                  <a href="http://wiki.freebsd.org/IdeasPage">Идеи для проекта</a>
+                </li>
+                <li>
+                  <a href="../../../doc/ru_RU.KOI8-R/articles/contributing/index.html">Содействие проекту</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap"><h1>Проект FreeBSD/amd64 -- материнские платы</h1>
+
+  <p>На этой странице мы пытаемся собрать информацию о материнских платах,
+    поддерживающих архитектуру amd64, и о том, насколько хорошо на них работает
+    FreeBSD.  Если некоторая материнская плата здесь не упомянута, то, скорее
+    всего, мы не знаем о ней.  Пожалуйста, присылайте свои добавления или
+    корректировки к имеющейся информации через <a href="http://www.FreeBSD.org/cgi/man.cgi?query=send-pr&amp;sektion=1" shape="rect">
+    send-pr(1)</a> или <a href="../../send-pr.html" shape="rect">Web-форму</a>.
+    Пожалуйста, указывайте в качестве категории www.</p>
+
+  <h3>Abit</h3>
+
+  <table class="tblbasic">
+    <tr>
+      <th rowspan="1" colspan="1">Модель</th>
+
+      <th rowspan="1" colspan="1">Набор микросхем северного моста / Сокет</th>
+
+      <th rowspan="1" colspan="1">Проблемы</th>
+
+      <th rowspan="1" colspan="1">Кто прислал данные (необязательные ссылки)</th>
+
+      <th rowspan="1" colspan="1">Протестированная версия FreeBSD</th>
+
+      <th rowspan="1" colspan="1">Особые примечания</th>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"> <a href="http://www.abit-usa.com/products/mb/products.php?categories=1&amp;model=175" shape="rect">
+        AV8</a></td>
+
+      <td rowspan="1" colspan="1">VIA K8T800 / Socket 939</td>
+
+      <td rowspan="1" colspan="1">Полностью работоспособна</td>
+
+      <td rowspan="1" colspan="1"><a href="mailto:doconnor@gsoft.com.au" shape="rect">Daniel O'Connor</a></td>
+
+      <td rowspan="1" colspan="1">5.3-RELEASE</td>
+
+      <td rowspan="1" colspan="1">Интегрированный контроллер Ethernet (vge(4)) не работает, пока не
+        будет статистически вкомпилирован в ядро.</td>
+    </tr>
+  </table>
+
+  <h3>Asus</h3>
+
+  <table class="tblbasic">
+    <tr>
+      <th rowspan="1" colspan="1">Модель</th>
+
+      <th rowspan="1" colspan="1">Набор микросхем северного моста / Сокет</th>
+
+      <th rowspan="1" colspan="1">Проблемы</th>
+
+      <th rowspan="1" colspan="1">Кто прислал данные (необязательные ссылки)</th>
+
+      <th rowspan="1" colspan="1">Протестированная версия FreeBSD</th>
+
+      <th rowspan="1" colspan="1">Особые примечания</th>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"> <a href="http://www.asus.com/products4.aspx?modelmenu=2&amp;model=375&amp;l1=3&amp;l2=15&amp;l3=0" shape="rect">
+        A8N-SLI Deluxe</a></td>
+
+      <td rowspan="1" colspan="1">nVidia nForce4 SLI / Socket 939</td>
+
+      <td rowspan="1" colspan="1">Полностью работоспособна</td>
+
+      <td rowspan="1" colspan="1"><a href="mailto:flz@FreeBSD.org" shape="rect">Florent Thoumie</a> (<a href="http://people.freebsd.org/~flz/local/dmesg.cream" shape="rect">dmesg</a>)</td>
+
+      <td rowspan="1" colspan="1">5.4-STABLE</td>
+
+      <td rowspan="1" colspan="1">Интегрированный контроллер Ethernet будет работать только с драйвером
+        nve(4), который имеется в 6-CURRENT (с апреля 2005).  Контроллер
+        SATA-RAID не тестировался.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"> <a href="http://www.asus.com/products4.aspx?modelmenu=2&amp;model=238&amp;l1=3&amp;l2=15&amp;l3=0" shape="rect">
+	A8V Deluxe</a></td>
+
+      <td rowspan="1" colspan="1">VIA K8T800 / Socket 939</td>
+
+      <td rowspan="1" colspan="1">Полностью работоспособна</td>
+
+      <td rowspan="1" colspan="1"><a href="mailto:ssw@neo.redjade.org" shape="rect">Sangwoo Shim</a> (<a href="http://www.freebsd.org/cgi/query-pr.cgi?pr=80174" shape="rect">dmesg</a>)</td>
+
+      <td rowspan="1" colspan="1">6-CURRENT (апрель 2005)</td>
+
+      <td rowspan="1" colspan="1"></td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"> <a href="http://www.asus.com/products4.aspx?modelmenu=2&amp;model=235&amp;l1=3&amp;l2=14&amp;l3=0" shape="rect">
+	K8V SE Deluxe</a></td>
+
+      <td rowspan="1" colspan="1">VIA K8T800 / Socket 754</td>
+
+      <td rowspan="1" colspan="1">Полностью работоспособна</td>
+
+      <td rowspan="1" colspan="1"><a href="mailto:twisla@gcu.info" shape="rect">Cl'ement Martin</a> (<a href="http://twisla.com/dmesg.satan" shape="rect">dmesg</a>)</td>
+
+      <td rowspan="1" colspan="1">5.4-STABLE</td>
+
+      <td rowspan="1" colspan="1">xmbmon автоматически не определяет режим мониторинга, необходим флаг
+        -I.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"> <a href="http://www.asus.com/products4.aspx?modelmenu=2&amp;model=237&amp;l1=3&amp;l2=14&amp;l3=67" shape="rect">
+	K8V-X</a></td>
+
+      <td rowspan="1" colspan="1">VIA K8T800 / Socket 754</td>
+
+      <td rowspan="1" colspan="1">Полностью работоспособна</td>
+
+      <td rowspan="1" colspan="1"><a href="mailto:jkoshy@FreeBSD.org" shape="rect">Joseph Koshy</a></td>
+
+      <td rowspan="1" colspan="1">5.4-STABLE</td>
+
+      <td rowspan="1" colspan="1">Аудиосистему ещё нужно тестировать.  Интегрированный контроллер
+        Ethernet sk0 имеет определённые проблемы при работе с 5.3-RELEASE.</td>
+    </tr>
+  </table>
+
+  <h3>Gigabyte</h3>
+
+  <table class="tblbasic">
+    <tr>
+      <td rowspan="1" colspan="1"> <a href="http://tw.giga-byte.com/Server/Products/Products_ServerBoard_GA-7A8DW.htm" shape="rect">
+        GA-7A8DW</a></td>
+
+      <td rowspan="1" colspan="1">AMD 8111/8131/8151 / Socket 940 - 2x Opteron</td>
+
+      <td rowspan="1" colspan="1">Полностью работоспособна</td>
+
+      <td rowspan="1" colspan="1"><a href="mailto:eric@vipstructures.com" shape="rect">Eric Toll</a></td>
+
+      <td rowspan="1" colspan="1">5.4-RELEASE</td>
+
+      <td rowspan="1" colspan="1">Работа SATA не тестировалась.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"> <a href="http://www.giga-byte.com/MotherBoard/Products/Products_GA-K8NS.htm" shape="rect">
+        GA-K8NS</a></td>
+
+      <td rowspan="1" colspan="1">nVidia nForce3 250 / Socket 754</td>
+
+      <td rowspan="1" colspan="1">Работоспособна</td>
+
+      <td rowspan="1" colspan="1"><a href="mailto:francisco@natserv.com" shape="rect">Francisco Reyes</a></td>
+
+      <td rowspan="1" colspan="1">5.4-RELEASE</td>
+
+      <td rowspan="1" colspan="1">Встроенные сетевой адаптер и RAID не опознаются, SATA без поддержки
+        RAID работает.  Звуковой адаптер не тестировался.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"> <a href="http://www.giga-byte.com/MotherBoard/Products/Products_GA-K8NS%20Pro.htm" shape="rect">
+        GA-K8NS Pro</a></td>
+
+      <td rowspan="1" colspan="1">nVidia nForce3 250 / Socket 754</td>
+
+      <td rowspan="1" colspan="1">Полностью работоспособна</td>
+
+      <td rowspan="1" colspan="1"> <a href="mailto:tony_sweeney@programmingresearch.com" shape="rect">Tony Sweeney</a></td>
+
+      <td rowspan="1" colspan="1">5.4-RELEASE</td>
+
+      <td rowspan="1" colspan="1"></td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"> <a href="http://tw.giga-byte.com/MotherBoard/Products/Products_GA-K8VT800.htm" shape="rect">
+        GA-K8VT800</a></td>
+
+      <td rowspan="1" colspan="1">VIA K8T800 / Socket 754</td>
+
+      <td rowspan="1" colspan="1">Полностью работоспособна</td>
+
+      <td rowspan="1" colspan="1"> <a href="mailto:groot@kde.org" shape="rect">Adriaan de Groot</a> (<a href="http://people.fruitsalad.org/adridg/development.dmesg.eggs.txt" shape="rect">
+        dmesg</a>)</td>
+
+      <td rowspan="1" colspan="1">5.3-RELEASE, 5.4-STABLE</td>
+
+      <td rowspan="1" colspan="1">NIC производства Realtek.  Аудиосистема не тестировалась, но должна
+        работать.</td>
+    </tr>
+  </table>
+
+  <h3>HP</h3>
+
+  <table class="tblbasic">
+    <tr>
+      <th rowspan="1" colspan="1">Модель</th>
+      <th rowspan="1" colspan="1">Чипсет северного моста / Сокет</th>
+      <th rowspan="1" colspan="1">Проблемы</th>
+      <th rowspan="1" colspan="1">Источник информации (опциональные ссылки)</th>
+      <th rowspan="1" colspan="1">Протестированная версия FreeBSD</th>
+      <th rowspan="1" colspan="1">Особые замечания</th>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"> <a href="http://h18004.www1.hp.com/products/servers/proliant-bl/p-class/45p/" shape="rect">
+        лезвийные серверы ProLiant BL45p</a></td>
+
+      <td rowspan="1" colspan="1">AMD 8111/8131 / Socket 940 - 4x Opteron</td>
+
+      <td rowspan="1" colspan="1">Полностью работоспособна</td>
+
+      <td rowspan="1" colspan="1"><a href="mailto:bra@fsn.hu" shape="rect">Atilla Nagy</a>
+        (<a href="http://people.fsn.hu/~bra/bl45p/" shape="rect">dmesg, acpidump,
+        pciconf</a>)</td>
+
+      <td rowspan="1" colspan="1">5.4-STABLE</td>
+
+      <td rowspan="1" colspan="1"></td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"><a href="http://h18004.www1.hp.com/products/servers/proliantdl380/" shape="rect">
+        ProLiant DL380 G4</a></td>
+
+      <td rowspan="1" colspan="1">Intel E7520 / 2x Intel Xeon EM64T</td>
+
+      <td rowspan="1" colspan="1">Полностью работоспособна</td>
+
+      <td rowspan="1" colspan="1"><a href="mailto:bra@fsn.hu" shape="rect">Atilla Nagy</a>
+        (<a href="http://people.fsn.hu/~bra/bl45p/dl380dmesg" shape="rect">dmesg</a>)</td>
+
+      <td rowspan="1" colspan="1">5.4-STABLE</td>
+
+      <td rowspan="1" colspan="1"></td>
+    </tr>
+  </table>
+
+  <h3>Iwill</h3>
+
+  <table class="tblbasic">
+    <tr>
+      <th rowspan="1" colspan="1">Модель</th>
+
+      <th rowspan="1" colspan="1">Набор микросхем северного моста / Сокет</th>
+
+      <th rowspan="1" colspan="1">Проблемы</th>
+
+      <th rowspan="1" colspan="1">Кто прислал данные (необязательные ссылки)</th>
+
+      <th rowspan="1" colspan="1">Протестированная версия FreeBSD</th>
+
+      <th rowspan="1" colspan="1">Особые примечания</th>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"> <a href="http://www.iwill.net/product_2.asp?p_id=90&amp;sp=Y" shape="rect">
+	H8501 / QK8S-8P</a></td>
+
+      <td rowspan="1" colspan="1">AMD 8111/8131 / Socket 940 - 8x Opteron</td>
+
+      <td rowspan="1" colspan="1">Работоспособна</td>
+
+      <td rowspan="1" colspan="1"><a href="mailto:ketrien@error404.nls.net" shape="rect">Ketrien I.
+        Saihr-Kesenchedra</a></td>
+
+      <td rowspan="1" colspan="1">5.3-RELEASE</td>
+
+      <td rowspan="1" colspan="1">Система тестировалась на возможность загрузки в удалённом режиме без
+        консоли.  Все 8 процессоров были обнаружены, возможны проблемы с ACPI.
+        Intel 82546EB не тестировался.  IPMI не тестировался.</td>
+    </tr>
+  </table>
+
+  <h3>MSI</h3>
+
+  <table class="tblbasic">
+    <tr>
+      <th rowspan="1" colspan="1">Модель</th>
+
+      <th rowspan="1" colspan="1">Набор микросхем северного моста / Сокет</th>
+
+      <th rowspan="1" colspan="1">Проблемы</th>
+
+      <th rowspan="1" colspan="1">Кто прислал данные (необязательные ссылки)</th>
+
+      <th rowspan="1" colspan="1">Протестированная версия FreeBSD</th>
+
+      <th rowspan="1" colspan="1">Особые примечания</th>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"> <a href="http://www.msicomputer.com/product/p_spec.asp?model=K8D_Master-F&amp;class=spd" shape="rect">
+        K8D Master-F (MS-9131)</a></td>
+
+      <td rowspan="1" colspan="1">AMD 8131/8111 / 2x Socket 940</td>
+
+      <td rowspan="1" colspan="1">Полностью работоспособна</td>
+
+      <td rowspan="1" colspan="1"><a href="mailto:ghelmer@freebsd.org" shape="rect">Guy Helmer</a></td>
+
+      <td rowspan="1" colspan="1">5.4-RELEASE</td>
+
+      <td rowspan="1" colspan="1">Тестировалась с двумя процессорами Opteron 242.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"> <a href="http://www.msicomputer.com/product/p_spec.asp?model=K8D_Master3-FA4R&amp;class=spd" shape="rect">
+        K8D Master3-FA4R (MS-9161)</a></td>
+
+      <td rowspan="1" colspan="1">AMD 8131/8111 / 2x Socket 940</td>
+
+      <td rowspan="1" colspan="1">Полностью работоспособна</td>
+
+      <td rowspan="1" colspan="1"><a href="mailto:ghelmer@freebsd.org" shape="rect">Guy Helmer</a></td>
+
+      <td rowspan="1" colspan="1">5.4-RELEASE</td>
+
+      <td rowspan="1" colspan="1">Протестирована с двумя процессорами Opteron 252.  Интерфейс SiI SATA
+        не тестировался (использовался SCSI-диск с контроллером Adaptec
+        29160).</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"> <a href="http://www.msi.com.tw/program/products/mainboard/mbd/pro_mbd_detail.php?UID=607" shape="rect">
+	K8N Neo2 Platinum</a></td>
+
+      <td rowspan="1" colspan="1">nVidia nForce 3 / Socket 939</td>
+
+      <td rowspan="1" colspan="1">Не загружается с ACPI.</td>
+
+      <td rowspan="1" colspan="1"><a href="mailto:xdivac02@stud.fit.vutbr.cz" shape="rect">Roman Divacky</a></td>
+
+      <td rowspan="1" colspan="1">6-CURRENT (апрель 2005)</td>
+
+      <td rowspan="1" colspan="1">Некорректные таблицы IRQ в BIOS, ACPI не работает, клавиатуру PS/2
+        использовать невозможно.  Загружается со включенной поддержкой ACPI с
+        RELENG_5.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"> <a href="http://www.msi.com.tw/program/products/server/svr/pro_svr_detail.php?UID=484" shape="rect">
+	K8T Master2-FAR</a></td>
+
+      <td rowspan="1" colspan="1">VIA K8T800 / Socket 940 - 2x Opteron</td>
+
+      <td rowspan="1" colspan="1">Полностью работоспособна</td>
+
+      <td rowspan="1" colspan="1"><a href="mailto:dgerow@afflictions.org" shape="rect">Damian Gerow</a></td>
+
+      <td rowspan="1" colspan="1">5.4-STABLE</td>
+
+      <td rowspan="1" colspan="1">Требовательна к модулям памяти.  SMbus не работает.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"> <a href="http://www.msi.com.tw/program/products/mainboard/mbd/pro_mbd_detail.php?UID=496" shape="rect">
+        K8T Neo-FSR</a></td>
+
+      <td rowspan="1" colspan="1">VIA K8T800 / Socket 754</td>
+
+      <td rowspan="1" colspan="1">Полностью работоспособна</td>
+
+      <td rowspan="1" colspan="1"><a href="mailto:rsmith@xs4all.nl" shape="rect">Roland Smith</a></td>
+
+      <td rowspan="1" colspan="1">5.4-STABLE</td>
+
+      <td rowspan="1" colspan="1"></td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"> <a href="http://www.msi.com.tw/program/products/mainboard/mbd/pro_mbd_detail.php?UID=608" shape="rect">
+	K8T Neo2-FIR</a></td>
+
+      <td rowspan="1" colspan="1">VIA K8T800 / Socket 939</td>
+
+      <td rowspan="1" colspan="1">Полностью работоспособна</td>
+
+      <td rowspan="1" colspan="1"><a href="mailto:pav@FreeBSD.org" shape="rect">Pav Lucistnik</a> (<a href="http://www.oook.cz/bsd/ikaros.dmesg" shape="rect">dmesg</a>)</td>
+
+      <td rowspan="1" colspan="1">5.4-STABLE</td>
+
+      <td rowspan="1" colspan="1">Для распознавания карт памяти потребовалось обновление BIOS.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"><a href="http://www.msi.com.tw/program/products/mainboard/mbd/pro_mbd_detail.php?UID=639" shape="rect">
+        RS480M2</a></td>
+
+      <td rowspan="1" colspan="1">ATI Radeon XPRESS 200 / Socket 939</td>
+
+      <td rowspan="1" colspan="1">Не загружается с поддержкой ACPI.</td>
+
+      <td rowspan="1" colspan="1"><a href="mailto:torfinn.ingolfsen@broadpark.no" shape="rect">Torfinn
+        Ingolfsen</a> (<a href="http://www.freebsd.org/cgi/query-pr.cgi?pr=80866" shape="rect">dmesg</a>)</td>
+
+      <td rowspan="1" colspan="1">5.4-STABLE</td>
+
+      <td rowspan="1" colspan="1">Не загружается с включенной поддержкой ACPI, необходимо добавить
+        строчку <tt>hint.apic.0.disabled="1"</tt> в файл /boot/loader.conf.
+        Звуковой адаптер не поддерживается, поддержка USB не тестировалась.
+        Интегрированный графический адаптер Radeon не поддерживался (работает
+        только VESA).</td>
+    </tr>
+  </table>
+
+  <h3>Sun</h3>
+
+  <table class="tblbasic">
+    <tr>
+      <th rowspan="1" colspan="1">Модель</th>
+
+      <th rowspan="1" colspan="1">Чипсет северного моста / Сокет</th>
+
+      <th rowspan="1" colspan="1">Проблемы</th>
+
+      <th rowspan="1" colspan="1">Источник информации (опциональные ссылки)</th>
+
+      <th rowspan="1" colspan="1">Протестированная версия FreeBSD</th>
+
+      <th rowspan="1" colspan="1">Особые замечания</th>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"><a href="http://www.sun.com/servers/entry/v20z/" shape="rect">
+        Fire V20z</a></td>
+
+      <td rowspan="1" colspan="1">AMD 8111/8131 / Socket 940 - 2x Opteron</td>
+
+      <td rowspan="1" colspan="1">Полностью работоспособна</td>
+
+      <td rowspan="1" colspan="1"><a href="mailto:bra@fsn.hu" shape="rect">Atilla Nagy</a> (<a href="http://www.freebsd.org/cgi/query-pr.cgi?q=81916" shape="rect">dmesg</a>)</td>
+
+      <td rowspan="1" colspan="1">5.4-STABLE</td>
+
+      <td rowspan="1" colspan="1"></td>
+    </tr>
+  </table>
+
+  <h3>Supermicro</h3>
+
+  <table class="tblbasic">
+    <tr>
+      <th rowspan="1" colspan="1">Модель</th>
+      <th rowspan="1" colspan="1">Чипсет северного моста / Сокет</th>
+      <th rowspan="1" colspan="1">Проблемы</th>
+      <th rowspan="1" colspan="1">Источник информации (опциональные ссылки)</th>
+      <th rowspan="1" colspan="1">Протестированная версия FreeBSD</th>
+      <th rowspan="1" colspan="1">Особые замечания</th>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"><a href="http://www.supermicro.com/products/motherboard/Xeon800/E7525/X6DA8-G2.cfm" shape="rect">
+        X6DA8-G2</a></td>
+
+      <td rowspan="1" colspan="1">Intel E7525 / 2x 604-pin FC-mPGA4</td>
+
+      <td rowspan="1" colspan="1">Работоспособна</td>
+
+      <td rowspan="1" colspan="1"><a href="mailto:big.laser@gmail.com" shape="rect">Erik Power</a></td>
+
+      <td rowspan="1" colspan="1">5.4-RELEASE</td>
+
+      <td rowspan="1" colspan="1">Ядро, поставляемое по умолчанию в дистрибутивном комплекте
+        5.4-RELEASE для amd64, не распознаёт жёсткие диски, подключенные к
+        контроллеру Intel ICH5R SATA/ATA.  Решением проблемы является загрузка
+        в безопасном режиме для установки и при загрузке стандартного ядра.
+        после компиляции ядра ata(4) работает прекрасно и система загружается
+        нормально.  Ядро с поддержкой SMP устанавливается и работает.  Сеть,
+        звуковой адаптер и USB работают.  ZCR не тестировался (драйвер для
+        Adaptec 2010-S отсутствует), AIC7902 U320 SCSI не тестировался.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"> <a href="http://www.supermicro.com/products/motherboard/Xeon800/E7520/X6DHR-8G.cfm" shape="rect">
+        X6DHR-8G</a></td>
+
+      <td rowspan="1" colspan="1">Intel E7520 / 2x 604-pin FC-mPGA4</td>
+
+      <td rowspan="1" colspan="1">Ядро с поддержкой одного процессора должно загружаться в "защищённом
+        режиме" (либо нужно указывать hint.apic.0.disabled="0").  SMP-ядро
+        работоспособно.</td>
+
+      <td rowspan="1" colspan="1"><a href="mailto:ghelmer@freebsd.org" shape="rect">Guy Helmer</a></td>
+
+      <td rowspan="1" colspan="1">5.4-RELEASE</td>
+
+      <td rowspan="1" colspan="1">Загружается со стандартным SMP-ядром.  Загрузка с UP-ядром при
+        определённых настройках описана в разделе "проблемы" (проверялись обе
+        версии BIOS 1.2 и 1.2a).  Локальная сеть работает.  По-видимому,
+        контроллеры UHCI приводят к появлению огромного потока прерываний.
+        AIC7902 U320 SCSI нормально работает с дисками Seagate ST373207LC
+        (выдаёт сообщение "Invalid Sequencer interrupt" при распознавании шины
+        SCSI, но затем продолжает работу).</td>
+    </tr>
+  </table>
+
+  <h3>Tyan</h3>
+
+  <table class="tblbasic">
+    <tr>
+      <th rowspan="1" colspan="1">Модель</th>
+
+      <th rowspan="1" colspan="1">Набор микросхем северного моста / Сокет</th>
+
+      <th rowspan="1" colspan="1">Проблемы</th>
+
+      <th rowspan="1" colspan="1">Кто прислал данные (необязательные ссылки)</th>
+
+      <th rowspan="1" colspan="1">Протестированная версия FreeBSD</th>
+
+      <th rowspan="1" colspan="1">Особые примечания</th>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"> <a href="http://www.tyan.com/products/html/thunderk8qspro.html" shape="rect">
+	Thunder K8QS Pro (S4882)</a></td>
+
+      <td rowspan="1" colspan="1">AMD 8111/8131 / Socket 940 - 4x Opteron</td>
+
+      <td rowspan="1" colspan="1">Полностью работоспособна</td>
+
+      <td rowspan="1" colspan="1"><a href="mailto:ketrien@error404.nls.net" shape="rect">Ketrien I.
+        Saihr-Kesenchedra</a></td>
+
+      <td rowspan="1" colspan="1">5.2.1-RELEASE, 5.3-RELEASE, 5-STABLE</td>
+
+      <td rowspan="1" colspan="1">Весьма нестабильна с 5.2.1-R.  Интегрированное устройство mpt(4)
+        работало с проблемами.  Контроллер LSI Logic Ultra320-0 ZCR,
+        поддерживаемый amr(4), работает стабильно.  Broadcom время от времени
+        работал со сбоями в обычном режиме работы, если PXE был включен и не
+        использовался.  Протестированы конфигурации до 8 Гбайт, IPMI для
+        тестирования недоступна.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"> <a href="http://www.tyan.com/products/html/thunderk8spro.html" shape="rect">
+	Thunder K8S Pro (S2882GNR, S2882UGNR)</a></td>
+
+      <td rowspan="1" colspan="1">AMD 8111/8131 / Socket 940 - 2x Opteron</td>
+
+      <td rowspan="1" colspan="1">Полностью работоспособна</td>
+
+      <td rowspan="1" colspan="1"> <a href="mailto:ketrien@error404.nls.net" shape="rect">Ketrien I.
+        Saihr-Kesenchedra</a></td>
+
+      <td rowspan="1" colspan="1">5.2.1-RELEASE, 5.3-RELEASE, 5-STABLE</td>
+
+      <td rowspan="1" colspan="1">SilIm SATA не тестировался с момента выхода 5.2.1.  Интегрированным
+        контроллером SCSI является aac.  Тщательно тестировался с amr(4).
+        Проблем со стабильностью работы нет.  Тестировалась с 8 Гбайтами
+        оперативной памяти (8x1GB).  IPMI для тестирования недоступна.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"> <a href="http://www.tyan.com/products/html/thunderk8sr.html" shape="rect">
+        Thunder K8SR (S2881)</a></td>
+
+      <td rowspan="1" colspan="1">AMD 8111/8131 / Socket 940 - 2x Opteron</td>
+
+      <td rowspan="1" colspan="1">Полностью работоспособна</td>
+
+      <td rowspan="1" colspan="1"> <a href="mailto:ketrien@error404.nls.net" shape="rect">Ketrien I.
+        Saihr-Kesenchedra</a></td>
+
+      <td rowspan="1" colspan="1">5.2.1-RELEASE</td>
+
+      <td rowspan="1" colspan="1">Смотрите примечания к K8S Pro.  K8SR практически идентична K8S Pro.
+        IPMI для тестирования не доступна.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"> <a href="http://www.tyan.com/products/html/thunderk8w.html" shape="rect">
+        Thunder K8W (S2885)</a></td>
+
+      <td rowspan="1" colspan="1">AMD 8111/8131/8151 / Socket 940 - 2x Opteron</td>
+
+      <td rowspan="1" colspan="1">Полностью работоспособна</td>
+
+      <td rowspan="1" colspan="1">Шон, <a href="mailto:marcolz@stack.nl" shape="rect">Marc Olzheim</a> (<a href="http://www.freebsd.org/cgi/query-pr.cgi?pr=80857" shape="rect">dmesg</a>)</td>
+
+      <td rowspan="1" colspan="1">5.4-STABLE, 6-CURRENT</td>
+
+      <td rowspan="1" colspan="1">Работает превосходно.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"><a href="http://www.tyan.com/products/html/thunderk8we.html" shape="rect">
+	Thunder K8WE (S2895)</a></td>
+
+      <td rowspan="1" colspan="1">AMD 8131 / Socket 940 - 2x Opteron</td>
+
+      <td rowspan="1" colspan="1">Работоспособна</td>
+
+      <td rowspan="1" colspan="1"> <a href="mailto:dgerow@dementia.afflictions.org" shape="rect">Damian
+        Gerow</a></td>
+
+      <td rowspan="1" colspan="1">5.3-RELEASE, 5.4-STABLE</td>
+
+      <td rowspan="1" colspan="1">SCSI не тестировался.  Контроллеры Ethernet компании nVidia портом
+        net/nvnet не поддерживаются.  Требуется поддержка ACPI.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"> <a href="http://www.tyan.com/products/html/tigerk8w.html" shape="rect">
+	Tiger K8W (S2875)</a></td>
+
+      <td rowspan="1" colspan="1">AMD 8111/8131/8151 / Socket 940 - 2x Opteron</td>
+
+      <td rowspan="1" colspan="1">Полностью работоспособна</td>
+
+      <td rowspan="1" colspan="1"><a href="mailto:ketrien@error404.nls.net" shape="rect">Ketrien I.
+        Saihr-Kesenchedra</a></td>
+
+      <td rowspan="1" colspan="1">5.2.1-RELEASE</td>
+
+      <td rowspan="1" colspan="1">SilIm SATA не тестировался.  Ранние версии BIOS имеют проблемы с ACPI
+        и могут оказаться несовместимыми с некоторыми графическими
+        адаптерами.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"> <a href="http://www.tyan.com/products/html/tigerk8ws.html" shape="rect">
+	Tiger K8WS (S2875S)</a></td>
+
+      <td rowspan="1" colspan="1">AMD 8111/8131/8151 / Socket 940 - 2x Opteron</td>
+
+      <td rowspan="1" colspan="1">Полностью работоспособна</td>
+
+      <td rowspan="1" colspan="1"><a href="mailto:ketrien@error404.nls.net" shape="rect">Ketrien I.
+        Saihr-Kesenchedra</a></td>
+
+      <td rowspan="1" colspan="1">5.2.1-RELEASE</td>
+
+      <td rowspan="1" colspan="1">SilIm SATA не тестировался.  Ранние версии BIOS имеют проблемы с ACPI
+        и могут оказаться несовместимыми с некоторыми графическими
+        адаптерами.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"> <a href="http://www.tyan.com/products/html/tomcatk8s.html" shape="rect">
+	Tomcat K8S (S2850G2N, S2850G2NR)</a></td>
+
+      <td rowspan="1" colspan="1">AMD 8111/8131 / Socket 940 - 1x Opteron</td>
+
+      <td rowspan="1" colspan="1">Полностью работоспособна</td>
+
+      <td rowspan="1" colspan="1"> <a href="mailto:ketrien@error404.nls.net" shape="rect">Ketrien I.
+        Saihr-Kesenchedra</a></td>
+
+      <td rowspan="1" colspan="1">5.2.1-RELEASE</td>
+
+      <td rowspan="1" colspan="1">SilIm SATA не тестировался.  Тестировалась только с 1 Гбайтом
+        оперативной памяти (2x512MB).</td>
+    </tr>
+  </table>
+
+  </div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="../../search/index-site.html">Карта сайта</a> |
+  <a href="../../copyright/">Условия использования</a> | © 1995-2014
+  Проект FreeBSD. Все права защищены.</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

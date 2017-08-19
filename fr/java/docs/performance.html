@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>Projet Java® pour FreeBSD : Comparaison des Performances</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="shortcut icon" href="../../../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="../../../layout/css/fixed.css?20130112" type="text/css" />
+    <script type="text/javascript" src="../../../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Header And Logo</h2>
+            <div id="headerlogoleft">
+              <a href="../.." title="FreeBSD">
+                <img src="../../../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <h2 class="blockhide">Peripheral Links</h2>
+              <div id="SEARCHNAV">
+                <ul id="SEARCHNAVLIST">
+                  <li>
+                    <a href="../../donations/" title="Faire un don">Faire un don</a>
+                  </li>
+                  <li class="last-child">
+                    <a href="../../mailto.html" title="Contact">Contact</a>
+                  </li>
+                </ul>
+              </div>
+              <div id="SEARCH">
+                <form action="//www.FreeBSD.org/cgi/search.cgi" method="get">
+                  <div>
+                    <h2 class="blockhide">
+                      <label for="WORDS">Rechercher</label>
+                    </h2>
+                    <div>
+                      <input type="hidden" name="max" value="25" />
+                      <input type="hidden" name="source" value="www" />
+                      <input id="words" name="words" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="Rechercher" />
+                      <span> </span>
+                      <input id="submit" name="submit" type="submit" value="Rechercher" />
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div id="menu">
+            <ul class="first">
+              <li>
+                <a href="../../">Accueil</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../about.html">A propos</a>
+                <ul>
+                  <li>
+                    <a href="../../projects/newbies.html">Introduction</a>
+                  </li>
+                  <li>
+                    <a href="../../features.html">Fonctionnalités</a>
+                  </li>
+                  <li>
+                    <a href="../../advocacy/">Prosélytisme</a>
+                  </li>
+                  <li>
+                    <a href="../../marketing/">Marketing</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../where.html">Obtenir FreeBSD</a>
+                <ul>
+                  <li>
+                    <a href="../../releases/">Information sur les versions</a>
+                  </li>
+                  <li>
+                    <a href="../../releng/">Production des versions</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../docs.html">Documentation</a>
+                <ul>
+                  <li>
+                    <a href="../../../doc/en_US.ISO8859-1/books/faq/">FAQ</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/en_US.ISO8859-1/books/handbook/">Manuel de référence</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/en_US.ISO8859-1/books/porters-handbook">Manuel du porteur d'application</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/en_US.ISO8859-1/books/developers-handbook">Manuel du développeur</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/man.cgi">Pages de manuel</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../community.html">Communauté</a>
+                <ul>
+                  <li>
+                    <a href="../../community/mailinglists.html">Listes de diffusion</a>
+                  </li>
+                  <li>
+                    <a href="http://forums.freebsd.org">Forums de discussion</a>
+                  </li>
+                  <li>
+                    <a href="../../../usergroups.html">Groupes d'utilisateurs</a>
+                  </li>
+                  <li>
+                    <a href="../../events/events.html">Evénements</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../projects/index.html">Développement</a>
+                <ul>
+                  <li>
+                    <a href="http://wiki.FreeBSD.org/IdeasPage">Idées de projets</a>
+                  </li>
+                  <li>
+                    <a href="http://svn.FreeBSD.org/viewvc/base/">Dépôt SVN</a>
+                  </li>
+                  <li>
+                    <a href="http://cvsweb.FreeBSD.org">Dépôt CVS</a>
+                  </li>
+                  <li>
+                    <a href="http://p4web.FreeBSD.org">Dépôt Perforce</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../support.html">Support</a>
+                <ul>
+                  <li>
+                    <a href="../../commercial/commercial.html">Revendeurs</a>
+                  </li>
+                  <li>
+                    <a href="http://security.FreeBSD.org/">Sécurité</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/query-pr-summary.cgi">Rapports de bogues</a>
+                  </li>
+                  <li>
+                    <a href="../../send-pr.html">Envoyer un rapport de bogue</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="http://www.freebsdfoundation.org/">Fondation</a>
+                <ul>
+                  <li>
+                    <a href="http://www.freebsdfoundation.org/donate/">Faire un don</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Section Navigation</h2>
+              <ul>
+                <li>
+                  <a href="../../projects/index.html">Développement</a>
+                </li>
+                <li>
+                  <a href="../../../doc/fr_FR.ISO8859-1/books/developers-handbook">Manuel du développeur</a>
+                </li>
+                <li>
+                  <a href="../../../doc/en_US.ISO8859-1/books/porters-handbook">Manuel du porteur d'application</a>
+                </li>
+                <li>
+                  <a href="../../developers/cvs.html">Dépôt CVS</a>
+                </li>
+                <li>
+                  <a href="../../releng/index.html">Production des versions</a>
+                </li>
+                <li>
+                  <a href="../../platforms/">Plates-formes</a>
+                  <ul>
+                    <li>
+                      <a href="../../platforms/alpha.html">alpha</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/amd64.html">amd64</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/arm.html">ARM</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/i386.html">i386</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/ia64/index.html">ia64</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/mips.html">MIPS</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/pc98.html">pc98</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/ppc.html">ppc</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/sparc.html">sparc64</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/xbox.html">xbox</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="../../../doc/fr_FR.ISO8859-1/articles/contributing/index.html">Contribuer</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap"><h1>Projet Java® pour FreeBSD : Comparaison des Performances</h1>
+
+<h3>Introduction :</h3>
+<p>La décision de Sun de sortir une version officielle de Java
+pour Linux a déclenché beaucoup de discussions. Cette étude a
+été réalisée pour comparer les performances actuelles du
+port Linux <a href="http://www.blackdown.org" shape="rect">Blackdown</a> avec le
+<a href="http://www.FreeBSD.org/java/" shape="rect">port FreeBSD</a>
+du JDK®.</p>
+
+<h3>Résumé :</h3>
+<p>Le port Linux est plus rapide que le port FreeBSD, même lorsque le JIT est pris
+en compte. Pour les applications graphiques intensives, tous les tests FreeBSD sont
+plus rapides que pour Linux, TYA pour FreeBSD étant le plus rapide de tous. La comparaison
+du port Linux et du port FreeBSD, sans JIT dans les deux cas, montre que FreeBSD est
+plus rapide. Nous pouvons en conclure que, sous FreeBSD, la conception du JIT
+fait la différence en ce qui concerne la vitesse. </p>
+
+
+<h3>Les méthodes de tests :</h3>
+<p>Tous les tests ont été réalisés sur FreeBSD 3.4-RC (Mardi 7 Dec 09:14:51 EST 1999) sur un
+Bi-Pentium 200 avec 128 Mo de RAM. Les tests ont été conduits avec
+le logiciel <a href="http://www.webfayre.com/pendragon/cm3/index.html" shape="rect">
+Caffeine Mark</a> 3.0 de Pendragon Software et avec l'option "Exécuter tous les test en local".</p>
+
+<h3>Versions des logiciels :</h3>
+<p>Voici la liste des logiciels utilisés dans ce test :
+<br clear="none" />FreeBSD JDK 1.1.8
+<br clear="none" />JDK 1.2.2-RC3 de Blackdown (sous émulation Linux)
+<br clear="none" /><a href="http://www.shudo.net/jit/" shape="rect">ShuJIT</a> 0.3.13
+<br clear="none" /><a href="ftp://gonzalez.cyberus.ca/pub/Linux/java/tya15.tgz" shape="rect">TYA</a> 1.5
+</p>
+
+<h3>Résumé des résultats</h3>
+<table class="tblbasic">
+<tr>
+<th rowspan="1" colspan="1"></th>
+<th rowspan="1" colspan="1">Test 1</th>
+<th rowspan="1" colspan="1">Test 2</th>
+<th rowspan="1" colspan="1">Test 3</th>
+<th rowspan="1" colspan="1">Test 4</th>
+<th rowspan="1" colspan="1">Test 5</th>
+<th rowspan="1" colspan="1">Moyenne</th>
+</tr>
+<tr>
+<td rowspan="1" colspan="1">Linux JDK 1.2.2/sans JIT</td>
+<td rowspan="1" colspan="1">222</td>
+<td rowspan="1" colspan="1">223</td>
+<td rowspan="1" colspan="1">224</td>
+<td rowspan="1" colspan="1">225</td>
+<td rowspan="1" colspan="1">222</td>
+<td rowspan="1" colspan="1">223</td>
+</tr>
+<tr>
+<td rowspan="1" colspan="1">FreeBSD JDK 1.1.8/sans JIT</td>
+<td rowspan="1" colspan="1">247</td>
+<td rowspan="1" colspan="1">247</td>
+<td rowspan="1" colspan="1">247</td>
+<td rowspan="1" colspan="1">250</td>
+<td rowspan="1" colspan="1">247</td>
+<td rowspan="1" colspan="1">246</td>
+</tr>
+<tr>
+<td rowspan="1" colspan="1">Linux JDK 1.2.2/JIT standard</td>
+<td rowspan="1" colspan="1">539</td>
+<td rowspan="1" colspan="1">550</td>
+<td rowspan="1" colspan="1">543</td>
+<td rowspan="1" colspan="1">544</td>
+<td rowspan="1" colspan="1">535</td>
+<td rowspan="1" colspan="1">542</td>
+</tr>
+<tr>
+<td rowspan="1" colspan="1">FreeBSD JDK 1.1.8/shujit</td>
+<td rowspan="1" colspan="1">373</td>
+<td rowspan="1" colspan="1">376</td>
+<td rowspan="1" colspan="1">369</td>
+<td rowspan="1" colspan="1">374</td>
+<td rowspan="1" colspan="1">373</td>
+<td rowspan="1" colspan="1">373</td>
+</tr>
+<tr>
+<td rowspan="1" colspan="1">FreeBSD JDK 1.1.8/TYA</td>
+<td rowspan="1" colspan="1">478</td>
+<td rowspan="1" colspan="1">477</td>
+<td rowspan="1" colspan="1">478</td>
+<td rowspan="1" colspan="1">479</td>
+<td rowspan="1" colspan="1">483</td>
+<td rowspan="1" colspan="1">479</td>
+</tr>
+</table>
+
+<h3>Extraits des résultats détaillés :</h3>
+<table class="tblbasic">
+<tr>
+<th rowspan="1" colspan="1"></th>
+<th rowspan="1" colspan="1">Sieve</th>
+<th rowspan="1" colspan="1">Boucles</th>
+<th rowspan="1" colspan="1">Logiques</th>
+<th rowspan="1" colspan="1">Chaînes de caractères</th>
+<th rowspan="1" colspan="1">Flottants</th>
+<th rowspan="1" colspan="1">Méthodes</th>
+<th rowspan="1" colspan="1">Graphiques</th>
+<th rowspan="1" colspan="1">Images</th>
+<th rowspan="1" colspan="1">Dialogues</th>
+</tr>
+<tr>
+<td rowspan="1" colspan="1">Linux JDK 1.2.2/sans JIT</td>
+<td rowspan="1" colspan="1">380</td>
+<td rowspan="1" colspan="1">434</td>
+<td rowspan="1" colspan="1">433</td>
+<td rowspan="1" colspan="1">489</td>
+<td rowspan="1" colspan="1">363</td>
+<td rowspan="1" colspan="1">337</td>
+<td rowspan="1" colspan="1">306</td>
+<td rowspan="1" colspan="1">25</td>
+<td rowspan="1" colspan="1">40</td>
+</tr>
+<tr>
+<td rowspan="1" colspan="1">FreeBSD JDK 1.1.8/sans JIT</td>
+<td rowspan="1" colspan="1">318</td>
+<td rowspan="1" colspan="1">456</td>
+<td rowspan="1" colspan="1">434</td>
+<td rowspan="1" colspan="1">393</td>
+<td rowspan="1" colspan="1">381</td>
+<td rowspan="1" colspan="1">381</td>
+<td rowspan="1" colspan="1">344</td>
+<td rowspan="1" colspan="1">77</td>
+<td rowspan="1" colspan="1">37</td>
+</tr>
+<tr>
+<td rowspan="1" colspan="1">Linux JDK 1.2.2/JIT standard</td>
+<td rowspan="1" colspan="1">1361</td>
+<td rowspan="1" colspan="1">2005</td>
+<td rowspan="1" colspan="1">3354</td>
+<td rowspan="1" colspan="1">872</td>
+<td rowspan="1" colspan="1">1161</td>
+<td rowspan="1" colspan="1">1802</td>
+<td rowspan="1" colspan="1">247</td>
+<td rowspan="1" colspan="1">28</td>
+<td rowspan="1" colspan="1">40</td>
+</tr>
+<tr>
+<td rowspan="1" colspan="1">FreeBSD JDK 1.1.8/shujit</td>
+<td rowspan="1" colspan="1">800</td>
+<td rowspan="1" colspan="1">1566</td>
+<td rowspan="1" colspan="1">2191</td>
+<td rowspan="1" colspan="1">588</td>
+<td rowspan="1" colspan="1">1010</td>
+<td rowspan="1" colspan="1">101</td>
+<td rowspan="1" colspan="1">317</td>
+<td rowspan="1" colspan="1">79</td>
+<td rowspan="1" colspan="1">37</td>
+</tr>
+<tr>
+<td rowspan="1" colspan="1">FreeBSD JDK 1.1.8/TYA</td>
+<td rowspan="1" colspan="1">712</td>
+<td rowspan="1" colspan="1">1467</td>
+<td rowspan="1" colspan="1">2352</td>
+<td rowspan="1" colspan="1">949</td>
+<td rowspan="1" colspan="1">1078</td>
+<td rowspan="1" colspan="1">512</td>
+<td rowspan="1" colspan="1">357</td>
+<td rowspan="1" colspan="1">74</td>
+<td rowspan="1" colspan="1">38</td>
+</tr>
+</table>
+
+<h3>Conclusion :</h3>
+<p>De nouvelles versions des logiciels utilisés pour ces tests sont sorties depuis
+ qu'ils ont été réalisés. Pour cette raison, ces tests seront à nouveau effectués prochainement
+pour voir si les nouveaux JITs pour FreeBSD modifient les résultats.
+Les même JITs seront utilisés avec le JDK pour Linux afin de tester également leur effet.</p>
+
+<h3>Testeur :</h3>
+<p>Ces tests ont été conduits par Patrick Gardella <a href="mailto:patrick@FreeBSD.org" shape="rect">patrick@FreeBSD.org</a> en Décembre 1999.</p>
+</div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="../../search/index-site.html">Plan du site</a> | <a href="../../copyright/">Informations légales</a> | © 1995-2011 par le Projet FreeBSD. Tous droits réservés.</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

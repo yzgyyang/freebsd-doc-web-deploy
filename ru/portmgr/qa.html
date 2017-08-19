@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="koi8-r"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>Задачи контроля качества для Группы управления портами</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=koi8-r" />
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="../../layout/css/fixed.css?20130112" type="text/css" />
+    <script type="text/javascript" src="../../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Header And Logo</h2>
+            <div id="headerlogoleft">
+              <a href=".." title="FreeBSD">
+                <img src="../../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <div class="frontdonateroundbox">
+                <div class="frontdonatetop">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+                <div class="frontdonatecontent">
+                  <a href="https://www.FreeBSDFoundation.org/donate/">Donate to FreeBSD</a>
+                </div>
+                <div class="frontdonatebot">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+              </div>
+              <h2 class="blockhide">Peripheral Links</h2>
+              <div id="searchnav">
+                <ul id="searchnavlist"></ul>
+              </div>
+              <div id="search">
+                <form method="get" id="search" action="https://duckduckgo.com/">
+                  <h2 class="blockhide">
+                    <label for="words">Поиск</label>
+                  </h2>
+                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
+                  <input type="hidden" name="ka" value="v" />
+                  <input type="hidden" name="kt" value="v" />
+                  <input type="hidden" name="kh" value="1" />
+                  <input type="hidden" name="kj" value="r2" />
+                  <input id="words" name="q" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="Поиск" />
+                  <span> </span>
+                  <input id="submit" name="submit" type="submit" value="Поиск" />
+                </form>
+              </div>
+            </div>
+          </div>
+          <h2 class="blockhide">Site Navigation</h2>
+          <div id="menu">
+            <ul class="first">
+              <li>
+                <a href="../">На главную</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../about.html">О FreeBSD</a>
+                <ul>
+                  <li>
+                    <a href="../projects/newbies.html">Введение</a>
+                  </li>
+                  <li>
+                    <a href="../features.html">Возможности</a>
+                  </li>
+                  <li>
+                    <a href="../../advocacy/">Адвокатура</a>
+                  </li>
+                  <li>
+                    <a href="../../marketing/">Маркетинг</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../where.html">Получение FreeBSD</a>
+                <ul>
+                  <li>
+                    <a href="../releases/">Информация о релизах</a>
+                  </li>
+                  <li>
+                    <a href="../releng/">Информация о подготовке релизов</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../docs.html">Документация</a>
+                <ul>
+                  <li>
+                    <a href="../../doc/ru_RU.KOI8-R/books/faq/">Часто задаваемые вопросы</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/ru_RU.KOI8-R/books/handbook/">Руководство пользователя</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/ru_RU.KOI8-R/books/porters-handbook">Руководство портера</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/en_US.ISO8859-1/books/developers-handbook">Руководство разработчика</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/man.cgi">Страницы справочника</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../community.html">Сообщество</a>
+                <ul>
+                  <li>
+                    <a href="../community/mailinglists.html">Списки рассылки</a>
+                  </li>
+                  <li>
+                    <a href="http://forums.freebsd.org">Форумы</a>
+                  </li>
+                  <li>
+                    <a href="../usergroups.html">Группы пользователей</a>
+                  </li>
+                  <li>
+                    <a href="../events/events.html">События</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../projects/index.html">Разработка</a>
+                <ul>
+                  <li>
+                    <a href="http://wiki.FreeBSD.org/IdeasPage">Идеи для проекта</a>
+                  </li>
+                  <li>
+                    <a href="http://svn.FreeBSD.org/viewvc/base/">SVN репозиторий</a>
+                  </li>
+                  <li>
+                    <a href="http://cvsweb.FreeBSD.org">CVS репозиторий</a>
+                  </li>
+                  <li>
+                    <a href="http://p4web.FreeBSD.org">Perforce репозиторий</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../support.html">Поддержка</a>
+                <ul>
+                  <li>
+                    <a href="../commercial/commercial.html">Коммерческие предложения</a>
+                  </li>
+                  <li>
+                    <a href="../security/">Информация о безопасности</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/query-pr-summary.cgi">Сообщения об ошибках</a>
+                  </li>
+                  <li>
+                    <a href="../send-pr.html">Отправить сообщение об ошибке</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="http://www.freebsdfoundation.org/">Фонд</a>
+                <ul>
+                  <li>
+                    <a href="http://www.freebsdfoundation.org/donate/">Пожертвования</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Навигация по разделу</h2>
+              <ul>
+                <li>
+                  <a href="../projects/index.html">Разработчики</a>
+                </li>
+                <li>
+                  <a href="../../doc/en_US.ISO8859-1/books/developers-handbook">Руководство разработчика</a>
+                </li>
+                <li>
+                  <a href="../../doc/ru_RU.KOI8-R/books/porters-handbook">Руководство по созданию портов</a>
+                </li>
+                <li>
+                  <a href="../developers/cvs.html">CVS репозиторий</a>
+                </li>
+                <li>
+                  <a href="../releng/index.html">Подготовка релизов</a>
+                </li>
+                <li>
+                  <a href="../platforms/">Платформы</a>
+                </li>
+                <li>
+                  <a href="http://wiki.freebsd.org/IdeasPage">Идеи для проекта</a>
+                </li>
+                <li>
+                  <a href="../../doc/ru_RU.KOI8-R/articles/contributing/index.html">Содействие проекту</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap"><h1>Задачи контроля качества для Группы управления портами</h1>
+
+  <p>Имеется ряд задач, которые выполняет Группа управления портами в целях
+    улучшения качества Коллекции Портов.  Они делятся на две большие категории:
+    <a href="#qa-before-release" shape="rect">мероприятия во время цикла подготовки
+    релиза</a> и <a href="#qa-between-releases" shape="rect">мероприятия между циклами
+    подготовки релизов</a>.</p>
+
+  <h3><a name="qa-before-release" shape="rect" id="qa-before-release">Мероприятия во время цикла подготовки
+    релиза</a></h3>
+
+  <ul>
+    <li><p>Работа с <a href="../releng/index.html" shape="rect">Группой подготовки
+      релизов</a> по координации графика выпуска релиза.</p></li>
+
+    <li><p>Работа с группой RE по определению того, какие предварительной
+      построенные пакеты могут быть по умолчанию размещены на установочные
+      ISO-образы.</p></li>
+
+    <li>
+      <p>Управление коммитами в дерево CVS в целях построения пакетов, что
+        подразумевает выполнение следующих шагов:</p>
+
+      <ol>
+        <li>
+          <p>Объявление о приостановке работ и генерации пакетов для всех
+            соответствующих архитектур.  Часто этот процесс повторяется, потому
+            что либо в разных портах обнаруживаются ошибки, либо изменения в
+            дереве исходных текстов системы создают определённые риски, которые
+            могут привести к тому, что уже построенные пакеты не будут работать
+            после внесения этих изменений.</p>
+
+  	  <p>Для обеспечения целостности и корректности сборки пакетов
+	    <i>все</i> коммиты должны быть согласованы с группой управления
+	    портами.  Обычно разрешаются следующие изменения:</p>
+
+	  <ul>
+	    <li><p>исправления, влияющие на успешность построения
+              пакета;</p></li>
+
+	    <li><p>исправления, касающиеся информационной безопасности
+              критических для работы пакетов;</p></li>
+
+	    <li><p>обнаруженные проблемы с лицензионными соглашениями.</p></li>
+	  </ul>
+
+ 	  <p>К сожалению, из-за невероятного размера Коллекции Портов и
+            скорости разработки приложений, к моменту выпуска релиза исправить
+            все ошибки невозможно.</p>
+        </li>
+
+        <li>
+  	  <p>После этого дерево блокируется для любых изменений и помечается
+            CVS-меткой.</p>
+        </li>
+
+        <li>
+  	  <p>Затем дерево разблокировывается и объявляется о
+            <tt>полировке</tt>.  Это состояние нужно для того, чтобы вносить в
+            Коллекцию Портов обычные изменения, но с тем, что они не появятся
+            на ISO с релизом.  В коммитах необходимо избегать следующих
+            вещей:</p>
+
+  	  <ul>
+	    <li><p>обновления портов со многими зависимостями, в частности,
+              серверы X11, KDE и GNOME;</p></li>
+
+	    <li><p>прямые копирования в хранилище многих портов;</p></li>
+
+	    <li><p>и так далее.</p></li>
+	  </ul>
+
+  	  <p>Причина, по которой мы хотим избежать таких коммитов, заключается
+            в том, что если будет найдена какая-то настолько серьёзная проблема
+            (связанная с безопасностью или вопросами лицензирования), что нам
+            придётся делать изменения, которую могут быть перенесены на ISO c
+            релизом, то ко всему прочему нам будет нужно проставлять CVS-метку
+            на эти изменённые файлы.  Если мы разрешим абсолютно все виды
+            изменений, то высок риск, что любое такое изменение приведёт к
+            необходимости повторного построения пакетов снова и снова, и в
+            результате процесс подготовки релиза будет бесконечным.</p>
+        </li>
+      </ol>
+
+      <p>Как только команда RE и portmgr останутся довольными итоговым
+        состоянием ISO с релизом, дерево портов будет снова полностью доступно
+        для коммитов.</p>
+    </li>
+  </ul>
+
+  <h3><a name="qa-between-releases" shape="rect" id="qa-between-releases">Мероприятия между циклами подготовки
+    релизов</a></h3>
+
+  <ul>
+    <li>
+      <p>Управление машинами <a href="http://pointyhat.FreeBSD.org" shape="rect">кластера
+        построения портов</a>.  Они постоянно строят пакеты для всех возможных
+        комбинаций релизов ОС и архитектур ЦП (по нашей терминологии <tt>сред
+        построения</tt>.)</p>
+
+      <p>В процессе этих построений также генерируются протоколы ошибок для
+        пакетов, которые строятся некорректно (обратитесь по URL-адресу выше).
+        Периодически группа помечает эти порты как нерабочие (BROKEN), чтобы
+        это могли увидеть мэйнтейнеры.  (Смотрите далее.)</p>
+
+      <p>Успешно построенные пакеты (по крайней мере, те, что распространяются
+        свободно) также копируются на главный FTP-сервер и таким образом
+        становятся по умолчанию "самыми последними пакетами" для
+        выполнения установки при помощи пакетов, а не портов.</p>
+    </li>
+
+    <li>
+      <p>Оповещение сообщества FreeBSD о проблемах в Коллекции Портов, чтобы
+        они не были пропущены.  Для этого существует некоторое количество
+        отчётов, отправляемых по электронной почте.  Те, что отмечены как
+        <tt>общедоступные</tt>, публикуются во freebsd-ports.</p>
+
+      <ul>
+        <li><p>общедоступный перечень портов, удалённых из-за проблем с
+          безопасностью, ошибок построения или общей устарелости, если до этого
+          ситуация не будут исправлена.</p></li>
+
+        <li><p>частные письма всем мэйнтейнерам затронутых портов (включая
+          порты, зависящие от указанных выше).</p></li>
+
+        <li><p>частные письма всем мэйнтейнерам портов, которые уже помечены
+          как нерабочие (BROKEN) и/или запрещённые (FORBIDDEN).</p></li>
+
+        <li><p>частные письма мэйнтейнерам, не являющимся коммиттерами, которые
+          направили PR о собственных портах (для отметки PR, которые могли
+          не направляться им через Cc:).</p></li>
+
+        <li><p>сообщение всем о коммитах портов, которые нарушают построение
+          файла	INDEX.</p></li>
+
+        <li><p>оповещение всех о коммитах портов, в которых мета-данные о
+          версиях меняются в обратную сторону (и таким образом вводят в
+          заблуждение такие инструменты, как portupgrade).</p></li>
+
+        <li><p>общедоступный перечень всех портов, которые имеют по крайней
+          мере один файл, который невозможно сгрузить с любого главного сайта,
+          не относящегося к FreeBSD.  Полный список результатов проверки
+          доступности всех файлов со всех своих главный сайтов можно найти в
+	  <a href="http://people.FreeBSD.org/~fenner/portsurvey/" shape="rect">тесте портов
+          Билла Феннера</a>.</p></li>
+
+        <li><p>частные письма мэйнтейнерам затронутых портов, если порт будет
+          помечаться как нерабочий (BROKEN), копия через Cc: направляется
+          последнему коммиттеру порта.  (Эта почта не автоматизируется, но она
+          должна посылаться как жест вежливости.)</p></li>
+
+        <li><p>список портов, которые не устанавливают NO_LATEST_LINK.  (Порты,
+          у которых есть и стабильная версия, и версия в процессе разработки,
+          обычно устанавливают номер версии в разработки на большее значение.
+          Если желательно, чтобы из пакетов пользователи устанавливали
+          стабильную версию, а не версию в разработке, то нужно задать этот
+          параметр; в противном случае по умолчанию пользователи получат
+          последнюю версию.)</p></li>
+      </ul>
+    </li>
+
+    <li>
+      <p>Удаление устаревших портов.  Порты, которые уже помечены как BROKEN
+        какой-то период времени, помечаются как DEPRECATED (с установкой
+        EXPIRATION_DATE), а затем удаляются, если за истекшее время никто их не
+        исправил.  Целью такого порядка является обеспечение того, что если
+        пользователь установил порт, то он должен иметь максимальные шансы
+        на восстановление работоспособность.</p>
+
+      <p>В других случаях порты помечаются как DEPRECATED, если они заменяются
+        на более современные версии, а старые больше автором не поддерживаются.
+        Обычно при этом должна задаваться EXPIRATION_DATE не менее чем в два
+        будущих месяца, что даёт достаточно времени, чтобы произвести
+        обновление.</p>
+    </li>
+  </ul>
+
+
+  </div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="../search/index-site.html">Карта сайта</a> |
+  <a href="../copyright/">Условия использования</a> | © 1995-2014
+  Проект FreeBSD. Все права защищены.</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>FreeBSD Errata Notices</title>
+    <link>https://www.FreeBSD.org/security/</link>
+    <description>Errata notices published from the FreeBSD Project</description>
+    <language>en-us</language>
+    <webMaster>secteam@FreeBSD.org (FreeBSD Security Team)</webMaster>
+    <managingEditor>secteam@FreeBSD.org (FreeBSD Security Team)</managingEditor>
+    <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+    <ttl>120</ttl>
+    <image>
+      <url>https://www.FreeBSD.org/logo/logo-full.png</url>
+      <title>FreeBSD Errata Notices</title>
+      <link>https://www.FreeBSD.org/security/</link>
+    </image>
+    <atom:link type="application/rss+xml" href="https://www.FreeBSD.org/security/rss.xml"/>
+    <item>
+      <title>FreeBSD-EN-17:06.hyperv</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:06.hyperv.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:06.hyperv.asc</guid>
+      <pubDate>Wed, 12 Jul 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-EN-17:05.xen</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:05.xen.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:05.xen.asc</guid>
+      <pubDate>Wed, 12 Apr 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-EN-17:04.mandoc</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:04.mandoc.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:04.mandoc.asc</guid>
+      <pubDate>Thu, 23 Feb 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-EN-17:03.hyperv</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:03.hyperv.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:03.hyperv.asc</guid>
+      <pubDate>Thu, 23 Feb 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-EN-17:02.yp</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:02.yp.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:02.yp.asc</guid>
+      <pubDate>Thu, 23 Feb 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-EN-17:01.pcie</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:01.pcie.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:01.pcie.asc</guid>
+      <pubDate>Thu, 23 Feb 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-EN-16:21.localedef</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-16:21.localedef.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-16:21.localedef.asc</guid>
+      <pubDate>Tue, 6 Dec 2016 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-EN-16:20.tzdata</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-16:20.tzdata.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-16:20.tzdata.asc</guid>
+      <pubDate>Tue, 6 Dec 2016 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-EN-16:19.tzcode</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-16:19.tzcode.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-16:19.tzcode.asc</guid>
+      <pubDate>Tue, 6 Dec 2016 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-EN-16:18.loader</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-16:18.loader.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-16:18.loader.asc</guid>
+      <pubDate>Tue, 25 Oct 2016 00:00:00 PST</pubDate>
+    </item>
+  </channel>
+</rss>

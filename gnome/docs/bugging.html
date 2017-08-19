@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>FreeBSD GNOME Project: Reporting a Bug</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="../../layout/css/fixed.css?20130112" type="text/css" />
+    <script type="text/javascript" src="../../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Header And Logo</h2>
+            <div id="headerlogoleft">
+              <a href="../.." title="FreeBSD">
+                <img src="../../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <div class="frontdonateroundbox">
+                <div class="frontdonatetop">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+                <div class="frontdonatecontent">
+                  <a href="https://www.FreeBSDFoundation.org/donate/">Donate to FreeBSD</a>
+                </div>
+                <div class="frontdonatebot">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+              </div>
+              <h2 class="blockhide">Peripheral Links</h2>
+              <div id="searchnav">
+                <ul id="searchnavlist"></ul>
+              </div>
+              <div id="search">
+                <form method="get" id="search" action="https://duckduckgo.com/">
+                  <h2 class="blockhide">
+                    <label for="words">Search</label>
+                  </h2>
+                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
+                  <input type="hidden" name="ka" value="v" />
+                  <input type="hidden" name="kt" value="v" />
+                  <input type="hidden" name="kh" value="1" />
+                  <input type="hidden" name="kj" value="r2" />
+                  <input id="words" name="q" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="Search" />
+                  <span> </span>
+                  <input id="submit" name="submit" type="submit" value="Search" />
+                </form>
+              </div>
+            </div>
+          </div>
+          <h2 class="blockhide">Site Navigation</h2>
+          <div id="menu">
+            <ul class="first">
+              <li>
+                <a href="../../">Home</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../about.html">About</a>
+                <ul>
+                  <li>
+                    <a href="../../projects/newbies.html">Introduction</a>
+                  </li>
+                  <li>
+                    <a href="../../features.html">Features</a>
+                  </li>
+                  <li>
+                    <a href="../../advocacy/">Advocacy</a>
+                  </li>
+                  <li>
+                    <a href="../../marketing/">Marketing</a>
+                  </li>
+                  <li>
+                    <a href="../../privacy.html">Privacy Policy</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../where.html">Get FreeBSD</a>
+                <ul>
+                  <li>
+                    <a href="../../releases/">Release Information</a>
+                  </li>
+                  <li>
+                    <a href="../../releng/">Release Engineering</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../docs.html">Documentation</a>
+                <ul>
+                  <li>
+                    <a href="../../doc/en_US.ISO8859-1/books/faq/">FAQ</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/en_US.ISO8859-1/books/handbook/">Handbook</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/en_US.ISO8859-1/books/porters-handbook">Porter's Handbook</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/en_US.ISO8859-1/books/developers-handbook">Developer's Handbook</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/man.cgi">Manual Pages</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/en_US.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
+                  </li>
+                  <li>
+                    <a href="../../docs/books.html">All Books and Articles</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../community.html">Community</a>
+                <ul>
+                  <li>
+                    <a href="../../community/mailinglists.html">Mailing Lists</a>
+                  </li>
+                  <li>
+                    <a href="https://forums.FreeBSD.org">Forums</a>
+                  </li>
+                  <li>
+                    <a href="../../usergroups.html">User Groups</a>
+                  </li>
+                  <li>
+                    <a href="../../events/events.html">Events</a>
+                  </li>
+                  <li>
+                    <a href="http://serverfault.com/questions/tagged/freebsd">Q&amp;A (external)</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../projects/index.html">Developers</a>
+                <ul>
+                  <li>
+                    <a href="https://wiki.FreeBSD.org/IdeasPage">Project Ideas</a>
+                  </li>
+                  <li>
+                    <a href="https://svnweb.FreeBSD.org">SVN Repository</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/freebsd">GIT Repository</a>
+                  </li>
+                  <li>
+                    <a href="http://p4web.FreeBSD.org">Perforce Repository</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../support.html">Support</a>
+                <ul>
+                  <li>
+                    <a href="../../commercial/commercial.html">Vendors</a>
+                  </li>
+                  <li>
+                    <a href="../../security/">Security Information</a>
+                  </li>
+                  <li>
+                    <a href="https://bugs.FreeBSD.org/search/">Bug Reports</a>
+                  </li>
+                  <li>
+                    <a href="https://www.FreeBSD.org/support.html">Submitting Bug Reports</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="https://www.freebsdfoundation.org/">Foundation</a>
+                <ul>
+                  <li>
+                    <a href="https://www.freebsdfoundation.org/donate/">Monetary Donations</a>
+                  </li>
+                  <li>
+                    <a href="../../donations/index.html#systems">Hardware Donations</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Section Navigation</h2>
+              <ul>
+                <li>
+                  <a href="../../gnome/index.html">GNOME</a>
+                  <ul>
+                    <li>
+                      <a href="../../gnome/docs/faq2.html#q1">Installation Instructions</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/docs/faq232.html#q2">Upgrade Instructions</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/../ports/gnome.html">Available Applications</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/docs/volunteer.html">How to Help</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/docs/bugging.html">Reporting a Bug</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/screenshots.html">Screenshots</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/contact.html">Contact Us</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="../../gnome/index.html">Documentation</a>
+                  <ul>
+                    <li>
+                      <a href="../../gnome/docs/faq2.html">FAQ</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/docs/halfaq.html">HAL FAQ</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/docs/faq232.html">2.30 to 2.32 Upgrade FAQ</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/docs/develfaq.html">Development Branch FAQ</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/docs/porting.html">Creating Ports</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/docs/faq232.html#q4">Known Issues</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap"><h1>FreeBSD GNOME Project: Reporting a Bug</h1>
+
+		  <h2>1. When should I make a bug report?</h2>
+		  <ul>
+		    <li><b><i>After</i></b> running any build failure
+		      output through <a href="/gnome/gnomelogalyzer.sh" shape="rect">gnomelogalyzer.sh</a>.</li>
+		    <li><b><i>After</i></b> running <tt>portsnap</tt> to obtain the most
+		      recent ports tree.</li>
+		    <li><b><i>After</i></b> running <tt>portupgrade -a</tt> or
+		      <tt>portmaster -a</tt> to ensure that all applications are
+		      up-to-date. Do not forget to read in <tt>/usr/ports/UPDATING</tt>
+		      first before you upgrade those installed ports.</li>
+		    <li><b><i>After</i></b> searching through the FreeBSD GNOME
+              <a href="../../gnome/index.html#search" shape="rect">Mailing
+			  list archives</a> to see if the problem has already been
+			  reported.</li>
+		    <li><b><i>After</i></b> deciding whether the problem is FreeBSD-specific,
+		      or is a bug in an application that would affect all users,
+		      on all operating systems. If you cannot determine if the
+		      problem is FreeBSD-specific or not, then send your
+		      problem to the <a href="mailto:freebsd-gnome@FreeBSD.org" shape="rect">freebsd-gnome mailing
+		      list</a>, and we can help decide where the problem lies.</li>
+		  </ul>
+
+          <h2>2. What to report?</h2>
+
+		  <p>Always report as much information as you can.  Too much
+		information is always preferable to too little information.
+		Superfluous information can be filtered out; developers like
+		to play guessing games with code, not with bug reports.</p>
+
+          <p>A good bug report should at least include the following
+		information:</p>
+
+          <ul>
+	    <li><p>Exact version of the operating system (usually output of
+	      <tt>uname -a</tt>).</p></li>
+	    <li><p>List of all packages installed on your system (output of
+		  <tt>pkg_info</tt>).</p></li>
+	    <li><p>Your environment (output of <tt>/usr/bin/env</tt>).</p></li>
+	    <li><p>If you are building from ports, note approximately how
+		  long it has been since you last updated your ports tree.  If
+		  it has been more than a day, or if you have not run
+		  <tt>portupgrade -a</tt> or <tt>portmaster -a</tt>,
+		  do not bother sending a bug report until you have run
+		  <tt>portsnap</tt> and <tt>portupgrade/portmaster</tt>.</p></li>
+	    <li><p>Information specific for each type of breakage:</p>
+		  <ul>
+		    <li>If a port will not build, provide a full log of the
+		      unsuccessful build by uploading it to any website or
+		      copy-and-paste to <a href="http://freebsd-gnome.pastebin.com" shape="rect">http://freebsd-gnome.pastebin.com</a>.
+		      Try to avoid sending any
+		      attachments to the mailing list, because attachments sent
+		      to FreeBSD mailing lists are usually discarded by the
+		      mailing list software.</li>
+		    <li>If a program produces a core dump, provide a
+		      back trace.  Back traces are only useful if the
+		      application (and possibly its dependencies) are
+		      compiled with debugging symbols.  See these
+		      <a href="http://live.gnome.org/GettingTraces" shape="rect">instructions</a>
+		      for more information on obtaining useful back
+			traces.  In general, though, you can build and
+			install your port with the following command
+			to produce binaries that will have useful
+			debugging symbols: <tt>make WITH_DEBUG="yes" install</tt></li>
+		    <li>If an application produces unexpected behavior,
+		      provide a clear and detailed description, including a
+		      description of the behavior that you were expecting.</li>
+		   </ul>
+		 </li>
+         </ul>
+
+          <p>If you have a solution or a workaround for the problem, then include
+            it into your report as well, even if you are not quite sure that
+	    it is a proper fix.  Even if the fix is not quite right, it could still
+		point others in the right direction.
+	  </p>
+
+          <h2>3. Where to report?</h2>
+
+          <p>Once you are sure it is a new problem, there are several ways
+	    to report a bug in GNOME running on FreeBSD: you could
+	    send a report to the
+	    <a href="mailto:freebsd-gnome@FreeBSD.org" shape="rect">freebsd-gnome mailing
+	    list</a>, file a problem report in the
+	    <a href="http://www.FreeBSD.org/support.html" shape="rect">FreeBSD bug
+	    reporting system</a>, send your report to the application's
+	    developers via the GNOME
+	    <a href="http://bugzilla.gnome.org/" shape="rect">bug tracking system</a>, or
+	    any combination of those.</p>
+
+          <ul>
+            <li><p>If the problem is FreeBSD-specific (usually, this means
+			  a problem with building or upgrading), then report to the
+			  <a href="mailto:freebsd-gnome@FreeBSD.org" shape="rect">freebsd-gnome mailing
+			  list</a>, or file a bug report through the
+	          <a href="http://www.FreeBSD.org/support.html" shape="rect">FreeBSD bug
+			  reporting system</a>.</p></li>
+			<li><p>If the problem has to do with an application's
+			  behavior, report the problem directly to the application's
+			  developers through the GNOME project's
+	          <a href="http://bugzilla.gnome.org/" shape="rect">bug tracking system</a></p></li>
+			<li><p>If the problem is quite serious, not necessarily
+			  FreeBSD-specific, <i>and</i> you have a fix available, report
+			  it to both the FreeBSD GNOME team and the application's
+			  developers.  This way, the application's developers can apply
+			  the patch upstream, and the FreeBSD GNOME team can apply the
+			  patch immediately to the ports tree without needing to wait
+			  for the next release.</p></li>
+          </ul>
+
+  </div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="../../search/index-site.html">Site Map</a> |
+  <a href="../../copyright/">Legal Notices</a> | © 1995&#8211;2017 The FreeBSD Project.
+  All rights reserved.</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

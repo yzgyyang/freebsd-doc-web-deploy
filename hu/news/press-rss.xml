@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="iso-8859-2"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>FreeBSD a sajtóban</title>
+    <link>http://www.FreeBSD.org/hu/news/press.html</link>
+    <description>FreeBSD témájú
+	  sajtókiadványok</description>
+    <language>hu-hu</language>
+    <webMaster>freebsd-www@FreeBSD.org (Webmesterek)</webMaster>
+    <managingEditor>freebsd-www@FreeBSD.org (Webmesterek)</managingEditor>
+    <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+    <ttl>120</ttl>
+    <image>
+      <url>http://www.FreeBSD.org/logo/logo-full.png</url>
+      <title>FreeBSD a sajtóban</title>
+      <link>http://www.FreeBSD.org/hu/news/press.html</link>
+    </image>
+    <atom:link href="http://www.FreeBSD.org/hu/news/press-rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>A PC-BSD 8.1 bemutatása, LinuxBSDos.com, LinuxBSDos.com</title>
+      <description>A LinuxBSDos.com górcső alá veszi a PC-BSD 8.1 telepítését, beállítási és rendszerkarbantartási lehetőségeit (beleértve a PC-BSD PBI rendszerén keresztül telepíthető különböző szoftverek telepítését).</description>
+      <link>http://www.FreeBSD.org/hu/news/press.html#story201008:01</link>
+      <guid>http://www.FreeBSD.org/hu/news/press.html#story201008:01</guid>
+      <pubDate>2010 aug 20 00:00:00 CET, Fri</pubDate>
+    </item>
+    <item>
+      <title>Nagyvizit: FreeBSD - Az ismeretlen óriás, The H, Richard Hillesley</title>
+      <description>Richard Hillesley írásában feleveníti a FreeBSD keletkezésének történetét, bemutatja a BSD licencet és a FreeBSD 8.0 újdonságait.</description>
+      <link>http://www.FreeBSD.org/hu/news/press.html#story201002:01</link>
+      <guid>http://www.FreeBSD.org/hu/news/press.html#story201002:01</guid>
+      <pubDate>2010 feb 20 00:00:00 CET, Sat</pubDate>
+    </item>
+    <item>
+      <title>A FreeNAS 0.7 ZFS támogatással érkezik, The H, crve</title>
+      <description>A FreeBSD alapú FreeNAS projekt 0.7-es kiadásának újdonságainak bemutatása.</description>
+      <link>http://www.FreeBSD.org/hu/news/press.html#story200911:01</link>
+      <guid>http://www.FreeBSD.org/hu/news/press.html#story200911:01</guid>
+      <pubDate>2009 nov 20 00:00:00 CET, Fri</pubDate>
+    </item>
+    <item>
+      <title>Hogyan frissítsük szoftvereinket egy FreeBSD
+	  rendszeren, Tech Republic, Chad Perrin</title>
+      <description>Chad Perrin bemutatja miként szokta frissíteni FreeBSD rendszerét.</description>
+      <link>http://www.FreeBSD.org/hu/news/press.html#story200911:02</link>
+      <guid>http://www.FreeBSD.org/hu/news/press.html#story200911:02</guid>
+      <pubDate>2009 nov 20 00:00:00 CET, Fri</pubDate>
+    </item>
+    <item>
+      <title>A FreeBSD 8 új útválasztási
+	  architektúrát kap, InternetNews.com - WebMediaBrands Inc., Sean Michael Kerner</title>
+      <description>A cikk bemutatja Qing Li, a Blue Coat hálózati tervezőmérnökének a FreeBSD legújabb változatának útválasztási architektúráján végzett munkáját. Az elsődleges cél a FreeBSD hálózati útválasztásért felelős részeinek párhuzamosítása és ezáltal hatékonyabbá tétele.</description>
+      <link>http://www.FreeBSD.org/hu/news/press.html#story200908:01</link>
+      <guid>http://www.FreeBSD.org/hu/news/press.html#story200908:01</guid>
+      <pubDate>2009 aug 20 00:00:00 CET, Thu</pubDate>
+    </item>
+    <item>
+      <title>FreeNAS: Adattárolás egyszerűen, Radio World, Todd Dixon</title>
+      <description>A szerző lenyűgözötten méltatja a FreeBSD alapokon üzemelő FreeNAS sebességét és alacsony erőforrásigényét.</description>
+      <link>http://www.FreeBSD.org/hu/news/press.html#story200908:02</link>
+      <guid>http://www.FreeBSD.org/hu/news/press.html#story200908:02</guid>
+      <pubDate>2009 aug 20 00:00:00 CET, Thu</pubDate>
+    </item>
+    <item>
+      <title>Miért nem kell a FreeBSD 8 miatt
+	  újraírni a könyvet?, InternetNews.com - WebMediaBrands Inc., Sean Michael Kerner</title>
+      <description>A cikk a FreeBSD legújabb, 8.0 kiadásáról szól, amellyel kapcsolatban megszólal benne többek közt Michael Lucas, az Absolute FreeBSD című könyv szerzője, valamint Matt Olander az iXsystems és Kris Moore a PC-BSD részéről. A cikkből megtudhatjuk, hogy a FreeBSD miként marad majdnem ugyanaz a rendszer még a nagyobb verziók közt is, és miként hoz magával újításokat és fejlesztéseket a felhasználók paradigmaváltásra kényszerítése nélkül.</description>
+      <link>http://www.FreeBSD.org/hu/news/press.html#story200907:01</link>
+      <guid>http://www.FreeBSD.org/hu/news/press.html#story200907:01</guid>
+      <pubDate>2009 júl 20 00:00:00 CET, Mon</pubDate>
+    </item>
+    <item>
+      <title>2009 májusának legmegbízhatóbb
+	  szolgáltatói, Netcraft Ltd., Paul Mutton</title>
+      <description>A Netcraft felmérése szerint az öt legmegbízhatóbb szolgáltató közül három a FreeBSD rendszerét használja.</description>
+      <link>http://www.FreeBSD.org/hu/news/press.html#story200906:01</link>
+      <guid>http://www.FreeBSD.org/hu/news/press.html#story200906:01</guid>
+      <pubDate>2009 jún 20 00:00:00 CET, Sat</pubDate>
+    </item>
+    <item>
+      <title>Hálózati szolgáltatások
+	  védelme FreeBSD jailekkel, Packt Publishing, Christer Edwards</title>
+      <description>A cikkből megtudhatjuk, hogy miként alkalmazhatunk FreeBSD jaileket hálózati szolgáltatások biztonságosabbá tételére.</description>
+      <link>http://www.FreeBSD.org/hu/news/press.html#story200906:02</link>
+      <guid>http://www.FreeBSD.org/hu/news/press.html#story200906:02</guid>
+      <pubDate>2009 jún 20 00:00:00 CET, Sat</pubDate>
+    </item>
+    <item>
+      <title>Megjelent a FreeBSD 7.2, benne a szuperlapok
+	  támogatásával, The H, djwm</title>
+      <description>Egy rövid összefoglaló a FreeBSD 7.2 kiadásáról.</description>
+      <link>http://www.FreeBSD.org/hu/news/press.html#story200905:01</link>
+      <guid>http://www.FreeBSD.org/hu/news/press.html#story200905:01</guid>
+      <pubDate>2009 máj 20 00:00:00 CET, Wed</pubDate>
+    </item>
+  </channel>
+</rss>

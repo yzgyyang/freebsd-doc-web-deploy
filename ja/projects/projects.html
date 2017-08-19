@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="euc-jp"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>FreeBSD 開発プロジェクト</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=euc-jp" />
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="../../layout/css/fixed.css?20130112" type="text/css" />
+    <script type="text/javascript" src="../../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Header And Logo</h2>
+            <div id="headerlogoleft">
+              <a href=".." title="FreeBSD">
+                <img src="../../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <div class="frontdonateroundbox">
+                <div class="frontdonatetop">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+                <div class="frontdonatecontent">
+                  <a href="https://www.FreeBSDFoundation.org/donate/">FreeBSD への寄付</a>
+                </div>
+                <div class="frontdonatebot">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+              </div>
+              <h2 class="blockhide">Peripheral Links</h2>
+              <div id="searchnav">
+                <ul id="searchnavlist"></ul>
+              </div>
+              <div id="search">
+                <form method="get" id="search" action="https://duckduckgo.com/">
+                  <h2 class="blockhide">
+                    <label for="words">検索</label>
+                  </h2>
+                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
+                  <input type="hidden" name="ka" value="v" />
+                  <input type="hidden" name="kt" value="v" />
+                  <input type="hidden" name="kh" value="1" />
+                  <input type="hidden" name="kj" value="r2" />
+                  <input id="words" name="q" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="検索" />
+                  <span></span>
+                  <input id="submit" name="submit" type="submit" value="検索" />
+                </form>
+              </div>
+            </div>
+          </div>
+          <h2 class="blockhide">Site Navigation</h2>
+          <div id="menu">
+            <ul class="first">
+              <li>
+                <a href="../">ホーム</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../about.html">FreeBSD とは</a>
+                <ul>
+                  <li>
+                    <a href="../projects/newbies.html">FreeBSD が初めてという方へ</a>
+                  </li>
+                  <li>
+                    <a href="../features.html">特徴</a>
+                  </li>
+                  <li>
+                    <a href="../../advocacy/">プロモーション活動</a>
+                  </li>
+                  <li>
+                    <a href="../../marketing/">マーケティング活動</a>
+                  </li>
+                  <li>
+                    <a href="../../privacy.html">プライバシーポリシー</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../where.html">FreeBSD の入手</a>
+                <ul>
+                  <li>
+                    <a href="../releases/">リリース情報</a>
+                  </li>
+                  <li>
+                    <a href="../../releng/">リリースエンジニアリング</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../docs.html">ドキュメント</a>
+                <ul>
+                  <li>
+                    <a href="../../doc/ja_JP.eucJP/books/faq/">FAQ</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/ja_JP.eucJP/books/handbook/">ハンドブック</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/ja_JP.eucJP/books/porters-handbook/">port 作成者のためのハンドブック</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/en_US.ISO8859-1/books/developers-handbook/">開発者のためのハンドブック</a>
+                  </li>
+                  <li>
+                    <a href="../../cgi/man.cgi">マニュアルページ</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/en_US.ISO8859-1/books/fdp-primer">新しい貢献者のためのドキュメンテーションプロジェクト入門</a>
+                  </li>
+                  <li>
+                    <a href="../docs/books.html">すべての Books と Articles</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../community.html">コミュニティ</a>
+                <ul>
+                  <li>
+                    <a href="../community/mailinglists.html">メーリングリスト</a>
+                  </li>
+                  <li>
+                    <a href="https://forums.FreeBSD.org">フォーラム</a>
+                  </li>
+                  <li>
+                    <a href="../usergroups.html">ユーザグループ</a>
+                  </li>
+                  <li>
+                    <a href="../events/events.html">イベント</a>
+                  </li>
+                  <li>
+                    <a href="http://serverfault.com/questions/tagged/freebsd">Q&amp;A (外部)</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../projects/index.html">開発</a>
+                <ul>
+                  <li>
+                    <a href="https://wiki.FreeBSD.org/IdeasPage">プロジェクトアイディア</a>
+                  </li>
+                  <li>
+                    <a href="https://svnweb.FreeBSD.org">SVN リポジトリ</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/freebsd">GIT リポジトリ</a>
+                  </li>
+                  <li>
+                    <a href="http://p4web.FreeBSD.org">Perforce リポジトリ</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../support.html">サポート</a>
+                <ul>
+                  <li>
+                    <a href="../commercial/commercial.html">ベンダ</a>
+                  </li>
+                  <li>
+                    <a href="../security/">セキュリティ情報</a>
+                  </li>
+                  <li>
+                    <a href="https://bugs.freebsd.org/search/">障害報告</a>
+                  </li>
+                  <li>
+                    <a href="https://www.FreeBSD.org/ja/support.html">障害報告の提出</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="https://www.freebsdfoundation.org/">財団</a>
+                <ul>
+                  <li>
+                    <a href="https://www.freebsdfoundation.org/donate/">寄付</a>
+                  </li>
+                  <li>
+                    <a href="../../donations/index.html#systems">ハードウェアの寄贈</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Section Navigation</h2>
+              <ul>
+                <li>
+                  <a href="../projects/index.html">開発</a>
+                </li>
+                <li>
+                  <a href="../../doc/en_US.ISO8859-1/books/developers-handbook">開発者のためのハンドブック</a>
+                </li>
+                <li>
+                  <a href="../../doc/ja_JP.eucJP/books/porters-handbook">port 作成者のためのハンドブック</a>
+                </li>
+                <li>
+                  <a href="../developers/cvs.html">ソースコードリポジトリ</a>
+                </li>
+                <li>
+                  <a href="../../releng/index.html">リリースエンジニアリング</a>
+                </li>
+                <li>
+                  <a href="../platforms/">プラットフォーム</a>
+                </li>
+                <li>
+                  <a href="https://wiki.freebsd.org/IdeasPage">プロジェクトアイディア</a>
+                </li>
+                <li>
+                  <a href="../../doc/ja_JP.eucJP/articles/contributing/index.html">開発への協力</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap"><h1>FreeBSD 開発プロジェクト</h1>
+
+<a name="development" shape="rect" id="development"></a>
+
+<p>FreeBSD の主要な流れとはまた別に、多くの開発グループが
+FreeBSD のアプリケーションの範囲を新しい方向で拡大するために作業を行っています。
+下のリンクをたどると、
+それらのわくわくするようなプロジェクトについてもっと知ることができます。</p>
+
+ここに載っていないプロジェクトに気づいたら、URL と短い (3〜10 行程度)
+紹介文を (英語で) 送ってください。宛先は
+<a href="../mailto.html" shape="rect">www@FreeBSD.org</a> です。
+
+<p>また、いくつかのプロジェクトは定期的に進捗レポートを提出しています。
+詳しくは <a href="../../news/status/status.html" shape="rect">進捗レポートのページ</a>
+をご覧下さい。</p>
+
+<ul>
+  <li><a href="#documentation" shape="rect">ドキュメンテーション</a></li>
+  <li><a href="../../advocacy/index.html" shape="rect">宣伝活動</a></li>
+  <li><a href="#applications" shape="rect">アプリケーション</a></li>
+  <li><a href="#networking" shape="rect">ネットワーク</a></li>
+  <li><a href="#storage" shape="rect">ストレージ</a></li>
+  <li><a href="#kernelandsecurity" shape="rect">カーネル、セキュリティ</a></li>
+  <li><a href="#devicedrivers" shape="rect">デバイスドライバ</a></li>
+  <li><a href="#architecture" shape="rect">アーキテクチャ</a></li>
+  <li><a href="#misc" shape="rect">その他</a></li>
+  <li><a href="../../projects/summerofcode.html" shape="rect">Google Summer of Code</a></li>
+</ul>
+<p></p>
+
+<a name="documentation" shape="rect" id="documentation"></a>
+<h3>ドキュメンテーション</h3>
+    <ul>
+      <li><a href="../docproj/docproj.html" shape="rect">
+	  FreeBSD ドキュメンテーションプロジェクト</a>:
+	FreeBSD ドキュメンテーションプロジェクトは
+	FreeBSD プロジェクトの為に、ドキュメント (FAQ やハンドブックなど)
+	を整備したり執筆しています。
+	もしドキュメンテーションプロジェクトを手伝いたいなら
+	freebsd-doc@FreeBSD.org を購読して参加してください。</li>
+
+      <li><a name="newbies" href="newbies.html" shape="rect" id="newbies">
+	  初心者のための FreeBSD に関する情報</a>:
+	FreeBSD と UNIX® を使い始めた人に役立つ一般的な情報のリストです。</li>
+
+      <li><a name="diary" href="http://www.freebsddiary.org/" shape="rect" id="diary">
+	  FreeBSD Diary</a>: UNIX 初心者向けのハウツーのコレクションです。
+	目的はさまざまな ports のインストールや設定の step-by-step
+	ガイドを提供することです。</li>
+
+      <li><a href="../../doc/en_US.ISO8859-1/books/developers-handbook/index.html" shape="rect">
+	  FreeBSD 開発者のためのハンドブック</a></li>
+
+      <li><a href="../../doc/en_US.ISO8859-1/articles/contributing-ports/index.html" shape="rect">
+	  FreeBSD Ports Collection への貢献</a></li>
+</ul>
+
+<a name="applications" shape="rect" id="applications"></a>
+<h3>アプリケーション</h3>
+    <ul>
+      <li><a name="java" href="../java/index.html" shape="rect" id="java">Java® on FreeBSD</a>:
+	最新の FreeBSD 用 JDK® の入手先、インストールと実行方法、魅力的な
+	Java® ソフトウェアのリストなどがまとめられています。</li>
+
+      <li><a name="gnome" href="../../gnome/index.html" shape="rect" id="gnome">GNOME on FreeBSD</a>:
+	最新の FreeBSD 版 GNOME の入手、インストール、実行方法、
+        プロジェクトの最新ニュースや近況、GNOME における FreeBSD 特有の FAQ、
+        アプリケーションの移植ガイドラインなどの、さまざまな話題が含まれています。</li>
+
+	<li><a name="kde" href="http://freebsd.kde.org" shape="rect" id="kde">KDE on
+	  FreeBSD</a>: 最新の FreeBSD 版 KDE のリリースや、
+	 どうやって FreeBSD に KDE
+	 をインストールして動作させるかについての文書やチュートリアルへのリンクが含まれています。
+	プロジェクトのニュースや、FreeBSD 特有の FAQ も用意されています。</li>
+
+	<li><a name="mono" href="http://www.mono-project.com/Mono:FreeBSD" shape="rect" id="mono">
+	    Mono on FreeBSD</a>:
+	  FreeBSD における Mono および C# の状況について知ることができます。</li>
+
+	<li><a name="openoffice" href="http://porting.openoffice.org/freebsd/" shape="rect" id="openoffice">
+	    OpenOffice.org on FreeBSD</a>:
+	  OpenOffice.org ports についての情報があります。</li>
+
+      <li><a href="../ports/index.html" shape="rect">FreeBSD Ports Collection</a>:
+	FreeBSD Ports Collection は、
+	幅広いアプリケーションを最低限の努力でインストールする為の簡単な手段を提供します。
+	検索機能付の現在の ports のリストが利用可能で、
+	特定のアプリケーションが Ports Collection
+	に存在しているかどうかを調べることができます。</li>
+
+<li><a href="http://portscout.FreeBSD.org/" shape="rect">FreeBSD Ports distfiles scanner</a>:
+	distfile を取得できない Ports Collection を調査し、
+	各 ports についてまとめて報告するリストです。</li>
+
+      <li><a href="http://FreshPorts.org/" shape="rect">FreshPorts</a>: 最新の ports
+	とその変更点の一覧を提供します。お好みの ports を監視リストに登録して、
+	なにか変更があったときにメールで連絡をもらいましょう。</li>
+
+      <li><a href="http://portsmon.FreeBSD.org/" shape="rect">PortsMon</a>:
+	Ports Collection を調査し、各 port の package
+	構築ログやエラーログを保持しているサーバです。</li>
+    </ul>
+
+<a name="networking" shape="rect" id="networking"></a>
+<h3>ネットワーク</h3>
+    <ul>
+      <li><a name="netperf" href="../../projects/netperf/index.html" shape="rect" id="netperf">Netperf</a>:
+	ネットワークスタックのパフォーマンスおよび最適化のプロジェクトで、
+	FreeBSD 5.3 における SMPng ネットワークスタックのロック作業に続いています。
+	このプロジェクトはマルチスレッドネットワークスタックに関する最適化の戦略について研究と実装をおこなっています。</li>
+      <li><a name="kame" href="http://www.kame.net/" shape="rect" id="kame">KAME プロジェクト</a>: BSD 用の IPv6/IPsec スタック</li>
+      <li><a name="SYSLOG-SECURE" href="http://www.faqs.org/rfcs/rfc3164.html" shape="rect" id="SYSLOG-SECURE">SYSLOG-SECURE</a>:
+        2001 年 8 月に、syslog が RFC3164 によって標準化されました。
+        この RFC には、syslog にセキュリティを追加するための拡張が書かれています。
+        このプロジェクトは 2002 年に始まり、FreeBSD の syslog を RFC3164 に準拠させ、
+        いくつかのセキュリティ拡張、最低でも syslog-sign を追加することを目的としています。
+	これには、libc と syslogd の両方に修正が必要になるでしょう。
+	また、セキュリティ機能の検証/管理用のツールもいくつか作成する予定です。
+        協力を募集中です。問い合わせは albert@ons-huis.net
+        まで電子メールでお願いします。</li>
+    </ul>
+
+<a name="storage" shape="rect" id="storage"></a>
+<h3>ストレージ</h3>
+    <ul>
+      <li><a name="afs" href="http://www.stacken.kth.se/projekt/arla/" shape="rect" id="afs">Arla</a>:
+	フリーの AFS クライアントの実装です。主目標は通常の AFS
+	のすべての能力を持つ完全に機能的なクライアントを作ることにあります。
+	他に計画されたり実装されたものとしては通常の管理ツールとサーバのすべてがあります。</li>
+
+      <li><a name="coda" href="http://www.coda.cs.cmu.edu/" shape="rect" id="coda">Coda</a>:
+	分散ファイルシステムです。
+	その機能の中には切断時の操作や優れたセキュリティモデル、サーバでの複製、
+	持続性クライアント側キャッシュが含まれます。</li>
+
+      <li><a name="journaling" href="http://www.ece.cmu.edu/~ganger/papers/" shape="rect" id="journaling">
+	  ジャーナリングと Soft Updates の比較</a>:
+	ファイルシステムにおける非同期メタデータ保護の手法。</li>
+
+      <li><a name="Tertiary" href="http://now.cs.berkeley.edu/Td/" shape="rect" id="Tertiary">Tertiary Disk</a>:
+	カスタムビルドの不利を払拭する巨大ディスクストレージシステムを作るストレージシステムアーキテクチャです。
+	名前はテープライブラリのメガバイト当りのコストとキャパシティを得ることと磁気ディスクの性能を得るという双子のゴールに由来します。
+	私たちはスケーラブルで低コストなテラバイト級の容量を持つディスクシステムを開発するために日常的にすぐに買えるコンポーネントを使っています。
+	我々の目標は生ディスクに対して 30 から 50%
+	ほど余分にコストを払うことで完全なストレージシステムを作ることです。
+	Tertiary Disk は大量のディスクを提供するためにスイッチされたネットワークにつながってる
+	PC を使います。我々の初号機は 200MHz の PC 20 個で構成され、
+	370 個の 8GB のディスクを持っていました。
+	PC は 100MBps のイーサネットスイッチで相互に接続されていました。</li>
+
+      <li><a name="vinum" href="http://www.vinumvm.org/" shape="rect" id="vinum">Vinum</a>:
+	VERITAS ボリュームマネージャ™
+	をお手本にして設計された論理ボリュームマネージャです。
+        しかしながら Veritas のクローンではなく、
+	たくさんの問題を Veritas より優雅に解決しようというものです。
+	Veritas にない機能も提供しています。</li>
+    </ul>
+
+<a name="kernelandsecurity" shape="rect" id="kernelandsecurity"></a>
+<h3>カーネル、セキュリティ</h3>
+    <ul>
+      <li><a name="openbsm" href="http://www.OpenBSM.org/" shape="rect" id="openbsm">OpenBSM</a>:
+	Sun の Basic Security Module (BSM) Audit API
+	およびファイル形式のオープンソースな実装です。
+	OpenBSM は、
+	TrustedBSD における監査の実装に対して、
+	ユーザランドのライブラリ、ツールおよびドキュメントを提供します。
+	この実装は FreeBSD に統合される予定です。</li>
+
+      <li><a name="trustedbsd" href="http://www.TrustedBSD.org/" shape="rect" id="trustedbsd">TrustedBSD</a>:
+	FreeBSD を高信頼性オペレーティングシステムにする拡張機能集を提供しています。
+	これには例えば、きめ細かい特権 (ケイパビリティ)、
+	アクセスコントロールリスト (ACL)、強制アクセス制御 (MAC)
+      などの機能が含まれています。これらの機能は FreeBSD に統合されるだけでなく、
+      他の BSD 由来のシステム用への移植も進められています。</li>
+
+      <li><a name="kernelstresstest" href="http://www.holm.cc/stress/" shape="rect" id="kernelstresstest">Kernel Stress Test Suite</a>:
+	この高負荷テストの目的はシステムをクラッシュさせることです。
+	このストレステストは小さなテストプログラムとスクリプトから構成されます。
+	それぞれのテストは、それぞれカーネルの特定のエリアをターゲットとしています。
+	このテストスィートのキーコンセプトはカオスです。
+	それぞれのテストはランダムな時間休止し、その後、ランダムな回数呼び出されます。</li>
+
+      </ul>
+
+<a name="devicedrivers" shape="rect" id="devicedrivers"></a>
+<h3>デバイスドライバ</h3>
+    <ul>
+      <li><a name="busdma" href="../../projects/busdma/index.html" shape="rect" id="busdma">busdma
+	および SMPng ドライバの書き換え</a>:
+        busdma は、高機能なデバイスドライバの多くで使用される、
+        ダイレクトメモリアクセス (DMA) によるハードウェア操作を行なうための、
+        移植性の高い抽象的な手段を提供します。
+        デバイスドライバの作者は busdma を使うことで、プラットフォームに依存する
+        DMA 管理コードを追加する必要がなくなり、
+        ハードウェアアーキテクチャ間の移植性を向上させることが可能になります。
+        また、このページではドライバを SMPng
+        のコードで安全に動作するようにするための書き換え作業の進捗も公開しています。</li>
+
+      <li><a name="homeauto" href="http://people.FreeBSD.org/~fsmp/HomeAuto/HomeAuto.html" shape="rect" id="homeauto">家庭での自動化</a>:
+	器具コントローラ、赤外線コントローラ、
+	自動化された電話システム等々を FreeBSD で。</li>
+
+      <li><a name="xircomcem" shape="rect" id="xircomcem">Xircom CEM イーサネットドライバ</a>:
+	Scott Mitchell の Xircom CEM
+	イーサネットドライバの開発を助けるメーリングリストがあります。参加するには
+        <tt>subscribe freebsd-xircom</tt> と <a href="mailto:majordomo@lovett.com" shape="rect">majordomo@lovett.com</a>
+	に送ってください。</li>
+    </ul>
+
+<a name="architecture" shape="rect" id="architecture"></a>
+<h3>アーキテクチャ</h3>
+    <ul>
+      <li><a name="ia64" href="../platforms/ia64/index.html" shape="rect" id="ia64">
+          FreeBSD の IA-64 システムへの移植</a>:
+        このプロジェクトは IA-64 アーキテクチャへの FreeBSD の移植作業を担当しています。
+        このプロジェクトに関する質問は、
+        freebsd-ia64@FreeBSD.org メーリングリストまでお願いします。</li>
+
+      <li><a name="ppc" href="../platforms/ppc.html" shape="rect" id="ppc">
+          FreeBSD の PowerPC® システムへの移植</a>:
+        FreeBSD PPC 版に関するメーリングリストなどの情報があります。</li>
+
+      <li><a name="sparc" href="../platforms/sparc.html" shape="rect" id="sparc">
+          FreeBSD の SPARC® システムへの移植</a>:
+        FreeBSD SPARC 版に関する FAQ、初期版起動コード、SPARC
+        プロセッサとマザーボード情報や、その他の
+        SPARC プロジェクトに関する情報があります。</li>
+
+      <li><a name="sysvr4" href="http://slash.dotat.org/~newton/freebsd-svr4/" shape="rect" id="sysvr4">
+	SysVR4 エミュレーション</a>: このページは FreeBSD の SysVR4
+	エミュレータについて記述しています。これは現在でも
+	Solaris™/x86 2.5.1 と 2.6 で採用された
+	SysV 実行形式の幅の広がったバリエーションを走らせられます
+	(歩かせられます、でもいいですけど)。
+	SCO UnixWare と SCO OpenServer のバイナリもこの上で実行できるだろうと、
+	私は信じる理由があります。
+	</li>
+
+      <li><a name="oskit" href="http://www.cs.utah.edu/flux/oskit/" shape="rect" id="oskit">OS キット</a>:
+	OS キットはフレームワークと 31
+	個のオペレーティングシステム指向のライブラリコンポーネントのセットで、
+	広範囲なドキュメントも含みます。
+	一つの OS として必要なインフラストラクチャ「grunge」の大半だけでなく、
+	高位のコンポーネントをもモジュール方式で提供することにより、
+	OS キットのゴールは R&amp;D OS
+	へのエントリのより低い障壁とより低いコストとなるでしょう。
+	OS キットは新しい OS を作ることや現存する OS を x86
+	(若しくは未来においては OS キットで対応している他のアーキテクチャ)
+	に移植することを圧倒的に簡単にし、OS
+	を広範囲なデバイスやファイルシステムフォーマットや実行形式やネットワークサービスに対応するように強化します。
+	OS キットはさらにブートローダやマイクロカーネルにおける
+	OS レベルのサーバ等と言った OS に関係するプログラムの構築にも役立ちます。</li>
+    </ul>
+
+<a name="misc" shape="rect" id="misc"></a>
+<h3>その他</h3>
+    <ul>
+      <li><a name="nanobsd" href="../../doc/en_US.ISO8859-1/articles/nanobsd/index.html" shape="rect" id="nanobsd">NanoBSD</a>:
+	NanoBSD は、できるかぎり小さな FreeBSD
+	システムのイメージを作成するためのツールです。
+	コンパクトフラッシュカード (または、他の大容量の記憶媒体)
+	に適しており、
+	アプライアンス用途で用いることができます。
+	FreeBSD ドキュメンテーションコレクションの中には、
+	<a href="../../doc/en_US.ISO8859-1/articles/nanobsd/index.html" shape="rect">article about NanoBSD</a>
+	という NanoBSD 入門のための文章があり、
+	この文章には、NanoBSD についての設定、
+	起動および使い方に関する有用な Tips が書いてあります。</li>
+
+      <li><a name="global" href="http://www.gnu.org/software/global/global.html" shape="rect" id="global">GLOBAL</a>:
+	異なった環境下でも同じ動作をするソースコードタグ付けシステムです。
+	現時点ではシェルコマンドライン、nvi エディタ、web ブラウザ、
+	emacs エディタ,	elvis エディタに対応していて、
+	言語は C, Yacc, Java に対応しています。</li>
+
+      <li><a name="acpi" href="../../projects/acpi/" shape="rect" id="acpi">ACPI on FreeBSD</a>:
+	FreeBSD で、ACPI を円滑に動かすためのプロジェクトです。</li>
+
+      <li><a name="binup" href="http://www.daemonology.net/freebsd-update/" shape="rect" id="binup">Binary
+	  Updater</a>: FreeBSD Update は、FreeBSD
+	用のバイナリセキュリティアップデートを自動的に構築、配布、
+	取得および適用する仕組みです。これによって、FreeBSD セキュリティブランチに、
+	ソースツリーを取得して再コンパイルせずに
+	(アップデートを構築するマシンはもちろん別ですが)、
+	簡単に追随できるようになります。
+	アップデートは暗号で署名されます。
+	また、バイナリ差分ツールを用いてバイナリ差分として配布されますので、
+	消費する帯域を劇的に減らします。</li>
+
+      <li><a name="cvsweb" href="cvsweb.html" shape="rect" id="cvsweb">CVSweb</a>:
+        CVS リポジトリ用の WWW インタフェースです。
+        ブラウザを使って非常に手軽な方法でファイル階層を閲覧し、
+        各ファイルの修正履歴を見ることができます。</li>
+
+      <li><a name="tetintegration" href="http://wiki.freebsd.org/TetIntegration" shape="rect" id="tetintegration">TET
+	Integration</a>: <a href="http://www.opengroup.org/" shape="rect">The Open Group</a> が提供する
+	Test Execution Toolkit は、
+	オープンソースの軽量化テストの実行フレームワークで、分散テストに対応しています。
+	このプロジェクトは、TET や TET ベースのオープンソースの標準準拠テストスィート
+	(VSX-PCTS, VSC-Lite, VSTH-Lite, VSW5 など)
+	の FreeBSD における利用について調べています。
+	</li>
+</ul>
+
+</div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="../search/index-site.html">サイトマップ</a> |
+  <a href="../copyright/">知的財産権について</a> | (C) 1995〓2017 The FreeBSD Project.
+  All rights reserved.</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

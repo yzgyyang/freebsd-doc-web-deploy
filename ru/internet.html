@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="koi8-r"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>О работе FreeBSD в сетях</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=koi8-r" />
+    <link rel="shortcut icon" href="./../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="./../layout/css/fixed.css?20130112" type="text/css" />
+    <script type="text/javascript" src="./../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Header And Logo</h2>
+            <div id="headerlogoleft">
+              <a href="." title="FreeBSD">
+                <img src="./../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <div class="frontdonateroundbox">
+                <div class="frontdonatetop">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+                <div class="frontdonatecontent">
+                  <a href="https://www.FreeBSDFoundation.org/donate/">Donate to FreeBSD</a>
+                </div>
+                <div class="frontdonatebot">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+              </div>
+              <h2 class="blockhide">Peripheral Links</h2>
+              <div id="searchnav">
+                <ul id="searchnavlist"></ul>
+              </div>
+              <div id="search">
+                <form method="get" id="search" action="https://duckduckgo.com/">
+                  <h2 class="blockhide">
+                    <label for="words">Поиск</label>
+                  </h2>
+                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
+                  <input type="hidden" name="ka" value="v" />
+                  <input type="hidden" name="kt" value="v" />
+                  <input type="hidden" name="kh" value="1" />
+                  <input type="hidden" name="kj" value="r2" />
+                  <input id="words" name="q" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="Поиск" />
+                  <span> </span>
+                  <input id="submit" name="submit" type="submit" value="Поиск" />
+                </form>
+              </div>
+            </div>
+          </div>
+          <h2 class="blockhide">Site Navigation</h2>
+          <div id="menu">
+            <ul class="first">
+              <li>
+                <a href="./">На главную</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="./about.html">О FreeBSD</a>
+                <ul>
+                  <li>
+                    <a href="./projects/newbies.html">Введение</a>
+                  </li>
+                  <li>
+                    <a href="./features.html">Возможности</a>
+                  </li>
+                  <li>
+                    <a href="./../advocacy/">Адвокатура</a>
+                  </li>
+                  <li>
+                    <a href="./../marketing/">Маркетинг</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="./where.html">Получение FreeBSD</a>
+                <ul>
+                  <li>
+                    <a href="./releases/">Информация о релизах</a>
+                  </li>
+                  <li>
+                    <a href="./releng/">Информация о подготовке релизов</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="./docs.html">Документация</a>
+                <ul>
+                  <li>
+                    <a href="./../doc/ru_RU.KOI8-R/books/faq/">Часто задаваемые вопросы</a>
+                  </li>
+                  <li>
+                    <a href="./../doc/ru_RU.KOI8-R/books/handbook/">Руководство пользователя</a>
+                  </li>
+                  <li>
+                    <a href="./../doc/ru_RU.KOI8-R/books/porters-handbook">Руководство портера</a>
+                  </li>
+                  <li>
+                    <a href="./../doc/en_US.ISO8859-1/books/developers-handbook">Руководство разработчика</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/man.cgi">Страницы справочника</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="./community.html">Сообщество</a>
+                <ul>
+                  <li>
+                    <a href="./community/mailinglists.html">Списки рассылки</a>
+                  </li>
+                  <li>
+                    <a href="http://forums.freebsd.org">Форумы</a>
+                  </li>
+                  <li>
+                    <a href="./usergroups.html">Группы пользователей</a>
+                  </li>
+                  <li>
+                    <a href="./events/events.html">События</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="./projects/index.html">Разработка</a>
+                <ul>
+                  <li>
+                    <a href="http://wiki.FreeBSD.org/IdeasPage">Идеи для проекта</a>
+                  </li>
+                  <li>
+                    <a href="http://svn.FreeBSD.org/viewvc/base/">SVN репозиторий</a>
+                  </li>
+                  <li>
+                    <a href="http://cvsweb.FreeBSD.org">CVS репозиторий</a>
+                  </li>
+                  <li>
+                    <a href="http://p4web.FreeBSD.org">Perforce репозиторий</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="./support.html">Поддержка</a>
+                <ul>
+                  <li>
+                    <a href="./commercial/commercial.html">Коммерческие предложения</a>
+                  </li>
+                  <li>
+                    <a href="./security/">Информация о безопасности</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/query-pr-summary.cgi">Сообщения об ошибках</a>
+                  </li>
+                  <li>
+                    <a href="./send-pr.html">Отправить сообщение об ошибке</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="http://www.freebsdfoundation.org/">Фонд</a>
+                <ul>
+                  <li>
+                    <a href="http://www.freebsdfoundation.org/donate/">Пожертвования</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Навигация по разделу</h2>
+              <ul>
+                <li>
+                  <a href="./about.html">О FreeBSD</a>
+                </li>
+                <li>
+                  <a href="./features.html">Возможности</a>
+                </li>
+                <li>
+                  <a href="./applications.html">Приложения</a>
+                </li>
+                <li>
+                  <a href="./internet.html">Работа в сетях</a>
+                </li>
+                <li>
+                  <a href="./../advocacy/">Адвокатура</a>
+                </li>
+                <li>
+                  <a href="./../marketing/">Маркетинг</a>
+                </li>
+                <li>
+                  <a href="./../administration.html">Администрация</a>
+                </li>
+                <li>
+                  <a href="./news/newsflash.html">Новости</a>
+                </li>
+                <li>
+                  <a href="./events/events.html">События</a>
+                </li>
+                <li>
+                  <a href="./news/press.html">Пресса</a>
+                </li>
+                <li>
+                  <a href="./../multimedia/multimedia.html">Прочие СМИ</a>
+                </li>
+                <li>
+                  <a href="./art.html">Иллюстрации</a>
+                </li>
+                <li>
+                  <a href="./logo.html">Логотип</a>
+                </li>
+                <li>
+                  <a href="./donations/">Пожертвования</a>
+                </li>
+                <li>
+                  <a href="./copyright/">Юридические замечания</a>
+                </li>
+                <li>
+                  <a href="./../privacy.html">Политика конфиденциальности</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap"><h1>О работе FreeBSD в сетях</h1>
+
+  <h2>FreeBSD предназначена для работы в Internet</h2>
+
+    <p>В поставку FreeBSD включен стек протоколов TCP/IP от 4.4BSD,
+      который признается многими <i>эталонной</i> реализацией программного
+      обеспечения TCP/IP, что позволяет считать FreeBSD идеальным решением
+      для работы сетевых приложений и Internet.</p>
+
+  <h2>FreeBSD поддерживает стандартные
+    протоколы TCP/IP.</h2>
+
+    <p>Как и большинство систем UNIX(R), операционная система FreeBSD
+      позволит вам </p>
+
+    <ul>
+      <li>Организовать совместное использование файлов с помощью NFS</li>
+
+      <li>Распространять информацию по сети с помощью NIS</li>
+
+      <li>Осуществлять дистанционный вход в систему</li>
+
+      <li>Осуществлять дистанционное управление и конфигурирование
+        по SNMP</li>
+
+      <li>Передавать файлы по протоколу FTP</li>
+
+      <li>Организовать службу имен Internet с помощью DNS/BIND</li>
+
+      <li>Маршрутизировать пакеты между многими интерфейсами, включая
+        каналы PPP и SLIP</li>
+
+      <li>Использовать службы широковещательной передачи (MBONE)</li>
+    </ul>
+
+    <p>С помощью поставляемого вместе с системой программного обеспечения
+      FreeBSD позволяет вам превратить ваш PC в сервер World Wide Web
+      или сервер новостей Usenet.  С помощью программного обеспечения SAMBA
+      вы даже можете использовать файловые системы или принтеры совместно с
+      машинами Win95 и NT и, с помощью поставляемого аутентификационного
+      даемона PCNFS, можете поддерживать машины, использующие PC/NFS.
+      FreeBSD также поддерживает работы в сетях Appletalk и Novell как в
+      качестве клиента, так и сервера (с помощью <a href="http://www.netcon.com/" shape="rect">дополнительного коммерческого
+      программного обеспечения</a>), что делает ее настоящим сетевым решением
+      для "Intranet".</p>
+
+    <p>FreeBSD также поддерживает такие расширения протокола TCP, как
+      высокопроизводительное расширение по стандарту <a href="http://www.cis.ohio-state.edu/htbin/rfc/rfc1323.html" shape="rect">RFC-1323</a>,
+      и расширение для транзакций по стандарту <a href="http://www.cis.ohio-state.edu/htbin/rfc/rfc1644.html" shape="rect">RFC-1644</a>,
+      плюс протоколы SLIP и dial-on-demand PPP.  Эта операционная система
+      может удовлетворить запросы как обычного домашнего пользователя, так
+      и администратора корпоративной сети.</p>
+
+  <h2>Работа FreeBSD в сети отличается высокой
+    производительностью и стабильностью.</h2>
+
+    <p>Если вам нужна надёжная платформа для сервера Internet, дающая лучшую
+      производительность при высокой нагрузке, остановите свой выбор на
+      FreeBSD.  Вот список всего лишь несколько компаний, использующих
+      FreeBSD в своей повседневной работе:</p>
+
+    <ul>
+        <li>Walnut Creek CDROM поддерживает один из наиболее популярных
+	  FTP серверов в интернет, ftp.cdrom.com, работающий только на
+	  FreeBSD много лет. Это был один сервер FreeBSD, поддерживающий
+	  6000 соединений и способный передавать более 30 терабайт
+	  (в июне 1999; да, <i>терабайт</i>!) файлов каждый месяц более
+	  10 миллионам человек.</li>
+
+      <li>Компания <a href="http://www.yahoo.com/" shape="rect">Yahoo Inc.</a>, являющаяся
+        создателем уникального каталога ресурсов Internet, обслуживает
+        множество ежедневных запросов о информации в World Wide Web.  Yahoo,
+        как и другие компании, дающие свою рекламу в каталоге Yahoo, при
+        построении надежных и всегда доступных веб-серверов полагаются на
+        FreeBSD.</li>
+
+	<li><a href="http://www.netcraft.com/" shape="rect">Netcraft</a> это ведущие
+	  исследователи использования программного обеспечения веб серверов
+	  в интернет. Они используют FreeBSD и Apache для поддержки своего
+	  сайта и FreeBSD/Perl для сбора данных из интернет.
+	</li>
+
+      <li>Если этого вам не достаточно, посетите нашу <a href="./gallery/gallery.html" shape="rect">Галерею</a> пользователей,
+        довольных FreeBSD.</li>
+    </ul>
+
+    <p>FreeBSD является идеальной платформой для этих и других служб
+      Internet:</p>
+
+    <ul>
+      <li>WWW-служба для внутренних нужд компании или представительства в
+        Internet</li>
+
+      <li>Служба прокси-доступа к Internet</li>
+
+      <li>Служба общедоступных серверов FTP</li>
+
+      <li>Корпоративные службы доступа к файлам, печати и почты</li>
+    </ul>
+
+    <p><a href="./ports/index.html" shape="rect">Коллекция портов</a> FreeBSD содержит
+      готовое к использованию программное обеспечение, позволяющее легко
+      создать ваш сервер Internet.</p>
+
+  <h2>Высокая производительность <em>и</em>
+    безопасность.</h2>
+
+    <p>Разработчики FreeBSD заботятся о безопасности не в меньшей
+      мере, чем о производительности.  В ядро FreeBSD наряду с возможностью
+      организации брандмауэра, включена, например, служба организации шлюзов
+      IP.  Если вы помещаете сервер вашей фирмы в Internet, любой компьютер
+      с установленной FreeBSD может выступать в роли
+      межсетевого экрана для их защиты от вторжения извне.</p>
+
+    <p>Криптографическое программное обеспечение, оболочки, обеспечивающие
+      секретность, система Kerberos, шифрование передаваемых данных и
+      поддержка протокола secure RPC также могут быть доступны (это касается
+      законодательных ограничений на экспорт подобного программного
+      обеспечения).</p>
+
+    <p>Более того, команда FreeBSD активно сотрудничает в области обнаружения
+      и предотвращения нарушений безопасности и оформления соответствующих
+      рекомендаций с <a href="mailto:security-officer@FreeBSD.ORG" shape="rect">офицером
+      безопасности</a> и Группой Оперативного Реагирования по безопасности
+      Компьютерных систем (Computer Emergency Response Team)
+      (<a href="http://www.cert.org/" shape="rect">CERT</a>).</p>
+
+  <h2>Что говорят эксперты . . .</h2>
+
+    <p><i>``Похоже, что FreeBSD ... предоставляет самый надежный и
+      полноценный стек протоколов TCP/IP из существующих ...''</i></p>
+
+    <div align="right"><p>---Майкл О'Брайен (Michael O'Brien),
+      <i>SunExpert </i> Август 1996 volume 7 number 8.</p></div>
+
+</div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="./search/index-site.html">Карта сайта</a> |
+  <a href="./copyright/">Условия использования</a> | © 1995-2014
+  Проект FreeBSD. Все права защищены.</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

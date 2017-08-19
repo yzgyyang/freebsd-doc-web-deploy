@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>Gestión de red de FreeBSD</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="shortcut icon" href="./../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="./../layout/css/fixed.css?20130112" type="text/css" />
+    <script type="text/javascript" src="./../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Cabecera y Logo</h2>
+            <div id="headerlogoleft">
+              <a href="." title="FreeBSD">
+                <img src="./../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <h2 class="blockhide">Enlaces externos</h2>
+              <div id="SEARCHNAV">
+                <ul id="SEARCHNAVLIST">
+                  <li>
+                    <a href="./../donations/" title="Donaciones">Donaciones</a>
+                  </li>
+                  <li class="last-child">
+                    <a href="./mailto.html" title="Contactar">Contactar</a>
+                  </li>
+                </ul>
+              </div>
+              <div id="SEARCH">
+                <form action="//www.FreeBSD.org/cgi/search.cgi" method="get">
+                  <div>
+                    <h2 class="blockhide">
+                      <label for="WORDS">Buscar</label>
+                    </h2>
+                    <div>
+                      <input type="hidden" name="max" value="25" />
+                      <input type="hidden" name="source" value="www" />
+                      <input id="words" name="words" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="Buscar" />
+                      <span> </span>
+                      <input id="submit" name="submit" type="submit" value="Buscar" />
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div id="topnav">
+            <ul id="topnavlist">
+              <li>
+                <a href="./" title="Inicio">Inicio</a>
+              </li>
+              <li>
+                <a href="./about.html" title="Sobre">Sobre</a>
+              </li>
+              <li>
+                <a href="./where.html" title="Descargar">Descargar</a>
+              </li>
+              <li>
+                <a href="./docs.html" title="Documentación">Documentación</a>
+              </li>
+              <li>
+                <a href="./community.html" title="Comunidad">Comunidad</a>
+              </li>
+              <li>
+                <a href="./projects/index.html" title="Desarrollo">Desarrollo</a>
+              </li>
+              <li>
+                <a href="./support.html" title="Soporte">Soporte</a>
+              </li>
+              <li>
+                <a href="http://www.freebsdfoundation.org/" title="Fundación FreeBSD">Fundación</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Navegación por secciones</h2>
+              <ul>
+                <li>
+                  <a href="./about.html">Sobre</a>
+                </li>
+                <li>
+                  <a href="./features.html">Características</a>
+                </li>
+                <li>
+                  <a href="./applications.html">Aplicaciones</a>
+                </li>
+                <li>
+                  <a href="./internet.html">Interconexión</a>
+                </li>
+                <li>
+                  <a href="./../advocacy/">Proselitismo</a>
+                </li>
+                <li>
+                  <a href="./../marketing/">Marketing</a>
+                </li>
+                <li>
+                  <a href="./../administration.html">Administración</a>
+                </li>
+                <li>
+                  <a href="./news/newsflash.html">Noticias</a>
+                </li>
+                <li>
+                  <a href="./../events/events.html">Acontecimientos</a>
+                </li>
+                <li>
+                  <a href="./news/press.html">Prensa</a>
+                </li>
+                <li>
+                  <a href="./../art.html">Ilustraciones</a>
+                </li>
+                <li>
+                  <a href="./../logo.html">Logo</a>
+                </li>
+                <li>
+                  <a href="./../donations/">Donaciones</a>
+                </li>
+                <li>
+                  <a href="./copyright/">Copyright</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap"><h1>Gestión de red de FreeBSD</h1>
+
+    <h2>FreeBSD se diseñó para Internet</h2>
+
+      <p>FreeBSD incluye lo que muchos consideran la
+	<i>implementacón de referencia</i> de TCP/IP,
+	la pila 4.4BSD del protocolo TCP/IP, haciendolo ideal para
+	aplicaciones de red e Internet.  FreeBSD 7.0 también
+	incluye la implementacón de referencia del protocolo
+	SCTP siendo así una plataforma ideal para servicios
+	telefónicos y otras aplicaciones de flujo de datos.</p>
+
+      <h2>FreeBSD soporta los protocolos
+	estándar de TCP/IP.</h2>
+
+      <p>Como muchos sistemas UNIX®, el sistema operativo FreeBSD
+	permite</p>
+
+      <ul>
+	<li>Servir contenido estático y dinámico por HTTP</li>
+
+	<li>Compartir ficheros mediante NFS</li>
+
+	<li>Distribución de información de red por NIS</li>
+
+	<li>Gestionar servicio de correo por SMTP, IMAP y POP3</li>
+
+	<li>Soporte de accesos remotos por SSH y rsh</li>
+
+	<li>Gestión y configuración remota via SNMP</li>
+
+	<li>Servidor de ficheros FTP</li>
+
+	<li>Resolución de nombres de máquina por DNS/BIND</li>
+
+	<li>Encaminamiento de paquetes entre múltiples interfaces,
+	  incluyendo líneas PPP y SLIP</li>
+
+	<li>Servicios IP Multicast (MBONE)</li>
+
+	<li>Gestionar servicios de IPv6</li>
+      </ul>
+
+      <p>FreeBSD permite convertir un PC en un servidor www, servidor de
+	correo o servidor de noticias, gracias al software que incluye.  Mediante
+	SAMBA (que está incluido en el sistema) puede compartir discos e
+	impresoras con máquinas Microsoft® Windows®,
+	además de soportar máquinas por PC/NFS gracias al
+	dæmon de autentificación PCNFS.  FreeBSD también
+	soporta los protocolos de red Appletalk y Novell en modo
+	cliente/servidor (mediante un paquete comercial opcional), todo lo
+	cual hace de este sistema una verdadera solución de servicios
+	Intranet.</p>
+
+      <p>FreeBSD también gestiona extensiones TCP como la
+	extensión de alto rendimiento
+	<a href="http://www.ietf.org/rfc/rfc1323.txt" shape="rect">RFC-1323</a>,
+	además de SLIP y PPP bajo demanda.  Es un sistema que responde a
+	las expectativas tanto del usuario doméstico como del
+	administrador de sistemas empresariales.</p>
+
+	<h2>El sistema de red de FreeBSD es
+	rápido y estable.</h2>
+
+	<p>Si necesita una plataforma para servicios de Internet que ofrezca el
+	  mejor rendimiento bajo fuertes cargas de trabajo, considere FreeBSD.
+	  Éstas son solamente algunas de las compañías
+	  que usan FreeBSD diariamente:</p>
+
+	<ul>
+	  <li>Walnut Creek CDROM mantuvo en funcionamiento uno de los
+	    servidores FTP más populares de Internet, ftp.cdrom.com,
+	    soportando 6000 conexiones simultáneas.  Su servidor es una
+	    única máquina con FreeBSD transfiriendo más
+	    de 30 terabytes (en Junio de 1999).  Sí, son <i>terabytes</i>,
+	    cada mes a más de 10 millones de personas.</li>
+
+	  <li><a href="http://www.yahoo.com/" shape="rect">Yahoo Inc.</a> gestiona el
+	    índice de Internet más usado, sirviendo enormes
+	    cantidades de información diariamente a los usuarios de
+	    Internet.  Yahoo, y las compañías que anuncian en
+	    Yahoo, utilizan FreeBSD para mantener servidores web estables y
+	    rápidos.</li>
+
+	  <li><a href="http://www.netcraft.com/" shape="rect">Netcraft</a> es el
+	    investigador principal del uso de software para servidores web en
+	    Internet.   Utilizan FreeBSD y Apache para accionar su sitio Web,
+	    y FreeBSD/Perl para toda su colección de datos sobre
+	    Internet.</li>
+	</ul>
+
+	<p>FreeBSD es la plataforma ideal para estos y otros servicios de
+	  Internet:</p>
+
+	<ul>
+	  <li>Servicio empresarial o mundial de WWW</li>
+
+	  <li>Servicio de Proxy WWW</li>
+
+	  <li>Servicio de FTP anónimo</li>
+
+	  <li>Servicios de ficheros, impresión y correo</li>
+
+	  <li>Router, cortafuegos y sistemas de detecció de
+	    intrusos</li>
+	</ul>
+
+	<p>La <a href="./../ports/index.html" shape="rect">Colección de Ports</a>
+	  contiene software listo para funcionar que hace más
+	  fácil la puesta en marcha de los servidores de Internet.</p>
+
+      <h2>Alto rendimiento <em>y</em> seguridad.</h2>
+
+	<p>El equipo de desarrollo de FreeBSD está tan comprometido
+	  con la seguridad como con el rendimiento.  FreeBSD incluye en su
+	  kernel el soporte de firewall IP, además de otros servicios
+	  como gateways e IP proxy.  Si se conectan los servidores corporativos
+	  en Internet, cualquier computadora funcionando con FreeBSD puede
+	  actuar como firewall de red para protegerlos de ataques externos.</p>
+
+	<p>También hay disponible software criptográfico,
+	  shells seguras, Kerberos, cifrado punto a punto y RPC
+	  seguro.</p>
+
+	<p>Además, el equipo de FreeBSD está continuamente
+	  investigando y comunicando informes de seguridad con un
+	  <a href="mailto:security-officer@FreeBSD.org" shape="rect">responsable de seguridad</a>
+	  y el Computer Emergency Response Team
+	  (<a href="http://www.cert.org/" shape="rect">CERT</a>).</p>
+
+      <h2>Qué dicen los expertos sobre FreeBSD </h2>
+
+	<p><i>"FreeBSD ... provides what is probably the most robust and
+	capable TCP/IP stack in existence ..."</i></p>
+
+	<div align="right"><p>---Michael O'Brien, <i>SunExpert </i> August 1996
+	    volume 7 number 8.</p></div>
+
+  </div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="./search/index-site.html">Mapa del sitio</a> |
+  <a href="./copyright/">Noticias del Copyright</a> | © 1995-2010 El Proyecto FreeBSD.
+  Quedan reservados todos los derechos.</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

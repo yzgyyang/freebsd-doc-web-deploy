@@ -1,0 +1,792 @@
+<?xml version="1.0" encoding="euc-jp"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>FreeBSD News Flash</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=euc-jp" />
+    <link rel="shortcut icon" href="../../../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="../../../layout/css/fixed.css?20130112" type="text/css" />
+    <script type="text/javascript" src="../../../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Header And Logo</h2>
+            <div id="headerlogoleft">
+              <a href="../.." title="FreeBSD">
+                <img src="../../../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <div class="frontdonateroundbox">
+                <div class="frontdonatetop">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+                <div class="frontdonatecontent">
+                  <a href="https://www.FreeBSDFoundation.org/donate/">FreeBSD への寄付</a>
+                </div>
+                <div class="frontdonatebot">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+              </div>
+              <h2 class="blockhide">Peripheral Links</h2>
+              <div id="searchnav">
+                <ul id="searchnavlist"></ul>
+              </div>
+              <div id="search">
+                <form method="get" id="search" action="https://duckduckgo.com/">
+                  <h2 class="blockhide">
+                    <label for="words">検索</label>
+                  </h2>
+                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
+                  <input type="hidden" name="ka" value="v" />
+                  <input type="hidden" name="kt" value="v" />
+                  <input type="hidden" name="kh" value="1" />
+                  <input type="hidden" name="kj" value="r2" />
+                  <input id="words" name="q" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="検索" />
+                  <span></span>
+                  <input id="submit" name="submit" type="submit" value="検索" />
+                </form>
+              </div>
+            </div>
+          </div>
+          <h2 class="blockhide">Site Navigation</h2>
+          <div id="menu">
+            <ul class="first">
+              <li>
+                <a href="../../">ホーム</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../about.html">FreeBSD とは</a>
+                <ul>
+                  <li>
+                    <a href="../../projects/newbies.html">FreeBSD が初めてという方へ</a>
+                  </li>
+                  <li>
+                    <a href="../../features.html">特徴</a>
+                  </li>
+                  <li>
+                    <a href="../../../advocacy/">プロモーション活動</a>
+                  </li>
+                  <li>
+                    <a href="../../../marketing/">マーケティング活動</a>
+                  </li>
+                  <li>
+                    <a href="../../../privacy.html">プライバシーポリシー</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../where.html">FreeBSD の入手</a>
+                <ul>
+                  <li>
+                    <a href="../../releases/">リリース情報</a>
+                  </li>
+                  <li>
+                    <a href="../../../releng/">リリースエンジニアリング</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../docs.html">ドキュメント</a>
+                <ul>
+                  <li>
+                    <a href="../../../doc/ja_JP.eucJP/books/faq/">FAQ</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/ja_JP.eucJP/books/handbook/">ハンドブック</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/ja_JP.eucJP/books/porters-handbook/">port 作成者のためのハンドブック</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/en_US.ISO8859-1/books/developers-handbook/">開発者のためのハンドブック</a>
+                  </li>
+                  <li>
+                    <a href="../../../cgi/man.cgi">マニュアルページ</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/en_US.ISO8859-1/books/fdp-primer">新しい貢献者のためのドキュメンテーションプロジェクト入門</a>
+                  </li>
+                  <li>
+                    <a href="../../docs/books.html">すべての Books と Articles</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../community.html">コミュニティ</a>
+                <ul>
+                  <li>
+                    <a href="../../community/mailinglists.html">メーリングリスト</a>
+                  </li>
+                  <li>
+                    <a href="https://forums.FreeBSD.org">フォーラム</a>
+                  </li>
+                  <li>
+                    <a href="../../usergroups.html">ユーザグループ</a>
+                  </li>
+                  <li>
+                    <a href="../../events/events.html">イベント</a>
+                  </li>
+                  <li>
+                    <a href="http://serverfault.com/questions/tagged/freebsd">Q&amp;A (外部)</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../projects/index.html">開発</a>
+                <ul>
+                  <li>
+                    <a href="https://wiki.FreeBSD.org/IdeasPage">プロジェクトアイディア</a>
+                  </li>
+                  <li>
+                    <a href="https://svnweb.FreeBSD.org">SVN リポジトリ</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/freebsd">GIT リポジトリ</a>
+                  </li>
+                  <li>
+                    <a href="http://p4web.FreeBSD.org">Perforce リポジトリ</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../support.html">サポート</a>
+                <ul>
+                  <li>
+                    <a href="../../commercial/commercial.html">ベンダ</a>
+                  </li>
+                  <li>
+                    <a href="../../security/">セキュリティ情報</a>
+                  </li>
+                  <li>
+                    <a href="https://bugs.freebsd.org/search/">障害報告</a>
+                  </li>
+                  <li>
+                    <a href="https://www.FreeBSD.org/ja/support.html">障害報告の提出</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="https://www.freebsdfoundation.org/">財団</a>
+                <ul>
+                  <li>
+                    <a href="https://www.freebsdfoundation.org/donate/">寄付</a>
+                  </li>
+                  <li>
+                    <a href="../../../donations/index.html#systems">ハードウェアの寄贈</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Section Navigation</h2>
+              <ul>
+                <li>
+                  <a href="../../about.html">FreeBSD とは</a>
+                </li>
+                <li>
+                  <a href="../../features.html">特徴</a>
+                </li>
+                <li>
+                  <a href="../../applications.html">アプリケーション</a>
+                </li>
+                <li>
+                  <a href="../../../advocacy/">プロモーション活動</a>
+                </li>
+                <li>
+                  <a href="../../../marketing/">マーケティング活動</a>
+                </li>
+                <li>
+                  <a href="../../../administration.html">担当者一覧</a>
+                </li>
+                <li>
+                  <a href="../../news/newsflash.html">ニュース</a>
+                </li>
+                <li>
+                  <a href="../../events/events.html">イベント</a>
+                </li>
+                <li>
+                  <a href="../../news/press.html">ニュース記事</a>
+                </li>
+                <li>
+                  <a href="../../../multimedia/multimedia.html">マルチメディア</a>
+                </li>
+                <li>
+                  <a href="../../../art.html">画像</a>
+                </li>
+                <li>
+                  <a href="../../../logo.html">ロゴ</a>
+                </li>
+                <li>
+                  <a href="../../../donations/">寄付・寄贈</a>
+                </li>
+                <li>
+                  <a href="../../copyright/">法律上の注意事項</a>
+                </li>
+                <li>
+                  <a href="../../../privacy.html">プライバシーポリシー</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap">
+            <h1>2001 年 12 月</h1>
+            <ul>
+              <li>
+                <p><a name="event20011231:0" id="event20011231:0"></a><b>2001 年 12 月 31 日:</b> 今年は <a href="http://www.usenix.org">Usenix
+	      Association</a> により、
+	    <a href="http://www.usenix.org/events/bsdcon02/">BSDCon</a>
+	    が開催されます。
+	    カンファレンスは 2 月 11 日から 14 日にかけて
+	    サンフランシスコにて行われます。
+	    FreeBSD プロジェクトはこのカンファレンスに積極的に関与
+	    します。
+	    FreeBSD プロジェクト一般や、特定の技術を学ぶことに
+	    興味のある人は是非参加してください。</p>
+              </li>
+              <li>
+                <p><a name="event20011228:0" id="event20011228:0"></a><b>2001 年 12 月 28 日:</b> 新コミッター就任: <a href="mailto:ambrisko@FreeBSD.org">Doug Ambrisko</a>
+		(Aironet)</p>
+              </li>
+              <li>
+                <p><a name="event20011227:0" id="event20011227:0"></a><b>2001 年 12 月 27 日:</b> 新コミッター就任: <a href="mailto:skv@FreeBSD.org">Sergey Skvortsov</a>
+		(Ports)</p>
+              </li>
+              <li>
+                <p><a name="event20011221:0" id="event20011221:0"></a><b>2001 年 12 月 21 日:</b> ソースツリーの FreeBSD-stable ブランチは、FreeBSD 4.5 の
+	    リリースの準備のためにフリーズされました。
+	    これは、-stable ソースツリーにコミットするにはまず
+	    リリースエンジニアリングチームの許可が必要となることを
+	    意味します。
+	    4.5 の "出荷" 日は 2002 年 1 月 20 日を予定しています。</p>
+              </li>
+              <li>
+                <p><a name="event20011221:1" id="event20011221:1"></a><b>2001 年 12 月 21 日:</b> 2001 年 11 月の開発進捗レポートが公開されました。
+            詳しくは<a href="../../../news/status/status.html">進捗レポートのウェブページ</a>をご覧ください。</p>
+              </li>
+              <li>
+                <p><a name="event20011221:2" id="event20011221:2"></a><b>2001 年 12 月 21 日:</b> D J Hawkey Jr. により
+	    <a href="http://www.visi.com/~hawkeyd/freebsd-backports.html">
+	      FreeBSD Backports Collection</a>
+	    という新しいサイトが作成されました。
+	    ここには FreeBSD-stable には含まれるが古いリリース
+	    の FreeBSD にはマージされていないパッチが集められています。
+	    これらのパッチの広範なテストを行うことにより、
+	    それらが昔の FreeBSD リリースにコミットされるかも
+	    しれません。
+	    もしあなたのサイトが FreeBSD の古いリリースに
+	    依存しており、何らかの理由により最新のリリースに
+	    更新することを望まないようなら、このサイトを頻繁に
+	    訪れることをおすすめします。</p>
+              </li>
+              <li>
+                <p><a name="event20011220:0" id="event20011220:0"></a><b>2001 年 12 月 20 日:</b> 新コミッター就任: <a href="mailto:mbr@FreeBSD.org">Martin Blapp</a>
+            (Ports)</p>
+              </li>
+              <li>
+                <p><a name="event2001127:0" id="event2001127:0"></a><b>2001 年 12 月 7 日:</b> <a href="http://bsdfreak.org">BSDFreak</a> は、
+            BSD オペレーティングシステムにまつわるチュートリアルや記事、
+            日記などを、ユーザの視点から提供する新しいサイトです。</p>
+              </li>
+            </ul>
+            <h1>2001 年 11 月</h1>
+            <ul>
+              <li>
+                <p><a name="event20011130:0" id="event20011130:0"></a><b>2001 年 11 月 30 日:</b> 新コミッター就任:
+            <a href="mailto:mwlucas@FreeBSD.org">Michael Lucas</a>
+            (ドキュメンテーションプロジェクト)</p>
+              </li>
+              <li>
+                <p><a name="event20011128:0" id="event20011128:0"></a><b>2001 年 11 月 28 日:</b> 新コミッター就任: <a href="mailto:pdeuskar@FreeBSD.org">Prafulla
+              Deuskar</a> (Intel ギガビットデバイスドライバ担当)</p>
+              </li>
+              <li>
+                <p><a name="event20011125:0" id="event20011125:0"></a><b>2001 年 11 月 25 日:</b> 新コミッター就任: <a href="mailto:yoichi@FreeBSD.org">Yoichi
+	     NAKAYAMA</a> (Ports 担当)</p>
+              </li>
+              <li>
+                <p><a name="event20011123:0" id="event20011123:0"></a><b>2001 年 11 月 23 日:</b> <a href="mailto:des@FreeBSD.org">Dag-Erling Smørgrav</a>
+	    氏が <a href="../../../doc/ja_JP.eucJP/articles/problem-reports/article.html">
+              FreeBSD 障害報告</a>の書き方に関する記事を書いています。</p>
+              </li>
+              <li>
+                <p><a name="event20011120:0" id="event20011120:0"></a><b>2001 年 11 月 20 日:</b> 新コミッター就任: <a href="mailto:znerd@FreeBSD.org">Ernst
+             de Haan</a> (Ports 担当)</p>
+              </li>
+              <li>
+                <p><a name="event20011120:1" id="event20011120:1"></a><b>2001 年 11 月 20 日:</b> FreeBSD コアチームは Bugmeister (バグ処理担当)
+            に <a href="mailto:des@FreeBSD.org">Dag-Erling Smørgrav</a>
+            氏を任命しました。</p>
+              </li>
+              <li>
+                <p><a name="event20011114:0" id="event20011114:0"></a><b>2001 年 11 月 14 日:</b> 新コミッター就任: <a href="mailto:pat@FreeBSD.org">Patrick
+              Li</a> (Ports 担当)</p>
+              </li>
+              <li>
+                <p><a name="event20011113:0" id="event20011113:0"></a><b>2001 年 11 月 13 日:</b> 新コミッター就任:  <a href="mailto:cy@FreeBSD.org">Cy
+              Schubert</a> (Ports 担当)</p>
+              </li>
+              <li>
+                <p><a name="event2001116:0" id="event2001116:0"></a><b>2001 年 11 月 6 日:</b> 新コミッター就任:  <a href="mailto:anders@FreeBSD.org">Anders
+              Nordby</a> (Ports 担当)</p>
+              </li>
+              <li>
+                <p><a name="event2001113:0" id="event2001113:0"></a><b>2001 年 11 月 3 日:</b> 新コミッター就任: <a href="mailto:naddy@FreeBSD.org">Christian
+              Weisgerber</a> (Ports 担当)</p>
+              </li>
+              <li>
+                <p><a name="event2001113:1" id="event2001113:1"></a><b>2001 年 11 月 3 日:</b> ATA ドライバの作者である Soren Schmidt 氏は、
+            <a href="http://www.maxtor.com">Maxtor Corporation</a>
+            から厚意で寄贈された 160GB ATA ハードディスクを使い、
+            FreeBSD 5.0-CURRENT で対応されている新しい
+            ATA 規格にある 48 ビットアドレスモードの動作試験を行ないました。
+            その結果、コードは意図するとおりに安定動作していることが
+            確認されました。 このコードは -STABLE にも移植される予定です。</p>
+              </li>
+              <li>
+                <p><a name="event2001112:0" id="event2001112:0"></a><b>2001 年 11 月 2 日:</b> 新コミッター就任: <a href="mailto:nobutaka@FreeBSD.org">MANTANI
+	      Nobutaka</a> (Ports 担当)</p>
+              </li>
+              <li>
+                <p><a name="event2001112:1" id="event2001112:1"></a><b>2001 年 11 月 2 日:</b> 新コミッター就任: <a href="mailto:arr@FreeBSD.org">Andrew R.
+              Reiter</a> (SMPng, TrustedBSD 担当)</p>
+              </li>
+            </ul>
+            <h1>2001 年 10 月</h1>
+            <ul>
+              <li>
+                <p><a name="event20011030:0" id="event20011030:0"></a><b>2001 年 10 月 30 日:</b> "The FreeBSD Handbook, 2nd Edition" が書籍として出版されました。
+            これは
+            <a href="http://www.FreeBSD.org/docproj/">FreeBSD
+              Documentation Project</a> が製作した文書で、
+            <a href="http://www.freebsdmall.com">The FreeBSD Mall</a>
+            などで販売されています。
+            この版で更新された部分のリストは、編集担当者からの
+            <a href="http://docs.FreeBSD.org/cgi/getmsg.cgi?fetch=0+0+archive/2001/freebsd-announce/20011028.freebsd-announce">アナウンス</a>をご覧ください。
+            この本の ISBN コードは 1571763031 で、全部で 653 ページあります。</p>
+              </li>
+              <li>
+                <p><a name="event20011026:0" id="event20011026:0"></a><b>2001 年 10 月 26 日:</b> 新コミッター就任: <a href="mailto:matusita@FreeBSD.org">Makoto
+	      Matsushita</a> (リリース構築担当)</p>
+              </li>
+              <li>
+                <p><a name="event20011023:0" id="event20011023:0"></a><b>2001 年 10 月 23 日:</b> <a href="mailto:Bob@BGPBook.Com">Bob Van Valzah</a> 氏により、
+            <a href="http://docs.freebsd.org/doc/9.0-RELEASE/usr/share/doc/freebsd/en_US.ISO8859-1/articles/vinum/index.html">
+              障害に耐えるサーバとはどういうものか、
+              そして Vinum
+              を使ってそのようなサーバを構築する手順について</a>紹介する記事が
+            寄稿されました。</p>
+              </li>
+              <li>
+                <p><a name="event20011023:1" id="event20011023:1"></a><b>2001 年 10 月 23 日:</b> <a href="mailto:dfr@FreeBSD.org">Doug Rabson</a> 氏と
+          <a href="mailto:peter@FreeBSD.org">Peter Wemm</a> 氏は、
+            ここ数週間の間休まずに FreeBSD/ia64 移植版の作業を続けており、
+            今日、他のユーザがログインしていない状態でマルチユーザモードの
+            起動に成功したと報告がありました。
+            これは長く続く FreeBSD 移植作業における大きな一歩であり、
+            現在の作業の大部分は、
+            この移植作業によって明らかになったソースツリー上の問題点を
+            修正することに焦点があてられています。</p>
+              </li>
+              <li>
+                <p><a name="event20011019:0" id="event20011019:0"></a><b>2001 年 10 月 19 日:</b> ここ数カ月の間
+            <a href="mailto:jake@FreeBSD.org">Jake Burkholder</a> 氏と
+	    <a href="mailto:tmm@FreeBSD.org">Thomas Moestl</a> 氏により、
+            FreeBSD を UltraSparc に移植する作業が行なわれており、
+            10 月 18 日に初めてシングルユーザモードでの起動に成功しました。
+            シリアルコンソール上のログが
+            <a href="http://people.FreeBSD.org/~jake/tip.single_user">
+              http://people.FreeBSD.org/~jake/tip.single_user</a>
+            から参照できます。</p>
+              </li>
+              <li>
+                <p><a name="event20011017:0" id="event20011017:0"></a><b>2001 年 10 月 17 日:</b> 新コミッター就任: <a href="mailto:amorita@FreeBSD.org">Akio
+	      Morita</a> (PC98 担当)</p>
+              </li>
+              <li>
+                <p><a name="event2001107:0" id="event2001107:0"></a><b>2001 年 10 月 7 日:</b> <a href="mailto:benno@FreeBSD.org">Benno Rice</a> 氏により、
+            FreeBSD ローダを OpenFirmware に対応させるための巨大な修正パッチが
+            コミットされました。
+            これにより、ローダは Apple iMac 上から、
+            ネットワーク経由でカーネルをロード・実行することが可能になっています。</p>
+              </li>
+              <li>
+                <p><a name="event2001105:0" id="event2001105:0"></a><b>2001 年 10 月 5 日:</b> <a href="mailto:dfr@FreeBSD.org">
+              Doug Rabson</a> 氏および <a href="mailto:peter@FreeBSD.org">Peter
+              Wemm</a> 氏による数カ月の開発作業を経て、
+            FreeBSD/ia64 移植版を動作させる修正パッチがコミットされました。
+            また、このパッチによって実機での起動も可能になっています。</p>
+              </li>
+              <li>
+                <p><a name="event2001105:1" id="event2001105:1"></a><b>2001 年 10 月 5 日:</b> 新コミッター就任:
+            <a href="mailto:keramida@FreeBSD.org">Giorgos Keramidas</a>
+            (Docs 担当)</p>
+              </li>
+            </ul>
+            <h1>2001 年 9 月</h1>
+            <ul>
+              <li>
+                <p><a name="event2001918:0" id="event2001918:0"></a><b>2001 年 9 月 18 日:</b> 2001 年 8 月の開発進捗レポートが公開されました。
+            詳しくは<a href="../../../news/status/status.html">進捗レポートのウェブページ</a>をご覧ください。</p>
+              </li>
+              <li>
+                <p><a name="event2001910:0" id="event2001910:0"></a><b>2001 年 9 月 10 日:</b> 5.0 の延期の知らせを聞いた多くの人から、5.0 の開発予定を軌道に
+	    戻すのに何か手伝えることはないか、という問い合わせをもらいました。
+	    <a href="http://docs.FreeBSD.org/cgi/getmsg.cgi?fetch=4914+0+archive/2001/freebsd-announce/20010916.freebsd-announce">
+	      このメール</a> では 5.0 に向けてのすばらしいプロジェクト一覧と、
+	    どのようにして手伝うことができるかを説明しています。</p>
+              </li>
+            </ul>
+            <h1>2001 年 8 月</h1>
+            <ul>
+              <li>
+                <p><a name="event2001830:0" id="event2001830:0"></a><b>2001 年 8 月 30 日:</b> FreeBSD 5.0 は 2002 年 11 月に延期されました。
+	    Jordan からの
+	    <a href="http://docs.FreeBSD.org/cgi/getmsg.cgi?fetch=34983+0+archive/2001/freebsd-announce/20010902.freebsd-announce">アナウンス</a>
+	    を参照してください。</p>
+              </li>
+              <li>
+                <p><a name="event2001828:0" id="event2001828:0"></a><b>2001 年 8 月 28 日:</b> 新コミッター就任: <a href="mailto:robert@FreeBSD.org">Robert
+	    Drehmel</a></p>
+              </li>
+              <li>
+                <p><a name="event2001822:0" id="event2001822:0"></a><b>2001 年 8 月 22 日:</b> 新コミッター就任: <a href="mailto:petef@FreeBSD.org">Pete
+	    Fritchman</a> (Ports)</p>
+              </li>
+              <li>
+                <p><a name="event2001817:0" id="event2001817:0"></a><b>2001 年 8 月 17 日:</b> FreeBSD のメーリングリストに頻繁に貢献してくれている
+	    Annelise Anderson は新たな FreeBSD ユーザ向けの入門書
+	    "FreeBSD: An Open-Source Operating System for Your PC" を執筆
+	    しました。
+	    The Bit Tree Press から出版され、ISBN は 0971204500 となっています。
+	    <a href="http://mall.daemonnews.org">DaemonNews Mall</a>
+	    などから注文することが可能です。</p>
+              </li>
+              <li>
+                <p><a name="event2001816:0" id="event2001816:0"></a><b>2001 年 8 月 16 日:</b> <a href="../../../doc/en_US.ISO8859-1/books/handbook/index.html">
+	      ハンドブック</a> の
+	    <a href="../../../doc/en_US.ISO8859-1/books/handbook/install.html">FreeBSD のインストール</a>
+	    の節が大幅に改良・更新されました。
+	    新しいドキュメントはインストール作業のほぼ全ての段階の
+	    "スクリーンショット" を売り物にしており、インストールの各段階
+	    がどのようなことをカバーしているかがわかるようにテキストを
+	    追加しました。
+	    この成果の元となる作業は Randy Pratt によってなされました。</p>
+              </li>
+              <li>
+                <p><a name="event2001814:0" id="event2001814:0"></a><b>2001 年 8 月 14 日:</b> 新コミッター就任: <a href="mailto:fjoe@FreeBSD.org">Max Khon</a></p>
+              </li>
+              <li>
+                <p><a name="event200189:0" id="event200189:0"></a><b>2001 年 8 月 9 日:</b> 新コミッター就任: <a href="mailto:rpratt@FreeBSD.org">Randy
+            Pratt</a> (文書)</p>
+              </li>
+              <li>
+                <p><a name="event200189:1" id="event200189:1"></a><b>2001 年 8 月 9 日:</b> 進捗レポートの 2001 年 7 月号が登場しました。 詳しくは
+	    <a href="../../../news/status/status.html">進捗レポート Web ページ</a>
+	    をご覧下さい。</p>
+              </li>
+              <li>
+                <p><a name="event200188:0" id="event200188:0"></a><b>2001 年 8 月 8 日:</b> FreeBSD サイトの最新のニュースヘッドライン 10 件の RDF ファイル
+	    が登場しました。 URL は
+	    <a href="http://www.FreeBSD.org/news/news.rdf">http://www.FreeBSD.org/news/news.rdf</a>
+	    です。 このファイルを使うことによって、
+	    (<a href="http://daily.daemonnews.org/">Daily DaemonNews</a> や
+	    <a href="http://www.freebsddiary.org/newsfeeds.php">FreeBSD Diary</a> がやっているように)
+	    FreeBSD ニュースヘッドラインをあなたの Web サイトに掲載することや、
+	    <a href="http://apps.kde.com/na/2/info/id/999">KNewsTicker</a>
+	    などのアプリケーションを利用してあなたのデスクトップに
+	    表示させることができるようになります。</p>
+              </li>
+              <li>
+                <p><a name="event200187:0" id="event200187:0"></a><b>2001 年 8 月 7 日:</b> 西部オーストラリアの BSD ユーザグループである
+<a href="http://pandaemonium.newmillennium.net.au/">Pandaemoium</a>
+	    が <a href="../../support.html">サポート</a> ページに
+	    追加されました。</p>
+              </li>
+              <li>
+                <p><a name="event200186:0" id="event200186:0"></a><b>2001 年 8 月 6 日:</b> 新コミッター就任: <a href="mailto:logo@FreeBSD.org">Valentino
+            Vaschetto</a> (文書)</p>
+              </li>
+            </ul>
+            <h1>2001 年 7 月</h1>
+            <ul>
+              <li>
+                <p><a name="event2001730:0" id="event2001730:0"></a><b>2001 年 7 月 30 日:</b> <a href="handbook/">FreeBSD ハンドブック</a>の第二版がもうすぐ
+	    出来上がります。
+	    印刷された FreeBSD のドキュメントに貢献したい方は是非
+	    <a href="../docproj/handbook.html">タスクリスト</a>
+	    を見てください。</p>
+              </li>
+              <li>
+                <p><a name="event2001726:0" id="event2001726:0"></a><b>2001 年 7 月 26 日:</b> 新コミッター就任: <a href="mailto:mp@FreeBSD.org">Mark Peek</a></p>
+              </li>
+              <li>
+                <p><a name="event2001716:0" id="event2001716:0"></a><b>2001 年 7 月 16 日:</b> 新コミッター就任: <a href="mailto:bbraun@FreeBSD.org">Rob
+	      Braun</a></p>
+              </li>
+              <li>
+                <p><a name="event2001716:1" id="event2001716:1"></a><b>2001 年 7 月 16 日:</b> 新コミッター就任: <a href="mailto:zarzycki@FreeBSD.org">Dave
+	      Zarzycki</a></p>
+              </li>
+              <li>
+                <p><a name="event2001716:2" id="event2001716:2"></a><b>2001 年 7 月 16 日:</b> 新コミッター就任: <a href="mailto:mike@FreeBSD.org">Mike Barcroft</a></p>
+              </li>
+              <li>
+                <p><a name="event2001713:0" id="event2001713:0"></a><b>2001 年 7 月 13 日:</b> 新コミッター就任: <a href="mailto:chern@FreeBSD.org">Chern Lee</a>
+	    (文書)</p>
+              </li>
+            </ul>
+            <h1>2001 年 6 月</h1>
+            <ul>
+              <li>
+                <p><a name="event2001621:0" id="event2001621:0"></a><b>2001 年 6 月 21 日:</b> 新コミッター就任: <a href="mailto:brooks@FreeBSD.org">Brooks
+	      Davis</a> (ネットワーク、モバイル)</p>
+              </li>
+              <li>
+                <p><a name="event2001620:0" id="event2001620:0"></a><b>2001 年 6 月 20 日:</b> <a href="mailto:john@kozubik.com">John Kozubik</a> は
+	    <a href="../../../doc/en_US.ISO8859-1/articles/solid-state/index.html">
+	      How to use FreeBSD with solid state media (英語版)</a>
+	    という記事を寄稿してくれました。</p>
+              </li>
+              <li>
+                <p><a name="event2001617:0" id="event2001617:0"></a><b>2001 年 6 月 17 日:</b> <a href="mailto:benno@FreeBSD.org">Benno Rice</a> はついに PowerPC
+	    プロセッサ上で、FreeBSD の root ファイルシステムを
+	    マウントするためのプロンプト部分まで到達しました。
+	    詳しい情報については PowerPC プラットフォームの
+	    <a href="../../platforms/ppc.html">ページ</a> とメーリングリストを
+	    参照してください。</p>
+              </li>
+              <li>
+                <p><a name="event2001615:0" id="event2001615:0"></a><b>2001 年 6 月 15 日:</b> 新コミッター就任: <a href="mailto:silby@FreeBSD.org">Mike
+	  Silbersack</a> (ネットワーク)</p>
+              </li>
+              <li>
+                <p><a name="event2001614:0" id="event2001614:0"></a><b>2001 年 6 月 14 日:</b> 新コミッター就任: <a href="mailto:wjv@FreeBSD.org">Johann Visagie</a>
+	    (Ports)</p>
+              </li>
+              <li>
+                <p><a name="event2001613:0" id="event2001613:0"></a><b>2001 年 6 月 13 日:</b> <a href="mailto:rwatson@FreeBSD.org">Robert Watson</a> は
+	    FreeBSD プロジェクトの
+	    <a href="http://docs.FreeBSD.org/cgi/getmsg.cgi?fetch=481962+0+archive/2001/freebsd-hackers/20010617.freebsd-hackers">進捗レポート</a>
+	    をまとめました。
+	    このレポートは毎月作成されることが予定されています。</p>
+              </li>
+              <li>
+                <p><a name="event2001611:0" id="event2001611:0"></a><b>2001 年 6 月 11 日:</b> 新コミッター就任: <a href="mailto:tobez@FreeBSD.org">Anton
+	  Berezin</a> (Perl全域)</p>
+              </li>
+              <li>
+                <p><a name="event200166:0" id="event200166:0"></a><b>2001 年 6 月 6 日:</b> 新コミッター就任: <a href="mailto:dwcjr@FreeBSD.org">David
+	  W. Chapman Jr.</a>(Ports)</p>
+              </li>
+              <li>
+                <p><a name="event200166:1" id="event200166:1"></a><b>2001 年 6 月 6 日:</b> 新コミッター就任: <a href="mailto:markp@FreeBSD.org">Mark Pulford</a>
+	    (Ports)</p>
+              </li>
+              <li>
+                <p><a name="event200161:0" id="event200161:0"></a><b>2001 年 6 月 1 日:</b> 新コミッター就任: <a href="mailto:cjc@FreeBSD.org">Crist J. Clark</a>
+	    (ネットワーク、セキュリティ)</p>
+              </li>
+            </ul>
+            <h1>2001 年 5 月</h1>
+            <ul>
+              <li>
+                <p><a name="event2001524:0" id="event2001524:0"></a><b>2001 年 5 月 24 日:</b> 著名な ftp サイト
+	    <a href="ftp://ftp.FreeBSD.org/">ftp.FreeBSD.org</a>
+	    は、通常運用に復帰しました。
+	    ネットワークコネクションとマシンを提供してくれた
+	    <a href="http://www.teledanmark.com/english/menu/start.htm">
+	    Tele Danmark</a> に感謝します。</p>
+              </li>
+              <li>
+                <p><a name="event2001516:0" id="event2001516:0"></a><b>2001 年 5 月 16 日:</b> 新コミッター就任: <a href="mailto:pirzyk@FreeBSD.org">Jim
+	  Pirzyk</a></p>
+              </li>
+              <li>
+                <p><a name="event200152:0" id="event200152:0"></a><b>2001 年 5 月 2 日:</b> <a href="http://www.freebsdzine.org/">FreeBSD 'zine</a>
+            の 2001 年 5 月第 1 号が発行されました。
+            今月から発行は月に 2 回、1 日と 15 日に行なわれる予定です。</p>
+              </li>
+            </ul>
+            <h1>2001 年 4 月</h1>
+            <ul>
+              <li>
+                <p><a name="event2001427:0" id="event2001427:0"></a><b>2001 年 4 月 27 日:</b> <a href="mailto:jhb@FreeBSD.org">John Baldwin</a> 氏、
+	    <a href="mailto:gallatin@FreeBSD.org">Andrew Gallatin</a> 氏、
+	    <a href="mailto:dfr@FreeBSD.org">Doug Rabson</a> 氏らの努力により、
+	    マルチプロセッサの Alpha システム上で FreeBSD
+	    が動作するようになりました。</p>
+              </li>
+              <li>
+                <p><a name="event2001425:0" id="event2001425:0"></a><b>2001 年 4 月 25 日:</b> 新コミッター就任: <a href="mailto:tshiozak@FreeBSD.org">塩崎 拓也
+	    </a> (国際化)</p>
+              </li>
+              <li>
+                <p><a name="event2001425:1" id="event2001425:1"></a><b>2001 年 4 月 25 日:</b> 新コミッター就任: <a href="mailto:ue@FreeBSD.org">Udo Erdelhoff</a>
+	    (文書)</p>
+              </li>
+              <li>
+                <p><a name="event2001418:0" id="event2001418:0"></a><b>2001 年 4 月 18 日:</b> <a href="../../../doc/en_US.ISO8859-1/books/developers-handbook/index.html">Developer's Handbook</a>
+	    がウェブサイトで公開されました。
+	    これは、FreeBSD 用ソフトウェアを開発したい人
+	    (FreeBSD を開発しているコミッター用でなく) 向けのものです。
+	    また、このサイトにある
+	    <a href="../../docs.html">公開文書の完全なリスト</a> もお忘れなく。
+	  </p>
+              </li>
+              <li>
+                <p><a name="event2001417:0" id="event2001417:0"></a><b>2001 年 4 月 17 日:</b> Addison Wesley より、
+	    <a href="http://cseng.aw.com/book/0,,0201704811,00.html">FreeBSD
+	      Corporate Networker's Guide</a> の
+	    <a href="../../../doc/en_US.ISO8859-1/books/corp-net-guide/index.html">第 8 章</a>
+	    を再出版する許可をいただきました。
+	    第 8 章では Windows、WindowsNT、FreeBSD を使っている Novell
+	    クライアントにプリントサービスを提供することに関して
+	    詳細に分析しています。</p>
+              </li>
+              <li>
+                <p><a name="event2001416:0" id="event2001416:0"></a><b>2001 年 4 月 16 日:</b> また一人、新コミッター就任:
+	    <a href="mailto:schweikh@FreeBSD.org">Jens Schweikhardt</a>
+	    (規格適合性 (Standards compliance) )</p>
+              </li>
+              <li>
+                <p><a name="event2001412:0" id="event2001412:0"></a><b>2001 年 4 月 12 日:</b> <a href="http://www.freebsdzine.org/">The FreeBSD 'zine</a>
+	    の 4 月号が発行されました。</p>
+              </li>
+              <li>
+                <p><a name="event2001410:0" id="event2001410:0"></a><b>2001 年 4 月 10 日:</b> <a href="$base/ports/index.html">Ports Collection</a>
+	    の登録エントリ数が 5,000 を超えました!</p>
+              </li>
+              <li>
+                <p><a name="event200145:0" id="event200145:0"></a><b>2001 年 4 月 5 日:</b> 新コミッター就任: <a href="mailto:greid@FreeBSD.org">George Reid</a>
+	    (サウンド機能、ports )</p>
+              </li>
+              <li>
+                <p><a name="event200144:0" id="event200144:0"></a><b>2001 年 4 月 4 日:</b> Wind River 社が BSDi 社のソフトウェア所有権を獲得しました。
+	    詳細は、
+	    <a href="http://www.windriver.com/press/html/bsdi.html">Wind River プレスリリース</a>、
+	    <a href="http://www.FreeBSD.org/cgi/mid.cgi?20010404220529.E3AFE37B727">Jordan K. Hubbard</a>
+	    氏の声明、および
+	    <a href="http://www.FreeBSD.org/cgi/mid.cgi?Pine.NEB.3.96L.1010405211037.46990E-100000">FreeBSD コアチームの声明</a>
+	    をお読みください。</p>
+              </li>
+            </ul>
+            <h1>2001 年 3 月</h1>
+            <ul>
+              <li>
+                <p><a name="event2001325:0" id="event2001325:0"></a><b>2001 年 3 月 25 日:</b> 新コミッター就任: <a href="mailto:yar@FreeBSD.org">Yar Tikhiy</a>
+	    (ネットワーク機能)</p>
+              </li>
+              <li>
+                <p><a name="event2001324:0" id="event2001324:0"></a><b>2001 年 3 月 24 日:</b> 新コミッター就任: <a href="mailto:eric@FreeBSD.org">Eric Melville</a>
+	    (システムツール)</p>
+              </li>
+              <li>
+                <p><a name="event2001313:0" id="event2001313:0"></a><b>2001 年 3 月 13 日:</b> <a href="http://www.freebsdzine.org/">The FreeBSD 'zine</a>
+	    3 月号が発行されました。</p>
+              </li>
+              <li>
+                <p><a name="event200139:0" id="event200139:0"></a><b>2001 年 3 月 9 日:</b> 新コミッター就任: <a href="mailto:dd@FreeBSD.org">Dima Dorfman</a>
+	    (文書)</p>
+              </li>
+              <li>
+                <p><a name="event200137:0" id="event200137:0"></a><b>2001 年 3 月 7 日:</b> 新コミッター就任: <a href="mailto:keichii@FreeBSD.org">Michael
+	      C. Wu</a> (国際化、ports )</p>
+              </li>
+              <li>
+                <p><a name="event200136:0" id="event200136:0"></a><b>2001 年 3 月 6 日:</b> 新コミッター就任: <a href="mailto:tmm@FreeBSD.org">Thomas
+	      Möstl</a> (POSIX1.e 拡張機能)</p>
+              </li>
+              <li>
+                <p><a name="event200136:1" id="event200136:1"></a><b>2001 年 3 月 6 日:</b> 新コミッター就任: <a href="mailto:orion@FreeBSD.org">Orion Hodson</a>
+	    (サウンド機能)</p>
+              </li>
+            </ul>
+            <h1>2001 年 2 月</h1>
+            <ul>
+              <li>
+                <p><a name="event2001220:0" id="event2001220:0"></a><b>2001 年 2 月 20 日:</b> 新コミッター就任: <a href="mailto:jesper@FreeBSD.org">Jesper
+	      Skriver</a></p>
+              </li>
+              <li>
+                <p><a name="event2001216:0" id="event2001216:0"></a><b>2001 年 2 月 16 日:</b> <a href="http://www.freebsdzine.org/">The FreeBSD 'zine</a>
+	    2 月号が発行されました。</p>
+              </li>
+              <li>
+                <p><a name="event200125:0" id="event200125:0"></a><b>2001 年 2 月 5 日:</b> 新コミッター就任: <a href="mailto:mikeh@FreeBSD.org">Mike Heffner</a>
+	    (監査プロジェクト)</p>
+              </li>
+            </ul>
+            <h1>2001 年 1 月</h1>
+            <ul>
+              <li>
+                <p><a name="event2001124:0" id="event2001124:0"></a><b>2001 年 1 月 24 日:</b> 新コミッター就任: <a href="mailto:olgeni@FreeBSD.org">Jimmy
+	      Olgeni</a> (Ports)</p>
+              </li>
+              <li>
+                <p><a name="event2001123:0" id="event2001123:0"></a><b>2001 年 1 月 23 日:</b> 新コミッター就任: <a href="mailto:dinoex@FreeBSD.org">Dirk Meyer</a>
+	    (Ports)</p>
+              </li>
+              <li>
+                <p><a name="event2001120:0" id="event2001120:0"></a><b>2001 年 1 月 20 日:</b> 新コミッター就任: <a href="mailto:ijliao@FreeBSD.org">Ying-chieh
+	      Liao</a> (Ports)</p>
+              </li>
+            </ul>
+            <p>Other project news:
+	  <a href="../../../news/2009/index.html">2009</a>,
+	  <a href="../../../news/2008/index.html">2008</a>,
+	  <a href="../../../news/2007/index.html">2007</a>,
+	  <a href="../../../news/2006/index.html">2006</a>,
+	  <a href="../../../news/2005/index.html">2005</a>,
+	  <a href="../../../news/2004/index.html">2004</a>,
+	  <a href="../../../news/2003/index.html">2003</a>,
+	  <a href="../../../news/2002/index.html">2002</a>,
+	  <a href="../2001/index.html">2001</a>,
+	  <a href="../../../2000/index.html">2000</a>,
+	  <a href="../../../1999/index.html">1999</a>,
+	  <a href="../../../1998/index.html">1998</a>,
+	  <a href="../1997/index.html">1997</a>,
+	  <a href="../1996/index.html">1996</a>,
+	  <a href="../../../1993/index.html">1993</a></p>
+            <a href="../../news/news.html">News Home</a>
+          </div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="../../search/index-site.html">サイトマップ</a> |
+  <a href="../../copyright/">知的財産権について</a> | (C) 1995〓2017 The FreeBSD Project.
+  All rights reserved.</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

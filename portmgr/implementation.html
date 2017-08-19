@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>Implementation Issues Involving the Ports Collection</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="../layout/css/fixed.css?20130112" type="text/css" />
+    <script type="text/javascript" src="../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Header And Logo</h2>
+            <div id="headerlogoleft">
+              <a href=".." title="FreeBSD">
+                <img src="../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <div class="frontdonateroundbox">
+                <div class="frontdonatetop">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+                <div class="frontdonatecontent">
+                  <a href="https://www.FreeBSDFoundation.org/donate/">Donate to FreeBSD</a>
+                </div>
+                <div class="frontdonatebot">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+              </div>
+              <h2 class="blockhide">Peripheral Links</h2>
+              <div id="searchnav">
+                <ul id="searchnavlist"></ul>
+              </div>
+              <div id="search">
+                <form method="get" id="search" action="https://duckduckgo.com/">
+                  <h2 class="blockhide">
+                    <label for="words">Search</label>
+                  </h2>
+                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
+                  <input type="hidden" name="ka" value="v" />
+                  <input type="hidden" name="kt" value="v" />
+                  <input type="hidden" name="kh" value="1" />
+                  <input type="hidden" name="kj" value="r2" />
+                  <input id="words" name="q" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="Search" />
+                  <span> </span>
+                  <input id="submit" name="submit" type="submit" value="Search" />
+                </form>
+              </div>
+            </div>
+          </div>
+          <h2 class="blockhide">Site Navigation</h2>
+          <div id="menu">
+            <ul class="first">
+              <li>
+                <a href="../">Home</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../about.html">About</a>
+                <ul>
+                  <li>
+                    <a href="../projects/newbies.html">Introduction</a>
+                  </li>
+                  <li>
+                    <a href="../features.html">Features</a>
+                  </li>
+                  <li>
+                    <a href="../advocacy/">Advocacy</a>
+                  </li>
+                  <li>
+                    <a href="../marketing/">Marketing</a>
+                  </li>
+                  <li>
+                    <a href="../privacy.html">Privacy Policy</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../where.html">Get FreeBSD</a>
+                <ul>
+                  <li>
+                    <a href="../releases/">Release Information</a>
+                  </li>
+                  <li>
+                    <a href="../releng/">Release Engineering</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../docs.html">Documentation</a>
+                <ul>
+                  <li>
+                    <a href="../doc/en_US.ISO8859-1/books/faq/">FAQ</a>
+                  </li>
+                  <li>
+                    <a href="../doc/en_US.ISO8859-1/books/handbook/">Handbook</a>
+                  </li>
+                  <li>
+                    <a href="../doc/en_US.ISO8859-1/books/porters-handbook">Porter's Handbook</a>
+                  </li>
+                  <li>
+                    <a href="../doc/en_US.ISO8859-1/books/developers-handbook">Developer's Handbook</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/man.cgi">Manual Pages</a>
+                  </li>
+                  <li>
+                    <a href="../doc/en_US.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
+                  </li>
+                  <li>
+                    <a href="../docs/books.html">All Books and Articles</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../community.html">Community</a>
+                <ul>
+                  <li>
+                    <a href="../community/mailinglists.html">Mailing Lists</a>
+                  </li>
+                  <li>
+                    <a href="https://forums.FreeBSD.org">Forums</a>
+                  </li>
+                  <li>
+                    <a href="../usergroups.html">User Groups</a>
+                  </li>
+                  <li>
+                    <a href="../events/events.html">Events</a>
+                  </li>
+                  <li>
+                    <a href="http://serverfault.com/questions/tagged/freebsd">Q&amp;A (external)</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../projects/index.html">Developers</a>
+                <ul>
+                  <li>
+                    <a href="https://wiki.FreeBSD.org/IdeasPage">Project Ideas</a>
+                  </li>
+                  <li>
+                    <a href="https://svnweb.FreeBSD.org">SVN Repository</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/freebsd">GIT Repository</a>
+                  </li>
+                  <li>
+                    <a href="http://p4web.FreeBSD.org">Perforce Repository</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../support.html">Support</a>
+                <ul>
+                  <li>
+                    <a href="../commercial/commercial.html">Vendors</a>
+                  </li>
+                  <li>
+                    <a href="../security/">Security Information</a>
+                  </li>
+                  <li>
+                    <a href="https://bugs.FreeBSD.org/search/">Bug Reports</a>
+                  </li>
+                  <li>
+                    <a href="https://www.FreeBSD.org/support.html">Submitting Bug Reports</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="https://www.freebsdfoundation.org/">Foundation</a>
+                <ul>
+                  <li>
+                    <a href="https://www.freebsdfoundation.org/donate/">Monetary Donations</a>
+                  </li>
+                  <li>
+                    <a href="../donations/index.html#systems">Hardware Donations</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Section Navigation</h2>
+              <ul>
+                <li>
+                  <a href="../about.html">About</a>
+                </li>
+                <li>
+                  <a href="../features.html">Features</a>
+                </li>
+                <li>
+                  <a href="../applications.html">Applications</a>
+                </li>
+                <li>
+                  <a href="../advocacy/">Advocacy</a>
+                </li>
+                <li>
+                  <a href="../marketing/">Marketing</a>
+                </li>
+                <li>
+                  <a href="../administration.html">Administration</a>
+                </li>
+                <li>
+                  <a href="../news/newsflash.html">News</a>
+                </li>
+                <li>
+                  <a href="../events/events.html">Events</a>
+                </li>
+                <li>
+                  <a href="../news/press.html">Press</a>
+                </li>
+                <li>
+                  <a href="../multimedia/multimedia.html">Multimedia</a>
+                </li>
+                <li>
+                  <a href="../art.html">Artwork</a>
+                </li>
+                <li>
+                  <a href="../logo.html">Logo</a>
+                </li>
+                <li>
+                  <a href="../donations/">Donations</a>
+                </li>
+                <li>
+                  <a href="../copyright/">Legal Notices</a>
+                </li>
+                <li>
+                  <a href="../privacy.html">Privacy Policy</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap"><h1>Implementation Issues Involving the Ports Collection</h1>
+
+<h3>The Ports Tree Is Not Branched</h3>
+
+<p>Unlike the <tt>src</tt> tree, the FreeBSD ports tree is
+<strong>not</strong> branched.  It has always been felt that there
+are too few volunteers to be able to handle the work of merging
+hundreds of changes from the latest tree into various branches.</p>
+
+<h3>Practical Considerations</h3>
+
+<p>There are thousands, if not tens of thousands, of user installations
+that track the ports tree on a daily basis, rather than relying on the
+packages that shipped with the most current FreeBSD release.  Accordingly,
+any fatal error in the ports framework will immediately affect all of
+these sites.  This is why commits to <tt>bsd.port.mk</tt> are only
+allowed with portmgr approval.  Except in unusual cases, this approval
+is only granted after a regression test has been run on a dedicated
+area of the automated
+<a href="http://pointyhat.FreeBSD.org" shape="rect">ports building cluster</a>.
+Typically, a dozen or more proposed changes to the infrastructure are
+tested at the same time, and only after a build of the entire ports
+tree succeeds will portmgr commit the changes.</p>
+
+<a name="requires_regression_test" shape="rect" id="requires_regression_test"></a>
+<h3>Changes That Require Regression Tests</h3>
+
+<p>Changes to <tt>bsd.port.mk</tt> are not the only commits that can
+  have a drastic effect on the tree.  We request that any such changes
+  also be tested on the cluster.  Examples of such changes that should
+  be tested before committing include:</p>
+
+<ul>
+  <li><p>changes to packages with many dependencies, including
+	X11 servers, GNOME, KDE, gettext, autotools, and so forth</p></li>
+  <li><p>changes that change the "accepted best practice" for
+	ports Makefiles, such as definitions or usage of common make
+        variables (or <tt>Makevar</tt>s). (e.g. consolidation of
+	various implementations of USE_*, WITH_*, and so forth)</p></li>
+  <li><p>large repocopies (such as when an existing port category
+	is divided up)</p></li>
+</ul>
+
+<p>If you are unsure of whether your proposed change will require
+a regression test, please send email to portmgr@FreeBSD.org.</p>
+
+<h3>Implications for the Release Cycle</h3>
+
+<p>When a new release of FreeBSD is upcoming, committers are asked to
+shift their emphasis away from introducing new ports and features and
+instead focus on fixing existing problems.  At some time during the
+release, the tree is <tt>tagged</tt> and packages are created from
+each of the ports, for each of the architectures.  Due to the large
+number of ports and the speed of the slower architectures, the build
+process takes several days.</p>
+
+<p>In an ideal world, these would be the packages that went on the
+release CDs, and the time from the creation of the packages to the time
+of the actual release would be just long enough to test them and no
+longer.  However, in practice, problems are found with both the ports
+and with the source tree as the QA effort continues.  But to be able
+to release in a timely manner, only certain port changes will be merged
+back into the actual (tagged) tree, and the affected packages will
+be rebuilt.  Only severe security problems and licensing issues will
+have their tags slipped in this manner.</p>
+
+<p>Since the release period can take weeks, it is unrealistic not
+to allow any commit to the ports tree during this time.  The problem
+with allowing unrestricted commits at that time is that it becomes
+impossible to separate out only the critical changes so that they,
+and only they, can have their affected tags slipped.  The terminology
+for changes that are not allowed is <tt>sweeping changes</tt>.</p>
+
+<a name="sweeping_changes" shape="rect" id="sweeping_changes"></a>
+<h3>What Is A Sweeping Change?</h3>
+
+<p>A <tt>sweeping change</tt> is a commit that would affect a non-trivial
+number of packages in a way such that any other change (such as fixing a
+single security problem) would mean that we would have to rebuild the
+entire set of packages, which would delay the upcoming release, possibly
+by weeks, because the set of changes overlap.</p>
+
+<p>Here is an incomplete list.  If you are unsure that your proposed
+change falls into this categorization, you <strong>must</strong>
+ask portmgr before committing.</p>
+
+<ul>
+  <li><p>any commit to <tt>bsd.*.mk</tt></p></li>
+  <li><p>anything else that would normally require a
+	<a href="#requires_regression_test" shape="rect">regression test</a></p></li>
+  <li><p>shared library version bumps</p></li>
+  <li><p>repocopies involving multiple ports</p></li>
+</ul>
+
+<p>The following do not fall into the above category:</p>
+
+<ul>
+  <li><p>commits to leaf ports (i.e. ports upon which no other port
+    depends)</p></li>
+  <li><p>cosmetic changes that would not affect the package (such
+    as changes to <tt>pkg_descr</tt>)</p></li>
+  <li><p>new ports</p></li>
+  <li><p>repocopies of individual ports</p></li>
+</ul>
+
+<p>To summarize: the basic test is <strong>will this change affect other
+packages?</strong>.</p>
+
+</div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="../search/index-site.html">Site Map</a> |
+  <a href="../copyright/">Legal Notices</a> | © 1995&#8211;2017 The FreeBSD Project.
+  All rights reserved.</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,705 @@
+<?xml version="1.0" encoding="koi8-r"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>Информационная безопасность FreeBSD</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=koi8-r" />
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="../../layout/css/fixed.css?20130112" type="text/css" />
+    <script type="text/javascript" src="../../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Header And Logo</h2>
+            <div id="headerlogoleft">
+              <a href=".." title="FreeBSD">
+                <img src="../../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <div class="frontdonateroundbox">
+                <div class="frontdonatetop">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+                <div class="frontdonatecontent">
+                  <a href="https://www.FreeBSDFoundation.org/donate/">Donate to FreeBSD</a>
+                </div>
+                <div class="frontdonatebot">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+              </div>
+              <h2 class="blockhide">Peripheral Links</h2>
+              <div id="searchnav">
+                <ul id="searchnavlist"></ul>
+              </div>
+              <div id="search">
+                <form method="get" id="search" action="https://duckduckgo.com/">
+                  <h2 class="blockhide">
+                    <label for="words">Поиск</label>
+                  </h2>
+                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
+                  <input type="hidden" name="ka" value="v" />
+                  <input type="hidden" name="kt" value="v" />
+                  <input type="hidden" name="kh" value="1" />
+                  <input type="hidden" name="kj" value="r2" />
+                  <input id="words" name="q" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="Поиск" />
+                  <span> </span>
+                  <input id="submit" name="submit" type="submit" value="Поиск" />
+                </form>
+              </div>
+            </div>
+          </div>
+          <h2 class="blockhide">Site Navigation</h2>
+          <div id="menu">
+            <ul class="first">
+              <li>
+                <a href="../">На главную</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../about.html">О FreeBSD</a>
+                <ul>
+                  <li>
+                    <a href="../projects/newbies.html">Введение</a>
+                  </li>
+                  <li>
+                    <a href="../features.html">Возможности</a>
+                  </li>
+                  <li>
+                    <a href="../../advocacy/">Адвокатура</a>
+                  </li>
+                  <li>
+                    <a href="../../marketing/">Маркетинг</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../where.html">Получение FreeBSD</a>
+                <ul>
+                  <li>
+                    <a href="../releases/">Информация о релизах</a>
+                  </li>
+                  <li>
+                    <a href="../releng/">Информация о подготовке релизов</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../docs.html">Документация</a>
+                <ul>
+                  <li>
+                    <a href="../../doc/ru_RU.KOI8-R/books/faq/">Часто задаваемые вопросы</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/ru_RU.KOI8-R/books/handbook/">Руководство пользователя</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/ru_RU.KOI8-R/books/porters-handbook">Руководство портера</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/en_US.ISO8859-1/books/developers-handbook">Руководство разработчика</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/man.cgi">Страницы справочника</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../community.html">Сообщество</a>
+                <ul>
+                  <li>
+                    <a href="../community/mailinglists.html">Списки рассылки</a>
+                  </li>
+                  <li>
+                    <a href="http://forums.freebsd.org">Форумы</a>
+                  </li>
+                  <li>
+                    <a href="../usergroups.html">Группы пользователей</a>
+                  </li>
+                  <li>
+                    <a href="../events/events.html">События</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../projects/index.html">Разработка</a>
+                <ul>
+                  <li>
+                    <a href="http://wiki.FreeBSD.org/IdeasPage">Идеи для проекта</a>
+                  </li>
+                  <li>
+                    <a href="http://svn.FreeBSD.org/viewvc/base/">SVN репозиторий</a>
+                  </li>
+                  <li>
+                    <a href="http://cvsweb.FreeBSD.org">CVS репозиторий</a>
+                  </li>
+                  <li>
+                    <a href="http://p4web.FreeBSD.org">Perforce репозиторий</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../support.html">Поддержка</a>
+                <ul>
+                  <li>
+                    <a href="../commercial/commercial.html">Коммерческие предложения</a>
+                  </li>
+                  <li>
+                    <a href="../security/">Информация о безопасности</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/query-pr-summary.cgi">Сообщения об ошибках</a>
+                  </li>
+                  <li>
+                    <a href="../send-pr.html">Отправить сообщение об ошибке</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="http://www.freebsdfoundation.org/">Фонд</a>
+                <ul>
+                  <li>
+                    <a href="http://www.freebsdfoundation.org/donate/">Пожертвования</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Навигация по разделу</h2>
+              <ul>
+                <li>
+                  <a href="../support.html">Поддержка</a>
+                </li>
+                <li>
+                  <a href="../commercial/">Поставщики</a>
+                  <ul>
+                    <li>
+                      <a href="../../commercial/software_bycat.html">Программное обеспечение</a>
+                    </li>
+                    <li>
+                      <a href="../../commercial/hardware.html">Аппаратное обеспечение</a>
+                    </li>
+                    <li>
+                      <a href="../../commercial/consult_bycat.html">Консалтинговые услуги</a>
+                    </li>
+                    <li>
+                      <a href="../../commercial/isp.html">Интернет-провайдеры</a>
+                    </li>
+                    <li>
+                      <a href="../../commercial/misc.html">Разное</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="../security/index.html">Информация о безопасности</a>
+                  <ul>
+                    <li>
+                      <a href="../security/advisories.html">Бюллетени</a>
+                    </li>
+                    <li>
+                      <a href="../security/notices.html">Исправления</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="../support/bugreports.html">Сообщения об ошибках</a>
+                  <ul>
+                    <li>
+                      <a href="../send-pr.html">Отправить сообщение об ошибке</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="../support/webresources.html">Web ресурсы</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap"><h1>Информационная безопасность FreeBSD</h1>
+
+  <h2>Введение</h2>
+
+  <p>Эта веб-страница предназначена для помощи начинающим и
+    опытным пользователям в области информационной безопасности FreeBSD.
+    Во FreeBSD вопросы безопасности воспринимаются весьма серьёзно и постоянно
+    идет работа над тем, чтобы сделать ОС защищённой настолько, насколько это
+    вообще возможно.</p>
+
+  <h2>Содержание</h2>
+
+  <ul>
+    <li><a href="#how" shape="rect">Как и куда сообщать о проблеме информационной
+      безопасности FreeBSD</a></li>
+    <li><a href="#sec" shape="rect">Информация об Офицере информационной безопасности
+      FreeBSD</a></li>
+    <li><a href="#pol" shape="rect">Политика обработки информации</a></li>
+    <li><a href="#sup" shape="rect">Поддерживаемые релизы FreeBSD</a></li>
+    <li><a href="#unsup" shape="rect">Неподдерживаемые релизы FreeBSD</a></li>
+  </ul>
+
+  <h2>Дополнительные ресурсы, посвященные информационной безопасности</h2>
+
+  <ul>
+    <li><a href="../../security/charter.html" shape="rect">Устав Офицера и службы
+      информационной безопасности</a></li>
+    <li><a href="advisories.html" shape="rect">Список бюллетеней информационной безопасности
+      FreeBSD</a></li>
+    <li><a href="notices.html" shape="rect">Список уведомлений об
+      исправлениях FreeBSD</a></li>
+    <li><a href="../../doc/ru/books/handbook/security-advisories.html" shape="rect">
+      Чтение сообщений информационной безопасности FreeBSD</a></li>
+  </ul>
+
+  <a name="how" shape="rect" id="how"></a>
+  <h2>Как и куда сообщать о проблеме информационной безопасности FreeBSD</h2>
+
+  <p>Все проблемы информационной безопасности FreeBSD следует направлять на
+    адрес <a href="mailto:secteam@FreeBSD.org" shape="rect">службы информационной
+    безопасности FreeBSD</a> или, если необходим более высокий уровень
+    конфиденциальности, в зашифрованном в PGP виде на адрес <a href="mailto:security-officer@FreeBSD.org" shape="rect">службы Офицера информационной
+      безопасности</a>, используя <a href="../../security/so_public_key.asc" shape="rect">
+      ключ PGP Офицера информационной безопасности</a>.  Как минимум, все
+    сообщения должны содержать:</p>
+
+  <ul>
+    <li>Описание уязвимости.</li>
+    <li>Какие версии FreeBSD предположительно затронуты, по возможности.</li>
+    <li>Любые состоятельные пути обхода проблемы.</li>
+    <li>Примеры кода, по возможности.</li>
+  </ul>
+
+  <p>После сообщения этой информации с вами свяжется Офицер информационной
+    безопасности или представитель службы информационной безопасности.</p>
+
+  <h3>Спам-фильтры</h3>
+
+  <p>В связи с высоким уровнем спама основные контактные почтовые адреса
+    по информационной безопасности подвергаются фильтрации спама.  Если Вы
+    не можете связаться с Офицерами информационной безопасности FreeBSD или
+    со службой информационной безопасности из-за спам-фильтров (или
+    предполагаете, что ваш адрес был отфильтрован), пожалуйста, отправьте
+    письмо на <tt>security-officer-<em>XXXX</em>@FreeBSD.org</tt> с заменой
+    <em>XXXX</em> на <tt>3432</tt> вместо использования обычных адресов.
+    Обратите внимание, что этот адрес будет периодически меняться, поэтому
+    следует проверять здесь последний адрес.  Сообщения на этот адрес будут
+    перенаправлены службе Офицера информационной безопасности FreeBSD.</p>
+
+  <a name="sec" shape="rect" id="sec"></a>
+  <h2>Офицер информационной безопасности FreeBSD и служба информационной
+    безопасности FreeBSD</h2>
+
+  <p>Для того, чтобы Проект FreeBSD мог оперативно реагировать на сообщения об
+    уязвимостях, почтовый алиас Офицера информационной безопасности
+    соответствует трем персонам: Офицер информационной безопасности,
+    заместитель Офицера информационной безопасности и один член
+    Основной группы разработчиков.  Таким образом, сообщения, посланные на адрес
+    почтового алиаса <a href="mailto:security-officer@FreeBSD.org" shape="rect">
+    &lt;security-officer@FreeBSD.org&gt;</a>, доставляются следующим лицам:</p>
+
+  <table>
+    <tr valign="top">
+      <td rowspan="1" colspan="1">Simon L. B. Nielsen <a href="mailto:simon@FreeBSD.org" shape="rect">&lt;simon@FreeBSD.org&gt;</a></td>
+      <td rowspan="1" colspan="1">Офицер информационной безопасности</td>
+    </tr>
+    <tr valign="top">
+      <td rowspan="1" colspan="1">Colin Percival <a href="mailto:cperciva@FreeBSD.org" shape="rect">&lt;cperciva@FreeBSD.org&gt;</a></td>
+      <td rowspan="1" colspan="1">Офицер информационной безопасности, эмерит</td>
+    </tr>
+    <tr valign="top">
+      <td rowspan="1" colspan="1">Robert Watson <a href="mailto:rwatson@FreeBSD.org" shape="rect">&lt;rwatson@FreeBSD.org&gt;</a></td>
+      <td rowspan="1" colspan="1">Представитель группы по выпуску релизов,<br clear="none" />
+        представитель Проекта TrustedBSD, эксперт по архитектуре системной
+        безопасности</td>
+    </tr>
+    <tr valign="top">
+      <td rowspan="1" colspan="1">Xin Li <a href="mailto:delphij@FreeBSD.org" shape="rect">&lt;delphij@FreeBSD.org&gt;</a></td>
+      <td rowspan="1" colspan="1">Заместитель офицера информационной безопасности</td>
+    </tr>
+  </table>
+
+  <p>Офицер информационной безопасности поддерживается <a href="../../administration.html#t-secteam" shape="rect">Службой безопасности
+      FreeBSD</a> <a href="mailto:secteam@FreeBSD.org" shape="rect">&lt;secteam@FreeBSD.org&gt;</a>,
+    небольшой группой коммиттеров, которую он выбирает сам.</p>
+
+  <a name="pol" shape="rect" id="pol"></a>
+  <h2>Политика обработки информации</h2>
+
+  <p>Как общее правило, Офицер безопасности FreeBSD предпочитает полное
+    раскрытие информации об уязвимости после достаточного перерыва на
+    выполнение тщательного анализа и устранения уязвимости, а также
+    соответствующего тестирования исправления и взаимодействия с другими
+    затронутыми командами.</p>
+
+  <p>Офицер безопасности <em>будет</em> уведомлять одного или большее
+    количество администраторов кластера об уязвимостях, которые подвергают
+    ресурсы Проекта FreeBSD непосредственной опасности.</p>
+
+  <p>Офицер безопасности может привлечь дополнительных разработчиков FreeBSD
+    или внешних разработчиков к обсуждению предоставленной информации об
+    уязвимости, если требуется их экспертиза для полного понимания или
+    исправления проблемы.  Будет выполнено необходимое разграничение для
+    минимизации ненужного распространения информации о представленной
+    уязвимости, и все привлечённые эксперты будут действовать в соответствии с
+    указаниями Офицера безопасности.  В прошлом привлекались эксперты с большим
+    опытом работы с высокосложными компонентами операционной системы, включая
+    FFS, подсистему VM и стек сетевых протоколов.</p>
+
+  <p>Если уже выполняется процесс выпуска релиза FreeBSD, то инженер,
+    ответственный за выпуск релиза, может также быть оповещён об имеющейся
+    уязвимости и её серьёзности, чтобы было принято решение об информировании
+    относительно цикла выпуска релиза и наличии каких-либо серьёзных ошибок
+    в программном обеспечении, связанном с готовящимся релизом.  Если
+    это будет необходимо, то Офицер безопасности не будет сообщать подробную
+    информацию о природе уязвимости Инженеру по выпуску релиза, ограничиваясь
+    информацией о её существовании и серьёзности.</p>
+
+  <p>Офицер безопасности FreeBSD поддерживает тесные рабочие отношения со
+    многими другими организациями, включая сторонних разработчиков, имеющих
+    с FreeBSD общий код (проекты OpenBSD, NetBSD и DragonFlyBSD, Apple и
+    другие разработчики,
+    программное обеспечение которых основано на FreeBSD, а также разработчики
+    Linux), и организации, которые отслеживают уязвимости и случаи нарушения
+    информационной безопасности, такие, как CERT.  Зачастую уязвимости выходят
+    за рамки реализации FreeBSD, и (наверное, реже) могут иметь широкий
+    резонанс для всего сетевого сообщества.  В таких условиях Офицер
+    безопасности может раскрыть информацию об уязвимости этим сторонним
+    организациям: если вы не хотите, чтобы Офицер безопасности это делал,
+    пожалуйста, явно укажите это в своих сообщениях.</p>
+
+  <p>Сообщающие должны тщательно и явно указать любые свои требования
+    относительно обработки сообщённой информации.</p>
+
+  <p>Если сообщающий об уязвимости заинтересован в координации процесса
+    раскрытия с ним и/или другими разработчиками, это должно быть явно указано
+    в сообщениях.  При отсутствии явных требований Офицер безопасности FreeBSD
+    выберет план раскрытия информации, который учитывает как требования
+    оперативности, так и тестирования любых решений.  Сообщающие должны иметь
+    в виду, что если уязвимость активно обсуждается в открытых форумах (таких,
+    как bugtraq) и используется, то Офицер Безопасности может решить не
+    следовать предлагаемому плану по её раскрытию, для того, чтобы дать
+    пользовательскому сообществу максимально эффективную защиту.</p>
+
+  <p>Сообщения могут быть защищены с помощью PGP.  Если это нужно, то ответы
+    также будут защищены посредством PGP.</p>
+
+  <a name="sup" shape="rect" id="sup"></a>
+  <h2>Поддерживаемые релизы FreeBSD</h2>
+
+  <p>Офицер информационной безопасности FreeBSD выпускает бюллетени
+    безопасности для нескольких разрабатываемых веток FreeBSD.  Это
+    <em>Ветки -STABLE</em> и <em>Ветки Security</em>.  (Бюллетени не
+    выпускаются для <em>Ветки -CURRENT</em>.)</p>
+
+  <ul>
+
+    <li><p>Тэги ветки -STABLE носят
+      имена типа <tt>RELENG_7</tt>.  Соответствующие сборки носят
+      названия типа <tt>FreeBSD 7.0-STABLE</tt>.</p></li>
+
+    <li><p>Каждому релизу FreeBSD поставлена в соответствие ветка безопасности
+      (Security Branch).  Тэги веток безопасности именуются как
+      <tt>RELENG_7_0</tt>.  Соответствующие сборки носят названия
+      типа <tt>FreeBSD 7.0-RELEASE-p1</tt>.</p></li>
+  </ul>
+
+  <p>Проблемы, затрагивающие Коллекцию портов FreeBSD, описываются в <a href="http://vuxml.FreeBSD.org/" shape="rect">документе FreeBSD VuXML</a>.</p>
+
+  <p>Каждая ветка поддерживается Офицером безопасности в течение
+    ограниченного времени. Ветки разделены на типы, которые определяют срок
+    жизни, как показано ниже.</p>
+
+  <dl>
+    <dt>Раннее внедрение (Early Adopter)</dt>
+    <dd>Релизы, выпускаемые из ветки -CURRENT, будут поддерживаться Офицером
+      безопасности как минимум в течение 6 месяцев после выхода.</dd>
+    <dt>Обычный (Normal)</dt>
+    <dd>Релизы, выпускаемые из ветки -STABLE, будут поддерживаться Офицером
+      безопасности как минимум в течение 12 месяцев после выхода и в течение
+      дополнительного времени (если потребуется), достаточного, чтобы
+      следующий релиз был выпущен по крайней мере за 3 месяца до истечения
+      срока поддержки предыдущего Обычного релиза.
+    </dd>
+    <dt>Расширенный (Extended)</dt>
+    <dd>Отобранные релизы (обычно, каждый второй релиз и последний релиз из
+      каждой ветки -STABLE) будут поддерживаться Офицером безопасности как
+      минимум в течение 24 месяцев после выхода и в течение дополнительного
+      времени (если потребуется), достаточного, чтобы следующий Расширенный
+      релиз был выпущен по крайней мере за 3 месяца до истечения срока
+      поддержки предыдущего Расширенного релиза.
+    </dd>
+  </dl>
+
+  <a name="supported-branches" shape="rect" id="supported-branches"></a>
+
+  <p>Ниже приводятся текущее назначение и ожидаемое время жизни для
+    поддерживаемых в настоящее время веток.  В колонке
+    <em>Ожидаемое окончание срока жизни</em> указана ближайшая дата, по истечении
+    которой будет прекращена поддержка ветки.  Пожалуйста, учтите, что эти
+    даты могут быть сдвинуты в будущее, но только исключительные обстоятельства
+    могут привести к отказу от поддержки ветки раньше указанной даты.</p>
+
+  <table class="tblbasic">
+    <tr>
+      <th rowspan="1" colspan="1">Ветка</th>
+      <th rowspan="1" colspan="1">Релиз</th>
+      <th rowspan="1" colspan="1">Тип</th>
+      <th rowspan="1" colspan="1">Дата выхода</th>
+      <th rowspan="1" colspan="1">Ожидаемое окончание срока жизни</th>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_8</td>
+      <td rowspan="1" colspan="1">n/a</td>
+      <td rowspan="1" colspan="1">n/a</td>
+      <td rowspan="1" colspan="1">n/a</td>
+      <td rowspan="1" colspan="1">последний релиз + 2 года</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_8_3</td>
+      <td rowspan="1" colspan="1">8.3-RELEASE</td>
+      <td rowspan="1" colspan="1">Расширенный</td>
+      <td rowspan="1" colspan="1">18 апреля 2012</td>
+      <td rowspan="1" colspan="1">30 апреля 2014</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_9</td>
+      <td rowspan="1" colspan="1">n/a</td>
+      <td rowspan="1" colspan="1">n/a</td>
+      <td rowspan="1" colspan="1">n/a</td>
+      <td rowspan="1" colspan="1">последний релиз + 2 года</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_9_1</td>
+      <td rowspan="1" colspan="1">9.1-RELEASE</td>
+      <td rowspan="1" colspan="1">Расширенный</td>
+      <td rowspan="1" colspan="1">30 декабря 2012</td>
+      <td rowspan="1" colspan="1">31 декабря 2014</td>
+    </tr>
+  </table>
+
+  <p>Более старые релизы не поддерживаются, а их пользователям настоятельно
+    рекомендуется произвести обновление до одной из поддерживаемых версий,
+    указанных выше.</p>
+
+  <p>Бюллетени рассылаются в следующие списки рассылки FreeBSD:</p>
+  <ul>
+    <li>FreeBSD-security-notifications@FreeBSD.org</li>
+    <li>FreeBSD-security@FreeBSD.org</li>
+    <li>FreeBSD-announce@FreeBSD.org</li>
+  </ul>
+
+  <p>Список выпущенных бюллетеней можно найти на странице <a href="advisories.html" shape="rect">FreeBSD Security Advisories</a>.</p>
+
+  <p>Бюллетени всегда подписываются с использованием <a href="../../security/so_public_key.asc" shape="rect">PGP-ключа</a>
+    Офицера Безопасности и помещаются, вместе с соответствующими
+    исправлениями, на web-сервер <a href="http://security.FreeBSD.org/" shape="rect">http://security.FreeBSD.org/</a>
+    в поддиректории <a href="http://security.FreeBSD.org/advisories/" shape="rect">advisories</a> и <a href="http://security.FreeBSD.org/patches/" shape="rect">patches</a>.</p>
+
+  <a name="unsup" shape="rect" id="unsup"></a>
+  <h2>Неподдерживаемые релизы FreeBSD</h2>
+
+  <p>Следующие релизы больше не поддерживаются и приведены здесь в справочных
+    целях.</p>
+  <table class="tblbasic">
+    <tr>
+      <th rowspan="1" colspan="1">Ветка</th>
+      <th rowspan="1" colspan="1">Релиз</th>
+      <th rowspan="1" colspan="1">Тип</th>
+      <th rowspan="1" colspan="1">Дата выхода</th>
+      <th rowspan="1" colspan="1">Окончание срока жизни</th>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_4</td>
+      <td rowspan="1" colspan="1">n/a</td>
+      <td rowspan="1" colspan="1">n/a</td>
+      <td rowspan="1" colspan="1">n/a</td>
+      <td rowspan="1" colspan="1">31 января 2007</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_4_11</td>
+      <td rowspan="1" colspan="1">4.11-RELEASE</td>
+      <td rowspan="1" colspan="1">Расширенный</td>
+      <td rowspan="1" colspan="1">25 января 2005</td>
+      <td rowspan="1" colspan="1">31 января 2007</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_5</td>
+      <td rowspan="1" colspan="1">n/a</td>
+      <td rowspan="1" colspan="1">n/a</td>
+      <td rowspan="1" colspan="1">n/a</td>
+      <td rowspan="1" colspan="1">31 мая 2008</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_5_3</td>
+      <td rowspan="1" colspan="1">5.3-RELEASE</td>
+      <td rowspan="1" colspan="1">Расширенный</td>
+      <td rowspan="1" colspan="1">6 ноября 2004</td>
+      <td rowspan="1" colspan="1">31 октября 2006</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_5_4</td>
+      <td rowspan="1" colspan="1">5.4-RELEASE</td>
+      <td rowspan="1" colspan="1">Обычный</td>
+      <td rowspan="1" colspan="1">9 мая 2005</td>
+      <td rowspan="1" colspan="1">31 октября 2006</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_5_5</td>
+      <td rowspan="1" colspan="1">5.5-RELEASE</td>
+      <td rowspan="1" colspan="1">Расширенный</td>
+      <td rowspan="1" colspan="1">25 мая 2006</td>
+      <td rowspan="1" colspan="1">31 мая 2008</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_6</td>
+      <td rowspan="1" colspan="1">n/a</td>
+      <td rowspan="1" colspan="1">n/a</td>
+      <td rowspan="1" colspan="1">n/a</td>
+      <td rowspan="1" colspan="1">30 ноября 2010</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_6_0</td>
+      <td rowspan="1" colspan="1">6.0-RELEASE</td>
+      <td rowspan="1" colspan="1">Обычный</td>
+      <td rowspan="1" colspan="1">4 ноября 2005</td>
+      <td rowspan="1" colspan="1">31 января 2007</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_6_1</td>
+      <td rowspan="1" colspan="1">6.1-RELEASE</td>
+      <td rowspan="1" colspan="1">Расширенный</td>
+      <td rowspan="1" colspan="1">9 мая 2006</td>
+      <td rowspan="1" colspan="1">31 мая 2008</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_6_2</td>
+      <td rowspan="1" colspan="1">6.2-RELEASE</td>
+      <td rowspan="1" colspan="1">Обычный</td>
+      <td rowspan="1" colspan="1">15 января 2007</td>
+      <td rowspan="1" colspan="1">31 мая 2008</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_6_3</td>
+      <td rowspan="1" colspan="1">6.3-RELEASE</td>
+      <td rowspan="1" colspan="1">Расширенный</td>
+      <td rowspan="1" colspan="1">18 января 2008</td>
+      <td rowspan="1" colspan="1">31 января 2010</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_6_4</td>
+      <td rowspan="1" colspan="1">6.4-RELEASE</td>
+      <td rowspan="1" colspan="1">Расширенный</td>
+      <td rowspan="1" colspan="1">28 ноября 2008</td>
+      <td rowspan="1" colspan="1">30 ноября 2010</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_7</td>
+      <td rowspan="1" colspan="1">n/a</td>
+      <td rowspan="1" colspan="1">n/a</td>
+      <td rowspan="1" colspan="1">n/a</td>
+      <td rowspan="1" colspan="1">28 февраля 2013</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_7_0</td>
+      <td rowspan="1" colspan="1">7.0-RELEASE</td>
+      <td rowspan="1" colspan="1">Обычный</td>
+      <td rowspan="1" colspan="1">27 февраля 2008</td>
+      <td rowspan="1" colspan="1">30 апреля 2009</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_7_1</td>
+      <td rowspan="1" colspan="1">7.1-RELEASE</td>
+      <td rowspan="1" colspan="1">Расширенный</td>
+      <td rowspan="1" colspan="1">4 января 2009</td>
+      <td rowspan="1" colspan="1">28 февраля 2011</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_7_2</td>
+      <td rowspan="1" colspan="1">7.2-RELEASE</td>
+      <td rowspan="1" colspan="1">Обычный</td>
+      <td rowspan="1" colspan="1">4 мая 2009</td>
+      <td rowspan="1" colspan="1">30 июня 2010</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_7_3</td>
+      <td rowspan="1" colspan="1">7.3-RELEASE</td>
+      <td rowspan="1" colspan="1">Расширенный</td>
+      <td rowspan="1" colspan="1">23 марта 2010</td>
+      <td rowspan="1" colspan="1">31 марта 2012</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_7_4</td>
+      <td rowspan="1" colspan="1">7.4-RELEASE</td>
+      <td rowspan="1" colspan="1">Расширенный</td>
+      <td rowspan="1" colspan="1">24 февраля 2011</td>
+      <td rowspan="1" colspan="1">28 февраля 2013</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_8_0</td>
+      <td rowspan="1" colspan="1">8.0-RELEASE</td>
+      <td rowspan="1" colspan="1">Обычный</td>
+      <td rowspan="1" colspan="1">25 ноября 2009</td>
+      <td rowspan="1" colspan="1">30 ноября 2010</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_8_1</td>
+      <td rowspan="1" colspan="1">8.1-RELEASE</td>
+      <td rowspan="1" colspan="1">Расширенный</td>
+      <td rowspan="1" colspan="1">23 июля 2010</td>
+      <td rowspan="1" colspan="1">31 июля 2012</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_8_2</td>
+      <td rowspan="1" colspan="1">8.2-RELEASE</td>
+      <td rowspan="1" colspan="1">Обычный</td>
+      <td rowspan="1" colspan="1">24 февраля 2011</td>
+      <td rowspan="1" colspan="1">31 июля 2012</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_9_0</td>
+      <td rowspan="1" colspan="1">9.0-RELEASE</td>
+      <td rowspan="1" colspan="1">Обычный</td>
+      <td rowspan="1" colspan="1">10 января 2012</td>
+      <td rowspan="1" colspan="1">31 марта 2013</td>
+    </tr>
+  </table>
+
+</div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="../search/index-site.html">Карта сайта</a> |
+  <a href="../copyright/">Условия использования</a> | © 1995-2014
+  Проект FreeBSD. Все права защищены.</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

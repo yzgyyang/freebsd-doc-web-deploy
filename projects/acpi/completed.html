@@ -1,0 +1,682 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>FreeBSD ACPI completed projects</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="../../layout/css/fixed.css?20130112" type="text/css" />
+    <script type="text/javascript" src="../../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Header And Logo</h2>
+            <div id="headerlogoleft">
+              <a href="../.." title="FreeBSD">
+                <img src="../../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <div class="frontdonateroundbox">
+                <div class="frontdonatetop">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+                <div class="frontdonatecontent">
+                  <a href="https://www.FreeBSDFoundation.org/donate/">Donate to FreeBSD</a>
+                </div>
+                <div class="frontdonatebot">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+              </div>
+              <h2 class="blockhide">Peripheral Links</h2>
+              <div id="searchnav">
+                <ul id="searchnavlist"></ul>
+              </div>
+              <div id="search">
+                <form method="get" id="search" action="https://duckduckgo.com/">
+                  <h2 class="blockhide">
+                    <label for="words">Search</label>
+                  </h2>
+                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
+                  <input type="hidden" name="ka" value="v" />
+                  <input type="hidden" name="kt" value="v" />
+                  <input type="hidden" name="kh" value="1" />
+                  <input type="hidden" name="kj" value="r2" />
+                  <input id="words" name="q" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="Search" />
+                  <span> </span>
+                  <input id="submit" name="submit" type="submit" value="Search" />
+                </form>
+              </div>
+            </div>
+          </div>
+          <h2 class="blockhide">Site Navigation</h2>
+          <div id="menu">
+            <ul class="first">
+              <li>
+                <a href="../../">Home</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../about.html">About</a>
+                <ul>
+                  <li>
+                    <a href="../../projects/newbies.html">Introduction</a>
+                  </li>
+                  <li>
+                    <a href="../../features.html">Features</a>
+                  </li>
+                  <li>
+                    <a href="../../advocacy/">Advocacy</a>
+                  </li>
+                  <li>
+                    <a href="../../marketing/">Marketing</a>
+                  </li>
+                  <li>
+                    <a href="../../privacy.html">Privacy Policy</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../where.html">Get FreeBSD</a>
+                <ul>
+                  <li>
+                    <a href="../../releases/">Release Information</a>
+                  </li>
+                  <li>
+                    <a href="../../releng/">Release Engineering</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../docs.html">Documentation</a>
+                <ul>
+                  <li>
+                    <a href="../../doc/en_US.ISO8859-1/books/faq/">FAQ</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/en_US.ISO8859-1/books/handbook/">Handbook</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/en_US.ISO8859-1/books/porters-handbook">Porter's Handbook</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/en_US.ISO8859-1/books/developers-handbook">Developer's Handbook</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/man.cgi">Manual Pages</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/en_US.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
+                  </li>
+                  <li>
+                    <a href="../../docs/books.html">All Books and Articles</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../community.html">Community</a>
+                <ul>
+                  <li>
+                    <a href="../../community/mailinglists.html">Mailing Lists</a>
+                  </li>
+                  <li>
+                    <a href="https://forums.FreeBSD.org">Forums</a>
+                  </li>
+                  <li>
+                    <a href="../../usergroups.html">User Groups</a>
+                  </li>
+                  <li>
+                    <a href="../../events/events.html">Events</a>
+                  </li>
+                  <li>
+                    <a href="http://serverfault.com/questions/tagged/freebsd">Q&amp;A (external)</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../projects/index.html">Developers</a>
+                <ul>
+                  <li>
+                    <a href="https://wiki.FreeBSD.org/IdeasPage">Project Ideas</a>
+                  </li>
+                  <li>
+                    <a href="https://svnweb.FreeBSD.org">SVN Repository</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/freebsd">GIT Repository</a>
+                  </li>
+                  <li>
+                    <a href="http://p4web.FreeBSD.org">Perforce Repository</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../support.html">Support</a>
+                <ul>
+                  <li>
+                    <a href="../../commercial/commercial.html">Vendors</a>
+                  </li>
+                  <li>
+                    <a href="../../security/">Security Information</a>
+                  </li>
+                  <li>
+                    <a href="https://bugs.FreeBSD.org/search/">Bug Reports</a>
+                  </li>
+                  <li>
+                    <a href="https://www.FreeBSD.org/support.html">Submitting Bug Reports</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="https://www.freebsdfoundation.org/">Foundation</a>
+                <ul>
+                  <li>
+                    <a href="https://www.freebsdfoundation.org/donate/">Monetary Donations</a>
+                  </li>
+                  <li>
+                    <a href="../../donations/index.html#systems">Hardware Donations</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Section Navigation</h2>
+              <ul>
+                <li>
+                  <a href="../../projects/index.html">Developers</a>
+                </li>
+                <li>
+                  <a href="../../doc/en_US.ISO8859-1/books/developers-handbook">Developer's Handbook</a>
+                </li>
+                <li>
+                  <a href="../../doc/en_US.ISO8859-1/books/porters-handbook">Porter's Handbook</a>
+                </li>
+                <li>
+                  <a href="../../developers/cvs.html">Source code repositories</a>
+                </li>
+                <li>
+                  <a href="../../releng/index.html">Release Engineering</a>
+                </li>
+                <li>
+                  <a href="../../platforms/">Platforms</a>
+                </li>
+                <li>
+                  <a href="https://wiki.FreeBSD.org/IdeasPage">Project Ideas</a>
+                </li>
+                <li>
+                  <a href="../../doc/en_US.ISO8859-1/articles/contributing/index.html">Contributing</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap"><h1>FreeBSD ACPI completed projects</h1>
+
+    <h2>Completed Project List</h2>
+
+    <table class="tblbasic">
+      <tr>
+	<td rowspan="1" colspan="1">Add methods to get/set ints
+	  acpi_EvaluateInteger only gets an int.  Update api to get/set
+	  so that every consumer does not end up defining their own.</td>
+	<td rowspan="1" colspan="1">Mark Santcroos</td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1">Fix getenv_string.  Does not seem to work in
+	  sys/dev/acpica/Osd/OsdTable.c.  Turned out the name
+	  should not end in "_name".</td>
+	<td rowspan="1" colspan="1">Mark Santcroos and Peter Grehan</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">acpi_video manpage.  See appendix B of the ACPI 2.0
+	  spec for info on what this driver does as well as look
+	  at the sysctls it exports.</td>
+	<td rowspan="1" colspan="1">Mark Santcroos</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">fd0 not working on Intel boards.  The floppy device did not
+	  work due to the _CRS object on some systems splitting the IO
+	  port into three 2 port resources (6 ports total).  Fix committed
+	  to sys/isa/fd.c to work with this type of resource
+	  specification.</td>
+	<td rowspan="1" colspan="1">Nate Lawson and John Baldwin</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Some BIOSs use 0x3f2-0x3f5 as the port range
+	  -- the real range is 0x3f0-0x3f5, 0x3f7.  Workaround
+	  committed.</td>
+	<td rowspan="1" colspan="1">Warner Losh</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">ACPI Debugging Handbook Page --
+	  Introduction to ACPI for new users as well as how to assist
+	  us in fixing problems as they arise.</td>
+	<td rowspan="1" colspan="1">Nate Lawson and Tom Rhodes</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">acpi_video driver (njl) -- Imported.</td>
+	<td rowspan="1" colspan="1">Nate Lawson and Taku YAMAMOTO (driver author)</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">BIOS blacklist -- implement a mechanism and specific
+	  quirks to disable features or ACPI entirely on known
+	  broken systems.  If a custom DSDT is loaded, do not
+	  check it against the blacklist (since a user may fix
+	  the DSDT without changing the vendor/revision fields.)  Add
+	  blacklist option for disabling acpi on certain
+	  systems.</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">acpi_toshiba man page -- Driver submitted by Hiroyuki Aizu
+	  and committed.  All it needs is someone to try it out and
+	  document the sysctls.</td>
+	<td rowspan="1" colspan="1">Philip Paeps</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Invalid PBLK length workaround -- Accept a PBLK of length 5
+	  (spec says 6).  Only enable C2 for this though.  Some people
+	  may be using 7 to indicate another C3 state but we do not
+	  support the extra state.</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Check EcSpacehandler to make sure it is correct for
+	  multi-byte access.  Found off-by-one in that the last
+	  address (0xff) could never be written or read.</td>
+	<td rowspan="1" colspan="1"> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Pick a default MS OS to claim -- Too much ASL depends on
+	  a MS OS string so we should masquerade as the most accurate
+	  one.  Picked Win2k&#8482; ("Microsoft Windows NT&#8482;"),
+	  then reverted once _OSI support was available.  ACPI-CA still
+	  has a default of "Microsoft Windows NT&#8482;".</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Handle DPF resource types in acpi_pcib.c -- Some _PRS values
+	  are bracketed with start/end dependent function resource
+	  descriptors.  Parse/skip them to fix PCI IRQ routing.</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">acpi_toshiba updates -- Implement support for DSSX which
+	  appears to be the only way to do display switching (other
+	  than acpi_video).</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">ASUS driver -- Driver for ASUS ACPI extras (hotkeys).
+	  Similar to the acpi4asus.sf.net Linux project.</td>
+	<td rowspan="1" colspan="1">Philip Paeps</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Fix sysctls for debug layer/level -- setting from usermode
+	  via a sysctl did not work.</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Make lid and sleep button sysctls default to
+	  min(supported_states) -- lid switch now defaults to
+	  NONE, sleep button to minimum sleep state available.</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">newbus attachments for cpu -- Get cpu devices under
+	  newbus so drivers like cpufreq can probe/attach.</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Make CPU cx_lowest sysctl more readable -- Use C[1-9]
+	  instead of the index value.</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Update EC GLK check -- Use the handle from the table to
+	  read _GLK instead of always defaulting to using the global
+	  lock.</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Merge ECDT/EC probe</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">_INI methods -- run for all devices, not just Device
+	  objects.  ACPI-CA now calls _INI for Devices,
+	  ThermalZones and Processors.</td>
+	<td rowspan="1" colspan="1"> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Fix acpidump failing on several systems -- acpidump(8) fails
+	  on some systems.  I suspect this may be in how we search low
+	  memory for the RSDP.  Changed to only search EBDA (1 KB
+	  pointed to by 16 bit pointer at 0x40E) and high memory
+	  (0xE0000 - 0xFFFFF) according to the spec
+	  (section 5.2.2).</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Fix apm compat interface -- Hacked around this in the
+	  userland utility by marking values &gt;= 255 as
+	  "unknown".</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Update GPE code to handle general device wake -- Also,
+	  disable GPEs that are not valid when entering a new sleep
+	  state.  Without this, GPEs for the lid left enabled on a
+	  Thinkpad&#8482; X22 restart the system after power off.
+	  Add userland interface for enabling device wake (done as
+	  per-device sysctls).</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Fix shutdown routines to not poke all the events (causes
+	  auto power on for some people).  Workaround is to set
+	  hw.acpi.disable_on_poweroff="0".  Now that GPEs are properly
+	  disabled based on _PRW during suspend and poweroff, we can
+	  hopefully remove the call to acpi_Disable() in the poweroff
+	  path.  We now handle the reboot case also by hooking
+	  device_shutdown().</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Cleanup acpidump/boot EBDA lengths.</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Fix acpi_cpu busy refcount -- We no longer use a refcount
+	  but instead avoid doing any housekeeping after re-enabling
+	  interrupts at the end of acpi_cpu_idle().  Otherwise, the
+	  context switch after unmasking ints could disrupt device
+	  state.</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Do not print an error message for _PR0 method -- If not
+	  present, do not print an error in switch_consumer.</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">acpi sysresource probing  -- Probe/attach acpi resources
+	  in the acpi bus and then dole it out to children as necessary.
+	  Requires rman(9).  Includes more sophisticated handling of
+	  device ordering in scan.</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Update ACPI blacklist -- Read entries from various OS's
+	  and add them to our blacklist table.</td>
+	<td rowspan="1" colspan="1">Nate Lawson, Mark Santcroos</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Fix general wake code -- remove use of device_t flags as
+	  they may collide with the driver.  Use an acpi ivar
+	  instead.  Fix for non-acpi devices as well by using a bus
+	  walk routine instead of device_suspend.  Add code to turn
+	  on appropriate power resources.  Disable EC in shutdown
+	  path.</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Fix drivers and the apm compat interface  -- Currently,
+	  the apm compat interface expects byte values but the ABI used
+	  is a set of u_ints and an int.  Either the apm or acpi battery
+	  drivers (or both) are setting the value to -1,
+	  which results in 0xffffffff being passed back as the current
+	  state.  Really, only 255 should be returned in this case.
+	  The apm userland utility marks values &gt;= 255 as "unknown"
+	  to work around this.  But really the underlying drivers should
+	  be fixed.</td>
+	<td rowspan="1" colspan="1">Warner Losh</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Fix EC timeouts -- move to a sx lock to cover EcWait instead
+	  of a mutex so we can hold it across msleep.  This fixed the
+	  timed out errors that occurred occasionally for some
+	  users.</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Package all info on how to do an ACPI import -- done and
+	  handed off to Mark Santcroos for inclusion in the acpi projects
+	  website.</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">ACPI floppy driver probing -- Add a fdc_acpi_probe method
+	  to enumerate floppies using _FDE, _FDI methods.</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Rework ACPI PCI link support -- _DIS all links, ignore
+	  invalid _CRS, ignore _STA, assume _SRS succeeds.</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Fix EISA probe not to write to registers.  Turns out an
+	  inb actually triggers the boot hang.  Patch committed to
+	  only probe the first slot; however, this breaks the Adaptec
+	  VLB adapter (not EISA).  Justin T. Gibbs is fixing that device's
+	  probe.  Done.</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Giant-free locking -- Remove dependency on Giant.</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Add SSDT support to acpidump(8) -- Right now we only dump
+	  the fixed tables and DSDT.  Change acpidump(8) to dump the
+	  SSDT tables.  It currently concatenates them with the
+	  DSDT.</td>
+	<td rowspan="1" colspan="1">Marcel Moolenaar</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Change shutdown path -- do not use smp_rendezvous() since
+	  it acquires a spinlock.  Instead, MI code should run the
+	  shutdown path only on the BSP and all other processors should
+	  be halted.</td>
+	<td rowspan="1" colspan="1">Peter Wemm</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Turn ACPI and PCI devices off or to a lower power state in
+	  suspend and back on again in resume.  Override the default of
+	  D3 with the value the BIOS specifies in _SxD, if present.  Skip
+	  serial devices (PNP05xx) since they seem to hang when set to
+	  D3 and may require special driver support.  Also skip non-type
+	  0 PCI devices (i.e., bridges) since they don't seem to handle
+	  being powered off.</td>
+	 <td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Giant-free locking.</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">newbus attachments for cpu &#8212; get cpu devices under
+	  newbus so drivers like cpufreq can probe/attach.</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Write initial drivers: ICH SpeedStep, ACPI performance,
+	  ACPI throttling, Enhanced SpeedStep, P4 TCC.</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Add bus methods/ivars for child attachments to both acpi
+	  and legacy cpu devices</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Design sysctl interface.</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Design notify interface for Px changes.</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Update power_profile to use cpufreq.</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Import powerd.</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Fujitsu driver -- Driver for Fujitsu laptop extras. Just needs
+	  to be cleaned up (use acpi_UserNotify instead of the signal
+	  stuff) and imported.</td>
+	<td rowspan="1" colspan="1">Mark Santcroos</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">IBM Thinkpad extras driver -- Driver for Thinkpad hotkeys.</td>
+	<td rowspan="1" colspan="1">Takanori Watanabe</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Call _S0D on resume (power up?).</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Implement the int 10h resume hack that Linux has since we do
+	  not have that yet.  It is unclear how effective it is but some
+	  systems do require it.</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Check our DWORD access to EC regions, including endianness.
+	  Currently, we treat DWORD access as little-endian, which makes
+	  sense on PCs.  It's really not correct to do use access other than
+	  BYTE for EC space but some ASL uses DWORD.  Also, we should test
+	  what happens for AnyAccess reads/writes to EC space since some
+	  ASL does this too.  The existing implementation seems correct.</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Implement passive cooling in ACPI thermal.  It should use the
+	  cpufreq interface to cool the processor, based on the various _PSV
+	  settings.  Also, we need to implement variable polling intervals
+	  for thermal zones based on both the passive settings and polling
+	  explicitly specified in the ASL.</td>
+	<td rowspan="1" colspan="1">Hajimu UMEMOTO</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Fix stray irq 9 on reboot --
+	  AcpiTerminate -&gt; AcpiEvTerminate unhooks the SCI and then we
+	  get a stray irq.  Debug why. Also, disable/ re-enable acpi gives
+	  "SCI already attached".  Check flags for AcpiDisable vs.
+	  AcpiTerminate. This looks uncommon and does not cause any problems
+	  so it will be ignored for now.</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Add smart battery support -- Smart batteries use the SMBus
+	  to communicate data instead of the embedded controller for
+	  control-method batteries.  Newer ACER laptops have this and
+	  it will be needed for battery status on them.  This is rather
+	  difficult since it involves interfacing with the SMBus drivers
+	  (likely need some kobj methods for this.)</td>
+	<td rowspan="1" colspan="1">Nate Lawson</td>
+      </tr>
+    </table>
+
+
+  </div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="../../search/index-site.html">Site Map</a> |
+  <a href="../../copyright/">Legal Notices</a> | © 1995&#8211;2017 The FreeBSD Project.
+  All rights reserved.</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>IPv6 unter FreeBSD</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="../../layout/css/fixed.css?20130112" type="text/css" />
+    <script type="text/javascript" src="../../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Header And Logo</h2>
+            <div id="headerlogoleft">
+              <a href=".." title="FreeBSD">
+                <img src="../../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <div class="frontdonateroundbox">
+                <div class="frontdonatetop">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+                <div class="frontdonatecontent">
+                  <a href="https://www.FreeBSDFoundation.org/donate/">An FreeBSD spenden</a>
+                </div>
+                <div class="frontdonatebot">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+              </div>
+              <h2 class="blockhide">Peripheral Links</h2>
+              <div id="searchnav">
+                <ul id="searchnavlist"></ul>
+              </div>
+              <div id="search">
+                <form method="get" id="search" action="https://duckduckgo.com/">
+                  <h2 class="blockhide">
+                    <label for="words">Suche</label>
+                  </h2>
+                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
+                  <input type="hidden" name="ka" value="v" />
+                  <input type="hidden" name="kt" value="v" />
+                  <input type="hidden" name="kh" value="1" />
+                  <input type="hidden" name="kj" value="r2" />
+                  <input id="words" name="q" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="Suche" />
+                  <span> </span>
+                  <input id="submit" name="submit" type="submit" value="Suche" />
+                </form>
+              </div>
+            </div>
+          </div>
+          <h2 class="blockhide">Site Navigation</h2>
+          <div id="menu">
+            <ul class="first">
+              <li>
+                <a href="../">Startseite</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../about.html">Über FreeBSD</a>
+                <ul>
+                  <li>
+                    <a href="../projects/newbies.html">Für Einsteiger</a>
+                  </li>
+                  <li>
+                    <a href="../features.html">Eigenschaften</a>
+                  </li>
+                  <li>
+                    <a href="../../advocacy/">Advocacy</a>
+                  </li>
+                  <li>
+                    <a href="../../marketing/">Marketing</a>
+                  </li>
+                  <li>
+                    <a href="../../privacy.html">Privacy Policy</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../where.html">Bezugsquellen</a>
+                <ul>
+                  <li>
+                    <a href="../releases/">Release Information</a>
+                  </li>
+                  <li>
+                    <a href="../../releng/">Release Engineering</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../docs.html">Dokumentation</a>
+                <ul>
+                  <li>
+                    <a href="../../doc/de_DE.ISO8859-1/books/faq/">FAQ</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/de_DE.ISO8859-1/books/handbook/">Handbuch</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/de_DE.ISO8859-1/books/porters-handbook">Porter-Handbuch</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/de_DE.ISO8859-1/books/developers-handbook">Entwickler-Handbuch</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/man.cgi">Manualpages</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/de_DE.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
+                  </li>
+                  <li>
+                    <a href="../docs/books.html">Alle Bücher und Artikel</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../community.html">Community</a>
+                <ul>
+                  <li>
+                    <a href="../community/mailinglists.html">Mailinglisten</a>
+                  </li>
+                  <li>
+                    <a href="https://forums.freebsd.org">Forum</a>
+                  </li>
+                  <li>
+                    <a href="../../usergroups.html">User Groups</a>
+                  </li>
+                  <li>
+                    <a href="../../events/events.html">Events</a>
+                  </li>
+                  <li>
+                    <a href="http://serverfault.com/questions/tagged/freebsd">Q&amp;A (extern)</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../projects/index.html">Entwicklung</a>
+                <ul>
+                  <li>
+                    <a href="https://wiki.FreeBSD.org/IdeasPage">Projektideen</a>
+                  </li>
+                  <li>
+                    <a href="https://svnweb.FreeBSD.org">SVN-Repository</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/freebsd">GIT-Repository</a>
+                  </li>
+                  <li>
+                    <a href="http://p4web.FreeBSD.org">Perforce-Repository</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../support.html">Hilfe</a>
+                <ul>
+                  <li>
+                    <a href="../../commercial/commercial.html">Kommerzieller Support</a>
+                  </li>
+                  <li>
+                    <a href="../security/">Sicherheit</a>
+                  </li>
+                  <li>
+                    <a href="https://bugs.FreeBSD.org/search/">Problemberichte</a>
+                  </li>
+                  <li>
+                    <a href="https://www.FreeBSD.org/de/support.html">Problembericht erstellen</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="https://www.freebsdfoundation.org/">Foundation</a>
+                <ul>
+                  <li>
+                    <a href="https://www.freebsdfoundation.org/donate/">Geldspende</a>
+                  </li>
+                  <li>
+                    <a href="../../donations/index.html#systems">Hardwarespende</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Section Navigation</h2>
+              <ul>
+                <li>
+                  <a href="../projects/index.html">Entwicklung</a>
+                </li>
+                <li>
+                  <a href="../../doc/de_DE.ISO8859-1/books/developers-handbook">Developer's Handbook</a>
+                </li>
+                <li>
+                  <a href="../../doc/de_DE.ISO8859-1/books/porters-handbook">Porter-Handbuch</a>
+                </li>
+                <li>
+                  <a href="../developers/cvs.html">Quellcode-Repositories</a>
+                </li>
+                <li>
+                  <a href="../../releng/index.html">Release Engineering</a>
+                </li>
+                <li>
+                  <a href="../platforms/">Plattformen</a>
+                </li>
+                <li>
+                  <a href="https://wiki.FreeBSD.org/IdeasPage">Projekt-Vorschläge</a>
+                </li>
+                <li>
+                  <a href="../../doc/de_DE.ISO8859-1/articles/contributing/index.html">FreeBSD unterstützen</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap"><h1>IPv6 unter FreeBSD</h1>
+  
+<div id="catnav">
+  <h4>Inhaltsverzeichis</h4>
+
+  <ul>
+    <li><a href="../ipv6/" shape="rect">IPv6 unter FreeBSD</a></li>
+    <li><a href="../../ipv6/ipv6only.html" shape="rect">Reiner IPv6-Betrieb</a></li>
+    <li><a href="../../ipv6/w6d.html" shape="rect">World IPv6 Day</a>
+    <ul>
+      <li><a href="../../ipv6/w6d-www-stats.html" shape="rect">WWW-Statistiken</a></li>
+    </ul></li>
+  </ul>
+</div> 
+
+    <h2>Einführung</h2>
+
+    <p>IPv6 wird seit mehr als 10 Jahren von FreeBSD unterstützt (die erste
+      FreeBSD-Version mit standardmäßig aktivierter
+      IPv6-Unterstützung war FreeBSD 4.0-RELEASE, das im Jahre 2000
+      veröffentlicht wurde).  Diese Seite beschreibt den aktuellen
+      Stand der IPv6-Unterstützung unter FreeBSD und bietet zusätzlich
+      Informationen zum "IPv6 World Day 2011".</p>
+
+    <h2>Neuigkeiten</h2>
+
+    <ul>
+      <li><b>12. Januar 2012</b>: Für 9.0-RELEASE sind ab sofort reine
+	IPv6-Snapshots verfügbar.  Weitere Details zu diesen Snapshots
+	finden sich auf der <a href="http://wiki.freebsd.org/IPv6Only" shape="rect">IPv6Only wiki page</a>.
+      </li>
+      <li><b>15. Dezember 2011</b>:  Für 9.0-RC3 sind ab sofort reine
+	IPv6-Snapshots verfügbar.  Weitere Details zu diesen Snapshots
+	finden sich auf der <a href="http://wiki.freebsd.org/IPv6Only" shape="rect">IPv6Only wiki page</a>.
+      </li>
+      <li><b>3. August 2011</b>: Für 9.0-BETA1 sind ab sofort reine
+	IPv6-Snapshots verfügbar.  Weitere Details zu diesen Snapshots
+	finden sich auf der <a href="http://wiki.freebsd.org/IPv6Only" shape="rect">IPv6Only wiki page</a>.
+      </li>
+      <li><b>9. Juni 2011</b>:  Wir bedanken uns bei allen Teilnehmern des
+	World IPv6 Days.  IPv6-Statistiken für <a href="../.." shape="rect">www.FreeBSD.org</a> für den Zeitraum von 12
+	Stunden vor und nach diesem Ereignis sind ab sofort <a href="../../ipv6/w6d-www-stats.html" shape="rect">verfügbar</a>.
+      </li>
+      <li><b>7. Juni 2011</b>: Aktualisierte reine IPv6-Snapshots wurden
+	bereitgestellt.  Neu ist die Unterstützung von "RFC 6106 DNS
+	Suchlisten und Nameserver" in <a href="//www.FreeBSD.org/cgi/man.cgi?query=rtsol&amp;sektion=8" shape="rect">rtsol(8)</a> und  <a href="//www.FreeBSD.org/cgi/man.cgi?query=rtsold&amp;sektion=8" shape="rect">rtsold(8)</a>
+	bereits während der Installation.  Weitere Informationen zu
+	diesen Snapshots finden Sie <a href="../../ipv6/ipv6only.html" shape="rect">hier</a>, Download-Links
+	und Informationen zur Installation über ein Netzwerk hingegen
+	im <a href="http://wiki.freebsd.org/IPv6Only" shape="rect">FreeBSD Wiki</a>.
+      </li>
+      <li><b>6. Juni 2011</b>: Die FreeBSD Foundation and iXsystems haben
+	heute bekanntgegeben, dass sie den World IPv6 Day unterstützen
+	werden, um die globale Verbreitung von IPv6 zu fördern.  Lesen
+	Sie dazu bitte die offizielle <a href="http://www.prweb.com/releases/2011/6/prweb8529718.htm" shape="rect">
+	Presseerklärung</a>.  Weitere Informationen zu FreeBSD und zum
+	World IPv6 Day finden Sie <a href="../../ipv6/w6d.html" shape="rect">hier</a>.
+      </li>
+      <li><b>6. Juni 2011</b>: Aktualisierte reine IPv6-Snapshots wurden
+	bereitgestellt.  Weitere Informationen zu diesen Snapshots finden Sie
+	<a href="../../ipv6/ipv6only.html" shape="rect">hier</a>, Download-Links
+	hingegen <a href="http://wiki.freebsd.org/IPv6Only" shape="rect">hier</a>.
+      </li>
+      <li><b>6. Juni 2011</b>: Hiroki Sato hat
+	<a href="http://www.rfc-editor.org/rfc/rfc6106.txt" shape="rect">RFC 6106</a>,
+	"IPv6 Router Advertisement Options for DNS
+	Configuration" (RDNSS and DNSSL) support" <a href="http://svn.freebsd.org/changeset/base/222732" shape="rect">committed</a>.
+
+      </li>
+    </ul>
+
+    <h2>IPv6 unter FreeBSD</h2>
+
+    <p>FreeBSD ist ein weit verbreitetes Open Source-Betriebssystem, dessen
+      Netwerk-Stack die Grundlage für jahrezehntelange Forschung bildet
+      und der auch als Basis für die IPv6-Referenzimplementierung (die
+      vom <a href="http://www.kame.net/" shape="rect">KAME</a>-Projekt erstellt wurde)
+      diente.  FreeBSD unterstützt IPv6 seit März 2000 (die
+      erste FreeBSD-Version mit IPv6-Unterstützung war <a href="../releases/" shape="rect">4.0-RELEASE</a>).
+    </p>
+
+    <h2>IPv6 und das FreeBSD Project</h2>
+
+    <p>Das FreeBSD Project hat sich von Anfang an an der Entwicklung von IPv6
+      beteiligt.  Durch die Hilfe der Community war es möglich,
+      FreeBSD-Releases ab Mai 2003 auch über IPv6 bereitzustellen.
+      Die FreeBSD-Webseiten, Mailinglisten sowie die Entwickler-Infrastruktur
+      unterstützen IPv6 seit 2007.</p>
+
+    <p>FreeBSD wird oft in kritischen Bereichen der Internet-Infrastruktur,
+      beispielsweise in Root-Nameservern, Routern und Firewalls eingesetzt.
+      Einige der weltmeist größten und zuverlässigsten
+      Internetseiten laufen ebenfalls unter FreeBSD.  Außerdem verwenden
+      zahlreiche Hersteller von integrierten Produkten FreeBSD als Basis, um
+      die bestmögliche IPv6-Unterstützung anbieten zu können.
+      Kommentare verschiedener Unternehmen, die FreeBSD als Basis für
+      ihre Produkte verwenden, können Sie auf der Seite <a href="http://www.freebsdfoundation.org/testimonials.shtml" shape="rect">FreeBSD
+      Foundation Testimonials</a> nachlesen.</p>
+
+  </div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="../../search/index-site.html">Sitemap</a> | <a href="../../copyright/">Legal Notices</a> | © 1995&#8211;2017 The FreeBSD Project.  Alle Rechte vorbehalten.</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

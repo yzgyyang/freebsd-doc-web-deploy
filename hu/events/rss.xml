@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>A FreeBSD Projekttel kapcsolatos közelgő
+      rendezvények</title>
+    <link>http://www.FreeBSD.org/hu/events/</link>
+    <description>A közeljövőben megrendezésre
+	  kerülő, különböző FreeBSD
+	  témájú konferenciák,
+	  gyűlések, kurzusok és egyéb fontos
+	  rendezvények.</description>
+    <language>hu-hu</language>
+    <webMaster>freebsd-www@FreeBSD.org (Webmesterek)</webMaster>
+    <managingEditor>freebsd-www@FreeBSD.org (Webmesterek)</managingEditor>
+    <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+    <ttl>120</ttl>
+    <image>
+      <url>http://www.FreeBSD.org/logo/logo-full.png</url>
+      <title>A FreeBSD Projekttel kapcsolatos közelgő
+      rendezvények</title>
+      <link>http://www.FreeBSD.org/hu/events/</link>
+    </image>
+    <atom:link rel="self" type="application/rss+xml" href="http://www.FreeBSD.org/hu/events/rss.xml"/>
+  </channel>
+</rss>

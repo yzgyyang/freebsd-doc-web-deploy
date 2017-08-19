@@ -1,0 +1,292 @@
+<?xml version="1.0"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>FreeBSD GNOME Project News</title>
+    <link>http://www.FreeBSD.org/gnome/</link>
+    <description>FreeBSD GNOME News System</description>
+    <language>en-us</language>
+    <webMaster>freebsd-gnome@FreeBSD.org (FreeBSD GNOME Team)</webMaster>
+    <managingEditor>freebsd-gnome@FreeBSD.org (FreeBSD GNOME Team)</managingEditor>
+    <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+    <ttl>120</ttl>
+    <image>
+      <url>http://www.FreeBSD.org/logo/logo-full.png</url>
+      <title>FreeBSD GNOME Project News</title>
+      <link>http://www.FreeBSD.org/gnome/</link>
+    </image>
+    <atom:link rel="self" type="application/rss+xml" href="http://www.FreeBSD.org/gnome/rss.xml"/>
+    <item>
+      <title>Announcing GNOME 3.18 for FreeBSD!</title>
+      <description>The FreeBSD GNOME team proudly presents GNOME 3.18 for
+	    FreeBSD.This update does not contain the glib and gtk c++ bindings
+	    which will be done in a another update due to the requirement
+	    on c++11 and the amount of fallout this probably will give.GDM is still at version 3.16 due to some issues.Bump mate-themes to use the gtk 3.18 version of the themes.</description>
+      <link>http://www.FreeBSD.org/gnome/newsflash.html#event2016February14:0</link>
+      <guid>http://www.FreeBSD.org/gnome/newsflash.html#event2016February14:0</guid>
+      <pubDate>Sun, 14 Feb 2016 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>Announcing MATE 1.12 for FreeBSD!</title>
+      <description>The FreeBSD GNOME team proudly presents MATE 1.12 for
+	    FreeBSD.This version of MATE uses the GTK+ 2 toolkit for
+	    stability, and has a number of bugfixes for the
+	    applets.</description>
+      <link>http://www.FreeBSD.org/gnome/newsflash.html#event2016January25:0</link>
+      <guid>http://www.FreeBSD.org/gnome/newsflash.html#event2016January25:0</guid>
+      <pubDate>Mon, 25 Jan 2016 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>Announcing GNOME 3.16.2 for FreeBSD!</title>
+      <description>The FreeBSD GNOME team proudly presents GNOME 3.16 for
+	    FreeBSD.The official GNOME 3.16 release notes can be found at
+	    https://help.gnome.org/misc/release-notes/3.16/.This release was made possible by these people:
+	    Gustau Perez
+	    
+	    Ting-Wei_Lan
+	    
+	  </description>
+      <link>http://www.FreeBSD.org/gnome/newsflash.html#event2015August5:0</link>
+      <guid>http://www.FreeBSD.org/gnome/newsflash.html#event2015August5:0</guid>
+      <pubDate>Wed, 5 Aug 2015 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>Announcing MATE 1.10.0 for FreeBSD!</title>
+      <description>Presenting the MATE 1.10.0 Desktop Environment for
+	    FreeBSD.  The official release notes for this release can
+	    be found at
+	    http://mate-desktop.org/blog/2015-06-11-mate-1-10-released/This version of MATE is still built on the GTK+ 2
+	    toolkit.Replace mate-dialogs with zenity and mate-calc with
+	    galculator.Thanks go to Gustau Perez for helping track MATE
+	    development.</description>
+      <link>http://www.FreeBSD.org/gnome/newsflash.html#event2015July27:0</link>
+      <guid>http://www.FreeBSD.org/gnome/newsflash.html#event2015July27:0</guid>
+      <pubDate>Mon, 27 Jul 2015 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>Announcing GNOME 2.32.1 for FreeBSD!</title>
+      <description>Presenting GNOME 2.32.1 for FreeBSD. The official release
+	    notes for this release can be found at
+	    http://library.gnome.org/misc/release-notes/2.32/This will be the last release of the GNOME 2.x series,
+	    mainly a bugfix and bridge release to the first release of
+	    the GNOME 3.x series.This release features commits by avl, marcus, mezz and
+	    myself.The FreeBSD GNOME Team would like to thank the following
+	    contributors and testers for there help with this
+	    release:
+	    Zane C.B.
+	    
+	    romain@
+	    
+	    Olaf Seibert
+	    
+	    DomiX
+	    
+	    Bapt
+	    
+	    jsa@
+	    
+	    miwi@
+	    
+	    Sergio de Almeida Lenzi
+	    
+	    Maxim Samsonov
+	    
+	    Kris Moore
+	    </description>
+      <link>http://www.FreeBSD.org/gnome/newsflash.html#event2010November19:0</link>
+      <guid>http://www.FreeBSD.org/gnome/newsflash.html#event2010November19:0</guid>
+      <pubDate>Fri, 19 Nov 2010 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>Announcing GNOME 2.30.1. for FreeBSD!</title>
+      <description>Presenting GNOME 2.30.1 for FreeBSD. The official release
+	    notes for this release can be found at
+	    http://library.gnome.org/misc/release-notes/2.30/This release brings initial PackageKit support, Upower
+	    (replaces power management part of hal), cuse4bsd
+	    integration with HAL and cheese, and a faster
+	    Evolution.Sadly GNOME 2.30.x will be the last release with FreeBSD
+	    6.X support.  This will also be the last of the 2.x
+	    releases.  The next release will be the highly-anticipated
+	    GNOME 3.0 which will bring with it a new UI
+	    experience.Currently, there are a few bugs with GNOME 2.30 that may
+	    be of note for our users.  Be sure to consult the 2.30
+	    upgrade FAQ at
+	    http://www.freebsd.org/gnome/docs/faq230.html
+	    for specific upgrading instructions, and the up-to-date
+	    list of known issues.This release features commits by: avl, ahze, bland,
+	    marcus, mezz and myself.The FreeBSD GNOME Team would like to thank Anders F
+	    Bjorklund for doing the initial packagekit porting.And the following contributors and testers for there help
+	    with this release:
+	    Eric L. Chen
+	    
+
+	    Vladimir Grebenschikov
+	    
+
+	    Sergio de Almeida Lenzi
+	    
+
+	    DomiX
+	    
+
+	    walder
+	    
+
+	    crsd
+	    
+
+	    Kevin Oberman
+	    
+
+	    Michal Varga
+	    
+
+	    Pavel Plesov
+	    
+
+	    Bapt
+	    
+
+	    kevin
+	    
+
+	    and Ion-Mihai Tetcu for running two exp-runs for us.
+	    </description>
+      <link>http://www.FreeBSD.org/gnome/newsflash.html#event2010May10:0</link>
+      <guid>http://www.FreeBSD.org/gnome/newsflash.html#event2010May10:0</guid>
+      <pubDate>Mon, 10 May 2010 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>Announcing GNOME 2.28.1. for FreeBSD!</title>
+      <description>Presenting GNOME 2.28.1 for FreeBSD. The official release
+	    notes for this release can be found at
+	    http://library.gnome.org/misc/release-notes/2.28/.
+	    Officially, this is mostly a polishing release in
+	    preparation for GNOME 3.0 due in about a year.On the FreeBSD front, though, a lot went into this
+	    release.  Major thanks goes to kwm and avl who did a lot
+	    of the porting work for this release.  In particular, kwm
+	    brought in Evolution MAPI support for better Microsoft
+	    Exchange integration.  Avl made sure that the new gobject
+	    introspection repository ports were nicely
+	    compartmentalized so that large dependencies aren't
+	    brought in wholesale.But, every GNOME team member (ahze, avl, bland, kwm,
+	    mezz, and myself) contributed to this release.Other major improvements include an updated HAL with
+	    better volume probing code, ufsid integration, and support
+	    for volume names containing spaces (big thanks to J.R.
+	    Oldroyd); a new WebKit; updated AbiWord; an updated Gimp;
+	    and a preview of the new GNOME Shell project (thanks to
+	    Pawel Worach).The FreeBSD GNOME Team would like to that the following
+	    additional contributors to this release whose patches and
+	    testing really helped make it a success:
+	    Andrius Morkunas
+	    
+
+	    Dominique Goncalves
+	    
+
+	    Eric L. Chen
+	    
+
+	    J.R. Oldroyd
+	    
+
+	    Joseph S. Atkinson
+	    
+
+	    Li
+	    
+
+	    Pawel Worach
+	    
+
+	    Romain Tarti?re
+	    
+
+	    Thomas Vogt
+	    
+
+	    Yasuda Keisuke
+	    
+
+	    Rui Paulo
+	    
+
+	    Martin Wilke
+	    
+
+	    (and an extra shout out to miwi and pav for the pointyhat
+	    runs) We would like to send this release out to Alexander
+	    Loginov (avl) in hopes that he feels better soon.</description>
+      <link>http://www.FreeBSD.org/gnome/newsflash.html#event2009November28:0</link>
+      <guid>http://www.FreeBSD.org/gnome/newsflash.html#event2009November28:0</guid>
+      <pubDate>Sat, 28 Nov 2009 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>Announcing GNOME 2.26.0 for FreeBSD!</title>
+      <description>The FreeBSD GNOME team is proud to announce the release
+	    of GNOME 2.26.0 for FreeBSD. The official release notes
+	    can be found at
+	    http://library.gnome.org/misc/release-notes/2.26/.
+
+	    On the FreeBSD front, we introduced a port of libxul 1.9
+	    as an alternative for Firefox 2.0 as a Gecko provider.
+	    Almost all of the Gecko consumers can make use of this
+	    provider by setting:
+	    
+
+	    WITH_GECKO=libxul
+	    
+
+	    The GNOME 2.26 port was done by ahze, kwm, marcus, and
+	    mezz with contributions by Joseph S. Atkinson, Peter Wemm,
+	    Eric L. Chen, Martin Matuska, Craig Butler, and Pawel
+	    Worach.</description>
+      <link>http://www.FreeBSD.org/gnome/newsflash.html#event2009April10:0</link>
+      <guid>http://www.FreeBSD.org/gnome/newsflash.html#event2009April10:0</guid>
+      <pubDate>Fri, 10 Apr 2009 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>Announcing GNOME 2.24.2 for FreeBSD!</title>
+      <description>The FreeBSD GNOME team is proud to announce the release
+	    of GNOME 2.24.2 for FreeBSD. The official release notes
+	    can be found at
+	    http://library.gnome.org/misc/release-notes/2.24/.
+
+	    On the FreeBSD front, this release introduces Fuse support
+	    in HAL, adds multi-CPU support to libgtop, WebKit updates,
+	    and fixes some long-standing seahorse and gnome-keyring
+	    bugs.This release features commits by adamw, ahze, kwm, mezz,
+	    and myself.  It would not have been possible without are
+	    contributors and testers: Alexander Loginov, Craig Butler,
+	    Dmitry Marakasov, Eric L. Chen, Joseph S. Atkinson, Kris
+	    Moore, Lapo Luchini, Nikos Ntarmos, Pawel Worach, Romain
+	    Tartiere, TAOKA Fumiyoshi, Romain Tartiere, Yasuda
+	    Keisuke, Zyl aZ, bf, Florent Thoumie, Peter Wemm, and
+	    pluknet.</description>
+      <link>http://www.FreeBSD.org/gnome/newsflash.html#event2009January9:0</link>
+      <guid>http://www.FreeBSD.org/gnome/newsflash.html#event2009January9:0</guid>
+      <pubDate>Fri, 9 Jan 2009 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>Announcing GNOME 2.22.0 for FreeBSD!</title>
+      <description>The FreeBSD GNOME team is proud to announce the release
+	    of GNOME 2.22.0 for FreeBSD. The official GNOME 2.22
+	    release notes can be found at
+	    http://library.gnome.org/misc/release-notes/2.22/.
+
+	    On the FreeBSD front, this release features an updated hal
+	    port with support for video4linux devices, DRM (Direct
+	    Rendering), and better support of removable media.  Work
+	    is also underway to tie webkit more closely into GNOME. As
+	    part of the GNOME 2.22 upgrade, GStreamer received a
+	    rather large upgrade as well.  Be sure to consult UPDATING
+	    on the proper steps to upgrade all of your GNOME
+	    ports.This release would not have been possible without the
+	    contributions and testing efforts of the following people:
+	    Pawel Worach, kan, edwin, Peter Ulrich Kruppa, J. W.
+	    Ballantine, Yasuda Keisuke, and Andriy Gapon.</description>
+      <link>http://www.FreeBSD.org/gnome/newsflash.html#event2008March24:0</link>
+      <guid>http://www.FreeBSD.org/gnome/newsflash.html#event2008March24:0</guid>
+      <pubDate>Mon, 24 Mar 2008 00:00:00 PST</pubDate>
+    </item>
+  </channel>
+</rss>

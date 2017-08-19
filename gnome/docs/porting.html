@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>FreeBSD GNOME Project: How To Make a Port</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="../../layout/css/fixed.css?20130112" type="text/css" />
+    <script type="text/javascript" src="../../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Header And Logo</h2>
+            <div id="headerlogoleft">
+              <a href="../.." title="FreeBSD">
+                <img src="../../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <div class="frontdonateroundbox">
+                <div class="frontdonatetop">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+                <div class="frontdonatecontent">
+                  <a href="https://www.FreeBSDFoundation.org/donate/">Donate to FreeBSD</a>
+                </div>
+                <div class="frontdonatebot">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+              </div>
+              <h2 class="blockhide">Peripheral Links</h2>
+              <div id="searchnav">
+                <ul id="searchnavlist"></ul>
+              </div>
+              <div id="search">
+                <form method="get" id="search" action="https://duckduckgo.com/">
+                  <h2 class="blockhide">
+                    <label for="words">Search</label>
+                  </h2>
+                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
+                  <input type="hidden" name="ka" value="v" />
+                  <input type="hidden" name="kt" value="v" />
+                  <input type="hidden" name="kh" value="1" />
+                  <input type="hidden" name="kj" value="r2" />
+                  <input id="words" name="q" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="Search" />
+                  <span> </span>
+                  <input id="submit" name="submit" type="submit" value="Search" />
+                </form>
+              </div>
+            </div>
+          </div>
+          <h2 class="blockhide">Site Navigation</h2>
+          <div id="menu">
+            <ul class="first">
+              <li>
+                <a href="../../">Home</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../about.html">About</a>
+                <ul>
+                  <li>
+                    <a href="../../projects/newbies.html">Introduction</a>
+                  </li>
+                  <li>
+                    <a href="../../features.html">Features</a>
+                  </li>
+                  <li>
+                    <a href="../../advocacy/">Advocacy</a>
+                  </li>
+                  <li>
+                    <a href="../../marketing/">Marketing</a>
+                  </li>
+                  <li>
+                    <a href="../../privacy.html">Privacy Policy</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../where.html">Get FreeBSD</a>
+                <ul>
+                  <li>
+                    <a href="../../releases/">Release Information</a>
+                  </li>
+                  <li>
+                    <a href="../../releng/">Release Engineering</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../docs.html">Documentation</a>
+                <ul>
+                  <li>
+                    <a href="../../doc/en_US.ISO8859-1/books/faq/">FAQ</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/en_US.ISO8859-1/books/handbook/">Handbook</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/en_US.ISO8859-1/books/porters-handbook">Porter's Handbook</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/en_US.ISO8859-1/books/developers-handbook">Developer's Handbook</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/man.cgi">Manual Pages</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/en_US.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
+                  </li>
+                  <li>
+                    <a href="../../docs/books.html">All Books and Articles</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../community.html">Community</a>
+                <ul>
+                  <li>
+                    <a href="../../community/mailinglists.html">Mailing Lists</a>
+                  </li>
+                  <li>
+                    <a href="https://forums.FreeBSD.org">Forums</a>
+                  </li>
+                  <li>
+                    <a href="../../usergroups.html">User Groups</a>
+                  </li>
+                  <li>
+                    <a href="../../events/events.html">Events</a>
+                  </li>
+                  <li>
+                    <a href="http://serverfault.com/questions/tagged/freebsd">Q&amp;A (external)</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../projects/index.html">Developers</a>
+                <ul>
+                  <li>
+                    <a href="https://wiki.FreeBSD.org/IdeasPage">Project Ideas</a>
+                  </li>
+                  <li>
+                    <a href="https://svnweb.FreeBSD.org">SVN Repository</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/freebsd">GIT Repository</a>
+                  </li>
+                  <li>
+                    <a href="http://p4web.FreeBSD.org">Perforce Repository</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../support.html">Support</a>
+                <ul>
+                  <li>
+                    <a href="../../commercial/commercial.html">Vendors</a>
+                  </li>
+                  <li>
+                    <a href="../../security/">Security Information</a>
+                  </li>
+                  <li>
+                    <a href="https://bugs.FreeBSD.org/search/">Bug Reports</a>
+                  </li>
+                  <li>
+                    <a href="https://www.FreeBSD.org/support.html">Submitting Bug Reports</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="https://www.freebsdfoundation.org/">Foundation</a>
+                <ul>
+                  <li>
+                    <a href="https://www.freebsdfoundation.org/donate/">Monetary Donations</a>
+                  </li>
+                  <li>
+                    <a href="../../donations/index.html#systems">Hardware Donations</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Section Navigation</h2>
+              <ul>
+                <li>
+                  <a href="../../gnome/index.html">GNOME</a>
+                  <ul>
+                    <li>
+                      <a href="../../gnome/docs/faq2.html#q1">Installation Instructions</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/docs/faq232.html#q2">Upgrade Instructions</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/../ports/gnome.html">Available Applications</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/docs/volunteer.html">How to Help</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/docs/bugging.html">Reporting a Bug</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/screenshots.html">Screenshots</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/contact.html">Contact Us</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="../../gnome/index.html">Documentation</a>
+                  <ul>
+                    <li>
+                      <a href="../../gnome/docs/faq2.html">FAQ</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/docs/halfaq.html">HAL FAQ</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/docs/faq232.html">2.30 to 2.32 Upgrade FAQ</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/docs/develfaq.html">Development Branch FAQ</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/docs/porting.html">Creating Ports</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/docs/faq232.html#q4">Known Issues</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap"><h1>FreeBSD GNOME Project: How To Make a Port</h1>
+
+          <p>This document assumes that you already know how the port system works,
+	    and therefore only provides GNOME-specific hints and tips.  General
+	    instructions can be found in the
+	    <a href="http://www.FreeBSD.org/doc/en_US.ISO8859-1/books/porters-handbook/index.html" shape="rect">FreeBSD Porter's Handbook</a>.
+	  </p>
+
+	  <h2>Example Makefile</h2>
+	      <p>There is an <a href="example-Makefile.html" shape="rect">example Makefile</a> for a GNOME
+		port, which uses many of the tricks outlined in this document.  Please feel free to
+		use it as a guide for creating your own ports.</p>
+
+	  <h2>GNOME Makefile Macros</h2>
+          <p>GNOME applications under FreeBSD use the <b>USE_GNOME</b>
+	    infrastructure.  To specify which components of the GNOME
+	    system your port needs in order to build, simply list them
+	    all as a space-separated list. For example:</p>
+
+	  <pre xml:space="preserve">
+USE_XLIB=	yes
+USE_GNOME=	gnomeprefix gnomehack libgnomeui
+	  </pre>
+
+
+	  <p>The <b>USE_GNOME</b> components are divided into the following two lists:</p>
+
+          <ul>
+		    <li><p><a href="gnome_porting.html" shape="rect">GNOME desktop-version-independent
+			  components</a></p></li>
+		    <li><p><a href="gnome2_porting.html" shape="rect">GNOME 2 components</a></p></li>
+			<li><p><a href="gnome1_porting.html" shape="rect">GNOME 1 components</a></p></li>
+		  </ul>
+
+
+	      <p>If your port needs only <b>GTK2</b> libraries, the following is
+		the shortest way to define this:</p>
+
+	  <pre xml:space="preserve">
+USE_GNOME=	gtk20
+	  </pre>
+
+	      <p>If your port needs only <b>GTK1</b> libraries, the following is
+		the shortest way to define this:</p>
+
+	  <pre xml:space="preserve">
+USE_GNOME=	gtk12
+	  </pre>
+
+	      <p>Even if your application needs only the GTK libraries, other
+		<b>USE_GNOME</b> components may be useful.  Please scan the entire
+		list to make sure your port uses all relevant components.</p>
+
+
+	  <p>Once you have finished with your port, it is a good idea to
+	    verify that your port depends on the correct list of components.
+	    To see a list of what packages your port will actually require,
+	    use the command <tt>make package-depends</tt> from within
+	    your port's directory.</p>
+
+          <p>To aid in creating the list of necessary components,
+		it can be helpful to examine the output of <tt>make configure</tt>.
+		At the end of the <tt>checking for...</tt> list, there will be a line
+		similar to this:</p>
+
+<pre xml:space="preserve">
+checking for	libgnomeui-2.0 &gt;= 2.0.0		cspi-1.0 &gt;= 1.1.7
+libspi-1.0 &gt;= 1.1.7		libbonobo-2.0 &gt;= 2.0.0	atk &gt;= 1.0.0
+gtk+-2.0 &gt;= 2.0.0	gail	libwnck-1.0		esound... yes
+</pre>
+
+          <p>This is a list of the components upon which this application relies
+	    to build.  Pay close attention to the hierarchical layout of the
+	    <b>USE_GNOME</b> system; many components are implied from other
+	    <b>USE_GNOME</b> directives.  In the above example,
+	    <tt>USE_GNOME= libgnomeui</tt> implies use of <tt>libbonoboui</tt>,
+	    which implies <tt>libgnomecanvas</tt>, which implies
+	    <tt>libglade2</tt>, which implies <tt>gtk20</tt>.  Thus, even
+	    though <tt>gtk+-2.0</tt> appears in the list of requisite
+	    components, <tt>gtk20</tt> can be eliminated from the
+	    <b>USE_GNOME</b> list. There are a number of other such
+	    redundancies that can be eliminated from this list.</p>
+
+          <p>For the above list (taken from <tt>sysutils/gok</tt>), the
+	    following is defined in the <tt>Makefile</tt>:</p>
+
+<pre xml:space="preserve">
+USE_GNOME=	gnomehack gnomeprefix libgnomeui atspi libwnck
+</pre>
+
+	<h2>GNOME 1 Desktop vs. GNOME 2 Desktop</h2>
+
+	  <p>In the beginning, there was only <tt>GNOME 1</tt>.  When the
+	  <tt>GNOME 2</tt> desktop came around, maximum backwards compatibility
+	  was ensured, within reason.  <tt>GNOME 1</tt> applications can run
+	  fine under the <tt>GNOME 2</tt> desktop, provided that the
+	  applications do not utilize functionality specific to the
+	  <tt>GNOME 1</tt> desktop environment.</p>
+
+	  <p>The <tt>GNOME 1</tt> desktop, and all applications that will not
+	    run under the <tt>GNOME 2</tt> desktop, have been removed from the
+	    ports tree.</p>
+
+	  <p>What this means for you, as an application porter, is simply that
+	    you should not add <tt>GNOME 1</tt>-specific applications to the
+	    ports tree.</p>
+
+	  <p>If you wish to determine which version of the GNOME desktop
+	    environment is present on a user's machine, you can check the value
+	    of <b>GNOME_DESKTOP_VERSION</b>.  This variable is set to either
+	    <tt>"1"</tt> or <tt>"2"</tt> depending upon whether the
+	    <tt>GNOME 1</tt> or <tt>GNOME 2</tt> desktop is installed.</p>
+
+	<h2>Optional GNOME Dependencies</h2>
+
+	  <p>If your port can optionally use GNOME, you must set
+	    <tt>WANT_GNOME= yes</tt> in your Makefile, then check to see if
+	    <tt>HAVE_GNOME</tt> is set for each component from the list
+	    above that your port can use.  Since this is a conditional
+	    evaluation, you need to stick it between <tt>bsd.port.pre.mk</tt>
+	    and <tt>bsd.port.post.mk</tt>.  For example:</p>
+
+	  <pre xml:space="preserve">
+WANT_GNOME=	yes
+
+.include &lt;bsd.port.pre.mk&gt;
+
+.if ${HAVE_GNOME:Mgnomepanel}!=""
+	USE_GNOME+=	gnomeprefix gnomepanel
+	CONFIGURE_ARGS+=	--with-gnome
+	PKGNAMESUFFIX=	-gnome
+.else
+	CONFIGURE_ARGS+=	--without-gnome
+.endif
+
+.include &lt;bsd.port.post.mk&gt;
+          </pre>
+
+	  <p>Here, <tt>WANT_GNOME</tt> tells the ports system
+	    to check for the existence of the various GNOME components
+	    listed above.  For each component found, its name is appended
+	    to <tt>HAVE_GNOME</tt>.  Since this port can use
+	    <tt>gnomepanel</tt>, we check <tt>HAVE_GNOME</tt> to see if it
+	    contains <tt>gnomepanel</tt> (for more on the :M<tt>pattern</tt>
+	    make syntax, please refer to the
+	    <a href="//www.FreeBSD.org/cgi/man.cgi?query=make&amp;sektion=0&amp;format=html" shape="rect">make(1)</a> manpage).
+	    If <tt>gnomepanel</tt> is found, then it is added the list of
+	    <tt>USE_GNOME</tt> dependencies, and the port-specific
+	    <tt>--with-gnome</tt> <tt>CONFIGURE_ARG</tt> is passed.
+	    In an old GNOME infrastructure, <tt>PKGNAMESUFFIX</tt> was
+	    automatically adjusted by the proper <tt>USE_*</tt> macro.
+	    Now it is up to the individual porter to do this.
+	    Our example port appends <tt>-gnome</tt> to the port name
+	    to indicate it has been built with GNOME support.  The same is
+	    true for the <tt>DATADIR</tt> <tt>PLIST_SUB</tt>.  The
+	    individual porter must decide when do the <tt>DATADIR</tt>
+	    substitution.  A good rule of thumb is to add the <tt>DATADIR</tt>
+	    <tt>PLIST_SUB</tt> when using the <tt>gnomeprefix</tt>
+	    component.
+	  </p>
+
+	  <p><b>Note:</b> You cannot add extra default <tt>USE_GNOME</tt>
+	    components after the <tt>.include &lt;bsd.port.pre.mk&gt;</tt>.
+	    That is, the following is <font color="#FF0000"><b>wrong</b>
+	    </font>:</p>
+
+	  <pre xml:space="preserve">
+.include &lt;bsd.port.pre.mk&gt;
+
+.if ${HAVE_GNOME:Mgnomelibs}!=""
+	USE_GNOME+=	libgnome
+.else
+	USE_GNOME+=	gtk12  # WRONG!
+.endif
+	  </pre>
+
+	  <p>This will make the build system think that GNOME <em>is</em>
+	    desired, and mark the <tt>pkg-plist</tt> accordingly, thus
+	    breaking package builds.  If you need to add default
+	    <tt>USE_GNOME</tt> components, do so <b>above</b> the
+	    <tt> .include &lt;bsd.port.pre.mk&gt;</tt> line.
+	  </p>
+
+	  <p>To enforce use of optional GNOME dependencies unconditionally,
+	    you can add <tt>WITH_GNOME= yes</tt> to <tt>/etc/make.conf</tt>
+	    or on the make command line.  This will always return
+	    true when checking for optional GNOME dependencies.  If you
+	    want the system to always return false when checking for optional
+	    GNOME dependencies, you can add <tt>WITHOUT_GNOME= yes</tt>
+	    to <tt>/etc/make.conf</tt> or to the make command line.
+	  </p>
+
+	  <p>More information on the USE_GNOME infrastructure can be found
+	    by looking at the source and comments of
+	    <tt>${PORTSDIR}/Mk/bsd.gnome.mk</tt>.</p>
+
+
+
+
+	  <a name="prefix" shape="rect" id="prefix"></a>
+	  <h2>GNOME PREFIX</h2>
+
+	  <p>Since the release of 2.16, GNOME now lives in
+	    <tt>LOCALBASE</tt> instead of <tt>X11BASE</tt>.  To make
+	    it easier for GNOME ports that must also be installed into
+	    the same PREFIX as GNOME, a hack has been added to
+	    <tt>bsd.gnome.mk</tt> to force the PREFIX to
+	    <tt>LOCALBASE</tt> whenever the <tt>gnomeprefix</tt>
+	    component is used.  This can be overridden by manually
+	    specifying <tt>PREFIX</tt> in your port's
+	    <tt>Makefile</tt> or on the command line.</p>
+
+
+
+	  <a name="omf" shape="rect" id="omf"></a>
+          <h2>OMF Installation</h2>
+
+	  <p>A large number of GNOME applications (especially GNOME 2
+	    applications) install Open Source Metadata Framework (OMF)
+	    files which contain the help file information for those
+	    applications.  These OMF files require special processing
+	    by ScrollKeeper in order for applications like Yelp to
+	    find help documentation.  In order to accomplish proper
+	    registry of these OMF files when installing GNOME applications
+	    from packages, you should make sure that <tt>omf</tt> files are
+	    listed in <tt>pkg-plist</tt> and that your <tt>Makefile</tt> has
+	    this defined:</p>
+
+	    <pre xml:space="preserve">
+INSTALLS_OMF="yes"
+            </pre>
+
+
+
+	  <h2>GConf Schema Installation</h2>
+
+	  <p>GConf is the XML-based database that virtually all GNOME
+	    applications use for storing their settings.  This
+	    database is defined by installed schema files that are
+	    used to generate <tt>%gconf.xml</tt> key files.  Previously,
+	    these schema files and <tt>%gconf.xml</tt> key files were
+	    listed in the port's <tt>pkg-plist</tt>.  Since this proved
+	    to be problematic, handling of GConf schemas was changed to
+	    something similar to that of <a href="http://www.freebsd.org/doc/en_US.ISO8859-1/books/porters-handbook/porting-manpages.html" shape="rect">MAN<i>n</i></a>
+	    files.  That is, for each schema file installed by your port,
+	    you must have the following listed in the <tt>Makefile</tt>:</p>
+
+	  <pre xml:space="preserve">
+GCONF_SCHEMAS=	my_app.schemas my_app2.schemas my_app3.schemas
+	  </pre>
+
+	  <p>For example in <tt>audio/gnome-media</tt>:</p>
+
+	  <pre xml:space="preserve">
+GCONF_SCHEMAS=	CDDB-Slave2.schemas gnome-audio-profiles.schemas \
+		gnome-cd.schemas gnome-sound-recorder.schemas
+	  </pre>
+
+	  <p>The schema files and <tt>%gconf.xml</tt> key files should
+	    not be in the <tt>pkg-plist</tt>.  If you notice that the
+	    port doesn't has any <tt>%gconf.xml</tt> key files, but
+	    has schema files then you should not be use
+	    <tt>GCONF_SCHEMAS</tt>.  It means, this port has broke
+	    either schema files or installation of GConf.</p>
+
+
+
+	  <h2>Shared MIME database</h2>
+
+	  <p>If your port install files like <tt>application/x-portname.xml</tt>
+	    in <tt>share/mime</tt>, you have to add these two lines at the
+	    end of the <tt>pkg-plist</tt>:</p>
+
+	  <pre xml:space="preserve">
+@exec %%LOCALBASE%%/bin/update-mime-database %D/share/mime
+@unexec %%LOCALBASE%%/bin/update-mime-database %D/share/mime
+	  </pre>
+
+	  <p>Also make sure <tt>shared-mime-info</tt> is among the dependencies
+	    of your port. If your port use <tt>gtk20</tt>, you will have
+	    <tt>shared-mime-info</tt> indirectly. You can check indirect
+	    dependencies with <tt>make describe</tt>.</p>
+
+	  <p>Example port to look at: <a href="https://svnweb.FreeBSD.org/ports/head/deskutils/drivel/" shape="rect"><tt>deskutils/drivel</tt></a></p>
+
+
+
+	  <h2>Desktop database</h2>
+
+	  <p>Some ports provide MIME definitions in their <tt>.desktop</tt>
+	    files. If your port install <tt>.desktop</tt> file into
+	    <tt>share/applications</tt> and there is a line starting
+	    with <tt>MimeType</tt> in it, you need to update desktop
+	    database after install and deinstall. This database is represented
+	    by <tt>share/applications/mimeinfo.cache</tt> file. Add
+	    dependency on GNOME component <tt>desktopfileutils</tt> and
+	    these lines to the end of <tt>pkg-plist</tt>:</p>
+
+	  <pre xml:space="preserve">
+@exec %%LOCALBASE%%/bin/update-desktop-database &gt; /dev/null || /usr/bin/true
+@unexec %%LOCALBASE%%/bin/update-desktop-database &gt; /dev/null || /usr/bin/true
+	  </pre>
+
+	  <p>Also add following to the <tt>post-install</tt> target in port's
+	    Makefile:</p>
+
+	  <pre xml:space="preserve">
+-@update-desktop-database
+	  </pre>
+
+	  <p>Example port to look at: <a href="https://svnweb.FreeBSD.org/ports/head/editors/leafpad/" shape="rect"><tt>editors/leafpad</tt></a></p>
+
+
+
+	  <a name="libtool" shape="rect" id="libtool"></a>
+          <h2>Libtool Issues</h2>
+
+	  <p>Most, if not all, GNOME applications depend on GNU's libtool.
+	    They also use the GNU configure system.   If your port installs
+	    shared libraries, and includes an <tt>ltmain.sh</tt> script
+	    in its <tt>${WRKSRC}</tt> directory, you should add
+	    <tt>USES=libtool</tt> to your port's Makefile.</p>
+
+
+
+          <h2>Distfiles</h2>
+
+          <p>To separate GNOME 2 distfiles from the GNOME 1 distfiles, and to
+	    keep the distfiles directory clean, GNOME 1 ports that
+	    download their distfiles from <tt>${MASTER_SITE_GNOME}</tt> must
+	    add the following to their
+	    Makefile:</p>
+
+          <pre xml:space="preserve">
+DIST_SUBDIR=    gnome
+          </pre>
+
+	  <p>GNOME 2 ports that download their distfiles from
+	    <tt>${MASTER_SITE_GNOME}</tt> must include the following in their
+	    Makefile:</p>
+
+	  <pre xml:space="preserve">
+DIST_SUBDIR=    gnome2
+	  </pre>
+
+	  <p>Some GNOME distfiles come in both tar gzip as well as tar bzip2
+	    format.  To save time when downloading distfiles over slow links,
+	    you should use the bzip2 distfiles whenever possible.  To do this,
+	    add the following to your port's Makefile:</p>
+
+	  <pre xml:space="preserve">
+USE_BZIP2=  yes
+	  </pre>
+
+
+
+
+          <p>If you still need help with your port, have a look at some of
+	    the <a href="/ports/gnome.html" shape="rect">existing ports</a> for examples.
+	    The <a href="mailto:freebsd-gnome@FreeBSD.org" shape="rect">freebsd-gnome mailing
+	    list</a> is also there for you.</p>
+
+  </div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="../../search/index-site.html">Site Map</a> |
+  <a href="../../copyright/">Legal Notices</a> | © 1995&#8211;2017 The FreeBSD Project.
+  All rights reserved.</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,573 @@
+<?xml version="1.0" encoding="euc-jp"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>FreeBSD 8.3-RELEASE アナウンス</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=euc-jp" />
+    <link rel="shortcut icon" href="../../../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="../../../layout/css/fixed.css?20130112" type="text/css" />
+    <script type="text/javascript" src="../../../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Header And Logo</h2>
+            <div id="headerlogoleft">
+              <a href="../.." title="FreeBSD">
+                <img src="../../../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <div class="frontdonateroundbox">
+                <div class="frontdonatetop">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+                <div class="frontdonatecontent">
+                  <a href="https://www.FreeBSDFoundation.org/donate/">FreeBSD への寄付</a>
+                </div>
+                <div class="frontdonatebot">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+              </div>
+              <h2 class="blockhide">Peripheral Links</h2>
+              <div id="searchnav">
+                <ul id="searchnavlist"></ul>
+              </div>
+              <div id="search">
+                <form method="get" id="search" action="https://duckduckgo.com/">
+                  <h2 class="blockhide">
+                    <label for="words">検索</label>
+                  </h2>
+                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
+                  <input type="hidden" name="ka" value="v" />
+                  <input type="hidden" name="kt" value="v" />
+                  <input type="hidden" name="kh" value="1" />
+                  <input type="hidden" name="kj" value="r2" />
+                  <input id="words" name="q" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="検索" />
+                  <span></span>
+                  <input id="submit" name="submit" type="submit" value="検索" />
+                </form>
+              </div>
+            </div>
+          </div>
+          <h2 class="blockhide">Site Navigation</h2>
+          <div id="menu">
+            <ul class="first">
+              <li>
+                <a href="../../">ホーム</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../about.html">FreeBSD とは</a>
+                <ul>
+                  <li>
+                    <a href="../../projects/newbies.html">FreeBSD が初めてという方へ</a>
+                  </li>
+                  <li>
+                    <a href="../../features.html">特徴</a>
+                  </li>
+                  <li>
+                    <a href="../../../advocacy/">プロモーション活動</a>
+                  </li>
+                  <li>
+                    <a href="../../../marketing/">マーケティング活動</a>
+                  </li>
+                  <li>
+                    <a href="../../../privacy.html">プライバシーポリシー</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../where.html">FreeBSD の入手</a>
+                <ul>
+                  <li>
+                    <a href="../../releases/">リリース情報</a>
+                  </li>
+                  <li>
+                    <a href="../../../releng/">リリースエンジニアリング</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../docs.html">ドキュメント</a>
+                <ul>
+                  <li>
+                    <a href="../../../doc/ja_JP.eucJP/books/faq/">FAQ</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/ja_JP.eucJP/books/handbook/">ハンドブック</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/ja_JP.eucJP/books/porters-handbook/">port 作成者のためのハンドブック</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/en_US.ISO8859-1/books/developers-handbook/">開発者のためのハンドブック</a>
+                  </li>
+                  <li>
+                    <a href="../../../cgi/man.cgi">マニュアルページ</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/en_US.ISO8859-1/books/fdp-primer">新しい貢献者のためのドキュメンテーションプロジェクト入門</a>
+                  </li>
+                  <li>
+                    <a href="../../docs/books.html">すべての Books と Articles</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../community.html">コミュニティ</a>
+                <ul>
+                  <li>
+                    <a href="../../community/mailinglists.html">メーリングリスト</a>
+                  </li>
+                  <li>
+                    <a href="https://forums.FreeBSD.org">フォーラム</a>
+                  </li>
+                  <li>
+                    <a href="../../usergroups.html">ユーザグループ</a>
+                  </li>
+                  <li>
+                    <a href="../../events/events.html">イベント</a>
+                  </li>
+                  <li>
+                    <a href="http://serverfault.com/questions/tagged/freebsd">Q&amp;A (外部)</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../projects/index.html">開発</a>
+                <ul>
+                  <li>
+                    <a href="https://wiki.FreeBSD.org/IdeasPage">プロジェクトアイディア</a>
+                  </li>
+                  <li>
+                    <a href="https://svnweb.FreeBSD.org">SVN リポジトリ</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/freebsd">GIT リポジトリ</a>
+                  </li>
+                  <li>
+                    <a href="http://p4web.FreeBSD.org">Perforce リポジトリ</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../support.html">サポート</a>
+                <ul>
+                  <li>
+                    <a href="../../commercial/commercial.html">ベンダ</a>
+                  </li>
+                  <li>
+                    <a href="../../security/">セキュリティ情報</a>
+                  </li>
+                  <li>
+                    <a href="https://bugs.freebsd.org/search/">障害報告</a>
+                  </li>
+                  <li>
+                    <a href="https://www.FreeBSD.org/ja/support.html">障害報告の提出</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="https://www.freebsdfoundation.org/">財団</a>
+                <ul>
+                  <li>
+                    <a href="https://www.freebsdfoundation.org/donate/">寄付</a>
+                  </li>
+                  <li>
+                    <a href="../../../donations/index.html#systems">ハードウェアの寄贈</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Section Navigation</h2>
+              <ul>
+                <li>
+                  <a href="../../where.html">FreeBSD の入手方法</a>
+                </li>
+                <li>
+                  <a href="../../releases/">リリース情報</a>
+                  <ul>
+                    <li>プロダクションリリース: <br /><a href="../../../releases/11.1R/announce.html">11.1</a></li>
+                    <li>プロダクションリリース:<br /><a href="../../../releases/11.0R/announce.html">11.0</a></li>
+                    <li>次回予定リリース: <br /><a href="../../../releases/10.4R/schedule.html">10.4</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="../../snapshots/">スナップショットリリース</a>
+                  <ul></ul>
+                </li>
+                <li>
+                  <a href="../../ports/">ports に収録されているアプリケーション</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap"><h1>FreeBSD 8.3-RELEASE アナウンス</h1>
+
+  <p>FreeBSD リリースエンジニアリングチームより、
+    FreeBSD 8.3-RELEASE の公開をお知らせします。
+    これは、8-STABLE ブランチからの 4 回目のリリースであり、
+    FreeBSD 8.2 が備える機能の改善と、新たな機能の追加が行なわれたものです。
+    このリリースの主な変更点は、以下のとおりです。</p>
+
+  <ul>
+    <li><p>usb(4) が USB パケットフィルタに対応</p></li>
+
+    <li><p>TCP/IP スタックが mod_cc(9) 輻輳制御フレームワークに対応</p></li>
+
+    <li><p>graid(8) GEOM クラスがさまざまな BIOS ベースのソフトウェア
+	RAID コントローラに対応 (ataraid(4) の置き換え)</p></li>
+
+    <li><p>ZFS が SPA バージョン 28 に対応</p></li>
+
+    <li><p>Gnome が 2.32.1、KDE が 4.7.4 に更新</p></li>
+  </ul>
+
+  <p>新機能や既知の問題点の一覧は、
+    次の場所にあるオンラインのリリースノートや正誤表 (errata list) をご覧ください。</p>
+
+  <ul>
+    <li><p><tt><a href="http://www.FreeBSD.org/releases/8.3R/relnotes-detailed.html" shape="rect">http://www.FreeBSD.org/releases/8.3R/relnotes-detailed.html</a></tt></p></li>
+
+    <li><p><tt><a href="http://www.FreeBSD.org/releases/8.3R/errata.html" shape="rect">http://www.FreeBSD.org/releases/8.3R/errata.html</a></tt></p></li>
+  </ul>
+
+  <p>FreeBSD のリリースエンジニアリング活動の詳しい情報は、</p>
+
+  <ul>
+    <li><p><tt><a href="http://www.FreeBSD.org/releng/" shape="rect">http://www.FreeBSD.org/releng/</a></tt></p></li>
+  </ul>
+
+  <p>をご覧ください。</p>
+
+  <h2>FreeBSD を入手する</h2>
+
+  <p>FreeBSD 8.3-RELEASE は現在、amd64, i386,
+    pc98, sparc64 アーキテクチャ用のものが入手できます。</p>
+
+  <p>FreeBSD 8.3 のインストールは、起動可能な ISO イメージ、
+    もしくはネットワークを経由して行なうことができます。
+    一部のアーキテクチャ (現在のところ amd64 と i386)
+    では、USB メモリスティックを使ったインストールも可能です。
+    後の章に説明があるように、必要なファイルは
+    FTP や BitTorrent 経由でダウンロードできます。
+    ただし、規模の小さな FTP ミラーサイトには、amd64 や i386
+    といった主要なアーキテクチャ用の配布物だけが置かれていて、
+    対応するすべてのアーキテクチャの配布物は置かれていないこともあります。</p>
+
+  <p>リリース ISO イメージの MD5 および SHA256 ハッシュ値は、
+    このアナウンスの最後にあります。</p>
+
+  <p>リリースにおいて用意される各イメージの用途は以下のとおりです。</p>
+
+  <dl>
+    <dt>dvd1</dt>
+
+    <dd><p>FreeBSD オペレーティングシステムのベースシステム、
+	コンパイル済みの package 一式、
+	ドキュメントをインストールするために必要なものが入っています。
+	"livefs"　ベースのレスキューモードで起動することも可能です。
+	DVD サイズのメディアに書き込むことができる環境で、
+	そのメディアをインストールに使う場合は、このイメージだけで十分です。</p></dd>
+
+    <dt>disc1</dt>
+
+    <dd><p>FreeBSD オペレーティングシステムのベースシステムと、
+	英語のドキュメントをインストールするために必要なものが入っている、
+	CD サイズのメディア用のイメージです。
+	その他の package は含まれていません。</p></dd>
+
+    <dt>livefs</dt>
+
+    <dd><p>"livefs" ベースのレスキューモードで起動できるイメージです。
+	この CD のみを使ってシステムをインストールすることはできません。
+	すでにインストールされたシステムの復旧などを目的としたイメージですが、
+	ネットワークからインストールに使うことは可能です。</p></dd>
+
+    <dt>bootonly</dt>
+
+    <dd><p>CD-ROM ドライブを備えたマシンで起動できるイメージです。
+	この CD のみを使ってシステムをインストールすることはできません。
+	(FTP サーバなどから) ネットワーク経由でインストールする場合は、
+	この CD を使って起動して、インストール作業をします。</p></dd>
+
+    <dt>memstick</dt>
+
+    <dd><p>USB メモリスティック (フラッシュドライブ)
+	に書き込めるイメージです。
+	USB ドライブからの起動可能なコンピュータでは、
+	これをインストールに使うことができます。
+	"livefs" ベースのレスキューモードで起動することも可能です。
+	package は、ドキュメントに関連するもののみが入っています。</p>
+
+      <p>memstick イメージの使用例を下に示します。
+	USB ドライブがシステムの
+	/dev/da0 として認識される場合、次のコマンドで書き込むことが可能です。</p>
+
+      <pre xml:space="preserve"># dd if=FreeBSD-8.3-RELEASE-amd64-memstick.img of=/dev/da0 bs=10240 conv=sync</pre>
+
+      <p>ターゲット (of=) の部分が、USB ドライブに対応するデバイスに設定されているかどうか、
+	細心の注意を払ってください。</p>
+    </dd>
+  </dl>
+
+  <p>FreeBSD 8.3-RELEASE の CD-ROM と DVD は、ベンダからも購入できます。
+    FreeBSD 8.3 を商品として販売しているベンダのひとつが、以下の
+    FreeBSD Mall です。</p>
+
+  <ul>
+    <li><p>FreeBSD Mall, Inc. <tt><a href="http://www.freebsdmall.com/" shape="rect">http://www.freebsdmall.com/</a></tt></p></li>
+  </ul>
+
+  <h2>BitTorrent</h2>
+
+  <p>8.3-RELEASE の ISO イメージは、BitTorrent を使ってダウンロードすることも可能です。
+    ISO イメージをダウンロードするための torrent ファイルは、
+    次の URL で配布されています。</p>
+
+  <ul>
+    <li><p><tt><a href="http://torrents.FreeBSD.org:8080/" shape="rect">http://torrents.FreeBSD.org:8080/</a></tt></p></li>
+  </ul>
+
+  <h2>FTP</h2>
+
+  <p>アナウンス時点では、少なくとも次の FTP サイトに
+    FreeBSD 8.3-RELEASE が置かれています。</p>
+
+  <ul>
+    <li><tt><a href="ftp://ftp.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/8.3/" shape="rect">ftp://ftp.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/8.3/</a></tt></li>
+    <li><tt><a href="ftp://ftp5.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/8.3/" shape="rect">ftp://ftp5.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/8.3/</a></tt></li>
+    <li><tt><a href="ftp://ftp10.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/8.3/" shape="rect">ftp://ftp10.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/8.3/</a></tt></li>
+    <li><tt><a href="ftp://ftp.cn.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/8.3/" shape="rect">ftp://ftp.cn.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/8.3/</a></tt></li>
+    <li><tt><a href="ftp://ftp.cz.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/8.3/" shape="rect">ftp://ftp.cz.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/8.3/</a></tt></li>
+    <li><tt><a href="ftp://ftp.dk.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/8.3/" shape="rect">ftp://ftp.dk.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/8.3/</a></tt></li>
+    <li><tt><a href="ftp://ftp.fr.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/8.3/" shape="rect">ftp://ftp.fr.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/8.3/</a></tt></li>
+    <li><tt><a href="ftp://ftp.jp.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/8.3/" shape="rect">ftp://ftp.jp.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/8.3/</a></tt></li>
+    <li><tt><a href="ftp://ftp.ru.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/8.3/" shape="rect">ftp://ftp.ru.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/8.3/</a></tt></li>
+    <li><tt><a href="ftp://ftp1.ru.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/8.3/" shape="rect">ftp://ftp1.ru.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/8.3/</a></tt></li>
+    <li><tt><a href="ftp://ftp.tw.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/8.3/" shape="rect">ftp://ftp.tw.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/8.3/</a></tt></li>
+    <li><tt><a href="ftp://ftp4.tw.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/8.3/" shape="rect">ftp://ftp4.tw.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/8.3/</a></tt></li>
+    <li><tt><a href="ftp://ftp5.us.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/8.3/" shape="rect">ftp://ftp5.us.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/8.3/</a></tt></li>
+    <li><tt><a href="ftp://ftp10.us.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/8.3/" shape="rect">ftp://ftp10.us.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/8.3/</a></tt></li>
+  </ul>
+
+  <p>これらのサイトを利用する前に、まず、
+    あなたの住んでいる最寄りのサイトの利用を試みてください。</p>
+
+  <ul>
+    <li><p><tt>ftp://ftp.&lt;あなたの住んでいる地域&gt;.FreeBSD.org/pub/FreeBSD</tt></p></li>
+  </ul>
+
+  <p>他のミラーサイトには、<strong>ftp2</strong>, <strong>ftp3</strong>
+    という順に名前がつけられています。</p>
+
+  <p>FreeBSD ミラーサイトの詳細は、以下を参照してください。</p>
+
+  <ul>
+    <li><p><tt><a href="http://www.FreeBSD.org/doc/en_US.ISO8859-1/books/handbook/mirrors-ftp.html" shape="rect">http://www.FreeBSD.org/doc/en_US.ISO8859-1/books/handbook/mirrors-ftp.html</a></tt> (英語)</p></li>
+    <li><p><tt><a href="http://www.FreeBSD.org/doc/ja_JP.eucJP/books/handbook/mirrors-ftp.html" shape="rect">http://www.FreeBSD.org/doc/ja_JP.eucJP/books/handbook/mirrors-ftp.html</a></tt> (日本語)</p></li>
+  </ul>
+
+  <p>FreeBSD のインストールや、現在のシステムを
+    8.3-RELEASE にアップデートする手順については、以下をご覧ください。</p>
+
+  <ul>
+    <li><p><tt><a href="http://www.FreeBSD.org/releases/8.3R/installation.html" shape="rect">http://www.FreeBSD.org/releases/8.3R/installation.html</a></tt></p></li>
+  </ul>
+
+  <h2>サポート</h2>
+
+  <p>FreeBSD セキュリティチームが現時点で公表している FreeBSD 8.3
+    の保守終了予定日は 2014 年 4 月 30 日です。
+    セキュリティチームおよび、
+    各 FreeBSD ブランチのサポートに関する詳細については、
+    以下のページをご覧ください。</p>
+
+  <ul>
+    <li><p><tt><a href="http://www.FreeBSD.org/security/" shape="rect">http://www.FreeBSD.org/security/</a></tt> (英語)</p></li>
+    <li><p><tt><a href="http://www.FreeBSD.org/ja/security/" shape="rect">http://www.FreeBSD.org/ja/security/</a></tt> (日本語)</p></li>
+  </ul>
+
+  <h2>謝辞</h2>
+
+  <p>FreeBSD Foundation, Yahoo!, NetApp,
+    Internet Systems Consortium, Sentex Communications,
+    New York Internet, Juniper Networks, および iXsystems
+    をはじめとする多くの企業から、
+    FreeBSD 8.3 のリリースエンジニアリング活動に必要な機材、
+    ネットワークアクセス、人的資源の提供をいただきました。</p>
+
+  <p>8.3-RELEASE のリリースエンジニアリングチームは、
+    以下のメンバで構成されています。</p>
+
+  <table border="0">
+    <tbody>
+      <tr>
+	<td rowspan="1" colspan="1">Ken Smith &lt;<a href="mailto:kensmith@FreeBSD.org" shape="rect">kensmith@FreeBSD.org</a>&gt;</td>
+	<td rowspan="1" colspan="1">リリースエンジニアリング、
+	  amd64, i386 および sparc64 リリース構築、
+	  ミラーサイトの調整担当</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Robert Watson &lt;<a href="mailto:rwatson@FreeBSD.org" shape="rect">rwatson@FreeBSD.org</a>&gt;</td>
+	<td rowspan="1" colspan="1">リリースエンジニアリング、セキュリティ担当</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Konstantin Belousov &lt;<a href="mailto:kib@FreeBSD.org" shape="rect">kib@FreeBSD.org</a>&gt;</td>
+	<td rowspan="1" colspan="1">リリースエンジニアリング担当</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Marc Fonvieille &lt;<a href="mailto:blackend@FreeBSD.org" shape="rect">blackend@FreeBSD.org</a>&gt;</td>
+	<td rowspan="1" colspan="1">リリースエンジニアリング、文書担当</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Josh Paetzel &lt;<a href="mailto:jpaetzel@FreeBSD.org" shape="rect">jpaetzel@FreeBSD.org</a>&gt;</td>
+	<td rowspan="1" colspan="1">リリースエンジニアリング担当</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">佐藤 広生 &lt;<a href="mailto:hrs@FreeBSD.org" shape="rect">hrs@FreeBSD.org</a>&gt;</td>
+	<td rowspan="1" colspan="1">リリースエンジニアリング、文書担当</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Bjoern Zeeb &lt;<a href="mailto:bz@FreeBSD.org" shape="rect">bz@FreeBSD.org</a>&gt;</td>
+	<td rowspan="1" colspan="1">リリースエンジニアリング担当</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">高橋 佳大 &lt;<a href="nyan@FreeBSD.org" shape="rect">nyan@FreeBSD.org</a>&gt;</td>
+	<td rowspan="1" colspan="1">PC98 リリース構築担当</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Joe Marcus Clarke &lt;<a href="mailto:marcus@FreeBSD.org" shape="rect">marcus@FreeBSD.org</a>&gt;</td>
+	<td rowspan="1" colspan="1">package 構築担当</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Erwin Lansing &lt;<a href="mailto:erwin@FreeBSD.org" shape="rect">erwin@FreeBSD.org</a>&gt;</td>
+	<td rowspan="1" colspan="1">package 構築、ports セキュリティ担当</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Mark Linimon &lt;<a href="mailto:linimon@FreeBSD.org" shape="rect">linimon@FreeBSD.org</a>&gt;</td>
+	<td rowspan="1" colspan="1">package 構築担当</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Pav Lucistnik &lt;<a href="mailto:pav@FreeBSD.org" shape="rect">pav@FreeBSD.org</a>&gt;</td>
+	<td rowspan="1" colspan="1">package 構築担当</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Ion-Mihai Tetcu &lt;<a href="mailto:itetcu@FreeBSD.org" shape="rect">itetcu@FreeBSD.org</a>&gt;</td>
+	<td rowspan="1" colspan="1">package 構築担当</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Martin Wilke &lt;<a href="mailto:miwi@FreeBSD.org" shape="rect">miwi@FreeBSD.org</a>&gt;</td>
+	<td rowspan="1" colspan="1">package 構築担当</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Colin Percival &lt;<a href="mailto:cperciva@FreeBSD.org" shape="rect">cperciva@FreeBSD.org</a>&gt;</td>
+	<td rowspan="1" colspan="1">セキュリティオフィサ</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>登録商標</h2>
+
+  <p>FreeBSD は FreeBSD Foundation の登録商標です。</p>
+
+  <h2>ISO イメージのチェックサム</h2>
+
+  <pre xml:space="preserve">MD5 (FreeBSD-8.3-RELEASE-amd64-bootonly.iso) = b1e776a82deabaf66a91293b04107277
+MD5 (FreeBSD-8.3-RELEASE-amd64-disc1.iso) = cf4edae9692f560e9cab89c8347886f5
+MD5 (FreeBSD-8.3-RELEASE-amd64-dvd1.iso) = 70089656058e74962cbedad1a2181daa
+MD5 (FreeBSD-8.3-RELEASE-amd64-livefs.iso) = 24e1a8d3c02c230fe415408179f90dbc
+MD5 (FreeBSD-8.3-RELEASE-amd64-memstick.img) = 013612ac4e080028b5f4e2c344250850</pre>
+
+  <pre xml:space="preserve">MD5 (FreeBSD-8.3-RELEASE-i386-bootonly.iso) = 2fa59569f572abe450fce6b5efddeb04
+MD5 (FreeBSD-8.3-RELEASE-i386-disc1.iso) = 00fac17d95d27950e30b22e521c45da9
+MD5 (FreeBSD-8.3-RELEASE-i386-dvd1.iso) = 2478c6a7477492c347e80aaf61f48cc1
+MD5 (FreeBSD-8.3-RELEASE-i386-livefs.iso) = 147db14848518808deddf3c0b03694c3
+MD5 (FreeBSD-8.3-RELEASE-i386-memstick.img) = 5cbbe6f41e53eb98471c3392eb1bb768</pre>
+
+  <pre xml:space="preserve">MD5 (FreeBSD-8.3-RELEASE-pc98-bootonly.iso) = 91843c5c9dbdf1d1be23eae30b0184b8
+MD5 (FreeBSD-8.3-RELEASE-pc98-disc1.iso) = e84f3d26d72a37ae332b617e8122bec4
+MD5 (FreeBSD-8.3-RELEASE-pc98-livefs.iso) = 4a441695c30c446308d7ee55d1ead1bc</pre>
+
+  <pre xml:space="preserve">MD5 (FreeBSD-8.3-RELEASE-sparc64-bootonly.iso) = b94f5c9b07fdc1870cd284e168b557d8
+MD5 (FreeBSD-8.3-RELEASE-sparc64-disc1.iso) = 8b748240afe7a3f80cdf531f7d8a1317
+MD5 (FreeBSD-8.3-RELEASE-sparc64-dvd1.iso) = 3ea38fd60444193c3d74d2b0beba14a4
+MD5 (FreeBSD-8.3-RELEASE-sparc64-livefs.iso) = 317325d88a8605ae5a48447f92c5f919</pre>
+
+  <pre xml:space="preserve">SHA256 (FreeBSD-8.3-RELEASE-amd64-bootonly.iso) = 2af20d98b02a26ebe9a3ddeb4785f317e2024f9494ca3a177edafdc8ef138b7d
+SHA256 (FreeBSD-8.3-RELEASE-amd64-disc1.iso) = 26d4870f3a310a95e488ed14dd8e36eb52e857878f2b238b3b91e65c101eee93
+SHA256 (FreeBSD-8.3-RELEASE-amd64-dvd1.iso) = acd9127364c759c4eb38fd02634f52bffe75b845a767a20f7dbf022a1626eed7
+SHA256 (FreeBSD-8.3-RELEASE-amd64-livefs.iso) = cb3dcd38ce4e3782059ea6d550a947a69c47bf167c6ae24f1cd58c5b4132697b
+SHA256 (FreeBSD-8.3-RELEASE-amd64-memstick.img) = eb598fa93b553744bd79e6b648b87b20f9054f7c131856c09ee2f88f29ccca6d</pre>
+
+  <pre xml:space="preserve">SHA256 (FreeBSD-8.3-RELEASE-i386-bootonly.iso) = e701dee1458888bee1a399937f1ec525022a225b8b097bd820ed4338e0bf300d
+SHA256 (FreeBSD-8.3-RELEASE-i386-disc1.iso) = a83919b5104d8ec4e905693a6bd6b90b88b1c30923029146d1dab62b62a038e9
+SHA256 (FreeBSD-8.3-RELEASE-i386-dvd1.iso) = 3f3334a1e4f3d3f62ef274861764d466b44e19cc14549e6cdfdbd555808d78e2
+SHA256 (FreeBSD-8.3-RELEASE-i386-livefs.iso) = d45352262d7f9d871d25d01fab3c9a946ef4488f5fbbd104e153f04ca58d5b24
+SHA256 (FreeBSD-8.3-RELEASE-i386-memstick.img) = 56f4fc14ebe66dad5691ca63fa846e5d003efb630e5cb0181921ffb8af5a4edd</pre>
+
+  <pre xml:space="preserve">SHA256 (FreeBSD-8.3-RELEASE-pc98-bootonly.iso) = 664b06c1a68352be8833b90ee455cbc31dfea531b7dd5f648d48659da60e386d
+SHA256 (FreeBSD-8.3-RELEASE-pc98-disc1.iso) = 1a54d5cbd6e72d740f7bf6372c58fb8caa5bb49d6c56358e18fe7433103bbb4f
+SHA256 (FreeBSD-8.3-RELEASE-pc98-livefs.iso) = 5b8887aee9c80914ece956452fd5e48eb759232d56cb4fff557e7cc60daab58b</pre>
+
+  <pre xml:space="preserve">SHA256 (FreeBSD-8.3-RELEASE-sparc64-bootonly.iso) = e7ba76bbecff1b92d00caed5e644443b596f6a0fee4d717046aae73c4c5248c2
+SHA256 (FreeBSD-8.3-RELEASE-sparc64-disc1.iso) = f5d4087a0a070a05ad2cd9032fdc3a49fff2f716b7485debc25ae6757e29ca90
+SHA256 (FreeBSD-8.3-RELEASE-sparc64-dvd1.iso) = a697afe3e47250fa707b54021b5114aa0e286f088a5c89dfb6e1b2f51dd7bb67
+SHA256 (FreeBSD-8.3-RELEASE-sparc64-livefs.iso) = a5af66e2ad1042676a157c94f3d63e118761435abd26d8b5dd66e99bdc830526</pre>
+
+
+  </div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="../../search/index-site.html">サイトマップ</a> |
+  <a href="../../copyright/">知的財産権について</a> | (C) 1995〓2017 The FreeBSD Project.
+  All rights reserved.</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

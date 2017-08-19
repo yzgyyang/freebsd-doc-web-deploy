@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="iso-8859-2"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://my.netscape.com/rdf/simple/0.9/" xmlns:cvs="http://www.FreeBSD.org/XML/CVS">
+  <channel>
+    <title>A FreeBSD Projekt hírei</title>
+    <link>http://www.FreeBSD.org/hu/news/</link>
+    <description>Hírek a FreeBSD Projektről</description>
+  </channel>
+  <item>
+    <title>Új tag: Steve Wills (ports)</title>
+    <link>http://www.FreeBSD.org/news/newsflash.html#event20100903:01</link>
+  </item>
+  <item>
+    <title>Új tag: Glen Barber (teljes doc/www)</title>
+    <link>http://www.FreeBSD.org/news/newsflash.html#event20100831:01</link>
+  </item>
+  <item>
+    <title>Új tag: Dimitry Andric (src)</title>
+    <link>http://www.FreeBSD.org/news/newsflash.html#event20100830:01</link>
+  </item>
+  <item>
+    <title>Új tag: Oliver Hauer (ports)</title>
+    <link>http://www.FreeBSD.org/news/newsflash.html#event20100801:01</link>
+  </item>
+  <item>
+    <title>FreeBSD Alapítvány 2010 júliusi hírlevél</title>
+    <link>http://www.FreeBSD.org/news/newsflash.html#event20100727:01</link>
+  </item>
+  <item>
+    <title>Új tag: Baptiste Daroussin (ports)</title>
+    <link>http://www.FreeBSD.org/news/newsflash.html#event20100727:02</link>
+  </item>
+  <item>
+    <title>Megjelent a FreeBSD 8.1-RELEASE!</title>
+    <link>http://www.FreeBSD.org/news/newsflash.html#event20100723:01</link>
+  </item>
+  <item>
+    <title>Helyzetjelentés: 2010 április - június</title>
+    <link>http://www.FreeBSD.org/news/newsflash.html#event20100722:01</link>
+  </item>
+  <item>
+    <title>Új tag: Andrew Turner (src)</title>
+    <link>http://www.FreeBSD.org/news/newsflash.html#event20100721:01</link>
+  </item>
+  <item>
+    <title>Megjelent a PC-BSD 8.1!</title>
+    <link>http://www.FreeBSD.org/news/newsflash.html#event20100720:01</link>
+  </item>
+</rdf:RDF>

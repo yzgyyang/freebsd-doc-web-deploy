@@ -1,0 +1,3039 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:$FreeBSD$
+    
+BEGIN:VEVENT
+SEQUENCE:1
+SUMMARY:FOSDEM 2017
+URL;VALUE=URI:https://fosdem.org/2017/
+LOCATION:Free University of Brussels, Solbosch Campus, Brussels, Belgium
+
+DTSTART;VALUE=DATE:20170204
+DTEND;VALUE=DATE:20170205
+DESCRIPTION:FOSDEM is an event centered on free and open-source
+      software development.  As with many other communities, the BSDs
+      feature an alloted room for giving talks at the event.  See
+      schedule on the FOSDEM website for the talks held in the BSD
+      Developer room.  The FreeBSD Foundation will also be present to
+      share information about the project.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:2
+SUMMARY:AsiaBSDCon 2017
+URL;VALUE=URI:https://2017.asiabsdcon.org/
+LOCATION:Tokyo University of Science, Tokyo, Japan
+
+DTSTART;VALUE=DATE:20170309
+DTEND;VALUE=DATE:20170312
+DESCRIPTION:AsiaBSDCon is a conference for users and developers
+      on BSD based systems.  The conference is for anyone developing,
+      deploying and using systems based on FreeBSD, NetBSD, OpenBSD,
+      DragonFlyBSD, Darwin and MacOS X.  AsiaBSDCon is a technical
+      conference and aims to collect the best technical papers and
+      presentations available to ensure that the latest developments
+      in our open source community are shared with the widest possible
+      audience.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:3
+SUMMARY:BSDCan 2017
+URL;VALUE=URI:https://www.bsdcan.org/2017/
+LOCATION:University of Ottawa, Ottawa, Canada
+
+DTSTART;VALUE=DATE:20170607
+DTEND;VALUE=DATE:20170610
+DESCRIPTION:A four day BSD conference held in Ottawa, Canada.
+      BSDCan hosts talks and tutorials on a range of topics based
+      around the BSD family of operating systems.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:4
+SUMMARY:FreeBSD Day Armenia
+URL;VALUE=URI:https://www.facebook.com/events/113662152573216/?active_tab=about
+LOCATION:IBM Innovative Solution & Technologies Center, Yerevan, Armenia
+
+DTSTART;VALUE=DATE:20170619
+DESCRIPTION:Celebrate FreeBSD Day in Yerevan.  Install FreeBSD,
+      learn more about it, grab some stickers, and
+      more.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:5
+SUMMARY:Essen Hackathon 2017
+URL;VALUE=URI:https://wiki.freebsd.org/DevSummit/201707
+LOCATION:Linuxhotel Villa Vogelsang, Essen, Germany
+
+DTSTART;VALUE=DATE:20170707
+DTEND;VALUE=DATE:20170709
+DESCRIPTION:A weekend hackathon at the Linuxhotel in Essen,
+      Germany.  a great opportunity to fix bugs, commit code, tinker
+      with devices, discuss new ideas, try out new things, and improve
+      FreeBSD.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:6
+SUMMARY:2017 Cambridge Devsummit (BSDCam)
+URL;VALUE=URI:https://wiki.freebsd.org/DevSummit/201708
+LOCATION:University of Cambridge Computer Laboratory, Cambridge, United Kingdom
+
+DTSTART;VALUE=DATE:20170802
+DTEND;VALUE=DATE:20170804
+DESCRIPTION:An unconference style developer summit with a focus
+      on interactive topics and sessions that reflect the interests of
+      the attendees. The Cambridge devsummit is a slightly longer
+      three-day event without associated conference, letting us hold
+      more extended working groups, brainstorming sessions, and
+      hacking on topics over several days. Past significant focuses
+      have included virtualisation, network performance, sandboxing,
+      tracing/debugging, packages and package security, teaching,
+      non-x86 architectures such as ARM/MIPS/RISC-V, and
+      testing.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:7
+SUMMARY:vBSDcon 2017
+URL;VALUE=URI:http://www.vbsdcon.com
+LOCATION:Hyatt Regency Reston, Reston, Virginia, United States
+
+DTSTART;VALUE=DATE:20170908
+DTEND;VALUE=DATE:20170909
+DESCRIPTION:This exciting weekend will bring together members of
+      the BSD community for a series of roundtable discussions,
+      educational sessions, best practice conversations, and exclusive
+      networking opportunities.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:8
+SUMMARY:EuroBSDcon 2017
+URL;VALUE=URI:https://2017.eurobsdcon.org
+LOCATION:Espace Saint Martin, Paris, France
+
+DTSTART;VALUE=DATE:20170921
+DTEND;VALUE=DATE:20170924
+DESCRIPTION:EuroBSDcon is the European annual technical
+      conference gathering users and developers working on and with
+      4.4BSD (Berkeley Software Distribution) based operating systems
+      family and related projects. EuroBSDcon gives the exceptional
+      opportunity to learn about the latest news from the BSD world,
+      witness contemporary deployment case studies, and meet
+      personally other users and companies using BSD oriented
+      technologies. EuroBSDcon is also a boiler plate for ideas,
+      discussions and information exchange, which often turn into
+      programming projects. The conference has always attracted active
+      programmers, administrators and aspiring students, as well as IT
+      companies at large, which found the conference a convenient and
+      quality training option for its staff. We firmly believe that
+      high profile education is vital to the future of technology, and
+      hence greatly welcome students and young people to this regular
+      meeting.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:9
+SUMMARY:BSDTW 2017
+URL;VALUE=URI:https://bsdtw.org
+LOCATION:Beitou Resort, Taipei, Taiwan
+
+DTSTART;VALUE=DATE:20171111
+DTEND;VALUE=DATE:20171112
+DESCRIPTION:BSDTW is a conference that aims to bring out more
+      BSD developers and development all across Asia, drawing speakers
+      both locally and from the entire world. We will gather in
+      Taipei, Taiwan for a mix of developer and user-focused
+      presentations, food, and activities.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:10
+SUMMARY:Building Products with FreeBSD
+URL;VALUE=URI:http://freebsd.kktix.cc/events/gnn-talk-2016
+LOCATION:Gandi Asia Co. Ltd, Taipei, Taiwan
+
+DTSTART;VALUE=DATE:20161211
+DESCRIPTION:George Neville-Neil will be giving a talk entitled
+      "Building Products with FreeBSD". In addition he will introduce the
+      FreeBSD community and FreeBSD Foundation.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:11
+SUMMARY:Usenix LISA 2016
+URL;VALUE=URI:https://www.usenix.org/conference/lisa16
+LOCATION:Sheraton Boston Hotel, Boston, MA, United States
+
+DTSTART;VALUE=DATE:20161204
+DTEND;VALUE=DATE:20161209
+DESCRIPTION:USENIX&#8217;s Large Installation System Administration
+      (LISA) conference&#8212;now in its 30th year&#8212;is the
+      premier conference for IT operations, where systems engineers,
+      operations professionals, and academic researchers share
+      real-world knowledge about designing, building, and maintaining
+      the critical systems of our interconnected world.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:12
+SUMMARY:MeetBSD 2016
+URL;VALUE=URI:https://www.meetbsd.com/
+LOCATION:Clark Kerr Campus, UC Berkeley, Berkeley, CA, United States
+
+DTSTART;VALUE=DATE:20161111
+DTEND;VALUE=DATE:20161112
+DESCRIPTION:MeetBSD 2016 is a mixed unConference format featuring
+      both scheduled talks and community-driven events such as
+      birds-of-a-feather meetings, breakout sessions, lightning talks,
+      and speed geeking sessions.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:13
+SUMMARY:Ohio Linux Fest 2016
+URL;VALUE=URI:https://ohiolinux.org/
+LOCATION:Hyatt Regency, Columbus, OH, United States
+
+DTSTART;VALUE=DATE:20161007
+DTEND;VALUE=DATE:20161008
+DESCRIPTION:The Ohio LinuxFest is a grassroots conference for the
+      GNU/Linux/Open Source Software/Free Software community that
+      started in 2003 as a large inter-LUG (Linux User Group) meeting
+      and has grown steadily since.  It is a place for the community
+      to gather and share information about Linux and Open Source
+      Software.  A large expo area adjacent to the conference rooms
+      will feature exhibits from our sponsors as well as a large
+      .org section from non-profit Open Source/Free Software
+      projects.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:14
+SUMMARY:OpenZFS Developers Summit 2016
+URL;VALUE=URI:http://open-zfs.org/wiki/OpenZFS_Developer_Summit_2016
+LOCATION:Children's Creativity Museum, San Francisco, CA, United States
+
+DTSTART;VALUE=DATE:20160926
+DTEND;VALUE=DATE:20160927
+DESCRIPTION:The goal of the event is to foster cross-community
+      discussions of OpenZFS work and to make progress on some of the
+      projects we have proposed.  This 2-day event consisted of 1 day
+      of presentation and a 1-day hackathon.  The call for papers is
+      open until August 1, 2016.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:15
+SUMMARY:EuroBSDcon 2016
+URL;VALUE=URI:http://2016.eurobsdcon.org/
+LOCATION:Radisson Blu Old Mill Hotel, Belgrade, Serbia
+
+DTSTART;VALUE=DATE:20160922
+DTEND;VALUE=DATE:20160925
+DESCRIPTION:EuroBSDcon is the premier European conference on the
+      open source BSD operating systems attracting about 250 highly
+      skilled engineering professionals, software developers, computer
+      science students and professors, and users from all over Europe
+      and other parts of the world.  The goal of EuroBSDcon is to
+      exchange knowledge about the BSD operating systems, facilitate
+      coordination and cooperation among users and
+      developers.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:16
+SUMMARY:Texas Linux Fest 2016
+URL;VALUE=URI:http://2016.texaslinuxfest.org/
+LOCATION:Austin Convention Center, San Marcos, TX, United States
+
+DTSTART;VALUE=DATE:20160708
+DTEND;VALUE=DATE:20160709
+DESCRIPTION:Texas Linux Fest is an open source software event for
+      Texas and the surrounding region.  It includes two days of
+      general sessions and vendor sessions with two full days of
+      expo floor.  Texas Linux Fest is for the business and home
+      user, and for the experienced developer and newcomer
+      alike.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:17
+SUMMARY:BSDCan 2016
+URL;VALUE=URI:http://www.bsdcan.org/2016/
+LOCATION:University of Ottawa, Ottawa, Canada
+
+DTSTART;VALUE=DATE:20160608
+DTEND;VALUE=DATE:20160611
+DESCRIPTION:BSDCan is a technical conference for people working
+      on and with BSD operating systems and related projects.  It is
+      a conference for users and developers with a strong focus on
+      emerging technologies, research projects, and works in progress.
+      It also features Userland infrastructure projects and invites
+      contributions from both free software developers and those
+      from commercial vendors.  BSDCan is followed immediately by
+      PGCon at the same location.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:18
+SUMMARY:AsiaBSDCon 2016
+URL;VALUE=URI:http://2016.asiabsdcon.org/
+LOCATION:Tokyo University of Science, Tokyo, Japan
+
+DTSTART;VALUE=DATE:20160310
+DTEND;VALUE=DATE:20160313
+DESCRIPTION:AsiaBSDCon is a conference for users and developers
+      on BSD based systems.  The conference is for anyone developing,
+      deploying and using systems based on FreeBSD, NetBSD, OpenBSD,
+      DragonFlyBSD, Darwin and MacOS X.  AsiaBSDCon is a technical
+      conference and aims to collect the best technical papers and
+      presentations available to ensure that the latest developments
+      in our open source community are shared with the widest
+      possible audience.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:19
+SUMMARY:Fosdem 2016
+URL;VALUE=URI:https://fosdem.org/2016/
+LOCATION:ULB Campus Solbosch, Brussels, Belgium
+
+DTSTART;VALUE=DATE:20160130
+DTEND;VALUE=DATE:20160131
+DESCRIPTION:FOSDEM is a free event for software developers to
+      meet, share ideas and attend interesting talks and presentations
+      on various topics by project leaders and committers.  The BSDs
+      will be there, you can visit us during the two days in our
+      booth, try to pass the BSDCG
+	Exam on Saturday, and come to the
+      BSD
+	devroom on Sunday to attend talks about your favorite
+      BSDs.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:20
+SUMMARY:FreeBSD Kernel Internals: An Intensive Code
+      Walkthrough
+URL;VALUE=URI:https://www.mckusick.com/courses/adveveclass.html
+LOCATION:Hillside Club, Berkeley, United States
+
+DTSTART;VALUE=DATE:20160121
+DTEND;VALUE=DATE:20160512
+DESCRIPTION:Marshall Kirk McKusick will be teaching his course
+      "FreeBSD Kernel Internals: An Intensive Code
+      Walkthrough" on Thursday evenings in Berkeley California
+      beginning January 21, 2016.  The class will be held at the
+      historic Hillside
+	Club at 2286 Cedar Street, Berkeley, CA 94709 just three
+      blocks north of the Berkeley campus once per week from 6:30PM
+      to 10:00PM starting Thursday January 21st and finishing on
+      Thursday May 12th.  You can sign up for the class at https://www.mckusick.com/courses/advclassform.html.
+      Those not living in the Bay Area that would like to take the
+      class remotely can sign up for a subscription to receive the
+      classes week-by-week as they are recorded.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:21
+SUMMARY:SCaLE 14x: The Southern California Linux Expo
+URL;VALUE=URI:https://www.socallinuxexpo.org
+LOCATION:Pasadena Convention Center, Pasadena, United States
+
+DTSTART;VALUE=DATE:20160121
+DTEND;VALUE=DATE:20160124
+DESCRIPTION:
+      Now celebrating its 14th year, the Southern California Linux
+      Expo SCALE 14X is the largest Linux and Open Source Software
+      show in North America.  The four-day event -- from Jan 21-24,
+      2016, at the Pasadena Convention Center -- attracts top speakers
+      and exhibitors from all over North America.  Sessions and
+      workshops range from beginner tutorials to seminars for
+      experienced system administrators or software developers.  In
+      addition, specialty seminars prior to the weekend are conducted
+      by various groups in the Free and Open Source Software
+      community.  While Linux is in our name, we tend to have a fair
+      amount of BSD content including booths from the FreeBSD
+      Foundation and the FreeBSD project.  This year will also include
+      onsite BSDA exams.  For more information, or to register, visit
+      https://www.socallinuxexpo.org.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:22
+SUMMARY:FreeBSD Kernel Class
+URL;VALUE=URI:https://www.mckusick.com/courses/introeveclass.html
+LOCATION:Hillside Club, Berkeley, United States
+
+DTSTART;VALUE=DATE:20150122
+DTEND;VALUE=DATE:20150521
+DESCRIPTION:Marshall Kirk McKusick will be teaching his FreeBSD
+      kernel class based on the second edition of "The Design and
+      Implementation of the FreeBSD Operating System".  The class
+      is being taught at the historic Hillside Club in Berkeley,
+      California.  The class will be taught weekly, mostly on Thursday
+      nights from January 22nd through May 21st.  Details on the class
+      and a link to the registration page can be found at https://www.mckusick.com/courses/introeveclass.html.
+      Those not living in the Bay Area that would like to take the
+      class remotely can sign up for a subscription to receive the
+      classes week-by-week as they are recorded at https://www.mckusick.com/courses/introorderform.html.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:23
+SUMMARY:FOSDEM '15
+URL;VALUE=URI:http://fosdem.org/2015/
+LOCATION:ULB Campus Solbosh, Brussels, Belgium
+
+DTSTART;VALUE=DATE:20150131
+DTEND;VALUE=DATE:20150201
+DESCRIPTION:FOSDEM '15 is a free and non-commercial event organized
+      by the community, for the community.  Its goal is to provide Free
+      and Open Source developers a place to meet. A BSD devroom is organized
+      to host talks about all BSD systems, to participate follow the 
+      CFP .  
+      Several FreeBSD developers will be present.  
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:24
+SUMMARY:AsiaBSDCon 2015
+URL;VALUE=URI:http://2015.asiabsdcon.org/
+LOCATION:Tokyo University of Science, Tokyo, Japan
+
+DTSTART;VALUE=DATE:20150312
+DTEND;VALUE=DATE:20150315
+DESCRIPTION:AsiaBSDCon is a conference for users and developers
+      on BSD based systems.  The conference is for anyone developing,
+      deploying and using systems based on FreeBSD, NetBSD, OpenBSD,
+      DragonFlyBSD, Darwin and MacOS X.  AsiaBSDCon is a technical
+      conference and aims to collect the best technical papers and
+      presentations available to ensure that the latest developments
+      in our open source community are shared with the widest
+      possible audience.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:25
+SUMMARY:Solutions Linux'15
+URL;VALUE=URI:http://www.solutionslinux.fr/?lg=en
+LOCATION:CNIT, Paris - La Défense, France
+
+DTSTART;VALUE=DATE:20150520
+DTEND;VALUE=DATE:20150521
+DESCRIPTION:Solutions Linux is one of the major corporate events
+      in France about Linux and Open Source solutions.
+      The event will also host an open source community 'village'.
+      A group of BSD enthusiasts led by
+      BSD France will be there
+      to promote BSD solutions.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:26
+SUMMARY:BSDCan 2015
+URL;VALUE=URI:http://www.bsdcan.org/
+LOCATION:University of Ottawa, Ottawa, Canada
+
+DTSTART;VALUE=DATE:20150610
+DTEND;VALUE=DATE:20150613
+DESCRIPTION:BSDCan is a technical conference for people working
+      on and with BSD operating systems and related projects.  It is
+      a developers conference with a strong focus on emerging
+      technologies, research projects, and works in progress.  It
+      also features Userland infrastructure projects and invites
+      contributions from both free software developers and those
+      from commercial vendors.  
+      BSDCan is followed
+      immediately by PGCon at the same location.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:27
+SUMMARY:EuroBSDCon 2015
+URL;VALUE=URI:http://2015.eurobsdcon.org/
+LOCATION:Stockholm University, Stockholm, Sweden
+
+DTSTART;VALUE=DATE:20151001
+DTEND;VALUE=DATE:20151004
+DESCRIPTION:EuroBSDcon is the premier European conference on the
+      open source BSD operating systems attracting about 250 highly
+      skilled engineering professionals, software developers, computer
+      science students and professors, and users from all over Europe
+      and other parts of the world.  The goal of EuroBSDcon is to
+      exchange knowledge about the BSD operating systems, facilitate
+      coordination and cooperation among users and developers.  The
+      dates for EuroBSDCon 2015 in Stockholm have been set to October
+      1-2nd for tutorials and October 3-4th for the main
+      conference.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:28
+SUMMARY:vBSDCon 2015
+URL;VALUE=URI:http://www.vbsdcon.com/
+LOCATION:Sheraton Reston Hotel, Reston, United States
+
+DTSTART;VALUE=DATE:20150911
+DTEND;VALUE=DATE:20150913
+DESCRIPTION:This exciting weekend will bring together members of
+      the BSD community for a series of roundtable discussions,
+      educational sessions, best practice conversations, and exclusive
+      networking opportunities.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:29
+SUMMARY:BSDCon Brazil 2015
+URL;VALUE=URI:http://www.bsdcon.com.br/
+LOCATION:, Fortaleza, Brazil
+
+DTSTART;VALUE=DATE:20151009
+DTEND;VALUE=DATE:20151010
+DESCRIPTION:BSDCon Brazil is the Brazilian BSD powered
+      and flavored conference.  The first edition was in 2005 and it brought
+      together a great mix of *BSD developers and users for a nice blend of
+      both developer-centric and user-centric presentations, and activities.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:30
+SUMMARY:Paris Open Source Submit 2015
+URL;VALUE=URI:http://www.opensourcesummit.paris/
+LOCATION:
+
+DTSTART;VALUE=DATE:20151118
+DTEND;VALUE=DATE:20151119
+DESCRIPTION:The Paris Open Source Submit is one of the major professional
+      open source events in France, a unique place to meet the companies who built,
+      or wants to build solutions based on open source.
+      A team of FreeBSD commiters and contributors will be there to introduce
+      peoples to FreeBSD.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:31
+SUMMARY:NYCBSDCon 2014
+URL;VALUE=URI:http://www.nycbsdcon.org/2014/
+LOCATION:Suspender Bar & Restaurant, Manhattan, New York City, United States
+
+DTSTART;VALUE=DATE:20140208
+DESCRIPTION:A day-long event with a theme of "The BSDs in
+      Production." With increased focus on the critical roles
+      the BSDs do and can play in infrastructures, NYCBSDCon
+      promises to be an important event for the technical community
+      in the New York metropolitan area.  Hosted by the New York City
+      *BSD User Group.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:32
+SUMMARY:bhyvecon 2014
+URL;VALUE=URI:http://bhyvecon.org/
+LOCATION:SAKURA Internet Research Center, Tokyo, Japan
+
+DTSTART;VALUE=DATE:20140312
+DESCRIPTION:See the bhyve hypervisor in action and ask a core bhyve
+      developer your technical questions.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:33
+SUMMARY:AsiaBSDCon 2014
+URL;VALUE=URI:http://2014.asiabsdcon.org/
+LOCATION:Tokyo University of Science, Tokyo, Japan
+
+DTSTART;VALUE=DATE:20140313
+DTEND;VALUE=DATE:20140316
+DESCRIPTION:AsiaBSDCon is a conference for users and developers
+      on BSD based systems.  The conference is for anyone developing,
+      deploying and using systems based on FreeBSD, NetBSD, OpenBSD,
+      DragonFlyBSD, Darwin and MacOS X.  AsiaBSDCon is a technical
+      conference and aims to collect the best technical papers and
+      presentations available to ensure that the latest developments
+      in our open source community are shared with the widest
+      possible audience.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:34
+SUMMARY:BSDCan 2014
+URL;VALUE=URI:http://www.bsdcan.org/
+LOCATION:University of Ottawa, Ottawa, Canada
+
+DTSTART;VALUE=DATE:20140514
+DTEND;VALUE=DATE:20140517
+DESCRIPTION:BSDCan is a technical conference for people working
+      on and with BSD operating systems and related projects.  It is
+      a developers conference with a strong focus on emerging
+      technologies, research projects, and works in progress.  It
+      also features Userland infrastructure projects and invites
+      contributions from both free software developers and those
+      from commercial vendors.  Features tracks on System
+      Administration, Security, Hacking and Embedded.  Followed
+      immediately by PGCon at the same location.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:35
+SUMMARY:BSDCam 2014
+URL;VALUE=URI:http://bsdcam.cl.cam.ac.uk/
+LOCATION:University of Cambridge, Cambridge, United Kingdom
+
+DTSTART;VALUE=DATE:20140709
+DTEND;VALUE=DATE:20140712
+DESCRIPTION:The Cambridge FreeBSD Developers Summit is an annual
+      invite-only event focused on bringing together developers and
+      vendors to discuss and build the future of the FreeBSD project.
+      This years topics will include the desired feature set of
+      FreeBSD 11, implementing the new release strategy for the
+      9 and 10 branches, packaging the base system, and building the
+      infrastructure and tools to attract more embedded vendors to
+      FreeBSD.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:36
+SUMMARY:BSDday
+URL;VALUE=URI:http://bsdday.org/
+LOCATION:University
+	of Buenos Aires' Faculty of natural and exact sciences, Buenos Aires, Argentina
+
+DTSTART;VALUE=DATE:20140809
+DESCRIPTION:BSDday Argentina is a conference for users, sysadmins
+      and developers of BSD software and based systems.  The
+      conference is for anyone developing, deploying and using systems
+      based on FreeBSD, NetBSD, OpenBSD, DragonFlyBSD and others *BSD.
+      BSDday Argentina is a technical conference and aims to collect
+      the best technical papers and presentations available to ensure
+      that the latest developments in our open source community are
+      shared with the widest possible audience.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:37
+SUMMARY:EuroBSDCon 2014
+URL;VALUE=URI:http://2014.eurobsdcon.org/
+LOCATION:InterExpo Congress Center, Sofia, Bulgaria
+
+DTSTART;VALUE=DATE:20140925
+DTEND;VALUE=DATE:20140928
+DESCRIPTION:EuroBSDcon is the premier European conference on the
+      open source BSD operating systems attracting about 250 highly
+      skilled engineering professionals, software developers, computer
+      science students and professors, and users from all over Europe
+      and other parts of the world.  The goal of EuroBSDcon is to
+      exchange knowledge about the BSD operating systems, facilitate
+      coordination and cooperation among users and developers.  The
+      dates for EuroBSDCon 2014 in Sofia have been set to September
+      25-26th for tutorials and September 27-28th for the main
+      conference.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:38
+SUMMARY:X Developer's Conference 2014
+URL;VALUE=URI:http://wiki.x.org/wiki/Events/XDC2014/
+LOCATION:LaBRI, Université de Bordeaux 1, Bordeaux, France
+
+DTSTART;VALUE=DATE:20141008
+DTEND;VALUE=DATE:20141010
+DESCRIPTION:XDC is the annual conference where people working
+      on the FOSS graphics stack meet.  Talks cover projects status,
+      work-in-progress, proposals for change, and so on.  Like many
+      similar conferences, this is a great opportunity for developers
+      and users to talk face to face.  For the first time in a long
+      time, FreeBSD will be present and give a talk about the status
+      of the graphics stack.  The main goal is to re-establish
+      communication with upstream, which tends to get Linux-centric
+      these days.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:39
+SUMMARY:MeetBSD California 2014
+URL;VALUE=URI:https://www.meetbsd.com/
+LOCATION:Western Digital Campus, San Jose, United States
+
+DTSTART;VALUE=DATE:20141101
+DTEND;VALUE=DATE:20141102
+DESCRIPTION:MeetBSD 2014 uses a mixed unConference format featuring
+      both scheduled talks and community-driven events such as
+      birds-of-a-feather meetings, lightning talks, and speed geeking
+      sessions.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:40
+SUMMARY:AsiaBSDCon 2013
+URL;VALUE=URI:http://2013.asiabsdcon.org/
+LOCATION:Tokyo University of Science, Tokyo, Japan
+
+DTSTART;VALUE=DATE:20130314
+DTEND;VALUE=DATE:20130317
+DESCRIPTION:AsiaBSDCon is a conference for users and developers
+      on BSD based systems.  The conference is for anyone developing,
+      deploying and using systems based on FreeBSD, NetBSD, OpenBSD,
+      DragonFlyBSD, Darwin and MacOS X. AsiaBSDCon is a technical
+      conference and aims to collect the best technical papers and
+      presentations available to ensure that the latest developments
+      in our open source community are shared with the widest possible
+      audience.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:41
+SUMMARY:Central European BSD-Day 2013
+URL;VALUE=URI:http://bsdday.eu/2013
+LOCATION:Institute of Biostructures and Bioimaging, Naples, Italy
+
+DTSTART;VALUE=DATE:20130406
+DESCRIPTION:Watch out, another BSD-Day is rising: next April
+      Beastie visits Naples to gather BSD people of Italy and Central
+      Europe to meet up!  This event is an excellent opportunity for
+      BSD developers and enthusiasts to present their work to larger
+      audiences, share their thoughts with their fellows and reach out
+      for their potential partners.  Traditionally, the event tries to
+      avoid formalities as it does not require the speakers to submit
+      papers or the attendees to register or pay an entry fee.
+      However, the invited folks are encouraged to a give a brief talk
+      on their favorite BSD topic.  The goal is to motivate everybody,
+      especially university students to see the benefits of our
+      approach and take a chance on working with BSD
+      systems.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:42
+SUMMARY:BSDCan 2013
+URL;VALUE=URI:http://www.bsdcan.org/
+LOCATION:University of Ottawa, Ottawa, Canada
+
+DTSTART;VALUE=DATE:20130515
+DTEND;VALUE=DATE:20130518
+DESCRIPTION:BSDCan is a developers conference with a strong focus
+      on emerging technologies, research projects, and works in
+      progress. It also features Userland infrastructure projects and
+      invites contributions from both free software developers and those
+      from commercial vendors.
+URL;VALUE=URI:https://www.youtube.com/playlist?list=PLWW0CjV-TafZN1ArKy3j6X7YJ57_FFQ5e
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:43
+SUMMARY:KyivBSD 2013
+URL;VALUE=URI:http://en.kyivbsd.org.ua/
+LOCATION:Taras Shevchenko National University of Kyiv, Kyiv, Ukraine
+
+DTSTART;VALUE=DATE:20130921
+DESCRIPTION:We are glad to invite all to the fifth conference
+      placed in Kyiv!  Kyiv is both historical landmark and urbanistic
+      city with many people interested in open source in general.
+      It is a good choice for local and foreign developers
+      to attend.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:44
+SUMMARY:EuroBSDcon 2013
+URL;VALUE=URI:http://2013.eurobsdcon.org/
+LOCATION:Hilton Conference Centre, St. Julian's, Malta
+
+DTSTART;VALUE=DATE:20130926
+DTEND;VALUE=DATE:20130929
+DESCRIPTION:We are happy to announce that the EuroBSDcon 2013
+      will be held on Saturday 28th and Sunday 29th of September 2013
+      (tutorials on Thursday 26th and Friday 27th) on Malta
+      (St. Julian's area).  The weather is great at about 26°C
+      during the day and 20°C at night.  The ocean is still warm
+      from summer.  Consider taking you family, wife, kids and spouse
+      with you for a long weekend.  The social event on Saturday
+      evening will be a BBQ at a beautiful sandy beach.  Family is
+      invited too and children attend for free.  A side program with
+      sight seeing and a tour of the island is being organized at
+      cost.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:45
+SUMMARY:vBSDCon 2013
+URL;VALUE=URI:http://www.vbsdcon.com/
+LOCATION:Dulles Hyatt, Dulles, United States
+
+DTSTART;VALUE=DATE:20131025
+DTEND;VALUE=DATE:20131027
+DESCRIPTION:This exciting weekend will bring together members of
+      the BSD community for a series of roundtable discussions,
+      educational sessions, best practice conversations, and exclusive
+      networking opportunities.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:46
+SUMMARY:FreeBSD 20th Anniversary Party
+URL;VALUE=URI:http://rsvp.ixsystems.com/
+LOCATION:DNA Lounge, San Francisco, United States
+
+DTSTART;VALUE=DATE:20131102
+DESCRIPTION:A one day event in honor of the users,
+      administrators, developers, and advocates, of FreeBSD.  The
+      20th Anniversary Celebration will feature great company,
+      drinks, music and notable figures from the past, present and
+      future of FreeBSD.  Festivities will begin at 6 pm, will open
+      to the public at 9 pm, and will continue into the wee hours
+      of the morning.  There will also be giveaways of books and
+      other goodies plus the new FreeBSD 20th Anniversary T-shirt.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:47
+SUMMARY:ruBSD 2013
+URL;VALUE=URI:http://tech.yandex.ru/events/yagosti/ruBSD/
+LOCATION:St. Leo Tolstoy, Moscow, Russia
+
+DTSTART;VALUE=DATE:20131214
+DESCRIPTION:The first Russian technical conference on the BSD
+      family of operation systems, held December 14, 2013 in the
+      Yandex Moscow office.  It is intended for system administrators
+      and programmers.  Objectives of the conference include new
+      technologies in the BSD world, and discussion and examples of
+      BSD-based systems.  Participation is free, but registration is
+      required.  Seats are limited.  If you register but cannot
+      attend, please let us know.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:48
+SUMMARY:Chemnitz Linux Days 2012
+URL;VALUE=URI:http://chemnitzer.linux-tage.de/2012/info/
+LOCATION:Chemnitz University of Technology, Chemnitz, Germany
+
+DTSTART;VALUE=DATE:20120317
+DTEND;VALUE=DATE:20120318
+DESCRIPTION:Chemnitz Linux Days is a conference that deals with
+      Linux and Open Source software.  It is open for everyone -
+      newbies and experts alike.  This event is organized by IN
+      Chemnitz, CLUG, computing centre and Faculty of Computer Science
+      of Chemnitz University of Technology and many volunteers.  Pick
+      up your schedule and make a big mark around March 17 and 18.
+      You won't regret it.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:49
+SUMMARY:AsiaBSDCon 2012
+URL;VALUE=URI:http://2012.asiabsdcon.org/
+LOCATION:Morito Memorial Hall, Tokyo University of Science, Tokyo, Japan
+
+DTSTART;VALUE=DATE:20120322
+DTEND;VALUE=DATE:20120325
+DESCRIPTION:AsiaBSDCon is a conference for users and developers
+      on BSD based systems. The conference is for anyone developing,
+      deploying and using systems based on FreeBSD, NetBSD, OpenBSD,
+      DragonFlyBSD, Darwin and MacOS X. AsiaBSDCon is a technical
+      conference and aims to collect the best technical papers and
+      presentations available to ensure that the latest developments
+      in our open source community are shared with the widest possible
+      audience.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:50
+SUMMARY:BSDDay.eu/2012
+URL;VALUE=URI:http://bsdday.eu/2012
+LOCATION:UAS Technikum Wien, Vienna, Austria
+
+DTSTART;VALUE=DATE:20120505
+DESCRIPTION:This year Beastie joins Tux on his tour in Vienna in
+      May: another "DanuBSDCon" is coming to gather Central-European
+      BSD people to meet!  The event features several BSD developers
+      and enthusiasts to tell about their work, communicate with their
+      fellows and reach their potential future partners.  As usual,
+      there are no formalities, papers, registration or participation
+      fee, however the invited folks are encouraged to give a brief
+      talk about their favorite BSD-related topic.  The goal is to
+      motivate everybody, especially university students to work with
+      BSD systems.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:51
+SUMMARY:Solutions Linux 2012
+URL;VALUE=URI:http://www.solutionslinux.fr
+LOCATION:CNIT La Défense, Paris, France
+
+DTSTART;VALUE=DATE:20120619
+DTEND;VALUE=DATE:20120621
+DESCRIPTION:
+      A 3 days event to promote GNU/Linux and Open Source Software to
+      companies.  As usual, a French FreeBSD User Group will be there to
+      promote FreeBSD.  The access to the event is free of charge.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:52
+SUMMARY:BSDCan 2012
+URL;VALUE=URI:http://www.bsdcan.org/
+LOCATION:University of Ottawa, Ottawa, Canada
+
+DTSTART;VALUE=DATE:20120509
+DTEND;VALUE=DATE:20120512
+DESCRIPTION:BSDCan is a developers conference with a strong focus
+      on emerging technologies, research projects, and works in
+      progress. It also features Userland infrastructure projects and
+      invites contributions from both free software developers and
+      those from commercial vendors.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:53
+SUMMARY:KyivBSD 2012
+URL;VALUE=URI:http://kyivbsd.org.ua/
+LOCATION:, Kyiv, Ukraine
+
+DTSTART;VALUE=DATE:20120929
+DESCRIPTION:The fourth KyivBSD conference will take place in
+      Kyiv, Ukraine.  The main goal of this conference: make the
+      community grow faster, uptimes longer and users happier.  This
+      year there will be discussion about embedding BSD systems,
+      tutorial about poudriere and pkgng, insight into mpd5, and few
+      more technical subjects.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:54
+SUMMARY:EuroBSDCon 2012
+URL;VALUE=URI:http://2012.eurobsdcon.org/
+LOCATION:, Warsaw, Poland
+
+DTSTART;VALUE=DATE:20121018
+DTEND;VALUE=DATE:20121021
+DESCRIPTION:EuroBSDcon is the European technical conference for
+      people working on and with BSD based operating systems and
+      related projects. EuroBSDcon 2012 is the 11th EuroBSDcon and
+      will take place in Poland, 20-21 October 2012 (tutorials 18-19
+      October) in Warsaw. EuroBSDcon is a great and unique time to
+      learn more about the powerful BSD systems we use everyday and to
+      connect with other developers around the world.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:55
+SUMMARY:meetBSD California 2012
+URL;VALUE=URI:http://www.meetbsd.com/
+LOCATION:Yahoo! Inc., Sunnyvale, California, United States
+
+DTSTART;VALUE=DATE:20121103
+DTEND;VALUE=DATE:20121104
+DESCRIPTION:MeetBSD California 2012 promises to be an experience
+      unlike any other. MeetBSD California is no normal conference -
+      it's a meeting of the minds from all over the BSD community.
+      MeetBSD California 2012 will feature community-scheduled
+      break-out sessions, discussions groups, and 5-10 minute
+      "lightning talks," as well as longer talks from seasoned BSD
+      experts.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:56
+SUMMARY:BSDday Argentina 2012
+URL;VALUE=URI:http://www.bsdday.org/
+LOCATION:Universidad Tecnologica Nacional, Buenos Aires City, Argentina
+
+DTSTART;VALUE=DATE:20121117
+DESCRIPTION:BSDday Argentina is a conference for users, sysadmins
+      and developers of BSD software and based systems.  The
+      conference is for anyone developing, deploying and using systems
+      based on FreeBSD, NetBSD, OpenBSD, DragonFlyBSD and others *BSD.
+      BSDday Argentina is a technical conference and aims to collect
+      the best technical papers and presentations available to ensure
+      that the latest developments in our open source community are
+      shared with the widest possible audience.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:57
+SUMMARY:BSDday Argentina 2011
+URL;VALUE=URI:http://www.bsdday.org.ar/
+LOCATION:Universidad Tecnologica Nacional, Buenos Aires City, Argentina
+
+DTSTART;VALUE=DATE:20111105
+DESCRIPTION:BSDday Argentina is a conference for users, sysadmins and
+      developers of BSD software and BSD based systems. The conference is for
+      anyone developing, deploying and using systems based on FreeBSD, NetBSD,
+      OpenBSD, DragonFly BSD and other BSDs.  BSDday Argentina is a technical
+      conference and aims to collect the best technical papers and presentations
+      available to ensure that the latest developments in our open source
+      community are shared with the widest possible audience.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:58
+SUMMARY:bsd_day(2011)
+URL;VALUE=URI:http://bsdday.eu/2011
+LOCATION:Slovak University of Technology, Bratislava, Slovakia
+
+DTSTART;VALUE=DATE:20111105
+DESCRIPTION:A new BSD-Day is approaching again to gather Central
+      European BSD people to meet.  The event features developers so
+      they can popularize their work and communicate with users and
+      potential future partners.  There are no formalities, papers,
+      registration or participation fee, however the invited developers
+      are encouraged to give a brief talk about their favorite BSD-related
+      topic.  The goal is to motivate everybody, especially university
+      students to work with BSD systems.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:59
+SUMMARY:EuroBSDCon 2011
+URL;VALUE=URI:http://2011.eurobsdcon.org/
+LOCATION:, The Netherlands
+
+DTSTART;VALUE=DATE:20111006
+DTEND;VALUE=DATE:20111009
+DESCRIPTION:EuroBSDCon is the annual European technical conference
+      for users and developers on BSD based systems.  The 10th European
+      BSD Conference will take place in the Netherlands in October,
+      2010, and include a technical track, tutorials, and FreeBSD
+      developer summit.  Topics of interest to the conference include,
+      but are not limited to applications, architecture, implementation,
+      performance and security of BSD based operating systems, as well
+      as topics concerning the economic or organizational aspects of BSD
+      use.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:60
+SUMMARY:KyivBSD 2011
+URL;VALUE=URI:http://ru.kyivbsd.org.ua/
+LOCATION:, Kiev, Ukraine
+
+DTSTART;VALUE=DATE:20110924
+DESCRIPTION:The third KyivBSD conference will take place in Kiev,
+      Ukraine.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:61
+SUMMARY:World IPv6 Day
+URL;VALUE=URI:http://www.worldipv6day.org/
+LOCATION:
+
+DTSTART;VALUE=DATE:20110608
+DESCRIPTION:World IPv6 Day is a 24-hour IPv6 test-flight organized by
+      The Internet Society on 8 June 2011 0:00 UTC to 23:259 UTC.  FreeBSD is
+      planning to contribute by helping to promote IPv6 and help our users in
+      case of immediate IPv6 problems.  See our dedicated  FreeBSD and World IPv6 Day page for
+      more information and how you can help as well.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:62
+SUMMARY:BSDCan 2011
+URL;VALUE=URI:http://www.bsdcan.org/
+LOCATION:University of Ottawa, Ottawa, Canada
+
+DTSTART;VALUE=DATE:20110510
+DTEND;VALUE=DATE:20110513
+DESCRIPTION:BSDCan is a developers conference with a strong focus
+      on emerging technologies, research projects, and works in
+      progress. It also features Userland infrastructure projects and
+      invites contributions from both free software developers and those
+      from commercial vendors.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:63
+SUMMARY:Grazer Linuxtag 2011
+URL;VALUE=URI:http://www.linuxtage.at/
+LOCATION:FH Joanneum Graz, Graz, Austria
+
+DTSTART;VALUE=DATE:20110409
+DESCRIPTION:The Grazer Linuxtag is a one day event on Linux and free
+      software in general.  Besides a FreeBSD booth and the possibility
+      to take the BSDA certification exam there will also be a
+      BSD Bootcamp with live workshops covering
+      different FreeBSD topics.  More information can be found here.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:64
+SUMMARY:Indiana LinuxFest 2011
+URL;VALUE=URI:http://www.indianalinux.org/cms/
+LOCATION:Wyndam Indianapolis West Hotel, Indianapolis, USA
+
+DTSTART;VALUE=DATE:20110325
+DTEND;VALUE=DATE:20110327
+DESCRIPTION:
+      The Indiana LinuxFest is a community F/OSS conference, which is
+      showcasing the best the community has to offer in the way of
+      Free and Open Source Software, Open Hardware, and Free Culture.
+      We are also highlighting the best and brightest from all of
+      these communities from the hobbyist to professional level.
+      During the LinuxFest The BSD Certification Group will offer the
+      possibility to take their BSDA certification exam.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:65
+SUMMARY:AsiaBSDCon 2011
+URL;VALUE=URI:http://2011.asiabsdcon.org/
+LOCATION:Tokyo University of Science, Tokyo, Japan
+
+DTSTART;VALUE=DATE:20110317
+DTEND;VALUE=DATE:20110320
+DESCRIPTION:
+      AsiaBSDCon is a conference for users and developers on BSD
+      based systems. The conference is for anyone developing, deploying and
+      using systems based on FreeBSD, NetBSD, OpenBSD, DragonFlyBSD, Darwin
+      and MacOS X. AsiaBSDCon is a technical conference and aims to collect
+      the best technical papers and presentations available to ensure that
+      the latest developments in our open source community are shared with
+      the widest possible audience.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:66
+SUMMARY:NLLGG gathering
+URL;VALUE=URI:http://www.nllgg.nl/bijeenkomst_20101211
+LOCATION:Trajectum College, Utrecht, Utrecht, the Netherlands
+
+DTSTART;VALUE=DATE:20101211
+DESCRIPTION:The "Nederlandse Linux Gebruikers Groep" (NLLGG)
+      organisation is arranging its third national community day in Utrecht
+      focusing on BSD.  Like the last two years, there will be a
+      general and a BSD-specific track.  Presentations are
+      yet to be announced.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:67
+SUMMARY:BSD-Day@2010
+URL;VALUE=URI:http://wiki.freebsd.org/BSDDay_2010
+LOCATION:Eötvös Loránd University, Budapest, Hungary
+
+DTSTART;VALUE=DATE:20101120
+DESCRIPTION:This one-day event is to gather Central European
+      developers of today's open-source BSD systems, popularize their
+      work, and provide a real-life communication interface between
+      developers and users.  There are no formalities, no papers, and no
+      registration or participation fee, however the invited developers
+      are encouraged to give a talk on their favorite BSD-related topic.
+      The goal is to motivate potential future developers and users,
+      especially undergraduate university students to work with BSD
+      systems.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:68
+SUMMARY:NYCBSDCon 2010
+URL;VALUE=URI:http://www.nycbsdcon.org/
+LOCATION:Cooper Union, New York City, USA
+
+DTSTART;VALUE=DATE:20101112
+DTEND;VALUE=DATE:20101114
+DESCRIPTION:The New York City *BSD Conference (NYCBSDCon) 2010
+      will be held at Manhattan's prestigious Cooper Union. NYCBSDCon is
+      the main technical conference on the East Coast for the BSD
+      community to get together to share and gain knowledge, to
+      network with like-minded people, and to have fun. This event is
+      organized by members of the New York City *BSD Users Group
+      (NYC*BUG).
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:69
+SUMMARY:BSDday Argentina 2010
+URL;VALUE=URI:http://www.bsdday.org.ar/
+LOCATION:University of Buenos Aires, Buenos Aires, Argentina
+
+DTSTART;VALUE=DATE:20101105
+DTEND;VALUE=DATE:20101106
+DESCRIPTION:BSDday Argentina is a conference for users, system
+      administrators, and developers of BSD software and BSD-based
+      systems.  The conference is for anyone who is developing,
+      deploying, and using systems based on FreeBSD, NetBSD, OpenBSD,
+      DragonFlyBSD, and other BSDs.  BSDday Argentina is a technical
+      conference and it aims to collect the best technical papers and
+      presentations available to ensure that the latest developments in
+      our open source community are shared with the widest possible
+      audience.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:70
+SUMMARY:MeetBSD California 2010
+URL;VALUE=URI:http://meetbsd.com/
+LOCATION:Hacker Dojo, Mountain View, California, USA
+
+DTSTART;VALUE=DATE:20101105
+DTEND;VALUE=DATE:20101106
+DESCRIPTION:meetBSD was started in Krakow, Poland in 2004 and
+      strong turnout and highly regarded technical presentations have
+      allowed it to continue each year since then.  meetBSD is a
+      conference devoted to the BSD operating systems with a strong
+      emphasis towards FreeBSD.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:71
+SUMMARY:EuroBSDCon 2010
+URL;VALUE=URI:http://2010.eurobsdcon.org/
+LOCATION:, Karlsruhe, Germany
+
+DTSTART;VALUE=DATE:20101008
+DTEND;VALUE=DATE:20101010
+DESCRIPTION:The ninth annual European BSD Conference will take place
+      in Karlsruhe, Germany in October, 2010, and include a technical
+      track, tutorials, and FreeBSD developer summit.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:72
+SUMMARY:KyivBSD 2010
+URL;VALUE=URI:http://ru.kyivbsd.org.ua/
+LOCATION:, Kiev, Ukraine
+
+DTSTART;VALUE=DATE:20100925
+DESCRIPTION:The second KyivBSD conference will take place in Kiev,
+      Ukraine.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:73
+SUMMARY:FrOSCamp 2010
+URL;VALUE=URI:http://www.froscamp.org/
+LOCATION:ETH Zurich, Zurich, Switzerland
+
+DTSTART;VALUE=DATE:20100917
+DTEND;VALUE=DATE:20100918
+DESCRIPTION:FrOSCamp is an open source event organized for the first
+      time in 2010.  There will be a FreeBSD booth as well as several
+      committers attending the event.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:74
+SUMMARY:Bugathon #7: PRs containing patches
+URL;VALUE=URI:http://wiki.freebsd.org/Bugathons/2010August
+LOCATION:
+
+DTSTART;VALUE=DATE:20100806
+DTEND;VALUE=DATE:20100809
+DESCRIPTION:A bugathon is an event coordinated by the FreeBSD
+      bugbusting team.  Bugathons are held on IRC (in the
+      #freebsd-bugbusters channel of EFnet), and are attended by any
+      interested FreeBSD developers and contributors during a week-end.
+      They focus on closing as many problem reports and fixing as many
+      bugs as possible.  The plan for the seventh bugathon is to work
+      through many of the problem reports in FreeBSD's GNATS database
+      containing patches, with a view to either committing them,
+      getting them into a committable shape, or explaining to the
+      submitters the issues with the supplied patches.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:75
+SUMMARY:meetBSD 2010
+URL;VALUE=URI:http://www.meetBSD.org/
+LOCATION:Jagiellonian University, Krakow, Poland
+
+DTSTART;VALUE=DATE:20100702
+DTEND;VALUE=DATE:20100703
+DESCRIPTION:meetBSD is an annual event gathering users and developers of
+      the BSD operating systems family, mostly FreeBSD, NetBSD and OpenBSD.
+      After the special California edition for the 10th FreeBSD anniversary,
+      meetBSD Wintercamp in Livigno, this year we are back to Krakow,
+      Poland.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:76
+SUMMARY:11th Libre Software Meeting
+URL;VALUE=URI:http://2010.rmll.info/
+LOCATION:, Bordeaux, France
+
+DTSTART;VALUE=DATE:20100706
+DTEND;VALUE=DATE:20100711
+DESCRIPTION:The Libre Software Meeting has occurred each year
+      since July 2000.  This year there will again be a FreeBSD boot
+      camp to introduce new users to the Operating System.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:77
+SUMMARY:BSDCan 2010
+URL;VALUE=URI:http://www.bsdcan.org/2010/
+LOCATION:University of Ottawa, Ottawa, Canada
+
+DTSTART;VALUE=DATE:20100511
+DTEND;VALUE=DATE:20100514
+DESCRIPTION:BSDCan is a developers conference with a strong focus
+      on emerging technologies, research projects, and works in
+      progress. It also features Userland infrastructure projects and
+      invites contributions from both free software developers and those
+      from commercial vendors.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:78
+SUMMARY:it 360° 2010
+URL;VALUE=URI:http://www.it360.ca/
+LOCATION:, Toronto, Canada
+
+DTSTART;VALUE=DATE:20100407
+DESCRIPTION:IT360° Conference & Expo 2010 is an interactive experience
+      for IT professionals and business executives to expand their mind and
+      their bottom line.  The BSD Certification Group will offer their BSDA
+      certification exam.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:79
+SUMMARY:OpenExpo 2010
+URL;VALUE=URI:http://www.openexpo.ch/
+LOCATION:, Bern, Switzerland
+
+DTSTART;VALUE=DATE:20100324
+DTEND;VALUE=DATE:20100325
+DESCRIPTION:The goal of OpenExpo is the promotion of Open Source
+      software in the business environment.  Among many others, there
+      will be a FreeBSD booth.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:80
+SUMMARY:Solutions Linux 2010
+URL;VALUE=URI:http://www.solutionslinux.fr/
+LOCATION:Paris Expo, Paris, France
+
+DTSTART;VALUE=DATE:20100316
+DTEND;VALUE=DATE:20100318
+DESCRIPTION:A 3 days event to promote GNU/Linux and Open Source
+      Software to companies.  As usual, a French FreeBSD User Group will
+      be there to promote FreeBSD.  The access to the event is free of
+      charge.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:81
+SUMMARY:Chemnitzer Linux-Tage 2010
+URL;VALUE=URI:http://chemnitzer.linux-tage.de/2010/
+LOCATION:Technical University Chemnitz, Chemnitz, Germany
+
+DTSTART;VALUE=DATE:20100313
+DTEND;VALUE=DATE:20100314
+DESCRIPTION:Chemnitzer Linux-Tage is a two day event on Linux and Free
+      Software in general.  There will be workshops, talks and room for various
+      projects to present themselves.  FreeBSD will be present with a booth.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:82
+SUMMARY:AsiaBSDCon 2010
+URL;VALUE=URI:http://2010.asiabsdcon.org/
+LOCATION:Tokyo University of Science, Tokyo, Japan
+
+DTSTART;VALUE=DATE:20100311
+DTEND;VALUE=DATE:20100314
+DESCRIPTION:AsiaBSDCon is a conference for users and developers on BSD
+      based systems.  The conference is for anyone developing, deploying and
+      using systems based on FreeBSD, NetBSD, OpenBSD, DragonFlyBSD, Darwin
+      and MacOS X.  AsiaBSDCon is a technical conference and aims to collect
+      the best technical papers and presentations available to ensure that
+      the latest developments in our open source community are shared with
+      the widest possible audience.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:83
+SUMMARY:SCALE: Southern California Linux Expo 2010
+URL;VALUE=URI:http://www.socallinuxexpo.org/
+LOCATION:The Westin Los Angeles Airport, Los Angeles, California, USA
+
+DTSTART;VALUE=DATE:20100219
+DTEND;VALUE=DATE:20100221
+DESCRIPTION:There will be a FreeBSD booth at the 8th annual
+      Southern California Linux Expo in February.  Futhermore Dru Lavigne will
+      give a talk about BSD for Linux users.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:84
+SUMMARY:FOSDEM '10
+URL;VALUE=URI:http://fosdem.org/2010/
+LOCATION:ULB Campus Solbosh, Brussels, Belgium
+
+DTSTART;VALUE=DATE:20100206
+DTEND;VALUE=DATE:20100207
+DESCRIPTION:FOSDEM '10 is a free and non-commercial event organized
+      by the community, for the community.  Its goal is to provide Free
+      and Open Source developers a place to meet.  Several FreeBSD
+      developers will be present.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:85
+SUMMARY:OpenRheinRuhr 2009
+URL;VALUE=URI:http://www.openrheinruhr.de/
+LOCATION:Saalbau, Bottrop, Germany
+
+DTSTART;VALUE=DATE:20091107
+DTEND;VALUE=DATE:20091108
+DESCRIPTION:This new event in the middle of Europe will
+      see a huge audience and an impressive list of exhibitors.
+      FreeBSD will have a booth as well as the other major
+      BSDs.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:86
+SUMMARY:discuss & discover 2009
+URL;VALUE=URI:http://en.discuss-discover.com/
+LOCATION:Messe München, Munich, Germany
+
+DTSTART;VALUE=DATE:20091020
+DTEND;VALUE=DATE:20091022
+DESCRIPTION:Discuss & discover is the successor of
+      Systems.  FreeBSD will have a booth as well as the
+      other major BSDs and will try to repeat the great
+      success of past years.  There will be an Open Source
+      conference with workshops, talks and a theme park for
+      various projects.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:87
+SUMMARY:Kyiv BSD 2009
+URL;VALUE=URI:http://kyivbsd.org.ua/
+LOCATION:, Kiev, Ukraine
+
+DTSTART;VALUE=DATE:20090926
+DESCRIPTION:26th September 2009 in Kiev, Ukraine will take place
+      first Ukrainian conference, dedicated to FreeBSD.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:88
+SUMMARY:IT Security Expo 2009
+URL;VALUE=URI:http://www.it-sa.de/en/
+LOCATION:, Nuremberg, Germany
+
+DTSTART;VALUE=DATE:20090923
+DTEND;VALUE=DATE:20090924
+DESCRIPTION:Starting in 2009, Nuremberg will be staging
+      the leading IT security event in a new venue:  Although
+      SYSTEMS has closed its doors, the IT SecurityExpo with
+      its track record of ten successful years is to be
+      continued and its scope expanded.  There will be a
+      FreeBSD booth and talks likely.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:89
+SUMMARY:OpenExpo 2009
+URL;VALUE=URI:http://www.openexpo.ch/
+LOCATION:, Winterthur, Switzerland
+
+DTSTART;VALUE=DATE:20090923
+DTEND;VALUE=DATE:20090924
+DESCRIPTION:The goal of OpenExpo is the promotion of Open Source
+      software in the business environment.  Among many others, there
+      will be a FreeBSD booth.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:90
+SUMMARY:EuroBSDCon 2009
+URL;VALUE=URI:http://2009.eurobsdcon.org/
+LOCATION:University of Cambridge, Cambridge, UK
+
+DTSTART;VALUE=DATE:20090917
+DTEND;VALUE=DATE:20090919
+DESCRIPTION:The eighth annual European BSD Conference will take place
+      in Cambridge, England in September, 2009, and include a technical
+      track, tutorials, and FreeBSD developer summit.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:91
+SUMMARY:FrOSCon 2009
+URL;VALUE=URI:http://www.froscon.org/
+LOCATION:Fachhochschule Bonn-Rhein-Sieg, Sankt Augustin, Germany
+
+DTSTART;VALUE=DATE:20090822
+DTEND;VALUE=DATE:20090823
+DESCRIPTION:FrOSCon is a two day conference on Free Software
+      and Open Source, taking place in Sankt Augustin near the cities
+      of Bonn and Cologne.  The conference revolves around a rich schedule
+      of talks, highlighting current topics in Free Software and Open
+      Source.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:92
+SUMMARY:Kernel Conference Australia 2009
+URL;VALUE=URI:http://www.kernelconference.net/
+LOCATION:University of Queensland, Brisbane, Australia
+
+DTSTART;VALUE=DATE:20090715
+DTEND;VALUE=DATE:20090717
+DESCRIPTION:Kernel Conference Australia is a Kernel-focused technical conference.
+      Any and all Open Source kernels and the technologies within those kernels are open
+      for discussion. The only hard criteria is that the kernel must be covered by an
+      OSI-approved license.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:93
+SUMMARY:10th Libre Software Meeting
+URL;VALUE=URI:http://2009.rmll.info/?lang=en
+LOCATION:Nantes University, Nantes, France
+
+DTSTART;VALUE=DATE:20090707
+DTEND;VALUE=DATE:20090711
+DESCRIPTION:The Libre Software Meeting has occurred each year
+      since July 2000.  This year there will again be a FreeBSD boot
+      camp to introduce new users to the Operating System.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:94
+SUMMARY:LinuxTag 2009
+URL;VALUE=URI:http://www.linuxtag.org/2009/en/
+LOCATION:Messe Berlin, Berlin, Germany
+
+DTSTART;VALUE=DATE:20090624
+DTEND;VALUE=DATE:20090627
+DESCRIPTION:LinuxTag is Europe's largest event for Free
+      Software, Linux and Open Source.  This year there will be
+      the traditional FreeBSD booth as well as booths from NetBSD,
+      OpenBSD and MirBSD and several BSD talks.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:95
+SUMMARY:BSDday Argentina 2009
+URL;VALUE=URI:http://www.bsdday.com.ar/
+LOCATION:, Buenos Aires, Argentina
+
+DTSTART;VALUE=DATE:20090529
+DTEND;VALUE=DATE:20090530
+DESCRIPTION:BSDday Argentina is a conference for users and developers
+      on BSD based systems. The conference is for anyone developing,
+      deploying and using systems based on FreeBSD, NetBSD, OpenBSD,
+      DragonFlyBSD and others *BSD. BSDday Argentina is a technical conference
+      and aims to collect the best technical papers and presentations available
+      to ensure that the latest developments in our open source community are
+      shared with the widest possible audience.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:96
+SUMMARY:BSDCan 2009
+URL;VALUE=URI:http://www.bsdcan.org/2009/
+LOCATION:University of Ottawa, Ottawa, Canada
+
+DTSTART;VALUE=DATE:20090506
+DTEND;VALUE=DATE:20090509
+DESCRIPTION:BSDCan is a developers conference with a strong focus
+      on emerging technologies, research projects, and works in
+      progress. It also features Userland infrastructure projects and
+      invites contributions from both free software developers and those
+      from commercial vendors.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:97
+SUMMARY:ACM Talk on FreeBSD/PmcTools
+URL;VALUE=URI:http://acmbangalore.org/index.php?option=com_attend_events&task=view&id=3&Itemid=0
+LOCATION:, Bangalore, India
+
+DTSTART;VALUE=DATE:20090418
+DESCRIPTION:A talk on FreeBSD/PmcTools, hosted by the Bangalore chapter
+      of the ACM.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:98
+SUMMARY:Solutions Linux 2009
+URL;VALUE=URI:http://www.solutionslinux.fr/
+LOCATION:Paris Expo, Paris, France
+
+DTSTART;VALUE=DATE:20090331
+DTEND;VALUE=DATE:20090402
+DESCRIPTION:A 3 days event to promote GNU/Linux and Open Source
+      Software to companies.  As usual, a French FreeBSD User Group will
+      be there
+      to promote FreeBSD.  The access to the event is free of
+      charge.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:99
+SUMMARY:FreeBSD Kernel Internals: Intensive Evening Course
+URL;VALUE=URI:http://www.mckusick.com/courses/adveveclass.html
+LOCATION:, Berkeley, California, USA
+
+DTSTART;VALUE=DATE:20090318
+DTEND;VALUE=DATE:20090702
+DESCRIPTION:The 
+      FreeBSD Kernel Internals: An Intensive Code Walkthrough
+      course provides an in depth study of the source code of the
+      FreeBSD 8-current kernel as of early March.  This course is
+      aimed at users with a good understanding of the algorithms used
+      in the FreeBSD kernel that want to learn the details of their
+      implementation.  The class will be held at the historic  Hillside Club at 2286
+      Cedar Street, Berkeley, CA 94709 just three blocks north of the
+      Berkeley campus once per week from 6:30PM to 10:00PM starting
+      Wednesday March 18th and finishing Thursday July 2nd.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:100
+SUMMARY:AsiaBSDCon 2009
+URL;VALUE=URI:http://2009.asiabsdcon.org/
+LOCATION:Tokyo University of Science, Tokyo, Japan
+
+DTSTART;VALUE=DATE:20090312
+DTEND;VALUE=DATE:20090315
+DESCRIPTION:AsiaBSDCon is a conference for users and developers on BSD
+      based systems.  The conference is for anyone developing, deploying and
+      using systems based on FreeBSD, NetBSD, OpenBSD, DragonFlyBSD, Darwin
+      and MacOS X.  AsiaBSDCon is a technical conference and aims to collect
+      the best technical papers and presentations available to ensure that
+      the latest developments in our open source community are shared with
+      the widest possible audience.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:101
+SUMMARY:FOSDEM '09
+URL;VALUE=URI:http://fosdem.org/2009/
+LOCATION:ULB Campus Solbosh, Brussels, Belgium
+
+DTSTART;VALUE=DATE:20090207
+DTEND;VALUE=DATE:20090208
+DESCRIPTION:FOSDEM '09 is a free and non-commercial event organized
+      by the community, for the community.  Its goal is to provide Free
+      and Open Source developers a place to meet.  Several FreeBSD
+      developers will be present, including Kris Kennaway who will be
+      giving a talk about system performance.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:102
+SUMMARY:DCBSDCon 2009
+URL;VALUE=URI:http://www.dcbsdcon.org/
+LOCATION:Marriott Wardman, Washington, D.C., USA
+
+DTSTART;VALUE=DATE:20090205
+DTEND;VALUE=DATE:20090206
+DESCRIPTION:The first large BSD Conference in the DC area.  Will
+      include 45 minute presentations on BSD related topics and
+      security themes.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:103
+SUMMARY:Network-related Bugathon #6
+URL;VALUE=URI:https://wiki.freebsd.org/Bugathons/January2009
+LOCATION:
+
+DTSTART;VALUE=DATE:20090130
+DTEND;VALUE=DATE:20090201
+DESCRIPTION:A bugathon is an event coordinated by the FreeBSD
+      bugbusting team.  Bugathons are held on IRC (in the
+      #freebsd-bugbusters channel of EFnet), and are attended by any
+      interested FreeBSD developers and contributors during a week-end.
+      They focus on closing as many problem reports and fixing as many
+      bugs as possible.  The plan for the sixth bugathon is to work
+      through the all network-related problem reports in FreeBSD's GNATS
+      database.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:104
+SUMMARY:NLLGG-bijeenkomst december 2008
+URL;VALUE=URI:http://www.nllgg.nl/bijeenkomst_20081213
+LOCATION:Liefland college, Utrecht, Utrecht, the Netherlands
+
+DTSTART;VALUE=DATE:20081213
+DESCRIPTION:The "Nederlandse Linux Gebruikers Groep" (NLLGG)
+      organisation is arranging a national community day in Utrecht
+      focussing on BSD.  Robert Watson, Hans vd Looy, Marten Vijn,
+      Wim Vandeputte and Remko Lodder will do presentations for the
+      Linux community.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:105
+SUMMARY:MeetBSD California 2008
+URL;VALUE=URI:http://meetbsd.com/
+LOCATION:Googleplex, Mountain View, California, USA
+
+DTSTART;VALUE=DATE:20081115
+DTEND;VALUE=DATE:20081116
+DESCRIPTION:meetBSD was started in Krakow, Poland in 2004 and
+      strong turnout and highly regarded technical presentations have
+      allowed it to continue each year since then.  meetBSD is a
+      conference devoted to the BSD operating systems with a strong
+      emphasis towards FreeBSD.  meetBSD 2007 was held in Warsaw,
+      Poland and will continue this year in Mountain View, California.
+      This year marks the first meetBSD held in California, so join us
+      to celebrate FreeBSD's 15th Anniversary!
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:106
+SUMMARY:Ticino Informatica 2008
+LOCATION:Palazzo dei Congressi, Lugano, Switzerland
+
+DTSTART;VALUE=DATE:20081022
+DTEND;VALUE=DATE:20081025
+DESCRIPTION:FreeBSD and The FreeBSD Foundation
+      Stand A13 Presented by OEMS Sagl
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:107
+SUMMARY:EuroBSDCon 2008
+URL;VALUE=URI:http://2008.eurobsdcon.org/
+LOCATION:University of Strasbourg, Strasbourg, France
+
+DTSTART;VALUE=DATE:20081018
+DTEND;VALUE=DATE:20081019
+DESCRIPTION:The seventh annual European BSD Conference.  It is
+      oriented to developers and users of all BSD flavors, including
+      FreeBSD of course.  A variety of full and half-day tutorials will
+      precede the conference.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:108
+SUMMARY:NYCBSDCon 2008
+URL;VALUE=URI:http://www.nycbsdcon.org/
+LOCATION:Columbia University, New York City, USA
+
+DTSTART;VALUE=DATE:20081011
+DTEND;VALUE=DATE:20081012
+DESCRIPTION:The New York City *BSD Conference (NYCBSDCon) 2008
+      will be held at Columbia University in Manhattan.  NYCBSDCon is
+      the main technical conference on the East Coast for the BSD
+      community to get together to share and gain knowledge, to
+      network with like-minded people, and to have fun. This event is
+      organized by members of the New York City *BSD Users Group
+      (NYC*BUG).
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:109
+SUMMARY:OpenExpo 2008
+URL;VALUE=URI:http://www.openexpo.ch/
+LOCATION:, Zurich, Switzerland
+
+DTSTART;VALUE=DATE:20080924
+DTEND;VALUE=DATE:20080925
+DESCRIPTION:The goal of OpenExpo is the promotion of Open Source
+      software in the business environment.  Among many others, there
+      will be a FreeBSD booth.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:110
+SUMMARY:COSCUP 2008 - Conference for Open Source Coders, Users and Promoters
+URL;VALUE=URI:http://coscup.org/2008/
+LOCATION:International Conference Hall, Institute of Applied Mechanics,
+	National Taiwan University, Taipei, Taiwan (ROC)
+
+DTSTART;VALUE=DATE:20080823
+DTEND;VALUE=DATE:20080824
+DESCRIPTION:COSCUP 2008 is the 3rd incarnation of the series,
+      and becomes the biggest annual open source community party in Taiwan.
+      Several FreeBSD contributions will be presenting on FreeBSD topics.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:111
+SUMMARY:FrOSCon 2008
+URL;VALUE=URI:http://www.froscon.org/
+LOCATION:Fachhochschule Bonn-Rhein-Sieg, Sankt Augustin, Germany
+
+DTSTART;VALUE=DATE:20080823
+DTEND;VALUE=DATE:20080824
+DESCRIPTION:FrOSCon is a two day conference on Free Software
+      and Open Source, taking place in Sankt Augustin near the cities
+      of Bonn and Cologne.  The conference revolves around a rich schedule
+      of talks, highlighting current topics in Free Software and Open
+      Source.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:112
+SUMMARY:O'Reilly Open Source Conference 2008
+URL;VALUE=URI:http://en.oreilly.com/oscon2008/public/content/home
+LOCATION:Oregon Convention Center, Portland, Oregon, USA
+
+DTSTART;VALUE=DATE:20080721
+DTEND;VALUE=DATE:20080725
+DESCRIPTION:The annual O'Reilly Open Source Conference will again
+      have a FreeBSD booth this year.  Matt Olander, Dru Lavigne, and
+      others will help spread the word about FreeBSD.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:113
+SUMMARY:9th Libre Software Meeting
+URL;VALUE=URI:http://2008.rmll.info/?lang=en
+LOCATION:Multiple Locations, Mont-de-Marsan, France
+
+DTSTART;VALUE=DATE:20080701
+DTEND;VALUE=DATE:20080705
+DESCRIPTION:The Libre Software Meeting has occurred each year
+      since July 2000.  This year there will again be a FreeBSD boot
+      camp to introduce new users to the Operating System.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:114
+SUMMARY:LinuxTag 2008
+URL;VALUE=URI:http://www.linuxtag.org/2008/en/
+LOCATION:Messe Berlin, Berlin, Germany
+
+DTSTART;VALUE=DATE:20080528
+DTEND;VALUE=DATE:20080531
+DESCRIPTION:LinuxTag is Europe's largest event about Free
+      Software, Linux and Open Source.  This year there will be the
+      traditional FreeBSD booth and several BSD talks.  It will also be
+      possible to take the BSDA certification exam there on Friday May
+      30.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:115
+SUMMARY:BSDCan 2008
+URL;VALUE=URI:http://www.bsdcan.org/2008/
+LOCATION:University of Ottawa, Ottawa, Canada
+
+DTSTART;VALUE=DATE:20080516
+DTEND;VALUE=DATE:20080517
+DESCRIPTION:BSDCan is a developers conference with a strong focus
+      on emerging technologies, research projects, and works in
+      progress. It also features Userland infrastructure projects and
+      invites contributions from both free software developers and those
+      from commercial vendors.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:116
+SUMMARY:BSDCon Barcelona 2008
+URL;VALUE=URI:http://bcn.bsdcon.net/
+LOCATION:Universitat Politecnica de Catalunya, Barcelona, Spain
+
+DTSTART;VALUE=DATE:20080419
+DTEND;VALUE=DATE:20080420
+DESCRIPTION:BSDCon Barcelona is a conference on all BSD-based operating
+      systems.  Submissions can be on any topic, as long as they are somehow
+      connected to BSD.  There is room for all kinds of topics ranging from
+      documentation to kernel-programming and using systems for various
+      tasks.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:117
+SUMMARY:OSDC.tw 2008 - Open Source Developers' Conference in Taiwan
+URL;VALUE=URI:http://osdc.tw/
+LOCATION:School Of Continuing Education Chinese Culture University, Taipei, Taiwan (ROC)
+
+DTSTART;VALUE=DATE:20080412
+DTEND;VALUE=DATE:20080413
+DESCRIPTION:OSDC.tw is a major conference for open source developers and
+      contributions.  The subject of OSDC.tw 2008 is the
+      "Innovation and Implementation".  Several FreeBSD
+      developers and contributions will be presenting on FreeBSD topics.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:118
+SUMMARY:Linux-Infotag 2008
+URL;VALUE=URI:http://www.luga.de/Aktionen/LIT-2008/
+LOCATION:FH Augsburg, Augsburg, Germany
+
+DTSTART;VALUE=DATE:20080329
+DESCRIPTION:The Augsburger Linux-Infotag offers two parallel
+      tracks of talks to show the capabilities of free and open source
+      software. There will be several talks about FreeBSD as well
+      as a FreeBSD booth.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:119
+SUMMARY:AsiaBSDCon 2008
+URL;VALUE=URI:http://2008.asiabsdcon.org/
+LOCATION:Tokyo University of Science, Tokyo, Japan
+
+DTSTART;VALUE=DATE:20080327
+DTEND;VALUE=DATE:20080330
+DESCRIPTION:AsiaBSDCon is a conference for users and developers on BSD
+      based systems.  The conference is for anyone developing, deploying and
+      using systems based on FreeBSD, NetBSD, OpenBSD, DragonFlyBSD, Darwin
+      and MacOS X.  AsiaBSDCon is a technical conference and aims to collect
+      the best technical papers and presentations available to ensure that
+      the latest developments in our open source community are shared with
+      the widest possible audience.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:120
+SUMMARY:Unigroup FreeBSD7 Launch Meeting
+URL;VALUE=URI:http://www.unigroup.org/unigroup-rsvp.html
+LOCATION:Alliance for Downtown NY Conference Facility, New York, USA
+
+DTSTART;VALUE=DATE:20080313
+DESCRIPTION:UNIGROUP of New York presents FreeBSD 7, the latest
+      release of the FreeBSD Operating System.  George Neville-Neil, a
+      member of the FreeBSD Project will give a presentation of the
+      main features and significant improvements in the latest release
+      as well as talk about the FreeBSD project and how the operating
+      system is developed.  The presentation will be followed by a
+      question and answer period.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:121
+SUMMARY:Linuxtage Chemnitz 2008
+URL;VALUE=URI:http://chemnitzer.linux-tage.de/2008/info/
+LOCATION:Technical University Chemnitz, Chemnitz, Germany
+
+DTSTART;VALUE=DATE:20080301
+DTEND;VALUE=DATE:20080302
+DESCRIPTION:Linuxtage Chemnitz is a two day event on Linux and Free
+      Software in general. There will be workshops, talks and room for various
+      projects to present themselves. FreeBSD will be present with a booth as
+      well as several talks.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:122
+SUMMARY:SCALE: Southern California Linux Expo 2008
+URL;VALUE=URI:http://www.socallinuxexpo.org/
+LOCATION:The Westin Los Angeles Airport, Los Angeles, California, USA
+
+DTSTART;VALUE=DATE:20080209
+DTEND;VALUE=DATE:20080210
+DESCRIPTION:There will be a FreeBSD presence at the sixth
+      Southern California Linux Expo in February.  Matt Olander will
+      be representing the project.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:123
+SUMMARY:FOSDEM 2008
+URL;VALUE=URI:http://www.fosdem.org/2008/
+LOCATION:Universite Libre de Bruxelles, Brussels, Belgium
+
+DTSTART;VALUE=DATE:20080223
+DTEND;VALUE=DATE:20080224
+DESCRIPTION:A 2-day event to promote the widespread use of Free and
+      Open Source software.  There will be a joined BSD and PostgreSQL
+      developer room.  Several FreeBSD developers will be present with
+      Core Team member Robert Watson giving the opening talk on one of
+      the conference days.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:124
+SUMMARY:Solutions Linux 2008
+URL;VALUE=URI:http://www.solutionslinux.fr/
+LOCATION:CNIT, Paris, France
+
+DTSTART;VALUE=DATE:20080129
+DTEND;VALUE=DATE:20080131
+DESCRIPTION:A 3 day event to promote GNU/Linux and Open Source software.
+	French FreeBSD User Group
+	will be present in the Association Village to promote FreeBSD
+	of course !
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:125
+SUMMARY:MeetBSD 2007
+URL;VALUE=URI:http://2007.meetbsd.org/en/
+LOCATION:Centrum Konferencyjno-Kongresowe PWSBiA, Warsaw, Poland
+
+DTSTART;VALUE=DATE:20071117
+DTEND;VALUE=DATE:20071118
+DESCRIPTION:The fourth annual MeetBSD conference will be held in
+      Poland to bring together BSD experts from around Europe.
+      Several FreeBSD developers will be presenting on FreeBSD
+      topics.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:126
+SUMMARY:come2linux - LinuxTage in Essen
+URL;VALUE=URI:http://www.come2linux.org/psp/
+LOCATION:Universität Duisburg-Essen, Glas-Pavilion, Essen, Germany
+
+DTSTART;VALUE=DATE:20071110
+DTEND;VALUE=DATE:20071111
+DESCRIPTION:Linuxtage in Essen is a two day event on Linux and
+      Free Software in general. There will be workshops, talks, a
+      theme park and room for various projects to present
+      themselves. FreeBSD as well as nearly all other BSDs (OpenBSD,
+      NetBSD, DesktopBSD, PC-BSD, MirBSD) will be present with a booth
+      as well as several talks and installation workshops held by the
+      new project www.BSDInstall.de.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:127
+SUMMARY:COSCUP 2007 - Conference for Open Source Coders, Users and Promoters
+URL;VALUE=URI:http://coscup.org/2007/
+LOCATION:Techonology Building 2F, National Science Council, Taipei, Taiwan (ROC)
+
+DTSTART;VALUE=DATE:20071103
+DTEND;VALUE=DATE:20071104
+DESCRIPTION:COSCUP 2007 is a joint conference of ICOS (International
+      Conference on Open Source), to make the open source carnival more
+      exciting.  The mostly change of COSCUP in 2007 is, the conference is
+      co-organized by all local communities in Taiwan, we hope to enlarge the
+      participation of local communities during such kind of cooperation. Just
+      like the spirit of COSCUP, in this conference, you can be both attendee
+      and promoter, and also involve the operation of the conference.
+
+      The major topics in COSCUP 2007 including web-based platform and embedded
+      system due to the popularity of Web 2.0 and OLPC; the Chinese session,
+      Lightning Talk and System session are the most interesting topics for
+      years.  There will be some presentations and talks about FreeBSD.
+
+      The program is attractive just like before, we invite not only big ones
+      in the community but also developers of non-famous local OSS projects,
+      to get more people involved and make OSS more brilliant in Taiwan.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:128
+SUMMARY:Systems 2007
+URL;VALUE=URI:http://www.systems-world.de/id/58547/
+LOCATION:Messe München, Munich, Germany
+
+DTSTART;VALUE=DATE:20071023
+DTEND;VALUE=DATE:20071027
+DESCRIPTION:Systems is a four day IT fair with more than 50000
+      visitors and 1200 exhibitors. FreeBSD will have a booth as well
+      as the other majour BSDs and will try to repeat the great succes
+      in 2006. There will be an Open Source conference with workshops,
+      talks and a theme park for various projects.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:129
+SUMMARY:BSDConTR 2007
+URL;VALUE=URI:http://www.bsdcontr.org/
+LOCATION:Sultanahmet Campus Marmara University, Istanbul, Turkey
+
+DTSTART;VALUE=DATE:20071019
+DTEND;VALUE=DATE:20071020
+DESCRIPTION:BSDConTR is the first conference on BSD systems in
+      Turkey.  The conference is organized in full cooperation with the
+      EnderUNIX Software Development Team, which is largely known for its
+      ongoing support for BSD systems in Turkey and its open source
+      projects, and Marmara University.  Join the developers, users, BSD
+      system admins and companies in Istanbul to share experiences and
+      knowledge about BSD Systems.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:130
+SUMMARY:I Fórum Software Livre
+URL;VALUE=URI:http://www.softwarelivre.com.pt/index.php
+LOCATION:Faculdade de Ciências da Universidade de Lisboa, Lisbon, Portugal
+
+DTSTART;VALUE=DATE:20071012
+DTEND;VALUE=DATE:20071013
+DESCRIPTION:I Fórum Software Livre is a two day conference on
+      Free Software and Open Source, taking place in Lisbon. There
+      will be some presentations and talks about
+      FreeBSD.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:131
+SUMMARY:Course: Building and Running an Open Source Community
+URL;VALUE=URI:http://www.unex.berkeley.edu/cat/course1557.html
+LOCATION:UC Extension San Francisco: Room 216, South of Market Center, San Francisco, USA
+
+DTSTART;VALUE=DATE:20071003
+DESCRIPTION:The BSD community started at UC Berkeley in the late
+      1970's. Through the 1980's, the BSD software was developed and
+      released from Berkeley. In 1992, Berkeley made its final
+      release, 4.4BSD-Lite, an open-source version of BSD. Since that
+      time, independent development has continued by the FreeBSD,
+      NetBSD, OpenBSD, Darwin, and Dragonfly projects. This talk
+      traces the history and structure of the BSD community from its
+      start as a small group of paid staff at Berkeley up through the
+      thousands of volunteer developers that make up the FreeBSD
+      Project of today. It describes how the development structure set
+      up at Berkeley was expanded to create a self-organizing project
+      that supports an ever growing and changing group of developers
+      around the world.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:132
+SUMMARY:Course: FreeBSD Kernel Internals
+URL;VALUE=URI:http://www.unex.berkeley.edu/cat/course927.html
+LOCATION:UC Extension Berkeley: Room 211, Golden Bear Building, Berkeley, USA
+
+DTSTART;VALUE=DATE:20070929
+DTEND;VALUE=DATE:20071103
+DESCRIPTION:This course will provide a firm background in the
+      FreeBSD kernel. The course will cover basic kernel services,
+      process structure, the FreeBSD jail facility for hosting virtual
+      machines, scheduling, signal handling, and virtual and physical
+      memory management. The kernel I/O structure will be described
+      showing how I/O is multiplexed, special devices are handled,
+      character processing is performed, and the buffer pool is
+      managed. The implementation of the filesystem and its
+      capabilities, including soft updates and snapshots, will be
+      described. The filesystem interface will then be described to
+      show how it can be used to support multiple filesystem types
+      such as Sun Microsystem's Network File System (NFS). The course
+      will also cover the FreeBSD socket-based network architecture,
+      layering, and implementation. Socket communications primitives
+      and internal layering will be discussed, with emphasis on the
+      interfaces between layers; the TCP/IP implementation will be
+      used as an example. A discussion of routing issues will be
+      included. Other system-related topics include performance
+      measurement, system tuning, and security issues. The
+      presentations will emphasize code organization, data structure
+      navigation, and algorithms. It will not cover machine-specific
+      parts of the system, such as device drivers.
+
+      Saturdays September 29, October 6 and 27, and
+      November 3, 2007; 9:00AM to 5:30PM Sept. 29 to Nov. 3: Sat., 9
+      am-5:30 pm (no meetings Oct. 13 and Oct. 20).
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:133
+SUMMARY:Course: A Narrative History of BSD
+URL;VALUE=URI:http://www.unex.berkeley.edu/cat/course1556.html
+LOCATION:UC Extension San Francisco: Room 216, South of Market Center, San Francisco, USA
+
+DTSTART;VALUE=DATE:20070926
+DESCRIPTION:Learn the history of the BSD (Berkeley Software
+      Distributions) from one of its key developers, who brings the
+      history to life, complete with anecdotes and footnotes to the
+      historical narrative. The BSD community began at the UC Berkeley
+      in the late 1970s. You'll hear about the triumphs and defeats of
+      the project and its releases during its heyday in the 1980s. The
+      Berkeley era concludes with the tumultuous lawsuit, ultimately
+      settled in Berkeley's favor, which allowed the final release in
+      1992 of 4.4BSD-Lite, an open-source version of BSD. The talk
+      includes a brief commentary on the FreeBSD, NetBSD, OpenBSD,
+      Darwin, and Dragonfly projects that took their genesis from the
+      release of 4.4BSD-Lite.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:134
+SUMMARY:OpenExpo 2007
+URL;VALUE=URI:http://www.openexpo.ch/
+LOCATION:Event550 Hall, Zurich, Switzerland
+
+DTSTART;VALUE=DATE:20070919
+DTEND;VALUE=DATE:20070920
+DESCRIPTION:The goal of OpenExpo is the promotion of Open Source
+      software in the business environment.  Among many others, there
+      will be a FreeBSD booth.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:135
+SUMMARY:EuroBSDCon 2007
+URL;VALUE=URI:http://2007.eurobsdcon.org/
+LOCATION:Symbion Science Park, Copenhagen, Denmark
+
+DTSTART;VALUE=DATE:20070914
+DTEND;VALUE=DATE:20070915
+DESCRIPTION:The sixth annual European BSD Conference.  It is
+      oriented to developers and users of all BSD flavors, including
+      FreeBSD of course.  A variety of full and half-day tutorials will
+      precede the conference.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:136
+SUMMARY:FrOSCon 2007
+URL;VALUE=URI:http://www.froscon.org/
+LOCATION:Fachhochschule Bonn-Rhein-Sieg, Sankt Augustin, Germany
+
+DTSTART;VALUE=DATE:20070825
+DTEND;VALUE=DATE:20070826
+DESCRIPTION:FrOSCon is a two day conference on Free Software
+      and Open Source, taking place in Sankt Augustin near the cities
+      of Bonn and Cologne.  The conference revolves around a rich schedule
+      of talks, highlighting current topics in Free Software and Open
+      Source.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:137
+SUMMARY:CoSin 2007
+URL;VALUE=URI:http://www.ccc.de/calendar/2007/cosin?language=en
+LOCATION:Kulturzentrum Bremgarten (KuZeB), Aargau, Switzerland
+
+DTSTART;VALUE=DATE:20070706
+DTEND;VALUE=DATE:20070708
+DESCRIPTION:CoSin is a three day conference on Open Source and
+      various other topics taking place in the Kulturzentrum
+      Bremgarten near Zurich.  There will be a FreeBSD booth as well
+      as other BSDs.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:138
+SUMMARY:LT Pact 2007
+URL;VALUE=URI:http://www.ltpact.com
+LOCATION:, Las Vegas, Nevada, USA
+
+DTSTART;VALUE=DATE:20070620
+DTEND;VALUE=DATE:20070622
+DESCRIPTION:LT Pact is a two day web hosting conference in Las
+      Vegas, Nevada being presented by Layered Technologies. The conference
+      features talks and panels that focus on web hosting and technologies
+      in use by large hosting companies. There will be a FreeBSD lab
+      session during the conference and plenty of FreeBSD gear.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:139
+SUMMARY:LinuxTag 2007
+URL;VALUE=URI:http://www.linuxtag.org/2007/en/
+LOCATION:Messe Berlin, Berlin, Germany
+
+DTSTART;VALUE=DATE:20070530
+DTEND;VALUE=DATE:20070602
+DESCRIPTION:LinuxTag is Europe's largest event about Free Software,
+      Linux and Open Source.  This year there will be the traditional
+      FreeBSD booth and several BSD talks.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:140
+SUMMARY:BSDCan 2007
+URL;VALUE=URI:http://www.bsdcan.org/
+LOCATION:University of Ottawa, Ottawa, Canada
+
+DTSTART;VALUE=DATE:20070518
+DTEND;VALUE=DATE:20070519
+DESCRIPTION:BSDCan is a developers conference with a strong focus
+      on emerging technologies, research projects, and works in
+      progress. It also features Userland infrastructure projects and
+      invites contributions from both free software developers and those
+      from commercial vendors.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:141
+SUMMARY:Unix and Linux Day 2007
+URL;VALUE=URI:http://www.unix-and-linux-day.de/index.html
+LOCATION:FH Kaiserslautern, Site Zweibrücken, Zweibrücken, Germany
+
+DTSTART;VALUE=DATE:20070505
+DESCRIPTION:Among others, there will be a talk about FreeBSD by
+      Alexander Leidinger.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:142
+SUMMARY:Augsburger Linux-Infotag 2007
+URL;VALUE=URI:http://www.luga.de/Aktionen/LIT-2007/
+LOCATION:FH Augsburg, Augsburg, Germany
+
+DTSTART;VALUE=DATE:20070324
+DESCRIPTION:The Augsburger Linux-Infotag offers two parallel tracks
+      of talks to show the capabilities of free and open source software.
+      There will be several talks about FreeBSD as well as a FreeBSD
+      booth.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:143
+SUMMARY:AsiaBSDCon 2007
+URL;VALUE=URI:http://2007.asiabsdcon.org/
+LOCATION:University of Tokyo, Tokyo, Japan
+
+DTSTART;VALUE=DATE:20070308
+DTEND;VALUE=DATE:20070311
+DESCRIPTION:AsiaBSDCon is a conference for users and developers on BSD
+      based systems.  The conference is for anyone developing, deploying and
+      using systems based on FreeBSD, NetBSD, OpenBSD, DragonFlyBSD, Darwin
+      and MacOS X.  AsiaBSDCon is a technical conference and aims to collect
+      the best technical papers and presentations available to ensure that
+      the latest developments in our open source community are shared with
+      the widest possible audience.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:144
+SUMMARY:Linuxtage Chemnitz 2007
+URL;VALUE=URI:http://chemnitzer.linux-tage.de/2007/info/
+LOCATION:Technical University Chemnitz, Chemnitz, Germany
+
+DTSTART;VALUE=DATE:20070303
+DTEND;VALUE=DATE:20070304
+DESCRIPTION:Linuxtage Chemnitz is a two day event on Linux and Free
+      Software in general. There will be workshops, talks and room for various
+      projects to present themselves. FreeBSD will be present with a booth as
+      well as several talks.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:145
+SUMMARY:FOSDEM 2007
+URL;VALUE=URI:http://www.fosdem.org/2007/
+LOCATION:Universite Libre de Bruxelles, Brussels, Belgium
+
+DTSTART;VALUE=DATE:20070224
+DTEND;VALUE=DATE:20070225
+DESCRIPTION:A 2-day event to promote the widespread use of Free and
+      Open Source software. Several BSD developers, including FreeBSD developers,
+      will be present.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:146
+SUMMARY:SCALE: Southern California Linux Expo 2007
+URL;VALUE=URI:http://www.socallinuxexpo.org/
+LOCATION:The Westin Los Angeles Airport, Los Angeles, California, USA
+
+DTSTART;VALUE=DATE:20070210
+DTEND;VALUE=DATE:20070211
+DESCRIPTION:The fifth Southern California Linux Expo will have
+      an 
+      exhibition booth on FreeBSD.  A computer will be available
+      and CDROMs provided by FreeBSD Mall
+      will be handed out.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:147
+SUMMARY:ChileBSDCon 2006
+URL;VALUE=URI:http://www.bsd.cl/index.php/BSDCon2006
+LOCATION:Universidad Diego Portales, Santiago, Chile
+
+DTSTART;VALUE=DATE:20061209
+DESCRIPTION:The first BSD related conference in Chile. The objective is
+      to join the developers, users, and BSD sysadmins in Chile to share and
+      interchange ideas, experiences, and knowledge.  In addition, it aims to
+      provide a chance to socialize and construct future links to expand the
+      knowledge of the BSD systems. The conference is for anyone developing,
+      administrating, and using systems based on FreeBSD, NetBSD, OpenBSD,
+      DragonFlyBSD, and Darwin as well as MacOS X and Solaris.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:148
+SUMMARY:LISA '06
+URL;VALUE=URI:http://www.usenix.org/events/lisa06/
+LOCATION:, Washington, D.C., USA
+
+DTSTART;VALUE=DATE:20061203
+DTEND;VALUE=DATE:20061208
+DESCRIPTION:The annual LISA conference is the meeting place of choice
+      for system, network, database, storage, security, and all other
+      computer-related administrators.  Administrators of all specialties
+      and levels of expertise meet at LISA to exchange ideas, sharpen old
+      skills, learn new techniques, debate current issues, and meet
+      colleagues and friends.  A BSD booth will be available in the
+      exhibit hall.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:149
+SUMMARY:MeetBSD 2006
+URL;VALUE=URI:http://2006.meetbsd.org/
+LOCATION:Centrum Konferencyjno-Kongresowe PWSBiA, Warsaw, Poland
+
+DTSTART;VALUE=DATE:20061125
+DTEND;VALUE=DATE:20061126
+DESCRIPTION:The third annual MeetBSD conference will be held in
+      Poland to bring together BSD experts from around Europe.
+      Several FreeBSD developers will be presenting on FreeBSD
+      topics.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:150
+SUMMARY:EuroBSDCon 2006
+URL;VALUE=URI:http://www.eurobsdcon.org/
+LOCATION:, Milan, Italy
+
+DTSTART;VALUE=DATE:20061110
+DTEND;VALUE=DATE:20061112
+DESCRIPTION:The fifth annual European BSD Conference.  It is
+      oriented to developers and users of all BSD flavors, including
+      FreeBSD of course.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:151
+SUMMARY:NYCBSDCon 2006
+URL;VALUE=URI:http://www.nycbsdcon.org/2006/
+LOCATION:Davis Auditorium, Columbia University, New York City, USA
+
+DTSTART;VALUE=DATE:20061028
+DTEND;VALUE=DATE:20061029
+DESCRIPTION:Continuing on the success of last year, the New York City
+      BSD Conference (NYCBSDCon) is the main technical conference on the
+      East Coast for the BSD community to get together to share and gain
+      knowledge, to network with like-minded people, and to have fun.
+      This event is organized by members of the New York City *BSD Users
+      Group (NYC*BUG).
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:152
+SUMMARY:CIMM 2006
+URL;VALUE=URI:http://www.ing.unal.edu.co/eventos/cimm2006/
+LOCATION:Universidad Nacional de Colombia, Bogota, Colombia
+
+DTSTART;VALUE=DATE:20060920
+DTEND;VALUE=DATE:20060922
+DESCRIPTION:Every two (sometimes three) years the leading Colombian
+      Mechanical Engineering Universities organize a congress.  This
+      year the congress will become an international event and will
+      feature an article about free Mechanical Engineering applications
+      recently ported to FreeBSD.  Note: the scheduled FreeBSD talk has
+      been canceled but the related paper is available here.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:153
+SUMMARY:come2linux - Linuxtage in Essen
+URL;VALUE=URI:http://www.com2linux.de/
+LOCATION:Universität Duisburg-Essen, Glas-Pavilion, Essen, Germany
+
+DTSTART;VALUE=DATE:20060909
+DTEND;VALUE=DATE:20060910
+DESCRIPTION:Linuxtage in Essen is a two day event on Linux and
+      Free Software in general.  There will be workshops, talks, a
+      theme park and room for various projects to present themselves.
+      FreeBSD will be present with a booth as well as several talks.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:154
+SUMMARY:FrOSCon 2006
+URL;VALUE=URI:http://www.froscon.org/
+LOCATION:Fachhochschule Bonn-Rhein-Sieg, Sankt Augustin, Germany
+
+DTSTART;VALUE=DATE:20060624
+DTEND;VALUE=DATE:20060625
+DESCRIPTION:FrOSCon is a two day conference on Free Software
+      and Open Source, taking place in Sankt Augustin near the cities
+      of Bonn and Cologne.  The conference revolves around a rich schedule
+      of talks, highlighting current topics in Free Software and Open Source,
+      including an introductory talk about FreeBSD.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:155
+SUMMARY:FreeBSD Kernel Short Course at UC Berkeley Extension
+URL;VALUE=URI:http://www.unex.berkeley.edu/cat/course692.html
+LOCATION:University of California, Berkeley, USA
+
+DTSTART;VALUE=DATE:20060619
+DTEND;VALUE=DATE:20060623
+DESCRIPTION:The ``Using the FreeBSD Open-Source Operating
+      System'' course will be taught June 19-23, 2006 as part of the
+      University of California at Berkeley Summer Engineering Program.
+      You can get more information or sign up for the
+      class at: http://www.unex.berkeley.edu/cat/course692.html.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:156
+SUMMARY:2006 USENIX Annual Technical Conference
+URL;VALUE=URI:http://www.usenix.org/events/usenix06/
+LOCATION:, Boston, Massachusetts, USA
+
+DTSTART;VALUE=DATE:20060530
+DTEND;VALUE=DATE:20060603
+DESCRIPTION:The 2006 USENIX ATC will have FREENIX and general
+      refereed paper sessions.  This is THE big conference of the year
+      for BSD enthusiasts in the U.S.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:157
+SUMMARY:SANE 2006
+URL;VALUE=URI:http://www.sane.nl/
+LOCATION:Aula Congresscentre, Delft, The Netherlands
+
+DTSTART;VALUE=DATE:20060515
+DTEND;VALUE=DATE:20060519
+DESCRIPTION:The SANE conference program is filled with the latest
+      developments in system administration, network engineering,
+      security and open source software.  Several prominent FreeBSD
+      team members will be speaking and FreeBSD related papers will be
+      presented.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:158
+SUMMARY:BSDCan 2006
+URL;VALUE=URI:http://www.bsdcan.org/
+LOCATION:University of Ottawa, Ottawa, Canada
+
+DTSTART;VALUE=DATE:20060512
+DTEND;VALUE=DATE:20060513
+DESCRIPTION:BSDCan is a developers conference with a strong focus
+      on emerging technologies, research projects, and works in
+      progress. It also features Userland infrastructure projects and
+      invites contributions from both free software developers and those
+      from commercial vendors.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:159
+SUMMARY:LinuxTag 2006
+URL;VALUE=URI:http://www.linuxtag.org/2006/en/
+LOCATION:Rhein-Main-Hallen, Wiesbaden, Germany
+
+DTSTART;VALUE=DATE:20060503
+DTEND;VALUE=DATE:20060506
+DESCRIPTION:LinuxTag is Europe's largest event about Free Software,
+      Linux and Open Source.  This year there will be the traditional
+      FreeBSD-Booth, some BSD-Talks and maybe BSD-Tutorials.  For more
+      information, please see http://www.AllBSD.de/events/linuxtag/.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:160
+SUMMARY:UKUUG LISA/Spring Conference 2006
+URL;VALUE=URI:http://www.ukuug.org/events/spring2006/
+LOCATION:University of Durham, Durham, UK
+
+DTSTART;VALUE=DATE:20060322
+DTEND;VALUE=DATE:20060323
+DESCRIPTION:UKUUG's annual Large Installation Systems Administration
+      (LISA) conference will take place in the historic city of Durham on
+      Wednesday 22nd and Thursday 23rd March 2006.  This conference is a
+      must-attend event for system and network administrators. As well as
+      the technical talks, the conference provides a friendly environment
+      for members to meet, learn, and enjoy lively debate on a host of
+      subjects. This year, a series of talks on the BSD family of operating
+      systems is also planned to run alongside the main systems
+      administration stream.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:161
+SUMMARY:CeBIT 2006
+URL;VALUE=URI:http://www.cebit.de/homepage_e?x=1
+LOCATION:Messegelände, Hannover, Germany
+
+DTSTART;VALUE=DATE:20060309
+DTEND;VALUE=DATE:20060315
+DESCRIPTION:CeBIT is a large trade fair in Germany.  FreeBSD will be
+      present with a booth inside the LinuxPark (hall 5, booth E 56) from
+      March 12-15.  For more information, please see http://www.AllBSD.de/events/cebit/.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:162
+SUMMARY:LinuxForum 2006
+URL;VALUE=URI:http://linuxforum.dk/2006/
+LOCATION:Kunstakademiets Arkitektskole, Copenhagen, Denmark
+
+DTSTART;VALUE=DATE:20060303
+DTEND;VALUE=DATE:20060304
+DESCRIPTION:Annual Danish Open Source conference.  The Danish BSD
+      user group BSD-DK will present
+      the BSDs.  Also, a series of BSD related talks is scheduled.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:163
+SUMMARY:Fosdem 2006
+URL;VALUE=URI:http://www.fosdem.org/
+LOCATION:Universite Libre de Bruxelles, Brussels, Belgium
+
+DTSTART;VALUE=DATE:20060225
+DTEND;VALUE=DATE:20060226
+DESCRIPTION:A 2 day event to promote the widespread use of Free
+      and Open Source software.  Several BSD developers, including
+      FreeBSD developers, will be present and give a series of
+      talks.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:164
+SUMMARY:FreeBSD Kernel Code Reading Evening Course
+URL;VALUE=URI:http://www.mckusick.com/courses/adveveclass.html
+LOCATION:, Berkeley, California, USA
+
+DTSTART;VALUE=DATE:20060222
+DTEND;VALUE=DATE:20060613
+DESCRIPTION:The ``FreeBSD Kernel Internals: An Intensive Code
+      Walkthrough'' course will be taught during the Spring of 2006. The
+      class will be held at the historic Hillside Club at 2286 Cedar
+      Street, Berkeley, CA 94709 just three blocks north of the Berkeley
+      campus once per week from 6:30PM to 9:45PM starting Wednesday February
+      22nd and finishing Tuesday June 13th. You can get more
+      information or sign up for the class at http://www.mckusick.com/courses/adveveclass.html.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:165
+SUMMARY:FreeBSD System Administration Training Course
+URL;VALUE=URI:http://www.pugetsoundtechnology.com/training/freebsd/
+LOCATION:, Fort Worth, Texas, USA
+
+DTSTART;VALUE=DATE:20060207
+DTEND;VALUE=DATE:20060210
+DESCRIPTION:Four-day hands-on class taught by BSD developer and
+      advocate, Jeremy C. Reed, covers essential FreeBSD and Unix
+      administration skills, including beginning Mail, BIND, and Apache
+      administration.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:166
+SUMMARY:GUFICon #6
+URL;VALUE=URI:http://www.gufi.org/guficon/
+LOCATION:, Perugia, Italy
+
+DTSTART;VALUE=DATE:20051203
+DTEND;VALUE=DATE:20051204
+DESCRIPTION:The Italian FreeBSD users group (G.U.F.I. - Gruppo
+      Utenti FreeBSD Italia) is proud to announce the 6th annual
+      GUFICon.  It will be held in Perugia, Italy on December 3-4,
+      2005.  As always, GUFICon is free and open to all.  Members of
+      the Italian FreeBSD community as well as special international
+      guests such as Greg Lehey and George Georgalis will present on
+      many technical themes.  See the website for more information and
+      free registration.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:167
+SUMMARY:EuroBSDCon 2005
+URL;VALUE=URI:http://2005.eurobsdcon.org/
+LOCATION:University of Basel, Basel, Switzerland
+
+DTSTART;VALUE=DATE:20051125
+DTEND;VALUE=DATE:20051127
+DESCRIPTION:The fourth annual European BSD Conference.  It is
+      oriented to developers and users of all BSD flavors, including
+      FreeBSD of course.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:168
+SUMMARY:USENIX Bay Area Super User Group Meeting (BaySUG '05)
+URL;VALUE=URI:http://www.usenix.org/events/baysug05/
+LOCATION:Computer History Museum, Mountain View, CA, USA
+
+DTSTART;VALUE=DATE:20051112
+DESCRIPTION:Join USENIX and BayLISA for the first Bay Area Super
+      User Group Meeting (BaySUG '05) followed by a reception hosted
+      by Google.  We're looking for more FreeBSD representation.
+      Please contact Murray
+      Stokely if you are interested in discussing and promoting
+      FreeBSD at the event.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:169
+SUMMARY:Korean FreeBSD users group Conference 2005
+URL;VALUE=URI:http://seminar.freebsdcity.org
+LOCATION:HP Korea Conference Room 20th floor, Seoul, Korea
+
+DTSTART;VALUE=DATE:20051029
+DESCRIPTION:A Conference for Everyone Who is interested in
+    FreeBSD in Korea.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:170
+SUMMARY:O'Reilly European Open Source Convention
+URL;VALUE=URI:http://conferences.oreillynet.com/eurooscon/
+LOCATION:NH Grand Hotel Krasnapolsky, Amsterdam, The Netherlands
+
+DTSTART;VALUE=DATE:20051017
+DTEND;VALUE=DATE:20051020
+DESCRIPTION:The popular O'Reilly Open Source Conference is coming
+      to Europe in October.  There will be FreeBSD related talks, BoF
+      sessions, and opportunities for general advocacy.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:171
+SUMMARY:New York City BSD Conference (NYCBSDCon)
+URL;VALUE=URI:http://www.nycbsdcon.org/2005/
+LOCATION:Columbia University, New York City, USA
+
+DTSTART;VALUE=DATE:20050917
+DESCRIPTION:New York City BSD Conference (NYCBSDCon) is a one day
+      technical conference hosted by the New York City *BSD User Group.  The all day
+      conference will include a variety of speakers representing the
+      BSD projects and the open source community.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:172
+SUMMARY:O'Reilly Open Source Conference 2005
+URL;VALUE=URI:http://conferences.oreillynet.com/os2005/
+LOCATION:Oregon Convention Center, Portland, Oregon, USA
+
+DTSTART;VALUE=DATE:20050801
+DTEND;VALUE=DATE:20050805
+DESCRIPTION:The annual O'Reilly Open Source Conference had a
+      larger BSD presence this year.  Matt Olander, Dru Lavigne, and
+      others helped spread the word about FreeBSD.  A press release
+      about the advocacy effort is available here.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:173
+SUMMARY:BSDCon Japan 2005
+URL;VALUE=URI:http://bsdcon.jp/
+LOCATION:NADYA PARK, Nagoya, Japan
+
+DTSTART;VALUE=DATE:20050723
+DESCRIPTION:BSD Conference Japan 2005, the fourth conference
+      concerning *BSD in Japan, will be held in Nagoya
+      on July 23th, 2005.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:174
+SUMMARY:Linuxtag 2005
+URL;VALUE=URI:http://www.linuxtag.org/2005/
+LOCATION:Kongresszentrum, Karlsruhe, Germany
+
+DTSTART;VALUE=DATE:20050622
+DTEND;VALUE=DATE:20050625
+DESCRIPTION:The Linuxtag is one of Europe's biggest Linux and Open Source
+      related tradeshows and conferences. As in previous years, FreeBSD will be
+      present with a booth.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:175
+SUMMARY:MeetBSD 2005
+URL;VALUE=URI:http://2005.meetbsd.org/
+LOCATION:Hotel Chopin, Kraków, Poland
+
+DTSTART;VALUE=DATE:20050617
+DTEND;VALUE=DATE:20050619
+DESCRIPTION:The second annual MeetBSD conference will be held in
+      Poland to bring together BSD experts from around Europe.
+      Poul-Henning Kamp and others will be presenting on FreeBSD
+      topics.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:176
+SUMMARY:BSDCan 2005
+URL;VALUE=URI:http://www.bsdcan.org/
+LOCATION:University of Ottawa, Ottawa, Canada
+
+DTSTART;VALUE=DATE:20050513
+DTEND;VALUE=DATE:20050514
+DESCRIPTION:BSDCan is a developers conference with a strong focus
+      on emerging technologies, research projects, and works in
+      progress. It also features Userland infrastructure projects and
+      invite contribution from both free software developers and those
+      from commercial vendors.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:177
+SUMMARY:Open Source Forum Russia 2005
+URL;VALUE=URI:http://www.opensource-forum.ru/
+LOCATION:Radisson SAS Hotel, Moscow, Russia
+
+DTSTART;VALUE=DATE:20050427
+DTEND;VALUE=DATE:20050429
+DESCRIPTION:Open Source Forum Russia is the first conference and
+      exhibition which will bring together Russian, American and
+      European leaders of the OS industry, customers interested in
+      using reliable and efficient Linux-based technologies and IT
+      companies which intend developing business on the base of Open
+      Source.  Murray Stokely will present
+      on the subject of FreeBSD Release Engineering and the Business
+      Case for BSD.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:178
+SUMMARY:2005 USENIX Annual Technical Conference
+URL;VALUE=URI:http://www.usenix.org/events/usenix05/
+LOCATION:, Anaheim, California, USA
+
+DTSTART;VALUE=DATE:20050410
+DTEND;VALUE=DATE:20050415
+DESCRIPTION:The 2005 USENIX ATC will have FREENIX and general
+      refereed paper sessions.  This is THE big conference of the year
+      for BSD enthusiasts in the U.S.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:179
+SUMMARY:LinuxForum 2005
+URL;VALUE=URI:http://www.linuxforum.dk/
+LOCATION:Kunstakademiets Arkitektskole, Copenhagen, Denmark
+
+DTSTART;VALUE=DATE:20050304
+DTEND;VALUE=DATE:20050305
+DESCRIPTION:Annual Danish Open Source conference.  The Danish BSD
+      user group BSD-DK will present
+      the BSD's.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:180
+SUMMARY:Fosdem 2005
+URL;VALUE=URI:http://www.fosdem.org/
+LOCATION:Universite Libre de Bruxelles, Brussels, Belgium
+
+DTSTART;VALUE=DATE:20050226
+DTEND;VALUE=DATE:20050227
+DESCRIPTION:A 2 day event to promote the widespread use of Free
+      and Open Source software. Among the projects present at the event
+      will be Mozilla, KDE and, of course, FreeBSD.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:181
+SUMMARY:GUUG-Frühjahrsfachgespräch 2005
+URL;VALUE=URI:http://www.guug.de/veranstaltungen/ffg2005/index.html
+LOCATION:Munich University of Applied Sciences, Munich, Germany
+
+DTSTART;VALUE=DATE:20050222
+DTEND;VALUE=DATE:20050225
+DESCRIPTION:
+      The Frühjahrsfachgespräch is an annual event on
+      practical Linux/UNIX topics.  Most of the talks are in
+      german, among them a talk about FreeBSD Filesystem Snapshots
+      by Dirk Meyer <dinoex@FreeBSD.org>.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:182
+SUMMARY:SCALE: Southern California Linux Expo 2005
+URL;VALUE=URI:http://www.socallinuxexpo.org/
+LOCATION:Los Angeles Convention Center, Los Angeles, California, USA
+
+DTSTART;VALUE=DATE:20050212
+DTEND;VALUE=DATE:20050213
+DESCRIPTION:The third Southern California Linux Expo will have
+      an 
+      exhibition booth on FreeBSD.  A computer will be available
+      and CDROMs provided by FreeBSD Mall
+      will be handed out.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:183
+SUMMARY:21. Chaos Communication Congress
+URL;VALUE=URI:http://www.ccc.de/congress/2004/
+LOCATION:Berliner Congress Center, Berlin, Germany
+
+DTSTART;VALUE=DATE:20041227
+DTEND;VALUE=DATE:20041229
+DESCRIPTION:The Chaos Communication Congress is a three-day
+      conference on technology, society and utopia.  FreeBSD will
+      be present with a booth.  If you are interested in helping
+      out, please contact Christian Brueffer.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:184
+SUMMARY:Free Software Development and the FreeBSD Operating System
+URL;VALUE=URI:http://www.enderunix.org/events/metu2004
+LOCATION:ODTU Culture and Congress Center, Ankara, Turkey
+
+DTSTART;VALUE=DATE:20041210
+DESCRIPTION:This conference is organized with the cooperation of
+      the EnderUNIX Software Development Team and the Middle East
+      Technical University Computer Center.  The conference will be a
+      one-day event and the official language for the conference is
+      Turkish.  For more information and a schedule of talks, please
+      see the website.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:185
+SUMMARY:EuroBSDCon 2004
+URL;VALUE=URI:http://2004.eurobsdcon.org/
+LOCATION:Queens Hotel Karlsruhe, Karlsruhe, Germany
+
+DTSTART;VALUE=DATE:20041029
+DTEND;VALUE=DATE:20041031
+DESCRIPTION:The third annual European BSD Conference.  It is
+      oriented to developers and users of all BSD flavors, including
+      FreeBSD of course.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:186
+SUMMARY:BSDCon Japan 2004
+URL;VALUE=URI:http://bsdcon.jp/
+LOCATION:Business Innovation Center Osaka, Osaka, Japan
+
+DTSTART;VALUE=DATE:20041023
+DESCRIPTION:BSD Conference Japan 2004, the third conference
+      concerning *BSD in Japan, will be held in Osaka on October 23th, 2004.
+      Furthermore, Kansai Open Source 2004
+      and Kansai Community Contest
+      will be held in the same place also.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:187
+SUMMARY:Systems 2004
+URL;VALUE=URI:http://www.systems.de/
+LOCATION:New Munich Trade Fair Centre, Munich, Germany
+
+DTSTART;VALUE=DATE:20041018
+DTEND;VALUE=DATE:20041022
+DESCRIPTION:Systems is a trade fair for IT, media and communications.
+      There will be a combined BSD booth.  If you are interested in helping,
+      please contact Daniel Ettle.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:188
+SUMMARY:Italian FreeBSD User Group (GUFI) Conference 2004
+URL;VALUE=URI:http://www.gufi.org/guficon5/
+LOCATION:, Milan, Italy
+
+DTSTART;VALUE=DATE:20041002
+DTEND;VALUE=DATE:20041003
+DESCRIPTION:The Italian FreeBSD User Group (GUFI) Conference.
+      Information available (in Italian) from the conference
+      website.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:189
+SUMMARY:The AUUG'2004 Annual Conference
+URL;VALUE=URI:http://www.auug.org.au/events/2004/auug2004/
+LOCATION:, Melbourne, Australia
+
+DTSTART;VALUE=DATE:20040901
+DTEND;VALUE=DATE:20040903
+DESCRIPTION:AUUG'2004 is the annual technical conference of AUUG,
+      the Australian UNIX and Open Systems User Group.  The conference
+      will emphasise issues of identity and authentication on the Internet,
+      along with issues of computer security and anonymity.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:190
+SUMMARY:2nd Swiss Unix Conference
+URL;VALUE=URI:http://www.sucon.ch/
+LOCATION:, Zürich, Switzerland
+
+DTSTART;VALUE=DATE:20040902
+DTEND;VALUE=DATE:20040904
+DESCRIPTION:SUCON is an emerging conference focused on topics
+      related to the Unix operating system. Our goal is to bring
+      together developers, system administrators and users in the
+      field of Unix to foster projects, ideas and the knowledge of
+      every individual. There will also be some speeches related to
+      FreeBSD.  If you want to join the FreeBSD booth, contact
+      Josef El-Rayes.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:191
+SUMMARY:Linux Expo Shanghai
+URL;VALUE=URI:http://www.linuxexposhanghai.com/
+LOCATION:, Shanghai, China
+
+DTSTART;VALUE=DATE:20040909
+DTEND;VALUE=DATE:20040910
+DESCRIPTION:Linux Expo Shanghai is the biggest Linux/Open Source
+      conference in Shanghai this summer.  Murray Stokely and members
+      of the FreeBSD China
+      group will have a booth there both days.
+URL;VALUE=URI:http://www.stokely.org/20040910-shanghai-linuxexpo/
+URL;VALUE=URI:http://people.FreeBSD.org/~murray/
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:192
+SUMMARY:2004 USENIX Annual Technical Conference
+URL;VALUE=URI:http://www.usenix.org/events/usenix04/
+LOCATION:, Boston, Massachusetts, USA
+
+DTSTART;VALUE=DATE:20040627
+DTEND;VALUE=DATE:20040702
+DESCRIPTION:The 2004 USENIX ATC will have FREENIX
+      and general refereed paper session, along with new UseBSD
+      Special Interest Group Sessions.  There will not be a separate
+      Usenix-sponsored BSDCon in the U.S. in 2004, so this is THE big
+      conference of the year for BSD enthusiasts in the
+      U.S.
+URL;VALUE=URI:http://apollo.backplane.com/USENIX2004/
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:193
+SUMMARY:Linuxtag 2004
+URL;VALUE=URI:http://www.linuxtag.org/2004/
+LOCATION:Kongresszentrum, Karlsruhe, Germany
+
+DTSTART;VALUE=DATE:20040623
+DTEND;VALUE=DATE:20040626
+DESCRIPTION:The Linuxtag is one of Europe's biggest Linux and Open Source
+      related tradeshows and conferences. As in previous years, FreeBSD will be
+      present with a booth.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:194
+SUMMARY:Linuxwochen Wien
+URL;VALUE=URI:http://www.linuxwochen.at
+LOCATION:Museumsquartier, A-1070 Wien Museumsplatz 1, Vienna, Austria
+
+DTSTART;VALUE=DATE:20040526
+DTEND;VALUE=DATE:20040529
+DESCRIPTION:Linuxwochen is an annual roadshow of open source
+      conferences, which take place in all major cities in Austria.
+      Vienna is the biggest event.  There will be a FreeBSD speech and
+      a booth by Josef El-Rayes.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:195
+SUMMARY:BSDCan
+URL;VALUE=URI:http://www.bsdcan.org/
+LOCATION:University of Ottawa, Ottawa, Canada
+
+DTSTART;VALUE=DATE:20040513
+DTEND;VALUE=DATE:20040515
+DESCRIPTION:BSDCan is a developers conference with a strong focus
+      on emerging technologies, research projects, and works in
+      progress. It also features Userland infrastructure projects and
+      invite contribution from both free software developers and those
+      from commercial vendors.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:196
+SUMMARY:Asia BSDCon 2004
+URL;VALUE=URI:http://www.asiabsdcon.org/
+LOCATION:Academica Sinica, Taipei, Taiwan (ROC)
+
+DTSTART;VALUE=DATE:20040312
+DTEND;VALUE=DATE:20040315
+DESCRIPTION:The first BSDCon held in Asia, and sponsored by USENIX Association. Two days
+      of tutorials will precede two days of technical sessions and a
+      vendor exhibit.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:197
+SUMMARY:LinuxForum 2004
+URL;VALUE=URI:http://www.linuxforum.dk/
+LOCATION:Symbion, Copenhagen, Denmark
+
+DTSTART;VALUE=DATE:20040305
+DTEND;VALUE=DATE:20040306
+DESCRIPTION:Annual Danish Open Source conference.  The Danish BSD
+      user group BSD-DK will present
+      the BSD's.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:198
+SUMMARY:Fosdem 2004
+URL;VALUE=URI:http://www.fosdem.org/
+LOCATION:Universite Libre de Bruxelles, Brussels, Belgium
+
+DTSTART;VALUE=DATE:20040221
+DTEND;VALUE=DATE:20040222
+DESCRIPTION:A 2 day event to promote the widespread use of Free
+      and Open Source software. Among the projects present at the event
+      will be Mozilla, KDE and, of course, FreeBSD.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:199
+SUMMARY:Solutions Linux 2004
+URL;VALUE=URI:http://www.linuxsolutions.fr/
+LOCATION:CNIT, Paris, France
+
+DTSTART;VALUE=DATE:20040203
+DTEND;VALUE=DATE:20040205
+DESCRIPTION:A 3 day event to promote GNU/Linux and Open Source software.
+	French FreeBSD User Group
+	will be present in the Association Village to promote FreeBSD
+	of course !
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:200
+SUMMARY:20. Chaos Communication Congress
+URL;VALUE=URI:http://www.ccc.de/congress/2003/
+LOCATION:Berliner Congress Center, Berlin, Germany
+
+DTSTART;VALUE=DATE:20031227
+DTEND;VALUE=DATE:20031229
+DESCRIPTION:The Chaos Communication Congress is a three-day
+      conference on technology, society and utopia. FreeBSD will
+      be present with a booth. If you are interested in helping
+      out, please contact Christian Brueffer.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:201
+SUMMARY:BSDCon Brasil
+URL;VALUE=URI:http://bsdcon.myfreebsd.com.br/
+LOCATION:, Rio de Janeiro, Brazil
+
+DTSTART;VALUE=DATE:20031206
+DTEND;VALUE=DATE:20031207
+DESCRIPTION:This is the first edition of BSDCon Brasil.  BSDCon
+      Brasil is being promoted and organized by a pool of corporations
+      connected with the BSD community.  There will be two intensive days
+      of workshops, presentations and mini-tutorials related to BSD at
+      large.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:202
+SUMMARY:BSD/Linux Day
+URL;VALUE=URI:http://www.jus.or.jp/events/bsd-linux-day/
+LOCATION:, Yokohama, Japan
+
+DTSTART;VALUE=DATE:20031202
+DESCRIPTION:During the InternetWeek 2003 Conference, which takes
+      place in Yokohama, between December 2nd and 5th, there will be a
+      BSD/Linux Day, organized by the Japan Unix Society.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:203
+SUMMARY:FreeBSD 10 Year Anniversary Party
+URL;VALUE=URI:http://www.offmyserver.com/cgi-bin/store/rsvp.html
+LOCATION:DNA Lounge, San Francisco, USA
+
+DTSTART;VALUE=DATE:20031124
+DESCRIPTION:Join us Monday November 24th to celebrate 10 years of
+      FreeBSD!  Please RSVP here
+      so we can order enough food and drink for everyone.
+URL;VALUE=URI:http://apollo.backplane.com/pics.bsdparty/
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:204
+SUMMARY:SCALE: Southern California Linux Expo 2003
+URL;VALUE=URI:http://www.socallinuxexpo.com/
+LOCATION:Los Angeles Convention Center, Los Angeles, California, USA
+
+DTSTART;VALUE=DATE:20031122
+DESCRIPTION:The Second Annual Southern California Linux Expo.
+      FreeBSD will be present and handing out promotional
+      material.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:205
+SUMMARY:5. Linuxday Vorarlberg
+URL;VALUE=URI:http://www.linuxday.at/
+LOCATION:HTL Dornbirn, Dornbirn, Austria
+
+DTSTART;VALUE=DATE:20031115
+DESCRIPTION:The Linuxday in Vorarlberg is an event where
+      people from opensource projects present their efforts to
+      the community. Entrance is free of charge. There will also be
+      a talk about FreeBSD.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:206
+SUMMARY:BSDCon Japan 2003
+URL;VALUE=URI:http://bsdcon.jp/
+LOCATION:BIZ Shinjuku, Tokyo, Japan
+
+DTSTART;VALUE=DATE:20031018
+DESCRIPTION:BSD Conference Japan 2003, the second conference
+      concerning *BSD in Japan, was held in Tokyo on October 18th, 2003.
+      There were about 170 attendees.  It had two parallel
+      sessions (general and technical), and
+      four technical papers and twelve work-in-progress style talks
+      were presented during the conference.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:207
+SUMMARY:Linux-Kongress 2003
+URL;VALUE=URI:http://www.linux-kongress.org/2003/
+LOCATION:University of the Saarland, Saarbrücken, Germany
+
+DTSTART;VALUE=DATE:20031014
+DTEND;VALUE=DATE:20031016
+DESCRIPTION:FreeBSD will be present with a booth at the Linux-Kongress,
+      probably Europe's best known Linux developer conference.  We will
+      answer questions, show you the system and sell some FreeBSD
+      merchandising.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:208
+SUMMARY:BSDCon '03
+URL;VALUE=URI:http://www.usenix.org/events/bsdcon03/
+LOCATION:, San Mateo, California, USA
+
+DTSTART;VALUE=DATE:20030908
+DTEND;VALUE=DATE:20030912
+DESCRIPTION:For the fourth time, the main BSD Event, BSDCon is
+      happening.  Two days of tutorials will precede two and a half
+      days of technical sessions.  An opportunity for people of all
+      experience levels to learn from BSD experts, professionals with
+      real world experience, and industry leaders.
+URL;VALUE=URI:http://www.FreeBSD.org/events/2003/bsdcon-devsummit.html
+URL;VALUE=URI:http://apollo.backplane.com/BSDCON2003/
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="euc-jp"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>FreeBSD 4.5 Release Process</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=euc-jp" />
+    <link rel="shortcut icon" href="../../../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="../../../layout/css/fixed.css?20130112" type="text/css" />
+    <script type="text/javascript" src="../../../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Header And Logo</h2>
+            <div id="headerlogoleft">
+              <a href="../.." title="FreeBSD">
+                <img src="../../../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <div class="frontdonateroundbox">
+                <div class="frontdonatetop">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+                <div class="frontdonatecontent">
+                  <a href="https://www.FreeBSDFoundation.org/donate/">FreeBSD への寄付</a>
+                </div>
+                <div class="frontdonatebot">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+              </div>
+              <h2 class="blockhide">Peripheral Links</h2>
+              <div id="searchnav">
+                <ul id="searchnavlist"></ul>
+              </div>
+              <div id="search">
+                <form method="get" id="search" action="https://duckduckgo.com/">
+                  <h2 class="blockhide">
+                    <label for="words">検索</label>
+                  </h2>
+                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
+                  <input type="hidden" name="ka" value="v" />
+                  <input type="hidden" name="kt" value="v" />
+                  <input type="hidden" name="kh" value="1" />
+                  <input type="hidden" name="kj" value="r2" />
+                  <input id="words" name="q" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="検索" />
+                  <span></span>
+                  <input id="submit" name="submit" type="submit" value="検索" />
+                </form>
+              </div>
+            </div>
+          </div>
+          <h2 class="blockhide">Site Navigation</h2>
+          <div id="menu">
+            <ul class="first">
+              <li>
+                <a href="../../">ホーム</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../about.html">FreeBSD とは</a>
+                <ul>
+                  <li>
+                    <a href="../../projects/newbies.html">FreeBSD が初めてという方へ</a>
+                  </li>
+                  <li>
+                    <a href="../../features.html">特徴</a>
+                  </li>
+                  <li>
+                    <a href="../../../advocacy/">プロモーション活動</a>
+                  </li>
+                  <li>
+                    <a href="../../../marketing/">マーケティング活動</a>
+                  </li>
+                  <li>
+                    <a href="../../../privacy.html">プライバシーポリシー</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../where.html">FreeBSD の入手</a>
+                <ul>
+                  <li>
+                    <a href="../../releases/">リリース情報</a>
+                  </li>
+                  <li>
+                    <a href="../../../releng/">リリースエンジニアリング</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../docs.html">ドキュメント</a>
+                <ul>
+                  <li>
+                    <a href="../../../doc/ja_JP.eucJP/books/faq/">FAQ</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/ja_JP.eucJP/books/handbook/">ハンドブック</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/ja_JP.eucJP/books/porters-handbook/">port 作成者のためのハンドブック</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/en_US.ISO8859-1/books/developers-handbook/">開発者のためのハンドブック</a>
+                  </li>
+                  <li>
+                    <a href="../../../cgi/man.cgi">マニュアルページ</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/en_US.ISO8859-1/books/fdp-primer">新しい貢献者のためのドキュメンテーションプロジェクト入門</a>
+                  </li>
+                  <li>
+                    <a href="../../docs/books.html">すべての Books と Articles</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../community.html">コミュニティ</a>
+                <ul>
+                  <li>
+                    <a href="../../community/mailinglists.html">メーリングリスト</a>
+                  </li>
+                  <li>
+                    <a href="https://forums.FreeBSD.org">フォーラム</a>
+                  </li>
+                  <li>
+                    <a href="../../usergroups.html">ユーザグループ</a>
+                  </li>
+                  <li>
+                    <a href="../../events/events.html">イベント</a>
+                  </li>
+                  <li>
+                    <a href="http://serverfault.com/questions/tagged/freebsd">Q&amp;A (外部)</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../projects/index.html">開発</a>
+                <ul>
+                  <li>
+                    <a href="https://wiki.FreeBSD.org/IdeasPage">プロジェクトアイディア</a>
+                  </li>
+                  <li>
+                    <a href="https://svnweb.FreeBSD.org">SVN リポジトリ</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/freebsd">GIT リポジトリ</a>
+                  </li>
+                  <li>
+                    <a href="http://p4web.FreeBSD.org">Perforce リポジトリ</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../support.html">サポート</a>
+                <ul>
+                  <li>
+                    <a href="../../commercial/commercial.html">ベンダ</a>
+                  </li>
+                  <li>
+                    <a href="../../security/">セキュリティ情報</a>
+                  </li>
+                  <li>
+                    <a href="https://bugs.freebsd.org/search/">障害報告</a>
+                  </li>
+                  <li>
+                    <a href="https://www.FreeBSD.org/ja/support.html">障害報告の提出</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="https://www.freebsdfoundation.org/">財団</a>
+                <ul>
+                  <li>
+                    <a href="https://www.freebsdfoundation.org/donate/">寄付</a>
+                  </li>
+                  <li>
+                    <a href="../../../donations/index.html#systems">ハードウェアの寄贈</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Section Navigation</h2>
+              <ul>
+                <li>
+                  <a href="../../where.html">FreeBSD の入手方法</a>
+                </li>
+                <li>
+                  <a href="../../releases/">リリース情報</a>
+                  <ul>
+                    <li>プロダクションリリース: <br /><a href="../../../releases/11.1R/announce.html">11.1</a></li>
+                    <li>プロダクションリリース:<br /><a href="../../../releases/11.0R/announce.html">11.0</a></li>
+                    <li>次回予定リリース: <br /><a href="../../../releases/10.4R/schedule.html">10.4</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="../../snapshots/">スナップショットリリース</a>
+                  <ul></ul>
+                </li>
+                <li>
+                  <a href="../../ports/">ports に収録されているアプリケーション</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap"><h1>FreeBSD 4.5 Release Process</h1>
+
+<h1>はじめに</h1>
+
+<p>FreeBSD 4.5 のリリースエンジニアリングチーム (<a href="mailto:re@FreeBSD.org" shape="rect">re@FreeBSD.org</a>) は
+  Murray Stokely、Steve Price、Robert Watson、そして John
+  Baldwin から構成されています。</p>
+
+<p>x86 ビルドチームは Murray Stokely と John Baldwin から構成されています。</p>
+
+<p>Alpha ビルドチームは David O'Brien、Wilko Bulte、John
+  Baldwin、そして Murray Stokely から構成されています。</p>
+
+<p>サードパーティー製パッケージは Steve Price と Ports
+  managers (<a href="mailto:portmgr@FreeBSD.org" shape="rect">portmgr@FreeBSD.org</a>)が
+  管理しています。</p>
+
+<p>リリースエンジニアリングの工程および品質管理に関する一般的な議論は
+  公の <a href="mailto:freebsd-qa@FreeBSD.org" shape="rect">freebsd-qa</a> メーリングリスト宛に
+  お願いします。
+  MFC 要望は <a href="mailto:re@FreeBSD.org" shape="rect">re@FreeBSD.org</a>宛にお願いします。</p>
+
+<p>リリースエンジニアリング工程の全体像を知るには、
+  <a href="../../doc/en_US.ISO8859-1/articles/releng/article.html" shape="rect">この
+  文書</a>をお読みください。</p>
+
+<h1>スケジュール</h1>
+
+<table class="tblbasic">
+  <tr><td rowspan="1" colspan="1">行動</td><td rowspan="1" colspan="1">予定</td><td rowspan="1" colspan="1">実績</td><td rowspan="1" colspan="1">説明</td>
+      </tr>
+  <tr>
+    <td rowspan="1" colspan="1">残りの作業のアナウンス</td><td rowspan="1" colspan="1">01 Dec 2001</td><td rowspan="1" colspan="1">03 Dec 2001</td>
+    <td rowspan="1" colspan="1">リリースエンジニアが FreeBSD 4.5 リリースの大まかなスケジュールを
+      アナウンスする電子メールを developers@FreeBSD.org 宛に
+      送信します。</td>
+  </tr>
+  <tr>
+    <td rowspan="1" colspan="1"><tt>4.5-PRERELEASE</tt></td>
+    <td rowspan="1" colspan="1">20 Dec 2001</td>
+    <td rowspan="1" colspan="1">20 Dec 2001</td>
+    <td rowspan="1" colspan="1"><tt>newvers.sh</tt>、<tt>param.h</tt>、および <tt>release.ent</tt> を更新します。</td>
+  </tr>
+  <tr>
+    <td rowspan="1" colspan="1">FTP サイトの更新</td>
+    <td rowspan="1" colspan="1">20 Dec 2001</td>
+    <td rowspan="1" colspan="1">20 Dec 2001</td>
+    <td rowspan="1" colspan="1"><tt>4.5-PRERELEASE</tt> マシンで <tt>pkg_add -r</tt> を実行します。</td>
+  </tr>
+  <tr>
+    <td rowspan="1" colspan="1">コードフリーズ開始</td>
+    <td rowspan="1" colspan="1">20 Dec 2001</td>
+    <td rowspan="1" colspan="1">20 Dec 2001</td>
+
+    <td rowspan="1" colspan="1">この日付以降は、<tt>RELENG_4</tt> ブランチに対する全ての意見は
+      <a href="mailto:re@FreeBSD.org" shape="rect">re@FreeBSD.org</a>が判断します。
+      一部の活動的な文書のコミッターにはこの規則は適用されず、
+      いつもどおりの man ページ / リリースノートの更新を行なうことができます。
+      警告の電子メールは
+      developers@、stable@、および qa@ メーリングリストにお願いします。</td>
+  </tr>
+
+  <tr>
+    <td rowspan="1" colspan="1">商用ソフトウェアデモの更新</td>
+    <td rowspan="1" colspan="1">05 Jan 2002</td>
+    <td rowspan="1" colspan="1">24 Jan 2002</td>
+    <td rowspan="1" colspan="1">2番目のディスクには商用ソフトウェアのデモを収録しています。
+      最新版のデモが収録されるようにこれらを更新しなければなりません。</td>
+  </tr>
+
+  <tr>
+    <td rowspan="1" colspan="1"><tt>4.5-RC</tt></td>
+    <td rowspan="1" colspan="1">09 Jan 2002</td>
+    <td rowspan="1" colspan="1">09 Jan 2002</td>
+    <td rowspan="1" colspan="1"><tt>newvers.sh</tt> と <tt>release.ent</tt> を更新します。</td>
+  </tr>
+
+  <tr>
+    <td rowspan="1" colspan="1">Ports フリーズのアナウンス</td>
+    <td rowspan="1" colspan="1">09 Jan 2002</td>
+    <td rowspan="1" colspan="1">09 Jan 2002</td>
+    <td rowspan="1" colspan="1"><tt>portmgr</tt> の誰かが
+    ports ツリーのタグ付けの日付を設定する旨の電子メールを
+    <tt>freebsd-ports@</tt> と CC: <tt>developers@</tt> 宛に送信します。
+    Will がこの日付を January 22nd に設定しました。</td>
+  </tr>
+
+  <tr>
+    <td rowspan="1" colspan="1">hubs に対する警告</td>
+    <td rowspan="1" colspan="1">09 Jan 2002</td>
+    <td rowspan="1" colspan="1">09 Jan 2002</td>
+    <td rowspan="1" colspan="1">リリースがアップロードされる前に、<tt>freebsd-hubs@FreeBSD.org</tt>
+      に警告のメールを出します。
+      サイト管理者は新しい ISO がアップロードされる前に、一言言ってくれるよう
+      要求しています。</td>
+  </tr>
+
+  <tr>
+    <td rowspan="1" colspan="1">最初のリリース候補</td>
+    <td rowspan="1" colspan="1">09 Jan 2002</td>
+    <td rowspan="1" colspan="1">09 Jan 2002</td>
+    <td rowspan="1" colspan="1">x86 と Alpha 用の最初のリリース候補がリリースされました。
+     ISO イメージは <tt>ftp-master.FreeBSD.org</tt> と
+    <tt>releng4.FreeBSD.org</tt> にアップロードされます。
+    ネットワークインストールディレクトリは
+    <tt>ftp-master.FreeBSD.org</tt> にアップロードされます。
+    <tt>packages</tt> と <tt>XF86336</tt> ディレクトリは
+    ディスク容量の節約のためにシンボリックリンクとすることができます。
+    ただしその場合は、必ず<em>相対</em>シンボリックリンクを使用してください。</td>
+  </tr>
+
+  <tr>
+    <td rowspan="1" colspan="1">-stable に対する警告</td>
+    <td rowspan="1" colspan="1">09 Jan 2002</td>
+    <td rowspan="1" colspan="1">09 Jan 2002</td>
+    <td rowspan="1" colspan="1">リリースがアップロードされた後に、そのことを <tt>qa@FreeBSD.org</tt> と
+    <tt>stable@FreeBSD.org</tt> に報告します。</td>
+  </tr>
+
+  <tr>
+    <td rowspan="1" colspan="1">2番目のリリース候補</td>
+    <td rowspan="1" colspan="1">?? Jan 2002</td>
+    <td rowspan="1" colspan="1">18 Jan 2002</td>
+    <td rowspan="1" colspan="1">注意: この候補のリリース日は RC1に対するユーザの反応に依存します。</td>
+  </tr>
+
+  <tr>
+    <td rowspan="1" colspan="1">3番目のリリース候補</td>
+    <td rowspan="1" colspan="1">23 Jan 2002</td>
+    <td rowspan="1" colspan="1">24 Jan 2002</td>
+    <td rowspan="1" colspan="1">x86 と Alpha 用の 4.5 RC3 は <tt>ftp.FreeBSD.org</tt> および
+    そのミラーサイトから利用できる予定です。</td>
+  </tr>
+
+  <tr>
+    <td rowspan="1" colspan="1">Ports ツリーのフリーズ</td>
+    <td rowspan="1" colspan="1">22 Jan 2002</td>
+    <td rowspan="1" colspan="1">22 Jan 2002</td>
+    <td rowspan="1" colspan="1"><tt>CVSROOT/avail</tt> はロックされ、
+      タグ付けをする人を除く全ての人はコミットできなくなります。
+      ports ツリー全体に <tt>RELEASE_4_5_0</tt> タグをつけるには
+      約 2 時間かかります。
+      この後、ports ツリーに再びコミットが可能になりますが、
+      タグ付け後になされたコミットは 4.5-RELEASE には反映されません。</td>
+  </tr>
+
+  <tr>
+    <td rowspan="1" colspan="1">最終パッケージビルド開始</td>
+    <td rowspan="1" colspan="1">22 Jan 2002</td>
+    <td rowspan="1" colspan="1">22 Jan 2002</td>
+    <td rowspan="1" colspan="1">ports cluster と <a href="http://bento.FreeBSD.org" shape="rect">bento</a> が
+    最終パッケージをビルドします。</td>
+  </tr>
+
+  <tr>
+    <td rowspan="1" colspan="1">パッケージ分割</td>
+    <td rowspan="1" colspan="1">23 Jan 2002</td>
+    <td rowspan="1" colspan="1">29 Jan 2002</td>
+    <td rowspan="1" colspan="1">パッケージを 4つのディスクに分割します。
+      似たような依存関係を持つパッケージを同一のディスクに、
+      また人気のあるパッケージを最初のディスクに配置しなければなりません。</td>
+  </tr>
+  <tr>
+    <td rowspan="1" colspan="1">doc ツリーへのタグ付け</td>
+    <td rowspan="1" colspan="1">24 Jan 2002</td>
+    <td rowspan="1" colspan="1">24 Jan 2002</td>
+    <td rowspan="1" colspan="1">doc に <tt>RELEASE_4_5_0</tt>タグを付けます。</td>
+  </tr>
+  <tr>
+    <td rowspan="1" colspan="1"><tt>RELENG_4_5</tt> ブランチ</td>
+    <td rowspan="1" colspan="1">25 Jan 2002</td>
+    <td rowspan="1" colspan="1">26 Jan 2002</td>
+    <td rowspan="1" colspan="1">リリースブランチを生成します。</td>
+  </tr>
+
+  <tr>
+    <td rowspan="1" colspan="1">freebsd-stable@ に対して注意</td>
+    <td rowspan="1" colspan="1">25 Jan 2002</td>
+    <td rowspan="1" colspan="1">26 Jan 2002</td>
+    <td rowspan="1" colspan="1">タグ付けがなされたがリリースはまだ用意できていないという事を
+    過度に心配症のユーザに知らせるため、
+    freebsd-stable に注意書を送らなければなりません。
+    アナウンスが行なわれる前に、タグが移動されることがあります。
+    詳細に関して freebsd-qa@ を
+    参照するよう、ユーザに通知します。</td>
+  </tr>
+
+  <tr>
+    <td rowspan="1" colspan="1">バージョン番号の調整</td>
+    <td rowspan="1" colspan="1">25 Jan 2002</td>
+    <td rowspan="1" colspan="1">25 Jan 2002</td>
+    <td rowspan="1" colspan="1"><a href="releng.html#versionbump" shape="rect">ここ</a>に列挙されたファイルの内容を
+    FreeBSD 4.5 に合わせて更新します。</td>
+  </tr>
+  <tr>
+    <td rowspan="1" colspan="1">src ツリーへのタグ付け</td>
+    <td rowspan="1" colspan="1">27 Jan 2002</td>
+    <td rowspan="1" colspan="1">27 Jan 2002</td>
+    <td rowspan="1" colspan="1">src に<tt>RELEASE_4_5_0_RELEASE</tt> タグを付けます。</td>
+  </tr>
+
+  <tr>
+    <td rowspan="1" colspan="1">ウェブサイト上の man.cgi の更新</td>
+    <td rowspan="1" colspan="1">25 Jan 2002</td>
+    <td rowspan="1" colspan="1">--</td>
+    <td rowspan="1" colspan="1">man-&gt;web 変換で生成された 4.5 マニュアルページが
+    標準で表示される事を確認します。</td>
+  </tr>
+
+  <tr>
+    <td rowspan="1" colspan="1">FreeBSD 4.4 用 errata をアーカイブに移動</td>
+    <td rowspan="1" colspan="1">25 Jan 2002</td>
+    <td rowspan="1" colspan="1">25 Jan 2002</td>
+    <td rowspan="1" colspan="1">新しい RELNOTESng errata ファイルを用意し、そして古い
+    errata ファイルをアーカイブに移動します。</td>
+  </tr>
+
+  <tr>
+    <td rowspan="1" colspan="1">最終ビルド</td>
+    <td rowspan="1" colspan="1">28 Jan 2002</td>
+    <td rowspan="1" colspan="1">28 Jan 2002</td>
+    <td rowspan="1" colspan="1">まっさらな環境で x86 と Alpha 版を最終ビルドします。</td>
+  </tr>
+
+  <tr>
+    <td rowspan="1" colspan="1"><tt>hubs@FreeBSD.org</tt>に警告</td>
+    <td rowspan="1" colspan="1">28 Jan 2002</td>
+    <td rowspan="1" colspan="1">28 Jan 2002</td>
+    <td rowspan="1" colspan="1">来るべき負荷上昇に対する準備期間を管理者に与えるよう、<a href="mailto:hubs@FreeBSD.org" shape="rect">hubs@FreeBSD.org</a> 宛に
+    電子メールで警告します。</td>
+  </tr>
+
+  <tr>
+    <td rowspan="1" colspan="1"><tt>ftp-master</tt>の更新</td>
+    <td rowspan="1" colspan="1">28 Jan 2002</td>
+    <td rowspan="1" colspan="1">28 Jan 2002</td>
+    <td rowspan="1" colspan="1"><tt>ftp-master.FreeBSD.org</tt>の release と packages を更新します。
+    </td>
+  </tr>
+
+  <tr>
+    <td rowspan="1" colspan="1">アナウンス</td>
+    <td rowspan="1" colspan="1">28 Jan 2002</td>
+    <td rowspan="1" colspan="1">29 Jan 2002</td>
+    <td rowspan="1" colspan="1">大部分のミラーサイトにデータが届けられた後にアナウンスを送信します。
+    </td>
+  </tr>
+</table>
+
+<p>この表がかなり退屈だと指摘されています。
+  これを少しだけ面白くした物を Bruce Mah が<a href="http://docs.FreeBSD.org/cgi/getmsg.cgi?fetch=739618+0+archive/2001/freebsd-chat/20011223.freebsd-chat" shape="rect">コードフリーズの 12
+  日間</a>の中で書いています。</p>
+
+
+  </div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="../../search/index-site.html">サイトマップ</a> |
+  <a href="../../copyright/">知的財産権について</a> | (C) 1995〓2017 The FreeBSD Project.
+  All rights reserved.</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

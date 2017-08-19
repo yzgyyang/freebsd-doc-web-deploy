@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>FreeBSD Security Advisories</title>
+    <link>https://www.FreeBSD.org/security/</link>
+    <description>Security advisories published from the FreeBSD Project</description>
+    <language>en-us</language>
+    <webMaster>secteam@FreeBSD.org (FreeBSD Security Team)</webMaster>
+    <managingEditor>secteam@FreeBSD.org (FreeBSD Security Team)</managingEditor>
+    <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+    <ttl>120</ttl>
+    <image>
+      <url>https://www.FreeBSD.org/logo/logo-full.png</url>
+      <title>FreeBSD Security Advisories</title>
+      <link>https://www.FreeBSD.org/security/</link>
+    </image>
+    <atom:link rel="self" type="application/rss+xml" href="https://www.FreeBSD.org/security/rss.xml"/>
+    <item>
+      <title>FreeBSD-SA-17:05.heimdal</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:05.heimdal.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:05.heimdal.asc</guid>
+      <pubDate>Wed, 12 Jul 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-SA-17:04.ipfilter</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:04.ipfilter.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:04.ipfilter.asc</guid>
+      <pubDate>Thu, 27 Apr 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-SA-17:03.ntp</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:03.ntp.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:03.ntp.asc</guid>
+      <pubDate>Wed, 12 Apr 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-SA-17:02.openssl</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:02.openssl.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:02.openssl.asc</guid>
+      <pubDate>Thu, 23 Feb 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-SA-17:01.openssh</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:01.openssh.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:01.openssh.asc</guid>
+      <pubDate>Wed, 11 Jan 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-SA-16:39.ntp</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-16:39.ntp.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-16:39.ntp.asc</guid>
+      <pubDate>Thu, 22 Dec 2016 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-SA-16:38.bhyve</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-16:38.bhyve.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-16:38.bhyve.asc</guid>
+      <pubDate>Tue, 6 Dec 2016 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-SA-16:37.libc</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-16:37.libc.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-16:37.libc.asc</guid>
+      <pubDate>Tue, 6 Dec 2016 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-SA-16:36.telnetd</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-16:36.telnetd.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-16:36.telnetd.asc</guid>
+      <pubDate>Tue, 6 Dec 2016 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-SA-16:35.openssl</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-16:35.openssl.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-16:35.openssl.asc</guid>
+      <pubDate>Wed, 2 Nov 2016 00:00:00 PST</pubDate>
+    </item>
+  </channel>
+</rss>

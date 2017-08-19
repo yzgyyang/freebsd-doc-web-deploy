@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>FreeBSD GNOME Project: Hardware Abstraction Layer (HAL) FAQ</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="../../layout/css/fixed.css?20130112" type="text/css" />
+    <script type="text/javascript" src="../../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Header And Logo</h2>
+            <div id="headerlogoleft">
+              <a href="../.." title="FreeBSD">
+                <img src="../../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <div class="frontdonateroundbox">
+                <div class="frontdonatetop">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+                <div class="frontdonatecontent">
+                  <a href="https://www.FreeBSDFoundation.org/donate/">Donate to FreeBSD</a>
+                </div>
+                <div class="frontdonatebot">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+              </div>
+              <h2 class="blockhide">Peripheral Links</h2>
+              <div id="searchnav">
+                <ul id="searchnavlist"></ul>
+              </div>
+              <div id="search">
+                <form method="get" id="search" action="https://duckduckgo.com/">
+                  <h2 class="blockhide">
+                    <label for="words">Search</label>
+                  </h2>
+                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
+                  <input type="hidden" name="ka" value="v" />
+                  <input type="hidden" name="kt" value="v" />
+                  <input type="hidden" name="kh" value="1" />
+                  <input type="hidden" name="kj" value="r2" />
+                  <input id="words" name="q" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="Search" />
+                  <span> </span>
+                  <input id="submit" name="submit" type="submit" value="Search" />
+                </form>
+              </div>
+            </div>
+          </div>
+          <h2 class="blockhide">Site Navigation</h2>
+          <div id="menu">
+            <ul class="first">
+              <li>
+                <a href="../../">Home</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../about.html">About</a>
+                <ul>
+                  <li>
+                    <a href="../../projects/newbies.html">Introduction</a>
+                  </li>
+                  <li>
+                    <a href="../../features.html">Features</a>
+                  </li>
+                  <li>
+                    <a href="../../advocacy/">Advocacy</a>
+                  </li>
+                  <li>
+                    <a href="../../marketing/">Marketing</a>
+                  </li>
+                  <li>
+                    <a href="../../privacy.html">Privacy Policy</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../where.html">Get FreeBSD</a>
+                <ul>
+                  <li>
+                    <a href="../../releases/">Release Information</a>
+                  </li>
+                  <li>
+                    <a href="../../releng/">Release Engineering</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../docs.html">Documentation</a>
+                <ul>
+                  <li>
+                    <a href="../../doc/en_US.ISO8859-1/books/faq/">FAQ</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/en_US.ISO8859-1/books/handbook/">Handbook</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/en_US.ISO8859-1/books/porters-handbook">Porter's Handbook</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/en_US.ISO8859-1/books/developers-handbook">Developer's Handbook</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/man.cgi">Manual Pages</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/en_US.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
+                  </li>
+                  <li>
+                    <a href="../../docs/books.html">All Books and Articles</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../community.html">Community</a>
+                <ul>
+                  <li>
+                    <a href="../../community/mailinglists.html">Mailing Lists</a>
+                  </li>
+                  <li>
+                    <a href="https://forums.FreeBSD.org">Forums</a>
+                  </li>
+                  <li>
+                    <a href="../../usergroups.html">User Groups</a>
+                  </li>
+                  <li>
+                    <a href="../../events/events.html">Events</a>
+                  </li>
+                  <li>
+                    <a href="http://serverfault.com/questions/tagged/freebsd">Q&amp;A (external)</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../projects/index.html">Developers</a>
+                <ul>
+                  <li>
+                    <a href="https://wiki.FreeBSD.org/IdeasPage">Project Ideas</a>
+                  </li>
+                  <li>
+                    <a href="https://svnweb.FreeBSD.org">SVN Repository</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/freebsd">GIT Repository</a>
+                  </li>
+                  <li>
+                    <a href="http://p4web.FreeBSD.org">Perforce Repository</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../support.html">Support</a>
+                <ul>
+                  <li>
+                    <a href="../../commercial/commercial.html">Vendors</a>
+                  </li>
+                  <li>
+                    <a href="../../security/">Security Information</a>
+                  </li>
+                  <li>
+                    <a href="https://bugs.FreeBSD.org/search/">Bug Reports</a>
+                  </li>
+                  <li>
+                    <a href="https://www.FreeBSD.org/support.html">Submitting Bug Reports</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="https://www.freebsdfoundation.org/">Foundation</a>
+                <ul>
+                  <li>
+                    <a href="https://www.freebsdfoundation.org/donate/">Monetary Donations</a>
+                  </li>
+                  <li>
+                    <a href="../../donations/index.html#systems">Hardware Donations</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Section Navigation</h2>
+              <ul>
+                <li>
+                  <a href="../../gnome/index.html">GNOME</a>
+                  <ul>
+                    <li>
+                      <a href="../../gnome/docs/faq2.html#q1">Installation Instructions</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/docs/faq232.html#q2">Upgrade Instructions</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/../ports/gnome.html">Available Applications</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/docs/volunteer.html">How to Help</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/docs/bugging.html">Reporting a Bug</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/screenshots.html">Screenshots</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/contact.html">Contact Us</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="../../gnome/index.html">Documentation</a>
+                  <ul>
+                    <li>
+                      <a href="../../gnome/docs/faq2.html">FAQ</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/docs/halfaq.html">HAL FAQ</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/docs/faq232.html">2.30 to 2.32 Upgrade FAQ</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/docs/develfaq.html">Development Branch FAQ</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/docs/porting.html">Creating Ports</a>
+                    </li>
+                    <li>
+                      <a href="../../gnome/docs/faq232.html#q4">Known Issues</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap"><h1>FreeBSD GNOME Project: Hardware Abstraction Layer (HAL) FAQ</h1>
+
+  <em>"You're in luck, Dave.  Turns out I CAN let you do that."</em>
+
+  <h2>Contents</h2>
+    <ol>
+    <li> <a href="#q1" shape="rect">How do I use hal on FreeBSD?</a></li>
+    <li> <a href="#q2" shape="rect">How do I prevent hal from probing a
+      device?</a></li>
+    <li> <a href="#q3" shape="rect">How do I mount media using hal?</a></li>
+    <li> <a href="#q4" shape="rect">How do I troubleshoot problems with
+      hal?</a></li>
+    <li> <a href="#q5" shape="rect">Does hal support Fuse file systems?</a></li>
+    <li> <a href="#q6" shape="rect">Hal is interfering with my CD/DVD drive when I
+      want to play a disc or burn something.  How can I stop this from
+      happening?</a></li>
+    </ol>
+
+  <h2>Full Text</h2>
+    <ol>
+
+      <li style="padding-bottom: 0.5em"><a name="q1" shape="rect" id="q1"></a>
+        <p><b>How do I use hal on FreeBSD?</b></p>
+
+        <p>The only thing you need to do in order to use hal is to
+	  start the HAL daemon, <tt>hald</tt>.  To do this, add the
+	  following to <tt>/etc/rc.conf</tt>:</p>
+
+	<pre xml:space="preserve">
+dbus_enable="YES"
+hald_enable="YES"
+	</pre>
+
+	<p><b>NOTE:</b> GNOME users can opt to add
+	  <tt>gnome_enable="YES"</tt> to <tt>/etc/rc.conf</tt> instead
+	  of the lines above.  This will start all GNOME-related
+	  services including Avahi and GDM.</p>
+
+	<p>Then you must either reboot, or run:</p>
+
+	<pre xml:space="preserve">
+# /usr/local/etc/rc.d/dbus start
+# /usr/local/etc/rc.d/hald start
+	</pre>
+
+	<p>Once <tt>hald</tt> is running, hal-aware application will
+	  automatically start to communicate with it over D-BUS.  To
+	  confirm that hald is running correctly, execute
+	  <tt>lshal</tt> from the command line.  This provides you
+	  with a list of devices attached to the system.  <b>Note:</b>
+	  <tt>lshal</tt> must be run from within a D-BUS enabled
+	  session (e.g. GNOME or KDE).</p>
+      </li>
+
+
+      <li style="padding-bottom: 0.5em"><a name="q2" shape="rect" id="q2"></a>
+	<p><b>How do I prevent hal from probing a device?</b></p>
+
+	  <p>Sometimes, when hal probes a device, this can cause the
+	    system to hang, panic, or otherwise behave badly.  By
+	    using device information files (.fdi files), you can tell
+	    hal to ignore such devices.  These files are in XML
+	    format, and should be created under
+	    <tt>/usr/local/share/hal/fdi/preprobe/20thirdparty</tt>.
+	    For example, to tell hal to ignore USB uhci controller 0,
+	    create a file
+	    <tt>/usr/local/share/hal/fdi/preprobe/20thirdparty/10-ignore-uhci0.fdi</tt>
+	    with the following contents:</p>
+
+	  <pre xml:space="preserve">
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+
+&lt;deviceinfo version="0.2"&gt;
+  &lt;device&gt;
+    &lt;match key="freebsd.driver" string="uhci"&gt;
+      &lt;match key="freebsd.unit" int="0"&gt;
+        &lt;merge key="info.ignore" type="bool"&gt;true&lt;/merge&gt;
+      &lt;/match&gt;
+    &lt;/match&gt;
+  &lt;/device&gt;
+&lt;/deviceinfo&gt;
+	  </pre>
+
+	  <p>Using this same technique, you can also merge (or change)
+	    other hal device properties.  Use the <tt>lshal</tt>
+	    command to get a list of all available device properties.
+	    You can also look at the system-provided .fdi files under
+	    <tt>/usr/local/share/hal/fdi/preprobe/10osvendor</tt> for
+	    more examples.</p>
+
+	  <p>All .fdi files in this <tt>20thirdparty</tt> directory
+	    are loaded in alphabetical order, so name your files
+	    accordingly.  The convention is to start the files with a
+	    number.  The lower the number, the earlier the file will
+	    be loaded.</p>
+	</li>
+
+
+      <li style="padding-bottom: 0.5em"><a name="q3" shape="rect" id="q3"></a>
+	<p><b>How do I mount media using hal?</b></p>
+
+	<p>Understand that having hal alone does not mean media will
+	  get automatically mounted. Hal simply serves as a broker for
+	  requests to mount certain devices. Some other software needs
+	  to make this request.  As of GNOME 2.22, this is Nautilus.
+	  KDE and XFCE have their own components to mount hal
+	  volumes.</p>
+
+	<p><b>NOTE:</b> Volumes that you wish to manage using
+	  hal should <em>NOT</em> be listed in <tt>/etc/fstab</tt>.
+	  This is especially true for CD devices and floppy disk
+	  devices.  If you try to dynamically mount a volume using hal
+	  that is listed in <tt>/etc/fstab</tt> you will see the
+	  following error:</p>
+
+	<pre xml:space="preserve">
+mount_cd9660: /dev/acd0: Operation not permitted
+	</pre>
+
+	<p>If you are a GNOME user be aware that prior to GNOME
+	  2.22, <tt>gnome-volume-manager</tt> was responsible for
+	  asking hal to mount volumes.  Since this responsibility
+	  has moved to Nautilus, it is vital to change
+	  <tt>gnome-volume-manager's</tt> configuration so that it
+	  will no longer attempt to mount volumes.</p>
+
+	<p><b>NOTE:</b> This step is only required if you are a
+	  GNOME user that upgraded to 2.22 from a previous version
+	  of GNOME.  If this is not the case, then skip to Step
+	  1.</p>
+
+	<p>From within your GNOME session, run the following
+	  commands:</p>
+
+	<pre xml:space="preserve">
+% gconftool-2 -s --type bool /desktop/gnome/volume_manager/automount_drives false
+% gconftool-2 -s --type bool /desktop/gnome/volume_manager/automount_media false
+% gconftool-2 -s --type bool /desktop/gnome/volume_manager/autobrowse false
+% gconftool-2 -s --type bool /desktop/gnome/volume_manager/autoplay_cda false
+% gconftool-2 -s --type bool /desktop/gnome/volume_manager/autoplay_dvd false
+% gconftool-2 -s --type bool /desktop/gnome/volume_manager/autoplay_vcd false
+% gconftool-2 -s --type bool /desktop/gnome/volume_manager/autoprinter false
+	</pre>
+
+	<p>Then restart GNOME.</p>
+
+	<p><b>Step 1:</b> All users <em>MUST</em> have <tt>procfs</tt> mounted
+	  on <tt>/proc</tt>.  Hal uses an application called PolicyKit
+	  to authorize users to perform mount tasks, and PolicyKit
+	  relies heavily on <tt>/proc</tt> entries.  If <tt>/proc</tt>
+	  is not mounted, volume mounting will not work.  To mount
+	  <tt>/proc</tt>, add the following to
+	  <tt>/etc/fstab</tt>:</p>
+
+	<pre xml:space="preserve">
+proc           /proc       procfs  rw  0   0
+	</pre>
+
+	<p>Then run the following command:</p>
+
+	<pre xml:space="preserve">
+# mount /proc
+	</pre>
+
+	<p><b>Step 2:</b>  In order to mount volumes using hal, you
+	  must be authorized. This authorization is carried out by
+	  ConsoleKit and PolicyKit.  If you are a GNOME user, and you
+	  use GDM to login to GNOME, then you do not need to make any
+	  additional configuration changes in order to mount removable
+	  media. If you are not a GNOME user, or you start GNOME
+	  without using GDM, then you will need to edit
+	  <tt>/usr/local/etc/PolicyKit/PolicyKit.conf</tt>, and add
+	  the <tt>org.freedesktop.hal.storage.mount-removable</tt>
+	  action to your username.  For example, if your username is
+	  "marcus," you would add the following lines:</p>
+
+	<pre xml:space="preserve">
+&lt;match action="org.freedesktop.hal.storage.mount-removable"&gt;
+  &lt;match user="marcus"&gt;
+    &lt;return result="yes"/&gt;
+  &lt;/match&gt;
+&lt;/match&gt;
+	</pre>
+
+	<p><b>NOTE:</b> All config lines in this file <em>MUST</em> be
+	  between the opening and closing <tt>&lt;config&gt;</tt>
+	  tags:</p>
+
+	<pre xml:space="preserve">
+&lt;config version="0.1"&gt;
+&lt;!-- New configuration lines go here. --&gt;
+&lt;/config&gt;
+	</pre>
+
+	<p>If you use GDM to login to GNOME, GDM will add a ConsoleKit
+	  record for the session.  If this session is active, then you
+	  will be allowed to mount removable media without any
+	  additional PolicyKit configuration.  You can confirm if
+	  ConsoleKit is working correctly by running the command,
+	  <tt>ck-list-sessions</tt>.  The <tt>active</tt> property must be
+	  <tt>TRUE</tt> for auto-mounting to work.</p>
+
+	<p>By default, PolicyKit allows root to do everything, and all
+	  users in the "wheel" group are allowed to authenticate for
+	  admin tasks with their own password.  To get a list of all
+	  available actions, use the <tt>polkit-action(1)</tt>
+	  command.  For more information on the directives available
+	  for <tt>PolicyKit.conf</tt>, see the
+	  <tt>PolicyKit.conf(5)</tt> man page.</p>
+
+	<p><b>Step 3:</b> If you have fixed volumes you wish to mount,
+	  you must also authorize yourself for the
+	  <tt>org.freedesktop.hal.storage.mount-fixed</tt> action.
+	  <b>Note:</b> This step is applicable to <em>ALL</em> users
+	  including GNOME users using GDM. This is done just like the
+	  removable action above.  For example, to allow user "marcus"
+	  to mount fixed volumes, add the following to
+	  <tt>PolicyKit.conf</tt>:</p>
+
+	<pre xml:space="preserve">
+&lt;match action="org.freedesktop.hal.storage.mount-fixed"&gt;
+  &lt;match user="marcus"&gt;
+    &lt;return result="yes"/&gt;
+  &lt;/match&gt;
+&lt;/match&gt;
+	</pre>
+
+	<p><b>Step 4:</b>  While not really part of hal volume
+	  management, you may also be able to have volumes listed in
+	  <tt>/etc/fstab</tt> automatically mounted.  In GNOME, for
+	  example, Nautilus will mount volumes listed in
+	  <tt>/etc/fstab</tt> provided the following conditions are
+	  met:</p>
+
+	<ol>
+	  <li>The <tt>vfs.usermount</tt> sysctl is set to <tt>1</tt>.</li>
+	  <li>The user requesting the mount owns the mount point.</li>
+	  <li>The user requesting the mount is in the "operator"
+	    group.</li>
+	</ol>
+
+	<p>For example, say you had the following listed in
+	  <tt>/etc/fstab</tt>:</p>
+
+	<pre xml:space="preserve">
+/dev/ad0s1              /win/c          msdosfs rw,noauto       0
+0
+	</pre>
+
+	<p>If you want Nautilus to mount this volume as the user
+	  "marcus," do the following:</p>
+
+	<pre xml:space="preserve">
+# sysctl vfs.usermount="1"
+# chown marcus /win/c
+# pw group mod operator -m marcus
+	</pre>
+
+	<p>Then, when the user marcus logs into GNOME, <tt>/win/c</tt>
+	  will be automatically mounted on the desktop.</p>
+      </li>
+
+
+      <li style="padding-bottom: 0.5em"><a name="q4" shape="rect" id="q4"></a>
+	<p><b>How do I troubleshoot problems with hal?</b></p>
+
+	<p>If you run into problems with hal, you must first collect
+	  the <a href="http://www.freebsd.org/gnome/docs/bugging.html" shape="rect">general
+	  troubleshooting information</a> required by the FreeBSD
+	  GNOME Team.  You should also provide a detailed description
+	  of the problem, and the output of <tt>lshal</tt> (assuming
+	  <tt>hald</tt> is starting).  Remember, <tt>lshal</tt>
+	  <em>MUST</em> be run under a D-BUS enabled session.  If you
+	  cannot login to GNOME, KDE, or XFCE, run <tt>lshal</tt>
+	  within <tt>dbus-launch</tt>:</p>
+
+	<pre xml:space="preserve">
+% dbus-launch lshal
+	</pre>
+
+	<p>You should also provide the verbose output from
+	  <tt>hald</tt> when it is performing the problematic task.
+	  To get this, first stop <tt>hald</tt>, then run it
+	  manually:</p>
+
+	<pre xml:space="preserve">
+# /usr/local/etc/rc.d/hald stop
+# /usr/local/sbin/hald --daemon="no" --verbose="yes"
+	</pre>
+
+	<p>Capture all of the output on the screen.</p>
+
+	<p>If you are having problems with hal detecting volumes or
+	  media, or having problems with mounting volumes through hal,
+	  obtain the following additional information.  All of this
+	  needs to be collected with the problem device attached to
+	  the system.</p>
+
+	<ol>
+	  <li>Output of <tt>sysctl -b kern.geom.conftxt</tt></li>
+	  <li>Contents of <tt>/etc/fstab</tt></li>
+	  <li>Output of the <tt>mount</tt> command</li>
+	  <li>Full <tt>dmesg</tt> output</li>
+	  <li>If using GNOME, and a volume is not mounting properly,
+	    include the output of <tt>gnome-mount --block --no-ui
+	    --verbose --hal-udi &lt;Device UDI&gt;</tt> (&lt;Device
+	    UDI&gt; is the Unique Device Identifier obtained from the
+	    output of <tt>lshal</tt> for the device that is not
+	    mounting properly)</li>
+	</ol>
+
+	<p>Additionally, if you are a GDM user, please provide the
+	  output of <tt>ck-list-sessions</tt>.</p>
+      </li>
+
+
+      <li style="padding-bottom: 0.5em"><a name="q5" shape="rect" id="q5"></a>
+	<p><b>Does hal support Fuse file systems?</b></p>
+
+	<p>Yes.  As of hal-0.5.11_10, Fuse file systems are supported.
+	  See the installed
+	  <tt>/usr/local/share/doc/hal-0.5.11/README.fuse</tt> file
+	  for more details.</p>
+      </li>
+
+
+      <li style="padding-bottom: 0.5em"><a name="q6" shape="rect" id="q6"></a>
+	<p><b>Hal is interfering with my CD/DVD drive when I want to play
+	  a disc or burn something.  How can I stop this from
+	  happening?</b></p>
+
+	<p>Applications which are not hal-aware will not be able to
+	  tell hald to stop polling CD/DVD drives when they begin to use
+	  them.  Because of this, hald may cause these applications to
+	  abort because two different processes are trying to use the
+	  device at the same time.  Applications such as totem, k3b,
+	  sound-juicer, etc. should not be affected as they are
+	  hal-aware.  For other applications, you can start them using
+	  the <tt>hal-lock</tt> command.  This command will try and
+	  lock the device in question.  If successful, hald will stop
+	  polling the device, and <tt>hal-lock</tt> will spawn the
+	  desired application.  The arguments to <tt>hal-lock</tt> are
+	  as follows:</p>
+
+<pre xml:space="preserve">
+% hal-lock --interface org.freedesktop.Hal.Device.Storage --udi UDI --run COMMAND
+</pre>
+        <p>You can use <tt>lshal</tt> to determine the proper
+	  <tt>UDI</tt> value.  For example, to run <tt>abcde</tt> to
+	  extract tracks from a CD:</p>
+
+<pre xml:space="preserve">
+% hal-lock --interface org.freedesktop.Hal.Device.Storage --udi /org/freedesktop/Hal/devices/storage_model_DVD__RW_DVD8801 --run abcde
+</pre>
+
+        <p>As soon as the application finishes, the lock will be
+	  released.</p>
+      </li>
+
+    </ol>
+
+</div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="../../search/index-site.html">Site Map</a> |
+  <a href="../../copyright/">Legal Notices</a> | © 1995&#8211;2017 The FreeBSD Project.
+  All rights reserved.</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

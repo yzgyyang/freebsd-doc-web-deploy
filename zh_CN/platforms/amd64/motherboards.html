@@ -1,0 +1,1236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>FreeBSD/amd64 Project -- 已知的主板支持情况</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="../../../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="../../../layout/css/fixed.css" type="text/css" />
+    <script type="text/javascript" src="../../../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Header And Logo</h2>
+            <div id="headerlogoleft">
+              <a href="../.." title="FreeBSD">
+                <img src="../../../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <div class="frontdonateroundbox">
+                <div class="frontdonatetop">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+                <div class="frontdonatecontent">
+                  <a href="https://www.FreeBSDFoundation.org/donate/">捐赠 FreeBSD</a>
+                </div>
+                <div class="frontdonatebot">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+              </div>
+              <h2 class="blockhide">Peripheral Links</h2>
+              <div id="searchnav">
+                <ul id="searchnavlist"></ul>
+              </div>
+              <div id="search">
+                <form method="get" id="search" action="https://duckduckgo.com/">
+                  <h2 class="blockhide">
+                    <label for="words">搜索</label>
+                  </h2>
+                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
+                  <input type="hidden" name="ka" value="v" />
+                  <input type="hidden" name="kt" value="v" />
+                  <input type="hidden" name="kh" value="1" />
+                  <input type="hidden" name="kj" value="r2" />
+                  <input id="words" name="q" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="搜索" />
+                  <span> </span>
+                  <input id="submit" name="submit" type="submit" value="搜索" />
+                </form>
+              </div>
+            </div>
+          </div>
+          <h2 class="blockhide">Site Navigation</h2>
+          <div id="menu">
+            <ul class="first">
+              <li>
+                <a href="../../">首页</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../about.html">关于</a>
+                <ul>
+                  <li>
+                    <a href="../../../projects/newbies.html">简介</a>
+                  </li>
+                  <li>
+                    <a href="../../../features.html">特性</a>
+                  </li>
+                  <li>
+                    <a href="../../../advocacy/">宣传</a>
+                  </li>
+                  <li>
+                    <a href="../../../marketing/">营销</a>
+                  </li>
+                  <li>
+                    <a href="../../../privacy.html">隐私政策</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../where.html">获取 FreeBSD</a>
+                <ul>
+                  <li>
+                    <a href="../../releases/">发行版本</a>
+                  </li>
+                  <li>
+                    <a href="../../../releng/">发布工程</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../docs.html">文档</a>
+                <ul>
+                  <li>
+                    <a href="../../../doc/en_US.ISO8859-1/books/faq/">常见问题合集</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/zh_CN/books/handbook/">使用手册</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/zh_CN/books/porters-handbook">Porter' 手册</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/zh_TW/books/developers-handbook">Developer' 手册</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/man.cgi">Manual Pages</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/zh_TW/books/fdp-primer">文档计划入门书</a>
+                  </li>
+                  <li>
+                    <a href="../../../docs/books.html">所有书籍和文档</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../community.html">社区</a>
+                <ul>
+                  <li>
+                    <a href="../../../community/mailinglists.html">邮件列表</a>
+                  </li>
+                  <li>
+                    <a href="https://forums.FreeBSD.org">论坛</a>
+                  </li>
+                  <li>
+                    <a href="../../../usergroups.html">用户群体</a>
+                  </li>
+                  <li>
+                    <a href="../../../events/events.html">活动</a>
+                  </li>
+                  <li>
+                    <a href="http://serverfault.com/questions/tagged/freebsd">Q&amp;A (external)</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../../projects/index.html">开发</a>
+                <ul>
+                  <li>
+                    <a href="https://wiki.FreeBSD.org/IdeasPage">Project Ideas</a>
+                  </li>
+                  <li>
+                    <a href="https://svnweb.FreeBSD.org">SVN Repository</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/freebsd">GIT Repository</a>
+                  </li>
+                  <li>
+                    <a href="http://p4web.FreeBSD.org">Perforce Repository</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../support.html">支持</a>
+                <ul>
+                  <li>
+                    <a href="../../../commercial/commercial.html">供应商</a>
+                  </li>
+                  <li>
+                    <a href="../../../security/">安全公告</a>
+                  </li>
+                  <li>
+                    <a href="https://bugs.FreeBSD.org/search/">问题报告</a>
+                  </li>
+                  <li>
+                    <a href="https://www.FreeBSD.org/support.html">提交问题报告</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="https://www.freebsdfoundation.org/">基金会</a>
+                <ul>
+                  <li>
+                    <a href="https://www.freebsdfoundation.org/donate/">资金捐赠</a>
+                  </li>
+                  <li>
+                    <a href="../../../donations/index.html#systems">硬件捐赠</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Section Navigation</h2>
+              <ul>
+                <li>
+                  <a href="../../../projects/index.html">开发</a>
+                </li>
+                <li>
+                  <a href="../../../doc/zh_CN.UTF-8/books/developers-handbook">开发手册</a>
+                </li>
+                <li>
+                  <a href="../../../doc/zh_CN.UTF-8/books/porters-handbook">Porter 手册</a>
+                </li>
+                <li>
+                  <a href="../../../developers/cvs.html">CVS 代码库</a>
+                </li>
+                <li>
+                  <a href="../../../releng/index.html">交付工程</a>
+                </li>
+                <li>
+                  <a href="../../platforms/">平台</a>
+                  <ul>
+                    <li>
+                      <a href="../../platforms/alpha.html">alpha</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/amd64.html">amd64</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/arm.html">ARM</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/i386.html">i386</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/ia64/index.html">ia64</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/mips.html">MIPS</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/pc98.html">pc98</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/ppc.html">ppc</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/sparc.html">sparc64</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/xbox.html">xbox</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="../../projects/ideas/">项目新点子</a>
+                </li>
+                <li>
+                  <a href="../../../doc/zh_CN.UTF-8/articles/contributing/index.html">为 FreeBSD 提供帮助</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap"><h1>FreeBSD/amd64 Project -- 已知的主板支持情况</h1>
+
+  <p>在本页中我们收集了一系列 amd64 架构的主板， 以及在其上运行 FreeBSD 的支持情况。
+    如果有主板型号没有在此列出， 则有可能是我们还不知道这种主板的存在。 请通过
+    <a href="http://www.FreeBSD.org/cgi/man.cgi?query=send-pr&amp;sektion=1" shape="rect">send-pr(1)</a>
+    或其 <a href="../../send-pr.html" shape="rect">web 表单</a> 提交新项目和对现有项目的修正。
+    在设置分类 (category) 时请选择 www。</p>
+
+  <p>注意： 尽管 FreeBSD 简体中文计划会尽量保持此文件与英文版本同步， 但由于人手的原因，
+    这份文档相对于其英文版本仍然有可能略显陈旧。 如果有疑问， 请首先查看
+    <a href="http://www.FreeBSD.org/platforms/amd64/motherboards.html" shape="rect">英文版本</a>。</p>
+
+  <table class="tblbasic">
+    <tr>
+      <th rowspan="1" colspan="1">厂商</th>
+      <th rowspan="1" colspan="1">型号</th>
+      <th rowspan="1" colspan="1">北桥芯片组 / CPU 插座类型</th>
+      <th rowspan="1" colspan="1">报告人 (链接)</th>
+      <th rowspan="1" colspan="1">测试过的 FreeBSD 版本</th>
+      <th rowspan="1" colspan="1">注释</th>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">升技 (Abit)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.abit-usa.com/products/mb/products.php?categories=1&amp;model=175" shape="rect">AV8</a></td>
+      <td rowspan="1" colspan="1">VIA K8T800 / Socket 939</td>
+      <td rowspan="1" colspan="1"><a href="mailto:doconnor@gsoft.com.au" shape="rect">Daniel O'Connor</a></td>
+      <td rowspan="1" colspan="1">5.3-RELEASE</td>
+      <td rowspan="1" colspan="1">板载以太网控制器 (vge(4)) 必须以静态方式联编进内核，
+	  否则无法正常工作。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">升技 (Abit)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.abit-usa.com/products/mb/products.php?categories=1&amp;model=215" shape="rect">AX8</a></td>
+      <td rowspan="1" colspan="1">VIA K8T890 / Socket 939</td>
+      <td rowspan="1" colspan="1"><a href="mailto:joel@FreeBSD.org" shape="rect">Joel Dahl</a></td>
+      <td rowspan="1" colspan="1">6.1-STABLE</td>
+      <td rowspan="1" colspan="1">完全正常， 包括声音 (snd_via8233(4)) 和板载 NIC
+        (stge(4)).</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">升技 (Abit)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.abit-usa.com/products/mb/products.php?categories=1&amp;model=294" shape="rect">AX8 v2.0</a></td>
+      <td rowspan="1" colspan="1">VIA K8T890 / Socket 939</td>
+      <td rowspan="1" colspan="1"><a href="mailto:joel@FreeBSD.org" shape="rect">Joel Dahl</a></td>
+      <td rowspan="1" colspan="1">6.1-STABLE</td>
+      <td rowspan="1" colspan="1">完全正常， 包括声音 (snd_via8233(4)) 和板载 NIC
+        (stge(4)).</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">升技 (Abit)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.abit-usa.com/products/mb/products.php?categories=1&amp;model=176" shape="rect">KV8 Pro</a></td>
+      <td rowspan="1" colspan="1">VIA K8T800 / Socket 754</td>
+      <td rowspan="1" colspan="1"><a href="mailto:infofarmer@gmail.com" shape="rect">Andrew Pantyukhin</a>
+	  (<a href="http://www.freebsd.org/cgi/query-pr.cgi?q=86251" shape="rect">dmesg</a>)</td>
+      <td rowspan="1" colspan="1">5.4-RELEASE, 6.0-BETA</td>
+      <td rowspan="1" colspan="1">vge 在 5.4 和 6.0 上仍然有一些小问题。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">AOpen</td>
+      <td rowspan="1" colspan="1"><a href="http://global.aopen.com.tw/products/mb/vK8T800a-LF.htm" shape="rect">vK8T800a-LF</a></td>
+      <td rowspan="1" colspan="1">VIA K8T800 / Socket 754</td>
+      <td rowspan="1" colspan="1"><a href="mailto:richard@hodges.org" shape="rect">Richard Hodges</a></td>
+      <td rowspan="1" colspan="1">6.0-RELEASE</td>
+      <td rowspan="1" colspan="1">板载 re0 以太网控制器工作正常， 声音通过 snd_via8233(4) 可正常工作。
+	  USB 和 火线 (Firewire) 未测。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">华宇 (Arima)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.arima.com.tw/server/Product/ViewProduct.asp?View=HDAMA%20rev.G" shape="rect">HDAMA rev.G</a></td>
+      <td rowspan="1" colspan="1">AMD 8111/8131 / Socket 940 - 2x Opteron</td>
+      <td rowspan="1" colspan="1"><a href="mailto:dan@langille.org" shape="rect">Dan Langille</a></td>
+      <td rowspan="1" colspan="1">6.1-STABLE</td>
+      <td rowspan="1" colspan="1"></td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">华擎 (Asrock)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.asrock.com/product/product_939Dual-SATA2.htm" shape="rect">939Dual-SATA2</a></td>
+      <td rowspan="1" colspan="1">ULi 1695 / Socket 939</td>
+      <td rowspan="1" colspan="1"><a href="mailto:martin@matuska.org" shape="rect">Martin Matuska</a>
+	  (<a href="http://www.freebsd.org/cgi/query-pr.cgi?q=90127" shape="rect">dmesg</a>)</td>
+      <td rowspan="1" colspan="1">6.0-RELEASE</td>
+      <td rowspan="1" colspan="1">板载网卡和声卡均不支持。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">华擎 (Asrock)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.asrock.com/mb/overview.asp?Model=ConRoeXFire-eSATA2" shape="rect">ConRoeXFire-eSATA2</a></td>
+      <td rowspan="1" colspan="1">Intel 945P / LGA 775</td>
+      <td rowspan="1" colspan="1"><a href="mailto:trebestie@gmail.com" shape="rect">Diego Depaoli</a></td>
+      <td rowspan="1" colspan="1">6.2-RC2</td>
+      <td rowspan="1" colspan="1">板载声音尚不支持 - 在 7-CURRENT 上通过 snd_hda 可支持。
+	  系统自带的 if_re 可靠性很差， 完全无法使用， 而 <a href="ftp://202.65.194.18/cn/nic/rtl_bsd_drv_v172.tgz" shape="rect">厂商提供的驱动</a> 工作正常。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">华擎 (Asrock)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.asrock.com/product/K8NF4G-SATA2.htm" shape="rect">K8NF4G-SATA2</a></td>
+      <td rowspan="1" colspan="1">nVidia nForce 410 / Socket 754</td>
+      <td rowspan="1" colspan="1"><a href="mailto:bbbart@ulyssis.org" shape="rect">Bart Van Loon</a></td>
+      <td rowspan="1" colspan="1">6.0-RELEASE</td>
+      <td rowspan="1" colspan="1">板载网卡和声卡均不支持。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">华擎 (Asrock)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.asrock.com/product/product_K8Upgrade-1689.htm" shape="rect">K8Upgrade-1689</a></td>
+      <td rowspan="1" colspan="1">ULi 1689 / Socket 754</td>
+      <td rowspan="1" colspan="1"><a href="mailto:pnorcott@aol.com" shape="rect">Paul Norcott</a></td>
+      <td rowspan="1" colspan="1">6.0-RELEASE</td>
+      <td rowspan="1" colspan="1"></td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">华硕 (Asus)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.asus.com/products4.aspx?modelmenu=2&amp;model=455&amp;l1=3&amp;l2=15&amp;l3=171" shape="rect">A8N-E</a></td>
+      <td rowspan="1" colspan="1">nVidia nForce4 Ultra / Socket 939</td>
+      <td rowspan="1" colspan="1"><a href="mailto:bengta@sics.se" shape="rect">Bengt Ahlgren</a>
+	  (<a href="http://www.freebsd.org/cgi/query-pr.cgi?q=100412" shape="rect">dmesg</a>)</td>
+      <td rowspan="1" colspan="1">6.1-STABLE</td>
+      <td rowspan="1" colspan="1">板载 nForce 以太网控制器 (nve(4)) 在 6.1-RELEASE 上会出现超时 (timeout) 问题，
+	  但在 6.1-STABLE 上完全正常。 SATA 运转良好。 声卡通过 snd_ich 驱动支持。
+	  支持 Cool'n'quiet 功能。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">华硕 (Asus)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.asus.com/products4.aspx?l1=3&amp;l2=15&amp;l3=148&amp;model=382&amp;modelmenu=1" shape="rect">A8N-SLI</a></td>
+      <td rowspan="1" colspan="1">nVidia nForce4 SLI / Socket 939</td>
+      <td rowspan="1" colspan="1"><a href="mailto:sigxcpu@gmail.com" shape="rect">Alex Pirvulescu</a></td>
+      <td rowspan="1" colspan="1">6.0-BETA3</td>
+      <td rowspan="1" colspan="1">板载 nForce 以太网控制器 (nve(4)) 会出现超时问题并导致系统挂起，
+	  SATA 工作正常， 未测试 RAID。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">华硕 (Asus)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.asus.com/products4.aspx?modelmenu=2&amp;model=375&amp;l1=3&amp;l2=15&amp;l3=0" shape="rect">A8N-SLI Deluxe</a></td>
+      <td rowspan="1" colspan="1">nVidia nForce4 SLI / Socket 939</td>
+      <td rowspan="1" colspan="1"><a href="mailto:flz@FreeBSD.org" shape="rect">Florent Thoumie</a>
+	  (<a href="http://people.freebsd.org/~flz/local/dmesg.cream" shape="rect">dmesg</a>)</td>
+      <td rowspan="1" colspan="1">5.4-STABLE</td>
+      <td rowspan="1" colspan="1">板载 nForce 以太网控制器需要配合 6-CURRENT (2005 年 4 月) 的 nve(4) 驱动使用。
+	  板载的 nForce SATA RAID 在 2005 年 6 月 6 日的 6-CURRENT 和更新版本上运行正常。
+	  板载 SiI 3114R SATA RAID 控制器未测试。 声卡工作正常。
+	  (snd_ich 驱动)。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">华硕 (Asus)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.asus.com/products4.aspx?l1=3&amp;l2=15&amp;l3=0&amp;model=1127&amp;modelmenu=1" shape="rect">A8N-VM CSM</a></td>
+      <td rowspan="1" colspan="1">nVidia nForce 430 / Socket 939</td>
+      <td rowspan="1" colspan="1"><a href="mailto:misko@abhg.danville.ca.us" shape="rect">William Miskovetz</a></td>
+      <td rowspan="1" colspan="1">6.1-RELEASE</td>
+      <td rowspan="1" colspan="1">板载 nForce 网卡无法识别， 使用 nfe 驱动工作正常。
+	  SATA RAID 控制器、 USB、 火线工作正常。 声卡未测试。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">华硕 (Asus)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.asus.com/products4.aspx?modelmenu=1&amp;model=744&amp;l1=3&amp;l2=15&amp;l3=226" shape="rect">A8N32-SLI Deluxe</a></td>
+      <td rowspan="1" colspan="1">nVidia nForce4 SLI / Socket 939</td>
+      <td rowspan="1" colspan="1"><a href="mailto:promo@livesets.ch" shape="rect">Marco Kessler</a></td>
+      <td rowspan="1" colspan="1">6.1-BETA4</td>
+      <td rowspan="1" colspan="1">板载 nve0 网卡和 nVidia RAID 控制器工作无问题。 不支持
+	  Marvell 88E8053 NIC 和 Sil 3132 RAID。 ACPI Thermal
+	  zones 和风扇速度不可用。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">华硕 (Asus)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.asus.com/products4.aspx?modelmenu=2&amp;model=238&amp;l1=3&amp;l2=15&amp;l3=0" shape="rect">A8V Deluxe</a></td>
+      <td rowspan="1" colspan="1">VIA K8T800 / Socket 939</td>
+      <td rowspan="1" colspan="1"><a href="mailto:ssw@neo.redjade.org" shape="rect">Sangwoo Shim</a>
+	  (<a href="http://www.freebsd.org/cgi/query-pr.cgi?pr=80174" shape="rect">dmesg</a>),
+	  <a href="mailto:googl3meister@gmail.com" shape="rect">Brian Thomas</a>
+	  (<a href="http://www.freebsd.org/cgi/query-pr.cgi?pr=82089" shape="rect">dmesg</a>)</td>
+      <td rowspan="1" colspan="1">5.4-STABLE, 6-CURRENT (Apr 2005)</td>
+      <td rowspan="1" colspan="1">可用。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">华硕 (Asus)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.asus.com/products4.aspx?l1=3&amp;l2=15&amp;l3=0&amp;model=376&amp;modelmenu=1" shape="rect">A8V-E Deluxe</a></td>
+      <td rowspan="1" colspan="1">VIA K8T890 / Socket 939</td>
+      <td rowspan="1" colspan="1"><a href="mailto:lesi@FreeBSD.org" shape="rect">Dejan Lesjak</a>
+	  (<a href="http://people.freebsd.org/~lesi/dmesg.radagast" shape="rect">dmesg</a>,
+	  <a href="http://people.freebsd.org/~lesi/pciconf.radagast" shape="rect">pciconf</a>,
+	  <a href="http://people.freebsd.org/~lesi/sndstat.radagast" shape="rect">sndstat</a>)</td>
+      <td rowspan="1" colspan="1">6-CURRENT (Jul 2005)</td>
+      <td rowspan="1" colspan="1">SATA 能够支持但未测试， 板载 RAID 未测试。
+	  板载 NIC (Marvell 88E8053) 无法识别。 板载无线网卡
+	  (Marvell) 无法识别， ndis 失败。 板载声卡工作正常。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">华硕 (Asus)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.asus.com/products4.aspx?l1=3&amp;l2=15&amp;l3=224&amp;model=743&amp;modelmenu=1" shape="rect">A8V-MX</a></td>
+      <td rowspan="1" colspan="1">VIA K8M800 / Socket 939</td>
+      <td rowspan="1" colspan="1"><a href="sql82@list.ru" shape="rect">Andrew Tovstik</a> (<a href="http://www.freebsd.org/cgi/query-pr.cgi?q=103132" shape="rect">dmesg</a>)</td>
+      <td rowspan="1" colspan="1">6.1-RELEASE</td>
+      <td rowspan="1" colspan="1">可用。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">华硕 (Asus)</td>
+      <td rowspan="1" colspan="1"><a href="http://h10025.www1.hp.com/ewfrf/wc/genericDocument?cc=us&amp;lc=en&amp;dlc=en&amp;docname=c00257657" shape="rect">K8S-LA</a></td>
+      <td rowspan="1" colspan="1">SiS 760 / Socket 754</td>
+      <td rowspan="1" colspan="1">Mike M</td>
+      <td rowspan="1" colspan="1">5.4-STABLE</td>
+      <td rowspan="1" colspan="1">板载显卡不正常。 这是 Compaq/HP Pavillion a1007w-b 的 OEM。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">华硕 (Asus)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.asus.com/products4.aspx?l1=3&amp;l2=14&amp;l3=149&amp;model=377&amp;modelmenu=1" shape="rect">K8S-MX</a></td>
+      <td rowspan="1" colspan="1">SiS 760GX / Socket 754</td>
+      <td rowspan="1" colspan="1"><a href="mailto:forth@fss.polarnet.ru" shape="rect">Nikita Staroverov</a></td>
+      <td rowspan="1" colspan="1">6.1-PRERELEASE</td>
+      <td rowspan="1" colspan="1">板载 SATA 控制器会无规律停止响应， SATA-RAID 无法识别。
+	  板载网卡无法识别。 AGP 无法识别。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">华硕 (Asus)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.asus.com/products4.aspx?l1=3&amp;l2=14&amp;l3=66&amp;model=772&amp;modelmenu=1" shape="rect">K8N-E</a></td>
+      <td rowspan="1" colspan="1">nVidia nForce3 250 / Socket 754</td>
+      <td rowspan="1" colspan="1"><a href="mailto:quetzalcoatl@bk.ru" shape="rect">Nikolay Pavlov</a></td>
+      <td rowspan="1" colspan="1">6.1-PRERELEASE</td>
+      <td rowspan="1" colspan="1">板载 Marvell 网卡不支持。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">华硕 (Asus)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.asus.com/products4.aspx?modelmenu=1&amp;model=952&amp;l1=3&amp;l2=14&amp;l3=245" shape="rect">K8N-VM</a></td>
+      <td rowspan="1" colspan="1">nVidia nForce 410 / Socket 754</td>
+      <td rowspan="1" colspan="1"><a href="mailto:kaihugoh@stud.ntnu.no" shape="rect">Kai Hugo Hustoft Endresen</a></td>
+      <td rowspan="1" colspan="1">6.2-STABLE</td>
+      <td rowspan="1" colspan="1">除了 ACPI 之外一切工作正常。 声卡需要使用 <a href="http://people.freebsd.org/~ariff/" shape="rect">snd_hda</a> 驱动。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">华硕 (Asus)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.asus.com/products4.aspx?modelmenu=1&amp;model=567&amp;l1=3&amp;l2=14&amp;l3=172" shape="rect">K8N4-E</a></td>
+      <td rowspan="1" colspan="1">nVidia nForce 4.4X / Socket 754</td>
+      <td rowspan="1" colspan="1"><a href="mailto:marcin@konfer.org" shape="rect">Marcin</a></td>
+      <td rowspan="1" colspan="1">6.2-RELEASE</td>
+      <td rowspan="1" colspan="1">正常。 声卡未测试。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">华硕 (Asus)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.asus.com/products.aspx?l1=3&amp;l2=14&amp;l3=172&amp;model=980&amp;modelmenu=1" shape="rect">K8N4-E SE</a></td>
+      <td rowspan="1" colspan="1">nVidia nForce 4 4X / Socket 754</td>
+      <td rowspan="1" colspan="1">Andreas</td>
+      <td rowspan="1" colspan="1">6.1-RELEASE</td>
+      <td rowspan="1" colspan="1">正常。 RAID 未测试。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">华硕 (Asus)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.asus.com/products4.aspx?modelmenu=2&amp;model=235&amp;l1=3&amp;l2=14&amp;l3=0" shape="rect">K8V SE Deluxe</a></td>
+      <td rowspan="1" colspan="1">VIA K8T800 / Socket 754</td>
+      <td rowspan="1" colspan="1"><a href="mailto:twisla@gcu.info" shape="rect">Clément Martin</a>
+	  (<a href="http://twisla.com/dmesg.satan" shape="rect">dmesg</a>)</td>
+      <td rowspan="1" colspan="1">5.4-STABLE</td>
+      <td rowspan="1" colspan="1">xmbmon 无法自动检测出监控漠视， 需要使用 -I 参数手工指定。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">华硕 (Asus)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.asus.com/products.aspx?l1=3&amp;l2=14&amp;l3=225&amp;model=754&amp;modelmenu=1" shape="rect">K8V-MX</a></td>
+      <td rowspan="1" colspan="1">VIA K8M800 / Socket 754</td>
+      <td rowspan="1" colspan="1"><a href="mailto:joao@matik.com.br" shape="rect">Joao</a></td>
+      <td rowspan="1" colspan="1">5.5-BETA, 6.1-BETA</td>
+      <td rowspan="1" colspan="1">正常。 声卡和火线未测试。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">华硕 (Asus)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.asus.com/products4.aspx?modelmenu=2&amp;model=237&amp;l1=3&amp;l2=14&amp;l3=67" shape="rect">K8V-X</a></td>
+      <td rowspan="1" colspan="1">VIA K8T800 / Socket 754</td>
+      <td rowspan="1" colspan="1"><a href="mailto:jkoshy@FreeBSD.org" shape="rect">Joseph Koshy</a></td>
+      <td rowspan="1" colspan="1">6-STABLE, 7-CURRENT</td>
+      <td rowspan="1" colspan="1">板载声卡未测试。 板载 sk0 以太网控制器在 5.3-RELEASE 上有问题，
+	  但在较新的 FreeBSD 版本上相当稳定。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">华硕 (Asus)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.asus.com/products4.aspx?l1=3&amp;l2=14&amp;l3=0&amp;model=790&amp;modelmenu=1" shape="rect">K8V-X SE</a></td>
+      <td rowspan="1" colspan="1">VIA K8T800 / Socket 754</td>
+      <td rowspan="1" colspan="1"><a href="mailto:dgeo@dgeos.net" shape="rect">Geoffroy Desvernay</a></td>
+      <td rowspan="1" colspan="1">6.0-RELEASE</td>
+      <td rowspan="1" colspan="1">声卡未测试。 5.4 正常。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">华硕 (Asus)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.asus.com/products4.aspx?l1=3&amp;l2=101&amp;l3=347&amp;model=1363&amp;modelmenu=1" shape="rect">M2NBP-VM CSM</a></td>
+      <td rowspan="1" colspan="1">nVidia nForce 430 / Socket AM2</td>
+      <td rowspan="1" colspan="1"><a href="mailto:matthias.goos@uniklinik-freiburg.de" shape="rect">Matthias Goos</a></td>
+      <td rowspan="1" colspan="1">6.2-RELEASE</td>
+      <td rowspan="1" colspan="1">正常。 声卡未测试。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">华硕 (Asus)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.asus.com/products4.aspx?l1=3&amp;l2=101&amp;l3=0&amp;model=1138&amp;modelmenu=1" shape="rect">M2NPV-VM</a></td>
+      <td rowspan="1" colspan="1">nForce 430 + GeForce 6150 / Socket AM2</td>
+      <td rowspan="1" colspan="1"><a href="mailto:selig4win@yahoo.de" shape="rect">Bernd Selig</a></td>
+      <td rowspan="1" colspan="1">6.1-RELEASE</td>
+      <td rowspan="1" colspan="1">引导到访问 SATA 驱动器时停止响应。 板载以太网卡有问题。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">华硕 (Asus)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.asus.com/products4.aspx?modelmenu=2&amp;model=1282&amp;l1=3&amp;l2=101&amp;l3=324" shape="rect">M2V-TVM</a></td>
+      <td rowspan="1" colspan="1">VIA K8M890 / Socket AM2</td>
+      <td rowspan="1" colspan="1"><a href="mailto:exil@solace.miun.se" shape="rect">Kenneth Lind</a>
+	 (<a href="http://www.freebsd.org/cgi/query-pr.cgi?pr=108481" shape="rect">dmesg</a>)</td>
+      <td rowspan="1" colspan="1">6.2-RELEASE</td>
+      <td rowspan="1" colspan="1">板载声卡 (Realtek ALC655) 可使用 snd_via8233 驱动。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">华硕 (Asus)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.levi.cz/clanek.php?id=8920" shape="rect">P5G-TVM</a></td>
+      <td rowspan="1" colspan="1">Intel 915G GMCH / Socket LGA775</td>
+      <td rowspan="1" colspan="1"><a href="mailto:Jan.Blaha@unet.cz" shape="rect">Jan Blaha</a></td>
+      <td rowspan="1" colspan="1">6.0-STABLE</td>
+      <td rowspan="1" colspan="1">PS/2 在控制台和 X 上无法使用。 Realtek
+	  Gigabit 网卡识别为 re(4)， 但未测试。 SATA
+	  工作正常。 声卡使用 snd_ich(4) 驱动。 集成图形芯片 i915G
+	  由 Xorg 驱动 i810(4) 支持。 DRI 硬件加速不支持。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">映泰 (Biostar)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.biostar.com.tw/products/mainboard/board.php?name=GeForce%206100-M9" shape="rect">GeForce 6100-M9</a></td>
+      <td rowspan="1" colspan="1">nForce 410 + GeForce 6100 / Socket 939</td>
+      <td rowspan="1" colspan="1"><a href="mailto:vikashb@gmail.com" shape="rect">Vikash</a></td>
+      <td rowspan="1" colspan="1">6.0-RELEASE</td>
+      <td rowspan="1" colspan="1">板载以太网卡无法识别。 ATA 控制器被识别为标准控制器， 只能以最高 ATA33 的速度运行。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">Celestica</td>
+      <td rowspan="1" colspan="1"><a href="http://www.celestica.com/products/AMDTechSupport.asp" shape="rect">A2210-SCSI</a></td>
+      <td rowspan="1" colspan="1">AMD 8111/8131 / Socket 940 - 2x Opteron</td>
+      <td rowspan="1" colspan="1"><a href="mailto:josh@feep.org" shape="rect">Joshua Myles</a>
+	  (<a href="http://www.feep.org/~josh/a2210/" shape="rect">details</a>)</td>
+      <td rowspan="1" colspan="1">5.4-RELEASE</td>
+      <td rowspan="1" colspan="1">与 HP ProLiant DL145 类似。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">戴尔 (Dell)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.dell.com/content/products/productdetails.aspx/dimen_e521?c=us&amp;cs=19&amp;l=en&amp;s=dhs&amp;~tab=specstab" shape="rect">Dimension E521</a></td>
+      <td rowspan="1" colspan="1">nVidia nForce 430 / Socket AM2</td>
+      <td rowspan="1" colspan="1"><a href="mailto:federicogalvezdurand@yahoo.com" shape="rect">Federico</a></td>
+      <td rowspan="1" colspan="1">6.2-RELEASE</td>
+      <td rowspan="1" colspan="1">使用 BIOS 版本 1.1.4 时正常。 声卡需要 snd_hda 驱动。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">戴尔 (Dell)</td>
+      <td rowspan="1" colspan="1"><a href="http://www1.us.dell.com/content/products/productdetails.aspx/pedge_1850" shape="rect">PowerEdge 1850</a></td>
+      <td rowspan="1" colspan="1">Intel E7520 / 2x Intel Xeon EM64T</td>
+      <td rowspan="1" colspan="1"><a href="mailto:vivek@khera.org" shape="rect">Vivek Khera</a></td>
+      <td rowspan="1" colspan="1">6.1-RELEASE</td>
+      <td rowspan="1" colspan="1">完全正常。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">戴尔 (Dell)</td>
+      <td rowspan="1" colspan="1"><a href="http://www1.us.dell.com/content/products/productdetails.aspx/pedge_800" shape="rect">PowerEdge 800</a></td>
+      <td rowspan="1" colspan="1">Intel E7221 / Socket LGA775</td>
+      <td rowspan="1" colspan="1"><a href="mailto:vivek@khera.org" shape="rect">Vivek Khera</a></td>
+      <td rowspan="1" colspan="1">6.1-RELEASE</td>
+      <td rowspan="1" colspan="1">板载 Dell CERC SATA RAID 控制器识别为 aac(4).
+	  在 loader.conf 中禁用 ACPI Timers 时工作完全正常。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">戴尔 (Dell)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.dell.com/content/products/productdetails.aspx/pedge_sc1425" shape="rect">PowerEdge SC1425</a></td>
+      <td rowspan="1" colspan="1">Intel E7520 / 2x Intel Xeon EM64T</td>
+      <td rowspan="1" colspan="1"><a href="mailto:vivek@khera.org" shape="rect">Vivek Khera</a></td>
+      <td rowspan="1" colspan="1">6.1-RELEASE</td>
+      <td rowspan="1" colspan="1">完全正常。 只测试了单处理器的情形。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">戴尔 (Dell)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.dell.com/content/products/productdetails.aspx/pedge_sc430" shape="rect">PowerEdge SC430</a></td>
+      <td rowspan="1" colspan="1">Intel E7230 / Socket LGA775</td>
+      <td rowspan="1" colspan="1"><a href="mailto:vivek@khera.org" shape="rect">Vivek Khera</a></td>
+      <td rowspan="1" colspan="1">6.1-RELEASE</td>
+      <td rowspan="1" colspan="1">测试了 Pentium D， 完全正常。 无 PS2 接口， 只有
+	  USB。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">EPOX</td>
+      <td rowspan="1" colspan="1"><a href="http://www.epox.com/USA/product.asp?id=EP-9NDA3plus" shape="rect">EP-9NDA3+</a></td>
+      <td rowspan="1" colspan="1">nVidia nForce 3 Ultra / Socket 939</td>
+      <td rowspan="1" colspan="1"><a href="mailto:joao@matik.com.br" shape="rect">Joao</a>
+	  (<a href="http://suporte.matik.com.br/epox.dmesg" shape="rect">dmesg</a>)</td>
+      <td rowspan="1" colspan="1">6.0-STABLE</td>
+      <td rowspan="1" colspan="1">可用。 未测试声卡和火线。 这张主板在使用双通道内存时对内存很挑剔。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">EPOX</td>
+      <td rowspan="1" colspan="1"><a href="http://www.epox.com.tw/eng/products_content.php?ps=371" shape="rect">EP-9NPAJ SLi</a></td>
+      <td rowspan="1" colspan="1">nVidia nForce 4 SLi / Socket 939</td>
+      <td rowspan="1" colspan="1"><a href="mailto:joao@matik.com.br" shape="rect">Joao</a>
+	  (<a href="http://suporte.matik.com.br/epox-sli.dmesg" shape="rect">dmesg</a>)</td>
+      <td rowspan="1" colspan="1">6.1-PRERELEASE</td>
+      <td rowspan="1" colspan="1">可用。 未测试声卡和火线。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">技嘉 (Gigabyte)</td>
+      <td rowspan="1" colspan="1"><a href="http://tw2005.giga-byte.com/Server/Products/Products_ServerBoard_GA-7A8DW.htm" shape="rect">GA-7A8DW</a></td>
+      <td rowspan="1" colspan="1">AMD 8111/8131/8151 / Socket 940 - 2x Opteron</td>
+      <td rowspan="1" colspan="1"><a href="mailto:eric@vipstructures.com" shape="rect">Eric Toll</a></td>
+      <td rowspan="1" colspan="1">5.4-RELEASE</td>
+      <td rowspan="1" colspan="1">未测试板载 SiI SATA 控制器， 不支持其 RAID 功能
+	  (使用了一张 3ware 卡， 配合 3ware 驱动无问题)。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">技嘉 (Gigabyte)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.gigabyte.com.tw/Products/Motherboard/Products_Overview.aspx?ProductID=1950" shape="rect">GA-K8N51GMF</a></td>
+      <td rowspan="1" colspan="1">nVidia nForce 4 / Socket 754</td>
+      <td rowspan="1" colspan="1"><a href="mailto:wirving@beats.hu" shape="rect">Zoltan Tanczos</a></td>
+      <td rowspan="1" colspan="1">6.1-RELEASE</td>
+      <td rowspan="1" colspan="1">板载网卡、 声卡、 RAID 和串行 ATA 未测试。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">技嘉 (Gigabyte)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.gigabyte.com.tw/Products/Motherboard/Products_Overview.aspx?ProductID=1939" shape="rect">GA-K8N51GMF-9</a></td>
+      <td rowspan="1" colspan="1">nVidia nForce 4 / Socket 939</td>
+      <td rowspan="1" colspan="1"><a href="mailto:mail@wischweh.de" shape="rect">Jan D.S. Wischweh</a></td>
+      <td rowspan="1" colspan="1">6.0-RELEASE</td>
+      <td rowspan="1" colspan="1">不支持板载以太网控制器， 声卡未测试。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">技嘉 (Gigabyte)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.gigabyte.com.tw/Products/Motherboard/Products_Overview.aspx?ProductID=1958" shape="rect">GA-K8NE v2.0</a></td>
+      <td rowspan="1" colspan="1">nVidia nForce 4 4X / Socket 754</td>
+      <td rowspan="1" colspan="1"><a href="mailto:kono@kth.se" shape="rect">Alexander Konovalenko</a></td>
+      <td rowspan="1" colspan="1">6.1-STABLE</td>
+      <td rowspan="1" colspan="1">板载 nve0 工作正常， SATA 工作正常， 声音未测试， 但在 i386 模式可用 snd_ich 驱动。
+	  RAID 未测试。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">技嘉 (Gigabyte)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.gigabyte.com.tw/Products/Motherboard/Products_Overview.aspx?ProductID=1860" shape="rect">GA-K8NF-9</a></td>
+      <td rowspan="1" colspan="1">nVidia nForce 4 / Socket 939</td>
+      <td rowspan="1" colspan="1"><a href="mailto:niels@bakker.net" shape="rect">Niels</a>
+	  (<a href="http://www.freebsd.org/cgi/query-pr.cgi?q=86279" shape="rect">dmesg</a>)</td>
+      <td rowspan="1" colspan="1">6.0-BETA4</td>
+      <td rowspan="1" colspan="1">在 BIOS 中未配置 RAID， 但 SATA 磁盘有 RAID 选项时， FreeBSD 会无法启动。
+	  板载以太网控制器识别不出来。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">技嘉 (Gigabyte)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.gigabyte.com.tw/Products/Motherboard/Products_Overview.aspx?ProductID=1784" shape="rect">GA-K8NS</a></td>
+      <td rowspan="1" colspan="1">nVidia nForce3 250 / Socket 754</td>
+      <td rowspan="1" colspan="1"><a href="mailto:francisco@natserv.com" shape="rect">Francisco Reyes</a></td>
+      <td rowspan="1" colspan="1">5.4-RELEASE</td>
+      <td rowspan="1" colspan="1">板载以太网卡和 RAID 无法识别。 不使用 RAID 时 SATA 工作正常。 未测试声卡。</td>
+    </tr>
+    <tr>
+       <td rowspan="1" colspan="1">技嘉 (Gigabyte)</td>
+       <td rowspan="1" colspan="1"><a href="http://www.gigabyte.com.tw/Products/Motherboard/Products_Overview.aspx?ProductID=2275" shape="rect">GA-K8NS (Rev 2.x)</a></td>
+       <td rowspan="1" colspan="1">nVidia nForce3 250 / Socket 754</td>
+       <td rowspan="1" colspan="1"><a href="mailto:novel@FreeBSD.org" shape="rect">Roman Bogorodskiy</a>
+           (<a href="http://people.freebsd.org/~novel/underworld.dmesg" shape="rect">dmesg</a>)</td>
+       <td rowspan="1" colspan="1">6.x, -CURRENT</td>
+       <td rowspan="1" colspan="1">板载以太网卡可配合 nve(4) 正常工作。 板载声卡可配合
+           snd_ich(4) 工作。 USB 工作正常， SATA RAID 未测试。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">技嘉 (Gigabyte)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.gigabyte.com.tw/Products/Motherboard/Products_Overview.aspx?ProductID=1783" shape="rect">GA-K8NS Pro</a></td>
+      <td rowspan="1" colspan="1">nVidia nForce3 250 / Socket 754</td>
+      <td rowspan="1" colspan="1"><a href="mailto:tony_sweeney@programmingresearch.com" shape="rect">Tony Sweeney</a></td>
+      <td rowspan="1" colspan="1">5.4-RELEASE</td>
+      <td rowspan="1" colspan="1">可用。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">技嘉 (Gigabyte)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.gigabyte.com.tw/Products/Motherboard/Products_Overview.aspx?ProductID=1881" shape="rect">GA-K8NSC-939</a></td>
+      <td rowspan="1" colspan="1">nVidia nForce3 250 / Socket 939</td>
+      <td rowspan="1" colspan="1"><a href="mailto:garys@opusnet.com" shape="rect">Gary W. Swearingen</a></td>
+      <td rowspan="1" colspan="1">5.4-RELEASE</td>
+      <td rowspan="1" colspan="1">Sound and USB untested.</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">技嘉 (Gigabyte)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.gigabyte.com.tw/Products/Motherboard/Products_Overview.aspx?ProductID=1859" shape="rect">GA-K8NXP-SLI</a></td>
+      <td rowspan="1" colspan="1">nVidia nForce4 / Socket 939</td>
+      <td rowspan="1" colspan="1"><a href="mailto:bzeeb+freebsd@zabbadoz.net" shape="rect">Bjoern A. Zeeb</a>
+	  (<a href="http://www.zabbadoz.net/zabbadoz-network/y2k/GA-K8NXP-SLI/" shape="rect">dmesg</a>)</td>
+      <td rowspan="1" colspan="1">7.0-CURRENT (Oct 2005)</td>
+      <td rowspan="1" colspan="1">nve(4) not working at all, no driver for second onboard NIC (Marvell
+	  88E8053).  BIOS rev. F7 seems to be most stable, F8 and F9 break
+	  LBA48 support, F10s (beta) and F10 break CPUID_APIC.
+	  Audio, SATA-RAID, USB, Firewire untested.</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">技嘉 (Gigabyte)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.gigabyte.com.tw/Products/Motherboard/Products_Overview.aspx?ProductID=1876" shape="rect">GA-K8U</a></td>
+      <td rowspan="1" colspan="1">ULi M1689 / Socket 754</td>
+      <td rowspan="1" colspan="1"><a href="mailto:matt@mattsnetwork.co.uk" shape="rect">Matt Dawson</a>
+	  (<a href="http://mattsnetwork.co.uk/text/workstation2-amd64.dmesg" shape="rect">dmesg</a>)</td>
+      <td rowspan="1" colspan="1">6.1-PRERELEASE</td>
+      <td rowspan="1" colspan="1">On-board sound not supported.  The AGP bus
+	  needs 6-STABLE for DRI support.</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">技嘉 (Gigabyte)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.gigabyte.com.tw/Products/Motherboard/Products_Overview.aspx?ProductID=1709" shape="rect">GA-K8VT800</a></td>
+      <td rowspan="1" colspan="1">VIA K8T800 / Socket 754</td>
+      <td rowspan="1" colspan="1"><a href="mailto:groot@kde.org" shape="rect">Adriaan de Groot</a>
+	  (<a href="http://people.fruitsalad.org/adridg/development.dmesg.eggs.txt" shape="rect">dmesg</a>)</td>
+      <td rowspan="1" colspan="1">5.3-RELEASE, 5.4-STABLE</td>
+      <td rowspan="1" colspan="1">On-board ethernet is Realtek.  Sound untested, but should work.</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">技嘉 (Gigabyte)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.gigabyte.com.tw/Products/Motherboard/Products_Overview.aspx?ProductID=1710" shape="rect">GA-K8VT800 Pro</a></td>
+      <td rowspan="1" colspan="1">VIA K8T800 / Socket 754</td>
+      <td rowspan="1" colspan="1"><a href="mailto:sat@proxy.gubkin.ru" shape="rect">Andrew Pantyukhin</a>
+	  (<a href="http://www.freebsd.org/cgi/query-pr.cgi?q=88499" shape="rect">dmesg</a>)</td>
+      <td rowspan="1" colspan="1">6.0-RELEASE</td>
+      <td rowspan="1" colspan="1"></td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">HP</td>
+      <td rowspan="1" colspan="1"><a href="http://h18004.www1.hp.com/products/servers/proliant-bl/p-class/45p/" shape="rect">ProLiant BL45p blades</a></td>
+      <td rowspan="1" colspan="1">AMD 8111/8131 / Socket 940 - 4x Opteron</td>
+      <td rowspan="1" colspan="1"><a href="mailto:bra@fsn.hu" shape="rect">Atilla Nagy</a>
+	  (<a href="http://people.fsn.hu/~bra/bl45p/" shape="rect">dmesg, acpidump, pciconf</a>)</td>
+      <td rowspan="1" colspan="1">5.4-STABLE</td>
+      <td rowspan="1" colspan="1">可用。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">HP</td>
+      <td rowspan="1" colspan="1"><a href="http://h18004.www1.hp.com/products/servers/proliantdl145/index-g1.html" shape="rect">ProLiant DL145 G1</a></td>
+      <td rowspan="1" colspan="1">AMD 8111/8132 / Socket 940 - 2x Opteron</td>
+      <td rowspan="1" colspan="1"><a href="mailto:affan@itb.ac.id" shape="rect">Affan Basalamah</a>
+	  (<a href="http://www.freebsd.org/cgi/query-pr.cgi?pr=82123" shape="rect">dmesg</a>)</td>
+      <td rowspan="1" colspan="1">5.4-RELEASE</td>
+      <td rowspan="1" colspan="1">工作正常。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">HP</td>
+      <td rowspan="1" colspan="1"><a href="http://h18004.www1.hp.com/products/servers/proliantdl145/" shape="rect">ProLiant DL145 G2</a></td>
+      <td rowspan="1" colspan="1">nVidia nForce 4 / Socket 940 - 2x Opteron</td>
+      <td rowspan="1" colspan="1"><a href="mailto:bra@fsn.hu" shape="rect">Atilla Nagy</a>
+	  (<a href="http://www.freebsd.org/cgi/query-pr.cgi?q=83518" shape="rect">dmesg</a>,
+	  <a href="http://www.freebsd.org/cgi/query-pr.cgi?q=92162" shape="rect">dmesg</a>)</td>
+      <td rowspan="1" colspan="1">6.0-RELEASE</td>
+      <td rowspan="1" colspan="1">对 SATA 和 SCSI 型号均进行了测试。 板载 nVidia SATA 控制器必须在 6.0 以上版本上才能用。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">HP</td>
+      <td rowspan="1" colspan="1"><a href="http://h18004.www1.hp.com/products/servers/proliantdl360/" shape="rect">ProLiant DL360 G4</a></td>
+      <td rowspan="1" colspan="1">Intel E7520 / 2x Intel Xeon EM64T</td>
+      <td rowspan="1" colspan="1"><a href="mailto:yann_queniart@msn.com" shape="rect">Quéniart Yann</a>
+	  (<a href="http://www.freebsd.org/cgi/query-pr.cgi?q=86338" shape="rect">dmesg</a>)</td>
+      <td rowspan="1" colspan="1">5.4-RELEASE</td>
+      <td rowspan="1" colspan="1">可用。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">HP</td>
+      <td rowspan="1" colspan="1"><a href="http://h18004.www1.hp.com/products/servers/proliantdl360/" shape="rect">ProLiant DL360 G5</a></td>
+      <td rowspan="1" colspan="1">Intel E5000P / 2x Intel Xeon EM64T</td>
+      <td rowspan="1" colspan="1"><a href="mailto:r.moeller@gmail.com" shape="rect">Richard Moeller</a></td>
+      <td rowspan="1" colspan="1">6.1-RELEASE</td>
+      <td rowspan="1" colspan="1">可用。 某些网络环境下需要修改 bce(4) 的 BCE_MAX_SEGMENTS。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">HP</td>
+      <td rowspan="1" colspan="1"><a href="http://h18004.www1.hp.com/products/servers/proliantdl380/" shape="rect">ProLiant DL380 G4</a></td>
+      <td rowspan="1" colspan="1">Intel E7520 / 2x Intel Xeon EM64T</td>
+      <td rowspan="1" colspan="1"><a href="mailto:bra@fsn.hu" shape="rect">Atilla Nagy</a>
+	  (<a href="http://people.fsn.hu/~bra/bl45p/dl380dmesg" shape="rect">dmesg</a>)</td>
+      <td rowspan="1" colspan="1">5.4-STABLE</td>
+      <td rowspan="1" colspan="1">可用。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">HP</td>
+      <td rowspan="1" colspan="1"><a href="http://h10010.www1.hp.com/wwpc/us/en/ss/WF05a/15351-241434-241475-241475-f79-428936.html" shape="rect">ProLiant DL385</a></td>
+      <td rowspan="1" colspan="1">AMD 8111/8131 / Socket 940 - 2x Opteron</td>
+      <td rowspan="1" colspan="1"><a href="mailto:boone@dealhunting.com" shape="rect">Barry Boone</a></td>
+      <td rowspan="1" colspan="1">6.0-RELEASE</td>
+      <td rowspan="1" colspan="1"></td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">Iwill</td>
+      <td rowspan="1" colspan="1"><a href="http://www.iwill.net/product_2.asp?p_id=90&amp;sp=Y" shape="rect">H8501 / QK8S-8P</a></td>
+      <td rowspan="1" colspan="1">AMD 8111/8131 / Socket 940 - 8x Opteron</td>
+      <td rowspan="1" colspan="1"><a href="mailto:ketrien@error404.nls.net" shape="rect">Ketrien I.
+	  Saihr-Kesenchedra</a></td>
+      <td rowspan="1" colspan="1">5.3-RELEASE</td>
+      <td rowspan="1" colspan="1">只在远程无控制台的情况下引导测试过。 全部 8 颗 CPU 均正常识别，
+	  但 ACPI 可能有问题。 Intel 82546EB 未测试。 IPMI 未测试。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">微星 (MSI)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.msicomputer.com/product/p_spec.asp?model=K8D_Master-F&amp;class=spd" shape="rect">K8D Master-F (MS-9131)</a></td>
+      <td rowspan="1" colspan="1">AMD 8131/8111 / 2x Socket 940</td>
+      <td rowspan="1" colspan="1"><a href="mailto:ghelmer@freebsd.org" shape="rect">Guy Helmer</a></td>
+      <td rowspan="1" colspan="1">5.4-RELEASE</td>
+      <td rowspan="1" colspan="1">可用。 使用两颗 Opteron 242 CPU 进行了测试。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">微星 (MSI)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.msicomputer.com/product/p_spec.asp?model=K8D_Master3-FA4R&amp;class=spd" shape="rect">K8D Master3-FA4R (MS-9161)</a></td>
+      <td rowspan="1" colspan="1">AMD 8131/8111 / 2x Socket 940</td>
+      <td rowspan="1" colspan="1"><a href="mailto:ghelmer@freebsd.org" shape="rect">Guy Helmer</a></td>
+      <td rowspan="1" colspan="1">5.4-RELEASE</td>
+      <td rowspan="1" colspan="1">使用两颗 Opteron 252 CPU 进行了测试。 SiI SATA 控制器未测试
+	  (配合 SCSI 驱动器测试了 Adaptec 29160)。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">微星 (MSI)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.msi.com.tw/program/products/mainboard/mbd/pro_mbd_detail.php?UID=621" shape="rect">K8M Neo-V</a></td>
+      <td rowspan="1" colspan="1">VIA K8M800 / Socket 754</td>
+      <td rowspan="1" colspan="1"><a href="mailto:perlfu@gmail.com" shape="rect">Mike Smith</a></td>
+      <td rowspan="1" colspan="1">5.4-STABLE</td>
+      <td rowspan="1" colspan="1">VIA 8237 SATA 控制器会导致随机的崩溃。 播放声音时会随机发生死锁。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">微星 (MSI)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.msi.com.tw/program/products/mainboard/mbd/pro_mbd_detail.php?UID=607" shape="rect">K8N Neo2 Platinum</a></td>
+      <td rowspan="1" colspan="1">nVidia nForce 3 / Socket 939</td>
+      <td rowspan="1" colspan="1"><a href="mailto:xdivac02@stud.fit.vutbr.cz" shape="rect">Roman Divacky</a></td>
+      <td rowspan="1" colspan="1">6-CURRENT (April 2005)</td>
+      <td rowspan="1" colspan="1">启用 ACPI 时无法启动。 BIOS 中的 IRQ 表有问题， ACPI 不正常， PS/2 键盘不可用。
+	  RELENG_5 配合 ACPI 引导正常。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">微星 (MSI)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.msi.com.tw/program/products/mainboard/mbd/pro_mbd_detail.php?UID=720" shape="rect">K8N Neo4 Platinum rev. 3.0</a></td>
+      <td rowspan="1" colspan="1">nVidia nForce 4 / Socket 939</td>
+      <td rowspan="1" colspan="1"><a href="mailto:pav@FreeBSD.org" shape="rect">Pav Lucistnik</a></td>
+      <td rowspan="1" colspan="1">6.1-RC</td>
+      <td rowspan="1" colspan="1">在 6.1-RELEASE 上， 板载的 nForce 网卡经常发生停止响应的问题， 但 -CURRENT
+	  中已经修正。 无法通过 ACPI 读取温度，
+	  mbmon 可用。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">微星 (MSI)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.msi.com.tw/program/products/server/svr/pro_svr_detail.php?UID=484" shape="rect">K8T Master2-FAR</a></td>
+      <td rowspan="1" colspan="1">VIA K8T800 / Socket 940 - 2x Opteron</td>
+      <td rowspan="1" colspan="1"><a href="mailto:dgerow@afflictions.org" shape="rect">Damian Gerow</a></td>
+      <td rowspan="1" colspan="1">5.4-STABLE</td>
+      <td rowspan="1" colspan="1">对内存很挑剔。 SMbus 工作不正常。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">微星 (MSI)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.msi.com.tw/program/products/mainboard/mbd/pro_mbd_detail.php?UID=496" shape="rect">K8T Neo-FSR</a></td>
+      <td rowspan="1" colspan="1">VIA K8T800 / Socket 754</td>
+      <td rowspan="1" colspan="1"><a href="mailto:rsmith@xs4all.nl" shape="rect">Roland Smith</a></td>
+      <td rowspan="1" colspan="1">5.4-STABLE</td>
+      <td rowspan="1" colspan="1">可用。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">微星 (MSI)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.msi.com.tw/program/products/mainboard/mbd/pro_mbd_detail.php?UID=608" shape="rect">K8T Neo2-FIR</a></td>
+      <td rowspan="1" colspan="1">VIA K8T800 / Socket 939</td>
+      <td rowspan="1" colspan="1"><a href="mailto:pav@FreeBSD.org" shape="rect">Pav Lucistnik</a>
+	  (<a href="http://www.oook.cz/bsd/ikaros.dmesg" shape="rect">dmesg</a>)</td>
+      <td rowspan="1" colspan="1">5.4-STABLE</td>
+      <td rowspan="1" colspan="1">需要更新 BIOS 来识别内存条。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">微星 (MSI)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.msi.com.tw/program/products/mainboard/mbd/pro_mbd_detail.php?UID=739" shape="rect">K9NU Neo-V</a></td>
+      <td rowspan="1" colspan="1">ULi M1697 / Socket AM2</td>
+      <td rowspan="1" colspan="1"><a href="mailto:sec@wzgorza.com" shape="rect">Szczepan Cwiklinski</a></td>
+      <td rowspan="1" colspan="1">6.2-RC1</td>
+      <td rowspan="1" colspan="1">声卡可配合 snd_hda 驱动使用。 板载以太网卡不支持。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">微星 (MSI)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.msi.com.tw/program/products/mainboard/mbd/pro_mbd_detail.php?UID=738" shape="rect">K9VGM-V</a></td>
+      <td rowspan="1" colspan="1">VIA K8M890 / Socket AM2</td>
+      <td rowspan="1" colspan="1"><a href="mailto:cy@FreeBSD.org" shape="rect">Cy Schubert</a></td>
+      <td rowspan="1" colspan="1">6.2-STABLE</td>
+      <td rowspan="1" colspan="1">可用。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">微星 (MSI)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.msi.com.tw/program/products/mainboard/mbd/pro_mbd_detail.php?UID=639" shape="rect">RS480M2</a></td>
+      <td rowspan="1" colspan="1">ATI Radeon XPRESS 200 / Socket 939</td>
+      <td rowspan="1" colspan="1"><a href="mailto:torfinn.ingolfsen@broadpark.no" shape="rect">Torfinn Ingolfsen</a>
+	  (<a href="http://www.freebsd.org/cgi/query-pr.cgi?pr=80866" shape="rect">dmesg</a>)</td>
+      <td rowspan="1" colspan="1">5.4-STABLE</td>
+      <td rowspan="1" colspan="1">当开启 ACPI 时无法启动， 需要在 /boot/loader.conf 中增加 <tt>hint.apic.0.disabled="1"</tt>。
+	  声卡不支持， USB 未测试。 不支持板载的
+	  Radeon 图形卡 (只支持 VESA 模式)。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">微星 (MSI)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.msi.com.tw/program/products/mainboard/mbd/pro_mbd_detail.php?UID=693" shape="rect">RS482M4-ILD</a></td>
+      <td rowspan="1" colspan="1">ATI Radeon XPRESS 200 / Socket 939</td>
+      <td rowspan="1" colspan="1"><a href="mailto:douglasperkins@cmu.edu" shape="rect">Douglas Perkins</a></td>
+      <td rowspan="1" colspan="1">6.0-RELEASE</td>
+      <td rowspan="1" colspan="1">板载声卡不支持。 SATA 未测试。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">硕泰克 (Soltek)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.soltek.com.tw/soltek/product/products_all.php?isbn_st=SL-K8TPro-939" shape="rect">SL-K8TPro-939</a></td>
+      <td rowspan="1" colspan="1">VIA K8T800 / Socket 939</td>
+      <td rowspan="1" colspan="1"><a href="dbmoler@yahoo.com" shape="rect">David</a></td>
+      <td rowspan="1" colspan="1">5.4-STABLE</td>
+      <td rowspan="1" colspan="1"></td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">Sun</td>
+      <td rowspan="1" colspan="1"><a href="http://www.sun.com/servers/entry/v20z/" shape="rect">Fire V20z</a></td>
+      <td rowspan="1" colspan="1">AMD 8111/8131 / Socket 940 - 2x Opteron</td>
+      <td rowspan="1" colspan="1"><a href="mailto:bra@fsn.hu" shape="rect">Atilla Nagy</a>
+	  (<a href="http://www.freebsd.org/cgi/query-pr.cgi?q=81916" shape="rect">dmesg</a>)</td>
+      <td rowspan="1" colspan="1">5.4-STABLE</td>
+      <td rowspan="1" colspan="1">可用。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">Sun</td>
+      <td rowspan="1" colspan="1"><a href="http://www.sun.com/servers/entry/x2100/" shape="rect">Fire X2100</a></td>
+      <td rowspan="1" colspan="1">nVidia nForce 4 / Socket 939</td>
+      <td rowspan="1" colspan="1"><a href="mailto:andrej1981@gmail.com" shape="rect">Andras Got</a>
+	  (<a href="http://www.freebsd.org/cgi/query-pr.cgi?q=93531" shape="rect">dmesg</a>)</td>
+      <td rowspan="1" colspan="1">6.0-RELEASE</td>
+      <td rowspan="1" colspan="1">nVidia 以太网控制器出现超时问题。 只能通过 nVidia 网卡 PXE 引导。
+	  bge(4) 网卡无问题。 板载 RAID 测试正常。 只能通过 USB 键盘连接此机。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">Sun</td>
+      <td rowspan="1" colspan="1"><a href="http://www.sun.com/servers/entry/x4100/" shape="rect">Fire X4100</a></td>
+      <td rowspan="1" colspan="1">AMD 8111/8131 / Socket 940 - 2x Opteron</td>
+      <td rowspan="1" colspan="1"><a href="mailto:vivek@khera.org" shape="rect">Vivek Khera</a></td>
+      <td rowspan="1" colspan="1">6.0-RELEASE</td>
+      <td rowspan="1" colspan="1">无 PS/2 接口， 必须用后面板连接 USB 键盘。
+	  (前面板连接 USB 键盘在启动时有问题)
+	  只有低档 PCIx 插槽， 使得扩展比较麻烦。
+	  除了板载 SCSI 控制器 (LSI SAS 控制器， 无法识别) 之外一切正常。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">超微 (Supermicro)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.supermicro.com/Aplus/motherboard/Opteron/8131/H8DA8.cfm" shape="rect">H8DA8</a></td>
+      <td rowspan="1" colspan="1">AMD 8111/8131 / Socket 940 - 2x Opteron</td>
+      <td rowspan="1" colspan="1"><a href="mailto:joao@matik.com.br" shape="rect">Joao</a> (<a href="http://suporte.matik.com.br/sm-h8da8.dmesg" shape="rect">dmesg</a>)</td>
+      <td rowspan="1" colspan="1">6.2-PRERELEASE</td>
+      <td rowspan="1" colspan="1">工作很正常。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">超微 (Supermicro)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.supermicro.com/Aplus/motherboard/Opteron/8131/H8DAR-8.cfm" shape="rect">H8DAR-8</a></td>
+      <td rowspan="1" colspan="1">AMD 8111/8131 / Socket 940 - 2x Opteron</td>
+      <td rowspan="1" colspan="1"><a href="mailto:ghelmer@freebsd.org" shape="rect">Guy Helmer</a></td>
+      <td rowspan="1" colspan="1">6.0-BETA2</td>
+      <td rowspan="1" colspan="1">能够引导原装的 SMP 内核。 内建的 Broadcom bge 网卡工作正常。
+	  内建的 AIC7902 U320 SCSI 配合 Seagate ST3146854LC 驱动器工作完全正常
+	  (无错误或警告)。 测试了 Opteron 275 (双核) CPU。
+	  IDE、 USB 接口未测试。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">超微 (Supermicro)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.supermicro.com/products/motherboard/Xeon800/E7525/X6DA8-G2.cfm" shape="rect">X6DA8-G2</a></td>
+      <td rowspan="1" colspan="1">Intel E7525 / 2x 604-pin FC-mPGA4</td>
+      <td rowspan="1" colspan="1"><a href="mailto:big.laser@gmail.com" shape="rect">Erik Power</a></td>
+      <td rowspan="1" colspan="1">5.4-RELEASE</td>
+      <td rowspan="1" colspan="1">5.4-RELEASE amd64 中包含的默认内核无法识别通过 Intel ICH5R SATA/ATA
+	  控制器连接的硬盘。 绕过这一问题的方法是安装时以安全模式启动。
+	  重新编译内核之后， ata(4) 工作正常， 并能正确启动系统。
+	  安装了 SMP 内核并工作正常。 LAN、 声卡、
+	  USB 可用。 ZCR 未测试 (没有用于 Adaptec 2010-S 的驱动)， AIC7902
+	  U320 SCSI 未测试。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">超微 (Supermicro)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.supermicro.com/products/motherboard/Xeon800/E7520/X6DHP-8G2.cfm" shape="rect">X6DHP-8G2</a></td>
+      <td rowspan="1" colspan="1">Intel E7520 / 2x 604-pin FC-mPGA4</td>
+      <td rowspan="1" colspan="1"><a href="mailto:ler@lerctr.org" shape="rect">Larry Rosenman</a></td>
+      <td rowspan="1" colspan="1">6.0-STABLE</td>
+      <td rowspan="1" colspan="1"></td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">超微 (Supermicro)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.supermicro.com/products/motherboard/Xeon800/E7520/X6DHR-8G.cfm" shape="rect">X6DHR-8G</a></td>
+      <td rowspan="1" colspan="1">Intel E7520 / 2x 604-pin FC-mPGA4</td>
+      <td rowspan="1" colspan="1"><a href="mailto:ghelmer@freebsd.org" shape="rect">Guy Helmer</a></td>
+      <td rowspan="1" colspan="1">5.4-RELEASE</td>
+      <td rowspan="1" colspan="1">可以用原装的 SMP 内核引导。 UP 内核必须以 “安全模式”
+	  (或 hint.apic.0.disabled="0"， 测试了 BIOS 版本 1.2 和 1.2a)。
+	  LAN 可用。 UHCI 控制器会导致中断风暴。
+	  AIC7902 U320 SCSI 配合 Seagate ST373207LC
+	  驱动器可用 (在探测 SCSI 总线时会给出 "Invalid Sequencer interrupt"，
+	  但能继续运行)。
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">泰安 (Tyan)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.tyan.com/products/html/thunderh1000e.html" shape="rect">Thunder h1000E (S3970)</a></td>
+      <td rowspan="1" colspan="1">Broadcom BCM 5785 / Socket F - 2x Opteron</td>
+      <td rowspan="1" colspan="1"><a href="mailto:nicole@unixgirl.com" shape="rect">Nicole Harrington</a></td>
+      <td rowspan="1" colspan="1">6.2-PRERELEASE</td>
+      <td rowspan="1" colspan="1">工作正常。 使用超过三个 (含) 硬盘时有些问题。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">泰安 (Tyan)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.tyan.com/products/html/thunderk8qspro.html" shape="rect">Thunder K8QS Pro (S4882)</a></td>
+      <td rowspan="1" colspan="1">AMD 8111/8131 / Socket 940 - 4x Opteron</td>
+      <td rowspan="1" colspan="1"><a href="mailto:kieber@xoo.net" shape="rect">Ulf Kieber</a></td>
+      <td rowspan="1" colspan="1">5.4-RELEASE, 6.0-RELEASE</td>
+      <td rowspan="1" colspan="1">在 5.4 上很不稳定， 6.0 上很正常。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">泰安 (Tyan)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.tyan.com/product_board_detail.aspx?pid=247" shape="rect">Thunder K8QW (S4881)</a></td>
+      <td rowspan="1" colspan="1">nVidia nForce Pro 2200 / Socket 940 - 4x Opteron</td>
+      <td rowspan="1" colspan="1"><a href="mailto:joao@matik.com.br" shape="rect">Joao</a></td>
+      <td rowspan="1" colspan="1">6.2-RELEASE</td>
+      <td rowspan="1" colspan="1">可用。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">泰安 (Tyan)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.tyan.com/products/html/thunderk8spro.html" shape="rect">Thunder K8S Pro (S2882GNR, S2882UGNR)</a></td>
+      <td rowspan="1" colspan="1">AMD 8111/8131 / Socket 940 - 2x Opteron</td>
+      <td rowspan="1" colspan="1"><a href="mailto:ketrien@error404.nls.net" shape="rect">Ketrien I. Saihr-Kesenchedra</a></td>
+      <td rowspan="1" colspan="1">5.2.1-RELEASE, 5.3-RELEASE, 5.4-RELEASE, 5-STABLE</td>
+      <td rowspan="1" colspan="1">板载 SCSI 是 aac。 针对 amr(4) 进行了密集的测试， 可靠性方面没有问题。
+	  测试了 8GB
+	  (8x1GB) 内存。 在测试时没有可用的 IPMI。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">泰安 (Tyan)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.tyan.com/products/html/thunderk8sdpro.html" shape="rect">Thunder K8SD Pro (S2882-D)</a></td>
+      <td rowspan="1" colspan="1">AMD 81111/8131 / Socket 940 - 2x Opteron</td>
+      <td rowspan="1" colspan="1"><a href="mailto:dnewman@networktest.com" shape="rect">David Newman</a></td>
+      <td rowspan="1" colspan="1">6.0-RELEASE</td>
+      <td rowspan="1" colspan="1">运行很正常。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">泰安 (Tyan)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.tyan.com/products/html/thunderk8sr.html" shape="rect">Thunder K8SR (S2881)</a></td>
+      <td rowspan="1" colspan="1">AMD 8111/8131 / Socket 940 - 2x Opteron</td>
+      <td rowspan="1" colspan="1"><a href="mailto:nicole@unixgirl.com" shape="rect">Nicole Harrington</a></td>
+      <td rowspan="1" colspan="1">6.2-PRERELEASE</td>
+      <td rowspan="1" colspan="1">运行很正常。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">泰安 (Tyan)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.tyan.com/products/html/thunderk8w.html" shape="rect">Thunder K8W (S2885)</a></td>
+      <td rowspan="1" colspan="1">AMD 8111/8131/8151 / Socket 940 - 2x Opteron</td>
+      <td rowspan="1" colspan="1">Sean, <a href="mailto:marcolz@stack.nl" shape="rect">Marc Olzheim</a>
+	  (<a href="http://www.freebsd.org/cgi/query-pr.cgi?pr=80857" shape="rect">dmesg</a>)</td>
+      <td rowspan="1" colspan="1">5.4-STABLE, 6-CURRENT</td>
+      <td rowspan="1" colspan="1">运行很正常。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">泰安 (Tyan)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.tyan.com/products/html/thunderk8we.html" shape="rect">Thunder K8WE (S2895)</a></td>
+      <td rowspan="1" colspan="1">AMD 8131 / Socket 940 - 2x Opteron</td>
+      <td rowspan="1" colspan="1"><a href="mailto:dgerow@dementia.afflictions.org" shape="rect">Damian Gerow</a></td>
+      <td rowspan="1" colspan="1">5.3-RELEASE, 5.4-STABLE</td>
+      <td rowspan="1" colspan="1">未测试 SCSI。 板载 nVidia 以太网卡无法为 net/nvnet port 支持。 需要 ACPI。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">泰安 (Tyan)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.tyan.com/products/html/thundern3600b.html" shape="rect">Thunder n3600B (S2927)</a></td>
+      <td rowspan="1" colspan="1">nVidia NFP3600 / Socket F - 2x Opteron</td>
+      <td rowspan="1" colspan="1"><a href="mailto:nicole@unixgirl.com" shape="rect">Nicole Harrington</a></td>
+      <td rowspan="1" colspan="1">6.2-PRERELEASE</td>
+      <td rowspan="1" colspan="1">除了网卡无法识别之外工作正常 (两个 nForce Pro 3600
+	  MAC 配合两个 Marvell 88E1116 单口千兆以太网 PHY)。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">泰安 (Tyan)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.tyan.com/products/html/tigerk8w.html" shape="rect">Tiger K8W (S2875)</a></td>
+      <td rowspan="1" colspan="1">AMD 8111/8131/8151 / Socket 940 - 2x Opteron</td>
+      <td rowspan="1" colspan="1"><a href="mailto:ketrien@error404.nls.net" shape="rect">Ketrien I. Saihr-Kesenchedra</a></td>
+      <td rowspan="1" colspan="1">5.2.1-RELEASE</td>
+      <td rowspan="1" colspan="1">SilIm SATA 未测试。 较早的 BIOS 版本的 ACPI 有问题， 可能与某些显卡不兼容。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">泰安 (Tyan)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.tyan.com/products/html/tigerk8ws.html" shape="rect">Tiger K8WS (S2875S)</a></td>
+      <td rowspan="1" colspan="1">AMD 8111/8131/8151 / Socket 940 - 2x Opteron</td>
+      <td rowspan="1" colspan="1"><a href="mailto:ketrien@error404.nls.net" shape="rect">Ketrien I. Saihr-Kesenchedra</a></td>
+      <td rowspan="1" colspan="1">5.2.1-RELEASE</td>
+      <td rowspan="1" colspan="1">SilIm SATA 未测试。 较早的 BIOS 版本的 ACPI 有问题， 可能与某些显卡不兼容。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">泰安 (Tyan)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.tyan.com/products/html/tomcath1000s.html" shape="rect">Tomcat h1000S (S3950)</a></td>
+      <td rowspan="1" colspan="1">Broadcom HT-1000 / Socket AM2</td>
+      <td rowspan="1" colspan="1"><a href="mailto:cryx-freebsd@h3q.com" shape="rect">Philipp Wuensche</a>
+	  (<a href="http://www.freebsd.org/cgi/query-pr.cgi?pr=104661" shape="rect">dmesg</a>)</td>
+      <td rowspan="1" colspan="1">6.1-RELEASE</td>
+      <td rowspan="1" colspan="1">SMBus 无法使用。 SATA 需要以 PATA 模拟方式使用。
+	  SATA 磁盘会被识别为 UDMA33， 但能够以全速运行 (在
+	  BIOS 更新 V103 中已修正)。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">泰安 (Tyan)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.tyan.com/products/html/thunderh2000m.html" shape="rect">Thunder h2000M (S3992)</a></td>
+      <td rowspan="1" colspan="1">Broadcom HT-2000 / Socket F - 2x Opteron</td>
+      <td rowspan="1" colspan="1"><a href="mailto:nicole@unixgirl.com" shape="rect">Nicole Harrington</a>
+	  (<a href="http://www.freebsd.org/cgi/query-pr.cgi?pr=107834" shape="rect">dmesg</a>)</td>
+      <td rowspan="1" colspan="1">6.2-PRERELEASE</td>
+      <td rowspan="1" colspan="1">可用。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">泰安 (Tyan)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.tyan.com/products/html/tomcatk8e.html" shape="rect">Tomcat K8E (S2865)</a></td>
+      <td rowspan="1" colspan="1">nVidia nForce 4 / Socket 939</td>
+      <td rowspan="1" colspan="1"><a href="mailto:freebsd@sopwith.solgatos.com" shape="rect">Dieter</a>,
+	  <a href="mailto:mcdouga9@egr.msu.edu" shape="rect">Adam McDougall</a>
+	  (<a href="http://www.egr.msu.edu/~mcdouga9/dmesg.K8E" shape="rect">dmesg</a>)</td>
+      <td rowspan="1" colspan="1">6.0-STABLE</td>
+      <td rowspan="1" colspan="1">测试并确认可用： rs232 控制台、 SATA、 PATA、 USB、 火线、 PCI 槽。
+	  板载以太网 (nve 驱动) 工作正常。 板载声音驱动配合 snd_ich 工作正常。
+	  X11 由于 X.org 不支持 "sync on green" 导致板载 ATI Rage XL 工作不正常。
+	  PCI-e 插槽的 Geforce 卡工作正常。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">泰安 (Tyan)</td>
+      <td rowspan="1" colspan="1"><a href="http://www.tyan.com/products/html/tomcatk8s.html" shape="rect">Tomcat K8S (S2850G2N, S2850G2NR)</a></td>
+      <td rowspan="1" colspan="1">AMD 8111/8131 / Socket 940 - 1x Opteron</td>
+      <td rowspan="1" colspan="1"><a href="mailto:ketrien@error404.nls.net" shape="rect">Ketrien I. Saihr-Kesenchedra</a></td>
+      <td rowspan="1" colspan="1">5.2.1-RELEASE</td>
+      <td rowspan="1" colspan="1">SilIm SATA 未测试。 只测试了 1GB (2x512MB) 内存。</td>
+    </tr>
+  </table>
+
+  <p> </p>
+
+  <h1>笔记本</h1>
+
+  <table class="tblbasic">
+    <tr>
+      <th rowspan="1" colspan="1">厂商</th>
+      <th rowspan="1" colspan="1">型号</th>
+      <th rowspan="1" colspan="1">报告人 (链接)</th>
+      <th rowspan="1" colspan="1">测试过的 FreeBSD 版本</th>
+      <th rowspan="1" colspan="1">注释</th>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">HP</td>
+      <td rowspan="1" colspan="1"><a href="http://h20331.www2.hp.com/hpsub/cache/328381-0-0-225-121.html" shape="rect">Compaq hx6125</a></td>
+      <td rowspan="1" colspan="1"><a href="mailto:peterjeremy@optushome.com.au" shape="rect">Peter Jeremy</a>
+	  (<a href="http://www.freebsd.org/cgi/query-pr.cgi?q=107588" shape="rect">dmesg</a>)</td>
+      <td rowspan="1" colspan="1">6.1-RELEASE、 6.2-PRERELEASE、 2007 年 1 月的 7.0-CURRENT</td>
+      <td rowspan="1" colspan="1">Broadcom WLAN 可配合 NDIS 使用。 可识别出火线设备， 但未进行测试。
+	  兰牙可用。 不支持的设备： winmodem、 flash 读卡器、 指纹扫描器。
+	  X 没有提供对于 ATI
+	  Radeon XPRESS 200M 5955 的加速支持。 在 X 和控制台之间切换有时会导致显示出现问题，
+	  但开合 lid 能修正问题。 DVD 无法以 DMA 方式工作。 powerd 会导致随机死锁
+	  (在高负载时修改运行速度会导致问题)。 休眠无法使用， 会导致死锁或崩溃。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">HP</td>
+      <td rowspan="1" colspan="1"><a href="http://h10025.www1.hp.com/ewfrf/wc/document?docname=c00585596&amp;lc=en&amp;cc=us&amp;lang=en&amp;y=6&amp;x=5&amp;dlc=en&amp;product=1818492" shape="rect">Pavilion dv8135nr</a></td>
+      <td rowspan="1" colspan="1"><a href="mailto:swhetzel@gmail.com" shape="rect">Scot Hetzel</a>
+	  (<a href="http://www.freebsd.org/cgi/query-pr.cgi?q=105511" shape="rect">dmesg</a>)</td>
+      <td rowspan="1" colspan="1">2006 年 11 月的 7.0-CURRENT</td>
+      <td rowspan="1" colspan="1">无法从安装 CD 启动， 引导加载器会崩溃并给出一组十六进制数字。
+	  从硬盘启动正常。 无线设备可通过 NDIS 支持。 调制解调器和 flash 读卡器不支持。</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">Toshiba</td>
+      <td rowspan="1" colspan="1"><a href="http://www.toshibadirect.com/td/b2c/rdet.jsp?poid=363005&amp;seg=HHO" shape="rect">A135-S4517</a></td>
+      <td rowspan="1" colspan="1"><a href="mailto:scorpio@drkshdw.org" shape="rect">Jeff Palmer</a></td>
+      <td rowspan="1" colspan="1">6.2-RELEASE</td>
+      <td rowspan="1" colspan="1">内建的迅驰 Wi-Fi 卡 Intel Pro 3945abg 和内建的 Realtek
+	  HDA 声卡不支持。 第三方的
+	  <a href="http://www.clearchain.com/wiki/Wpi" shape="rect">wpi 驱动</a> 工作正常。</td>
+    </tr>
+  </table>
+
+  </div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="../../search/index-site.html">站点地图</a> |
+  <a href="../../copyright/">法律信息</a> | © 1995–2017 FreeBSD 项目。
+  保留所有权利。</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

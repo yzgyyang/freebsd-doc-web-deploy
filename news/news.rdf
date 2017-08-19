@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://my.netscape.com/rdf/simple/0.9/" xmlns:cvs="http://www.FreeBSD.org/XML/CVS">
+  <channel>
+    <title>FreeBSD Project News</title>
+    <link>http://www.FreeBSD.org/news/</link>
+    <description>News from the FreeBSD Project</description>
+  </channel>
+  <item>
+    <title>FreeBSD 11.1-RELEASE Available</title>
+    <link>http://www.FreeBSD.org/news/newsflash.html#event20170726:01</link>
+  </item>
+  <item>
+    <title>New committer: Marcin Wojtas (src)</title>
+    <link>http://www.FreeBSD.org/news/newsflash.html#event20170718:01</link>
+  </item>
+  <item>
+    <title>FreeBSD 11.1-RC3 Available</title>
+    <link>http://www.FreeBSD.org/news/newsflash.html#event20170715:01</link>
+  </item>
+  <item>
+    <title>New committer: Matt Joras (src)</title>
+    <link>http://www.FreeBSD.org/news/newsflash.html#event20170712:01</link>
+  </item>
+  <item>
+    <title>FreeBSD 11.1-RC2 Available</title>
+    <link>http://www.FreeBSD.org/news/newsflash.html#event20170708:01</link>
+  </item>
+  <item>
+    <title>FreeBSD 11.1-RC1 Available</title>
+    <link>http://www.FreeBSD.org/news/newsflash.html#event20170701:01</link>
+  </item>
+  <item>
+    <title>FreeBSD 11.1-BETA3 Available</title>
+    <link>http://www.FreeBSD.org/news/newsflash.html#event20170624:01</link>
+  </item>
+  <item>
+    <title>New committer: Kyle Evans (src)</title>
+    <link>http://www.FreeBSD.org/news/newsflash.html#event20170620:01</link>
+  </item>
+  <item>
+    <title>FreeBSD 11.1-BETA2 Available</title>
+    <link>http://www.FreeBSD.org/news/newsflash.html#event20170617:01</link>
+  </item>
+  <item>
+    <title>FreeBSD 11.1-BETA1 Available</title>
+    <link>http://www.FreeBSD.org/news/newsflash.html#event20170610:01</link>
+  </item>
+</rdf:RDF>

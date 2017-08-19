@@ -1,0 +1,1530 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>Projet de conversion busdma et SMPng</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="shortcut icon" href="../../../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="../../../layout/css/fixed.css?20130112" type="text/css" />
+    <script type="text/javascript" src="../../../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Header And Logo</h2>
+            <div id="headerlogoleft">
+              <a href="../.." title="FreeBSD">
+                <img src="../../../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <h2 class="blockhide">Peripheral Links</h2>
+              <div id="SEARCHNAV">
+                <ul id="SEARCHNAVLIST">
+                  <li>
+                    <a href="../../donations/" title="Faire un don">Faire un don</a>
+                  </li>
+                  <li class="last-child">
+                    <a href="../../mailto.html" title="Contact">Contact</a>
+                  </li>
+                </ul>
+              </div>
+              <div id="SEARCH">
+                <form action="//www.FreeBSD.org/cgi/search.cgi" method="get">
+                  <div>
+                    <h2 class="blockhide">
+                      <label for="WORDS">Rechercher</label>
+                    </h2>
+                    <div>
+                      <input type="hidden" name="max" value="25" />
+                      <input type="hidden" name="source" value="www" />
+                      <input id="words" name="words" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="Rechercher" />
+                      <span> </span>
+                      <input id="submit" name="submit" type="submit" value="Rechercher" />
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div id="menu">
+            <ul class="first">
+              <li>
+                <a href="../../">Accueil</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../about.html">A propos</a>
+                <ul>
+                  <li>
+                    <a href="../../projects/newbies.html">Introduction</a>
+                  </li>
+                  <li>
+                    <a href="../../features.html">Fonctionnalités</a>
+                  </li>
+                  <li>
+                    <a href="../../advocacy/">Prosélytisme</a>
+                  </li>
+                  <li>
+                    <a href="../../marketing/">Marketing</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../where.html">Obtenir FreeBSD</a>
+                <ul>
+                  <li>
+                    <a href="../../releases/">Information sur les versions</a>
+                  </li>
+                  <li>
+                    <a href="../../releng/">Production des versions</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../docs.html">Documentation</a>
+                <ul>
+                  <li>
+                    <a href="../../../doc/en_US.ISO8859-1/books/faq/">FAQ</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/en_US.ISO8859-1/books/handbook/">Manuel de référence</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/en_US.ISO8859-1/books/porters-handbook">Manuel du porteur d'application</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/en_US.ISO8859-1/books/developers-handbook">Manuel du développeur</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/man.cgi">Pages de manuel</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../community.html">Communauté</a>
+                <ul>
+                  <li>
+                    <a href="../../community/mailinglists.html">Listes de diffusion</a>
+                  </li>
+                  <li>
+                    <a href="http://forums.freebsd.org">Forums de discussion</a>
+                  </li>
+                  <li>
+                    <a href="../../../usergroups.html">Groupes d'utilisateurs</a>
+                  </li>
+                  <li>
+                    <a href="../../events/events.html">Evénements</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../projects/index.html">Développement</a>
+                <ul>
+                  <li>
+                    <a href="http://wiki.FreeBSD.org/IdeasPage">Idées de projets</a>
+                  </li>
+                  <li>
+                    <a href="http://svn.FreeBSD.org/viewvc/base/">Dépôt SVN</a>
+                  </li>
+                  <li>
+                    <a href="http://cvsweb.FreeBSD.org">Dépôt CVS</a>
+                  </li>
+                  <li>
+                    <a href="http://p4web.FreeBSD.org">Dépôt Perforce</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../support.html">Support</a>
+                <ul>
+                  <li>
+                    <a href="../../commercial/commercial.html">Revendeurs</a>
+                  </li>
+                  <li>
+                    <a href="http://security.FreeBSD.org/">Sécurité</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/query-pr-summary.cgi">Rapports de bogues</a>
+                  </li>
+                  <li>
+                    <a href="../../send-pr.html">Envoyer un rapport de bogue</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="http://www.freebsdfoundation.org/">Fondation</a>
+                <ul>
+                  <li>
+                    <a href="http://www.freebsdfoundation.org/donate/">Faire un don</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Section Navigation</h2>
+              <ul>
+                <li>
+                  <a href="../../projects/index.html">Développement</a>
+                </li>
+                <li>
+                  <a href="../../../doc/fr_FR.ISO8859-1/books/developers-handbook">Manuel du développeur</a>
+                </li>
+                <li>
+                  <a href="../../../doc/en_US.ISO8859-1/books/porters-handbook">Manuel du porteur d'application</a>
+                </li>
+                <li>
+                  <a href="../../developers/cvs.html">Dépôt CVS</a>
+                </li>
+                <li>
+                  <a href="../../releng/index.html">Production des versions</a>
+                </li>
+                <li>
+                  <a href="../../platforms/">Plates-formes</a>
+                  <ul>
+                    <li>
+                      <a href="../../platforms/alpha.html">alpha</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/amd64.html">amd64</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/arm.html">ARM</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/i386.html">i386</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/ia64/index.html">ia64</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/mips.html">MIPS</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/pc98.html">pc98</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/ppc.html">ppc</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/sparc.html">sparc64</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/xbox.html">xbox</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="../../../doc/fr_FR.ISO8859-1/articles/contributing/index.html">Contribuer</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap"><h1>Projet de conversion busdma et SMPng</h1>
+
+    <h2>Table des matières</h2>
+    <ul>
+      <li><a href="#goal" shape="rect">But du projet</a></li>
+      <li><a href="#resources" shape="rect">Ressources et liens</a></li>
+      <li><a href="#platform-status" shape="rect">Etat du support des plates-formes</a></li>
+      <li><a href="#ifnet-status" shape="rect">Etat des pilotes interfaces réseaux</a></li>
+      <li><a href="#storage-status" shape="rect">Etat des pilotes périphériques de stockage</a></li>
+      <li><a href="#misc-status" shape="rect">Etat des pilotes périphériques divers</a></li>
+      <li><a href="#doc-status" shape="rect">Etat de la documentation</a></li>
+    </ul>
+
+    <a name="goal" shape="rect" id="goal"></a>
+    <h2>But du projet</h2>
+
+    <p><b>busdma</b></p>
+    <p>Les interfaces busdma permettent aux pilotes de périphériques matériels
+	  d'opérer sur une variété de plateformes, évitant le codage de méthodes
+	  spécifiques à la plateforme dans ces pilotes. Ceci fait baisser le coût de
+	  la maintenance des pilotes sur ces plateformes et accroît les chances qu'un
+	  pilote fonctionne "tel que" pour une nouvelle plateforme. Modifier un pilote
+	  pour qu'il utilise busdma est relativement simple, mais requiert d'être familiarisé à
+	  la fois avec le pilote de périphérique et les primitives busdma.
+     Pour utiliser busdma dans FreeBSD, deux types de changements sont généralement requis :
+	  l'adaptation de busdma pour fonctionner sur toutes les plateformes et
+	  l'adaptation des pilotes pour utiliser cet environnement de travail. En tant que telle,
+	  l'information actuelle de ce projet de décompose en support de la plateforme
+	  et en support des pilotes (triés par catégorie). L'achèvement de ce travail
+	  requiert l'audit complet du système de pilotes de périphériques, puis la
+	  conversion des pilotes par priorités.  Les pilotes
+	  doivent également utiliser les fonctions bus_space,
+	  et cette page est parfois utilisée pour indiquer
+	  qu'un pilote a aussi besoin d'une conversion à
+	  bus_space.</p>
+
+    <p><b>INTR_MPSAFE</b></p>
+    <p>Les pilotes du matériel enregistrent leur traitement d'interruptions
+	  avec la fonction <code>bus_setup_intr()</code>. Positionner le flag
+	  <code>INTR_MPSAFE</code> informe le code d'interruption système d'appeler
+	  la routine d'interruption sans détenir le mutex "Géant". Ceci permet d'obtenir
+	  un gain significatif de performances sur les systèmes multi-processeurs.</p>
+    <p>Les pilotes peuvent positionner ce flag même s'ils ne sont pas complètement
+	  verrouillés tant que leur routine d'interruption prend soin de ne pas toucher
+	  aux autres structures de données du pilote. Un moyen simple de réaliser cela est
+	  de vérifier et de vider les registres d'interruptions matérielles et ensuite
+	  ordonnancer le traitement des interruptions par une file d'attente de tâches ou
+     un thread noyau.</p>
+
+    <p><b>verrou SMPng</b></p>
+    <p>Les pilotes doivent utiliser des mutex et des verrous sx pour protéger
+	  leurs structures de données et registres matériels des threads concurrents.
+	  Les opérations mutex sont assez coûteuses, aussi une bonne stratégie
+	  devrait combiner autant d'opérations atomiques que possible durant l'acquisition
+	  d'un seul mutex.</p>
+
+    <p><b>sécurité p!=a</b></p>
+    <p>Le support du PAE Intel requiert que les pointeurs et les représentations
+	  physiques des adresses soient de tailles différentes. Cela signifie que les
+	  pilotes doivent être écrits en utilisant vm_paddr_t ou bus_addr_t plutôt
+	  qu'en supposant que les adresses physiques puissent être représentées par un
+	  void *. De plus, le format des chaînes de caractères et les casts doivent
+	  être manipulés avec soin.</p>
+
+    <p>La liste des tâches ci-dessous ne prétend pas être exhaustive, mais
+	  représente une série de composants appropriés et/ou importants du
+	  travail global. Le champ "Responsable" identifie un développeur qui a
+	  exprimé le désir d'être responsable pour mener à bien la tâche identifiée;
+	  ce qui n'empêche pas les autres d'y travailler, mais suggère que la
+	  coordination avec le responsable de cette partie est recommandée pour éviter
+	  la duplication des travaux et optimiser l'avancement du travail. Si des
+	  travaux débutent sur une nouvelle partie importante, ou non assignée,
+	  il est conseillé d'envoyer un courrier électronique à Maxime Henrion pour vérifier
+     si des progrès n'ont pas déjà été faits.</p>
+
+	<p>La définition du champ date varie en fonction de l'état de la tâche.
+	  Pour les tâches achevées, elle se réfère à la date d'achèvement ou du
+	  rapport d'achèvement. Pour les tâches en cours, elle se réfère à la
+	  date de la dernière mise à jour de l'entrée. Pour les tâches bloquées,
+	  elle se réfère à la date à laquelle elle a été déclarée bloquée. Pour les nouvelles
+	  tâches, elle se réfère à la date à laquelle elle a été ajoutée à la liste.</p>
+
+	<p>Les tâches sont triées par état, puis par date.</p>
+
+    <a name="resources" shape="rect" id="resources"></a>
+    <h2>Ressources et liens</h2>
+    <p>Une liste de pages de manuel liées à ce projet se trouve
+    ici:</p>
+
+    <ul>
+      <li>Extensions d'adressage physique -
+      <a href="http://www.freebsd.org/cgi/man.cgi?query=pae&amp;apropos=0&amp;sektion=4&amp;manpath=FreeBSD+6.0-current" shape="rect">pae(4)</a></li>
+      <li>Interface de bus et de mapping DMA portable -
+      <a href="http://www.freebsd.org/cgi/man.cgi?query=busdma&amp;apropos=0&amp;sektion=9&amp;manpath=FreeBSD+6.0-current" shape="rect">bus_dma(9)</a></li>
+      <li>Partie non portable de la mémoire virtuelle (VM) -
+      <a href="http://www.freebsd.org/cgi/man.cgi?query=pmap&amp;apropos=0&amp;sektion=9&amp;manpath=FreeBSD+6.0-current" shape="rect">pmap(9)</a></li>
+      <li>Fonctions de gestion des ressources -
+      <a href="http://www.freebsd.org/cgi/man.cgi?query=rman&amp;apropos=0&amp;sektion=9&amp;manpath=FreeBSD+6.0-current" shape="rect">rman(9)</a></li>
+    </ul>
+
+    <a name="platform-status" shape="rect" id="platform-status"></a>
+    <h2>Etat du support des plates-formes</h2>
+
+    <table class="tblbasic">
+      <tr>
+	<th rowspan="1" colspan="1"> Tâche </th>
+	<th rowspan="1" colspan="1"> Responsable </th>
+	<th rowspan="1" colspan="1"> Dernière mise à jour </th>
+	<th rowspan="1" colspan="1"> Etat </th>
+	<th rowspan="1" colspan="1"> Détails </th>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">alpha</td>
+	<td rowspan="1" colspan="1">Bernd Walter</td>
+	<td rowspan="1" colspan="1">14 Novembre 2005</td>
+	<td rowspan="1" colspan="1"><font color="green">Fait</font></td>
+	<td rowspan="1" colspan="1">Problèmes avec les systèmes disposant d'une
+	  grande quantité de mémoire</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">amd64</td>
+	<td rowspan="1" colspan="1">Peter Wemm</td>
+	<td rowspan="1" colspan="1">1er Juillet 2003</td>
+	<td rowspan="1" colspan="1"><font color="green">Fait</font></td>
+	<td rowspan="1" colspan="1">Pleinement supporté.</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">arm</td>
+	<td rowspan="1" colspan="1">Olivier Houchard</td>
+	<td rowspan="1" colspan="1">23 Décembre 2005</td>
+	<td rowspan="1" colspan="1"><font color="green">Fait</font></td>
+	<td rowspan="1" colspan="1">Pleinement supporté.</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">ia64</td>
+	<td rowspan="1" colspan="1">Marcel Moolenaar</td>
+	<td rowspan="1" colspan="1">10 Décembre 2002</td>
+	<td rowspan="1" colspan="1"><font color="green">Fait</font></td>
+	<td rowspan="1" colspan="1">Problèmes éventuels avec les systèmes disposant d'une
+	  grande quantité de mémoire</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">i386</td>
+	<td rowspan="1" colspan="1">Sam Leffler</td>
+	<td rowspan="1" colspan="1">9 Décembre 2002</td>
+	<td rowspan="1" colspan="1"><font color="green">Fait</font></td>
+	<td rowspan="1" colspan="1">Pleinement supporté.</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">powerpc</td>
+	<td rowspan="1" colspan="1">Peter Grehan</td>
+	<td rowspan="1" colspan="1">15 Janvier 2003</td>
+	<td rowspan="1" colspan="1"><font color="green">Fait</font></td>
+	<td rowspan="1" colspan="1">Pleinement supporté.</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">sparc64</td>
+	<td rowspan="1" colspan="1">Thomas Möstl</td>
+	<td rowspan="1" colspan="1">6 Janvier 2003</td>
+	<td rowspan="1" colspan="1"><font color="green">Fait</font></td>
+	<td rowspan="1" colspan="1">Pleinement supporté.</td>
+      </tr>
+
+    </table>
+
+    <a name="ifnet-status" shape="rect" id="ifnet-status"></a>
+    <h2>Etat des pilotes interfaces réseaux</h2>
+
+    <table class="tblbasic">
+      <tr>
+	<th rowspan="1" colspan="1"> Pilote </th>
+	<th rowspan="1" colspan="1"> Responsable </th>
+	<th rowspan="1" colspan="1"> Dernière mise à jour </th>
+	<th rowspan="1" colspan="1"> busdma </th>
+	<th rowspan="1" colspan="1"> INTR_MPSAFE </th>
+	<th rowspan="1" colspan="1"> SMPng locked </th>
+	<th rowspan="1" colspan="1"> a!=p </th>
+	<th rowspan="1" colspan="1"> Notes </th>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_an </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 23 Décembre 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="purple">Inconnu</font> </td>
+	<td rowspan="1" colspan="1"> <font color="purple">Inconnu</font> </td>
+	<td rowspan="1" colspan="1"> <font color="purple">Inconnu</font> </td>
+	<td rowspan="1" colspan="1"> <font color="purple">Inconnu</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_ar </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> kvtop() </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_bge </td>
+	<td rowspan="1" colspan="1"> Bill Paul </td>
+	<td rowspan="1" colspan="1"> 13 Avril 2004 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_cp </td>
+	<td rowspan="1" colspan="1"> Roman Kurakin </td>
+	<td rowspan="1" colspan="1"> 31 Octobre 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_cs </td>
+	<td rowspan="1" colspan="1"> Warner Losh </td>
+	<td rowspan="1" colspan="1"> 23 Décembre 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="purple">Inconnu</font> </td>
+	<td rowspan="1" colspan="1"> Nécessite une conversion bus_space </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_ct </td>
+	<td rowspan="1" colspan="1"> Roman Kurakin </td>
+	<td rowspan="1" colspan="1"> 31 Octobre 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_cx </td>
+	<td rowspan="1" colspan="1"> Roman Kurakin </td>
+	<td rowspan="1" colspan="1"> 24 Juin 2004 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="blue">En progrès</font> </td>
+	<td rowspan="1" colspan="1"> <font color="blue">En progrès</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_dc </td>
+	<td rowspan="1" colspan="1"> Maxime Henrion </td>
+	<td rowspan="1" colspan="1"> 19 Août 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_de </td>
+	<td rowspan="1" colspan="1"> Maxime Henrion </td>
+	<td rowspan="1" colspan="1"> 17 Août 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_ed </td>
+	<td rowspan="1" colspan="1"> Warner Losh </td>
+	<td rowspan="1" colspan="1"> 23 Décembre 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_em </td>
+	<td rowspan="1" colspan="1"> Prafulla S. Deuskar </td>
+	<td rowspan="1" colspan="1"> 13 Avril 2004 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_en </td>
+	<td rowspan="1" colspan="1"> Hartmut Brandt </td>
+	<td rowspan="1" colspan="1"> 2 Novembre 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> Verrouillage présent; pas encore marqué
+	  INTR_MPSAFE? </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_ep </td>
+	<td rowspan="1" colspan="1"> Matthew N. Dodd,Warner Losh </td>
+	<td rowspan="1" colspan="1"> 13 Avril 2004 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_ex </td>
+	<td rowspan="1" colspan="1"> Warner Losh </td>
+	<td rowspan="1" colspan="1"> 23 Décembre 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_fatm </td>
+	<td rowspan="1" colspan="1"> Hartmut Brandt </td>
+	<td rowspan="1" colspan="1"> 2 Novembre 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_fwe </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_fxp </td>
+	<td rowspan="1" colspan="1"> Maxime Henrion </td>
+	<td rowspan="1" colspan="1"> 13 Avril 2004 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_gem </td>
+	<td rowspan="1" colspan="1"> Thomas Möstl </td>
+	<td rowspan="1" colspan="1"> 31 Juillet 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_hatm </td>
+	<td rowspan="1" colspan="1"> Hartmut Brandt </td>
+	<td rowspan="1" colspan="1"> 2 Novembre 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> vtophys() </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_hme </td>
+	<td rowspan="1" colspan="1"> Thomas Möstl </td>
+	<td rowspan="1" colspan="1"> 30 Janvier 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_idt </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> vtophys() </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_le </td>
+	<td rowspan="1" colspan="1"> Marius Strobl </td>
+	<td rowspan="1" colspan="1"> 31 Janvier 2006 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_lge </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 23 Novembre 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> vtophys() </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_lmc </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 11 Février 2006 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="purple">Inconnu</font> </td>
+	<td rowspan="1" colspan="1"> Non testé sur PAE </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_mn </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> vtophys(). Contactez Poul-Henning Kamp pour info/matériel svp. </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_my </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 17 Aoû 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> vtophys() </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_nge </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 17 Aoû 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> vtophys() </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_nve </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 23 Novembre 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> vtophys() </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_pcn </td>
+	<td rowspan="1" colspan="1"> David O'Brien </td>
+	<td rowspan="1" colspan="1"> 19 Août 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> vtophys() </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_pdq </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> La plupart du busdma sauf vtophys(). </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_re </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 30 Mai 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_rl </td>
+	<td rowspan="1" colspan="1"> Bill Paul </td>
+	<td rowspan="1" colspan="1"> 13 Avril 2004 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_sf </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 19 Août 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> vtophys() </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_sis </td>
+	<td rowspan="1" colspan="1"> Bill Paul </td>
+	<td rowspan="1" colspan="1"> 13 Avril 2004 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_sk </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 27 Avril 2006 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> vtophys() </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_sn </td>
+	<td rowspan="1" colspan="1"> Warner Losh </td>
+	<td rowspan="1" colspan="1"> 23 Décembre 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_snc </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 23 Décembre 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="purple">Inconnu</font> </td>
+	<td rowspan="1" colspan="1"> <font color="purple">Inconnu</font> </td>
+	<td rowspan="1" colspan="1"> <font color="purple">Inconnu</font> </td>
+	<td rowspan="1" colspan="1"> <font color="purple">Inconnu</font> </td>
+	<td rowspan="1" colspan="1"> uniquement sur pc98 (bien qu'il pourrait fonctionner avec
+	  de nombreux ponts cardbus) </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_sr </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> vtophys() </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_ste </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 31 Août 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> vtophys() </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_ti </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 13 Décembre 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_tl </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 15 Septembre 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_tx </td>
+	<td rowspan="1" colspan="1"> Maxime Henrion </td>
+	<td rowspan="1" colspan="1"> 19 Avril 2003 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="orange">Nécessite des tests</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_txp </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 22 Septembre 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="blue">En progrès</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_vr </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 23 Avril 2004 </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_vx </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 22 Septembre 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="magenta">Non Applicable</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> Utilise PIO pour copier les mbufs de/vers le
+	  matériel. </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_wb </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 22 Septembre 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_wi </td>
+	<td rowspan="1" colspan="1"> Sam Leffler, Warner Losh </td>
+	<td rowspan="1" colspan="1"> 4 Novembre 2003 </td>
+	<td rowspan="1" colspan="1"> <font color="purple">Inconnu</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="purple">Inconnu</font> </td>
+	<td rowspan="1" colspan="1"> <font color="purple">Inconnu</font> </td>
+	<td rowspan="1" colspan="1"> Ce pilote a besoin de beaucoup de travail </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_xe </td>
+	<td rowspan="1" colspan="1"> Warner Losh </td>
+	<td rowspan="1" colspan="1"> 23 Décembre 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> if_xl </td>
+	<td rowspan="1" colspan="1"> Maxime Henrion </td>
+	<td rowspan="1" colspan="1"> 13 Avril 2004 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+    </table>
+
+    <a name="storage-status" shape="rect" id="storage-status"></a>
+    <h2>Etat des pilotes périphériques de stockage</h2>
+
+    <table class="tblbasic">
+      <tr>
+	<th rowspan="1" colspan="1"> Pilote </th>
+	<th rowspan="1" colspan="1"> Responsable </th>
+	<th rowspan="1" colspan="1"> Dernière mise à jour </th>
+	<th rowspan="1" colspan="1"> busdma </th>
+	<th rowspan="1" colspan="1"> INTR_MPSAFE </th>
+	<th rowspan="1" colspan="1"> SMPng locked </th>
+	<th rowspan="1" colspan="1"> a!=p </th>
+	<th rowspan="1" colspan="1"> Notes </th>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> aac </td>
+	<td rowspan="1" colspan="1"> Scott Long </td>
+	<td rowspan="1" colspan="1"> 31 Janvier 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> Problème avec l'endianness. </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> adv </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 9 Décembre 2002 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> aha </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 13 Avril 2004 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="blue">En progrès</font> </td>
+	<td rowspan="1" colspan="1"> <font color="blue">En progrès</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> Utilise BUSDMA, mais peut confondre l'adresse de bus avec
+	  l'adresse de l'hôte. </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> ahb </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 9 Décembre 2002 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> ahc </td>
+	<td rowspan="1" colspan="1"> Justin T. Gibbs </td>
+	<td rowspan="1" colspan="1"> 31 Janvier 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> ahd </td>
+	<td rowspan="1" colspan="1"> Justin T. Gibbs </td>
+	<td rowspan="1" colspan="1"> 31 Janvier 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> aic </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 23 Décembre 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="purple">Inconnu</font> </td>
+	<td rowspan="1" colspan="1"> <font color="purple">Inconnu</font> </td>
+	<td rowspan="1" colspan="1"> <font color="purple">Inconnu</font> </td>
+	<td rowspan="1" colspan="1"> <font color="purple">Inconnu</font> </td>
+	<td rowspan="1" colspan="1"> Nécessite une évaluation </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> amd </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 14 Décembre 2002 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> amr </td>
+	<td rowspan="1" colspan="1"> Scott Long </td>
+	<td rowspan="1" colspan="1"> 30 Janvier 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> asr </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 4 Janvier 2003 </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> vtophys().  Nécessite beaucoup de travail.  Une
+	  nouvelle infrastructure I2O serait souhaitable. </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> ata </td>
+	<td rowspan="1" colspan="1"> Søren Schmidt </td>
+	<td rowspan="1" colspan="1"> 9 Décembre 2002 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> buslogic </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> vtophys() </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> ciss </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 9 Décembre 2002 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> ct </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> dpt </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> vtophys() </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> fdc </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 23 Décembre 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="purple">Inconnu</font> </td>
+	<td rowspan="1" colspan="1"> <font color="purple">Inconnu</font> </td>
+	<td rowspan="1" colspan="1"> <font color="purple">Inconnu</font> </td>
+	<td rowspan="1" colspan="1"> <font color="purple">Inconnu</font> </td>
+	<td rowspan="1" colspan="1"> Nécessite une évaluation </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> ida </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 9 Décembre 2002 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> iir </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 1er Mars 2006 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> Le DMA 64-bit sans rebond est possible, mais
+	  nécessite du travail. </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> isp </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 8 Février 2003 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> ips </td>
+	<td rowspan="1" colspan="1"> Scott Long </td>
+	<td rowspan="1" colspan="1"> 30 Janvier 2005</td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> mlx </td>
+	<td rowspan="1" colspan="1"> Scott Long </td>
+	<td rowspan="1" colspan="1"> 8 Février 2003 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="blue">En progrès</font> </td>
+	<td rowspan="1" colspan="1"> <font color="blue">En progrès</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> mly </td>
+	<td rowspan="1" colspan="1"> Scott Long </td>
+	<td rowspan="1" colspan="1"> 8 Février 2003 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="blue">En progrès</font> </td>
+	<td rowspan="1" colspan="1"> <font color="blue">En progrès</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> mpt </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 9 Décembre 2002 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> ncr </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> vtophys(). Contactez Poul-Henning Kamp svp, pour une éventuelle source
+	  de matériel. </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> ncv </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> <font color="purple">Inconnu</font> </td>
+	<td rowspan="1" colspan="1"> <font color="purple">Inconnu</font> </td>
+	<td rowspan="1" colspan="1"> <font color="purple">Inconnu</font> </td>
+	<td rowspan="1" colspan="1"> <font color="purple">Inconnu</font> </td>
+	<td rowspan="1" colspan="1"> Nécessite une évaluation </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> nsp </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> <font color="purple">Inconnu</font> </td>
+	<td rowspan="1" colspan="1"> <font color="purple">Inconnu</font> </td>
+	<td rowspan="1" colspan="1"> <font color="purple">Inconnu</font> </td>
+	<td rowspan="1" colspan="1"> <font color="purple">Inconnu</font> </td>
+	<td rowspan="1" colspan="1"> Nécessite une évaluation </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> pst </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 11 Avril 2003 </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> vtophys() </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> stg </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 9 Décembre 2002 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> Au moins, il semble être ce qu'il devrait être. </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> sym </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 19 Décembre 2002 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> trm </td>
+	<td rowspan="1" colspan="1"> Olivier Houchard </td>
+	<td rowspan="1" colspan="1"> 9 Décembre 2002 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> twe </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 9 Décembre 2002 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> wds </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 2 Février 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+    </table>
+    <a name="misc-status" shape="rect" id="misc-status"></a>
+    <h2>Etat des pilotes périphériques divers</h2>
+
+    <table class="tblbasic">
+      <tr>
+	<th rowspan="1" colspan="1"> Pilote </th>
+	<th rowspan="1" colspan="1"> Responsable </th>
+	<th rowspan="1" colspan="1"> Dernière mise à jour </th>
+	<th rowspan="1" colspan="1"> busdma </th>
+	<th rowspan="1" colspan="1"> INTR_MPSAFE </th>
+	<th rowspan="1" colspan="1"> SMPng locked </th>
+	<th rowspan="1" colspan="1"> a!=p </th>
+	<th rowspan="1" colspan="1"> Notes </th>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> agp </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 31 Octobre 2005 </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> vtophys() </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> bktr </td>
+	<td rowspan="1" colspan="1"> Olivier Houchard </td>
+	<td rowspan="1" colspan="1"> 15 Janvier 2003 </td>
+	<td rowspan="1" colspan="1"> <font color="blue">En progrès</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> vtophys() </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> digi </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> vtophys() </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> drm </td>
+	<td rowspan="1" colspan="1"> Eric Anholt </td>
+	<td rowspan="1" colspan="1"> 27 Octobre 2003 </td>
+	<td rowspan="1" colspan="1"> <font color="blue">En progrès</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="blue">En progrès</font> </td>
+	<td rowspan="1" colspan="1"> vtophys(). Le verrouillage pourrait
+	  bénéficier d'une revue. </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> fb </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> vtophys() </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> firewire </td>
+	<td rowspan="1" colspan="1"> Hidetoshi Shimokawa </td>
+	<td rowspan="1" colspan="1"> 17 Avril 2003 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> vtophys() </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> hfa </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> vtophys() </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> hifn </td>
+	<td rowspan="1" colspan="1"> Sam Leffler </td>
+	<td rowspan="1" colspan="1"> 13 Avril 2004 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> musycc </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> vtophys(). Contactez Poul-Henning Kamp pour info/matériel svp. </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> pcm </td>
+	<td rowspan="1" colspan="1"> Olivier Houchard </td>
+	<td rowspan="1" colspan="1"> 20 Février 2003 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> ubsec </td>
+	<td rowspan="1" colspan="1"> Sam Leffler </td>
+	<td rowspan="1" colspan="1"> 13 Avril 2004 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> vtophys() est utilisé par printf en débuggage. </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> usb </td>
+	<td rowspan="1" colspan="1"> John-Mark Gurney </td>
+	<td rowspan="1" colspan="1"> 24 Juillet 2003 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="red">Pas fait</font> </td>
+	<td rowspan="1" colspan="1"> <font color="orange">Nécessite des tests</font> </td>
+	<td rowspan="1" colspan="1"> a!=p devrait être bon, mais nécessite des
+	  tests plus poussés. </td>
+      </tr>
+
+    </table>
+
+    <a name="doc-status" shape="rect" id="doc-status"></a>
+    <h2>Etat de la documentation</h2>
+
+    <table class="tblbasic">
+      <tr>
+	<th rowspan="1" colspan="1"> Tâche </th>
+	<th rowspan="1" colspan="1"> Responsable </th>
+	<th rowspan="1" colspan="1"> Dernière mise à jour </th>
+	<th rowspan="1" colspan="1"> Etat </th>
+	<th rowspan="1" colspan="1"> Notes </th>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Pages de manuel pour l'API busdma </td>
+	<td rowspan="1" colspan="1"> Hiten Pandya </td>
+	<td rowspan="1" colspan="1"> 15 Janvier 2003 </td>
+	<td rowspan="1" colspan="1"> <font color="green">Fait</font> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+    </table>
+
+  </div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="../../search/index-site.html">Plan du site</a> | <a href="../../copyright/">Informations légales</a> | © 1995-2011 par le Projet FreeBSD. Tous droits réservés.</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

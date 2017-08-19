@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>Envío de informe de problemas con FreeBSD</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <meta http-equiv="refresh" content="0; url=https://bugs.freebsd.org/submit/" />
+    <link rel="shortcut icon" href="./../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="./../layout/css/fixed.css?20130112" type="text/css" />
+    <script type="text/javascript" src="./../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Cabecera y Logo</h2>
+            <div id="headerlogoleft">
+              <a href="." title="FreeBSD">
+                <img src="./../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <h2 class="blockhide">Enlaces externos</h2>
+              <div id="SEARCHNAV">
+                <ul id="SEARCHNAVLIST">
+                  <li>
+                    <a href="./../donations/" title="Donaciones">Donaciones</a>
+                  </li>
+                  <li class="last-child">
+                    <a href="./mailto.html" title="Contactar">Contactar</a>
+                  </li>
+                </ul>
+              </div>
+              <div id="SEARCH">
+                <form action="//www.FreeBSD.org/cgi/search.cgi" method="get">
+                  <div>
+                    <h2 class="blockhide">
+                      <label for="WORDS">Buscar</label>
+                    </h2>
+                    <div>
+                      <input type="hidden" name="max" value="25" />
+                      <input type="hidden" name="source" value="www" />
+                      <input id="words" name="words" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="Buscar" />
+                      <span> </span>
+                      <input id="submit" name="submit" type="submit" value="Buscar" />
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div id="topnav">
+            <ul id="topnavlist">
+              <li>
+                <a href="./" title="Inicio">Inicio</a>
+              </li>
+              <li>
+                <a href="./about.html" title="Sobre">Sobre</a>
+              </li>
+              <li>
+                <a href="./where.html" title="Descargar">Descargar</a>
+              </li>
+              <li>
+                <a href="./docs.html" title="Documentación">Documentación</a>
+              </li>
+              <li>
+                <a href="./community.html" title="Comunidad">Comunidad</a>
+              </li>
+              <li>
+                <a href="./projects/index.html" title="Desarrollo">Desarrollo</a>
+              </li>
+              <li>
+                <a href="./support.html" title="Soporte">Soporte</a>
+              </li>
+              <li>
+                <a href="http://www.freebsdfoundation.org/" title="Fundación FreeBSD">Fundación</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Navegación por secciones</h2>
+              <ul>
+                <li>
+                  <a href="./support.html">Soporte</a>
+                </li>
+                <li>
+                  <a href="./../commercial/">Distribuidores comerciales</a>
+                  <ul>
+                    <li>
+                      <a href="./../commercial/software_bycat.html">Software</a>
+                    </li>
+                    <li>
+                      <a href="./../commercial/hardware.html">Hardware</a>
+                    </li>
+                    <li>
+                      <a href="./../commercial/consult_bycat.html">Consultoría</a>
+                    </li>
+                    <li>
+                      <a href="./../commercial/isp.html">ISP</a>
+                    </li>
+                    <li>
+                      <a href="./../commercial/misc.html">Otros</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="./security/index.html">Información de seguridad</a>
+                  <ul>
+                    <li>
+                      <a href="./security/advisories.html">Avisos</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="./../support/bugreports.html">Informes de error</a>
+                  <ul>
+                    <li>
+                      <a href="./send-pr.html">Enviar un informe de error</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="./../support/webresources.html">Recursos web</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap"><h1>Envío de informe de problemas con FreeBSD</h1>
+
+    
+
+    <img src="./../gifs/bug.jpg" alt="Bugs" align="right" border="0" width="200" height="233" />
+
+    <p>Gracias por dedicar su tiempo a informarnos sobre un problema en
+      FreeBSD.</p>
+
+    <p>Con este formulario se puede enviar un informe de problema de lo que
+      piense que sea un error en el código, en la documentación o
+      en el propio sitio web.  Si tiene dificultades al instalar FreeBSD la
+      primera vez o tiene una pregunta como "?por qué algo no
+      funciona?" o "?funciona FreeBSD con algo?", por favor
+      pregúntelo en el lugar adecuado para ello.  Consulte la
+      página de <a href="support.html" shape="rect">soporte</a> para más
+      información.</p>
+
+    <p>Antes de rellenar este formulario por favor dedíquele un
+      rato a leer la <a href="./../doc/en_US.ISO8859-1/articles/problem-reports/article.html" shape="rect">guía para escribir un informe de problema</a>.
+      Esto puede ahorrar tiempo y dificultades al solucionar su
+      problema.  Por favor, compruebe si su problema no ha sido ya <a href="//www.FreeBSD.org/cgi/query-pr-summary.cgi?query" shape="rect">enviado</a> o
+      incluido en las <a href="./../doc/es_ES.ISO8859-1/books/faq/" shape="rect">FAQ</a>.</p>
+
+    <p>Por favor, complete el formulario tan exhaustivamente como le sea
+      posible.  Asegúrese de responder el campo "Entorno" como le
+      solicitamos con la salida de la máquina en la que está
+      ocurriendo el problema.</p>
+
+    <p><b>Nota</b>: El proceso de copiar y pegar destruye las
+      tabulaciones y espacios; este formulario no debe usarse para enviar
+      código como texto plano.</p>
+
+    <p>Por favor asegúrese (y de no ser así dígalo en el
+      informe) de que cualquier parche enviado al Proyecto FreeBSD sea bajo la
+      misma licencia que FreeBSD.  Además la dirección de
+      correo que use será accesible públicamente desde la
+      interfaz web, así que debería tener un filtro antispam
+      avanzado y en funcionamiento antes de enviar nada.</p>
+
+    <p>Si envia un parche tenga en cuenta que aceptamos solamente los
+      contenidos en formato text/* y application/shar;
+      asegúrese de que su navegador envia el tipo apropriado.  Si no
+      puede hacerlo puede usar la extensión .txt al final del
+      del nombre del fichero.</p>
+
+    <p>Para concluir, es necesario que use un navegador capaz de mostrar
+      imágenes para poder usar ciertas medidas necesarias para evitar
+      abusos del sistema.  Si no puede, por favor, disculpe las molestias y
+      envíe el informe al
+      <a href="mailto:bugbusters@FreeBSD.org" shape="rect">equipo de bugbusters</a> para que ellos lo
+      añadan al sistema de control de informes.</p>
+
+    <p><b>Nota</b>: antes de pulsar el botón "Enviar",
+      <b>guarde su trabajo</b>.  Si su navegador guarda
+      imágenes en la caché o tarda
+      más de 45 minutos en rellenar el formulario la imágen de
+      la página caducará y su informe será rechazado.
+      Dependiendo de su navegador su trabajo puede <b>perderse</b>.</p>
+
+    <form action="http://www.FreeBSD.org/cgi/dosendpr.cgi" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="submitterid" value="current-users" />
+      <input type="hidden" name="confidential" value="no" />
+
+      <label for="email">Su dirección de correo</label>: <br clear="none" />
+      <input type="text" name="email" id="email" size="40" />
+
+      <br clear="none" /><br clear="none" /><label for="originator">Su nombre</label>:<br clear="none" />
+      <input type="text" name="originator" id="originator" size="40" />
+
+      <br clear="none" /><br clear="none" /><label for="organization">Su organización o empresa</label>: <br clear="none" />
+      <input type="text" name="organization" id="organization" size="40" />
+
+      <br clear="none" /><br clear="none" /><label for="synopsis">Resumen del problema en una línea</label>: <br clear="none" />
+      <input type="text" name="synopsis" id="synopsis" size="60" />
+
+      <br clear="none" /><br clear="none" /><label for="category">Categoría</label>: <select name="category" id="category">
+	<option> advocacy</option>
+	<option> alpha</option>
+	<option> amd64</option>
+	<option> arm</option>
+	<option> bin</option>
+	<option> conf</option>
+	<option> docs</option>
+	<option> gnu</option>
+	<option> i386</option>
+	<option> ia64</option>
+	<option> java</option>
+	<option> kern</option>
+	<option selected="selected"> misc</option>
+	<option> ports</option>
+	<option> powerpc</option>
+	<option> sparc64</option>
+	<option> standards</option>
+	<option> threads</option>
+	<option> usb</option>
+	<option> www</option>
+      </select>
+
+      <br clear="none" /><br clear="none" /><label for="severity">Gravedad</label>: <select name="severity" id="severity">
+	<option> non-critical</option>
+	<option> serious</option>
+	<option> critical</option>
+      </select>
+
+      <br clear="none" /><br clear="none" /><label for="priority">Prioridad</label>: <select name="priority" id="priority">
+	<option> low</option>
+	<option> medium</option>
+	<option> high</option>
+      </select>
+
+      <br clear="none" /><br clear="none" /><label for="class">Clase</label>: <select name="class" id="class">
+	<option> sw-bug</option>
+	<option> doc-bug</option>
+	<option> change-request</option>
+	<option> update</option>
+	<option> maintainer-update</option>
+      </select>
+
+      <br clear="none" /><br clear="none" /><label for="release">Qué release de FreeBSD usa</label>: <br clear="none" />
+      <input type="text" name="release" id="release" size="40" />
+
+      <br clear="none" /><br clear="none" /><label for="environment">Entorno (salida de "uname -a" de la
+	máquina donde sucede el problema)</label>:
+      <br clear="none" />
+      <textarea name="environment" id="environment" rows="3" cols="80"></textarea><br clear="none" /><br clear="none" />
+
+      <label for="description">Descripción completa</label>: <br clear="none" />
+      <textarea name="description" id="description" rows="20" cols="80"></textarea><br clear="none" /><br clear="none" />
+
+      <label for="howtorepeat">Cómo repetir el problema</label>: <br clear="none" />
+      <textarea name="howtorepeat" id="howtorepeat" rows="10" cols="80"></textarea><br clear="none" /><br clear="none" />
+
+      <label for="fix">Solución (si la conoce)</label>: <br clear="none" />
+      <textarea name="fix" id="fix" rows="20" cols="80"></textarea><br clear="none" /><br clear="none" />
+
+      <label for="patch">y/o fichero de parche (100KB m´x, le recomendamos
+         usar la extensión .txt)</label>:
+      <input type="file" name="patch" id="patch" maxlength="102400" accept="text/*" /><br clear="none" />
+
+      <label for="code-confirm">Finalmente introduzca el código bajo
+	la imagen para demostrar que no es un robot: <br clear="none" /><br clear="none" />
+      <img src="http://www.FreeBSD.org/cgi/confirm-code.cgi?db=sendpr" alt="Texto aleatorio; si no lo ve póngase en contacto con    bugbusters@FreeBSD.org, por favor." border="0" height="24" /></label>
+      <input type="text" name="code-confirm" id="code-confirm" size="8" /><br clear="none" /><br clear="none" />
+
+      <input type="submit" value="Enviar" />
+      <input type="reset" value="Borrar" />
+    </form>
+
+    </div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="./search/index-site.html">Mapa del sitio</a> |
+  <a href="./copyright/">Noticias del Copyright</a> | © 1995-2010 El Proyecto FreeBSD.
+  Quedan reservados todos los derechos.</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

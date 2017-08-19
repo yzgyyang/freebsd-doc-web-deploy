@@ -1,0 +1,2200 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>Projet de mise en conformité de FreeBSD aux normes C99 et POSIX®</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="shortcut icon" href="../../../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="../../../layout/css/fixed.css?20130112" type="text/css" />
+    <script type="text/javascript" src="../../../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Header And Logo</h2>
+            <div id="headerlogoleft">
+              <a href="../.." title="FreeBSD">
+                <img src="../../../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <h2 class="blockhide">Peripheral Links</h2>
+              <div id="SEARCHNAV">
+                <ul id="SEARCHNAVLIST">
+                  <li>
+                    <a href="../../donations/" title="Faire un don">Faire un don</a>
+                  </li>
+                  <li class="last-child">
+                    <a href="../../mailto.html" title="Contact">Contact</a>
+                  </li>
+                </ul>
+              </div>
+              <div id="SEARCH">
+                <form action="//www.FreeBSD.org/cgi/search.cgi" method="get">
+                  <div>
+                    <h2 class="blockhide">
+                      <label for="WORDS">Rechercher</label>
+                    </h2>
+                    <div>
+                      <input type="hidden" name="max" value="25" />
+                      <input type="hidden" name="source" value="www" />
+                      <input id="words" name="words" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="Rechercher" />
+                      <span> </span>
+                      <input id="submit" name="submit" type="submit" value="Rechercher" />
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div id="menu">
+            <ul class="first">
+              <li>
+                <a href="../../">Accueil</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../about.html">A propos</a>
+                <ul>
+                  <li>
+                    <a href="../../projects/newbies.html">Introduction</a>
+                  </li>
+                  <li>
+                    <a href="../../features.html">Fonctionnalités</a>
+                  </li>
+                  <li>
+                    <a href="../../advocacy/">Prosélytisme</a>
+                  </li>
+                  <li>
+                    <a href="../../marketing/">Marketing</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../where.html">Obtenir FreeBSD</a>
+                <ul>
+                  <li>
+                    <a href="../../releases/">Information sur les versions</a>
+                  </li>
+                  <li>
+                    <a href="../../releng/">Production des versions</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../docs.html">Documentation</a>
+                <ul>
+                  <li>
+                    <a href="../../../doc/en_US.ISO8859-1/books/faq/">FAQ</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/en_US.ISO8859-1/books/handbook/">Manuel de référence</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/en_US.ISO8859-1/books/porters-handbook">Manuel du porteur d'application</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/en_US.ISO8859-1/books/developers-handbook">Manuel du développeur</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/man.cgi">Pages de manuel</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../community.html">Communauté</a>
+                <ul>
+                  <li>
+                    <a href="../../community/mailinglists.html">Listes de diffusion</a>
+                  </li>
+                  <li>
+                    <a href="http://forums.freebsd.org">Forums de discussion</a>
+                  </li>
+                  <li>
+                    <a href="../../../usergroups.html">Groupes d'utilisateurs</a>
+                  </li>
+                  <li>
+                    <a href="../../events/events.html">Evénements</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../projects/index.html">Développement</a>
+                <ul>
+                  <li>
+                    <a href="http://wiki.FreeBSD.org/IdeasPage">Idées de projets</a>
+                  </li>
+                  <li>
+                    <a href="http://svn.FreeBSD.org/viewvc/base/">Dépôt SVN</a>
+                  </li>
+                  <li>
+                    <a href="http://cvsweb.FreeBSD.org">Dépôt CVS</a>
+                  </li>
+                  <li>
+                    <a href="http://p4web.FreeBSD.org">Dépôt Perforce</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../support.html">Support</a>
+                <ul>
+                  <li>
+                    <a href="../../commercial/commercial.html">Revendeurs</a>
+                  </li>
+                  <li>
+                    <a href="http://security.FreeBSD.org/">Sécurité</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/query-pr-summary.cgi">Rapports de bogues</a>
+                  </li>
+                  <li>
+                    <a href="../../send-pr.html">Envoyer un rapport de bogue</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="http://www.freebsdfoundation.org/">Fondation</a>
+                <ul>
+                  <li>
+                    <a href="http://www.freebsdfoundation.org/donate/">Faire un don</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Section Navigation</h2>
+              <ul>
+                <li>
+                  <a href="../../projects/index.html">Développement</a>
+                </li>
+                <li>
+                  <a href="../../../doc/fr_FR.ISO8859-1/books/developers-handbook">Manuel du développeur</a>
+                </li>
+                <li>
+                  <a href="../../../doc/en_US.ISO8859-1/books/porters-handbook">Manuel du porteur d'application</a>
+                </li>
+                <li>
+                  <a href="../../developers/cvs.html">Dépôt CVS</a>
+                </li>
+                <li>
+                  <a href="../../releng/index.html">Production des versions</a>
+                </li>
+                <li>
+                  <a href="../../platforms/">Plates-formes</a>
+                  <ul>
+                    <li>
+                      <a href="../../platforms/alpha.html">alpha</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/amd64.html">amd64</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/arm.html">ARM</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/i386.html">i386</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/ia64/index.html">ia64</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/mips.html">MIPS</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/pc98.html">pc98</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/ppc.html">ppc</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/sparc.html">sparc64</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/xbox.html">xbox</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="../../../doc/fr_FR.ISO8859-1/articles/contributing/index.html">Contribuer</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap"><h1>Projet de mise en conformité de FreeBSD aux normes C99 et POSIX®</h1>
+
+    <img src="../../../gifs/c99.jpg" width="550" height="146" border="0" alt="FreeBSD C99 &amp; POSIX Conformance Project" /><br clear="none" />
+
+    <img src="../../../gifs/project_goal.png" width="229" height="36" alt="Project Goal" />
+
+    <p class="main">Le projet de mise en conformité de FreeBSD aux normes C99 et POSIX® a pour objectif
+      d'implémenter l'intégralité des standards ISO 9899:1999 (C99) et
+      IEEE 1003.1-2001 (POSIX). Dans les cas où certains aspects de
+      ces standards ne pourraient pas être suivis, ces différences seront documentées
+      dans les manuels c99(7) ou posix(7). Un autre but de ce
+      projet est d'implémenter des tests de manière à pouvoir s'assurer de la justesse
+      des implémentations à chaque fois que cela est possible.</p>
+
+    <img src="../../../gifs/project_plan.png" width="229" height="36" alt="Project Plan" />
+
+    <p class="main">L'ensemble du développement initial a lieu dans la
+      branche -CURRENT et la plupart des modifications sont intégrées dans la
+      branche -STABLE. Comme il s'agit d'un projet important et uniquement basé
+      sur le volontariat, aucun planning n'a été établi.</p>
+
+    <img src="../../../gifs/how_to_contribute.png" width="229" height="36" alt="How to Contribute" />
+
+    <p class="main">Le projet est toujours à la recherche de volontaires. Si vous
+      souhaitez participer, le meilleur moyen de se tenir au courant de l'activité du projet
+      est de s'abonner à la <a href="#mailinglist" shape="rect">liste de diffusion
+      freebsd-standards</a>. Si vous travaillez sur une tâche spécifique
+      en rapport avec ce projet, merci de contacter
+      <a href="#mailinglist" shape="rect">la liste de diffusion</a> en joignant une
+      description de vos travaux de manière à ce qu'ils soient ajoutés à la
+      liste ci-dessous.</p>
+
+    <img src="../../../gifs/resources_and_links.png" width="229" height="36" alt="Resources and Links" />
+
+    <ul class="list">
+      <li><p>ISO/IEC 9899:1999, aussi connu sous le nom C99, est disponible
+            à l'achat sous forme électronique sur le site
+            <a href="http://webstore.ansi.org/ansidocstore/product.asp?sku=ANSI/ISO/IEC+9899-1999" shape="rect">American
+            National Standards Institute</a> ou sur le site
+            <a href="http://www.iso.ch/iso/pages/CatalogueDetailPage.CatalogueDetail?CSNUMBER=29237" shape="rect">International
+            Organization for Standardization store</a> sous forme électronique
+            et papier.</p></li>
+      <li><p><a href="http://www.unix-systems.org/version3/" shape="rect">IEEE Std 1003.1-2001</a>
+            - La version gratuite (inscription obligatoire) en ligne du
+            standard POSIX.1-2001 et SUSv3.</p></li>
+      <li><p><a href="http://www.kuro5hin.org/story/2001/2/23/194544/139" shape="rect">Are
+            you Ready For C99?</a> - Cet article discute de certaines des
+            nouvelles fonctionnalités proposées dans C99.</p></li>
+      <li><p><a name="mailinglist" shape="rect" id="mailinglist">La plupart des discussions relatives</a>
+            à ce projet se déroulent sur la liste de diffusion <a href="mailto:freebsd-standards@FreeBSD.org" shape="rect">freebsd-standards@FreeBSD.org</a>.
+            Pour vous abonnez à cette liste, envoyez un message à <a href="mailto:freebsd-standards-subscribe@FreeBSD.org" shape="rect">freebsd-standards-subscribe@FreeBSD.org</a>.</p></li>
+      <li><p>Jens Schweikhardt maintient une
+            <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html" shape="rect">liste</a>
+            qui décrit le statut actuel de la conformité des utilitaires POSIX dans
+            FreeBSD.</p></li>
+    </ul>
+
+    <img src="../../../gifs/status_board.png" width="229" height="36" alt="Status Board" /><br clear="none" /><br clear="none" />
+
+    
+    
+
+    <table class="tblbasic">
+      <tr>
+	<th rowspan="2" class="heading" colspan="1"> Tâche </th>
+	<th rowspan="2" class="heading" colspan="1"> Responsable </th>
+	<th rowspan="2" class="heading" colspan="1"> Dernière mise à jour </th>
+	<th colspan="2" class="heading" rowspan="1"> Statut </th>
+      </tr>
+
+      <tr>
+        <th class="heading" rowspan="1" colspan="1"> 7.X </th>
+        <th class="heading" rowspan="1" colspan="1"> 6.X </th>
+      </tr>
+
+      <tr>
+        <td colspan="5" class="section" rowspan="1"> Documentation </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Créer le manuel stdint(7) pour documenter &lt;stdint.h&gt;. </td>
+        <td rowspan="1" colspan="1"> Mike Barcroft </td>
+        <td rowspan="1" colspan="1"> 15 Septembre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Documenter flockfile(3), ftrylockfile(3), funlockfile(3). </td>
+	<td rowspan="1" colspan="1"> Tim J. Robbins </td>
+	<td rowspan="1" colspan="1"> 22 Janvier 2004 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Documenter les nouvelles options _SC dans sysconf(3) (PR: <a href="http://www.FreeBSD.org/cgi/query-pr.cgi?pr=20528" shape="rect">20528</a>). </td>
+	<td rowspan="1" colspan="1"> Tom Rhodes </td>
+	<td rowspan="1" colspan="1"> 13 Janvier 2005 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Documenter le niveau de conformité de l'API. </td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 26 Mars 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/in_progress.png" width="22" height="22" alt="In progress" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Documenter la sûreté des threads et des "annulations asynchrones" ("async-cancel"). </td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 26 Mars 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/in_progress.png" width="22" height="22" alt="In progress" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Créer les manuels c99(7) et posix(7). </td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 11 Décembre 2001 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Documenter dans posix(7) le fait que les utilitaires de gestion des traitements par lots
+          sont disponibles dans le port net/generic-nqs.</td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 11 Décembre 2001 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+    </table><br clear="none" /><br clear="none" />
+
+    <table class="tblbasic">
+      <tr>
+	<th rowspan="2" class="heading" colspan="1"> Tâche </th>
+	<th rowspan="2" class="heading" colspan="1"> Responsable </th>
+	<th rowspan="2" class="heading" colspan="1"> Dernière mise à jour </th>
+	<th colspan="2" class="heading" rowspan="1"> Statut </th>
+      </tr>
+
+      <tr>
+        <th class="heading" rowspan="1" colspan="1"> 7.X </th>
+        <th class="heading" rowspan="1" colspan="1"> 6.X </th>
+      </tr>
+
+      <tr>
+        <td colspan="5" class="section" rowspan="1"> Fonctions et Appels systèmes </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter le rapport __func__ à <a href="http://www.FreeBSD.org/cgi/man.cgi?query=assert&amp;sektion=3" shape="rect">assert(3)</a>. </td>
+        <td rowspan="1" colspan="1"> Jeroen Ruigrok/Asmodai </td>
+        <td rowspan="1" colspan="1"> 27 Octobre 2001 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter imaxabs(), imaxdiv(), llabs(), lldiv(). </td>
+	<td rowspan="1" colspan="1"> Mike Barcroft </td>
+	<td rowspan="1" colspan="1"> 14 Novembre 2001 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter atoll(), strtoimax(), strtoumax(). </td>
+	<td rowspan="1" colspan="1"> Bill Fenner </td>
+	<td rowspan="1" colspan="1"> 27 Novembre 2001 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter les nouveaux indicateurs de longueur (hh, j, t, z) et les nouveaux
+	  flag (') dans <a href="http://www.FreeBSD.org/cgi/man.cgi?query=printf&amp;sektion=3" shape="rect">printf(3)</a>. </td>
+	<td rowspan="1" colspan="1"> Garrett Wollman,<br clear="none" />Bill Fenner </td>
+	<td rowspan="1" colspan="1"> 30 Novembre 2001 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter strerror_r(). </td>
+	<td rowspan="1" colspan="1"> Wes Peters </td>
+	<td rowspan="1" colspan="1"> 20 Decembre 2001 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter tgamma() basé sur gamma() de Lite1. </td>
+	<td rowspan="1" colspan="1"> Bruce Evans </td>
+	<td rowspan="1" colspan="1"> 27 Mars 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter les nouveaux indicateurs de longueur (hh, j, ll, t, z) dans
+	  <a href="http://www.FreeBSD.org/cgi/man.cgi?query=scanf&amp;sektion=3" shape="rect">scanf(3)</a>. </td>
+	<td rowspan="1" colspan="1"> Bill Fenner </td>
+	<td rowspan="1" colspan="1"> 20 Avril 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Ajouter WCONTINUED à waitpid(2). </td>
+	<td rowspan="1" colspan="1"> Mike Barcroft </td>
+	<td rowspan="1" colspan="1"> 1er Juin 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter les nouveaux indicateurs de conversion (%j et %n) dans
+          <a href="http://www.FreeBSD.org/cgi/man.cgi?query=printf&amp;sektion=9" shape="rect">printf(9)</a>. </td>
+	<td rowspan="1" colspan="1"> Dima Dorfman<br clear="none" />Dag-Erling C. Smørgrav </td>
+	<td rowspan="1" colspan="1"> 3 Juin 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter fstatvfs() et statvfs() (trivial). </td>
+	<td rowspan="1" colspan="1"> Garrett Wollman </td>
+	<td rowspan="1" colspan="1"> 14 Juin 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Implémenter fmtmsg(). </td>
+        <td rowspan="1" colspan="1"> Mike Barcroft </td>
+        <td rowspan="1" colspan="1"> 8 Août 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Implémenter ulimit(). </td>
+        <td rowspan="1" colspan="1"> Kyle Martin </td>
+        <td rowspan="1" colspan="1"> 8 Août 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Implémenter _Exit() de C99. </td>
+        <td rowspan="1" colspan="1"> Garrett Wollman </td>
+        <td rowspan="1" colspan="1"> 11 Septembre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Ajouter les options requises par POSIX.1-2001 à glob(). (MFC partiel)</td>
+	<td rowspan="1" colspan="1"> Mike Heffner </td>
+	<td rowspan="1" colspan="1"> 20 Septembre 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Mettre à jour sysconf(3) pour POSIX.1-2001. </td>
+	<td rowspan="1" colspan="1"> Garrett Wollman </td>
+	<td rowspan="1" colspan="1"> 18 Septembre 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Remettre insque(), lsearch(), remque() à partir de libcompat. </td>
+	<td rowspan="1" colspan="1"> Robert Drehmel </td>
+	<td rowspan="1" colspan="1"> 16 Novembre 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter fpclassify(). </td>
+	<td rowspan="1" colspan="1"> David Schultz,<br clear="none" />Mike Barcroft </td>
+	<td rowspan="1" colspan="1"> 8 Février 2003 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter isfinite(), isinf(), isnan(), isnormal(). </td>
+	<td rowspan="1" colspan="1"> David Schultz </td>
+	<td rowspan="1" colspan="1"> 17 Février 2003 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter isgreater(), isgreaterequal(), isless(), islessequal(),
+	  islessgreater(). </td>
+	<td rowspan="1" colspan="1"> David Schultz </td>
+	<td rowspan="1" colspan="1"> 17 Février 2003 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter signbit(). </td>
+	<td rowspan="1" colspan="1"> Mike Barcroft </td>
+	<td rowspan="1" colspan="1"> 17 Février 2003 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Implémenter sockatmark(). </td>
+        <td rowspan="1" colspan="1"> Bill Fenner </td>
+        <td rowspan="1" colspan="1"> 23 Décembre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Implémenter wordexp() et wordfree(). </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 31 Décembre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Implémenter grantpt(), posix_openpt(), ptsname(), unlockpt(). </td>
+        <td rowspan="1" colspan="1"> Ryan Younce </td>
+        <td rowspan="1" colspan="1"> 4 Février 2003 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Ajouter le support des nombres à virgule flottante pour l'indicateur (') de
+	  <a href="http://www.FreeBSD.org/cgi/man.cgi?query=printf&amp;sektion=3" shape="rect">printf(3)</a> </td>
+	<td rowspan="1" colspan="1"> David Schultz </td>
+	<td rowspan="1" colspan="1"> 22 Janvier 2004 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Ajouter les nouveaux indicateurs de conversion (%a et %A) à <a href="http://www.FreeBSD.org/cgi/man.cgi?query=printf&amp;sektion=3" shape="rect">printf(3)</a>. </td>
+	<td rowspan="1" colspan="1"> David Schultz </td>
+	<td rowspan="1" colspan="1"> 22 Janvier 2004 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Transition vers une source externe (Netlib) pour strtod.c. </td>
+        <td rowspan="1" colspan="1"> David Schultz </td>
+        <td rowspan="1" colspan="1"> 22 Janvier 2004 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Importer le gdtoa de Netlib (strtof, strtold, etc.). </td>
+        <td rowspan="1" colspan="1"> David Schultz </td>
+        <td rowspan="1" colspan="1"> 22 Janvier 2004 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter les macros C99 fpclassify(), isfinite(), isinf(), isnan(),
+	  isnormal(), signbit(). </td>
+	<td rowspan="1" colspan="1"> Mike Barcroft,<br clear="none" />David Schultz </td>
+	<td rowspan="1" colspan="1"> 22 Janvier 2004 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter les macros C99 isgreater(), isgreaterequal(), isless(),
+	  islessequal(), islessgreater(), isunordered(). </td>
+	<td rowspan="1" colspan="1"> Mike Barcroft,<br clear="none" />David Schultz </td>
+	<td rowspan="1" colspan="1"> 22 Janvier 2004 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter les nouveaux types de format hexadécimal en virgule flottante (%a/%A) dans
+	  <a href="http://www.FreeBSD.org/cgi/man.cgi?query=scanf&amp;sektion=3" shape="rect">scanf(3)</a>. </td>
+	<td rowspan="1" colspan="1"> David Schultz </td>
+	<td rowspan="1" colspan="1"> 22 Janvier 2004 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter getpwnam_r(), getpwuid_r(). </td>
+	<td rowspan="1" colspan="1"> Jacques Vidrine </td>
+	<td rowspan="1" colspan="1"> 7 Juin 2004 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter posix_madvise(). </td>
+	<td rowspan="1" colspan="1"> Bruce M. Simpson </td>
+	<td rowspan="1" colspan="1"> 7 Juin 2004 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Implémenter les nouvelles fonctions qui apparaissent dans &lt;fenv.h&gt;. </td>
+        <td rowspan="1" colspan="1"> David Schultz </td>
+        <td rowspan="1" colspan="1"> 7 Juin 2004 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter ftw() et nftw() en termes de fts(). </td>
+	<td rowspan="1" colspan="1"> David Schultz </td>
+	<td rowspan="1" colspan="1"> 8 Juillet 2004 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter les fonctions d'arrondis C99 lrint(), lrintf(), lrintl(),
+          llrint(), llrintf(), llrintl(). </td>
+	<td rowspan="1" colspan="1"> David Schultz </td>
+	<td rowspan="1" colspan="1"> 13 Janvier 2005 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter getgrgid_r(), getgrnam_r(). </td>
+	<td rowspan="1" colspan="1"> Wes Peters </td>
+	<td rowspan="1" colspan="1"> 19 Août 2005 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Récupérer a64l(), l64a() et l64a_r() (extension) depuis NetBSD (PR: <a href="http://www.FreeBSD.org/cgi/query-pr.cgi?pr=51209" shape="rect">51209</a>). </td>
+	<td rowspan="1" colspan="1"> Tom Rhodes </td>
+	<td rowspan="1" colspan="1"> 27 Février 2006 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Implémenter les nouvelles fonctions qui apparaissent dans &lt;complex.h&gt;. </td>
+        <td rowspan="1" colspan="1"> Mark Murray </td>
+        <td rowspan="1" colspan="1"> 6 Février 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/in_progress.png" width="22" height="22" alt="In progress" /> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter waitid(2). </td>
+	<td rowspan="1" colspan="1"> Mike Barcroft </td>
+	<td rowspan="1" colspan="1"> 27 Mai 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/in_progress.png" width="22" height="22" alt="In progress" /> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Implémenter la famille de fonctions utmpx. </td>
+        <td rowspan="1" colspan="1"> Robert Drehmel </td>
+        <td rowspan="1" colspan="1"> 28 Juin 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/in_progress.png" width="22" height="22" alt="In progress" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Ajouter les indicateurs de restriction de type aux fonctions qui le nécessitent. </td>
+	<td rowspan="1" colspan="1"> Robert Drehmel </td>
+	<td rowspan="1" colspan="1"> 16 Août 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/in_progress.png" width="22" height="22" alt="In progress" /> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter iconv(), iconv_close(), iconv_open(). </td>
+	<td rowspan="1" colspan="1"> Tim J. Robbins </td>
+	<td rowspan="1" colspan="1"> 8 Octobre 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/in_progress.png" width="22" height="22" alt="In progress" /> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Mettre à jour fmtcheck(3) pour prendre en compte les nouveaux indicateurs de printf(3). </td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 16 Octobre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/in_progress.png" width="22" height="22" alt="In progress" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Rendre complètement sûre l'utilisation des fonctions avec les threads. </td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 22 Octobre 2001 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Rendre complètement sûre "l'annulation asynchrone" ("async-cancel") des fonctions. </td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 22 Octobre 2001 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter le support de SIG_HOLD à signal(3)/sigaction(2). </td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 13 Octobre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Implémenter les fonctions RTS sigqueue(), sigtimedwait(),
+          sigwaitinfo(). </td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 13 Octobre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter posix_mem_offset(),
+          posix_typed_mem_get_info(), posix_typed_mem_open(),
+	  posix_memalign() (PR: <a href="http://www.FreeBSD.org/cgi/query-pr.cgi?pr=85090" shape="rect">85090</a>).</td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 7 Juin 2004 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter des versions en double long des routines de libm (PR: <a href="http://www.FreeBSD.org/cgi/query-pr.cgi?pr=82654" shape="rect">82654</a>). </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 13 Janvier 2005 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter exp2(), fma(), log2(), nan(), nexttoward(), et
+	  remquo() dans libm (PR: <a href="http://www.FreeBSD.org/cgi/query-pr.cgi?pr=83845" shape="rect">83845</a>). </td>
+	<td rowspan="1" colspan="1">   </td>
+	<td rowspan="1" colspan="1"> 13 Janvier 2005 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+    </table><br clear="none" /><br clear="none" />
+
+    <table class="tblbasic">
+      <tr>
+	<th rowspan="2" class="heading" colspan="1"> Tâche </th>
+	<th rowspan="2" class="heading" colspan="1"> Responsable </th>
+	<th rowspan="2" class="heading" colspan="1"> Dernière mise à jour </th>
+	<th colspan="2" class="heading" rowspan="1"> Statut </th>
+      </tr>
+
+      <tr>
+        <th class="heading" rowspan="1" colspan="1"> 7.X </th>
+        <th class="heading" rowspan="1" colspan="1"> 6.X </th>
+      </tr>
+
+      <tr>
+        <td colspan="5" class="section" rowspan="1"> Fichiers en-têtes </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Corriger les prototypes et cacher les portions non conformes de
+          &lt;arpa/inet.h&gt;. </td>
+	<td rowspan="1" colspan="1"> Mike Barcroft </td>
+	<td rowspan="1" colspan="1"> 19 Février 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Implémenter &lt;stdint.h&gt; et &lt;inttypes.h&gt;. </td>
+        <td rowspan="1" colspan="1"> Mike Barcroft </td>
+        <td rowspan="1" colspan="1"> 1er Mars 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter les primitives de contrôle de déclaration à &lt;sys/cdefs.h&gt;
+          (développées à l'origine par Garrett Wollman). </td>
+        <td rowspan="1" colspan="1"> Mike Barcroft </td>
+        <td rowspan="1" colspan="1"> 1er Avril 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Implémenter &lt;sys/_types&gt; pour stocker les types MI partagés. </td>
+        <td rowspan="1" colspan="1"> Mike Barcroft </td>
+        <td rowspan="1" colspan="1"> 1er Avril 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter l'en-tête &lt;strings.h&gt;, et essayer de résoudre
+          les problèmes de compatibilité avec &lt;string.h&gt;. </td>
+	<td rowspan="1" colspan="1"> Mike Barcroft </td>
+	<td rowspan="1" colspan="1"> 4 Avril 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Cacher les portions non conformes, ajouter les types manquants à
+          &lt;sys/un.h&gt;. </td>
+	<td rowspan="1" colspan="1"> Mike Barcroft </td>
+	<td rowspan="1" colspan="1"> 19 Avril 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Faire un nettoyage et ajouter les macros manquantes à
+	  &lt;netinet/in.h&gt; et &lt;netinet6/in6.h&gt;. </td>
+	<td rowspan="1" colspan="1"> Mike Barcroft </td>
+	<td rowspan="1" colspan="1"> 23 Mai 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Cacher les portions non conformes de &lt;sys/wait.h&gt;. </td>
+	<td rowspan="1" colspan="1"> Mike Barcroft </td>
+	<td rowspan="1" colspan="1"> 3 Juin 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Cacher les portions non conformes de &lt;pwd.h&gt;. </td>
+	<td rowspan="1" colspan="1"> Mike Barcroft </td>
+	<td rowspan="1" colspan="1"> 9 Juin 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Créer &lt;sys/statvfs.h&gt; basé sur les spécifications POSIX. </td>
+	<td rowspan="1" colspan="1"> Garrett Wollman </td>
+	<td rowspan="1" colspan="1"> 14 Juin 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Ajouter nfds_t et corriger plusieurs problèmes dans &lt;poll.h&gt;
+	   (actuellement &lt;sys/poll.h&gt;). </td>
+	<td rowspan="1" colspan="1"> Mike Barcroft </td>
+	<td rowspan="1" colspan="1"> 8 Juillet 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter l'en-tête XSI, &lt;cpio.h&gt;. </td>
+	<td rowspan="1" colspan="1"> Mike Barcroft </td>
+	<td rowspan="1" colspan="1"> 1er Août 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Implémenter &lt;fmtmsg.h&gt;. </td>
+        <td rowspan="1" colspan="1"> Mike Barcroft </td>
+        <td rowspan="1" colspan="1"> 8 Août 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Implémenter &lt;ulimit.h&gt;. </td>
+        <td rowspan="1" colspan="1"> Kyle Martin </td>
+        <td rowspan="1" colspan="1"> 8 Août 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Intégrer &lt;machine/ansi.h&gt; et &lt;machine/types&gt; dans
+	  un nouvel en-tête commun &lt;machine/_types.h&gt;. </td>
+        <td rowspan="1" colspan="1"> Bruce Evans,<br clear="none" />Mike Barcroft </td>
+        <td rowspan="1" colspan="1"> 23 Août 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Corriger les espaces de nommage et ajouter les types manquants dans &lt;sys/mman.h&gt;. </td>
+        <td rowspan="1" colspan="1"> Mike Barcroft </td>
+        <td rowspan="1" colspan="1"> 29 Août 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Corriger les problèmes d'espace de nommage dans &lt;ctype.h&gt;. </td>
+        <td rowspan="1" colspan="1"> Mike Barcroft </td>
+        <td rowspan="1" colspan="1"> 9 Septembre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Corriger les problèmes d'espace de nommage dans &lt;dlfcn.h&gt;. </td>
+        <td rowspan="1" colspan="1"> Garrett Wollman,<br clear="none" />Mike Barcroft </td>
+        <td rowspan="1" colspan="1"> 11 Septembre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Corriger les problèmes d'espace de nommage dans &lt;fcntl.h&gt;. </td>
+        <td rowspan="1" colspan="1"> Mike Barcroft </td>
+        <td rowspan="1" colspan="1"> 18 Septembre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Corriger les problèmes d'espace de nommage dans &lt;fnmatch.h&gt;. </td>
+        <td rowspan="1" colspan="1"> Mike Barcroft </td>
+        <td rowspan="1" colspan="1"> 18 Septembre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Corriger les problèmes d'espace de nommage dans &lt;grp.h&gt;. </td>
+        <td rowspan="1" colspan="1"> Mike Barcroft </td>
+        <td rowspan="1" colspan="1"> 18 Septembre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Corriger les problèmes d'espace de nommage dans &lt;langinfo.h&gt;. </td>
+        <td rowspan="1" colspan="1"> Mike Barcroft </td>
+        <td rowspan="1" colspan="1"> 18 Septembre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter une macro va_copy() à &lt;stdarg.h&gt;
+          (actuellemen &lt;machine/stdarg.h&gt;). </td>
+        <td rowspan="1" colspan="1"> Mike Barcroft </td>
+        <td rowspan="1" colspan="1"> 20 Septembre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Corriger les problèmes d'espace de nommage dans &lt;stdlib.h&gt;. </td>
+        <td rowspan="1" colspan="1"> Garrett Wollman </td>
+        <td rowspan="1" colspan="1"> 21 Septembre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Ajouter les nouvelles constantes de chemins de fichiers, variables systèmes et d'options POSIX
+          à &lt;unistd.h&gt;. </td>
+	<td rowspan="1" colspan="1"> Garrett Wollman </td>
+	<td rowspan="1" colspan="1"> 21 Septembre 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Intégrer les deux en-têtes math.h incompatibles dans un seul en-tête. </td>
+	<td rowspan="1" colspan="1"> Bruce Evans </td>
+	<td rowspan="1" colspan="1"> 2 Octobre 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Corriger les problèmes d'espace de nommage dans &lt;net/if.h&gt;. </td>
+	<td rowspan="1" colspan="1"> Mike Barcroft </td>
+	<td rowspan="1" colspan="1"> 2 Octobre 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Corriger les problèmes d'espace de nommage dans &lt;netinet/tcp.h&gt;. </td>
+	<td rowspan="1" colspan="1"> Mike Barcroft </td>
+	<td rowspan="1" colspan="1"> 2 Octobre 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Ajouter size_t et corriger regoff_t dans &lt;regex.h&gt;. </td>
+	<td rowspan="1" colspan="1"> Mike Barcroft </td>
+	<td rowspan="1" colspan="1"> 2 Octobre 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Corriger les problèmes d'espace de nommage dans &lt;sched.h&gt; (actuellement
+          &lt;posix4/sched.h&gt;). </td>
+	<td rowspan="1" colspan="1"> Mike Barcroft </td>
+	<td rowspan="1" colspan="1"> 5 Octobre 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Corriger les problèmes d'espace de nommage dans &lt;semaphore.h&gt; (actuellement
+          &lt;posix4/semaphore.h&gt;). </td>
+	<td rowspan="1" colspan="1"> Mike Barcroft </td>
+	<td rowspan="1" colspan="1"> 5 Octobre 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Corriger les problèmes d'espace de nommage dans &lt;setjmp.h&gt; (actuellement
+          &lt;machine/setjmp.h&gt;). </td>
+	<td rowspan="1" colspan="1"> Mike Barcroft </td>
+	<td rowspan="1" colspan="1"> 5 Octobre 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Corriger les problèmes d'espace de nommage dans &lt;stdio.h&gt;. </td>
+	<td rowspan="1" colspan="1"> Garrett Wollman </td>
+	<td rowspan="1" colspan="1"> 7 Octobre 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter les membres manquants à la structure lconv dans &lt;locale.h&gt;. </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 9 Octobre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Corriger les problèmes d'espace de nommage et ajouter les types manquants dans
+	    &lt;sys/socket.h&gt;. </td>
+	<td rowspan="1" colspan="1"> Mike Barcroft </td>
+	<td rowspan="1" colspan="1"> 13 Octobre 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Corriger les problèmes d'espace de nommage et ajouter les types manquants dans &lt;sys/uio.h&gt;. </td>
+	<td rowspan="1" colspan="1"> Mike Barcroft </td>
+	<td rowspan="1" colspan="1"> 13 Octobre 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Corriger les problèmes d'espace de nommage dans &lt;signal.h&gt; (voir aussi
+          &lt;sys/signal.h&gt; et &lt;machine/signal.h&gt;). </td>
+        <td rowspan="1" colspan="1"> Mike Barcroft </td>
+        <td rowspan="1" colspan="1"> 13 Octobre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Eliminer &lt;sys/_posix.h&gt;. </td>
+        <td rowspan="1" colspan="1"> Mike Barcroft </td>
+        <td rowspan="1" colspan="1"> 16 Octobre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Implémenter l'en-tête &lt;wordexp.h&gt;. </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 31 Décembre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter les constantes manquantes FLT_EVAL_METHOD et DECIMAL_DIG à
+          &lt;float.h&gt; (actuellement &lt;machine/float.h&gt;). </td>
+        <td rowspan="1" colspan="1"> Mike Barcroft,<br clear="none" />David Schultz </td>
+        <td rowspan="1" colspan="1"> 22 Janvier 2004 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Implémenter l'en-tête &lt;fenv.h&gt;. </td>
+        <td rowspan="1" colspan="1"> David Schultz </td>
+        <td rowspan="1" colspan="1"> 7 Juin 2004 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Implémenter &lt;ftw.h&gt;. </td>
+        <td rowspan="1" colspan="1"> David Schultz </td>
+        <td rowspan="1" colspan="1"> 8 Juillet 2004 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Implémenter &lt;tgmath.h&gt;. </td>
+        <td rowspan="1" colspan="1"> Stefan Farfeleder </td>
+        <td rowspan="1" colspan="1"> 13 Janvier 2005 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Implémenter les nouveaux types et prototypes dans l'en-tête
+          &lt;complex.h&gt;. </td>
+        <td rowspan="1" colspan="1"> Mark Murray </td>
+        <td rowspan="1" colspan="1"> 6 Février 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/in_progress.png" width="22" height="22" alt="In progress" /> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Cacher les portions non conformes et ajouter les types manquants dans
+          &lt;sys/types.h&gt;. </td>
+        <td rowspan="1" colspan="1"> Mike Barcroft </td>
+        <td rowspan="1" colspan="1"> 1er Avril 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/in_progress.png" width="22" height="22" alt="In progress" /> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Réduire la pollution de l'espace de nommage et ajouter les définitions de types manquantes dans
+           &lt;unistd.h&gt; </td>
+	<td rowspan="1" colspan="1"> Mike Barcroft </td>
+	<td rowspan="1" colspan="1"> 25 Mars 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/in_progress.png" width="22" height="22" alt="In progress" /> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Implémenter &lt;utmpx.h&gt; pour éventuellement remplacer
+	  &lt;utmp.h&gt;. </td>
+        <td rowspan="1" colspan="1"> Robert Drehmel </td>
+        <td rowspan="1" colspan="1"> 28 Juin 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/in_progress.png" width="22" height="22" alt="In progress" /> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter les numéros d'erreurs manquants à &lt;errno.h&gt; (actuellement
+          &lt;sys/errno.h&gt;). </td>
+        <td rowspan="1" colspan="1"> Mike Barcroft </td>
+        <td rowspan="1" colspan="1"> 11 Septembre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/in_progress.png" width="22" height="22" alt="In progress" /> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Implémenter l'en-tête &lt;iconv.h&gt;. </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 7 Octobre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/in_progress.png" width="22" height="22" alt="In progress" /> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Cacher les portions non-conformes et ajouter les types manquants à
+          &lt;sys/stat.h&gt;. </td>
+        <td rowspan="1" colspan="1"> Mike Barcroft </td>
+        <td rowspan="1" colspan="1"> 27 Février 2003 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/in_progress.png" width="22" height="22" alt="In progress" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Corriger la taille des éléments de glob_t et ajouter les restrictions de types dans
+          &lt;glob.h&gt;. </td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 20 Septembre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Décider s'il faut supprimer les types des constantes dans
+	  &lt;libgen.h&gt;. </td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 20 Septembre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter les constantes manquantes dans &lt;limits.h&gt;. </td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 20 Septembre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Corriger la taille des éléments de datum, ajouter les types manquants et corriger les
+          problèmes d'espace de nommage dans &lt;ndbm.h&gt;. </td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 2 Octobre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Corriger la taille de si_addrlen de la structure addrinfo, ajouter les types manquants et
+          corriger les problèmes d'espace de nommage dans &lt;netdb.h&gt;. </td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 2 Octobre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Evaluer les fonctions manquantes dans &lt;pthread.h&gt;. </td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 2 Octobre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter les éléments manquants de la structure sigevent, corriger le type de ss_sp dans
+          la structure sigstack, ajouter la constante SIGEV_THREAD et ajouter ucontext_t ainsi que
+          mcontext_t dans &lt;sys/signal.h&gt;. </td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 13 Octobre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Corriger les types des éléments de la structure ipc_perm dans
+          &lt;sys/ipc.h&gt;. </td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 16 Octobre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+    </table><br clear="none" /><br clear="none" />
+
+    <table class="tblbasic">
+      <tr>
+	<th rowspan="2" class="heading" colspan="1"> Tâche </th>
+	<th rowspan="2" class="heading" colspan="1"> Responsable </th>
+	<th rowspan="2" class="heading" colspan="1"> Dernière mise à jour </th>
+	<th colspan="2" class="heading" rowspan="1"> Statut </th>
+      </tr>
+
+      <tr>
+        <th class="heading" rowspan="1" colspan="1"> 7.X </th>
+        <th class="heading" rowspan="1" colspan="1"> 6.X </th>
+      </tr>
+
+      <tr>
+        <td colspan="5" class="section" rowspan="1"> Divers </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Obtenir une copie de "Proc. ACM SIGPLAN '90" (indispensable pour
+          <a href="http://www.FreeBSD.org/cgi/man.cgi?query=printf&amp;sektion=3" shape="rect">printf(3)</a> %'f). </td>
+	<td rowspan="1" colspan="1"> Bill Fenner </td>
+	<td rowspan="1" colspan="1"> 9 Novembre 2001 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Mettre à jour le compilateur système avec GCC 3.1. </td>
+	<td rowspan="1" colspan="1"> David O'Brien </td>
+	<td rowspan="1" colspan="1"> 15 Mai 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter des tests pour chaque fonction. </td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 17 Novembre 2001 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Intégrer sys/posix4/* dans l'arborescence des sources du noyau et supprimer
+          sys/posix4. </td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 21 Septembre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ouvrir un "Aardvark" (N.d.T. : ????) sur comment gérer l'absence de saut de ligne dans la
+          dernière ligne d'un fichier pour la commande diff(1). </td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 25 Novembre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Renommer globalement la macro `lint' en un autre nom dans
+          l'espace de nommage de manière à ce qu'elle puisse modifier de manière sûr
+          l'implémentation (<a href="http://www.FreeBSD.org/cgi/mid.cgi?id=20021021093912.A80691@espresso.q9media.com" shape="rect">référence</a>). </td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 25 Novembre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Renommer globalement la macro `LOCORE' en un autre nom dans
+          l'espace de nommage de manière à ce qu'elle puisse modifier de manière sûr
+          l'implémentation (<a href="http://www.FreeBSD.org/cgi/cvsweb.cgi/src/sys/ia64/include/setjmp.h.diff?r1=1.6&amp;r2=1.7" shape="rect">référence</a>). </td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 25 Novembre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+	<td rowspan="1" colspan="1">   </td>
+      </tr>
+    </table><br clear="none" /><br clear="none" />
+
+    <table class="tblbasic">
+      <tr>
+	<th rowspan="2" class="heading" colspan="1"> Tâche </th>
+	<th rowspan="2" class="heading" colspan="1"> Responsable </th>
+	<th rowspan="2" class="heading" colspan="1"> Dernière mise à jour </th>
+	<th colspan="2" class="heading" rowspan="1"> Statut </th>
+      </tr>
+
+      <tr>
+        <th class="heading" rowspan="1" colspan="1"> 7.X </th>
+        <th class="heading" rowspan="1" colspan="1"> 6.X </th>
+      </tr>
+
+      <tr>
+        <td colspan="5" class="section" rowspan="1"> Conformité des utilitaires </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter l'option -o et le décodage base64 à l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#uudecode" shape="rect">uudecode</a>. </td>
+        <td rowspan="1" colspan="1"> Juli Mallett </td>
+        <td rowspan="1" colspan="1"> 26 Mars 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter l'option -m et l'encodage base64 à l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#uuencode" shape="rect">uuencode</a>. </td>
+        <td rowspan="1" colspan="1"> Juli Mallett </td>
+        <td rowspan="1" colspan="1"> 26 Mars 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Rendre obligatoire au moins un fichier en argument dans paste(1). (PR: <a href="http://www.FreeBSD.org/cgi/query-pr.cgi?pr=36074" shape="rect">36074</a>) </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 1er Avril 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter l'option -i à l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#patch" shape="rect">patch</a>. </td>
+        <td rowspan="1" colspan="1"> Juli Mallett </td>
+        <td rowspan="1" colspan="1"> 9 Avril 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter les options -r et -t à l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#at" shape="rect">at</a>. </td>
+        <td rowspan="1" colspan="1"> Joe Halpin </td>
+        <td rowspan="1" colspan="1"> 16 Avril 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter les options -f et -p à l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#pr" shape="rect">pr</a>. (PR: <a href="http://www.FreeBSD.org/cgi/query-pr.cgi?pr=36243" shape="rect">36243</a>) </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 16 Avril 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter l'option -s à l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#m4" shape="rect">m4</a>. (PR: <a href="http://www.FreeBSD.org/cgi/query-pr.cgi?pr=36075" shape="rect">36075</a>) </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 24 Avril 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Modifier l'utilitaire printf(1) pour le rendre conforme POSIX.2 (1992).  (PR: <a href="http://www.FreeBSD.org/cgi/query-pr.cgi?pr=35616" shape="rect">35616</a>) </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 2 Mai 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Corriger la sortie et le statut de fin de l'utilitaire mesg(1). </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 6 Mai 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Implémenter l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#asa" shape="rect">asa</a>.  (PR: <a href="http://www.FreeBSD.org/cgi/query-pr.cgi?pr=36130" shape="rect">36130</a>) </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 15 Mai 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#tabs" shape="rect">tabs</a>.  (PR: <a href="http://www.FreeBSD.org/cgi/query-pr.cgi?pr=36126" shape="rect">36126</a>) </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 20 Mai 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Restaurer l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#sccs" shape="rect">sccs</a> des limbes du CVS. </td>
+	<td rowspan="1" colspan="1"> Juli Mallett </td>
+	<td rowspan="1" colspan="1"> 22 Mai 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Rendre expr(1) conforme à POSIX.1-2001. </td>
+        <td rowspan="1" colspan="1"> Garrett Wollman </td>
+        <td rowspan="1" colspan="1"> 22 Mai 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#newgrp" shape="rect">newgrp</a>. (PR: <a href="http://www.FreeBSD.org/cgi/query-pr.cgi?pr=36190" shape="rect">36190</a>)</td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 28 Mai 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Corriger l'option -t de ctags(1); corriger le tri avec -x. </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 2 Juin 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter l'option -L à l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#pwd" shape="rect">pwd</a>. </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 20 Juin 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Corriger le statut de fin de l'utilitaire env(1). </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 20 Juin 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter l'option -b et -s option à l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#fold" shape="rect">fold</a>.  (PR: <a href="http://www.FreeBSD.org/cgi/query-pr.cgi?pr=36245" shape="rect">36245</a>) </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 20 Juin 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter les options -I et -L à l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#xargs" shape="rect">xargs</a>. </td>
+        <td rowspan="1" colspan="1"> Juli Mallett </td>
+        <td rowspan="1" colspan="1"> 20 Juin 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Implémenter l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#csplit" shape="rect">csplit</a>.  (PR: <a href="http://www.FreeBSD.org/cgi/query-pr.cgi?pr=36191" shape="rect">36191</a>) </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 20 Juin 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Corriger le statut de fin de l'utilitaire nice(1). </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 20 Juin 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter l'option -n à l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#nice" shape="rect">nice</a>. </td>
+        <td rowspan="1" colspan="1"> Peter Avalos </td>
+        <td rowspan="1" colspan="1"> 20 Juin 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter l'option -n et corriger d'autres problèmes dans l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#renice" shape="rect">renice</a>. (PR: <a href="http://www.FreeBSD.org/cgi/query-pr.cgi?pr=36950" shape="rect">36950</a>) </td>
+        <td rowspan="1" colspan="1"> Peter Avalos,<br clear="none" />Maxim Konovalov </td>
+        <td rowspan="1" colspan="1"> 20 Juin 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter l'option -t à l'utilitaire unexpand(1).  (PR: <a href="http://www.FreeBSD.org/cgi/query-pr.cgi?pr=35621" shape="rect">35621</a>) </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 20 Juin 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Rendre l'utilitaire uniq(1) capable d'accepter `-' pour indiquer l'entrée stdin. </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 28 Juin 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Améliorer la conformité de join(1) à POSIX.1-2001.  (PR: <a href="http://www.FreeBSD.org/cgi/query-pr.cgi?pr=36072" shape="rect">36072</a>) </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 28 Juin 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter l'option -C à l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#tr" shape="rect">tr</a>. </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 28 Juin 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Implémenter les options -m, -p et -x à l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#ls" shape="rect">ls</a>. </td>
+        <td rowspan="1" colspan="1"> Kyle Martin </td>
+        <td rowspan="1" colspan="1"> 8 Juillet 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Réimplementer l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#who" shape="rect">who</a>.  (PR: <a href="http://www.FreeBSD.org/cgi/query-pr.cgi?pr=36128" shape="rect">36128</a>) </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 14 Juillet 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Corriger le statut de fin, la confusion stdout/stderr et ajouter le support
+          de `-' pour l'entrée stdin dans l'utilitaire compress(1). </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 17 Juillet 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter les options -s, -A, -j, -N et -t à l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#od" shape="rect">od</a>. (PR: <a href="http://www.FreeBSD.org/cgi/query-pr.cgi?pr=36783" shape="rect">36783</a>) </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 24 Juillet 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter l'option -a à l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#split" shape="rect">split</a>. </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 30 Juillet 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter l'option -m à l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#wc" shape="rect">wc</a>. </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 29 Août 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter les options -L et -P à l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#cd" shape="rect">cd</a> (intégré au shell). </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 7 Octobre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Réimplementer command(1) (intégré au shell). </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 7 Octobre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#c99" shape="rect">c99</a> (similaire à c89).  (PR: <a href="http://www.FreeBSD.org/cgi/query-pr.cgi?pr=36087" shape="rect">36087</a>) </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 8 Octobre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Mettre à jour getconf(1) pour POSIX.1-2001. </td>
+        <td rowspan="1" colspan="1"> Garrett Wollman </td>
+        <td rowspan="1" colspan="1"> 12 Novembre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#pathchk" shape="rect">pathchk</a>. </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 12 Novembre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Documenter l'option -n de l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#echo" shape="rect">echo</a> comme étant défini par l'implémentation.</td>
+        <td rowspan="1" colspan="1"> Jens Schweikhardt </td>
+        <td rowspan="1" colspan="1"> 8 Mai 2003 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter l'option -p à l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#more" shape="rect">more</a>. </td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 30 Novembre 2001 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Ajouter les options -p, -v, et -V à l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#command" shape="rect">command</a>
+	  (intégré à l'interpréteur de
+	  commandes).</td>
+        <td rowspan="1" colspan="1"> Stefan Farfeleder </td>
+        <td rowspan="1" colspan="1"> 27 Février 2006 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter les options manquantes à l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#mailx" shape="rect">mailx</a>. </td>
+        <td rowspan="1" colspan="1"> Mike Heffner </td>
+        <td rowspan="1" colspan="1"> 22 Décembre 2001 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/in_progress.png" width="22" height="22" alt="In progress" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter les composants manquants à l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#jobs" shape="rect">jobs</a>. </td>
+        <td rowspan="1" colspan="1"> Kyle Martin </td>
+        <td rowspan="1" colspan="1"> 5 Mars 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/in_progress.png" width="22" height="22" alt="In progress" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Résoudre les conflits liés à l'option -t de l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#df" shape="rect">df</a>. </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 22 Avril 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/in_progress.png" width="22" height="22" alt="In progress" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter les fonctions absentes dans l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#sh" shape="rect">sh</a>. </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 20 Mai 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/in_progress.png" width="22" height="22" alt="In progress" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Implémenter les options -m, -w et -t dans l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#lp" shape="rect">lp</a>. </td>
+        <td rowspan="1" colspan="1"> Garance A Drosehn </td>
+        <td rowspan="1" colspan="1"> 23 Mai 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/in_progress.png" width="22" height="22" alt="In progress" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Implémenter/importer les utilitaires de développement SCCS :
+          <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#admin" shape="rect">admin</a>,
+          <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#delta" shape="rect">delta</a>,
+          <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#get" shape="rect">get</a>,
+          <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#prs" shape="rect">prs</a>,
+          <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#rmdel" shape="rect">rmdel</a>,
+          <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#sact" shape="rect">sact</a>,
+          <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#unget" shape="rect">unget</a>,
+          <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#val" shape="rect">val</a> </td>
+        <td rowspan="1" colspan="1"> Juli Mallett </td>
+        <td rowspan="1" colspan="1"> 23 Mai 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/in_progress.png" width="22" height="22" alt="In progress" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Examiner la possibilité d'ajouter certaines options POSIX pour l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#ps" shape="rect">ps</a>. </td>
+        <td rowspan="1" colspan="1"> Juli Mallett </td>
+        <td rowspan="1" colspan="1"> 6 Juin 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/in_progress.png" width="22" height="22" alt="In progress" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter les options manquantes et corriger les problèmes pour certaines options dans l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#nm" shape="rect">nm</a>. </td>
+        <td rowspan="1" colspan="1"> Robert Drehmel </td>
+        <td rowspan="1" colspan="1"> 2 Août 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/in_progress.png" width="22" height="22" alt="In progress" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Implémenter l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#iconv" shape="rect">iconv</a>. </td>
+        <td rowspan="1" colspan="1"> Tim J. Robbins </td>
+        <td rowspan="1" colspan="1"> 9 Octobre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/in_progress.png" width="22" height="22" alt="In progress" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Implémenter les utilitaires <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#locale" shape="rect">locale</a> et
+        <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#localedef" shape="rect">localedef</a>. </td>
+        <td rowspan="1" colspan="1"> Alexey Zelkin </td>
+        <td rowspan="1" colspan="1"> 16 Octobre 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/in_progress.png" width="22" height="22" alt="In progress" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter les options -C et -T à l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#ar" shape="rect">ar</a>. </td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 30 Novembre 2001 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Examiner la possibilité d'importer l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#cflow" shape="rect">cflow</a> depuis les ports. </td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 30 Novembre 2001 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Mettre en conformité l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#cp" shape="rect">cp</a>.</td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 30 Novembre 2001 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Implémenter l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#cxref" shape="rect">cxref</a>. </td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 30 Novembre 2001 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter les options -d, -h et -M et corriger les conflits liés à l'option -i dans l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#file" shape="rect">file</a>. </td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 30 Novembre 2001 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Mettre en conformité l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#make" shape="rect">make</a>. </td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 30 Novembre 2001 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Ajouter l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#qsub" shape="rect">qsub</a>. </td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 30 Novembre 2001 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Rendre conforme à SUSv3 l'utilitaire printf(1). </td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 23 Avril 2002 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+
+      <tr>
+        <td rowspan="1" colspan="1"> Implémenter l'utilitaire <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html#fuser" shape="rect">fuser</a>  (PR: <a href="http://www.FreeBSD.org/cgi/query-pr.cgi?pr=36076" shape="rect">36076</a>,
+ <a href="http://www.FreeBSD.org/cgi/query-pr.cgi?pr=53682" shape="rect">53682</a>). </td>
+        <td rowspan="1" colspan="1">   </td>
+        <td rowspan="1" colspan="1"> 4 Février 2003 </td>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+        <td rowspan="1" colspan="1">   </td>
+      </tr>
+    </table><br clear="none" /><br clear="none" />
+
+    <table class="tblbasic">
+      <tr>
+	<th rowspan="2" class="heading" colspan="1"> Tâche </th>
+	<th rowspan="2" class="heading" colspan="1"> Responsable </th>
+	<th rowspan="2" class="heading" colspan="1"> Dernière mise à jour </th>
+	<th colspan="2" class="heading" rowspan="1"> Statut </th>
+      </tr>
+
+      <tr>
+        <th class="heading" rowspan="1" colspan="1"> 7.X </th>
+        <th class="heading" rowspan="1" colspan="1"> 6.X </th>
+      </tr>
+
+      <tr>
+        <td colspan="5" class="section" rowspan="1"> Support des (chaînes de) caractères étendus </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter la base du support nécessaire pour les E/S en caractères étendus : getwc(),
+          fgetwc(), getwchar(), putwc(), fputwc(), putwchar(), ungetwc(),
+          fwide(). </td>
+	<td rowspan="1" colspan="1"> Tim J. Robbins </td>
+	<td rowspan="1" colspan="1"> 16 Août 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Ajouter les entrées pour les fonctions réentrantes de gestion des caractères étendus btowc(),
+          mbrlen(), mbrtowc(), mbsrtowcs(), wcrtomb(), wcsrtombs(),
+          wctob(), wctype(). </td>
+	<td rowspan="1" colspan="1"> Tim J. Robbins </td>
+	<td rowspan="1" colspan="1"> 23 Août 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Ajouter les entrées pour les fonctions réentrantes de gestion des caractères étendus iswalnum(),
+          iswalpha(), iswcntrl(), iswctype(), iswdigit(), iswgraph(),
+          iswlower(), iswprint(), iswpunct(), iswspace(), iswupper(),
+          iswxdigit(). </td>
+	<td rowspan="1" colspan="1"> Tim J. Robbins </td>
+	<td rowspan="1" colspan="1"> 23 Août 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter wcwidth(). </td>
+	<td rowspan="1" colspan="1"> Michael C. Wu </td>
+	<td rowspan="1" colspan="1"> 23 Août 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter wcswidth(). </td>
+	<td rowspan="1" colspan="1"> Andrey A. Chernov </td>
+	<td rowspan="1" colspan="1"> 23 Août 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter wcstok(). </td>
+	<td rowspan="1" colspan="1"> Tim J. Robbins </td>
+	<td rowspan="1" colspan="1"> 9 Septembre 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter wcstod(), wcstol(), wcstoul(). </td>
+	<td rowspan="1" colspan="1"> Tim J. Robbins </td>
+	<td rowspan="1" colspan="1"> 15 Septembre 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter wcsftime(). </td>
+	<td rowspan="1" colspan="1"> Tim J. Robbins </td>
+	<td rowspan="1" colspan="1"> 15 Septembre 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter fwprintf(), swprintf(), vfwprintf(), vswprintf(),
+          vwprintf(), wprintf(). </td>
+	<td rowspan="1" colspan="1"> Tim J. Robbins </td>
+	<td rowspan="1" colspan="1"> 23 Septembre 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter fwscanf(), swscanf(), vfwscanf(), vswscanf(),
+          vwscanf(), wscanf(). </td>
+	<td rowspan="1" colspan="1"> Tim J. Robbins </td>
+	<td rowspan="1" colspan="1"> 23 Septembre 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter wcstoimax(), wcstoll(), wcstoumax(), wcstoull(). </td>
+	<td rowspan="1" colspan="1"> Tim J. Robbins </td>
+	<td rowspan="1" colspan="1"> 23 Septembre 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter les types de formats caractères étendus (%C, %S, %lc, %ls) dans
+	  <a href="http://www.FreeBSD.org/cgi/man.cgi?query=printf&amp;sektion=3" shape="rect">printf(3)</a>. </td>
+	<td rowspan="1" colspan="1"> Tim J. Robbins </td>
+	<td rowspan="1" colspan="1"> 16 Octobre 2002 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter wcscoll(), wcsxfrm(). </td>
+	<td rowspan="1" colspan="1"> Tim J. Robbins </td>
+	<td rowspan="1" colspan="1"> 7 Juin 2004 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1"> Implémenter les types de formats caractères étendus (%C, %S, %lc, %ls) dans
+	  <a href="http://www.FreeBSD.org/cgi/man.cgi?query=scanf&amp;sektion=3" shape="rect">scanf(3)</a>. </td>
+	<td rowspan="1" colspan="1"> Tim J. Robbins </td>
+	<td rowspan="1" colspan="1"> 7 Juin 2004 </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+	<td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+      </tr>
+    </table><br clear="none" /><br clear="none" />
+
+    <table class="tblbasic">
+      <tr>
+	<th colspan="2" class="heading" rowspan="1">Légende</th>
+      </tr>
+      <tr>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/not_started.png" width="22" height="22" alt="Not Started" /> </td>
+        <td rowspan="1" colspan="1"> Pas encore commencée </td>
+      </tr><tr>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/blocked.png" width="22" height="22" alt="Blocked" /> </td>
+        <td rowspan="1" colspan="1"> En attente d'achèvement d'une autre tâche </td>
+      </tr><tr>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/in_progress.png" width="22" height="22" alt="In progress" /> </td>
+        <td rowspan="1" colspan="1"> En progrès </td>
+      </tr><tr>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/done.png" width="22" height="22" alt="Done" /> </td>
+        <td rowspan="1" colspan="1"> Tâche achevée </td>
+      </tr><tr>
+        <td rowspan="1" colspan="1"> <img src="../../../gifs/not_planned.png" width="22" height="22" alt="Not Planned" /> </td>
+        <td rowspan="1" colspan="1"> Non prévue </td>
+      </tr>
+    </table>
+    <p><img src="../../../gifs/news.png" width="229" height="36" alt="News" /></p>
+
+    <p class="main">Le reste de cette page est classé par ordre
+      chronologique inverse.</p>
+
+    <b>31 Décembre 2002</b>
+    <ul class="list">
+      <li>
+        <p>Jens Schweikhardt a mis à jour sa liste de <a href="http://people.FreeBSD.org/~schweikh/posix-utilities.html" shape="rect">Conformité des Utilitaires POSIX dans
+        FreeBSD</a>. Il ne reste plus beaucoup de travail pour achever la mise en conformité des utilitaires.</p>
+      </li>
+    </ul>
+
+    <b>13 Décembre 2002</b>
+    <ul class="list">
+      <li>
+	<p>Un nouveau <a href="http://www.FreeBSD.org/news/status/report-sept-2002-oct-2002.html#C99-&amp;-POSIX-Conformance-Project" shape="rect">rapport
+          de statut</a> sur l'état du projet couvrant Septembre à Octobre.</p>
+      </li>
+    </ul>
+
+    <b>9 Octobre 2002</b>
+    <ul class="list">
+      <li>
+	<p>Un nouveau <a href="http://www.FreeBSD.org/news/status/report-july-2002-aug-2002.html#FreeBSD-C99-&amp;-POSIX-Conformance-Project" shape="rect">rapport
+          de statut</a> sur l'état du projet couvrant Juillet à Août.</p>
+      </li>
+    </ul>
+
+    <b>16 Août 2002</b>
+    <ul class="list">
+      <li>
+	<p>Un nouveau <a href="http://www.FreeBSD.org/news/status/report-may-2002-june-2002.html#FreeBSD-C99-&amp;-POSIX-Conformance-Project" shape="rect">rapport
+          de statut</a> sur l'état du projet couvrant Mai à Juin.</p>
+      </li>
+    </ul>
+
+    <b>1er Août 2002</b>
+    <ul class="list">
+      <li>
+	<p>L'Open Group a généreusement fait don de plusieurs copies des livres et CD-ROMs
+	  "Authorized Guide to Single UNIX® Specification, Version 3"
+	  au projet. Nous les en remercions vivement.</p>
+      </li>
+    </ul>
+
+    <b>22 Mai 2002</b>
+    <ul class="list">
+      <li>
+	<p>Un nouveau <a href="http://www.FreeBSD.org/news/status/report-feb-2002-apr-2002.html#FreeBSD-C99-&amp;-POSIX-Conformance-Project" shape="rect">rapport
+          de statut</a> sur l'état du projet couvrant Février à Avril.</p>
+      </li>
+    </ul>
+
+    <b>3 Mars 2002</b>
+    <ul class="list">
+      <li>
+	<p>Un nouveau <a href="http://www.FreeBSD.org/news/status/report-dec-2001-jan-2002.html#FreeBSD-C99-&amp;-POSIX-Conformance-Project" shape="rect">rapport
+          de statut</a> sur l'état du projet couvrant Décembre et Janvier.</p>
+      </li>
+    </ul>
+
+    <b>30 Janvier 2002</b>
+    <ul class="list">
+      <li>
+	<p>L'Open Group a
+	  <a href="http://www.unix-systems.org/version3/pr.html" shape="rect">annoncé</a>
+	  l'achèvement de SUSv3 et de POSIX.1-2001 ainsi que la disponibilité
+	  d'une version en ligne gratuite des spécifications.</p>
+      </li>
+    </ul>
+
+    <b>14 Décembre 2001</b>
+    <ul class="list">
+      <li>
+	<p>Un nouveau <a href="http://www.FreeBSD.org/news/status/report-november-2001.html#FreeBSD-C99-&amp;-POSIX-Conformance-Project" shape="rect">rapport
+          de statut</a> sur l'état actuel du projet.</p>
+      </li>
+    </ul>
+
+    <b>6 Decembre 2001</b>
+    <ul class="list">
+      <li>
+	<p>Le Bureau des Standards de l'IEEE a approuvé la Spécification
+          du Groupe Austin an tant que Standard IEEE 1003.1.</p>
+      </li>
+    </ul>
+
+    <b>28 Novembre 2001</b>
+    <ul class="list">
+      <li>
+	<p>La liste de diffusion dédiée au projet passe de
+          freebsd-standards@bostonradio.org à <a href="mailto:freebsd-standards@FreeBSD.org" shape="rect">freebsd-standards@FreeBSD.org</a>.</p>
+      </li>
+    </ul>
+
+    <b>19 Octobre 2001</b>
+    <ul class="list">
+      <li>
+	<p>A <a href="http://www.FreeBSD.org/news/status/report-september-2001.html#FreeBSD-C99/POSIX-Conformance-Project" shape="rect">rapport
+          de statut</a> sur l'état actuel du projet.</p>
+      </li>
+    </ul>
+
+    <b>10 Octobre 2001</b>
+    <ul class="list">
+      <li>
+	<p>Création de cette page web.</p>
+      </li>
+    </ul>
+    <p><small>La mise en forme originale de cette page web provient du
+      Projet FreeBSD SMPng. Démon BSD, copyright 1988 par Marshall
+      Kirk McKusick. Tous droits réservés.</small></p>
+  </div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="../../search/index-site.html">Plan du site</a> | <a href="../../copyright/">Informations légales</a> | © 1995-2011 par le Projet FreeBSD. Tous droits réservés.</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

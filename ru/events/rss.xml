@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>Предстоящие события FreeBSD</title>
+    <link>http://www.FreeBSD.org/ru/events/</link>
+    <description>Раздача RSS новостей о предстоящих конференциях по FreeBSD, саммитах, учебных курсах и других соответствующих мероприятиях.</description>
+    <language>ru-ru</language>
+    <webMaster>freebsd-www@FreeBSD.org (FreeBSD Web Team)</webMaster>
+    <managingEditor>freebsd-www@FreeBSD.org (FreeBSD Web Team)</managingEditor>
+    <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+    <ttl>120</ttl>
+    <image>
+      <url>http://www.FreeBSD.org/logo/logo-full.png</url>
+      <title>Предстоящие события FreeBSD</title>
+      <link>http://www.FreeBSD.org/ru/events/</link>
+    </image>
+    <atom:link rel="self" type="application/rss+xml" href="http://www.FreeBSD.org/ru/events/rss.xml"/>
+  </channel>
+</rss>

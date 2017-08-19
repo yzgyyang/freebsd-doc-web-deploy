@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>FreeBSD Snapshot Releases</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="../../layout/css/fixed.css?20130112" type="text/css" />
+    <script type="text/javascript" src="../../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Cabecera y Logo</h2>
+            <div id="headerlogoleft">
+              <a href=".." title="FreeBSD">
+                <img src="../../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <h2 class="blockhide">Enlaces externos</h2>
+              <div id="SEARCHNAV">
+                <ul id="SEARCHNAVLIST">
+                  <li>
+                    <a href="../../donations/" title="Donaciones">Donaciones</a>
+                  </li>
+                  <li class="last-child">
+                    <a href="../mailto.html" title="Contactar">Contactar</a>
+                  </li>
+                </ul>
+              </div>
+              <div id="SEARCH">
+                <form action="//www.FreeBSD.org/cgi/search.cgi" method="get">
+                  <div>
+                    <h2 class="blockhide">
+                      <label for="WORDS">Buscar</label>
+                    </h2>
+                    <div>
+                      <input type="hidden" name="max" value="25" />
+                      <input type="hidden" name="source" value="www" />
+                      <input id="words" name="words" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="Buscar" />
+                      <span> </span>
+                      <input id="submit" name="submit" type="submit" value="Buscar" />
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div id="topnav">
+            <ul id="topnavlist">
+              <li>
+                <a href="../" title="Inicio">Inicio</a>
+              </li>
+              <li>
+                <a href="../about.html" title="Sobre">Sobre</a>
+              </li>
+              <li>
+                <a href="../where.html" title="Descargar">Descargar</a>
+              </li>
+              <li>
+                <a href="../docs.html" title="Documentación">Documentación</a>
+              </li>
+              <li>
+                <a href="../community.html" title="Comunidad">Comunidad</a>
+              </li>
+              <li>
+                <a href="../projects/index.html" title="Desarrollo">Desarrollo</a>
+              </li>
+              <li>
+                <a href="../support.html" title="Soporte">Soporte</a>
+              </li>
+              <li>
+                <a href="http://www.freebsdfoundation.org/" title="Fundación FreeBSD">Fundación</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Navegación por secciones</h2>
+              <ul>
+                <li>
+                  <a href="../where.html">Descargar</a>
+                </li>
+                <li>
+                  <a href="../../releases/">Información de releases</a>
+                  <ul>
+                    <li>
+                      <a href="../../releases/11.1R/announce.html">Release stable: 11.1</a>
+                    </li>
+                    <li>
+                      <a href="../../releases/10.2R/announce.html">Release stable (heredera): 10.2</a>
+                    </li>
+                    <li>
+                      <a href="../../snapshots/">Instantáneas:</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="../../ports/">Aplicaciones portadas</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap"><h1>FreeBSD Snapshot Releases</h1>
+
+<h2>Qué son los  snapshots?</h2>
+
+
+    <p>Como parte del esfuerzo de asegurar que las releases sean
+      totalmente fiables <em>antes</em> de que sea liberada, estamos
+      produciendo periódicamente releases de <em>test</em>
+      llamadas snapshots. Estos snapshots seráan muy similares
+      a las releases completas, exceptuando el tamaño. En particular
+      , antes de instalar un snapshot, ten en cuenta lo siguiente:</p>
+
+    <ul>
+
+        <li>Generalmente no producimos, por ejemplo, nuevas
+        distribuciones de XFree86 o no nos preocupamos por el
+        contenido del directorio tools, a no ser que alguna de estas
+        dos cosas afecten a las modificaciones a testear.</li>
+
+      <li>El número principal de release no sera cambiado en la
+        distribución de cada snapshot. Sólo será
+        modificado en los discos de arranque para que puedas ver cuando
+        ha sido generado ese snapshot. No hay releases, esto son
+        <em>snapshots</em>, y es necesario que esta distinción se
+        mantenga. Los usuarios pueden, por supuesto, referirse a los
+        snapshots por la fecha, tanto por mail como en las news.</li>
+
+      <li>Finalmente, es posible que no actualicemos la documentación.
+        Si un README todavía se refiere a una release previa,
+        bién, es menos importante que fijar los errores y probar las
+        nuevas características.</li>
+    </ul>
+
+    <p>Tus comentarios sobre estos snapshots son muy bienvenidos. No son solo
+      para nuestro beneficio - aquellos que están usando o pensando
+      en usar FreeBSD para misiones críticas agradecerán tus
+      comentarios actualizados. También puedes usar estos snapshots
+      para ver que tus comentarios son tenidos en cuenta y que no
+      tendrás ningun sorpresa desagradable en la próxima
+      release.</p>
+
+    <h2>Dónde encontrar los snapshots</h2>
+
+    <p>Snapshots de
+        <a href="../../handbook/cutting-edge.html#CURRENT" shape="rect">FreeBSD-current</a>
+        están disponibles vía ftp anónimo en
+        <a href="ftp://current.freebsd.org/pub/FreeBSD/" shape="rect">
+        ftp://current.freebsd.org/pub/FreeBSD/</a>.
+	Los snapshots están en directorios nombrados con el formato
+	<b>REL-YYMMDD-SNAP</b> donde `<b>REL</b>' es el número de
+	release, `<b>YY</b>' es el año, `<b>MM</b>' es el més
+	, y `<b>DD</b>' es el día en el que se ha creado
+	. Cada directorio contiene un fichero
+	`<b>README</b>' que comenta las modificaciones realizadas.</p>
+
+    <p>Por demanda popular, los snapshots también están
+      disponibles para la rama
+        <a href="../../handbook/stable.html" shape="rect">FreeBSD-stable</a> vía
+        FTP anónimo en
+	<a href="ftp://releng22.freebsd.org/pub/FreeBSD/" shape="rect">
+	ftp://releng22.freebsd.org/pub/FreeBSD/</a>.
+        Los snapshots están en directorios nombrados de la misma
+        manera que los correspondientes a -current, pero terminando
+        en RELENG en lugar de SNAP.</p>
+
+<p></p><a href="index.html" shape="rect">Release Home</a>
+</div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="../search/index-site.html">Mapa del sitio</a> |
+  <a href="../copyright/">Noticias del Copyright</a> | © 1995-2010 El Proyecto FreeBSD.
+  Quedan reservados todos los derechos.</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

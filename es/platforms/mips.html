@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>Proyecto FreeBSD/MIPS</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="../../layout/css/fixed.css?20130112" type="text/css" />
+    <script type="text/javascript" src="../../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Cabecera y Logo</h2>
+            <div id="headerlogoleft">
+              <a href=".." title="FreeBSD">
+                <img src="../../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <h2 class="blockhide">Enlaces externos</h2>
+              <div id="SEARCHNAV">
+                <ul id="SEARCHNAVLIST">
+                  <li>
+                    <a href="../../donations/" title="Donaciones">Donaciones</a>
+                  </li>
+                  <li class="last-child">
+                    <a href="../mailto.html" title="Contactar">Contactar</a>
+                  </li>
+                </ul>
+              </div>
+              <div id="SEARCH">
+                <form action="//www.FreeBSD.org/cgi/search.cgi" method="get">
+                  <div>
+                    <h2 class="blockhide">
+                      <label for="WORDS">Buscar</label>
+                    </h2>
+                    <div>
+                      <input type="hidden" name="max" value="25" />
+                      <input type="hidden" name="source" value="www" />
+                      <input id="words" name="words" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="Buscar" />
+                      <span> </span>
+                      <input id="submit" name="submit" type="submit" value="Buscar" />
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div id="topnav">
+            <ul id="topnavlist">
+              <li>
+                <a href="../" title="Inicio">Inicio</a>
+              </li>
+              <li>
+                <a href="../about.html" title="Sobre">Sobre</a>
+              </li>
+              <li>
+                <a href="../where.html" title="Descargar">Descargar</a>
+              </li>
+              <li>
+                <a href="../docs.html" title="Documentación">Documentación</a>
+              </li>
+              <li>
+                <a href="../community.html" title="Comunidad">Comunidad</a>
+              </li>
+              <li>
+                <a href="../projects/index.html" title="Desarrollo">Desarrollo</a>
+              </li>
+              <li>
+                <a href="../support.html" title="Soporte">Soporte</a>
+              </li>
+              <li>
+                <a href="http://www.freebsdfoundation.org/" title="Fundación FreeBSD">Fundación</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Navegación por secciones</h2>
+              <ul>
+                <li>
+                  <a href="../projects/index.html">Desarrollo</a>
+                </li>
+                <li>
+                  <a href="../../doc/en_US.ISO8859-1/books/developers-handbook">Manual del desarrollador</a>
+                </li>
+                <li>
+                  <a href="../../doc/en_US.ISO8859-1/books/porters-handbook">Manual del porter</a>
+                </li>
+                <li>
+                  <a href="../../developers/cvs.html">Repositorio CVS</a>
+                </li>
+                <li>
+                  <a href="../../releng/index.html">Ingeniería de releases</a>
+                </li>
+                <li>
+                  <a href="../platforms/">Arquitecturas</a>
+                </li>
+                <li>
+                  <a href="../../projects/ideas/">Ideas de proyectos</a>
+                </li>
+                <li>
+                  <a href="../../doc/es_ES.ISO8859-1/articles/contributing/index.html">Contribuir a FreeBSD</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap"><h1>Proyecto FreeBSD/MIPS</h1>
+
+  <p>Esta página contiene información sobre el port de FreeBSD
+    para MIPS.</p>
+
+  <h3>Información general</h3>
+
+  <ul>
+    <li><a href="#faq" shape="rect">FAQ del port</a></li>
+    <li><a href="#list" shape="rect">Lista de correo de FreeBSD/MIPS</a></li>
+  </ul>
+
+  <h3><a name="faq" shape="rect" id="faq">Preguntas más frecuentes</a></h3>
+
+  <ol>
+    <li><a href="#1" shape="rect">?Qué es el proyecto FreeBSD/MIPS?</a></li>
+    <li><a href="#2" shape="rect">?Qué hardware soporta?</a></li>
+    <li><a href="#3" shape="rect">?Cuál es el estado actual?</a></li>
+    <li><a href="#4" shape="rect">?Cómo puedo conseguir FreeBSD/MIPS?</a></li>
+    <li><a href="#5" shape="rect">?Con quién debo ponerme en contacto?</a></li>
+  </ol>
+
+  <h4><a name="1" shape="rect" id="1">?Qué es el proyecto FreeBSD/MIPS?</a></h4>
+
+  <p>FreeBSD/MIPS es un port del sistema operativo FreeBSD para computadoras
+    con MIPS R4K o procesadores más recientes, especialmente computadores
+    MIPS de SGI.</p>
+
+  <h4><a name="2" shape="rect" id="2">?Qué hardware soporta?</a></h4>
+
+  <p>Actualmente las computadoras MIPS de SGI.  Esperamos que más
+    adelante el soporte llegue a otras arquitecturas MIPS, como las placas
+    empotradas más comunes y los sistemas menos exóticos que
+    dispongan de configuraciones similares a los de SGI.</p>
+
+  <h4><a name="3" shape="rect" id="3">?Cuál es el estado actual?</a></h4>
+
+  <p>FreeBSD/MIPS está en sus primeros pasos de desarrollo,
+    consulte
+    <a href="../../projects/mips" shape="rect">la página de situación
+    del proyecto</a> para más información.</p>
+
+  <h4><a name="4" shape="rect" id="4">?Cómo puedo conseguir FreeBSD/MIPS?</a></h4>
+
+  <p>FreeBSD/MIPS está de momento en el repositorio Perforce de
+    FreeBSD pero de vez en cuando se envían "diffs" a la
+    <a href="#list" shape="rect">lista de correo</a>.</p>
+
+  <h4><a name="5" shape="rect" id="5">?Con quién debo ponerme en contacto?</a></h4>
+
+  <p><a href="mailto:jmallett@FreeBSD.org" shape="rect">Juli Mallett</a> es la jefa del
+    proyecto.  Póngase en contacto con ella si puede contribuir
+    al código.  Si solamente quiere saber cuál es el estado del
+    proyecto, consulte
+    <a href="../../projects/mips" shape="rect">la página de situación del proyecto</a>
+    con frecuencia o suscríbase a la <a href="#list" shape="rect">lista de correo de FreeBSD/MIPS</a>.</p>
+
+  <h3><a name="list" shape="rect" id="list">Lista de correo de FreeBSD/MIPS</a></h3>
+
+  <p>Para suscribirse a la lista envíe un correo a <tt class="     EMAIL">&lt;<a href="mailto:freebsd-mips-subscribe@FreeBSD.org" shape="rect">freebsd-mips-subscribe@FreeBSD.org</a>&gt;</tt>
+    o visite <a href="http://lists.FreeBSD.org/mailman/listinfo/freebsd-mips" shape="rect">la interfaz de mailman</a>.</p>
+
+  </div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="../search/index-site.html">Mapa del sitio</a> |
+  <a href="../copyright/">Noticias del Copyright</a> | © 1995-2010 El Proyecto FreeBSD.
+  Quedan reservados todos los derechos.</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

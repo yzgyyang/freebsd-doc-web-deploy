@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>提交 FreeBSD 問題報告(problem report)</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="refresh" content="0; url=https://bugs.freebsd.org/submit/" />
+    <link rel="shortcut icon" href="./../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="./../layout/css/fixed.css" type="text/css" />
+    <script type="text/javascript" src="./../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Header And Logo</h2>
+            <div id="headerlogoleft">
+              <a href="." title="FreeBSD">
+                <img src="./../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <div class="frontdonateroundbox">
+                <div class="frontdonatetop">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+                <div class="frontdonatecontent">
+                  <a href="https://www.FreeBSDFoundation.org/donate/">捐贈 FreeBSD</a>
+                </div>
+                <div class="frontdonatebot">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+              </div>
+              <h2 class="blockhide">Peripheral Links</h2>
+              <div id="searchnav">
+                <ul id="searchnavlist"></ul>
+              </div>
+              <div id="search">
+                <form method="get" id="search" action="https://duckduckgo.com/">
+                  <h2 class="blockhide">
+                    <label for="words">搜尋</label>
+                  </h2>
+                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
+                  <input type="hidden" name="ka" value="v" />
+                  <input type="hidden" name="kt" value="v" />
+                  <input type="hidden" name="kh" value="1" />
+                  <input type="hidden" name="kj" value="r2" />
+                  <input id="words" name="q" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="搜尋" />
+                  <span> </span>
+                  <input id="submit" name="submit" type="submit" value="搜尋" />
+                </form>
+              </div>
+            </div>
+          </div>
+          <h2 class="blockhide">Site Navigation</h2>
+          <div id="menu">
+            <ul class="first">
+              <li>
+                <a href="./">首頁</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="./about.html">關於</a>
+                <ul>
+                  <li>
+                    <a href="./../projects/newbies.html">簡介</a>
+                  </li>
+                  <li>
+                    <a href="./../features.html">特色</a>
+                  </li>
+                  <li>
+                    <a href="./../advocacy/">宣傳</a>
+                  </li>
+                  <li>
+                    <a href="./../marketing/">行銷</a>
+                  </li>
+                  <li>
+                    <a href="./../privacy.html">隱私政策</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="./where.html">取得 FreeBSD</a>
+                <ul>
+                  <li>
+                    <a href="./releases/">Release Information</a>
+                  </li>
+                  <li>
+                    <a href="./releng/">Release Engineering</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="./docs.html">文件</a>
+                <ul>
+                  <li>
+                    <a href="./../doc/en_US.ISO8859-1/books/faq/">常見問題集</a>
+                  </li>
+                  <li>
+                    <a href="./../doc/zh_TW/books/handbook/">使用手冊</a>
+                  </li>
+                  <li>
+                    <a href="./../doc/zh_TW/books/porters-handbook">Porter' 手冊</a>
+                  </li>
+                  <li>
+                    <a href="./../doc/zh_TW/books/developers-handbook">Developer' 手冊</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/man.cgi">Manual Pages</a>
+                  </li>
+                  <li>
+                    <a href="./../doc/zh_TW/books/fdp-primer">文件計劃入門書</a>
+                  </li>
+                  <li>
+                    <a href="./docs/books.html">所有書籍與文章</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="./community.html">社群</a>
+                <ul>
+                  <li>
+                    <a href="./../community/mailinglists.html">郵件論壇</a>
+                  </li>
+                  <li>
+                    <a href="https://forums.FreeBSD.org">論壇</a>
+                  </li>
+                  <li>
+                    <a href="./usergroups.html">愛用者組織</a>
+                  </li>
+                  <li>
+                    <a href="./../events/events.html">活動</a>
+                  </li>
+                  <li>
+                    <a href="http://serverfault.com/questions/tagged/freebsd">Q&amp;A (external)</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="./../projects/index.html">開發</a>
+                <ul>
+                  <li>
+                    <a href="https://wiki.FreeBSD.org/IdeasPage">Project Ideas</a>
+                  </li>
+                  <li>
+                    <a href="https://svnweb.FreeBSD.org">SVN Repository</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/freebsd">GIT Repository</a>
+                  </li>
+                  <li>
+                    <a href="http://p4web.FreeBSD.org">Perforce Repository</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="./support.html">支援</a>
+                <ul>
+                  <li>
+                    <a href="./../commercial/commercial.html">供應商</a>
+                  </li>
+                  <li>
+                    <a href="./../security/">安全資訊</a>
+                  </li>
+                  <li>
+                    <a href="https://bugs.FreeBSD.org/search/">問題回報</a>
+                  </li>
+                  <li>
+                    <a href="https://www.FreeBSD.org/support.html">提交問題回報</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="https://www.freebsdfoundation.org/">基金會</a>
+                <ul>
+                  <li>
+                    <a href="https://www.freebsdfoundation.org/donate/">資金捐贈</a>
+                  </li>
+                  <li>
+                    <a href="./../donations/index.html#systems">硬體捐贈</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Section Navigation</h2>
+              <ul>
+                <li>
+                  <a href="./../support.html">支援</a>
+                </li>
+                <li>
+                  <a href="./../commercial/">商業產品</a>
+                  <ul>
+                    <li>
+                      <a href="./../commercial/software_bycat.html">軟體</a>
+                    </li>
+                    <li>
+                      <a href="./../commercial/hardware.html">硬體</a>
+                    </li>
+                    <li>
+                      <a href="./../commercial/consult_bycat.html">咨詢</a>
+                    </li>
+                    <li>
+                      <a href="./../commercial/isp.html">Internet 服務</a>
+                    </li>
+                    <li>
+                      <a href="./../commercial/misc.html">其它</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="./security/">安全資訊</a>
+                </li>
+                <li>
+                  <a href="./../support/bugreports.html">Bug 報告</a>
+                  <ul>
+                    <li>
+                      <a href="./send-pr.html">提交問題報告</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="./../support/webresources.html">Web 資源</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap"><h1>提交 FreeBSD 問題報告(problem report)</h1>
+
+	
+
+	<img src="./../gifs/bug.jpg" alt="Bugs" align="right" border="0" width="200" height="233" />
+
+    <p>感謝您花費時間讓我們了解 FreeBSD 中所存在的問題。</p>
+
+    <p>透過這個表格，您可以提交在 source code、文件、網頁的問題回報。
+      如果您在安裝 FreeBSD 時遇到問題，或者想提出類似『為什麼
+      <b>○○</b> 不能用』或『FreeBSD 是否能與 <b>某樣軟體</b> 一起使用』，
+      請在相關的論壇提出問題。  由於問題的各情況不同，請參閱
+      <a href="support.html" shape="rect">支援</a>。</p>
+
+    <p>在填寫這個表格之前，請花些時間閱讀
+      <a href="./../doc/en_US.ISO8859-1/articles/problem-reports/article.html" shape="rect">
+      如何撰寫 FreeBSD 問題報告</a> 的事前準備。 這將為您省下時間，
+      並儘可能降低獲得與問題有關幫助時的失敗機率。  在提交問題報告之前請檢查是否
+      <a href="//www.FreeBSD.org/cgi/query-pr-summary.cgi?query" shape="rect">已經有人提交過同樣的報告</a> 或者在
+      <a href="./../doc/zh_TW.UTF-8/books/faq/" shape="rect">FAQ</a> 中是否已經有所記錄。</p>
+
+    <p>請盡可能詳細地填寫表格所要求的資料。 特別注意，
+      您所填寫的 "Environment" (環境) 這段是指有問題的那一台機器環境。</p>
+
+    <p><b>注意</b>： 由於 web 本身缺陷，您所做的複製、貼上將會破壞原先的 Tab 和空格，
+      因此這一 web 表格不該用來以複製、貼上的方式提交代碼。</p>
+
+    <p>需要注意的是，除非您明確說明，提交到 FreeBSD Project 的任何變動，
+      都將被認為是以 FreeBSD 相同的授權提供的。 此外，
+      您所使用來提交問題報告的電子郵件地址，將通過 web 界面公諸於眾，
+      因此您應使用有效的垃圾郵件過濾器。</p>
+
+    <p>如果您正提交 patch 檔案，請注意我們只接受純文字(text/*) 以及 shar
+      這兩種格式，因此您的瀏覽器必須能夠送出正確的檔案類型。
+      如果您的瀏覽器做這項工作時有問題，比較簡單的辦法是把檔案改名，
+      使其以 '.txt' 結尾。</p>
+
+    <p>最後，就是使用這一頁面時，您必須要能看辨識用的圖形，
+      這是我們用以阻止對這一系統進行濫用的一項措施。 我們非常遺憾不得不這樣做，
+      但這種做法是無法避免的。 如果您由於任何原因無法看到圖片，
+      請接受我們造成您不方便的歉意，並將您的問題報告，
+      發送給 <a href="mailto:bugbusters@FreeBSD.org" shape="rect">bugbusters 團隊</a>
+      將提交內容送入問題追蹤系統。</p>
+
+    <p><b>注意</b>： 在按下 '提交' 之前，請<b>先記得，儲存您所輸入的內容</b>。
+      如果您的瀏覽器會把圖片 cache 起來，或者您花了超過 45 分鐘來填寫表格，
+      則在頁面上看到就有可能是過時的圖片，
+      進而導致系統拒絕您提交的內容。 隨您的瀏覽器的不同，
+      您可能會在這種情況下 <b>遺失所填的內容</b>。
+      請儘量避免出現這種情況。</p>
+
+    <form action="http://www.FreeBSD.org/cgi/dosendpr.cgi" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="submitterid" value="current-users" />
+      <input type="hidden" name="confidential" value="no" />
+
+      <label for="email">您的電子郵件地址</label>：<br clear="none" />
+      <input type="text" name="email" id="email" size="40" />
+
+      <br clear="none" /><br clear="none" /><label for="originator">您的名字</label>：<br clear="none" />
+      <input type="text" name="originator" id="originator" size="40" />
+
+      <br clear="none" /><br clear="none" /><label for="organization">所屬團體或公司</label>：<br clear="none" />
+      <input type="text" name="organization" id="organization" size="40" />
+
+      <br clear="none" /><br clear="none" /><label for="synopsis">對問題癥狀的扼要描述：</label> <br clear="none" />
+      <input type="text" name="synopsis" id="synopsis" size="60" />
+
+      <br clear="none" /><br clear="none" /><label for="category">分類</label>：<select name="category" id="category">
+	<option> advocacy</option>
+	<option> alpha</option>
+	<option> amd64</option>
+	<option> bin</option>
+	<option> conf</option>
+	<option> docs</option>
+	<option> gnu</option>
+	<option> i386</option>
+	<option> ia64</option>
+	<option> java</option>
+	<option> kern</option>
+	<option selected="selected"> misc</option>
+	<option> ports</option>
+	<option> powerpc</option>
+	<option> sparc64</option>
+	<option> standards</option>
+	<option> threads</option>
+	<option> usb</option>
+	<option> www</option>
+      </select>
+
+      <br clear="none" /><br clear="none" /><label for="severity">嚴重程度</label>：<select name="severity" id="severity">
+	<option> non-critical</option>
+	<option> serious</option>
+	<option> critical</option>
+      </select>
+
+      <br clear="none" /><br clear="none" /><label for="priority">優先級</label>：<select name="priority" id="priority">
+	<option> low</option>
+	<option> medium</option>
+	<option> high</option>
+      </select>
+
+      <br clear="none" /><br clear="none" /><label for="class">提交種類：</label> <select name="class" id="class">
+	<option> sw-bug</option>
+	<option> doc-bug</option>
+	<option> change-request</option>
+	<option> update</option>
+	<option> maintainer-update</option>
+      </select>
+
+      <br clear="none" /><br clear="none" /><label for="release">您使用的是哪個 FreeBSD 版本</label>：<br clear="none" />
+      <input type="text" name="release" id="release" size="40" />
+
+      <br clear="none" /><br clear="none" /><label for="environment">環境 (有問題的那台機器上的 "uname -a" 結果)</label>：
+      <br clear="none" />
+      <textarea name="environment" id="environment" rows="3" cols="80"></textarea><br clear="none" /><br clear="none" />
+
+      <label for="description">完整描述</label>：<br clear="none" />
+      <textarea name="description" id="description" rows="20" cols="80"></textarea><br clear="none" /><br clear="none" />
+
+      <label for="howtorepeat">如何重現問題</label>：<br clear="none" />
+      <textarea name="howtorepeat" id="howtorepeat" rows="10" cols="80"></textarea><br clear="none" /><br clear="none" />
+
+      <label for="fix">(如果你知道)如何修正問題</label>：<br clear="none" />
+      <textarea name="fix" id="fix" rows="20" cols="80"></textarea><br clear="none" /><br clear="none" />
+
+      <label for="patch">和/或 patch 檔案 (最大 100KB)</label>:
+      <input type="file" name="patch" id="patch" maxlength="102400" accept="text/*" /><br clear="none" />
+
+      <label for="code-confirm">最後，請輸入下面圖片中的文字，
+	以証明您不是機器人：<br clear="none" /><br clear="none" />
+      <img src="http://www.FreeBSD.org/cgi/confirm-code.cgi?db=sendpr" alt="隨機的文字； 如果您無法察看圖片，請發送郵件給 bugbusters@FreeBSD.org" border="0" height="24" /></label>
+      <input type="text" name="code-confirm" id="code-confirm" size="8" /><br clear="none" /><br clear="none" />
+
+      <input type="submit" value="提交" />
+      <input type="reset" value="重填" />
+    </form>
+
+  </div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="./search/index-site.html">Site Map</a> |
+  <a href="./copyright/">法律聲明</a> | © 1995–2016 FreeBSD 計劃。
+  保留所有權利。</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

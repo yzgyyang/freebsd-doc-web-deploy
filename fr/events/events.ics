@@ -1,0 +1,232 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:$FreeBSD$
+    
+BEGIN:VEVENT
+SEQUENCE:1
+SUMMARY:2ème Conférence Unix Helvétique
+URL;VALUE=URI:http://www.sucon.ch/
+LOCATION:, Zürich, Suisse
+
+DTSTART;VALUE=DATE:20040902
+DTEND;VALUE=DATE:20040904
+DESCRIPTION:SUCON est une conférence emergente centrée sur
+	les thèmes relatifs au système d'exploitation Unix. Notre but
+	est de rassembler les dévelopeurs, les administrateurs système
+	et les utilisateurs d'Unix pour encourager les projets, les idées
+	et la connaissance de chaque individu. Il y aura aussi des exposés
+	relatifs à FreeBSD.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:2
+SUMMARY:Conférence Technique Annuelle USENIX de 2004
+URL;VALUE=URI:http://www.usenix.org/events/usenix04/
+LOCATION:, Boston, Massachusetts, USA
+
+DTSTART;VALUE=DATE:20040627
+DTEND;VALUE=DATE:20040702
+DESCRIPTION:A la Conférence Technique Annuelle USENIX 2004, se tiendra FREENIX
+	et une session d'évaluation formelle des documents ainsi que les nouvelles
+	Sessions du Groupe d'Intéret Spécial UseBSD.
+	Il n'y aura pas d'autre conférence BSD indépendante soutenue par Usenix
+	aux USA en 2004, ce qui fait de celle-ci LA grosse conférence de l'année
+	pour les "BSDistes" enthousiastes aux US.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:3
+SUMMARY:Linuxtag 2004
+URL;VALUE=URI:http://www.linuxtag.org/2004/
+LOCATION:Kongresszentrum, Karlsruhe, Allemagne
+
+DTSTART;VALUE=DATE:20040623
+DTEND;VALUE=DATE:20040626
+DESCRIPTION:Linuxtag est l'un des plus importants marchés et conférences
+      Linux et Open Source d'Europe. Comme les années précédentes, un stand FreeBSD
+      sera présent.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:4
+SUMMARY:BSDCan
+URL;VALUE=URI:http://www.bsdcan.org/
+LOCATION:University of Ottawa, Ottawa, Canada
+
+DTSTART;VALUE=DATE:20040513
+DTEND;VALUE=DATE:20040515
+DESCRIPTION:BSDCan est une conférence pour dévelopeurs, où l'accent
+      est fortement mis sur les technologies émergentes, les projets de
+      recherche et les travaux en cours. Il présente aussi les projets
+      d'infrastructures côté utilisateur et invite à la fois la contribution des
+      dévelopeurs de logiciels libres et celle des solutions commerciales.
+    
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:5
+SUMMARY:BSDCon Asie 2004
+URL;VALUE=URI:http://www.asiabsdcon.org/
+LOCATION:Academica Sinica, Taipei, Taiwan
+
+DTSTART;VALUE=DATE:20040312
+DTEND;VALUE=DATE:20040315
+DESCRIPTION:La première Conférence BSD en Asie, soutenue par l'association USENIX. Deux
+	jours de cours précéderont deux jours de sessions techniques
+	et d'expositions commerciales.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:6
+SUMMARY:LinuxForum 2004
+URL;VALUE=URI:http://www.linuxforum.dk/
+LOCATION:Symbion, Copenhague, Danemark
+
+DTSTART;VALUE=DATE:20040305
+DTEND;VALUE=DATE:20040306
+DESCRIPTION:Conférence annuelle Open Source Danoise. Le groupe danois
+	d'utilisateurs BSD BSD-DK
+	présentera les BSDs.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:7
+SUMMARY:Fosdem 2004
+URL;VALUE=URI:http://www.fosdem.org/
+LOCATION:Université Libre de Bruxelles, Bruxelle, Belgique
+
+DTSTART;VALUE=DATE:20040221
+DTEND;VALUE=DATE:20040222
+DESCRIPTION:Un évenement de 2 jours pour promouvoir la généralisation
+	de l'utilisation du logiciel Libre et Open Source. Parmi les projets
+	présents lors de cet événement, il y aura Mozilla, KDE et, bien sûr
+	FreeBSD.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:8
+SUMMARY:Solutions Linux 2004
+URL;VALUE=URI:http://www.linuxsolutions.fr/
+LOCATION:CNIT, Paris, France
+
+DTSTART;VALUE=DATE:20040203
+DTEND;VALUE=DATE:20040205
+DESCRIPTION:Un événement sur 3 jours pour la promotion de GNU/Linux et
+	des logiciels Open Source. Le
+	groupe français d'utilisateurs FreeBSD sera présent dans le village
+	des Associations pour promouvoir FreeBSD, bien sûr!
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:9
+SUMMARY:20. Congrès Chaos Communication
+URL;VALUE=URI:http://www.ccc.de/congress/2003/
+LOCATION:Berliner Congress Center, Berlin, Allemagne
+
+DTSTART;VALUE=DATE:20031227
+DTEND;VALUE=DATE:20031229
+DESCRIPTION:Le Congrès Chaos Communication est une conférence
+	de 3 jours portant sur la technologie, la société et l'utopie.
+	FreeBSD sera présent avec un stand. Si vous désirez
+	nous aider, merci de contacter Christian Brueffer.
+    
+URL;VALUE=URI:http://gallery.daemon.li/20c3/
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:10
+SUMMARY:BSDCon Brésil
+URL;VALUE=URI:http://bsdcon.myfreebsd.com.br/
+LOCATION:, Rio de Janeiro, Brésil
+
+DTSTART;VALUE=DATE:20031206
+DTEND;VALUE=DATE:20031207
+DESCRIPTION:C'est la première édition de la BSDCon Brésil. BSDCon
+	Brésil est promue et organisée par un groupe de corporations
+	en relation avec la communauté BSD. Il y aura 2 jours intensifs
+	d'ateliers, de présentations et de mini tutoriels relatifs aux
+	BSDs.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:11
+SUMMARY:Journée BSD/Linux
+URL;VALUE=URI:http://www.jus.or.jp/events/bsd-linux-day/
+LOCATION:, Yokohama, Japon
+
+DTSTART;VALUE=DATE:20031202
+DESCRIPTION:Pendant la Conférence InternetWeek 2003, qui aura
+	lieu à Yokohama entre le 2 et le 5 Décembre, il y aura une
+	journée BSD/Linux organisée par la Japan Unix Society.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:12
+SUMMARY:Soirée pour le 10ème anniversaire de FreeBSD
+URL;VALUE=URI:http://www.offmyserver.com/cgi-bin/store/rsvp.html
+LOCATION:DNA Lounge, San Francisco, U.S.A.
+
+DTSTART;VALUE=DATE:20031124
+DESCRIPTION:Rejoignez nous Lundi 24 Novembre pour célébrer les 10
+	ans de FreeBSD ! RSVP  ici
+	pour que nous commandions suffisamment de nourriture et de boissons
+	pour tout le monde.
+URL;VALUE=URI:http://apollo.backplane.com/pics.bsdparty/
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:13
+SUMMARY:SCALE: Expo Linux 2003 de Californie du Sud
+URL;VALUE=URI:http://www.socallinuxexpo.com/
+LOCATION:Los Angeles Convention Center, Los Angeles, Californie, USA
+
+DTSTART;VALUE=DATE:20031122
+DESCRIPTION:La Deuxième Expo annuelle Linux du Sud de la Californie.
+	FreeBSD sera là et présentera du matériel promotionnel.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:14
+SUMMARY:5. Linuxday Vorarlberg
+URL;VALUE=URI:http://www.linuxday.at/
+LOCATION:HTL Dornbirn, Dornbirn, Autriche
+
+DTSTART;VALUE=DATE:20031115
+DESCRIPTION:La journée Linux de Vorarlberg est un évenement
+	où les acteurs des projets Open Source présentent leurs
+	travaux à la communauté. L'entrée est gratuite. Il y sera
+	aussi question de FreeBSD.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:15
+SUMMARY:BSDCon Japon 2003
+URL;VALUE=URI:http://bsdcon.jp/
+LOCATION:BIZ Shinjuku, Tokyo, Japon
+
+DTSTART;VALUE=DATE:20031018
+DESCRIPTION:Conférence BSD Japon 2003, la seconde conférence
+	concernant les *BSD du Japon, s'est tenue à Tokyo le 18
+	Octobre 2003. Il y avait environ 170 participants. Il y a eu
+	deux sessions parallèles (générale et technique), quatre
+	documents techniques ainsi que douze présentations de travaux en cours
+	durant cette conférence.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:16
+SUMMARY:Linux-Kongress 2003
+URL;VALUE=URI:http://www.linux-kongress.org/2003/
+LOCATION:Université de Saarland, Saarbrücken, Allemagne
+
+DTSTART;VALUE=DATE:20031014
+DTEND;VALUE=DATE:20031016
+DESCRIPTION:FreeBSD présentera un stand au Linux-Kongress, probablement
+        la conférence la plus connue en Europe des developpeurs Linux. Nous
+	répondrons aux questions, ferons des démonstrations du système et vendrons
+	quelques produits FreeBSD.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:17
+SUMMARY:BSDCon 03
+URL;VALUE=URI:http://www.usenix.org/events/bsdcon03/
+LOCATION:, San Mateo, Californie, USA
+
+DTSTART;VALUE=DATE:20030908
+DTEND;VALUE=DATE:20030912
+DESCRIPTION:Pour la quatrième fois, l'évenement majeur BSD, la BSDCon.
+	Deux jours de tutoriels précederont deux jours et demi de sessions
+	techniques. Une opportunité pour les personnes de tous niveaux
+	d'expérience de rencontrer des experts BSD, des professionnels
+	avec des expériences concrètes et des leaders de l'industrie.
+    
+URL;VALUE=URI:http://www.FreeBSD.org/events/2003/bsdcon-devsummit.html
+URL;VALUE=URI:http://bsdcon.kwiki.org/
+URL;VALUE=URI:http://apollo.backplane.com/BSDCON2003/
+END:VEVENT
+END:VCALENDAR

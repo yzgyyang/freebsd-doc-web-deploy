@@ -1,0 +1,652 @@
+<?xml version="1.0" encoding="iso-8859-2"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>FreeBSD biztonsági információk</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-2" />
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="../../layout/css/fixed.css?20130112" type="text/css" />
+    <script type="text/javascript" src="../../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Fejléc és logo</h2>
+            <div id="headerlogoleft">
+              <a href=".." title="FreeBSD">
+                <img src="../../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <h2 class="blockhide">Külső linkek</h2>
+              <div id="SEARCHNAV">
+                <ul id="SEARCHNAVLIST">
+                  <li>
+                    <a href="../../donations/" title="Adomány">Adomány</a>
+                  </li>
+                  <li class="last-child">
+                    <a href="../mailto.html" title="Kapcsolat">Kapcsolat</a>
+                  </li>
+                </ul>
+              </div>
+              <div id="SEARCH">
+                <form action="//www.FreeBSD.org/cgi/search.cgi" method="get">
+                  <div>
+                    <h2 class="blockhide">
+                      <label for="WORDS">Keresés</label>
+                    </h2>
+                    <div>
+                      <input type="hidden" name="max" value="25" />
+                      <input type="hidden" name="source" value="www" />
+                      <input id="words" name="words" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="Keresés" />
+                      <span> </span>
+                      <input id="submit" name="submit" type="submit" value="Keresés" />
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div id="menu">
+            <ul class="first">
+              <li>
+                <a href="../">Kezdőlap</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../about.html">Bemutatkozunk</a>
+                <ul>
+                  <li>
+                    <a href="../../projects/newbies.html">Bemutatkozunk</a>
+                  </li>
+                  <li>
+                    <a href="../features.html">Adottságok</a>
+                  </li>
+                  <li>
+                    <a href="../advocacy/">Képviselet</a>
+                  </li>
+                  <li>
+                    <a href="../../marketing/">Marketing</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../where.html">Letöltés</a>
+                <ul>
+                  <li>
+                    <a href="../../releases/">Kiadási információk</a>
+                  </li>
+                  <li>
+                    <a href="../../releng/">A kiadások ütemezése</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../docs.html">Dokumentáció</a>
+                <ul>
+                  <li>
+                    <a href="../../doc/hu/books/faq/">GYIK</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/hu/books/handbook/">Kézikönyv</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/en/books/porters-handbook/">Porterek
+	    kézikönyve</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/en/books/developers-handbook/">Fejlesztők
+	    kézikönyve</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/man.cgi">Man oldalak</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../community.html">Közösség</a>
+                <ul>
+                  <li>
+                    <a href="../community/mailinglists.html">Levelezési
+	    listák</a>
+                  </li>
+                  <li>
+                    <a href="http://forums.freebsd.org">Fórumok</a>
+                  </li>
+                  <li>
+                    <a href="../../usergroups.html">Felhasználói
+	    csoportok</a>
+                  </li>
+                  <li>
+                    <a href="../events/events.html">Rendezvények</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../projects/index.html">Fejlesztők</a>
+                <ul>
+                  <li>
+                    <a href="../../projects/ideas/ideas.html">Projektötletek</a>
+                  </li>
+                  <li>
+                    <a href="http://svn.FreeBSD.org/viewvc/base/">SVN
+	    repository</a>
+                  </li>
+                  <li>
+                    <a href="http://cvsweb.FreeBSD.org">CVS repository</a>
+                  </li>
+                  <li>
+                    <a href="http://p4web.FreeBSD.org">Perforce repository</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../support.html">Támogatás</a>
+                <ul>
+                  <li>
+                    <a href="../../commercial/commercial.html">Terjesztők</a>
+                  </li>
+                  <li>
+                    <a href="../security/security.html">Biztonsági
+	    tudnivalók</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/query-pr-summary.cgi">Hibajelentések</a>
+                  </li>
+                  <li>
+                    <a href="../send-pr.html">Hibajelentések
+	    küldése</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="http://www.freebsdfoundation.org/">Alapítvány</a>
+                <ul>
+                  <li>
+                    <a href="http://www.freebsdfoundation.org/donate/">Felajánlás</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Fejezetek közti navigáció</h2>
+              <ul>
+                <li>
+                  <a href="../support.html">Támogatás</a>
+                </li>
+                <li>
+                  <a href="../../commercial/">Terjesztők</a>
+                </li>
+                <li>
+                  <ul>
+                    <li>
+                      <a href="../../commercial/software_bycat.html">Szoftver</a>
+                    </li>
+                    <li>
+                      <a href="../../commercial/hardware.html">Hardver</a>
+                    </li>
+                    <li>
+                      <a href="../../commercial/consult_bycat.html">Konzultáció</a>
+                    </li>
+                    <li>
+                      <a href="../../commercial/isp.html">Internet Szolgáltatók</a>
+                    </li>
+                    <li>
+                      <a href="../../commercial/misc.html">Egyéb</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="../security/index.html">Biztonsági tudnivalók</a>
+                  <ul>
+                    <li>
+                      <a href="../security/advisories.html">Biztonsági figyelmeztetések</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="../support/bugreports.html">Hibajelentések</a>
+                  <ul>
+                    <li>
+                      <a href="../send-pr.html">Hibajelentések küldése</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="../support/webresources.html">Webes források</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap"><h1>FreeBSD biztonsági információk</h1>
+
+  <h2>Bevezetés</h2>
+
+  <p>Ezt az oldalt azért hoztuk létre, hogy a FreeBSD
+    biztonsági problémáival kapcsolatban
+    segítséget nyújtsunk az új és
+    tapasztalt felhasználóknak egyaránt.  A FreeBSD
+    Projekt tagjai nagyon komolyan veszik a biztonsági
+    hibákat és folyamatosan azon dolgoznak, hogy az
+    operációs rendszert a lehető
+    legbiztonságosabbá tegyék.</p>
+
+  <h2>Tartalomjegyzék</h2>
+
+  <ul>
+    <li><a href="#how" shape="rect">Hogyan és kinek jelentsük a FreeBSD
+	biztonsági hibáit</a></li>
+    <li><a href="#sec" shape="rect">Röviden a FreeBSD Security Officer
+	feladatáról</a></li>
+    <li><a href="#pol" shape="rect">Adatkezelési házirend</a></li>
+    <li><a href="#sup" shape="rect">Támogatott FreeBSD kiadások</a></li>
+  </ul>
+
+  <h2>Egyéb biztonsággal kapcsolatos linkek</h2>
+
+  <ul>
+    <li><a href="charter.html" shape="rect">A Security Officer és
+	csapatának szabadalomlevele</a></li>
+    <li><a href="advisories.html" shape="rect">A FreeBSD biztonsági
+	figyelmeztetéseinek listája</a></li>
+    <li><a href="../doc/hu/books/handbook/security-advisories.html" shape="rect">
+	A FreeBSD biztonsági figyelmeztetései</a></li>
+  </ul>
+
+  <a name="how" shape="rect" id="how"></a>
+  <h2>Hogyan és kinek jelentsük a FreeBSD biztonsági
+    hibáit</h2>
+
+  <p>A FreeBSD biztonsági hibáit közvetlenül a <a href="mailto:secteam@FreeBSD.org" shape="rect">FreeBSD Security Team</a>
+    részére kell küldeni, illetve bizalmas
+    információk esetén a <a href="../../../security/so_public_key.asc" shape="rect">Security Officer
+      PGP-kulcsával</a> írhatunk egy PGP
+      titkosítású levelet a <a href="mailto:security-officer@FreeBSD.org" shape="rect">Security Officer
+      Team</a> címére.  A jelentéseknek minden
+    esetben tartalmazniuk kell a következő adatokat:</p>
+
+  <ul>
+    <li>A sebezhetőség leírása.</li>
+    <li>Amennyiben lehetséges, a hiba által
+      érintett összes FreeBSD verzió
+      megjelölése.</li>
+    <li>Bármilyen kézenfekvő megoldás.</li>
+    <li>Amennyiben lehetséges, példakód a hiba
+      kihasználhatóságának
+      bemutatására.</li>
+  </ul>
+
+  <p>A megadott információk közlése
+    után a Security Officer vagy a Security Team valamelyik
+    képviselője visszaigazolást fog küldeni.</p>
+
+  <h3>A levélszemét szűrése</h3>
+
+  <p>Mivel a biztonsági problémákkal kapcsolatos
+    levelezési címekre tömegesen érkezik a
+    kéretlen levélszemét, a forgalmukat
+    folyamatosan szűrjük.  Amennyiben vélthetően
+    emiatt nem sikerülne elérnünk a FreeBSD Security vagy
+    a FreeBSD Security Officer csapatok tagjait, küldjünk egy
+    levelet a <tt>security-officer-<em>XXX</em>@FreeBSD.org</tt>
+    címre, ahol az <em>XXX</em> rész helyére a
+    <tt>3432</tt> szöveget kell beírni.  Ez a cím
+    bizonyos időszakonként változik, ezért a
+    levél elküldése előtt ezen az oldalon
+    tájékozódni a legfrissebb
+    állapotáról.  Az ide elküldött
+    levelek a FreeBSD Security Officer Team tagjaihoz fognak befutni.</p>
+
+  <a name="sec" shape="rect" id="sec"></a>
+  <h2>A FreeBSD Security Officer Team és a FreeBSD Security Team</h2>
+
+  <p>Annak érdekében, hogy a beküldött
+    sebezhetőségekre a FreeBSD Projekt időben
+    érdemben reagálni tudjon, három tag
+    érhető el jelenleg a Security Officer
+    címén: maga a Security Officer, a Security Officer
+    helyettese és a Core Team egy tagja.  Ennek megfelelően
+    a <a href="mailto:security-officer@FreeBSD.org" shape="rect">&lt;security-officer@FreeBSD.org&gt;</a>
+    címére küldött levelek a
+    következő személyeknek fognak
+    továbbítódni:</p>
+
+  <table>
+    <tr valign="top">
+      <td rowspan="1" colspan="1">Colin Percival <a href="mailto:cperciva@FreeBSD.org" shape="rect">&lt;cperciva@FreeBSD.org&gt;</a></td>
+      <td rowspan="1" colspan="1">Security Officer</td>
+    </tr>
+    <tr valign="top">
+      <td rowspan="1" colspan="1">Simon L. B. Nielsen <a href="mailto:simon@FreeBSD.org" shape="rect">&lt;simon@FreeBSD.org&gt;</a></td>
+      <td rowspan="1" colspan="1">Security Officer-helyettes</td>
+    </tr>
+    <tr valign="top">
+      <td rowspan="1" colspan="1">Robert Watson <a href="mailto:rwatson@FreeBSD.org" shape="rect">&lt;rwatson@FreeBSD.org&gt;</a></td>
+      <td rowspan="1" colspan="1">A FreeBSD Core Team kapcsolattartója, a Release
+	Engineering kapcsolattartója, a TrustedBSD Projekt
+	kapcsolattartója, valamint rendszerbiztonsági
+	szakértő<br clear="none" /></td>
+    </tr>
+  </table>
+
+  <p>A Security Officer munkáját a <a href="../administration.html#t-secteam" shape="rect">FreeBSD Security
+      Team</a> <a href="mailto:secteam@FreeBSD.org" shape="rect">&lt;secteam@FreeBSD.org&gt;</a>
+    segíti, amely a Security Officer által felügyelt
+    committerek egy kisebb csoportja.</p>
+
+  <a name="pol" shape="rect" id="pol"></a>
+  <h2>Adatkezelési házirend</h2>
+
+  <p>Miután a szóbanforgó
+    sebezhetőséget sikerült megfelelő módon
+    elemezni és javítani, valamint a
+    javítást tesztelni és szükség
+    esetén egyeztetni további partnerekkel, a FreeBSD
+    Security Officer igyekszik a vele kapcsolatos
+    információkat nyilvánosságra hozni.</p>
+
+  <p>A Security Officer értesíteni <em>fogja</em> a FreeBSD
+    klaszter rendszergazdáit minden olyan
+    sebezhetőségről, amely a FreeBSD Projekt
+    erőforrásait közvetlenül
+    veszélyezteti.</p>
+
+  <p>A Security Officer kérheti további FreeBSD
+    fejlesztők vagy egyéb külsős fejlesztők
+    segítségét, amennyiben az adott
+    sebezhetőség pontos feltárásához
+    szükséges a támogatásuk.  Ebben az esetben
+    a sebezhetőséggel kapcsolatos minden
+    információ szigorúan bizalmasnak
+    tekintendő, ezzel igyekszünk elkerülni a hiba
+    idő előtti elterjedését.  Ezért
+    minden, a témában érintett
+    fejlesztőtől elvárjuk, hogy a Security Officer
+    házirendjének megfelelően járjon el.
+    Korábban már többször kértünk
+    fel szakértőket az operációs rendszer
+    különféle bonyolultabb elemeinek, többek
+    közt az FFS, a virtuális memória vagy a
+    hálózati protokollkészlet
+    működésével kapcsolatban.</p>
+
+  <p>Ha a bejelentés időpontjában éppen egy
+    FreeBSD kiadás előkészítése zajlik,
+    akkor a FreeBSD Release Engineer is értesítést kap
+    a sebezhetőség létezéséről
+    és annak súlyosságáról.  A kapott
+    információk birtokában így képes
+    lesz mérlegelni, hogy az adott probléma milyen
+    változtatásokat igényel a kiadási ciklus
+    szervezésében, illetve a következő
+    kiadást milyen mértékben érinti.
+    Szükség esetén a Security Officer a
+    sebezhetőség jellegét már nem osztja meg a
+    Release Engineer felé, ezzel is igyekszik csökkenteni az
+    információ kiszivárgásának
+    kockázatát.</p>
+
+  <p>A FreeBSD Security Officer más szervezetekkel is szoros
+    együttműködésben dolgozik, többek
+    közt olyan külső fejlesztőkkel, amelyekkel a
+    FreeBSD kódjának valamelyik részét
+    közösen használják (az OpenBSD, NetBSD,
+    DragonFlyBSD projektek, az Apple, valamint a FreeBSD alapú
+    rendszereket fejlesztő cégek és linuxos
+    biztonsági listák), illetve a
+    különböző biztonsági
+    sebezhetőségeket és incidenseket
+    nyilvántartó szervezetekkel, mint
+    például a CERT.  Gyakran előfordul, hogy a
+    sebezhetőségek nem kizárólag csak a FreeBSD
+    implementációját érintik és
+    (viszont már nem olyan gyakran) további
+    kihatással vannak az egész világ
+    hálózati forgalmára.  Ilyen esetekben a
+    Security Officer igyekszik megosztani a tudomására
+    jutott adatokat az érintett szervezetekkel.  Amennyiben ehhez
+    nem járulunk hozzá, jelezzük már a
+    jelentés beküldése során.</p>
+
+  <p>Amennyiben a bejelentőnek bármilyen konkrét
+    adatkezelési megkötése van, kérjük,
+    mindenképpen pontosan tájékoztassa róla
+    a Security Officert.</p>
+
+  <p>Amennyiben a bejelentő szeretne együttműködni a
+    sebezhetőség nyilvánosságra
+    hozásában, esetleg más egyéb
+    gyártókkal együtt, kérjük ilyen
+    jellegű szándékát nyíltan
+    előre jelezni.  Ennek hiányában a
+    kérdéses sebezhetőség
+    nyilvánosságra hozásával kapcsolatban a
+    FreeBSD Security Officer olyan ütemezést fog
+    választani, amely lehetővé teszi az időben
+    történő értesítést és a
+    javítások megfelelő tesztelését.  A
+    bejelentőnek ezenkívül még tisztában
+    kell lennie azzal is, hogy ha az adott sebezhetőség
+    már kikerül valamilyen publikus helyre (mint
+    például hibakövető rendszerekbe) és
+    történnek vele kapcsolatban visszaélések,
+    akkor a Security Officernek a felhasználói
+    közösségék maximális védelme
+    érdekében jogában áll eltérni az
+    előre egyeztetett menetrendektől.</p>
+
+  <p>A bejelentések PGP titkosítással
+    védhetőek.  Amennyiben szükséges, a
+    válaszokat is PGP titkosítással
+    küldjük.</p>
+
+  <a name="sup" shape="rect" id="sup"></a>
+  <h2>Támogatott FreeBSD kiadások</h2>
+
+  <p>A FreeBSD Security Officer egyszerre a FreeBSD több
+    fejlesztési vonalához is bocsát ki
+    biztonsági figyelmeztetéseket.  Vannak <em>-STABLE
+    ágak</em> és külön <em>biztonsági
+    javításokat tartalmazó ágak</em>.
+    (Biztonsági figyelmeztetések nem készülnek
+    a <em>-CURRENT ághoz</em>.)</p>
+
+  <ul>
+    <li><p>A -STABLE ágakat például
+      <tt>RELENG_7</tt> címkével nevezik el.  Az ennek
+      megfelelő változat neve pedig a <tt>FreeBSD
+      7.0-STABLE</tt>.</p></li>
+
+    <li><p>Minden FreeBSD kiadáshoz tartozik egy
+      kizárólag biztonsági javítások
+      tartalmazó ág.  A hozzájuk tartozó
+      ágakat például a <tt>RELENG_7_0</tt>
+      címkével azonosítják.  A neki
+      megfelelő változat pedig a <tt>FreeBSD
+      7.0-RELEASE-p1</tt>.</p></li>
+  </ul>
+
+  <p>A FreeBSD Portgyűjteményt érintő
+      hibákat <a href="http://vuxml.FreeBSD.org/" shape="rect">a FreeBSD VuXML
+      dokumentumban</a> találhatjuk.</p>
+
+  <p>A Security Officer az egyes ágakhoz csak korlátozott
+    ideig nyújt támogatást, ezek típusa lehet
+    `<em>kipróbálásra</em>`,
+    `<em>egyszerű</em>` vagy `<em>bővített</em>`.  Az
+    egyes típusú ágak élettartamára
+    vonatkozó útmutatások a
+    következőek:</p>
+
+  <dl>
+    <dt>Kipróbálásra</dt>
+
+    <dd>A -CURRENT ágból készült
+      kiadásokat a Security Officer legalább 6
+      hónapig támogatja.</dd>
+
+    <dt>Egyszerű</dt>
+
+    <dd>A -STABLE ágból készült
+      kiadásokat a Security Officer legalább 12
+      hónapig támogatja, illetve ezen túl
+      még (szükség esetén) addig, amíg
+      a soronkövetkező egyszerű
+      támogatású kiadások közül a
+      legfrissebb 3 hónapos el nem múlik.</dd>
+
+    <dt>Bővített</dt>
+
+    <dd>Különböző válogatott kiadások
+      (általában minden második kiadás,
+      illetve az egyes -STABLE ágak legutolsó
+      kiadása), amelyeket a Security Officer legalább 24
+      hónapig támogat, illetve ezen túl még
+      (szükség esetén) addig, amíg a
+      soronkövetkező bővített
+      támogatású kiadások közül a
+      legfrissebb 3 hónapos el nem múlik.</dd>
+  </dl>
+
+  <a name="supported-branches" shape="rect" id="supported-branches"></a>
+
+  <p>A jelenleg támogatott ágak pillanatnyi
+    besorolását és támogatásuk
+    becsült idejét az alábbi
+    táblázatban foglaltuk össze.  Itt a
+    <em>Támogatás várható vége</em>
+    című oszlopban tüntettük fel az adott
+    ágak beszüntetésének
+    valószínűsíthető
+    időpontját.  Ezek a dátumok a jövőben
+    azonban változhatnak, habár bizonyos
+    enyhítő körülmények mentén
+    előfordulhat, hogy egy adott ág támogatása
+    a kiírtnál hamarabb befejeződik.</p>
+
+  <table class="tblbasic">
+    <tr>
+      <th rowspan="1" colspan="1">Ág</th>
+      <th rowspan="1" colspan="1">Kiadás</th>
+      <th rowspan="1" colspan="1">Típus</th>
+      <th rowspan="1" colspan="1">Megjelenés ideje</th>
+      <th rowspan="1" colspan="1">Támogatás várható vége</th>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_6</td>
+      <td rowspan="1" colspan="1">-</td>
+      <td rowspan="1" colspan="1">-</td>
+      <td rowspan="1" colspan="1">-</td>
+      <td rowspan="1" colspan="1">2010. november 30.</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_6_4</td>
+      <td rowspan="1" colspan="1">6.4-RELEASE</td>
+      <td rowspan="1" colspan="1">bővített</td>
+      <td rowspan="1" colspan="1">2008. november 28.</td>
+      <td rowspan="1" colspan="1">2010. november 30.</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_7</td>
+      <td rowspan="1" colspan="1">-</td>
+      <td rowspan="1" colspan="1">-</td>
+      <td rowspan="1" colspan="1">-</td>
+      <td rowspan="1" colspan="1">utolsó kiadás + 2 év</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_7_1</td>
+      <td rowspan="1" colspan="1">7.1-RELEASE</td>
+      <td rowspan="1" colspan="1">bővített</td>
+      <td rowspan="1" colspan="1">2009. január 4.</td>
+      <td rowspan="1" colspan="1">2011. január 31.</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_7_3</td>
+      <td rowspan="1" colspan="1">7.3-RELEASE</td>
+      <td rowspan="1" colspan="1">bővített</td>
+      <td rowspan="1" colspan="1">2010. március 23.</td>
+      <td rowspan="1" colspan="1">2012. március 31.</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_8</td>
+      <td rowspan="1" colspan="1">-</td>
+      <td rowspan="1" colspan="1">-</td>
+      <td rowspan="1" colspan="1">-</td>
+      <td rowspan="1" colspan="1">utolsó kiadás + 2 év</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_8_0</td>
+      <td rowspan="1" colspan="1">8.0-RELEASE</td>
+      <td rowspan="1" colspan="1">egyszerű</td>
+      <td rowspan="1" colspan="1">2009. november 25.</td>
+      <td rowspan="1" colspan="1">2010. november 30.</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">RELENG_8_1</td>
+      <td rowspan="1" colspan="1">8.1-RELEASE</td>
+      <td rowspan="1" colspan="1">bővített</td>
+      <td rowspan="1" colspan="1">2010. július 23.</td>
+      <td rowspan="1" colspan="1">2012. július 31.</td>
+    </tr>
+  </table>
+
+  <p>A felsorolásban nem szereplő, régebbi
+    kiadásokat már nem tartjuk karban.  Ezért
+    kérünk mindenkit, hogy lehetőleg frissítsen
+    valamelyik támogatott változatra.</p>
+
+  <p>A biztonsági figyelmeztetéseket az alábbi FreeBSD
+    levelezési listákra szokták küldeni:</p>
+
+  <ul>
+    <li>FreeBSD-security-notifications@FreeBSD.org</li>
+    <li>FreeBSD-security@FreeBSD.org</li>
+    <li>FreeBSD-announce@FreeBSD.org</li>
+  </ul>
+
+  <p>Az eddig kiadott figyelmeztetések
+    megtalálhatóak a <a href="advisories.html" shape="rect">FreeBSD
+      bizonsági figyelmeztetések</a> oldalán.</p>
+
+  <p>A figyelmeztetéseket mindig a FreeBSD Security Officer <a href="../../../security/so_public_key.asc" shape="rect">PGP-kulcsával</a>
+    írják alá, majd <a href="http://security.FreeBSD.org/" shape="rect">http://security.FreeBSD.org/</a>
+    honlapon a hozzá tartozó javításokkal
+    együtt feltöltik az <a href="http://security.FreeBSD.org/advisories/" shape="rect">advisories</a>
+    (<q>figyelmeztetések</q>) és <a href="http://security.FreeBSD.org/patches/" shape="rect">patches</a>
+    (<q>javítások</q>) könyvtárakba.</p>
+
+</div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="../search/index-site.html">Oldaltérkép</a> |
+  <a href="../../copyright/">Jogi Megjegyzések</a> | (c) 1995-2010 A FreeBSD Projekt.
+  Minden jog fenntartva.</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>Projet GNOME pour FreeBSD : rapporter un bug</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="shortcut icon" href="../../../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="../../../layout/css/fixed.css?20130112" type="text/css" />
+    <script type="text/javascript" src="../../../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Header And Logo</h2>
+            <div id="headerlogoleft">
+              <a href="../.." title="FreeBSD">
+                <img src="../../../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <h2 class="blockhide">Peripheral Links</h2>
+              <div id="SEARCHNAV">
+                <ul id="SEARCHNAVLIST">
+                  <li>
+                    <a href="../../donations/" title="Faire un don">Faire un don</a>
+                  </li>
+                  <li class="last-child">
+                    <a href="../../mailto.html" title="Contact">Contact</a>
+                  </li>
+                </ul>
+              </div>
+              <div id="SEARCH">
+                <form action="//www.FreeBSD.org/cgi/search.cgi" method="get">
+                  <div>
+                    <h2 class="blockhide">
+                      <label for="WORDS">Rechercher</label>
+                    </h2>
+                    <div>
+                      <input type="hidden" name="max" value="25" />
+                      <input type="hidden" name="source" value="www" />
+                      <input id="words" name="words" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="Rechercher" />
+                      <span> </span>
+                      <input id="submit" name="submit" type="submit" value="Rechercher" />
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div id="menu">
+            <ul class="first">
+              <li>
+                <a href="../../">Accueil</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../about.html">A propos</a>
+                <ul>
+                  <li>
+                    <a href="../../projects/newbies.html">Introduction</a>
+                  </li>
+                  <li>
+                    <a href="../../features.html">Fonctionnalités</a>
+                  </li>
+                  <li>
+                    <a href="../../advocacy/">Prosélytisme</a>
+                  </li>
+                  <li>
+                    <a href="../../marketing/">Marketing</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../where.html">Obtenir FreeBSD</a>
+                <ul>
+                  <li>
+                    <a href="../../releases/">Information sur les versions</a>
+                  </li>
+                  <li>
+                    <a href="../../releng/">Production des versions</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../docs.html">Documentation</a>
+                <ul>
+                  <li>
+                    <a href="../../../doc/en_US.ISO8859-1/books/faq/">FAQ</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/en_US.ISO8859-1/books/handbook/">Manuel de référence</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/en_US.ISO8859-1/books/porters-handbook">Manuel du porteur d'application</a>
+                  </li>
+                  <li>
+                    <a href="../../../doc/en_US.ISO8859-1/books/developers-handbook">Manuel du développeur</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/man.cgi">Pages de manuel</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../community.html">Communauté</a>
+                <ul>
+                  <li>
+                    <a href="../../community/mailinglists.html">Listes de diffusion</a>
+                  </li>
+                  <li>
+                    <a href="http://forums.freebsd.org">Forums de discussion</a>
+                  </li>
+                  <li>
+                    <a href="../../../usergroups.html">Groupes d'utilisateurs</a>
+                  </li>
+                  <li>
+                    <a href="../../events/events.html">Evénements</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../projects/index.html">Développement</a>
+                <ul>
+                  <li>
+                    <a href="http://wiki.FreeBSD.org/IdeasPage">Idées de projets</a>
+                  </li>
+                  <li>
+                    <a href="http://svn.FreeBSD.org/viewvc/base/">Dépôt SVN</a>
+                  </li>
+                  <li>
+                    <a href="http://cvsweb.FreeBSD.org">Dépôt CVS</a>
+                  </li>
+                  <li>
+                    <a href="http://p4web.FreeBSD.org">Dépôt Perforce</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../../support.html">Support</a>
+                <ul>
+                  <li>
+                    <a href="../../commercial/commercial.html">Revendeurs</a>
+                  </li>
+                  <li>
+                    <a href="http://security.FreeBSD.org/">Sécurité</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/query-pr-summary.cgi">Rapports de bogues</a>
+                  </li>
+                  <li>
+                    <a href="../../send-pr.html">Envoyer un rapport de bogue</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="http://www.freebsdfoundation.org/">Fondation</a>
+                <ul>
+                  <li>
+                    <a href="http://www.freebsdfoundation.org/donate/">Faire un don</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Section Navigation</h2>
+              <ul>
+                <li>
+                  <a href="../../projects/index.html">Développement</a>
+                </li>
+                <li>
+                  <a href="../../../doc/fr_FR.ISO8859-1/books/developers-handbook">Manuel du développeur</a>
+                </li>
+                <li>
+                  <a href="../../../doc/en_US.ISO8859-1/books/porters-handbook">Manuel du porteur d'application</a>
+                </li>
+                <li>
+                  <a href="../../developers/cvs.html">Dépôt CVS</a>
+                </li>
+                <li>
+                  <a href="../../releng/index.html">Production des versions</a>
+                </li>
+                <li>
+                  <a href="../../platforms/">Plates-formes</a>
+                  <ul>
+                    <li>
+                      <a href="../../platforms/alpha.html">alpha</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/amd64.html">amd64</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/arm.html">ARM</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/i386.html">i386</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/ia64/index.html">ia64</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/mips.html">MIPS</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/pc98.html">pc98</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/ppc.html">ppc</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/sparc.html">sparc64</a>
+                    </li>
+                    <li>
+                      <a href="../../platforms/xbox.html">xbox</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="../../../doc/fr_FR.ISO8859-1/articles/contributing/index.html">Contribuer</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap"><h1>Projet GNOME pour FreeBSD : rapporter un bug</h1>
+
+          <h2>1. Quoi rapporter ?</h2>
+
+          <p>La première règle est : rapportez autant d'informations que vous
+            pouvez. Même s'il y a des informations inutiles les
+	    développeurs pourront facilement les éliminer. Au contraire, la
+	    situation est bien pire lorsqu'il n'y a pas assez d'informations
+	    pour découvrir ou reproduire le problème - dans ce cas, les développeurs
+	    devront perdre du temps à deviner et/ou demander des précisions à
+	    l'auteur du rapport de bug.</p>
+
+          <p>Il y a plein d'exemples de rapports de bugs totalement inutiles, du
+            genre <i>"Hé, le port de gnomebidule est cassé. J'utilise FreeBSD-X.Y.
+	    Corrigez svp."</i> Inutile de dire que de tels rapports sont juste un gaspillage
+	    de votre temps, du temps du développeur concerné et de bande passante.
+	    Au strict minimum, le rapport doit inclure les informations
+	    suivantes :</p>
+
+          <ul>
+	    <li><p>La version exacte du système d'exploitation (habituellement le résultat de
+	      <tt>uname -a</tt>).</p></li>
+	    <li><p>La liste de tous les paquetages installés sur votre système.</p></li>
+	    <li><p>Votre environnement (le résultat de <tt>/usr/bin/env</tt>).</p></li>
+	    <li><p>Si vous faites une compilation à partir des ports, la date approximative où vous avez
+	      mis à jour les ports.</p></li>
+	    <li><p>Des informations spécifiques à chaque type d'erreur : le log complet de
+	      la compilation dans le cas où la compilation d'un port est cassé,
+	      le contenu de la pile dans le cas d'un core dump, une description détaillée
+	      du problème lorsque cela concerne une application, etc. Essayez de vous
+	      mettre à la place du développeur et, pour chaque cas particulier,
+	      évaluez quelles informations peuvent être nécessaires pour qu'il puisse trouver
+	      la source du problème. Ne pensez pas que les développeurs connaissent déjà tout du
+	      problème et qu'ils sont juste trop paresseux pour le corriger.</p></li>
+          </ul>
+
+	  <p>Par ailleurs, essayez de répondre aux questions
+	    suivantes :</p>
+
+	  <ul>
+	    <li><b>Quel est exactement le problème ?</b> :
+	      Expliquez le problème aussi clairement et
+	      précisément que possible. Essayez de
+	      limiter la description du problème à une
+	      ou deux phrases clés.</li>
+	    <li><b>Où survient le problème ?</b> : Dites
+	      si le problème intervient lors de la compilation,
+	      de l'installation, ou de l'exécution.
+	      Décrivez également la machine sur laquelle
+	      survient le problème (peut-être en
+	      avez-vous plusieurs) et avec quelle locale (i.e. quelle
+	      valeur de la valeur d'environnement <b>LANG</b>).</li>
+	    <li><b>Quand le problème est-il survenu pour la
+	      première fois ?</b> : Essayez de
+	      déterminer quand le problème a
+	      commencé à apparaître. Si ça
+	      n'a jamais marché ou que vous avez toujours eu un
+	      problème, dites le également. Dites aussi
+	      quand le problème a été
+	      observé pour la dernière fois, et, le cas
+	      échéant, quand les choses ont bien
+	      marché pour la dernière fois.</li>
+	    <li><b>Quelle est l'importance du problème ?</b> :
+	      Expliquez si les choses empirent, si elles
+	      s'améliorent, ou si elles restent les
+	      mêmes. Nous avons conscience que beaucoup de
+	      problèmes ne sont que des problèmes, mais
+	      ce genre d'information peut s'avérer utile dans
+	      certains cas.</li>
+	  </ul>
+
+	  <p>Tenez vous prêt à répondre à
+	    des questions supplémentaires. Bien souvent, les
+	    développeurs ne peuvent résoudre un
+	    problème ou même en faire le diagnostique
+	    tout de suite. Donc, montrez vous compréhensif
+	    lorsqu'on vous demandera de fournir d'autres
+	    informations.</p>
+
+          <p>Si vous avez une solution ou un moyen de contourner le problème, mettez le
+            également dans votre rapport, même si vous n'êtes pas certain que cette
+	    solution est correcte. Si elle ne l'est pas, elle peut tout de même
+	    donner au développeur des idées et lui faire gagner du temps.</p>
+
+          <h2>2. Où envoyer le rapport ?</h2>
+
+          <p>Avant de rapporter un bug, ou même d'envoyer un message sur la liste,
+	    <a href="http://www.freebsd.org/search/search.html" shape="rect">faites une recherche</a>
+	    dans les archives de la liste de diffusion GNOME pour FreeBSD pour voir s'il n'a pas
+	    déjà été rapporté. La plupart des problèmes rapportés sur
+	    les listes de diffusion sont déjà connus et, en faisant une recherche, vous pouvez trouver
+	    la solution à votre problème beaucoup plus rapidement.
+	  </p>
+
+          <p>Une fois que vous êtes certain qu'il s'agit d'un problème nouveau, il y a plusieurs manières
+          de rapporter un bug concernant GNOME sous FreeBSD : vous pouvez
+          envoyer un rapport sur la
+	    <a href="mailto:freebsd-questions@FreeBSD.org" shape="rect">liste de diffusion
+            freebsd-gnome</a>, remplir un rapport de problème avec
+	    <a href="http://www.freebsd.org/support.html#gnats" shape="rect">le système de rapport
+            de bug FreeBSD</a>, envoyer votre rapport aux développeurs GNOME
+	    concernés via leur
+	    <a href="http://bugzilla.gnome.org/" shape="rect">système de gestion de bug</a> ou utiliser
+            une combinaison de ces différentes méthodes.</p>
+
+          <p>Il est impossible de définir des règles qui vous indiqueront clairement
+            dans tous les cas où envoyer votre rapport - utilisez votre bon
+	    sens. Voici cependant quelques principes généraux :</p>
+
+          <ul>
+            <li><p>Si le problème est spécifique à FreeBSD et temporaire (e.g. un checksum
+	      incorrect, un patch qui échoue, une erreur de syntaxe dans le Makefile du port, etc.) alors
+	      envoyez le rapport à la <a href="mailto:freebsd-questions@FreeBSD.org" shape="rect">
+         liste de diffusion freebsd-gnome</a>.</p></li>
+	    <li><p>Si le problème est clairement non spécifique à FreeBSD et que vous n'avez pas
+	      de solution disponible alors envoyez le rapport directement aux développeurs
+	      du logiciel (pour la plupart des composants du noyau de GNOME cela signifie que
+	      vous devrez utiliser leur système de gestion de bug "Bugzilla").</p></li>
+	    <li><p>Si le problème n'est pas spécifique à FreeBSD mais assez sérieux et que
+	      vous avez une solution disponible alors envoyez le rapport à la fois à FreeBSD et au
+	      système de gestion de bug des auteurs, de façon à ce que le port concerné
+              soit corrigé et que les autres utilisateurs FreeBSD puissent béneficier de
+              votre solution sans avoir à attendre la sortie d'une nouvelle version du
+              logiciel.</p></li>
+          </ul>
+
+  </div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="../../search/index-site.html">Plan du site</a> | <a href="../../copyright/">Informations légales</a> | © 1995-2011 par le Projet FreeBSD. Tous droits réservés.</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>Proyecto FreeBSD/xbox</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="../../layout/css/fixed.css?20130112" type="text/css" />
+    <script type="text/javascript" src="../../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Cabecera y Logo</h2>
+            <div id="headerlogoleft">
+              <a href=".." title="FreeBSD">
+                <img src="../../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <h2 class="blockhide">Enlaces externos</h2>
+              <div id="SEARCHNAV">
+                <ul id="SEARCHNAVLIST">
+                  <li>
+                    <a href="../../donations/" title="Donaciones">Donaciones</a>
+                  </li>
+                  <li class="last-child">
+                    <a href="../mailto.html" title="Contactar">Contactar</a>
+                  </li>
+                </ul>
+              </div>
+              <div id="SEARCH">
+                <form action="//www.FreeBSD.org/cgi/search.cgi" method="get">
+                  <div>
+                    <h2 class="blockhide">
+                      <label for="WORDS">Buscar</label>
+                    </h2>
+                    <div>
+                      <input type="hidden" name="max" value="25" />
+                      <input type="hidden" name="source" value="www" />
+                      <input id="words" name="words" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="Buscar" />
+                      <span> </span>
+                      <input id="submit" name="submit" type="submit" value="Buscar" />
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div id="topnav">
+            <ul id="topnavlist">
+              <li>
+                <a href="../" title="Inicio">Inicio</a>
+              </li>
+              <li>
+                <a href="../about.html" title="Sobre">Sobre</a>
+              </li>
+              <li>
+                <a href="../where.html" title="Descargar">Descargar</a>
+              </li>
+              <li>
+                <a href="../docs.html" title="Documentación">Documentación</a>
+              </li>
+              <li>
+                <a href="../community.html" title="Comunidad">Comunidad</a>
+              </li>
+              <li>
+                <a href="../projects/index.html" title="Desarrollo">Desarrollo</a>
+              </li>
+              <li>
+                <a href="../support.html" title="Soporte">Soporte</a>
+              </li>
+              <li>
+                <a href="http://www.freebsdfoundation.org/" title="Fundación FreeBSD">Fundación</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Navegación por secciones</h2>
+              <ul>
+                <li>
+                  <a href="../projects/index.html">Desarrollo</a>
+                </li>
+                <li>
+                  <a href="../../doc/en_US.ISO8859-1/books/developers-handbook">Manual del desarrollador</a>
+                </li>
+                <li>
+                  <a href="../../doc/en_US.ISO8859-1/books/porters-handbook">Manual del porter</a>
+                </li>
+                <li>
+                  <a href="../../developers/cvs.html">Repositorio CVS</a>
+                </li>
+                <li>
+                  <a href="../../releng/index.html">Ingeniería de releases</a>
+                </li>
+                <li>
+                  <a href="../platforms/">Arquitecturas</a>
+                </li>
+                <li>
+                  <a href="../../projects/ideas/">Ideas de proyectos</a>
+                </li>
+                <li>
+                  <a href="../../doc/es_ES.ISO8859-1/articles/contributing/index.html">Contribuir a FreeBSD</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap"><h1>Proyecto FreeBSD/xbox</h1>
+
+  <h3>Introducción</h3>
+
+  <p>FreeBSD/xbox es un proyecto que pretende ejecutar FreeBSD en sistemas de
+    Xbox® de Microsoft®.  <a href="mailto:rink@FreeBSD.org" shape="rect">Rink Springer</a> comenzó este proyecto
+    e hizo la mayoría de los parches y el trabajo de
+    programación.  <a href="mailto:ed@fxq.nl" shape="rect">Ed Schouten</a> le
+    ayudó revisando parches y facilitando información sobre
+    ciertas particularidades del funcionamiento interno de Xbox.</p>
+
+  <h3>Estado</h3>
+
+  <p>FreeBSD/xbox está soportado en 6-STABLE y FreeBSD 7-CURRENT.
+    Están soportados los dispositivos Ethernet, "framebuffer",
+    sonido y USB (por ejemplo un teclado USB para la consola).</p>
+
+  <p>Se ha creado un disco combinado (de instalación y
+    "live" CD para facilitar la <a href="http://lists.freebsd.org/pipermail/freebsd-stable/2006-August/027894.html" shape="rect">instalación</a> de FreeBSD/xbox.  Puede encontrarlo <a href="ftp://ftp.stack.nl/pub/freebsd-xbox/" shape="rect">aquí</a>.</p>
+
+  <h3>Arranque del kernel de FreeBSD-CURRENT</h3>
+
+  <p>Para que arranque la versión del CVS de FreeBSD 7-CURRENT
+    necesita una versión actualizada de la BIOS Linux/xbox, llamada
+    Cromwell (su kernel dejará de funcionar tras arrancarlo).  Hay
+    una versión de Cromwell con UFS de FreeBSD (con el que podrá
+    cargar un kernel directamente desde un sistemas de ficheros UFS) en
+    el árbol de ports, más concretamente en
+    disponible en el ports en /usr/ports/sysutils/cromwell;  puede actualizar
+    la EEPROM mediante el port raincoat (/usr/ports/sysutils/raincoat) siempre
+    y cuando su Xbox sea de una versión anterior a la 1.6.</p>
+
+  <p><b>Nota</b>: Diversos componentes de Xbox rechazan ciertos tipos
+    de soportes.  Si experimenta cuelgues, "panics" o corrupciones durante
+    la instalación pruebe con otro DVD/CD-ROM que sepa que funcione.</p>
+
+  <h3>Instalación en un disco duro</h3>
+
+  <p>Puede instalar usando el CD "live" pero tendrá que hacer todo
+    a mano.  Le recomendamos que configure su disco en una máquina
+    FreeBSD/i386 y adapte el fichero de configuración
+    /boot/xboxlinux.cfg a su gusto para que Cromwell pueda determinar
+    qué kernel debe cargar.</p>
+
+  <h3>Enlaces</h3>
+
+  <ul>
+    <li><a href="http://www.xbox-linux.org/" shape="rect">Proyecto Linux Xbox</a></li>
+    <li><a href="http://www.xbox-bsd.nl/" shape="rect">Proyecto FreeBSD/xbox</a></li>
+  </ul>
+
+  </div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="../search/index-site.html">Mapa del sitio</a> |
+  <a href="../copyright/">Noticias del Copyright</a> | © 1995-2010 El Proyecto FreeBSD.
+  Quedan reservados todos los derechos.</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

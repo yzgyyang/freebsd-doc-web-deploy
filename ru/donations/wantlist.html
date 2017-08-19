@@ -1,0 +1,829 @@
+<?xml version="1.0" encoding="koi8-r"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
+  <head>
+    <title>Перечень требуемого разработчикам FreeBSD оборудования</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=koi8-r" />
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" media="screen,print" href="../../layout/css/fixed.css?20130112" type="text/css" />
+    <script type="text/javascript" src="../../layout/js/google.js"></script>
+  </head>
+  <body>
+    <div id="containerwrap">
+      <div id="container">
+        <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
+  <a href="#contentwrap" title="Skip section navigation" accesskey="2">Skip section navigation</a> (2)
+</span>
+        <div id="headercontainer">
+          <div id="header">
+            <h2 class="blockhide">Header And Logo</h2>
+            <div id="headerlogoleft">
+              <a href=".." title="FreeBSD">
+                <img src="../../layout/images/logo-red.png" width="457" height="75" alt="FreeBSD" />
+              </a>
+            </div>
+            <div id="headerlogoright">
+              <div class="frontdonateroundbox">
+                <div class="frontdonatetop">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+                <div class="frontdonatecontent">
+                  <a href="https://www.FreeBSDFoundation.org/donate/">Donate to FreeBSD</a>
+                </div>
+                <div class="frontdonatebot">
+                  <div>
+                    <b style="display: none;">.</b>
+                  </div>
+                </div>
+              </div>
+              <h2 class="blockhide">Peripheral Links</h2>
+              <div id="searchnav">
+                <ul id="searchnavlist"></ul>
+              </div>
+              <div id="search">
+                <form method="get" id="search" action="https://duckduckgo.com/">
+                  <h2 class="blockhide">
+                    <label for="words">Поиск</label>
+                  </h2>
+                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
+                  <input type="hidden" name="ka" value="v" />
+                  <input type="hidden" name="kt" value="v" />
+                  <input type="hidden" name="kh" value="1" />
+                  <input type="hidden" name="kj" value="r2" />
+                  <input id="words" name="q" type="text" size="20" maxlength="255" onfocus="if( this.value==this.defaultValue ) this.value='';" value="Поиск" />
+                  <span> </span>
+                  <input id="submit" name="submit" type="submit" value="Поиск" />
+                </form>
+              </div>
+            </div>
+          </div>
+          <h2 class="blockhide">Site Navigation</h2>
+          <div id="menu">
+            <ul class="first">
+              <li>
+                <a href="../">На главную</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../about.html">О FreeBSD</a>
+                <ul>
+                  <li>
+                    <a href="../projects/newbies.html">Введение</a>
+                  </li>
+                  <li>
+                    <a href="../features.html">Возможности</a>
+                  </li>
+                  <li>
+                    <a href="../../advocacy/">Адвокатура</a>
+                  </li>
+                  <li>
+                    <a href="../../marketing/">Маркетинг</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../where.html">Получение FreeBSD</a>
+                <ul>
+                  <li>
+                    <a href="../releases/">Информация о релизах</a>
+                  </li>
+                  <li>
+                    <a href="../releng/">Информация о подготовке релизов</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../docs.html">Документация</a>
+                <ul>
+                  <li>
+                    <a href="../../doc/ru_RU.KOI8-R/books/faq/">Часто задаваемые вопросы</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/ru_RU.KOI8-R/books/handbook/">Руководство пользователя</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/ru_RU.KOI8-R/books/porters-handbook">Руководство портера</a>
+                  </li>
+                  <li>
+                    <a href="../../doc/en_US.ISO8859-1/books/developers-handbook">Руководство разработчика</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/man.cgi">Страницы справочника</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../community.html">Сообщество</a>
+                <ul>
+                  <li>
+                    <a href="../community/mailinglists.html">Списки рассылки</a>
+                  </li>
+                  <li>
+                    <a href="http://forums.freebsd.org">Форумы</a>
+                  </li>
+                  <li>
+                    <a href="../usergroups.html">Группы пользователей</a>
+                  </li>
+                  <li>
+                    <a href="../events/events.html">События</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../projects/index.html">Разработка</a>
+                <ul>
+                  <li>
+                    <a href="http://wiki.FreeBSD.org/IdeasPage">Идеи для проекта</a>
+                  </li>
+                  <li>
+                    <a href="http://svn.FreeBSD.org/viewvc/base/">SVN репозиторий</a>
+                  </li>
+                  <li>
+                    <a href="http://cvsweb.FreeBSD.org">CVS репозиторий</a>
+                  </li>
+                  <li>
+                    <a href="http://p4web.FreeBSD.org">Perforce репозиторий</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="../support.html">Поддержка</a>
+                <ul>
+                  <li>
+                    <a href="../commercial/commercial.html">Коммерческие предложения</a>
+                  </li>
+                  <li>
+                    <a href="../security/">Информация о безопасности</a>
+                  </li>
+                  <li>
+                    <a href="//www.FreeBSD.org/cgi/query-pr-summary.cgi">Сообщения об ошибках</a>
+                  </li>
+                  <li>
+                    <a href="../send-pr.html">Отправить сообщение об ошибке</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <a href="http://www.freebsdfoundation.org/">Фонд</a>
+                <ul>
+                  <li>
+                    <a href="http://www.freebsdfoundation.org/donate/">Пожертвования</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="content">
+          <div id="sidewrap">
+            <div id="sidenav">
+              <h2 class="blockhide">Навигация по разделу</h2>
+              <ul>
+                <li>
+                  <a href="../about.html">О FreeBSD</a>
+                </li>
+                <li>
+                  <a href="../features.html">Возможности</a>
+                </li>
+                <li>
+                  <a href="../applications.html">Приложения</a>
+                </li>
+                <li>
+                  <a href="../internet.html">Работа в сетях</a>
+                </li>
+                <li>
+                  <a href="../../advocacy/">Адвокатура</a>
+                </li>
+                <li>
+                  <a href="../../marketing/">Маркетинг</a>
+                </li>
+                <li>
+                  <a href="../../administration.html">Администрация</a>
+                </li>
+                <li>
+                  <a href="../news/newsflash.html">Новости</a>
+                </li>
+                <li>
+                  <a href="../events/events.html">События</a>
+                </li>
+                <li>
+                  <a href="../news/press.html">Пресса</a>
+                </li>
+                <li>
+                  <a href="../../multimedia/multimedia.html">Прочие СМИ</a>
+                </li>
+                <li>
+                  <a href="../art.html">Иллюстрации</a>
+                </li>
+                <li>
+                  <a href="../logo.html">Логотип</a>
+                </li>
+                <li>
+                  <a href="../donations/">Пожертвования</a>
+                </li>
+                <li>
+                  <a href="../copyright/">Юридические замечания</a>
+                </li>
+                <li>
+                  <a href="../../privacy.html">Политика конфиденциальности</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div id="contentwrap"><h1>Перечень требуемого разработчикам FreeBSD оборудования</h1>
+
+  <p>На этой странице перечислены различные потребности в оборудовании для
+    разработчиков.  Если вы заинтересованы в поддержке Проекта FreeBSD, вы
+    можете пожертвовать Проекту какое-либо оборудование из этого списка.</p>
+
+  <p>Мы указываем имя пользователя FreeBSD разработчика, которому нужен ресурс,
+    страну, в которой он находится (для целей пересылки), требуемое
+    оборудование и для чего оборудование будет использоваться.</p>
+
+  <p>Для получения информации об уменьшении налоговых выплат и всём процессе,
+    пожалуйста, обратитесь к главной странице <a href="index.html#donating" shape="rect">Центра Пожертвований FreeBSD</a>.</p>
+
+  <p>Если вы захотите пожертвовать что-то из-этого списка, пожалуйста,
+    напишите на адрес donations@FreeBSD.org.</p>
+
+  <p>Вообще говоря, нам нужны разнообразные машины Sparc 64 для тестирования и
+    усовершенствования нашего нового порта на Sparc.  Даже слабые, старые
+    (или новые!) машины Sparc 64 используются полностью.  Не важно, в какой вы
+    стране, у нас практически гарантированно найдётся кто-то, кто сможет этим
+    воспользоваться.  В США мы сможем использовать машины Sparc для монтажа в
+    стойку 1U (такие, как E220R, E420R, Fire V100, Fire V120 или Netra T1
+    AC200) в наших кластерах разработки и построения пакаджей.</p>
+
+  <table class="tblbasic">
+    <tr>
+      <th rowspan="1" colspan="1">ID разработчика</th>
+      <th rowspan="1" colspan="1">Страна разработчика</th>
+      <th rowspan="1" colspan="1">Требуемое оборудование</th>
+      <th rowspan="1" colspan="1">Использование оборудования</th>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">anholt</td>
+      <td rowspan="1" colspan="1">США</td>
+      <td rowspan="1" colspan="1">интегрированное графическое оборудование Intel i8xx</td>
+      <td rowspan="1" colspan="1">сопровождение X и перенос DRI</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">arved</td>
+
+      <td rowspan="1" colspan="1">Австрия</td>
+
+      <td rowspan="1" colspan="1">2 небольших коммутатора с поддержкой VLAN, к примеру, Cisco
+        2940-8TT</td>
+
+      <td rowspan="1" colspan="1">Уменьшение количества проводов в моей квартире.  Большее количество
+        портов коммутатора для большего числа тестовых машин</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">blackend</td>
+      <td rowspan="1" colspan="1">Франция</td>
+      <td rowspan="1" colspan="1">Книга "The Elements of Typographic Style" by Robert Bringhurst.
+        Hartley &amp; Marks Publishers; 2nd edition (2002). ISBN:
+        0-88179-1326.</td>
+      <td rowspan="1" colspan="1">Улучшение знаний в области печати, особенно на английском языке,
+        чтобы наша документация соответствовала типографским стандартам.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">des</td>
+      <td rowspan="1" colspan="1">Норвегия</td>
+      <td rowspan="1" colspan="1">Mac Mini с 1 Гбайтом оперативной памяти и без периферийного
+        оборудования</td>
+      <td rowspan="1" colspan="1">Tinderbox</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">des</td>
+      <td rowspan="1" colspan="1">Норвегия</td>
+      <td rowspan="1" colspan="1">Два диска 36GB 10K RPM 68-pin SCSI</td>
+      <td rowspan="1" colspan="1">Замена выходящим из строя дискам в моём почтовом сервере на базе
+        Alpha</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">des</td>
+      <td rowspan="1" colspan="1">Норвегия</td>
+      <td rowspan="1" colspan="1">Opteron CPU</td>
+      <td rowspan="1" colspan="1">Комплектация материнской платы без процессора</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">des</td>
+      <td rowspan="1" colspan="1">Норвегия</td>
+      <td rowspan="1" colspan="1">Любое USB-устройство, основанное на микросхеме моста Cypress
+        CY7C637xx / CY7C640/1xx USB to RS232.</td>
+      <td rowspan="1" colspan="1">Доработка драйвера ucycom</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">des</td>
+      <td rowspan="1" colspan="1">Норвегия</td>
+      <td rowspan="1" colspan="1">Любое оборудование для аутентификации (USB-ключи, устройства для
+        чтения смарт-карт, смарт-карты, сканеры отпечатков пальцев и так
+        далее) + документация</td>
+      <td rowspan="1" colspan="1">Разработка и поддержка аппаратной аутентификации</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">dfr</td>
+      <td rowspan="1" colspan="1">Великобритания</td>
+      <td rowspan="1" colspan="1">Анализатор шины firewire, желательно 1394b, однако 1394a тоже
+        подойдёт.</td>
+      <td rowspan="1" colspan="1">отладка и улучшение производительности firewire, особенно IP
+        поверх firewire</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">glebius</td>
+      <td rowspan="1" colspan="1">Москва, Россия</td>
+      <td rowspan="1" colspan="1">Старая SMP-платформа: PPro, PII или старый PIII.  Одна из таких
+        систем пылится на ваших полках.  Она может быть без оперативной
+        памяти и жёсткого диска, которые я могу приобрести самостоятельно.
+        Она может быть даже без корпуса.</td>
+
+      <td rowspan="1" colspan="1">Мне нужно реальное SMP-оборудование для доработки блокировки в
+        подсистеме netgraph(4) и тестирования существующих и будущих
+        узлов.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">grehan</td>
+      <td rowspan="1" colspan="1">Калифорния, США</td>
+      <td rowspan="1" colspan="1">Apple G4 XServe</td>
+      <td rowspan="1" colspan="1">Машина в стоечном исполнении с процессором PowerPC для кластера
+        разработчиков.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">hmp</td>
+      <td rowspan="1" colspan="1">Великобритания</td>
+      <td rowspan="1" colspan="1">Беспроводной маршрутизатор (802.11b/g), в идеале ещё два
+        беспроводных USB-адаптера.</td>
+      <td rowspan="1" colspan="1">Экспериментирование с беспроводными технологиями и помощь в
+        перемещении на новое место жительства.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">hmp</td>
+      <td rowspan="1" colspan="1">Великобритания</td>
+      <td rowspan="1" colspan="1">Книги: Extreme Programming Explained (2nd Edition) и
+        Planning Extreme Programming.</td>
+      <td rowspan="1" colspan="1">Расширение знаний об экстремальном программировании.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">imp</td>
+      <td rowspan="1" colspan="1">США</td>
+      <td rowspan="1" colspan="1">Оборудование pccard на базе EISA</td>
+      <td rowspan="1" colspan="1">Обеспечение работы драйвера pccard с EISA</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">imp</td>
+      <td rowspan="1" colspan="1">США</td>
+      <td rowspan="1" colspan="1">Беспроводная карта 3Com Xjack</td>
+      <td rowspan="1" colspan="1">обеспечение работы драйвера</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">jake</td>
+      <td rowspan="1" colspan="1">Канада</td>
+      <td rowspan="1" colspan="1">Два процессора 450MHz UltraSPARC II</td>
+      <td rowspan="1" colspan="1">Более быстрые тестовые машины sparc64</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">jake</td>
+      <td rowspan="1" colspan="1">Канада</td>
+      <td rowspan="1" colspan="1">Сервер или рабочая станция Sun с процессорами UltraSPARCIII CPU,
+        Blade 1000, Blade 2000, V280R, V480 или V880, желательно с 2 CPU</td>
+      <td rowspan="1" colspan="1">Поддержка Sparc64 UltraSPARCIII</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">jesper</td>
+
+      <td rowspan="1" colspan="1">Великобритания</td>
+
+      <td rowspan="1" colspan="1">Хорошо поддерживаемые адаптеры Gigabit Ethernet, желательно с
+        интерфейсом 1000baseSX, но подойдёт и 1000baseT</td>
+
+      <td rowspan="1" colspan="1">Замеры производительности набора сетевых протоколов / тонкая
+        настройка</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"><a name="jkoshy-1" shape="rect" id="jkoshy-1">jkoshy</a></td>
+
+      <td rowspan="1" colspan="1">Бангалор, Индия</td>
+
+      <td rowspan="1" colspan="1">AlphaServer DS10</td>
+
+      <td rowspan="1" colspan="1">(1) Поддержка приложений (в частности, Standard ML of New
+              Jersey).<br clear="none" />
+          (2) Поддержка профилирования аппаратной производительности на
+              основе счётчиков.<br clear="none" />
+          (3) Участие в работе над портированием FreeBSD/alpha.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"><a name="jkoshy-3" shape="rect" id="jkoshy-3">jkoshy</a></td>
+      <td rowspan="1" colspan="1">Бангалор, Индия</td>
+      <td rowspan="1" colspan="1">Машина Intel P-II/P-III</td>
+      <td rowspan="1" colspan="1">Реализация профилирования во FreeBSD на основе показателей
+        производительности оборудования.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">jmallett</td>
+      <td rowspan="1" colspan="1">Гонолулу, Гавайи, США</td>
+      <td rowspan="1" colspan="1">Sun Ultra5 или нечто подобное</td>
+      <td rowspan="1" colspan="1">Тестирование и ведение разработок на sparc64.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">jmallett</td>
+      <td rowspan="1" colspan="1">Гонолулу, Гавайи, США</td>
+      <td rowspan="1" colspan="1">Относительно быстрый и небольшой компьютер Alpha</td>
+      <td rowspan="1" colspan="1">Тестирование и ведение разработок на Alpha, возможная работа над
+        поддержкой Alpha.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">johan</td>
+      <td rowspan="1" colspan="1">Швеция</td>
+      <td rowspan="1" colspan="1">TFT-монитор размером 17++ дюймов с коннекторами D-Sub и DVI-D.</td>
+      <td rowspan="1" colspan="1">Имеющийся у меня монитор начинает выходить из строя.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">jwd</td>
+      <td rowspan="1" colspan="1">США, Северная Каролина</td>
+      <td rowspan="1" colspan="1">Cyclades TS800/1000 (или его аналог)</td>
+      <td rowspan="1" colspan="1">Последовательные консоли для всего оборудования в кластере
+        rtp.FreeBSD.org</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">kris</td>
+      <td rowspan="1" colspan="1">Торонто, Канада</td>
+      <td rowspan="1" colspan="1">Блок питания ATX12V (с коннекторами питания 20+4 pin)</td>
+      <td rowspan="1" colspan="1">Замена вышедшего из строя блока питания в системе на базе
+        Athlon64.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">lioux</td>
+      <td rowspan="1" colspan="1">Бразилия</td>
+      <td rowspan="1" colspan="1">Процессор AMD K6 450МГц или выше.  Сетевой коммутатор 10/100 Мбит.
+        Сетевой адаптер Intel EtherExpress PCI 10/100 Мбит</td>
+      <td rowspan="1" colspan="1">Возврат машины на основе K6 снова в онлайн и добавление её в
+        качестве дополнительного терминала для домашней ЛВС FreeBSD</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">lioux</td>
+
+      <td rowspan="1" colspan="1">Бразилия</td>
+
+      <td rowspan="1" colspan="1">Книги по любой из следующих тем: планировщик сетевого протокола
+        (эффективность пропускной способности/передачи), планирование
+        процессов, общая теория планирования процессов, проверки (контрольные
+        суммы, в частности точное их вычисление для обнаружения частичных
+        повреждений файла; например, деревья типов tiger и sha1), обнаружение
+        повреждений и восстановление (файлы, сетевые протоколы и так далее),
+        распределённые вычисления (прозрачность, миграция, избыточность,
+        повторное разбиение, планирование, передача сообщений, совместно
+        используемая память и так далее), технология пиринговых сетей,
+        теория написания драйверов устройств и операционных систем</td>
+
+      <td rowspan="1" colspan="1">Усиление моих знаний об операционных системах и современных
+        проблемах/технологиях современной компьютерной науки.  К примеру,
+        я хочу написать продвинутый механизм сгрузки для распространения
+        FreeBSD (порты и основной пакет), который поддерживает элегантное
+        обнаружение/исправление сбоев, протоколом является
+        FTP/HTTP/другое/собственный протокол, сгрузка по частям, поддержка
+        многих серверов, распределение нагрузки.  Не всё сразу, но в течение
+        времени.  Большинство знаний будет обращено на пользу FreeBSD, если
+        у меня это получится</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">lioux</td>
+      <td rowspan="1" colspan="1">Бразилия</td>
+      <td rowspan="1" colspan="1">Адаптер захвата видео на основе микросхем BrookTree: BT848 или
+        BT878 (предпочтительней), который уже работает с FreeBSD.</td>
+      <td rowspan="1" colspan="1">добавление поддержки BrookTree в graphics/ffmpeg и некоторые другие
+        программы обработки видео</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">marcel</td>
+      <td rowspan="1" colspan="1">Калифорния, США</td>
+      <td rowspan="1" colspan="1">Supermicro SuperServer 6113M-i.  Машина является 2-процессорной
+        системой Itanium 2 (Madison) в стоечном корпусе высотой 1U.</td>
+
+      <td rowspan="1" colspan="1">Машина для замены BigSur, которым у владею.  Машина построена на
+        базе чипсета Intel E8870, который широко распространён, но
+        отсутствует у активных разработчиков.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">marcel</td>
+      <td rowspan="1" colspan="1">Калифорния, США</td>
+      <td rowspan="1" colspan="1">IBM xSeries 450.  Машина является 4-процессорной системой Itanium
+        2 (Madison), построенной на базе чипсета IBM XA-64.</td>
+
+      <td rowspan="1" colspan="1">Машина для построения пакаджей в кластере FreeBSD (известном как
+        bento).  Нужна именно эта машина из-за её уникального чипсета и того
+        факта, что она комплектуется 4 процессорами.  Это делает её
+        идеальной машиной для использования в целях выполнения параллельного
+        построения пакаджей в обычных условиях и для проверок при подготовки
+        релизов.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">marcus</td>
+      <td rowspan="1" colspan="1">RTP, Северная Каролина, США</td>
+      <td rowspan="1" colspan="1">Для работы над Проектом FreeBSD GNOME, мне необходимы 1 или 2
+        машины amd64 и 1 машину UltraSparc II.  Все три машины должны
+        работать под управлением FreeBSD -CURRENT.</td>
+
+      <td rowspan="1" colspan="1">Доработка поддержки GNOME во FreeBSD на этих архитектурах</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">markm</td>
+      <td rowspan="1" colspan="1">Кембридж, Великобритания</td>
+      <td rowspan="1" colspan="1">Flexelint v8. (www.gimpel.com)</td>
+      <td rowspan="1" colspan="1">(Полу-)автоматическая чистка кода и кросс-платформенный компилятор,
+        требует чистки.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">markm</td>
+      <td rowspan="1" colspan="1">Кембридж, Великобритания</td>
+      <td rowspan="1" colspan="1">Самый простой лэптоп, который может работать под управлением
+        FreeBSD CURRENT</td>
+      <td rowspan="1" colspan="1">Замена для старого Toshiba Libretto, который начинает выходить из
+        строя.  На своём лэптопе я использую CURRENT, так как это самый
+        простой способ проверить стабильность работы.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">marks</td>
+      <td rowspan="1" colspan="1">Нидерланды</td>
+      <td rowspan="1" colspan="1">Лэптопы с ACPI (также напрокат)</td>
+      <td rowspan="1" colspan="1">(1) Лэптопы с ACPI, который работает, для тестирования на них
+        нового кода.<br clear="none" />
+        (2) Лэптопы с ACPI, который не работает, чтобы (попытаться) исправить
+        это.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">mat</td>
+      <td rowspan="1" colspan="1">Франция, Париж</td>
+      <td rowspan="1" colspan="1">Ультра-лэптоп Toshiba, Sony, IBM или Dell (типа Dell's Latitude
+        X300 или D400, или IBM серии X, максимально маленький и лёгкий) с
+        процессором Intel тактовой частотой 1 ГГц и выше, желательно с
+        256/512 Мбайт оперативной памяти</td>
+      <td rowspan="1" colspan="1">Разработка и тестирование портов</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">matusita</td>
+      <td rowspan="1" colspan="1">Япония</td>
+      <td rowspan="1" colspan="1">2-3 машины для построения:Pentium4 2GHz+,20GB+ ATA66+
+        HDD,256MB+RAM, 100base-TX NIC,serial, etc.</td>
+      <td rowspan="1" colspan="1">перестройка умирающего snapshots.jp.FreeBSD.org</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">matusita</td>
+      <td rowspan="1" colspan="1">Япония</td>
+      <td rowspan="1" colspan="1">Сервер FTP:Pentium3/Celeron 1GHz+,10GB+ ATA66+ HDD,100GB+
+        storage (RAID0+1 желательно),256MB+RAM, 100base-TX
+        NIC,serial, etc.</td>
+      <td rowspan="1" colspan="1">перестройка умирающего snapshots.jp.FreeBSD.org</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">mbr</td>
+      <td rowspan="1" colspan="1">Швейцария</td>
+      <td rowspan="1" colspan="1">Сетевые адаптеры для RealTek 8129/8139 и клоны,
+        DEC/Intel 21143 и подобные, SiS 900/7016 и клоны,
+        NatSemi DP83815/DP83820 и подобные.  Я могу дать пояснения, если
+        мне ещё нужен адаптер.  Исправленные адаптеры уйдут в проект
+        busdma.</td>
+      <td rowspan="1" colspan="1">Добавление поддержки для неподдерживаемых или некорректно
+        работающих драйверов.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">mikeh</td>
+      <td rowspan="1" colspan="1">Вирджиния, США</td>
+      <td rowspan="1" colspan="1">Беспроводная клавиатура/мышь PS/2 (особенно продукты <a href="http://www.gyration.com/products.htm" shape="rect">Gyration</a> и <a href="http://www.microsoft.com/hardware/keyboard/default.asp" shape="rect">Microsoft
+        wireless desktop</a>) или любая другая клавиатурная мышь
+        PS/2, а также продукты KVM, не поддерживаемые FreeBSD.</td>
+      <td rowspan="1" colspan="1">Улучшение поддержки мыши/клавиатуры PS/2 во FreeBSD</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">mux</td>
+      <td rowspan="1" colspan="1">Франция</td>
+      <td rowspan="1" colspan="1">Сетевые адаптеры, перечисленные на странице <a href="http://www.FreeBSD.org/projects/busdma/" shape="rect">проекта
+        busdma</a>.</td>
+      <td rowspan="1" colspan="1">Преобразование сетевых адаптеров в busdma</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">mux</td>
+      <td rowspan="1" colspan="1">Франция</td>
+      <td rowspan="1" colspan="1">Монитор LCD или CRT (не менее 17"), KVM-переключатель</td>
+      <td rowspan="1" colspan="1">У меня только один старый монитор 15" CRT и слишком много
+        компьютеров...</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">mux</td>
+      <td rowspan="1" colspan="1">Франция</td>
+      <td rowspan="1" colspan="1">лэптоп с последовательным портом</td>
+      <td rowspan="1" colspan="1">отладка ядра вживую</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">obrien</td>
+      <td rowspan="1" colspan="1">Силиконовая Долина, США</td>
+      <td rowspan="1" colspan="1">До 2 PC133 ECC DIMM [для Sun Blade 100].</td>
+      <td rowspan="1" colspan="1">Разработка и тестирование FreeBSD/sparc64</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">obrien</td>
+      <td rowspan="1" colspan="1">Силиконовая Долина, США</td>
+      <td rowspan="1" colspan="1">Pegasos II/G4 (http://www.ultraspec.com/hardware.htm)</td>
+      <td rowspan="1" colspan="1">Разработка и тестирование FreeBSD/PowerPC</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">obrien</td>
+
+      <td rowspan="1" colspan="1">Силиконовая Долина, США</td>
+
+      <td rowspan="1" colspan="1">Стоечные блоки высотой 1U или 2U с блоками питания.</td>
+
+      <td rowspan="1" colspan="1">Построение образцовых машин AMD64 для кластера FreeBSD.org.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">peter</td>
+
+      <td rowspan="1" colspan="1">Калифорния, США</td>
+
+      <td rowspan="1" colspan="1">Система AMD64 Opteron для монтажа в стойку.</td>
+
+      <td rowspan="1" colspan="1">Для того, чтобы сделать её доступной в кластере машин для
+        разработчиков.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">phantom</td>
+      <td rowspan="1" colspan="1">Германия/Украина</td>
+      <td rowspan="1" colspan="1">Достаточно быстрая SMP-машина</td>
+      <td rowspan="1" colspan="1">Улучшение масштабируемости JDK</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">phk</td>
+
+      <td rowspan="1" colspan="1">Дания</td>
+
+      <td rowspan="1" colspan="1">Адаптеры контроллера IEEE-488, отличные от PCIIA, желательно для
+        шины PCI.</td>
+
+      <td rowspan="1" colspan="1">Я начал работы по поддержке IEEE-488/GP-IB/HP-IB, но мне доступен
+        только контроллер ISAN PCIIA.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">rwatson</td>
+
+      <td rowspan="1" colspan="1">Мэриленд, США</td>
+      <td rowspan="1" colspan="1">Замена материнской платы SGI 1100.</td>
+      <td rowspan="1" colspan="1">Использовалась для тестирования производительности работы в сети
+        в SMP; оригинальная материнская плата неработоспособна и ей
+        необходима замена.  Это может быть какая-нибудь модель материнской
+        платы Intel ServerWorks.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">rwatson</td>
+
+      <td rowspan="1" colspan="1">Мэриленд, США</td>
+      <td rowspan="1" colspan="1">Коммутатор медного Gig-E с портом мониторинга</td>
+      <td rowspan="1" colspan="1">Коммутатор Gigabit ethernet для работы над улучшением
+        сетевой производительности SMP, предпочтительно с портом мониторинга,
+        чтобы я мог отслеживать потоки пакетов и идентифицировать сбросы
+        пакетов, и так далее, из неактивной сторонней системы.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">rwatson</td>
+      <td rowspan="1" colspan="1">Мэриленд, США</td>
+      <td rowspan="1" colspan="1">Двухпроцессорная система в стоечном корпусе высотой 1U частотой
+        1 ГГц и выше с 64-разрядной шиной PCI</td>
+
+      <td rowspan="1" colspan="1">Необходим дополнительная машина для тестирования SMP с 64-разрядной
+        шиной PCI для доработки блокировки стека сетевых протоколов.  Так как
+        это будет рабочая среда для многих разработчиков, она должна быть
+        высотой 1U (или 2U).  Должна иметь либо встроенный адаптер gigabit
+        ethernet на 64-разрядной шине PCI, либо иметь по крайней мере один
+        64-разрядный слот PCI.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">sam</td>
+      <td rowspan="1" colspan="1">США</td>
+      <td rowspan="1" colspan="1">устройства шифрования (pci, pcmcia, карты cardbus,
+        CPU со встроенной поддержкой шифрования)</td>
+      <td rowspan="1" colspan="1">Для улучшения аппаратной поддержки криптографии</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">scottl</td>
+      <td rowspan="1" colspan="1">США</td>
+      <td rowspan="1" colspan="1">Лэптоп</td>
+      <td rowspan="1" colspan="1">Мой Dell 8200 недавно сломался.  Это была моя основная платформа
+        для работы над FreeBSD и участия в проекте.  Без него мне очень
+        трудно.  Я ищу что-нибудь, похожее на Dell 8600 или IBM T42.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">sos</td>
+      <td rowspan="1" colspan="1">Дания</td>
+      <td rowspan="1" colspan="1">Оборудование Serial ATA: диски, контроллеры (включая документацию),
+        кабели, конверторы Serial ATA-ATA.</td>
+      <td rowspan="1" colspan="1">Обеспечить современную поддержку ATA.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">tanimura</td>
+      <td rowspan="1" colspan="1">Япония</td>
+      <td rowspan="1" colspan="1">Любой японский лэптоп (Желательно IBM Thinkpad A30 или A31).</td>
+      <td rowspan="1" colspan="1">Замена недавно украденному IBM.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">thomas</td>
+      <td rowspan="1" colspan="1">Франция</td>
+      <td rowspan="1" colspan="1">Контроллер UDMA, устройство для чтения гибких дисков ATAPI, ленточный
+        привод ATAPI</td>
+      <td rowspan="1" colspan="1">Обеспечить этих ATAPI-устройств с ATAPI/CAM на том же уровне
+        функциональности, что имеется для драйверов afd/ast.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">wilko, от имени Питера Холма</td>
+      <td rowspan="1" colspan="1">Дания</td>
+      <td rowspan="1" colspan="1">Современная и полностью укомплектованная материнская плата x386,
+        желательно с поддержкой SMP</td>
+      <td rowspan="1" colspan="1">Стресс-тест и контроль качества.</td>
+    </tr>
+  </table>
+
+
+  </div>
+          <br class="clearboth" />
+        </div>
+        <div id="footer">
+          <span><a href="../search/index-site.html">Карта сайта</a> |
+  <a href="../copyright/">Условия использования</a> | © 1995-2014
+  Проект FreeBSD. Все права защищены.</span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

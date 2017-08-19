@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="iso-8859-2"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>FreeBSD hírek</title>
+    <link>http://www.FreeBSD.org/hu/news/</link>
+    <description>Hírek a FreeBSD Projektről</description>
+    <language>hu-hu</language>
+    <webMaster>freebsd-www@FreeBSD.org (Webmesterek)</webMaster>
+    <managingEditor>freebsd-www@FreeBSD.org (Webmesterek)</managingEditor>
+    <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+    <ttl>120</ttl>
+    <image>
+      <url>http://www.FreeBSD.org/logo/logo-full.png</url>
+      <title>FreeBSD hírek</title>
+      <link>http://www.FreeBSD.org/hu/news/</link>
+    </image>
+    <atom:link href="http://www.FreeBSD.org/hu/news/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Új tag: Steve Wills (ports)</title>
+      <link>http://www.FreeBSD.org/hu/news/newsflash.html#event20100903:01</link>
+      <guid>http://www.FreeBSD.org/hu/news/newsflash.html#event20100903:01</guid>
+      <pubDate>2010 szep 3 00:00:00 CET, Fri</pubDate>
+    </item>
+    <item>
+      <title>Új tag: Glen Barber (teljes doc/www)</title>
+      <link>http://www.FreeBSD.org/hu/news/newsflash.html#event20100831:01</link>
+      <guid>http://www.FreeBSD.org/hu/news/newsflash.html#event20100831:01</guid>
+      <pubDate>2010 aug 31 00:00:00 CET, Tue</pubDate>
+    </item>
+    <item>
+      <title>Új tag: Dimitry Andric (src)</title>
+      <link>http://www.FreeBSD.org/hu/news/newsflash.html#event20100830:01</link>
+      <guid>http://www.FreeBSD.org/hu/news/newsflash.html#event20100830:01</guid>
+      <pubDate>2010 aug 30 00:00:00 CET, Mon</pubDate>
+    </item>
+    <item>
+      <title>Új tag: Oliver Hauer (ports)</title>
+      <link>http://www.FreeBSD.org/hu/news/newsflash.html#event20100801:01</link>
+      <guid>http://www.FreeBSD.org/hu/news/newsflash.html#event20100801:01</guid>
+      <pubDate>2010 aug 1 00:00:00 CET, Sun</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD Alapítvány 2010 júliusi hírlevél</title>
+      <description>A FreeBSD Alapítvány nemrég megjelentette a 2010 júliusi féléves hírlevelét, amelyben röviden beszámol arról, hogy eddig miként segítette a FreeBSD Projekt és az azt övező közösség munkáját.</description>
+      <link>http://www.FreeBSD.org/hu/news/newsflash.html#event20100727:01</link>
+      <guid>http://www.FreeBSD.org/hu/news/newsflash.html#event20100727:01</guid>
+      <pubDate>2010 júl 27 00:00:00 CET, Tue</pubDate>
+    </item>
+    <item>
+      <title>Új tag: Baptiste Daroussin (ports)</title>
+      <link>http://www.FreeBSD.org/hu/news/newsflash.html#event20100727:02</link>
+      <guid>http://www.FreeBSD.org/hu/news/newsflash.html#event20100727:02</guid>
+      <pubDate>2010 júl 27 00:00:00 CET, Tue</pubDate>
+    </item>
+    <item>
+      <title>Megjelent a FreeBSD 8.1-RELEASE!</title>
+      <description>Mostantól letölthető a FreeBSD 8.1-RELEASE. Telepítés előtt ne felejtsük el a Kiadási jegyzetekből és a Hibajegyzékből tájékozódni a kiadással kapcsolatos esetleges problémákról vagy fontosabb tudnivalókról. A FreeBSD kiadásokról részletesebben a kiadási információkat tartalmazó oldalon olvashatunk.</description>
+      <link>http://www.FreeBSD.org/hu/news/newsflash.html#event20100723:01</link>
+      <guid>http://www.FreeBSD.org/hu/news/newsflash.html#event20100723:01</guid>
+      <pubDate>2010 júl 23 00:00:00 CET, Fri</pubDate>
+    </item>
+    <item>
+      <title>Helyzetjelentés: 2010 április - június</title>
+      <description>A 2010 áprilisa és júniusa közti időszakról beszámoló, 47 bejegyzést tartalmazó negyedéves helyzetjelentés megjelent.</description>
+      <link>http://www.FreeBSD.org/hu/news/newsflash.html#event20100722:01</link>
+      <guid>http://www.FreeBSD.org/hu/news/newsflash.html#event20100722:01</guid>
+      <pubDate>2010 júl 22 00:00:00 CET, Thu</pubDate>
+    </item>
+    <item>
+      <title>Új tag: Andrew Turner (src)</title>
+      <link>http://www.FreeBSD.org/hu/news/newsflash.html#event20100721:01</link>
+      <guid>http://www.FreeBSD.org/hu/news/newsflash.html#event20100721:01</guid>
+      <pubDate>2010 júl 21 00:00:00 CET, Wed</pubDate>
+    </item>
+    <item>
+      <title>Megjelent a PC-BSD 8.1!</title>
+      <description>Megérkezett a PC-BSD 8.1. A PC-BSD egy FreeBSD alapú, népszerű operációs rendszer, amely elsősorban az alkalmi felhasználók számára is könnyen érhető asztali rendszer kialakítására összpontosít. A legutóbbi kiadás óta hozzáadott újításokról és frissítésekről a honlapján olvashatunk bővebben.</description>
+      <link>http://www.FreeBSD.org/hu/news/newsflash.html#event20100720:01</link>
+      <guid>http://www.FreeBSD.org/hu/news/newsflash.html#event20100720:01</guid>
+      <pubDate>2010 júl 20 00:00:00 CET, Tue</pubDate>
+    </item>
+  </channel>
+</rss>

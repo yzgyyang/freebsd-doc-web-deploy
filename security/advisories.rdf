@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://my.netscape.com/rdf/simple/0.9/">
+  <channel>
+    <title>FreeBSD Security Advisories</title>
+    <link>https://www.FreeBSD.org/security/</link>
+    <description>Security advisories published from the FreeBSD Project</description>
+  </channel>
+  <item>
+    <title>FreeBSD-SA-17:05.heimdal</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-17:05.heimdal.asc</link>
+  </item>
+  <item>
+    <title>FreeBSD-SA-17:04.ipfilter</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-17:04.ipfilter.asc</link>
+  </item>
+  <item>
+    <title>FreeBSD-SA-17:03.ntp</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-17:03.ntp.asc</link>
+  </item>
+  <item>
+    <title>FreeBSD-SA-17:02.openssl</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-17:02.openssl.asc</link>
+  </item>
+  <item>
+    <title>FreeBSD-SA-17:01.openssh</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-17:01.openssh.asc</link>
+  </item>
+  <item>
+    <title>FreeBSD-SA-16:39.ntp</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-16:39.ntp.asc</link>
+  </item>
+  <item>
+    <title>FreeBSD-SA-16:38.bhyve</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-16:38.bhyve.asc</link>
+  </item>
+  <item>
+    <title>FreeBSD-SA-16:37.libc</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-16:37.libc.asc</link>
+  </item>
+  <item>
+    <title>FreeBSD-SA-16:36.telnetd</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-16:36.telnetd.asc</link>
+  </item>
+  <item>
+    <title>FreeBSD-SA-16:35.openssl</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-16:35.openssl.asc</link>
+  </item>
+</rdf:RDF>
