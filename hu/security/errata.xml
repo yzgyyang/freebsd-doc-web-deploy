@@ -17,6 +17,18 @@
     </image>
     <atom:link xmlns="http://www.w3.org/1999/xhtml" rel="self" type="application/rss+xml" href="http://www.FreeBSD.org/security/rss.xml"/>
     <item>
+      <title>FreeBSD-EN-17:08.pf</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:08.pf.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:08.pf.asc</guid>
+      <pubDate>2017 aug 10 00:00:00 CET, Thu</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-EN-17:07.vnet</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:07.vnet.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:07.vnet.asc</guid>
+      <pubDate>2017 aug 10 00:00:00 CET, Thu</pubDate>
+    </item>
+    <item>
       <title>FreeBSD-EN-17:06.hyperv</title>
       <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:06.hyperv.asc</link>
       <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:06.hyperv.asc</guid>
@@ -63,18 +75,6 @@
       <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-16:20.tzdata.asc</link>
       <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-16:20.tzdata.asc</guid>
       <pubDate>2016 dec 6 00:00:00 CET, Tue</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-EN-16:19.tzcode</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-16:19.tzcode.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-16:19.tzcode.asc</guid>
-      <pubDate>2016 dec 6 00:00:00 CET, Tue</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-EN-16:18.loader</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-16:18.loader.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-16:18.loader.asc</guid>
-      <pubDate>2016 okt 25 00:00:00 CET, Tue</pubDate>
     </item>
   </channel>
 </rss>

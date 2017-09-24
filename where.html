@@ -218,12 +218,13 @@
                     <li>Production Release: <br /><a href="./releases/11.1R/announce.html">11.1</a></li>
                     <li>Production Release: <br /><a href="./releases/11.0R/announce.html">11.0</a></li>
                     <li>Production Release: <br /><a href="./releases/10.3R/announce.html">10.3</a></li>
-                    <li>Upcoming Release: <br /><a href="./releases/10.4R/schedule.html">10.4</a></li>
                   </ul>
                 </li>
                 <li>
                   <a href="./snapshots/">Snapshot Releases</a>
-                  <ul></ul>
+                  <ul>
+                    <li>Upcoming Release:<br /><a href="./releases/10.4R/schedule.html">10.4</a></li>
+                  </ul>
                 </li>
                 <li>
                   <a href="./ports/">Ported Applications</a>
@@ -329,6 +330,7 @@
 	    <ul class="txtdocslist">
 	      <li><a href="./releases/index.html#current" shape="rect">Released</a>: July, 2017</li>
 	      <li><a href="./releases/11.1R/relnotes.html" shape="rect">Release Notes</a></li>
+	      <li><a href="./releases/11.1R/readme.html" shape="rect">Readme</a></li>
 	      <li><a href="./releases/11.1R/hardware.html" shape="rect">Hardware Compatibility List</a></li>
 	      <li><a href="./releases/11.1R/installation.html" shape="rect">Installation Instructions</a></li>
 	      <li><a href="./releases/11.1R/errata.html" shape="rect">Errata</a></li>
@@ -389,6 +391,7 @@
 	    <ul class="txtdocslist">
 	      <li><a href="./releases/index.html#current" shape="rect">Released</a>: October, 2016</li>
 	      <li><a href="./releases/11.0R/relnotes.html" shape="rect">Release Notes</a></li>
+	      <li><a href="./releases/11.0R/readme.html" shape="rect">Readme</a></li>
 	      <li><a href="./releases/11.0R/hardware.html" shape="rect">Hardware Compatibility List</a></li>
 	      <li><a href="./releases/11.0R/installation.html" shape="rect">Installation Instructions</a></li>
 	      <li><a href="./releases/11.0R/errata.html" shape="rect">Errata</a></li>
@@ -444,6 +447,7 @@
 	    <ul class="txtdocslist">
 	      <li><a href="./releases/index.html#current" shape="rect">Released</a>: April, 2016</li>
 	      <li><a href="./releases/10.3R/relnotes.html" shape="rect">Release Notes</a></li>
+	      <li><a href="./releases/10.3R/readme.html" shape="rect">Readme</a></li>
 	      <li><a href="./releases/10.3R/hardware.html" shape="rect">Hardware Compatibility List</a></li>
 	      <li><a href="./releases/10.3R/installation.html" shape="rect">Installation Instructions</a></li>
 	      <li><a href="./releases/10.3R/errata.html" shape="rect">Errata</a></li>
@@ -456,6 +460,63 @@
     <br clear="none" />
 
     
+    
+    <div>
+      <h1>FreeBSD 10.4-RC2</h1>
+
+      <table class="tblbasic tblwide tbldownload">
+	<tbody>
+	  <tr>
+	    <th rowspan="1" colspan="1">Installer Images</th>
+	    <th rowspan="1" colspan="1">Virtual Machine Images</th>
+	    <th rowspan="1" colspan="1">SD Card Images</th>
+	    <th rowspan="1" colspan="1">Documentation</th>
+	  </tr>
+	  <tr>
+	    <td rowspan="1" colspan="1">
+	      <ul class="txtdownloadlist">
+		<li><a href="https://download.FreeBSD.org/ftp/releases/amd64/amd64/ISO-IMAGES/10.4/" shape="rect">amd64</a></li>
+		<li><a href="https://download.FreeBSD.org/ftp/releases/i386/i386/ISO-IMAGES/10.4/" shape="rect">i386</a></li>
+		<li><a href="https://download.FreeBSD.org/ftp/releases/arm/armv6/ISO-IMAGES/10.4/" shape="rect">armv6</a></li>
+		<li><a href="https://download.FreeBSD.org/ftp/releases/ia64/ia64/ISO-IMAGES/10.4/" shape="rect">ia64</a></li>
+		<li><a href="https://download.FreeBSD.org/ftp/releases/powerpc/powerpc/ISO-IMAGES/10.4/" shape="rect">powerpc</a></li>
+		<li><a href="https://download.FreeBSD.org/ftp/releases/powerpc/powerpc64/ISO-IMAGES/10.4/" shape="rect">powerpc64</a></li>
+		<li><a href="https://download.FreeBSD.org/ftp/releases/sparc64/sparc64/ISO-IMAGES/10.4/" shape="rect">sparc64</a></li>
+	      </ul>
+	    </td>
+	    <td rowspan="1" colspan="1">
+	      <ul class="txtdownloadlist">
+		<li><a href="https://download.FreeBSD.org/ftp/releases/VM-IMAGES/README.txt" shape="rect">README</a></li>
+		<li><a href="https://download.FreeBSD.org/ftp/releases/VM-IMAGES/10.4-RC2/amd64/Latest/" shape="rect">amd64</a></li>
+		<li><a href="https://download.FreeBSD.org/ftp/releases/VM-IMAGES/10.4-RC2/i386/Latest/" shape="rect">i386</a></li>
+	      </ul>
+	    </td>
+	    <td rowspan="1" colspan="1">
+	      <ul class="txtdownloadlist">
+		<li><a href="https://download.FreeBSD.org/ftp/releases/arm/armv6/ISO-IMAGES/10.4/FreeBSD-10.4-RC2-arm-armv6-BEAGLEBONE.img.xz" shape="rect">BEAGLEBONE</a></li>
+		<li><a href="https://download.FreeBSD.org/ftp/releases/arm/armv6/ISO-IMAGES/10.4/FreeBSD-10.4-RC2-arm-armv6-CUBOX-HUMMINGBOARD.img.xz" shape="rect">CUBOX-HUMMINGBOARD</a></li>
+		<li><a href="https://download.FreeBSD.org/ftp/releases/arm/armv6/ISO-IMAGES/10.4/FreeBSD-10.4-RC2-arm-armv6-GUMSTIX.img.xz" shape="rect">GUMSTIX</a></li>
+		<li><a href="https://download.FreeBSD.org/ftp/releases/arm/armv6/ISO-IMAGES/10.4/FreeBSD-10.4-RC2-arm-armv6-PANDABOARD.img.xz" shape="rect">PANDABOARD</a></li>
+		<li><a href="https://download.FreeBSD.org/ftp/releases/arm/armv6/ISO-IMAGES/10.4/FreeBSD-10.4-RC2-arm-armv6-RPI-B.img.xz" shape="rect">RPI-B</a></li>
+		<li><a href="https://download.FreeBSD.org/ftp/releases/arm/armv6/ISO-IMAGES/10.4/FreeBSD-10.4-RC2-arm-armv6-WANDBOARD.img.xz" shape="rect">WANDBOARD</a></li>
+	      </ul>
+	    </td>
+	    <td rowspan="1" colspan="1">
+	      <ul class="txtdocslist">
+		<li><a href="./releases/10.4R/relnotes.html" shape="rect">Release Notes</a></li>
+		<li><a href="./releases/10.4R/readme.html" shape="rect">Readme</a></li>
+		<li><a href="./releases/10.4R/hardware.html" shape="rect">Hardware Compatibility List</a></li>
+		
+		
+		<li><a href="./releases/10.4R/signatures.html" shape="rect">Signed Checksums</a></li>
+	      </ul>
+	    </td>
+	  </tr>
+	</tbody>
+      </table>
+      <br clear="none" />
+    </div>
+
 
     <a name="download-snapshots" shape="rect" id="download-snapshots"></a>
 
@@ -579,7 +640,7 @@
 
     <a name="install" shape="rect" id="install"></a>
 
-    <h2>Install FreeBSD</h2> 
+    <h2>Install FreeBSD</h2>
 
     <p>There are many options for installing FreeBSD, including
       installation from CD-ROM, DVD, USB Memory Stick or even directly
@@ -615,7 +676,7 @@
 	source storage platform based on FreeBSD and supports sharing
 	across Windows, Apple, and UNIX-like systems.</p></li>
 
-      <li><p><a href="https://www.trueos.org" shape="rect">TrueOS</a> (formerly 
+      <li><p><a href="https://www.trueos.org" shape="rect">TrueOS</a> (formerly
 	<a href="https://pcbsd.org" shape="rect">PC-BSD</a>) is a FreeBSD
 	derivative with a graphical installer.  The desktop option installs
 	<a href="https://lumina-desktop.org" shape="rect">The Lumina Desktop Environment</a>,

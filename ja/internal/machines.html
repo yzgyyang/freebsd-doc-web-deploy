@@ -244,135 +244,122 @@
           </div>
           <div id="contentwrap"><h1>FreeBSD.org ネットワーク</h1>
 
-<p>このページは、FreeBSD.org ネットワーク上にアカウントを持っているユーザのために、
-現在どのようなマシンリソースが利用でき、
-またどのようなサービスを提供しているかについてまとめています。</p>
+    <p>このページは、FreeBSD.org
+      ネットワーク上にアカウントを持っているユーザのために、
+      現在どのようなマシンリソースが利用でき、
+      またどのようなサービスを提供しているかについてまとめています。</p>
 
-<p>公開されている FreeBSD.org のマシンの SSH ホスト鍵とその指紋の一覧については、<a href="../../internal/ssh-keys.asc" shape="rect">このファイル</a> を参照してください。</p>
+    <p>公開されている FreeBSD.org のマシンの SSH
+      ホスト鍵とその指紋の一覧については、
+      <a href="../../internal/ssh-keys.asc" shape="rect">このファイル</a>
+      を参照してください。</p>
 
-<h2>開発者用の FreeBSD.org ホスト</h2>
+    <h2>開発者用の FreeBSD.org ホスト</h2>
 
-<p>FreeBSD 開発者/コミッターはこれらのシステムを利用できます。
-リファレンスシステムはビルドテストなどの目的で利用できます。</p>
+    <p>FreeBSD 開発者/コミッターはこれらのシステムを利用できます。
+      リファレンスシステムはビルドテストなどの目的で利用できます。</p>
 
-<table class="tblbasic">
-<thead>
-<tr>
-<th align="left" rowspan="1" colspan="1">ホスト</th>
-<th align="left" rowspan="1" colspan="1">OS</th>
-<th align="left" rowspan="1" colspan="1">タイプ</th>
-<th align="left" rowspan="1" colspan="1">目的</th>
-</tr>
-</thead>
+    <table class="tblbasic">
+      <thead>
+	<tr>
+	  <th align="left" rowspan="1" colspan="1">ホスト</th>
+	  <th align="left" rowspan="1" colspan="1">OS</th>
+	  <th align="left" rowspan="1" colspan="1">タイプ</th>
+	  <th align="left" rowspan="1" colspan="1">目的</th>
+	</tr>
+      </thead>
 
-<tbody>
+      <tbody>
+	<tr>
+	  <td rowspan="1" colspan="1">freefall</td>
+	  <td rowspan="1" colspan="1">12-CURRENT</td>
+	  <td rowspan="1" colspan="1">amd64</td>
+	  <td rowspan="1" colspan="1">シェルログイン</td>
+	</tr>
 
-<tr>
-<td rowspan="1" colspan="1">eris</td>
-<td rowspan="1" colspan="1">10-STABLE</td>
-<td rowspan="1" colspan="1">ia64</td>
-<td rowspan="1" colspan="1">リファレンスマシン</td>
-</tr>
+	<tr>
+	  <td rowspan="1" colspan="1">ref[12|11|10]-amd64</td>
+	  <td rowspan="1" colspan="1">X-STABLE</td>
+	  <td rowspan="1" colspan="1">amd64</td>
+	  <td rowspan="1" colspan="1">リファレンスマシン</td>
+	</tr>
 
-<tr>
-<td rowspan="1" colspan="1">flame</td>
-<td rowspan="1" colspan="1">11-STABLE</td>
-<td rowspan="1" colspan="1">sparc64</td>
-<td rowspan="1" colspan="1">リファレンスマシン</td>
-</tr>
+	<tr>
+	  <td rowspan="1" colspan="1">ref[11|10]-i386</td>
+	  <td rowspan="1" colspan="1">X-STABLE</td>
+	  <td rowspan="1" colspan="1">i386</td>
+	  <td rowspan="1" colspan="1">リファレンスマシン</td>
+	</tr>
 
-<tr>
-<td rowspan="1" colspan="1">freefall</td>
-<td rowspan="1" colspan="1">12-CURRENT</td>
-<td rowspan="1" colspan="1">amd64</td>
-<td rowspan="1" colspan="1">シェルログイン</td>
-</tr>
+	<tr>
+	  <td rowspan="1" colspan="1">ref[12|11]-aarch64</td>
+	  <td rowspan="1" colspan="1">X-STABLE</td>
+	  <td rowspan="1" colspan="1">arm64/aarch64</td>
+	  <td rowspan="1" colspan="1">リファレンスマシン</td>
+	</tr>
 
-<tr>
-<td rowspan="1" colspan="1">ref[12|11|10]-amd64</td>
-<td rowspan="1" colspan="1">X-STABLE</td>
-<td rowspan="1" colspan="1">amd64</td>
-<td rowspan="1" colspan="1">リファレンスマシン</td>
-</tr>
+	<tr>
+	  <td rowspan="1" colspan="1">universe[12|11|10][a|b]</td>
+	  <td rowspan="1" colspan="1">X-STABLE</td>
+	  <td rowspan="1" colspan="1">amd64</td>
+	  <td rowspan="1" colspan="1">ユニバースビルドマシン</td>
+	</tr>
+      </tbody>
+    </table>
 
-<tr>
-<td rowspan="1" colspan="1">ref[11|10]-i386</td>
-<td rowspan="1" colspan="1">X-STABLE</td>
-<td rowspan="1" colspan="1">i386</td>
-<td rowspan="1" colspan="1">リファレンスマシン</td>
-</tr>
+    <h2>ハードウェア構成</h2>
 
-<tr>
-<td rowspan="1" colspan="1">ref[12|11]-aarch64</td>
-<td rowspan="1" colspan="1">X-STABLE</td>
-<td rowspan="1" colspan="1">arm64/aarch64</td>
-<td rowspan="1" colspan="1">リファレンスマシン</td>
-</tr>
+    <table class="tblbasic">
+      <thead>
+	<tr>
+	  <th align="left" rowspan="1" colspan="1">ホスト</th>
+	  <th align="left" rowspan="1" colspan="1">ハードウェア</th>
+	</tr>
+      </thead>
 
-<tr>
-<td rowspan="1" colspan="1">universe[12|11|10][a|b]</td>
-<td rowspan="1" colspan="1">X-STABLE</td>
-<td rowspan="1" colspan="1">amd64</td>
-<td rowspan="1" colspan="1">ユニバースビルドマシン</td>
-</tr>
+      <tbody>
+	<tr valign="top">
+	  <td rowspan="1" colspan="1">freefall</td>
+	  <td rowspan="1" colspan="1"><tt>dmesg(8)</tt> で確認してください。</td>
+	</tr>
 
-</tbody>
-</table>
+	<tr valign="top">
+	  <td rowspan="1" colspan="1">ref<em>[10-12]</em>-amd64</td>
+	  <td rowspan="1" colspan="1"><tt>dmesg(8)</tt> で確認してください。</td>
+	</tr>
 
-<h2>ハードウェア構成</h2>
+	<tr valign="top">
+	  <td rowspan="1" colspan="1">ref<em>[10-11]</em>-i386</td>
+	  <td rowspan="1" colspan="1"><tt>dmesg(8)</tt> で確認してください。</td>
+	</tr>
+      </tbody>
+    </table>
 
-<table class="tblbasic">
-<thead>
-<tr>
-<th align="left" rowspan="1" colspan="1">ホスト</th>
-<th align="left" rowspan="1" colspan="1">ハードウェア</th>
-</tr>
-</thead>
+    <p>ほとんどのマシンは、
+      冗長構成のギガビットアップリンクを持つ専用のスイッチに
+      1Gbit/sec 全二重で接続されています。
+      すべてのシステムはシリアルコンソールで繋がっていて、
+      リモートから電源管理を行なうことができます。</p>
 
-<tbody>
+    <h2>管理方針</h2>
 
-<tr valign="top">
-<td rowspan="1" colspan="1">freefall</td>
-<td rowspan="1" colspan="1"><tt>dmesg(8)</tt> で確認してください。</td>
-</tr>
+    <p>もしだれか特定のだれかに“所属”しているマシンに関して質問があり、
+      ユーザアカウントやファイルシステムレイアウトの変更を含む管理上の問題についての質問であれば、
+      まず彼らに直接問合せてください。</p>
 
-<tr valign="top">
-<td rowspan="1" colspan="1">ref<em>[10-12]</em>-amd64</td>
-<td rowspan="1" colspan="1"><tt>dmesg(8)</tt> で確認してください。</td>
-</tr>
+    <p>すべての新規ユーザアカウントは管理スタッフによって承認されなければならず、
+      docs, ports, src カテゴリのいずれかの FreeBSD 開発者にのみ与えられます。
+      上記の開発者以外でも、本当に実験的な何らかのテストが必要であり、
+      FreeBSD マシンにアクセスする必要がある場合には、
+      アカウントが与えられることもあります。
+      新しいアカウントの詳細については <a href="../../internal/new-account.html" shape="rect">New Account Creation
+	Procedure page</a> をご覧ください。
+      アカウントは、"架空のドメイン"
+      としてのメールや他の使用などの一般的な目的のためには与えられませんので、
+      これに関しては問い合わせしないでください。よろしくお願いします。</p>
 
-<tr valign="top">
-<td rowspan="1" colspan="1">ref<em>[10-11]</em>-i386</td>
-<td rowspan="1" colspan="1"><tt>dmesg(8)</tt> で確認してください。</td>
-</tr>
-
-</tbody>
-</table>
-
-<p>ほとんどのマシンは、
-  冗長構成のギガビットアップリンクを持つ専用のスイッチに
-  1Gbit/sec 全二重で接続されています。
-  すべてのシステムはシリアルコンソールで繋がっていて、
-  リモートから電源管理を行なうことができます。</p>
-
-<h2>管理方針</h2>
-
-<p>もしだれか特定のだれかに“所属”しているマシンに関して質問があり、
-ユーザアカウントやファイルシステムレイアウトの変更を含む管理上の問題についての質問であれば、
-まず彼らに直接問合せてください。</p>
-
-<p>すべての新規ユーザアカウントは管理スタッフによって承認されなければならず、
-docs, ports, src カテゴリのいずれかの FreeBSD 開発者にのみ与えられます。
-上記の開発者以外でも、本当に実験的な何らかのテストが必要であり、
-FreeBSD マシンにアクセスする必要がある場合には、アカウントが与えられることもあります。
-新しいアカウントの詳細については
-<a href="../../internal/new-account.html" shape="rect">New Account Creation Procedure page</a>
-をご覧ください。アカウントは、"架空のドメイン"
-としてのメールや他の使用などの一般的な目的のためには与えられませんので、
-これに関しては問い合わせしないでください。よろしくお願いします。</p>
-
-<p></p><a href="internal.html" shape="rect">FreeBSD Internal ホーム</a>
-</div>
+    <p></p><a href="internal.html" shape="rect">FreeBSD Internal ホーム</a>
+  </div>
           <br class="clearboth" />
         </div>
         <div id="footer">

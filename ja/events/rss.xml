@@ -16,15 +16,6 @@
     </image>
     <atom:link rel="self" type="application/rss+xml" href="http://www.FreeBSD.org/events/rss.xml"/>
     <item>
-      <title>vBSDcon 2017</title>
-      <description>vBSDcon 2017 (http://www.vbsdcon.com), Hyatt Regency Reston, Reston, Virginia, United States 2017 年 09 月 08 -  09 日. This exciting weekend will bring together members of
-      the BSD community for a series of roundtable discussions,
-      educational sessions, best practice conversations, and exclusive
-      networking opportunities.</description>
-      <link>http://www.vbsdcon.com</link>
-      <guid>http://www.vbsdcon.com</guid>
-    </item>
-    <item>
       <title>BSDTW 2017</title>
       <description>BSDTW 2017 (https://bsdtw.org), Beitou Resort, Taipei, Taiwan 2017 年 11 月 11 -  12 日. BSDTW is a conference that aims to bring out more
       BSD developers and development all across Asia, drawing speakers

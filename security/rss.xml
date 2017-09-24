@@ -16,6 +16,12 @@
     </image>
     <atom:link rel="self" type="application/rss+xml" href="https://www.FreeBSD.org/security/rss.xml"/>
     <item>
+      <title>FreeBSD-SA-17:06.openssh</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:06.openssh.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:06.openssh.asc</guid>
+      <pubDate>Thu, 10 Aug 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
       <title>FreeBSD-SA-17:05.heimdal</title>
       <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:05.heimdal.asc</link>
       <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:05.heimdal.asc</guid>
@@ -68,12 +74,6 @@
       <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-16:36.telnetd.asc</link>
       <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-16:36.telnetd.asc</guid>
       <pubDate>Tue, 6 Dec 2016 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-SA-16:35.openssl</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-16:35.openssl.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-16:35.openssl.asc</guid>
-      <pubDate>Wed, 2 Nov 2016 00:00:00 PST</pubDate>
     </item>
   </channel>
 </rss>

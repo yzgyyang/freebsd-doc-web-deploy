@@ -7,6 +7,10 @@
 	biztonsági figyelmeztetések</description>
   </channel>
   <item>
+    <title>FreeBSD-SA-17:06.openssh</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-17:06.openssh.asc</link>
+  </item>
+  <item>
     <title>FreeBSD-SA-17:05.heimdal</title>
     <link>//security.FreeBSD.org/advisories/FreeBSD-SA-17:05.heimdal.asc</link>
   </item>
@@ -41,9 +45,5 @@
   <item>
     <title>FreeBSD-SA-16:36.telnetd</title>
     <link>//security.FreeBSD.org/advisories/FreeBSD-SA-16:36.telnetd.asc</link>
-  </item>
-  <item>
-    <title>FreeBSD-SA-16:35.openssl</title>
-    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-16:35.openssl.asc</link>
   </item>
 </rdf:RDF>

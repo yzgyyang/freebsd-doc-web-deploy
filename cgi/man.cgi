@@ -234,6 +234,8 @@ $manPathDefault = 'FreeBSD 11.1-RELEASE and Ports';
 "$manLocalDir/FreeBSD-11.1-RELEASE/man:$manLocalDir/FreeBSD-11.1-RELEASE/openssl/man:$manLocalDir/FreeBSD-ports-11.1-RELEASE/man:$manLocalDir/FreeBSD-ports-11.1-RELEASE/misc",
     'FreeBSD 11.0-RELEASE and Ports',
 "$manLocalDir/FreeBSD-11.0-RELEASE/man:$manLocalDir/FreeBSD-11.0-RELEASE/openssl/man:$manLocalDir/FreeBSD-ports-11.0-RELEASE/man:$manLocalDir/FreeBSD-ports-11.0-RELEASE/misc",
+    'FreeBSD 10.4-RELEASE and Ports',
+"$manLocalDir/FreeBSD-10.4-RELEASE/man:$manLocalDir/FreeBSD-10.4-RELEASE/openssl/man:$manLocalDir/FreeBSD-ports-10.4-RELEASE/man:$manLocalDir/FreeBSD-ports-10.4-RELEASE/misc",
     'FreeBSD 10.3-RELEASE and Ports',
 "$manLocalDir/FreeBSD-10.3-RELEASE/man:$manLocalDir/FreeBSD-10.3-RELEASE/openssl/man:$manLocalDir/FreeBSD-ports-10.3-RELEASE/man:$manLocalDir/FreeBSD-ports-10.3-RELEASE/misc",
     'FreeBSD 10.2-RELEASE and Ports',
@@ -269,9 +271,6 @@ $manPathDefault = 'FreeBSD 11.1-RELEASE and Ports';
     'FreeBSD 12-current',
 "$manLocalDir/FreeBSD-12-current/man:$manLocalDir/FreeBSD-12-current/openssl/man",
 
-    'FreeBSD 11-current',
-"$manLocalDir/FreeBSD-11-current/man:$manLocalDir/FreeBSD-11-current/openssl/man",
-
     'FreeBSD 11.1-stable',
 "$manLocalDir/FreeBSD-11.1-stable/man:$manLocalDir/FreeBSD-11.1-stable/openssl/man",
     'FreeBSD 11.1-RELEASE',
@@ -279,8 +278,10 @@ $manPathDefault = 'FreeBSD 11.1-RELEASE and Ports';
     'FreeBSD 11.0-RELEASE',
 "$manLocalDir/FreeBSD-11.0-RELEASE/man:$manLocalDir/FreeBSD-11.0-RELEASE/openssl/man",
 
-    'FreeBSD 10.3-stable',
-"$manLocalDir/FreeBSD-10.3-stable/man:$manLocalDir/FreeBSD-10.3-stable/openssl/man",
+    'FreeBSD 10.4-stable',
+"$manLocalDir/FreeBSD-10.4-stable/man:$manLocalDir/FreeBSD-10.4-stable/openssl/man",
+    'FreeBSD 10.4-RELEASE',
+"$manLocalDir/FreeBSD-10.4-RELEASE/man:$manLocalDir/FreeBSD-10.4-RELEASE/openssl/man",
     'FreeBSD 10.3-RELEASE',
 "$manLocalDir/FreeBSD-10.3-RELEASE/man:$manLocalDir/FreeBSD-10.3-RELEASE/openssl/man",
     'FreeBSD 10.2-RELEASE',
@@ -361,6 +362,7 @@ $manPathDefault = 'FreeBSD 11.1-RELEASE and Ports';
     'FreeBSD Ports 10.1', "$manLocalDir/FreeBSD-ports-10.1-RELEASE/man:$manLocalDir/FreeBSD-ports-10.1-RELEASE/misc",
     'FreeBSD Ports 10.2', "$manLocalDir/FreeBSD-ports-10.2-RELEASE/man:$manLocalDir/FreeBSD-ports-10.2-RELEASE/misc",
     'FreeBSD Ports 10.3', "$manLocalDir/FreeBSD-ports-10.3-RELEASE/man:$manLocalDir/FreeBSD-ports-10.3-RELEASE/misc",
+    'FreeBSD Ports 10.4', "$manLocalDir/FreeBSD-ports-10.4-RELEASE/man:$manLocalDir/FreeBSD-ports-10.4-RELEASE/misc",
     'FreeBSD Ports 11.0', "$manLocalDir/FreeBSD-ports-11.0-RELEASE/man:$manLocalDir/FreeBSD-ports-11.0-RELEASE/misc",
     'FreeBSD Ports 11.1', "$manLocalDir/FreeBSD-ports-11.1-RELEASE/man:$manLocalDir/FreeBSD-ports-11.1-RELEASE/misc",
 
@@ -742,13 +744,15 @@ my @no_pdf_output = (
 my %no_pdf_output = map { $_ => 1 } @no_pdf_output;
 
 my %valid_arch = map { $_ => 1 }
-  qw/acorn26 acorn32 algor alpha amd64 amiga arc arm arm26 arm32 armish atari aviion bebox cats cesfic cobalt dreamcast evbarm evbmips evbppc evbsh3 evbsh5 hp300 hp700 hpcarm hpcmips hpcsh hppa hppa64 i386 ibmnws landisk loongson luna68k luna88k mac68k macppc mipsco mmeye mvme68k mvme88k mvmeppc netwinder news68k newsmips next68k ofppc palm pc532 pegasos playstation2 pmax pmppc powerpc prep sandpoint sbmips sgi sgimips shark socppc sparc sparc64 sun2 sun3 sun3x tahoe vax walnut wgrisc x68k zaurus/;
+  qw/aarch64 acorn26 acorn32 algor alpha amd64 amiga arc arm arm26 arm32 arm64 armish atari aviion bebox cats cesfic cobalt dreamcast evbarm evbmips evbppc evbsh3 evbsh5 hp300 hp700 hpcarm hpcmips hpcsh hppa hppa64 i386 ibmnws landisk loongson luna68k luna88k mac68k macppc mipsco mmeye mvme68k mvme88k mvmeppc netwinder news68k newsmips next68k ofppc palm pc532 pegasos playstation2 pmax pmppc powerpc prep sandpoint sbmips sgi sgimips shark socppc sparc sparc64 sun2 sun3 sun3x tahoe vax walnut wgrisc x68k zaurus/;
 
 my $default_arch = 'amd64';
+my %arch_names = ('default' => 'All Architectures');
 
 my %arch = ( 
-'FreeBSD 11.1-RELEASE' => { 'default' => 'i386', 'arch' => [qw/amd64 arm i386 powerpc sparc64/] } ,
-'FreeBSD 11.0-RELEASE' => { 'default' => 'i386', 'arch' => [qw/amd64 arm i386 powerpc sparc64/] } ,
+'FreeBSD 11.1-RELEASE' => { 'default' => 'i386', 'arch' => [qw/amd64 arm i386 powerpc sparc64 aarch64/] } ,
+'FreeBSD 11.0-RELEASE' => { 'default' => 'i386', 'arch' => [qw/amd64 arm i386 powerpc sparc64 aarch64/] } ,
+'FreeBSD 10.4-RELEASE' => { 'default' => 'i386', 'arch' => [qw/amd64 arm i386 powerpc sparc64/] } ,
 'FreeBSD 10.3-RELEASE' => { 'default' => 'i386', 'arch' => [qw/amd64 arm i386 powerpc sparc64/] } ,
 'FreeBSD 10.2-RELEASE' => { 'default' => 'i386', 'arch' => [qw/amd64 arm i386 powerpc sparc64/] } ,
 'FreeBSD 10.1-RELEASE' => { 'default' => 'i386', 'arch' => [qw/amd64 arm i386 powerpc sparc64/] } ,
@@ -803,9 +807,10 @@ while ( ( $key, $val ) = each %manPath ) {
     'freebsd',         'FreeBSD 11.1-RELEASE',
     'freebsd-release', 'FreeBSD 11.1-RELEASE',
 
-    'freebsd-stable',  'FreeBSD 10.3-stable',
+    'freebsd-stable', 'FreeBSD 11.1-stable',
     'freebsd-stable11', 'FreeBSD 11.1-stable',
-    'freebsd-stable10', 'FreeBSD 10.3-stable',
+
+    'freebsd-stable10', 'FreeBSD 10.4-stable',
     'freebsd-stable9', 'FreeBSD 9.3-stable',
     'freebsd-stable8', 'FreeBSD 8.4-stable',
     'freebsd-stable7', 'FreeBSD 7.4-stable',
@@ -915,7 +920,7 @@ $sections = join( "|", @sections );    # sections regexp
 # mailto - Author
 # webmaster - who run this service
 $mailto                    = 'wosch@FreeBSD.org';
-$mailtoURL                 = 'http://wolfram.schneider.org';
+$mailtoURL                 = 'https://wolfram.schneider.org';
 $mailtoURL                 = "mailto:$mailto" if !$mailtoURL;
 $full_url                  = 'https://www.freebsd.org/cgi/man.cgi';
 $want_to_link_to_this_page = 1;
@@ -929,6 +934,10 @@ $want_to_link_to_this_page = 1;
 $enable_include_links = 0;
 $enable_mailto_links  = 0;
 
+my $enable_section_indexes = 0;
+my $enable_intro = 0;
+
+
 #
 # end of config
 #######################################################################################
@@ -937,7 +946,7 @@ sub html_footer {
     my %args = @_;
 
     print
-qq{<a href="$BASE?manpath=$m">home</a> | <a href="$BASE/help.html">help</a> \n}
+qq{<span class="footer_links"><a href="$BASE?manpath=$m">home</a> | <a href="$BASE/help.html">help</a></span>\n}
       if !$args{'no_home_link'};
 
     if (cgi_style::HAS_FREEBSD_CGI_STYLE) {
@@ -962,6 +971,20 @@ sub html_header {
 b { color: #996600; }
 i { color: #008000; }
 -->
+span.footer_links { font-size: small; }
+span.space { font-size: xx-small; }
+form#man > input, form#man > button { font-size: large; }
+form#man > input[name='query'] { text-align: center; }
+
+@media only screen and (max-height: 640px), (max-width: 760px) {
+div#header, div#menu { display: none !important; }
+div#content { padding-top: 4.9em; }
+form#man > input, button { font-size: 200%; }
+form#man > button { font-size: 200%; }
+form#man > input[name='query'] { width: 12em; }
+form#man > select { font-size: 140%; }
+span.spaces { display: none; }
+}
 </style>
 |;
 
@@ -1200,7 +1223,7 @@ sub apropos {
     if ( !$acounter ) {
         print "Sorry, no data found for `$query'.\n";
         print qq{You may look for other }
-          . qq{<a href="../../search/">FreeBSD Search Services</a>.\n};
+          . qq{<a href="../../search/">FreeBSD Search Services</a>.<br/><br/>\n};
     }
     &html_footer;
 }
@@ -1289,7 +1312,10 @@ sub man {
     #print Dumper($sectionpath);
     #print "yy $section yy $manpath\n";
     if ( $name =~ /^\s*$/ ) {
-        print "Empty input, no man page given.\n";
+	print "</pre><hr/>";
+        print "Empty input. Please type a manual page and search again.\n";
+	print "<hr/>\n";
+        &html_footer;
         return;
     }
 
@@ -1622,25 +1648,14 @@ sub encode_data {
     s/\</\&lt\;/g;
     s/\>/\&gt\;/g;
 
-    s,((_\010[^_])+),($str = $1) =~ s/.\010//g; "<i>$str</i>";,ge;
-    s,((.\010.)+),($str = $1) =~ s/.\010//g; "<b>$str</b>";,ge;
+    # underline: _^H.^H(.)
+    s,((_\010[^_]\010.)+),($str = $1) =~ s/_\010..//g; "<I>$str</I>";,ge;
 
- #s,((_\010.)+),($str = $1) =~ s/.\010//g; "<i>$str</i>";,ge;
- #s,(.\010)+,$1,g;
- #if (!s,((.\010.)+\s+(.\010.)+),($str = $1) =~ s/.\010//g; "<b>$str</b>";,ge) {
- # s,(([^_]\010.)+),($str = $1) =~ s/[^_]\010//g; "<b>$str</b>";,ge;
- # s,(([_]\010.)+),($str = $1) =~ s/[_]\010//g; "<i>$str</i>";,ge;
- #}
- # Escape binary data except for ^H which we process below
- # \375 gets turned into the & for the entity reference
- #s/([^\010\012\015\032-\176])/sprintf('\375#%03d;',ord($1))/eg;
- # Process ^H sequences, we use \376 and \377 (already escaped
- # above) to stand in for < and > until those characters can
- # be properly escaped below.
- #s,\376[IB]\377_\376/[IB]\377,,g;
- #s/.[\b]//g;			# just do an erase for anything else
- # Now convert our magic chars into our tag markers
- #s/\375/\&/g; s/\376/</g; s/\377/>/g;
+    # italic:  _^H(.)
+    s,((_\010[^_])+),($str = $1) =~ s/.\010//g; "<i>$str</i>";,ge;
+
+    # bold: .^H(.) 
+    s,(([^_]\010.)+),($str = $1) =~ s/.\010//g; "<b>$str</b>";,ge;
 
     # cleanup all the rest
     s,.\010,,g;
@@ -1650,25 +1665,30 @@ sub encode_data {
 
 sub indexpage {
     &http_header("text/html");
-    print &html_header("$www{'title'}: Index Page") . "<h1><br/>", $www{'head'},
-      "</h1>\n\n" . &intro;
+    print &html_header("$www{'title'}") . "<h1><br/>", $www{'head'},
+      "</h1>\n\n"; 
+    # print &intro;
     &formquery;
 
     local ($m) = ( $manpath ? $manpath : $manPathDefault );
     $m = &encode_url($m);
 
+    if ($enable_section_indexes) {
     print "<b><i>Section Indexes</i></b>:\n";
     foreach ( '1', '2', '3', '4', '5', '6', '7', '8', '9', 'n' ) {
         print qq{&#164; } if $_ ne '1';
         print
 qq{<a href="$BASE?query=($_)&amp;sektion=&amp;apropos=1&amp;manpath=$m&amp;title=Section%20$_Index">$_</a>\n};
     }
+    }
 
+    if ($enable_intro) {
     print "<br /><b><i>Explanations of Man Sections:</i></b>\n";
     foreach ( '1', '2', '3', '4', '5', '6', '7', '8', '9' ) {
         print qq{&#164; } if $_ ne '1';
         print
 qq{<a href="$BASE?query=intro&amp;sektion=$_&amp;apropos=0&amp;manpath=$m&amp;title=Introduction%20Section%20$_">intro($_)</a>\n};
+    }
     }
 
     if (0) {
@@ -1689,7 +1709,9 @@ qq{&#164; <a href="$BASE?query=$_&amp;sektion=&amp;apropos=1&amp;manpath=$m&amp;
 URL:  <a href="$BASE" target="_parent">$www{'home'}$BASE</a><br />
 ETX
 
-    print "<br />\n";
+    if ($enable_section_indexes || $enable_intro) {
+        print "<br />\n";
+    }
     &html_footer( 'no_home_link' => 1 );
 }
 
@@ -1702,17 +1724,22 @@ sub formquery {
         $bstring = q{ checked="checked"};
     }
 
+    # set focus if the input field is empty 
+    my $autofocus = $query ? "" : "autofocus";
+
     print <<ETX;
-<form method="get" action="$BASE">
-Man Page or Keyword Search:
-<input value="$query" name="query" />
-<input type="submit" value="Submit" />
-<input type="reset" value="Reset" />
-<br />
-<input name="apropos" value="0" type="radio"$astring /> <a href="$BASE?query=man&amp;sektion=1&amp;apropos=0">Man</a>
-<select name="sektion">
+<form id="man" method="get" action="$BASE">
+<!-- Manual Page or Keyword Search: -->
+<span class="spaces">&nbsp;&nbsp;</span>
+<input type="text" id="query" value="$query" name="query" size="36" autocapitalize="none" $autofocus />
+<button type="submit" name="apropos" value="0">man</button>
+<button type="submit" name="apropos" value="1">apropos</button>
+<br/>
+<span class="space">&nbsp;</span><br/>
+<span class="spaces">&nbsp;&nbsp;</span>
 ETX
 
+    print qq{<select name="sektion">\n};
     foreach $key ( sort keys %sectionName ) {
         print "<option"
           . ( ( $key eq $section ) ? ' selected="selected" ' : ' ' )
@@ -1730,6 +1757,7 @@ ETX
     }
 
     print qq{</select>\n};
+
     print qq{<select name="arch">\n};
     my @arch = exists $arch{$l} ? @{ $arch{$l}->{'arch'} } : $default_arch;
     unshift @arch, 'default';
@@ -1747,16 +1775,15 @@ ETX
 
     foreach (@arch) {
         my $selected = $_ eq $a ? ' selected="selected"' : "";
-        print qq{<option $selected value="$_">$_</option>\n};
+        my $arch_name = exists $arch_names{$_} ? $arch_names{$_} : $_;
+        print qq{<option $selected value="$_">$arch_name</option>\n};
     }
 
-    print qq{</select>\nArchitecture\n\n};
+    print qq{</select>\n\n};
 
     local ($m) = &encode_url($l);
 
     print <<ETX;
-<br />
-<input name="apropos" value="1" type="radio"$bstring /> <a href="$BASE?query=apropos&amp;sektion=1&amp;apropos=0">Apropos</a> Keyword Search (all sections)
 <select name="format">
 ETX
 
@@ -1770,13 +1797,14 @@ ETX
 
     print <<ETX;
 </select>
-Output format
 </form>
 
-<a href="$BASE?manpath=$m">home</a> |
-<a href="$BASE/help.html">help</a> 
-<hr />
+<br/>
+<span class="footer_links"><a href="$BASE?manpath=$m">home</a> | <a href="$BASE/help.html">help</a></span>
 ETX
+    if ($query) {
+	print "<hr/>\n";
+    }
     0;
 }
 
@@ -1832,9 +1860,9 @@ Copyright (c) for man pages by OS vendors.
 <a href="https://www.slackware.com">Slackware Linux</a>,
 <a href="https://www.sun.com">SunOS</a>,
 <a href="https://www.suse.com">SuSE</a>,
-<a href="http://www.digital.com">ULTRIX</a>,
+<a href="https://en.wikipedia.org/wiki/Ultrix">ULTRIX</a>,
 <a href="http://www.plan9.bell-labs.com/7thEdMan/">Unix Seventh Edition</a>,
-<a href="http://www.xfree86.org">XFree86</a>,
+<a href="https://www.xfree86.org">XFree86</a>,
 <a href="https://www.x.org">X11R6</a>
 
 <h2>FAQ</h2>

@@ -16,71 +16,68 @@
     </image>
     <atom:link href="http://www.FreeBSD.org/news/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
-      <title>FreeBSD 11.1-RELEASE Available</title>
-      <description>FreeBSD 11.1-RELEASE is now available. Please be sure to check the Release Notes and Release Errata before installation for any late-breaking news and/or issues with 11.1. More information about FreeBSD releases can be found on the Release Information page.</description>
-      <link>http://www.FreeBSD.org/news/newsflash.html#event20170726:01</link>
-      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170726:01</guid>
-      <pubDate>Wed, 26 Jul 2017 00:00:00 PST</pubDate>
+      <title>FreeBSD 10.4-RC2 Available</title>
+      <description>The second RC build for the FreeBSD 10.4 release cycle is now available. ISO images for the amd64, armv6, i386, ia64, powerpc, powerpc64 and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
+      <link>http://www.FreeBSD.org/news/newsflash.html#event20170923:01</link>
+      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170923:01</guid>
+      <pubDate>Sat, 23 Sep 2017 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>New committer: Marcin Wojtas (src)</title>
-      <link>http://www.FreeBSD.org/news/newsflash.html#event20170718:01</link>
-      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170718:01</guid>
-      <pubDate>Tue, 18 Jul 2017 00:00:00 PST</pubDate>
+      <title>New committer: Eugene Grosbein (src)</title>
+      <link>http://www.FreeBSD.org/news/newsflash.html#event20170919:01</link>
+      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170919:01</guid>
+      <pubDate>Tue, 19 Sep 2017 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>FreeBSD 11.1-RC3 Available</title>
-      <description>The third RC build for the FreeBSD 11.1 release cycle is now available. ISO images for the amd64, armv6, i386, aarch64, powerpc, powerpc64 and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
-      <link>http://www.FreeBSD.org/news/newsflash.html#event20170715:01</link>
-      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170715:01</guid>
-      <pubDate>Sat, 15 Jul 2017 00:00:00 PST</pubDate>
+      <title>New committer: Guangyuan Yang (doc)</title>
+      <link>http://www.FreeBSD.org/news/newsflash.html#event20170918:01</link>
+      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170918:01</guid>
+      <pubDate>Mon, 18 Sep 2017 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>New committer: Matt Joras (src)</title>
-      <link>http://www.FreeBSD.org/news/newsflash.html#event20170712:01</link>
-      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170712:01</guid>
-      <pubDate>Wed, 12 Jul 2017 00:00:00 PST</pubDate>
+      <title>FreeBSD 10.4-RC1 Available</title>
+      <description>The first RC build for the FreeBSD 10.4 release cycle is now available. ISO images for the amd64, armv6, i386, ia64, powerpc, powerpc64 and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
+      <link>http://www.FreeBSD.org/news/newsflash.html#event20170917:01</link>
+      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170917:01</guid>
+      <pubDate>Sun, 17 Sep 2017 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>FreeBSD 11.1-RC2 Available</title>
-      <description>The second RC build for the FreeBSD 11.1 release cycle is now available. ISO images for the amd64, armv6, i386, aarch64, powerpc, powerpc64 and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
-      <link>http://www.FreeBSD.org/news/newsflash.html#event20170708:01</link>
-      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170708:01</guid>
-      <pubDate>Sat, 8 Jul 2017 00:00:00 PST</pubDate>
+      <title>New committer: Craig Leres (ports)</title>
+      <link>http://www.FreeBSD.org/news/newsflash.html#event20170911:01</link>
+      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170911:01</guid>
+      <pubDate>Mon, 11 Sep 2017 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>FreeBSD 11.1-RC1 Available</title>
-      <description>The first RC build for the FreeBSD 11.1 release cycle is now available. ISO images for the amd64, armv6, i386, aarch64, powerpc, powerpc64 and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
-      <link>http://www.FreeBSD.org/news/newsflash.html#event20170701:01</link>
-      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170701:01</guid>
-      <pubDate>Sat, 1 Jul 2017 00:00:00 PST</pubDate>
+      <title>New committer: Dave Cottlehuber (ports)</title>
+      <link>http://www.FreeBSD.org/news/newsflash.html#event20170909:01</link>
+      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170909:01</guid>
+      <pubDate>Sat, 9 Sep 2017 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>FreeBSD 11.1-BETA3 Available</title>
-      <description>The third BETA build for the FreeBSD 11.1 release cycle is now available. ISO images for the amd64, armv6, i386, aarch64, powerpc, powerpc64 and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
-      <link>http://www.FreeBSD.org/news/newsflash.html#event20170624:01</link>
-      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170624:01</guid>
-      <pubDate>Sat, 24 Jun 2017 00:00:00 PST</pubDate>
+      <title>FreeBSD 10.4-BETA4 Available</title>
+      <description>The fourth BETA build for the FreeBSD 10.4 release cycle is now available. ISO images for the amd64, armv6, i386, ia64, powerpc, powerpc64 and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
+      <link>http://www.FreeBSD.org/news/newsflash.html#event20170909:02</link>
+      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170909:02</guid>
+      <pubDate>Sat, 9 Sep 2017 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>New committer: Kyle Evans (src)</title>
-      <link>http://www.FreeBSD.org/news/newsflash.html#event20170620:01</link>
-      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170620:01</guid>
-      <pubDate>Tue, 20 Jun 2017 00:00:00 PST</pubDate>
+      <title>New committer: Adriaan de Groot (ports)</title>
+      <link>http://www.FreeBSD.org/news/newsflash.html#event20170908:01</link>
+      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170908:01</guid>
+      <pubDate>Fri, 8 Sep 2017 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>FreeBSD 11.1-BETA2 Available</title>
-      <description>The second BETA build for the FreeBSD 11.1 release cycle is now available. ISO images for the amd64, armv6, i386, aarch64, powerpc, powerpc64 and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
-      <link>http://www.FreeBSD.org/news/newsflash.html#event20170617:01</link>
-      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170617:01</guid>
-      <pubDate>Sat, 17 Jun 2017 00:00:00 PST</pubDate>
+      <title>New committer: Stephen Hurd (src)</title>
+      <link>http://www.FreeBSD.org/news/newsflash.html#event20170902:01</link>
+      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170902:01</guid>
+      <pubDate>Sat, 2 Sep 2017 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>FreeBSD 11.1-BETA1 Available</title>
-      <description>The first BETA build for the FreeBSD 11.1 release cycle is now available. ISO images for the amd64, armv6, i386, aarch64, powerpc, powerpc64 and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
-      <link>http://www.FreeBSD.org/news/newsflash.html#event20170610:01</link>
-      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170610:01</guid>
-      <pubDate>Sat, 10 Jun 2017 00:00:00 PST</pubDate>
+      <title>FreeBSD 10.4-BETA3 Available</title>
+      <description>The third BETA build for the FreeBSD 10.4 release cycle is now available. ISO images for the amd64, armv6, i386, ia64, powerpc, powerpc64 and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
+      <link>http://www.FreeBSD.org/news/newsflash.html#event20170902:02</link>
+      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170902:02</guid>
+      <pubDate>Sat, 2 Sep 2017 00:00:00 PST</pubDate>
     </item>
   </channel>
 </rss>
