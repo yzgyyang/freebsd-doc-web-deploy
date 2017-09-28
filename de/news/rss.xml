@@ -16,6 +16,13 @@
     </image>
     <atom:link href="http://www.FreeBSD.org/news/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>April-June 2017 Status Report</title>
+      <description>The April to June 2017 Status Report is now available.</description>
+      <link>http://www.FreeBSD.org/news/newsflash.html#event20170927:01</link>
+      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170927:01</guid>
+      <pubDate>Wed, 27 Sep 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
       <title>FreeBSD 10.4-RC2 Available</title>
       <description>The second RC build for the FreeBSD 10.4 release cycle is now available. ISO images for the amd64, armv6, i386, ia64, powerpc, powerpc64 and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
       <link>http://www.FreeBSD.org/news/newsflash.html#event20170923:01</link>
@@ -67,17 +74,10 @@
       <pubDate>Fri, 8 Sep 2017 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>New committer: Stephen Hurd (src)</title>
-      <link>http://www.FreeBSD.org/news/newsflash.html#event20170902:01</link>
-      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170902:01</guid>
-      <pubDate>Sat, 2 Sep 2017 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD 10.4-BETA3 Available</title>
-      <description>The third BETA build for the FreeBSD 10.4 release cycle is now available. ISO images for the amd64, armv6, i386, ia64, powerpc, powerpc64 and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
-      <link>http://www.FreeBSD.org/news/newsflash.html#event20170902:02</link>
-      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170902:02</guid>
-      <pubDate>Sat, 2 Sep 2017 00:00:00 PST</pubDate>
+      <title>New committer: Chuck Tuffli (src)</title>
+      <link>http://www.FreeBSD.org/news/newsflash.html#event20170906:01</link>
+      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170906:01</guid>
+      <pubDate>Wed, 6 Sep 2017 00:00:00 PST</pubDate>
     </item>
   </channel>
 </rss>

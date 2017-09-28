@@ -6,6 +6,10 @@
     <description>News from the FreeBSD Project</description>
   </channel>
   <item>
+    <title>April-June 2017 Status Report</title>
+    <link>http://www.FreeBSD.org/news/newsflash.html#event20170927:01</link>
+  </item>
+  <item>
     <title>FreeBSD¢®10.4-RC2 Available</title>
     <link>http://www.FreeBSD.org/news/newsflash.html#event20170923:01</link>
   </item>
@@ -38,11 +42,7 @@
     <link>http://www.FreeBSD.org/news/newsflash.html#event20170908:01</link>
   </item>
   <item>
-    <title>New committer: Stephen Hurd (src)</title>
-    <link>http://www.FreeBSD.org/news/newsflash.html#event20170902:01</link>
-  </item>
-  <item>
-    <title>FreeBSD¢®10.4-BETA3 Available</title>
-    <link>http://www.FreeBSD.org/news/newsflash.html#event20170902:02</link>
+    <title>New committer: Chuck Tuffli (src)</title>
+    <link>http://www.FreeBSD.org/news/newsflash.html#event20170906:01</link>
   </item>
 </rdf:RDF>

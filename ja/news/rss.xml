@@ -29,6 +29,12 @@
       <pubDate>Tue, 19 Sep 2017 00:00:00 PST</pubDate>
     </item>
     <item>
+      <title>新コミッタ就任: Guangyuan Yang (doc)</title>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20170918:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20170918:01</guid>
+      <pubDate>Mon, 18 Sep 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
       <title>FreeBSD〓10.4-RC1 公開</title>
       <description>FreeBSD〓10.4 リリースサイクルから最初のリリース候補版が公開されました (アナウンス)。 FreeBSD ミラーサイト から amd64, armv6, i386, ia64, powerpc, powerpc64 および sparc64 アーキテクチャの ISO イメージを入手できます。</description>
       <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20170917:01</link>
@@ -61,22 +67,15 @@
       <pubDate>Fri, 8 Sep 2017 00:00:00 PST</pubDate>
     </item>
     <item>
+      <title>新コミッタ就任: Chuck Tuffli (src)</title>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20170906:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20170906:01</guid>
+      <pubDate>Wed, 6 Sep 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
       <title>新コミッタ就任: Stephen Hurd (src)</title>
       <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20170902:01</link>
       <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20170902:01</guid>
-      <pubDate>Sat, 2 Sep 2017 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD〓10.4-BETA3 公開</title>
-      <description>FreeBSD〓10.4 リリースサイクルから 3 回目の BETA ビルドが公開されました (アナウンス)。 FreeBSD ミラーサイト から amd64, armv6, i386, ia64, powerpc, powerpc64 および sparc64 アーキテクチャの ISO イメージを入手できます。</description>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20170902:02</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20170902:02</guid>
-      <pubDate>Sat, 2 Sep 2017 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>新コミッタ就任: Ilya Bakulin (src)</title>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20170902:03</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20170902:03</guid>
       <pubDate>Sat, 2 Sep 2017 00:00:00 PST</pubDate>
     </item>
   </channel>
