@@ -2087,7 +2087,7 @@ DESCRIPTION:Главное событие в мире BSD, BSDCon, происходит уже четвёртый
       технических обсуждений.  Это возможность специалистам разного уровня
       поучиться у экспертов BSD, профессионалов с опытом реальной работы и
       лидеров отрасли.
-URL;VALUE=URI:http://www.FreeBSD.org/events/2003/bsdcon-devsummit.html
+URL;VALUE=URI:https://www.FreeBSD.org/events/2003/bsdcon-devsummit.html
 URL;VALUE=URI:http://bsdcon.kwiki.org/
 URL;VALUE=URI:http://apollo.backplane.com/BSDCON2003/
 END:VEVENT

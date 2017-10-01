@@ -2,47 +2,47 @@
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://my.netscape.com/rdf/simple/0.9/" xmlns:cvs="http://www.FreeBSD.org/XML/CVS">
   <channel>
     <title>FreeBSD Project News</title>
-    <link>http://www.FreeBSD.org/news/</link>
+    <link>https://www.FreeBSD.org/news/</link>
     <description>News from the FreeBSD Project</description>
   </channel>
   <item>
     <title>April-June 2017 Status Report</title>
-    <link>http://www.FreeBSD.org/news/newsflash.html#event20170927:01</link>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20170927:01</link>
   </item>
   <item>
     <title>FreeBSD¢®10.4-RC2 Available</title>
-    <link>http://www.FreeBSD.org/news/newsflash.html#event20170923:01</link>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20170923:01</link>
   </item>
   <item>
     <title>New committer: Eugene Grosbein (src)</title>
-    <link>http://www.FreeBSD.org/news/newsflash.html#event20170919:01</link>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20170919:01</link>
   </item>
   <item>
     <title>New committer: Guangyuan Yang (doc)</title>
-    <link>http://www.FreeBSD.org/news/newsflash.html#event20170918:01</link>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20170918:01</link>
   </item>
   <item>
     <title>FreeBSD¢®10.4-RC1 Available</title>
-    <link>http://www.FreeBSD.org/news/newsflash.html#event20170917:01</link>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20170917:01</link>
   </item>
   <item>
     <title>New committer: Craig Leres (ports)</title>
-    <link>http://www.FreeBSD.org/news/newsflash.html#event20170911:01</link>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20170911:01</link>
   </item>
   <item>
     <title>New committer: Dave Cottlehuber (ports)</title>
-    <link>http://www.FreeBSD.org/news/newsflash.html#event20170909:01</link>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20170909:01</link>
   </item>
   <item>
     <title>FreeBSD¢®10.4-BETA4 Available</title>
-    <link>http://www.FreeBSD.org/news/newsflash.html#event20170909:02</link>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20170909:02</link>
   </item>
   <item>
     <title>New committer: Adriaan de Groot (ports)</title>
-    <link>http://www.FreeBSD.org/news/newsflash.html#event20170908:01</link>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20170908:01</link>
   </item>
   <item>
     <title>New committer: Chuck Tuffli (src)</title>
-    <link>http://www.FreeBSD.org/news/newsflash.html#event20170906:01</link>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20170906:01</link>
   </item>
 </rdf:RDF>

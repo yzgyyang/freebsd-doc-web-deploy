@@ -2203,7 +2203,7 @@ DESCRIPTION:For the fourth time, the main BSD Event, BSDCon is
       days of technical sessions.  An opportunity for people of all
       experience levels to learn from BSD experts, professionals with
       real world experience, and industry leaders.
-URL;VALUE=URI:http://www.FreeBSD.org/events/2003/bsdcon-devsummit.html
+URL;VALUE=URI:https://www.FreeBSD.org/events/2003/bsdcon-devsummit.html
 URL;VALUE=URI:http://apollo.backplane.com/BSDCON2003/
 END:VEVENT
 END:VCALENDAR

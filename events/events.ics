@@ -2812,7 +2812,7 @@ DESCRIPTION:Linux Expo Shanghai is the biggest Linux/Open Source
       of the FreeBSD China
       group will have a booth there both days.
 URL;VALUE=URI:http://www.stokely.org/20040910-shanghai-linuxexpo/
-URL;VALUE=URI:http://people.FreeBSD.org/~murray/
+URL;VALUE=URI:https://people.FreeBSD.org/~murray/
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:192
@@ -3033,7 +3033,7 @@ DESCRIPTION:For the fourth time, the main BSD Event, BSDCon is
       days of technical sessions.  An opportunity for people of all
       experience levels to learn from BSD experts, professionals with
       real world experience, and industry leaders.
-URL;VALUE=URI:http://www.FreeBSD.org/events/2003/bsdcon-devsummit.html
+URL;VALUE=URI:https://www.FreeBSD.org/events/2003/bsdcon-devsummit.html
 URL;VALUE=URI:http://apollo.backplane.com/BSDCON2003/
 END:VEVENT
 END:VCALENDAR

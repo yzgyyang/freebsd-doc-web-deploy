@@ -2,7 +2,7 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
   <channel>
     <title>Upcoming FreeBSD Events</title>
-    <link>http://www.FreeBSD.org/events/</link>
+    <link>https://www.FreeBSD.org/events/</link>
     <description>RSS feed of upcoming FreeBSD-related conferences, summits, courses, and other relevant events.</description>
     <language>en-us</language>
     <webMaster>freebsd-www@FreeBSD.org (FreeBSD Web Team)</webMaster>
@@ -10,11 +10,11 @@
     <docs>http://blogs.law.harvard.edu/tech/rss</docs>
     <ttl>120</ttl>
     <image>
-      <url>http://www.FreeBSD.org/logo/logo-full.png</url>
+      <url>https://www.FreeBSD.org/logo/logo-full.png</url>
       <title>Upcoming FreeBSD Events</title>
-      <link>http://www.FreeBSD.org/events/</link>
+      <link>https://www.FreeBSD.org/events/</link>
     </image>
-    <atom:link rel="self" type="application/rss+xml" href="http://www.FreeBSD.org/events/rss.xml"/>
+    <atom:link rel="self" type="application/rss+xml" href="https://www.FreeBSD.org/events/rss.xml"/>
     <item>
       <title>BSDTW 2017</title>
       <description>BSDTW 2017 (https://bsdtw.org), Beitou Resort, Taipei, Taiwan 11 - 12 November, 2017. BSDTW is a conference that aims to bring out more

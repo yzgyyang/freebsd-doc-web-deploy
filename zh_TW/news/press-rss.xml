@@ -2,7 +2,7 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
   <channel>
     <title>FreeBSD in the Press</title>
-    <link>http://www.FreeBSD.org/news/press.html</link>
+    <link>https://www.FreeBSD.org/news/press.html</link>
     <description>Press Stories about FreeBSD</description>
     <language>en-us</language>
     <webMaster>freebsd-www@FreeBSD.org (Webmaster Team)</webMaster>
@@ -10,84 +10,84 @@
     <docs>http://blogs.law.harvard.edu/tech/rss</docs>
     <ttl>120</ttl>
     <image>
-      <url>http://www.FreeBSD.org/logo/logo-full.png</url>
+      <url>https://www.FreeBSD.org/logo/logo-full.png</url>
       <title>FreeBSD in the Press</title>
-      <link>http://www.FreeBSD.org/news/press.html</link>
+      <link>https://www.FreeBSD.org/news/press.html</link>
     </image>
-    <atom:link href="http://www.FreeBSD.org/news/press-rss.xml" rel="self" type="application/rss+xml"/>
+    <atom:link href="https://www.FreeBSD.org/news/press-rss.xml" rel="self" type="application/rss+xml"/>
     <item>
       <title>FreeBSD Project: Under the Hood, HostingAdvice.com, Alexandra Leslie</title>
       <description>With over 400 volunteer devs at its helm, the FreeBSD Project is a dynamic force that puts the control in administrators' hands. Project Committer Allan Jude has been a fan of the project since 2002. He discusses the system's internal structure and the feature functionality that drew him in — contributing to its documentation and then to its development — and what he's working on now, more than a decade later.</description>
-      <link>http://www.FreeBSD.org/news/press.html#story201606:01</link>
-      <guid>http://www.FreeBSD.org/news/press.html#story201606:01</guid>
+      <link>https://www.FreeBSD.org/news/press.html#story201606:01</link>
+      <guid>https://www.FreeBSD.org/news/press.html#story201606:01</guid>
       <pubDate>???, NaN Jun 2016 00:00:00 PST</pubDate>
     </item>
     <item>
       <title>FreeBSD now available in Azure Marketplace, Microsoft Azure Blog, Jason Anderson</title>
       <description>Microsoft excited to announce the availability of FreeBSD 10.3 as a ready-made VM image available directly from the Azure Marketplace. This means that not only can you quickly bring-up a FreeBSD VM in Azure, but also that in the event you need technical support, Microsoft support engineers can assist.</description>
-      <link>http://www.FreeBSD.org/news/press.html#story201606:02</link>
-      <guid>http://www.FreeBSD.org/news/press.html#story201606:02</guid>
+      <link>https://www.FreeBSD.org/news/press.html#story201606:02</link>
+      <guid>https://www.FreeBSD.org/news/press.html#story201606:02</guid>
       <pubDate>???, NaN Jun 2016 00:00:00 PST</pubDate>
     </item>
     <item>
       <title>Cascadia Community Builder Award recognizes FreeBSD
 	  contributor Michael Dexter, Seattle GNU/Linux Conference, SeaGL Blog</title>
       <description>The Cascadia Community Builder Award recognizes a person who has made an outstanding contribution to the free software movement in the Cascadia region. Michael Dexter was chosen because his work with the Portland Linux/Unix Group and the BSD community exemplified the type of unsung community-building work that is so critical to the growth of the free software movement.</description>
-      <link>http://www.FreeBSD.org/news/press.html#story201510:01</link>
-      <guid>http://www.FreeBSD.org/news/press.html#story201510:01</guid>
+      <link>https://www.FreeBSD.org/news/press.html#story201510:01</link>
+      <guid>https://www.FreeBSD.org/news/press.html#story201510:01</guid>
       <pubDate>Mon, 26 Oct 2015 00:00:00 PST</pubDate>
     </item>
     <item>
       <title>Enabling FreeBSD on AArch64, ARM Ltd. Blog, Andrew Wafaa</title>
       <description>A summary of the activities around porting FreeBSD to ARM's new AArch64 (or ARM64) platform.</description>
-      <link>http://www.FreeBSD.org/news/press.html#story201507:01</link>
-      <guid>http://www.FreeBSD.org/news/press.html#story201507:01</guid>
+      <link>https://www.FreeBSD.org/news/press.html#story201507:01</link>
+      <guid>https://www.FreeBSD.org/news/press.html#story201507:01</guid>
       <pubDate>Tue, 7 Jul 2015 00:00:00 PST</pubDate>
     </item>
     <item>
       <title>Running FreeBSD on the server: a sysadmin
 	  speaks, iTWire, Sam Varghese</title>
       <description>For years now, Linux has been all the rage. But in recent times, there have been murmurings among some veterans — long-time users — after the introduction of systemd, the init system that seems to overstep its boundaries.</description>
-      <link>http://www.FreeBSD.org/news/press.html#story201503:01</link>
-      <guid>http://www.FreeBSD.org/news/press.html#story201503:01</guid>
+      <link>https://www.FreeBSD.org/news/press.html#story201503:01</link>
+      <guid>https://www.FreeBSD.org/news/press.html#story201503:01</guid>
       <pubDate>Mon, 23 Mar 2015 00:00:00 PST</pubDate>
     </item>
     <item>
       <title>Presenting FreeBSD! How We Made It Happen, Digital Ocean Inc. Blog, Neal Shrader</title>
       <description>FreeBSD virtual private servers with IPv6 support are now available on the DigitalOcean platform in: San Francisco, New York, London, Amsterdam, and Singapore. DigitalOcean is also seeking FreeBSD tutorials, for which they are offering $200 USD each.</description>
-      <link>http://www.FreeBSD.org/news/press.html#story201501:01</link>
-      <guid>http://www.FreeBSD.org/news/press.html#story201501:01</guid>
+      <link>https://www.FreeBSD.org/news/press.html#story201501:01</link>
+      <guid>https://www.FreeBSD.org/news/press.html#story201501:01</guid>
       <pubDate>Wed, 14 Jan 2015 00:00:00 PST</pubDate>
     </item>
     <item>
       <title>Get started with FreeBSD: A brief intro for Linux
 	  users, InfoWorld, Paul Venezia</title>
       <description>A brief introduction to FreeBSD for curious Linux users. Covers the installation and updating process, building a basic firewall, installing binary packages, and finally installing and configuring a typical web stack with Apache, PHP, and MySQL.</description>
-      <link>http://www.FreeBSD.org/news/press.html#story201412:01</link>
-      <guid>http://www.FreeBSD.org/news/press.html#story201412:01</guid>
+      <link>https://www.FreeBSD.org/news/press.html#story201412:01</link>
+      <guid>https://www.FreeBSD.org/news/press.html#story201412:01</guid>
       <pubDate>Mon, 15 Dec 2014 00:00:00 PST</pubDate>
     </item>
     <item>
       <title>The FreeBSD Foundation Announces Generous Donation and
 	  Fundraising Milestone, The FreeBSD Foundation, The FreeBSD Foundation Board</title>
       <description>The FreeBSD Foundation is pleased to announce the receipt of a record-breaking donation from Jan Koum, CEO and Co-Founder of WhatsApp.</description>
-      <link>http://www.FreeBSD.org/news/press.html#story201411:01</link>
-      <guid>http://www.FreeBSD.org/news/press.html#story201411:01</guid>
+      <link>https://www.FreeBSD.org/news/press.html#story201411:01</link>
+      <guid>https://www.FreeBSD.org/news/press.html#story201411:01</guid>
       <pubDate>Tue, 18 Nov 2014 00:00:00 PST</pubDate>
     </item>
     <item>
       <title>Cavium to Sponsor FreeBSD ARMv8 Based
 	  Implementation, PR Newswire, Cavium, Inc.</title>
       <description>Cavium, Inc., a leading provider of semiconductor products that enable intelligent processing for enterprise, data center, cloud, wired and wireless networking announced today that it is collaborating with the FreeBSD Foundation to develop and deliver the first ARMv8 reference design and implementation of the FreeBSD Operating System based on the ThunderX workload optimized processor family for next generation Data Center and Cloud workloads.</description>
-      <link>http://www.FreeBSD.org/news/press.html#story201410:01</link>
-      <guid>http://www.FreeBSD.org/news/press.html#story201410:01</guid>
+      <link>https://www.FreeBSD.org/news/press.html#story201410:01</link>
+      <guid>https://www.FreeBSD.org/news/press.html#story201410:01</guid>
       <pubDate>Wed, 1 Oct 2014 00:00:00 PST</pubDate>
     </item>
     <item>
       <title>Parole de Tux : Tux et FreeBSD [french], Captain Posix, Captain Posix</title>
       <description>"Parole de Tux" is a Belgian monthly podcast which talks about news and technical topics regarding Free and Open Source Software. For the first time, this episode is dedicated to FreeBSD. The guest, a FreeBSD developer, sums up the history of the BSDs and their differences. He then briefly explains similarities and differences between a typical Linux distribution and FreeBSD before moving on to the main topic: the graphics stack, and how FreeBSD performs in this area.</description>
-      <link>http://www.FreeBSD.org/news/press.html#story201409:01</link>
-      <guid>http://www.FreeBSD.org/news/press.html#story201409:01</guid>
+      <link>https://www.FreeBSD.org/news/press.html#story201409:01</link>
+      <guid>https://www.FreeBSD.org/news/press.html#story201409:01</guid>
       <pubDate>Wed, 24 Sep 2014 00:00:00 PST</pubDate>
     </item>
   </channel>

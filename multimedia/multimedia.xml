@@ -2,9 +2,9 @@
 <rss version="2.0">
   <channel>
     <title>FreeBSD Multimedia Resources List</title>
-    <link>http://www.freebsd.org/multimedia/multimedia.html</link>
+    <link>https://www.freebsd.org/multimedia/multimedia.html</link>
     <description>FreeBSD Multimedia Resources</description>
-    <lastBuildDate>2017-09-28T16:02:11Z</lastBuildDate>
+    <lastBuildDate>2017-10-01T18:36:15Z</lastBuildDate>
     <item>
       <title>Queue Portrait: Robert Watson</title>
       <guid>https://queue.acm.org/detail_video.cfm?id=2382552</guid>
@@ -2142,7 +2142,7 @@
       <title>Max Laier - PF - Extended Introduction</title>
       <guid>http://conferences.suug.ch/sucon/04/</guid>
       <pubdate>2007-01-14</pubdate>
-      <enclosure url="http://people.freebsd.org/~mlaier/sucon.pdf" length="1" type="application/octet-stream"/>
+      <enclosure url="https://people.FreeBSD.org/~mlaier/sucon.pdf" length="1" type="application/octet-stream"/>
       <enclosure url="http://mirror.switch.ch/sucon-04/max_laier-pf_extended_introduction.avi" length="1" type="application/octet-stream"/>
       <enclosure url="http://mirror.switch.ch/sucon-04/max_laier-pf_extended_introduction.mp3" length="1" type="application/octet-stream"/>
       <description>
@@ -3080,7 +3080,7 @@
     </item>
     <item>
       <title>Andre Opperman - The papers I write for EuroBSDCon 05</title>
-      <guid>http://people.freebsd.org/~andre/</guid>
+      <guid>https://people.FreeBSD.org/~andre/</guid>
       <pubdate>2007-01-14</pubdate>
       <enclosure url="New%20Networking%20Features%20in%20FreeBSD%206.pdf" length="1" type="application/octet-stream"/>
       <enclosure url="Optimizing%20the%20FreeBSD%20IP%20and%20TCP%20Stack.pdf" length="1" type="application/octet-stream"/>
@@ -3094,7 +3094,7 @@
       <title>The presentation I gave at SUCON 04</title>
       <guid/>
       <pubdate>2007-01-14</pubdate>
-      <enclosure url="http://people.freebsd.org/~andre/FreeBSD-5.3-Networking.pdf" length="1" type="application/octet-stream"/>
+      <enclosure url="https://people.FreeBSD.org/~andre/FreeBSD-5.3-Networking.pdf" length="1" type="application/octet-stream"/>
       <description>
 		The presentation I gave at SUCON 04 on 2nd September
 		2004 about enhancements/changes in FreeBSD 5.3
@@ -4307,7 +4307,7 @@
       <title>Nate Lawson on ACPI</title>
       <guid/>
       <pubdate>2006-09-09</pubdate>
-      <enclosure url="http://people.freebsd.org/~julian/BAFUG/talks/ACPI/bafug7-nate2.mov" length="1" type="application/octet-stream"/>
+      <enclosure url="https://people.FreeBSD.org/~julian/BAFUG/talks/ACPI/bafug7-nate2.mov" length="1" type="application/octet-stream"/>
       <description>
 		Our Topic:
 		FreeBSD's ACPI implementation: The details.
@@ -4325,7 +4325,7 @@
       <title>Network Protocol Development Tools and Techniques for FreeBSD</title>
       <guid/>
       <pubdate>2006-08-10</pubdate>
-      <enclosure url="http://people.freebsd.org/~julian/BAFUG/talks/bafug6-gnn.mov" length="1" type="application/octet-stream"/>
+      <enclosure url="https://people.FreeBSD.org/~julian/BAFUG/talks/bafug6-gnn.mov" length="1" type="application/octet-stream"/>
       <description>
 		Our Topic:
 		Network Protocol Development Tools and Techniques for FreeBSD
@@ -4355,7 +4355,7 @@
     </item>
     <item>
       <title>Tim Kientzler on developing libarchive and tar</title>
-      <guid>http://people.freebsd.org/~julian/BAFUG/talks/libarchive/</guid>
+      <guid>https://people.FreeBSD.org/~julian/BAFUG/talks/libarchive/</guid>
       <pubdate>2006-07-13</pubdate>
       <enclosure url="bafug5-tim-1.mov" length="1" type="application/octet-stream"/>
       <enclosure url="bafug5-tim-2.mov" length="1" type="application/octet-stream"/>
@@ -4419,7 +4419,7 @@
       <title>FreeBSD Security Officer funktionen</title>
       <guid>http://www.aauug.dk/</guid>
       <pubdate>2007-01-15</pubdate>
-      <enclosure url="http://people.freebsd.org/~simon/presentations/freebsd-so-function-aauug-2006-08-22.pdf" length="1" type="application/octet-stream"/>
+      <enclosure url="https://people.FreeBSD.org/~simon/presentations/freebsd-so-function-aauug-2006-08-22.pdf" length="1" type="application/octet-stream"/>
       <description>
 		"FreeBSD Security Officer funktionen" at the AAUUG,
 		AAUUG, 22 August 2006 by Simon L. Nielsen (FreeBSD
@@ -4430,7 +4430,7 @@
       <title>FreeBSD Security Officer funktionen</title>
       <guid/>
       <pubdate>2007-01-15</pubdate>
-      <enclosure url="http://people.freebsd.org/~simon/presentations/freebsd-so-function-bsd-dk-2006-08.pdf" length="1" type="application/octet-stream"/>
+      <enclosure url="https://people.FreeBSD.org/~simon/presentations/freebsd-so-function-bsd-dk-2006-08.pdf" length="1" type="application/octet-stream"/>
       <description>
 		"FreeBSD Security Officer funktionen" at the BSD-DK,
 		26 August 2006 by Simon L. Nielsen (FreeBSD Deputy
@@ -4918,7 +4918,7 @@
       <title>FreeBSD ports Erwin Lansing</title>
       <guid>http://openfest.org/program/</guid>
       <pubdate>2007-01-15</pubdate>
-      <enclosure url="http://people.freebsd.org/~erwin/presentations/FreeBSD-portmgr-20061105-OpenFest.pdf" length="1" type="application/octet-stream"/>
+      <enclosure url="https://people.FreeBSD.org/~erwin/presentations/FreeBSD-portmgr-20061105-OpenFest.pdf" length="1" type="application/octet-stream"/>
       <description>Case study : managing a worldwide open source project: FreeBSD port manager</description>
     </item>
     <item>
@@ -6047,7 +6047,7 @@
     </item>
     <item>
       <title>Bjoern A. Zeeb - BSDCan08 devsummit summary</title>
-      <guid>http://people.freebsd.org/~bz/200805DevSummit/</guid>
+      <guid>https://people.FreeBSD.org/~bz/200805DevSummit/</guid>
       <pubdate>2008-05-28</pubdate>
       <description>
 		200805DevSummit - BSDCan 2008 FreeBSD Developer summit summary
@@ -6770,9 +6770,9 @@
     </item>
     <item>
       <title>BSDCan-2007 - Videos</title>
-      <guid>http://people.freebsd.org/~julian/BSDCan-2007/</guid>
+      <guid>https://people.FreeBSD.org/~julian/BSDCan-2007/</guid>
       <pubdate>2007-08-24</pubdate>
-      <enclosure url="http://people.freebsd.org/~julian/BSDCan-2007/Kirk_UnixDomain.mov" length="1" type="application/octet-stream"/>
+      <enclosure url="https://people.FreeBSD.org/~julian/BSDCan-2007/Kirk_UnixDomain.mov" length="1" type="application/octet-stream"/>
       <description>
 		The 2007 BSDCan conference
 		Kirk McKusick - Code Reading of Locally-Connected Sockets
@@ -6780,9 +6780,9 @@
     </item>
     <item>
       <title>BSDCan-2007 - Videos</title>
-      <guid>http://people.freebsd.org/~julian/BSDCan-2007/</guid>
+      <guid>https://people.FreeBSD.org/~julian/BSDCan-2007/</guid>
       <pubdate>2007-08-14</pubdate>
-      <enclosure url="http://people.freebsd.org/~julian/BSDCan-2007/Lansing-Portmanager.mov" length="1" type="application/octet-stream"/>
+      <enclosure url="https://people.FreeBSD.org/~julian/BSDCan-2007/Lansing-Portmanager.mov" length="1" type="application/octet-stream"/>
       <description>
 		The 2007 BSDCan conference
 		Erwin Lansing - The state of the FreeBSD Ports Tree
@@ -6790,18 +6790,18 @@
     </item>
     <item>
       <title>BSDCan-2007 Videos</title>
-      <guid>http://people.freebsd.org/~julian/BSDCan-2007/</guid>
+      <guid>https://people.FreeBSD.org/~julian/BSDCan-2007/</guid>
       <pubdate>2007-08-13</pubdate>
-      <enclosure url="http://people.freebsd.org/~julian/BSDCan-2007/Intro.mov" length="1" type="application/octet-stream"/>
+      <enclosure url="https://people.FreeBSD.org/~julian/BSDCan-2007/Intro.mov" length="1" type="application/octet-stream"/>
       <description>
 		The 2007 BSDCan conference - Introduction of people.
 	    </description>
     </item>
     <item>
       <title>BSDCan-2007 - Videos</title>
-      <guid>http://people.freebsd.org/~julian/BSDCan-2007/</guid>
+      <guid>https://people.FreeBSD.org/~julian/BSDCan-2007/</guid>
       <pubdate>2007-08-13</pubdate>
-      <enclosure url="http://people.freebsd.org/~julian/BSDCan-2007/kris_kennaway-scalability.mov" length="1" type="application/octet-stream"/>
+      <enclosure url="https://people.FreeBSD.org/~julian/BSDCan-2007/kris_kennaway-scalability.mov" length="1" type="application/octet-stream"/>
       <description>
 		The 2007 BSDCan conference
 		Kris Kennaway - Scalability Update 2007
@@ -6811,9 +6811,9 @@
     </item>
     <item>
       <title>BSDCan-2007 - Videos</title>
-      <guid>http://people.freebsd.org/~julian/BSDCan-2007/</guid>
+      <guid>https://people.FreeBSD.org/~julian/BSDCan-2007/</guid>
       <pubdate>2007-08-13</pubdate>
-      <enclosure url="http://people.freebsd.org/~julian/BSDCan-2007/QingLi_Arp.mov" length="1" type="application/octet-stream"/>
+      <enclosure url="https://people.FreeBSD.org/~julian/BSDCan-2007/QingLi_Arp.mov" length="1" type="application/octet-stream"/>
       <description>
 		The 2007 BSDCan conference
 		Qing Li - Routing, ARP and ND6
@@ -6821,9 +6821,9 @@
     </item>
     <item>
       <title>BSDCan-2007 - Videos</title>
-      <guid>http://people.freebsd.org/~julian/BSDCan-2007/</guid>
+      <guid>https://people.FreeBSD.org/~julian/BSDCan-2007/</guid>
       <pubdate>2007-08-13</pubdate>
-      <enclosure url="http://people.freebsd.org/~julian/BSDCan-2007/marko-vimage.mov" length="1" type="application/octet-stream"/>
+      <enclosure url="https://people.FreeBSD.org/~julian/BSDCan-2007/marko-vimage.mov" length="1" type="application/octet-stream"/>
       <description>
 		The 2007 BSDCan conference
 		Marko Zec explains the vimage architecture
@@ -6831,9 +6831,9 @@
     </item>
     <item>
       <title>BSDCan-2007 - Videos</title>
-      <guid>http://people.freebsd.org/~julian/BSDCan-2007/</guid>
+      <guid>https://people.FreeBSD.org/~julian/BSDCan-2007/</guid>
       <pubdate>2007-08-13</pubdate>
-      <enclosure url="http://people.freebsd.org/~julian/BSDCan-2007/max_ipf_pfil.mov" length="1" type="application/octet-stream"/>
+      <enclosure url="https://people.FreeBSD.org/~julian/BSDCan-2007/max_ipf_pfil.mov" length="1" type="application/octet-stream"/>
       <description>
 		The 2007 BSDCan conference
 		Max Laier - PFIL, firewalls and locking
@@ -6897,9 +6897,9 @@
     </item>
     <item>
       <title>The FreeBSD Security Officer function</title>
-      <guid>http://people.freebsd.org/~simon/presentations/</guid>
+      <guid>https://people.FreeBSD.org/~simon/presentations/</guid>
       <pubdate>2007-05-20</pubdate>
-      <enclosure url="http://people.freebsd.org/~simon/presentations/freebsd-so-function-bsdcan-2007.pdf" length="1" type="application/octet-stream"/>
+      <enclosure url="https://people.FreeBSD.org/~simon/presentations/freebsd-so-function-bsdcan-2007.pdf" length="1" type="application/octet-stream"/>
       <description>
 		"FreeBSD Security Officer function" at BSDCAN 2007 by Simon L. Nielsen (FreeBSD Deputy Security Officer)
 	    </description>
@@ -6928,7 +6928,7 @@
       <title>BSDConTR 2007 - Presentations</title>
       <guid>http://www.bsdcontr.org/</guid>
       <pubdate>2007-October-31</pubdate>
-      <enclosure url="http://people.freebsd.org/~kris/scaling/7.0%20Preview.pdf" length="1" type="application/octet-stream"/>
+      <enclosure url="https://people.FreeBSD.org/~kris/scaling/7.0%20Preview.pdf" length="1" type="application/octet-stream"/>
       <description>
 		Introducing FreeBSD 7.0
 	    </description>
@@ -6996,7 +6996,7 @@
     </item>
     <item>
       <title>Cambridge FreeBSD DevSummit2008 - Photos - Kris Kennaway</title>
-      <guid>http://people.freebsd.org/~kris/Cambridge/</guid>
+      <guid>https://people.FreeBSD.org/~kris/Cambridge/</guid>
       <pubdate>2008-08-25</pubdate>
       <description>
 		Photos of the 2008 FreeBSD DevSummit at the Cambridge University
@@ -7013,7 +7013,7 @@
     </item>
     <item>
       <title>Cambridge FreeBSD DevSummit2008 - Photos - Simon Nielsen</title>
-      <guid>http://people.freebsd.org/~simon/gallery/cambridge-2008/</guid>
+      <guid>https://people.FreeBSD.org/~simon/gallery/cambridge-2008/</guid>
       <pubdate>2008-08-25</pubdate>
       <description>
 		Photos of the 2008 FreeBSD DevSummit at the Cambridge University
@@ -7073,10 +7073,10 @@
     </item>
     <item>
       <title>FreeBSD Google Summer of Code posters</title>
-      <guid>http://www.freebsd.org/projects/summerofcode.html</guid>
+      <guid>https://www.freebsd.org/projects/summerofcode.html</guid>
       <pubdate>2009-03-22</pubdate>
-      <enclosure url="http://people.freebsd.org/~manolis/2009-freebsd-gsoc-alternate.png" length="1" type="application/octet-stream"/>
-      <enclosure url="http://people.freebsd.org/~manolis/2009-freebsd-gsoc-alternate.pdf" length="1" type="application/octet-stream"/>
+      <enclosure url="https://people.FreeBSD.org/~manolis/2009-freebsd-gsoc-alternate.png" length="1" type="application/octet-stream"/>
+      <enclosure url="https://people.FreeBSD.org/~manolis/2009-freebsd-gsoc-alternate.pdf" length="1" type="application/octet-stream"/>
       <description>
 		Two posters usable for the announcement of the
 		participation of the FreeBSD Project in the Google
@@ -7087,7 +7087,7 @@
       <title>PmcTools talk at the Bangalore chapter of the ACM</title>
       <guid>http://edoofus.blogspot.com/2009/04/pmctools-talk-at-bangalore-chapter-of.html</guid>
       <pubdate>2009-05-24</pubdate>
-      <enclosure url="http://people.freebsd.org/~jkoshy/download/acm-apr-09.pdf" length="1" type="application/octet-stream"/>
+      <enclosure url="https://people.FreeBSD.org/~jkoshy/download/acm-apr-09.pdf" length="1" type="application/octet-stream"/>
       <description>
 		
 		In April 2009 I was invited to speak on FreeBSD/PmcTools

@@ -2,7 +2,7 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
   <channel>
     <title>FreeBSD GNOME Project News</title>
-    <link>http://www.FreeBSD.org/gnome/</link>
+    <link>https://www.FreeBSD.org/gnome/</link>
     <description>FreeBSD GNOME News System</description>
     <language>en-us</language>
     <webMaster>freebsd-gnome@FreeBSD.org (FreeBSD GNOME Team)</webMaster>
@@ -10,19 +10,19 @@
     <docs>http://blogs.law.harvard.edu/tech/rss</docs>
     <ttl>120</ttl>
     <image>
-      <url>http://www.FreeBSD.org/logo/logo-full.png</url>
+      <url>https://www.FreeBSD.org/logo/logo-full.png</url>
       <title>FreeBSD GNOME Project News</title>
-      <link>http://www.FreeBSD.org/gnome/</link>
+      <link>https://www.FreeBSD.org/gnome/</link>
     </image>
-    <atom:link rel="self" type="application/rss+xml" href="http://www.FreeBSD.org/gnome/rss.xml"/>
+    <atom:link rel="self" type="application/rss+xml" href="https://www.FreeBSD.org/gnome/rss.xml"/>
     <item>
       <title>Announcing GNOME 3.18 for FreeBSD!</title>
       <description>The FreeBSD GNOME team proudly presents GNOME 3.18 for
 	    FreeBSD.This update does not contain the glib and gtk c++ bindings
 	    which will be done in a another update due to the requirement
 	    on c++11 and the amount of fallout this probably will give.GDM is still at version 3.16 due to some issues.Bump mate-themes to use the gtk 3.18 version of the themes.</description>
-      <link>http://www.FreeBSD.org/gnome/newsflash.html#event2016February14:0</link>
-      <guid>http://www.FreeBSD.org/gnome/newsflash.html#event2016February14:0</guid>
+      <link>https://www.FreeBSD.org/gnome/newsflash.html#event2016February14:0</link>
+      <guid>https://www.FreeBSD.org/gnome/newsflash.html#event2016February14:0</guid>
       <pubDate>Sun, 14 Feb 2016 00:00:00 PST</pubDate>
     </item>
     <item>
@@ -31,8 +31,8 @@
 	    FreeBSD.This version of MATE uses the GTK+ 2 toolkit for
 	    stability, and has a number of bugfixes for the
 	    applets.</description>
-      <link>http://www.FreeBSD.org/gnome/newsflash.html#event2016January25:0</link>
-      <guid>http://www.FreeBSD.org/gnome/newsflash.html#event2016January25:0</guid>
+      <link>https://www.FreeBSD.org/gnome/newsflash.html#event2016January25:0</link>
+      <guid>https://www.FreeBSD.org/gnome/newsflash.html#event2016January25:0</guid>
       <pubDate>Mon, 25 Jan 2016 00:00:00 PST</pubDate>
     </item>
     <item>
@@ -45,8 +45,8 @@
 	    Ting-Wei_Lan
 	    
 	  </description>
-      <link>http://www.FreeBSD.org/gnome/newsflash.html#event2015August5:0</link>
-      <guid>http://www.FreeBSD.org/gnome/newsflash.html#event2015August5:0</guid>
+      <link>https://www.FreeBSD.org/gnome/newsflash.html#event2015August5:0</link>
+      <guid>https://www.FreeBSD.org/gnome/newsflash.html#event2015August5:0</guid>
       <pubDate>Wed, 5 Aug 2015 00:00:00 PST</pubDate>
     </item>
     <item>
@@ -58,8 +58,8 @@
 	    toolkit.Replace mate-dialogs with zenity and mate-calc with
 	    galculator.Thanks go to Gustau Perez for helping track MATE
 	    development.</description>
-      <link>http://www.FreeBSD.org/gnome/newsflash.html#event2015July27:0</link>
-      <guid>http://www.FreeBSD.org/gnome/newsflash.html#event2015July27:0</guid>
+      <link>https://www.FreeBSD.org/gnome/newsflash.html#event2015July27:0</link>
+      <guid>https://www.FreeBSD.org/gnome/newsflash.html#event2015July27:0</guid>
       <pubDate>Mon, 27 Jul 2015 00:00:00 PST</pubDate>
     </item>
     <item>
@@ -92,8 +92,8 @@
 	    
 	    Kris Moore
 	    </description>
-      <link>http://www.FreeBSD.org/gnome/newsflash.html#event2010November19:0</link>
-      <guid>http://www.FreeBSD.org/gnome/newsflash.html#event2010November19:0</guid>
+      <link>https://www.FreeBSD.org/gnome/newsflash.html#event2010November19:0</link>
+      <guid>https://www.FreeBSD.org/gnome/newsflash.html#event2010November19:0</guid>
       <pubDate>Fri, 19 Nov 2010 00:00:00 PST</pubDate>
     </item>
     <item>
@@ -110,7 +110,7 @@
 	    experience.Currently, there are a few bugs with GNOME 2.30 that may
 	    be of note for our users.  Be sure to consult the 2.30
 	    upgrade FAQ at
-	    http://www.freebsd.org/gnome/docs/faq230.html
+	    https://www.freebsd.org/gnome/docs/faq230.html
 	    for specific upgrading instructions, and the up-to-date
 	    list of known issues.This release features commits by: avl, ahze, bland,
 	    marcus, mezz and myself.The FreeBSD GNOME Team would like to thank Anders F
@@ -151,8 +151,8 @@
 
 	    and Ion-Mihai Tetcu for running two exp-runs for us.
 	    </description>
-      <link>http://www.FreeBSD.org/gnome/newsflash.html#event2010May10:0</link>
-      <guid>http://www.FreeBSD.org/gnome/newsflash.html#event2010May10:0</guid>
+      <link>https://www.FreeBSD.org/gnome/newsflash.html#event2010May10:0</link>
+      <guid>https://www.FreeBSD.org/gnome/newsflash.html#event2010May10:0</guid>
       <pubDate>Mon, 10 May 2010 00:00:00 PST</pubDate>
     </item>
     <item>
@@ -216,8 +216,8 @@
 	    (and an extra shout out to miwi and pav for the pointyhat
 	    runs) We would like to send this release out to Alexander
 	    Loginov (avl) in hopes that he feels better soon.</description>
-      <link>http://www.FreeBSD.org/gnome/newsflash.html#event2009November28:0</link>
-      <guid>http://www.FreeBSD.org/gnome/newsflash.html#event2009November28:0</guid>
+      <link>https://www.FreeBSD.org/gnome/newsflash.html#event2009November28:0</link>
+      <guid>https://www.FreeBSD.org/gnome/newsflash.html#event2009November28:0</guid>
       <pubDate>Sat, 28 Nov 2009 00:00:00 PST</pubDate>
     </item>
     <item>
@@ -240,8 +240,8 @@
 	    mezz with contributions by Joseph S. Atkinson, Peter Wemm,
 	    Eric L. Chen, Martin Matuska, Craig Butler, and Pawel
 	    Worach.</description>
-      <link>http://www.FreeBSD.org/gnome/newsflash.html#event2009April10:0</link>
-      <guid>http://www.FreeBSD.org/gnome/newsflash.html#event2009April10:0</guid>
+      <link>https://www.FreeBSD.org/gnome/newsflash.html#event2009April10:0</link>
+      <guid>https://www.FreeBSD.org/gnome/newsflash.html#event2009April10:0</guid>
       <pubDate>Fri, 10 Apr 2009 00:00:00 PST</pubDate>
     </item>
     <item>
@@ -262,8 +262,8 @@
 	    Tartiere, TAOKA Fumiyoshi, Romain Tartiere, Yasuda
 	    Keisuke, Zyl aZ, bf, Florent Thoumie, Peter Wemm, and
 	    pluknet.</description>
-      <link>http://www.FreeBSD.org/gnome/newsflash.html#event2009January9:0</link>
-      <guid>http://www.FreeBSD.org/gnome/newsflash.html#event2009January9:0</guid>
+      <link>https://www.FreeBSD.org/gnome/newsflash.html#event2009January9:0</link>
+      <guid>https://www.FreeBSD.org/gnome/newsflash.html#event2009January9:0</guid>
       <pubDate>Fri, 9 Jan 2009 00:00:00 PST</pubDate>
     </item>
     <item>
@@ -284,8 +284,8 @@
 	    contributions and testing efforts of the following people:
 	    Pawel Worach, kan, edwin, Peter Ulrich Kruppa, J. W.
 	    Ballantine, Yasuda Keisuke, and Andriy Gapon.</description>
-      <link>http://www.FreeBSD.org/gnome/newsflash.html#event2008March24:0</link>
-      <guid>http://www.FreeBSD.org/gnome/newsflash.html#event2008March24:0</guid>
+      <link>https://www.FreeBSD.org/gnome/newsflash.html#event2008March24:0</link>
+      <guid>https://www.FreeBSD.org/gnome/newsflash.html#event2008March24:0</guid>
       <pubDate>Mon, 24 Mar 2008 00:00:00 PST</pubDate>
     </item>
   </channel>

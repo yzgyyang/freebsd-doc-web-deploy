@@ -2,7 +2,7 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
   <channel>
     <title>FreeBSD News Flash</title>
-    <link>http://www.FreeBSD.org/news/</link>
+    <link>https://www.FreeBSD.org/news/</link>
     <description>News from the FreeBSD Project</description>
     <language>en-us</language>
     <webMaster>freebsd-www@FreeBSD.org (Webmaster Team)</webMaster>
@@ -10,73 +10,73 @@
     <docs>http://blogs.law.harvard.edu/tech/rss</docs>
     <ttl>120</ttl>
     <image>
-      <url>http://www.FreeBSD.org/logo/logo-full.png</url>
+      <url>https://www.FreeBSD.org/logo/logo-full.png</url>
       <title>FreeBSD News Flash</title>
-      <link>http://www.FreeBSD.org/news/</link>
+      <link>https://www.FreeBSD.org/news/</link>
     </image>
-    <atom:link href="http://www.FreeBSD.org/news/rss.xml" rel="self" type="application/rss+xml"/>
+    <atom:link href="https://www.FreeBSD.org/news/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
       <title>April-June 2017 Status Report</title>
       <description>The April to June 2017 Status Report is now available.</description>
-      <link>http://www.FreeBSD.org/news/newsflash.html#event20170927:01</link>
-      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170927:01</guid>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20170927:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20170927:01</guid>
       <pubDate>Wed, 27 Sep 2017 00:00:00 PST</pubDate>
     </item>
     <item>
       <title>FreeBSD 10.4-RC2 Available</title>
       <description>The second RC build for the FreeBSD 10.4 release cycle is now available. ISO images for the amd64, armv6, i386, ia64, powerpc, powerpc64 and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
-      <link>http://www.FreeBSD.org/news/newsflash.html#event20170923:01</link>
-      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170923:01</guid>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20170923:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20170923:01</guid>
       <pubDate>Sat, 23 Sep 2017 00:00:00 PST</pubDate>
     </item>
     <item>
       <title>New committer: Eugene Grosbein (src)</title>
-      <link>http://www.FreeBSD.org/news/newsflash.html#event20170919:01</link>
-      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170919:01</guid>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20170919:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20170919:01</guid>
       <pubDate>Tue, 19 Sep 2017 00:00:00 PST</pubDate>
     </item>
     <item>
       <title>New committer: Guangyuan Yang (doc)</title>
-      <link>http://www.FreeBSD.org/news/newsflash.html#event20170918:01</link>
-      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170918:01</guid>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20170918:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20170918:01</guid>
       <pubDate>Mon, 18 Sep 2017 00:00:00 PST</pubDate>
     </item>
     <item>
       <title>FreeBSD 10.4-RC1 Available</title>
       <description>The first RC build for the FreeBSD 10.4 release cycle is now available. ISO images for the amd64, armv6, i386, ia64, powerpc, powerpc64 and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
-      <link>http://www.FreeBSD.org/news/newsflash.html#event20170917:01</link>
-      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170917:01</guid>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20170917:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20170917:01</guid>
       <pubDate>Sun, 17 Sep 2017 00:00:00 PST</pubDate>
     </item>
     <item>
       <title>New committer: Craig Leres (ports)</title>
-      <link>http://www.FreeBSD.org/news/newsflash.html#event20170911:01</link>
-      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170911:01</guid>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20170911:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20170911:01</guid>
       <pubDate>Mon, 11 Sep 2017 00:00:00 PST</pubDate>
     </item>
     <item>
       <title>New committer: Dave Cottlehuber (ports)</title>
-      <link>http://www.FreeBSD.org/news/newsflash.html#event20170909:01</link>
-      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170909:01</guid>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20170909:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20170909:01</guid>
       <pubDate>Sat, 9 Sep 2017 00:00:00 PST</pubDate>
     </item>
     <item>
       <title>FreeBSD 10.4-BETA4 Available</title>
       <description>The fourth BETA build for the FreeBSD 10.4 release cycle is now available. ISO images for the amd64, armv6, i386, ia64, powerpc, powerpc64 and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
-      <link>http://www.FreeBSD.org/news/newsflash.html#event20170909:02</link>
-      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170909:02</guid>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20170909:02</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20170909:02</guid>
       <pubDate>Sat, 9 Sep 2017 00:00:00 PST</pubDate>
     </item>
     <item>
       <title>New committer: Adriaan de Groot (ports)</title>
-      <link>http://www.FreeBSD.org/news/newsflash.html#event20170908:01</link>
-      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170908:01</guid>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20170908:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20170908:01</guid>
       <pubDate>Fri, 8 Sep 2017 00:00:00 PST</pubDate>
     </item>
     <item>
       <title>New committer: Chuck Tuffli (src)</title>
-      <link>http://www.FreeBSD.org/news/newsflash.html#event20170906:01</link>
-      <guid>http://www.FreeBSD.org/news/newsflash.html#event20170906:01</guid>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20170906:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20170906:01</guid>
       <pubDate>Wed, 6 Sep 2017 00:00:00 PST</pubDate>
     </item>
   </channel>
