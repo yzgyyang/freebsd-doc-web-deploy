@@ -17,6 +17,30 @@
     </image>
     <atom:link xmlns="http://www.w3.org/1999/xhtml" rel="self" type="application/rss+xml" href="http://www.FreeBSD.org/security/rss.xml"/>
     <item>
+      <title>FreeBSD-SA-17:10.kldstat</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:10.kldstat.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:10.kldstat.asc</guid>
+      <pubDate>2017 nov 15 00:00:00 CET, Wed</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-SA-17:09.shm</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:09.shm.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:09.shm.asc</guid>
+      <pubDate>2017 nov 15 00:00:00 CET, Wed</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-SA-17:08.ptrace</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:08.ptrace.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:08.ptrace.asc</guid>
+      <pubDate>2017 nov 15 00:00:00 CET, Wed</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-SA-17:07.wpa</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:07.wpa.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:07.wpa.asc</guid>
+      <pubDate>2017 okt 17 00:00:00 CET, Tue</pubDate>
+    </item>
+    <item>
       <title>FreeBSD-SA-17:06.openssh</title>
       <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:06.openssh.asc</link>
       <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:06.openssh.asc</guid>
@@ -51,30 +75,6 @@
       <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:01.openssh.asc</link>
       <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:01.openssh.asc</guid>
       <pubDate>2017 jan 11 00:00:00 CET, Wed</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-SA-16:39.ntp</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-16:39.ntp.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-16:39.ntp.asc</guid>
-      <pubDate>2016 dec 22 00:00:00 CET, Thu</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-SA-16:38.bhyve</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-16:38.bhyve.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-16:38.bhyve.asc</guid>
-      <pubDate>2016 dec 6 00:00:00 CET, Tue</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-SA-16:37.libc</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-16:37.libc.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-16:37.libc.asc</guid>
-      <pubDate>2016 dec 6 00:00:00 CET, Tue</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-SA-16:36.telnetd</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-16:36.telnetd.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-16:36.telnetd.asc</guid>
-      <pubDate>2016 dec 6 00:00:00 CET, Tue</pubDate>
     </item>
   </channel>
 </rss>

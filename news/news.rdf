@@ -6,6 +6,18 @@
     <description>News from the FreeBSD Project</description>
   </channel>
   <item>
+    <title>New committer: Alex Richardson (src)</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20171030:01</link>
+  </item>
+  <item>
+    <title>New committer: Yuri Victorovich (ports)</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20171029:01</link>
+  </item>
+  <item>
+    <title>FreeBSD 10.4-RELEASE Available</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20171004:01</link>
+  </item>
+  <item>
     <title>April-June 2017 Status Report</title>
     <link>https://www.FreeBSD.org/news/newsflash.html#event20170927:01</link>
   </item>
@@ -32,17 +44,5 @@
   <item>
     <title>New committer: Dave Cottlehuber (ports)</title>
     <link>https://www.FreeBSD.org/news/newsflash.html#event20170909:01</link>
-  </item>
-  <item>
-    <title>FreeBSD 10.4-BETA4 Available</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20170909:02</link>
-  </item>
-  <item>
-    <title>New committer: Adriaan de Groot (ports)</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20170908:01</link>
-  </item>
-  <item>
-    <title>New committer: Chuck Tuffli (src)</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20170906:01</link>
   </item>
 </rdf:RDF>

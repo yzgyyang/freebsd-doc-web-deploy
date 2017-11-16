@@ -6,6 +6,22 @@
     <description>Security advisories published from the FreeBSD Project</description>
   </channel>
   <item>
+    <title>FreeBSD-SA-17:10.kldstat</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-17:10.kldstat.asc</link>
+  </item>
+  <item>
+    <title>FreeBSD-SA-17:09.shm</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-17:09.shm.asc</link>
+  </item>
+  <item>
+    <title>FreeBSD-SA-17:08.ptrace</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-17:08.ptrace.asc</link>
+  </item>
+  <item>
+    <title>FreeBSD-SA-17:07.wpa</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-17:07.wpa.asc</link>
+  </item>
+  <item>
     <title>FreeBSD-SA-17:06.openssh</title>
     <link>//security.FreeBSD.org/advisories/FreeBSD-SA-17:06.openssh.asc</link>
   </item>
@@ -28,21 +44,5 @@
   <item>
     <title>FreeBSD-SA-17:01.openssh</title>
     <link>//security.FreeBSD.org/advisories/FreeBSD-SA-17:01.openssh.asc</link>
-  </item>
-  <item>
-    <title>FreeBSD-SA-16:39.ntp</title>
-    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-16:39.ntp.asc</link>
-  </item>
-  <item>
-    <title>FreeBSD-SA-16:38.bhyve</title>
-    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-16:38.bhyve.asc</link>
-  </item>
-  <item>
-    <title>FreeBSD-SA-16:37.libc</title>
-    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-16:37.libc.asc</link>
-  </item>
-  <item>
-    <title>FreeBSD-SA-16:36.telnetd</title>
-    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-16:36.telnetd.asc</link>
   </item>
 </rdf:RDF>

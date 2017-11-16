@@ -16,6 +16,32 @@
     </image>
     <atom:link href="http://www.FreeBSD.org/ja/news/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>新コミッタ就任: Alex Richardson (src)</title>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20171030:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20171030:01</guid>
+      <pubDate>Mon, 30 Oct 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>新コミッタ就任: Yuri Victorovich (ports)</title>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20171029:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20171029:01</guid>
+      <pubDate>Sun, 29 Oct 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD〓10.4-RELEASE 公開</title>
+      <description>FreeBSD 10.4-RELEASE が公開されました。 インストール前に リリースノート および リリース Errata を読み、10.4 に関する最新情報や問題点などを確認してください。 FreeBSD のリリースに関するより詳しい情報については リリース情報 をご覧ください。</description>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20171004:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20171004:01</guid>
+      <pubDate>Wed, 4 Oct 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>開発進捗レポート (2017 年 4 月 〓 6 月) 公開</title>
+      <description>2017 年 4 月 〓 6 月開発進捗レポート が公開されました。</description>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20170927:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20170927:01</guid>
+      <pubDate>Wed, 27 Sep 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
       <title>FreeBSD〓10.4-RC2 公開</title>
       <description>FreeBSD〓10.4 リリースサイクルから 2 回目のリリース候補版が公開されました (アナウンス)。 FreeBSD ミラーサイト から amd64, armv6, i386, ia64, powerpc, powerpc64 および sparc64 アーキテクチャの ISO イメージを入手できます。</description>
       <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20170923:01</link>
@@ -52,31 +78,6 @@
       <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20170909:01</link>
       <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20170909:01</guid>
       <pubDate>Sat, 9 Sep 2017 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD〓10.4-BETA4 公開</title>
-      <description>FreeBSD〓10.4 リリースサイクルから 4 回目の BETA ビルドが公開されました (アナウンス)。 FreeBSD ミラーサイト から amd64, armv6, i386, ia64, powerpc, powerpc64 および sparc64 アーキテクチャの ISO イメージを入手できます。</description>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20170909:02</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20170909:02</guid>
-      <pubDate>Sat, 9 Sep 2017 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>新コミッタ就任: Adriaan de Groot (ports)</title>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20170908:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20170908:01</guid>
-      <pubDate>Fri, 8 Sep 2017 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>新コミッタ就任: Chuck Tuffli (src)</title>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20170906:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20170906:01</guid>
-      <pubDate>Wed, 6 Sep 2017 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>新コミッタ就任: Stephen Hurd (src)</title>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20170902:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20170902:01</guid>
-      <pubDate>Sat, 2 Sep 2017 00:00:00 PST</pubDate>
     </item>
   </channel>
 </rss>

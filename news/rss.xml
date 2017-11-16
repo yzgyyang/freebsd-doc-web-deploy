@@ -16,6 +16,25 @@
     </image>
     <atom:link href="https://www.FreeBSD.org/news/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>New committer: Alex Richardson (src)</title>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20171030:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20171030:01</guid>
+      <pubDate>Mon, 30 Oct 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>New committer: Yuri Victorovich (ports)</title>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20171029:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20171029:01</guid>
+      <pubDate>Sun, 29 Oct 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD 10.4-RELEASE Available</title>
+      <description>FreeBSD 10.4-RELEASE is now available. Please be sure to check the Release Notes and Release Errata before installation for any late-breaking news and/or issues with 10.4. More information about FreeBSD releases can be found on the Release Information page.</description>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20171004:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20171004:01</guid>
+      <pubDate>Wed, 4 Oct 2017 00:00:00 PST</pubDate>
+    </item>
+    <item>
       <title>April-June 2017 Status Report</title>
       <description>The April to June 2017 Status Report is now available.</description>
       <link>https://www.FreeBSD.org/news/newsflash.html#event20170927:01</link>
@@ -59,25 +78,6 @@
       <link>https://www.FreeBSD.org/news/newsflash.html#event20170909:01</link>
       <guid>https://www.FreeBSD.org/news/newsflash.html#event20170909:01</guid>
       <pubDate>Sat, 9 Sep 2017 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD 10.4-BETA4 Available</title>
-      <description>The fourth BETA build for the FreeBSD 10.4 release cycle is now available. ISO images for the amd64, armv6, i386, ia64, powerpc, powerpc64 and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20170909:02</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20170909:02</guid>
-      <pubDate>Sat, 9 Sep 2017 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>New committer: Adriaan de Groot (ports)</title>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20170908:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20170908:01</guid>
-      <pubDate>Fri, 8 Sep 2017 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>New committer: Chuck Tuffli (src)</title>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20170906:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20170906:01</guid>
-      <pubDate>Wed, 6 Sep 2017 00:00:00 PST</pubDate>
     </item>
   </channel>
 </rss>

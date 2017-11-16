@@ -15,15 +15,5 @@
       <link>http://www.FreeBSD.org/events/</link>
     </image>
     <atom:link rel="self" type="application/rss+xml" href="http://www.FreeBSD.org/events/rss.xml"/>
-    <item>
-      <title>BSDTW 2017</title>
-      <description>BSDTW 2017 (https://bsdtw.org), Beitou Resort, Taipei, Taiwan 2017 年 11 月 11 -  12 日. BSDTW is a conference that aims to bring out more
-      BSD developers and development all across Asia, drawing speakers
-      both locally and from the entire world. We will gather in
-      Taipei, Taiwan for a mix of developer and user-focused
-      presentations, food, and activities.</description>
-      <link>https://bsdtw.org</link>
-      <guid>https://bsdtw.org</guid>
-    </item>
   </channel>
 </rss>

@@ -260,21 +260,22 @@
           <div id="contentwrap"><h1>Ports and Packages for Supported Releases</h1>
 
 <p>Support of FreeBSD releases by ports and the ports infrastructure
-  matches the <a href="../security/#sup" shape="rect">policies
+  currently matches the <a href="../security/#sup" shape="rect">policies
   set out by the FreeBSD Security Officer</a>.  Once a major branch X
   reaches its EOL date, the "last known good" ports tree will be tagged
   with the <tt>RELEASE_X_EOL</tt> tag as a convenience to those
   remaining users who intend to self-support their installations.
   This tag is not supported in any way and security fixes will not be
   applied.  Usage is therefore highly discouraged and should only be
-  used as a last resort.</p>
+  used if there is no other option; consumers are expected to provide
+  their own support.</p>
 
 <p>For all supported major src branches, all ports will be included in
   an automated quality assurance procedure which will build, install,
   package, and deinstall each port on all <a href="../doc/en_US.ISO8859-1/articles/committers-guide/archs.html#AEN1259" shape="rect">
   Tier 1 platforms</a>.  Maintainers and committers are notified of
   failures detected during testing.  Ports that are known not to build
-  or run on a given supported branch or platform will be marked as
+  or run on a given supported branch and/or platform will be marked as
   such.</p>
 
 <p>Prebuilt binary packages will also be provided for all major branches
@@ -309,7 +310,7 @@
 	<li>FreeBSD:10:i386</li>
       </ul>
     </td>
-    <td rowspan="1" colspan="1">last release + 2 years</td>
+    <td rowspan="1" colspan="1">October 31, 2018</td>
   </tr>
   <tr>
     <td rowspan="1" colspan="1">releng/10.3</td>
@@ -324,14 +325,26 @@
     <td rowspan="1" colspan="1">April 30, 2018</td>
   </tr>
   <tr>
+    <td rowspan="1" colspan="1">releng/10.4</td>
+    <td rowspan="1" colspan="1">10.4-RELEASE</td>
+    <td rowspan="1" colspan="1">releng/10.3</td>
+    <td rowspan="1" colspan="1">
+      <ul>
+	<li>FreeBSD:10:amd64</li>
+	<li>FreeBSD:10:i386</li>
+      </ul>
+    </td>
+    <td rowspan="1" colspan="1">October 31, 2018</td>
+  </tr>
+  <tr>
     <td rowspan="1" colspan="1">stable/11</td>
     <td rowspan="1" colspan="1">n/a</td>
     <td rowspan="1" colspan="1">releng/11.0</td>
     <td rowspan="1" colspan="1">
       <ul>
 	<li>FreeBSD:11:aarch64</li>
-	<li>FreeBSD:11:armv6</li>
 	<li>FreeBSD:11:amd64</li>
+	<li>FreeBSD:11:armv6</li>
 	<li>FreeBSD:11:i386</li>
 	<li>FreeBSD:11:mips</li>
 	<li>FreeBSD:11:mips64</li>
@@ -346,8 +359,8 @@
     <td rowspan="1" colspan="1">
       <ul>
 	<li>FreeBSD:11:aarch64</li>
-	<li>FreeBSD:11:armv6</li>
 	<li>FreeBSD:11:amd64</li>
+	<li>FreeBSD:11:armv6</li>
 	<li>FreeBSD:11:i386</li>
 	<li>FreeBSD:11:mips</li>
 	<li>FreeBSD:11:mips64</li>
@@ -356,24 +369,41 @@
     <td rowspan="1" colspan="1">11.1-RELEASE + 3 months</td>
   </tr>
   <tr>
+    <td rowspan="1" colspan="1">releng/11.1</td>
+    <td rowspan="1" colspan="1">11.1-RELEASE</td>
+    <td rowspan="1" colspan="1">releng/11.0</td>
+    <td rowspan="1" colspan="1">
+      <ul>
+	<li>FreeBSD:11:aarch64</li>
+	<li>FreeBSD:11:amd64</li>
+	<li>FreeBSD:11:armv6</li>
+	<li>FreeBSD:11:i386</li>
+	<li>FreeBSD:11:mips</li>
+	<li>FreeBSD:11:mips64</li>
+      </ul>
+    </td>
+    <td rowspan="1" colspan="1">11.2-RELEASE + 3 months</td>
+  </tr>
+  <tr>
     <td rowspan="1" colspan="1">HEAD</td>
     <td rowspan="1" colspan="1">n/a</td>
     <td rowspan="1" colspan="1">HEAD</td>
     <td rowspan="1" colspan="1">
       <ul>
-	
-	<li>FreeBSD:12:armv6</li>
+	<li>FreeBSD:12:aarch64</li>
 	<li>FreeBSD:12:amd64</li>
+	<li>FreeBSD:12:armv6</li>
 	<li>FreeBSD:12:i386</li>
 	<li>FreeBSD:12:mips</li>
 	<li>FreeBSD:12:mips64</li>
+	<li>FreeBSD:12:powerpc64</li>
       </ul>
     </td>
     <td rowspan="1" colspan="1">Best Effort</td>
   </tr>
 </table>
 
-<p>Older releases are not maintained, ports and packages may not be able
+<p>Older releases are not maintained; ports and packages may not be able
   to install or run.  Users are strongly encouraged to upgrade to one of
   the supported releases mentioned above.</p>
 
