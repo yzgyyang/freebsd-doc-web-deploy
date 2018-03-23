@@ -1,0 +1,311 @@
+                       FreeBSD 12.0-CURRENT Release Notes
+
+  The FreeBSD Project
+
+   Copyright (c) 2017 The FreeBSD Documentation Project
+
+   FreeBSD is a registered trademark of the FreeBSD Foundation.
+
+   IBM, AIX, OS/2, PowerPC, PS/2, S/390, and ThinkPad are trademarks of
+   International Business Machines Corporation in the United States, other
+   countries, or both.
+
+   IEEE, POSIX, and 802 are registered trademarks of Institute of Electrical
+   and Electronics Engineers, Inc. in the United States.
+
+   Intel, Celeron, Centrino, Core, EtherExpress, i386, i486, Itanium,
+   Pentium, and Xeon are trademarks or registered trademarks of Intel
+   Corporation or its subsidiaries in the United States and other countries.
+
+   SPARC, SPARC64, and UltraSPARC are trademarks of SPARC International, Inc
+   in the United States and other countries. SPARC International, Inc owns
+   all of the SPARC trademarks and under licensing agreements allows the
+   proper use of these trademarks by its members.
+
+   Many of the designations used by manufacturers and sellers to distinguish
+   their products are claimed as trademarks. Where those designations appear
+   in this document, and the FreeBSD Project was aware of the trademark
+   claim, the designations have been followed by the "(TM)" or the "(R)"
+   symbol.
+
+   Last modified on 2018-03-23 03:29:30 -0400 by Guangyuan Yang.
+   Abstract
+
+   The release notes for FreeBSD 12.0-CURRENT contain a summary of the
+   changes made to the FreeBSD base system on the 12-CURRENT development
+   line. This document lists applicable security advisories that were issued
+   since the last release, as well as significant changes to the FreeBSD
+   kernel and userland. Some brief remarks on upgrading are also presented.
+
+     ----------------------------------------------------------------------
+
+   Table of Contents
+
+   1. Introduction
+
+   2. Upgrading from Previous Releases of FreeBSD
+
+   3. Security and Errata
+
+   4. Userland
+
+   5. Kernel
+
+   6. Devices and Drivers
+
+   7. Hardware Support
+
+   8. Storage
+
+   9. Boot Loader Changes
+
+   10. Networking
+
+   11. Ports Collection and Package Infrastructure
+
+   12. Documentation
+
+   13. Release Engineering and Integration
+
+1. Introduction
+
+   This document contains the release notes for FreeBSD 12.0-CURRENT. It
+   describes recently added, changed, or deleted features of FreeBSD. It also
+   provides some notes on upgrading from previous versions of FreeBSD.
+
+   The snapshot distribution to which these release notes apply represents
+   the latest point along the 12-CURRENT development branch since 12-CURRENT
+   was created. Information regarding pre-built, binary snapshot
+   distributions along this branch can be found at
+   https://www.FreeBSD.org/snapshots/.
+
+   The snapshot distribution to which these release notes apply represents a
+   point along the 12-CURRENT development branch between 11.0-RELEASE and the
+   future 12.0-RELEASE. Information regarding pre-built, binary snapshot
+   distributions along this branch can be found at
+   https://www.FreeBSD.org/snapshots/.
+
+   This distribution of FreeBSD 12.0-CURRENT is a snapshot distribution. It
+   can be found at https://www.FreeBSD.org/snapshots/ or any of its mirrors.
+   More information on obtaining this (or other) snapshot distributions of
+   FreeBSD can be found in the "Obtaining FreeBSD" appendix to the FreeBSD
+   Handbook.
+
+   All users are encouraged to consult the release errata before installing
+   FreeBSD. The errata document is updated with "late-breaking" information
+   discovered late in the release cycle or after the release. Typically, it
+   contains information on known bugs, security advisories, and corrections
+   to documentation. An up-to-date copy of the errata for FreeBSD
+   12.0-CURRENT can be found on the FreeBSD Web site.
+
+   This document describes the most user-visible new or changed features in
+   FreeBSD since 11.0-RELEASE. In general, changes described here are unique
+   to the 12-CURRENT branch unless specifically marked as MERGED features.
+
+   Typical release note items document recent security advisories issued
+   after 11.0-RELEASE, new drivers or hardware support, new commands or
+   options, major bug fixes, or contributed software upgrades. They may also
+   list changes to major ports/packages or release engineering practices.
+   Clearly the release notes cannot list every single change made to FreeBSD
+   between releases; this document focuses primarily on security advisories,
+   user-visible changes, and major architectural improvements.
+
+2. Upgrading from Previous Releases of FreeBSD
+
+   Binary upgrades between RELEASE versions (and snapshots of the various
+   security branches) are supported using the freebsd-update(8) utility. The
+   binary upgrade procedure will update unmodified userland utilities, as
+   well as unmodified GENERIC kernels distributed as a part of an official
+   FreeBSD release. The freebsd-update(8) utility requires that the host
+   being upgraded have Internet connectivity.
+
+   Source-based upgrades (those based on recompiling the FreeBSD base system
+   from source code) from previous versions are supported, according to the
+   instructions in /usr/src/UPDATING.
+
+  Important:
+
+   Upgrading FreeBSD should only be attempted after backing up all data and
+   configuration files.
+
+3. Security and Errata
+
+   This section lists the various Security Advisories and Errata Notices
+   since 11.0-RELEASE.
+
+  3.1. Security Advisories
+
+             Advisory                    Date                  Topic          
+   No advisories.                                                             
+
+  3.2. Errata Notices
+
+              Errata                     Date                  Topic          
+   No errata notices.                                                         
+
+4. Userland
+
+   This section covers changes and additions to userland applications,
+   contributed software, and system utilities.
+
+  4.1. Userland Configuration Changes
+
+    
+
+  4.2. Userland Application Changes
+
+   xlint and the ability to build lint libraries or lint source code has been
+   removed.
+
+  4.3. Contributed Software
+
+    
+
+  4.4. Installation and Configuration Tools
+
+    
+
+  4.5. /etc/rc.d Scripts
+
+    
+
+  4.6. /etc/periodic Scripts
+
+    
+
+  4.7. Runtime Libraries and API
+
+    
+
+  4.8. ABI Compatibility
+
+    
+
+5. Kernel
+
+   This section covers changes to kernel configurations, system tuning, and
+   system control parameters that are not otherwise categorized.
+
+  5.1. Kernel Bug Fixes
+
+    
+
+  5.2. Kernel Configuration
+
+    
+
+  5.3. System Tuning and Controls
+
+    
+
+6. Devices and Drivers
+
+   This section covers changes and additions to devices and device drivers
+   since 11.0-RELEASE.
+
+  6.1. Device Drivers
+
+    
+
+  6.2. Storage Drivers
+
+    
+
+  6.3. Network Drivers
+
+    
+
+7. Hardware Support
+
+   This section covers general hardware support for physical machines,
+   hypervisors, and virtualization environments, as well as hardware changes
+   and updates that do not otherwise fit in other sections of this document.
+
+  7.1. Hardware Support
+
+    
+
+  7.2. Virtualization Support
+
+    
+
+  7.3. ARM Support
+
+    
+
+8. Storage
+
+   This section covers changes and additions to file systems and other
+   storage subsystems, both local and networked.
+
+  8.1. General Storage
+
+    
+
+  8.2. Networked Storage
+
+    
+
+  8.3. ZFS
+
+    
+
+  8.4. geom(4)
+
+    
+
+9. Boot Loader Changes
+
+   This section covers the boot loader, boot menu, and other boot-related
+   changes.
+
+  9.1. Boot Loader Changes
+
+    
+
+  9.2. Boot Menu Changes
+
+    
+
+10. Networking
+
+   This section describes changes that affect networking in FreeBSD.
+
+  10.1. Network Protocols
+
+    
+
+11. Ports Collection and Package Infrastructure
+
+   This section covers changes to the FreeBSD Ports Collection, package
+   infrastructure, and package maintenance and installation tools.
+
+  11.1. Infrastructure Changes
+
+    
+
+  11.2. Packaging Changes
+
+    
+
+12. Documentation
+
+   This section covers changes to the FreeBSD Documentation Project sources
+   and toolchain.
+
+  12.1. Documentation Source Changes
+
+    
+
+  12.2. Documentation Toolchain Changes
+
+    
+
+13. Release Engineering and Integration
+
+   This section convers changes that are specific to the FreeBSD Release
+   Engineering processes.
+
+  13.1. Integration Changes
+
+    

@@ -15,5 +15,13 @@
       <link>https://www.FreeBSD.org/events/</link>
     </image>
     <atom:link rel="self" type="application/rss+xml" href="https://www.FreeBSD.org/events/rss.xml"/>
+    <item>
+      <title>BSDCan 2018</title>
+      <description>BSDCan 2018 (https://www.bsdcan.org/2018/), University of Ottawa, Ottawa, Canada 06 - 09 June, 2018. A four day BSD conference held in Ottawa, Canada.
+      BSDCan hosts talks and tutorials on a range of topics based
+      around the BSD family of operating systems.</description>
+      <link>https://www.bsdcan.org/2018/</link>
+      <guid>https://www.bsdcan.org/2018/</guid>
+    </item>
   </channel>
 </rss>

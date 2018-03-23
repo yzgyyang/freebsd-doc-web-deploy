@@ -54,7 +54,7 @@
       <description>Presenting the MATE 1.10.0 Desktop Environment for
 	    FreeBSD.  The official release notes for this release can
 	    be found at
-	    http://mate-desktop.org/blog/2015-06-11-mate-1-10-released/This version of MATE is still built on the GTK+ 2
+	    https://mate-desktop.org/blog/2015-06-11-mate-1-10-released/This version of MATE is still built on the GTK+ 2
 	    toolkit.Replace mate-dialogs with zenity and mate-calc with
 	    galculator.Thanks go to Gustau Perez for helping track MATE
 	    development.</description>

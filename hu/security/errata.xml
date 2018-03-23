@@ -17,6 +17,18 @@
     </image>
     <atom:link xmlns="http://www.w3.org/1999/xhtml" rel="self" type="application/rss+xml" href="http://www.FreeBSD.org/security/rss.xml"/>
     <item>
+      <title>FreeBSD-EN-18:02.file</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:02.file.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:02.file.asc</guid>
+      <pubDate>2018 már 7 00:00:00 CET, Wed</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-EN-18:01.tzdata</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:01.tzdata.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:01.tzdata.asc</guid>
+      <pubDate>2018 már 7 00:00:00 CET, Wed</pubDate>
+    </item>
+    <item>
       <title>FreeBSD-EN-17:09.tzdata</title>
       <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:09.tzdata.asc</link>
       <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:09.tzdata.asc</guid>
@@ -63,18 +75,6 @@
       <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:02.yp.asc</link>
       <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:02.yp.asc</guid>
       <pubDate>2017 feb 23 00:00:00 CET, Thu</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-EN-17:01.pcie</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:01.pcie.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:01.pcie.asc</guid>
-      <pubDate>2017 feb 23 00:00:00 CET, Thu</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-EN-16:21.localedef</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-16:21.localedef.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-16:21.localedef.asc</guid>
-      <pubDate>2016 dec 6 00:00:00 CET, Tue</pubDate>
     </item>
   </channel>
 </rss>

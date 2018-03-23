@@ -4,7 +4,7 @@
     <title>FreeBSD Multimedia Resources List</title>
     <link>https://www.freebsd.org/multimedia/multimedia.html</link>
     <description>FreeBSD Multimedia Resources</description>
-    <lastBuildDate>2017-11-16T06:46:37Z</lastBuildDate>
+    <lastBuildDate>2018-03-23T07:30:18Z</lastBuildDate>
     <item>
       <title>Queue Portrait: Robert Watson</title>
       <guid>https://queue.acm.org/detail_video.cfm?id=2382552</guid>
@@ -1004,7 +1004,7 @@
       <enclosure url="bsdtalk112.mp3" length="1" type="application/octet-stream"/>
       <enclosure url="bsdtalk112.ogg" length="1" type="application/octet-stream"/>
       <description>
-		Interview at at BSDCan with Qing Li and Tatuya
+		Interview at BSDCan with Qing Li and Tatuya
 		Jinmei. We talk about the books that they authored
 		with Keiichi Shima: "IPv6 Core Protocols Implementation"
 		and "IPv6 Advanced Protocols Implementation." The
@@ -1285,7 +1285,7 @@
       <enclosure url="bsdtalk087.mp3" length="1" type="application/octet-stream"/>
       <enclosure url="bsdtalk087.ogg" length="1" type="application/octet-stream"/>
       <description>
-		Interview with FreeBSD developer Joseph Koshy about libELF. You can find more information about libELF at http://wiki.freebsd.org/LibElf.
+		Interview with FreeBSD developer Joseph Koshy about libELF. You can find more information about libELF at https://wiki.freebsd.org/LibElf.
 	    </description>
     </item>
     <item>
@@ -5248,7 +5248,7 @@
 		of the project was a set of documents which identifies
 		possible threats for the TCP and IP protocols and,
 		where possible, proposes counter-measures to mitigate
-		the identified threats. This presentation will will
+		the identified threats. This presentation will
 		describe some of the new insights that were gained
 		as a result of this project. Additionally, it will
 		provide an overview of the state of affairs of the
@@ -5688,7 +5688,7 @@
 		on the system. One of the first problems presented
 		to the person who wants to tune the scheduler is
 		how to measure the effects of their changes. Simply
-		tweaking the parameters and hoping that that will
+		tweaking the parameters and hoping that the tweaks will
 		help is not going to lead to good results. In our
 		recent experiments we have used the top(1) program
 		to measure our results.
@@ -6055,27 +6055,27 @@
     </item>
     <item>
       <title>Rafal Jaworowski - FreeBSD Embedded Report</title>
-      <guid>http://wiki.freebsd.org/200805DevSummit</guid>
+      <guid>https://wiki.freebsd.org/200805DevSummit</guid>
       <pubdate>2008-05-26</pubdate>
-      <enclosure url="http://wiki.freebsd.org/200805DevSummit?action=AttachFile&amp;do=get&amp;target=devsummit-200805-embedded_summary.pdf" length="1" type="application/octet-stream"/>
+      <enclosure url="https://wiki.freebsd.org/200805DevSummit?action=AttachFile&amp;do=get&amp;target=devsummit-200805-embedded_summary.pdf" length="1" type="application/octet-stream"/>
       <description>
 		FreeBSD Embedded Report
 	    </description>
     </item>
     <item>
       <title>Robert Watson - TCP SMP Scalability</title>
-      <guid>http://wiki.freebsd.org/200805DevSummit</guid>
+      <guid>https://wiki.freebsd.org/200805DevSummit</guid>
       <pubdate>2008-05-26</pubdate>
-      <enclosure url="http://wiki.freebsd.org/200805DevSummit?action=AttachFile&amp;do=get&amp;target=20080515-stack-parallelism.pdf" length="1" type="application/octet-stream"/>
+      <enclosure url="https://wiki.freebsd.org/200805DevSummit?action=AttachFile&amp;do=get&amp;target=20080515-stack-parallelism.pdf" length="1" type="application/octet-stream"/>
       <description>
 		TCP SMP Scalability
 	    </description>
     </item>
     <item>
       <title>Erwin Lansing - What's happening in the world of ports and portmgr</title>
-      <guid>http://wiki.freebsd.org/200805DevSummit</guid>
+      <guid>https://wiki.freebsd.org/200805DevSummit</guid>
       <pubdate>2008-05-24</pubdate>
-      <enclosure url="http://wiki.freebsd.org/200805DevSummit?action=AttachFile&amp;do=get&amp;target=portmgr-BSDCan2008.pdf" length="1" type="application/octet-stream"/>
+      <enclosure url="https://wiki.freebsd.org/200805DevSummit?action=AttachFile&amp;do=get&amp;target=portmgr-BSDCan2008.pdf" length="1" type="application/octet-stream"/>
       <description>
 		What's happening in the world of ports and portmgr
 	    </description>
@@ -6310,7 +6310,7 @@
 		configuration backend) and the assorted tools
 		developed for finstall ("LiveCD" creation scripts).
 		More information on finstall can be found here:
-		http://wiki.freebsd.org/finstall.
+		https://wiki.freebsd.org/finstall.
 		
 	    </description>
     </item>
@@ -6978,18 +6978,18 @@
     </item>
     <item>
       <title>Welcome - Cambridge University FreeBSD DevSummit - Robert Watson</title>
-      <guid>http://wiki.freebsd.org/200808DevSummit</guid>
+      <guid>https://wiki.freebsd.org/200808DevSummit</guid>
       <pubdate>2008-08-25</pubdate>
-      <enclosure url="http://wiki.freebsd.org/200808DevSummit?action=AttachFile&amp;do=get&amp;target=20080815-welcome.pdf" length="1" type="application/octet-stream"/>
+      <enclosure url="https://wiki.freebsd.org/200808DevSummit?action=AttachFile&amp;do=get&amp;target=20080815-welcome.pdf" length="1" type="application/octet-stream"/>
       <description>
 		Welcome by Robert Watson
 	    </description>
     </item>
     <item>
       <title>variant Symlinks - Brooks Davis</title>
-      <guid>http://wiki.freebsd.org/200808DevSummit</guid>
+      <guid>https://wiki.freebsd.org/200808DevSummit</guid>
       <pubdate>2008-08-25</pubdate>
-      <enclosure url="http://wiki.freebsd.org/200808DevSummit?action=AttachFile&amp;do=get&amp;target=variant-symlinks-for-freebsd.pdf" length="1" type="application/octet-stream"/>
+      <enclosure url="https://wiki.freebsd.org/200808DevSummit?action=AttachFile&amp;do=get&amp;target=variant-symlinks-for-freebsd.pdf" length="1" type="application/octet-stream"/>
       <description>
 		Variant Symlinks by Brooks Davis
 	    </description>

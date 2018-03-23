@@ -1,0 +1,88 @@
+                          FreeBSD 12.0-CURRENT Errata
+
+  The FreeBSD Project
+
+   Copyright (c) 2017 The FreeBSD Documentation Project
+
+   FreeBSD is a registered trademark of the FreeBSD Foundation.
+
+   Intel, Celeron, Centrino, Core, EtherExpress, i386, i486, Itanium,
+   Pentium, and Xeon are trademarks or registered trademarks of Intel
+   Corporation or its subsidiaries in the United States and other countries.
+
+   SPARC, SPARC64, and UltraSPARC are trademarks of SPARC International, Inc
+   in the United States and other countries. SPARC International, Inc owns
+   all of the SPARC trademarks and under licensing agreements allows the
+   proper use of these trademarks by its members.
+
+   Many of the designations used by manufacturers and sellers to distinguish
+   their products are claimed as trademarks. Where those designations appear
+   in this document, and the FreeBSD Project was aware of the trademark
+   claim, the designations have been followed by the "(TM)" or the "(R)"
+   symbol.
+
+   Last modified on 2018-03-23 03:29:30 -0400 by Guangyuan Yang.
+   Abstract
+
+   This document lists errata items for FreeBSD 12.0-CURRENT, containing
+   significant information discovered after the release or too late in the
+   release cycle to be otherwise included in the release documentation. This
+   information includes security advisories, as well as news relating to the
+   software or documentation that could affect its operation or usability. An
+   up-to-date version of this document should always be consulted before
+   installing this version of FreeBSD.
+
+   This errata document for FreeBSD 12.0-CURRENT will be maintained until the
+   release of FreeBSD 12.0-RELEASE.
+
+     ----------------------------------------------------------------------
+
+   Table of Contents
+
+   1. Introduction
+
+   2. Security Advisories
+
+   3. Errata Notices
+
+   4. Open Issues
+
+   5. Late-Breaking News
+
+1. Introduction
+
+   This errata document contains "late-breaking news" about FreeBSD
+   12.0-CURRENT Before installing this version, it is important to consult
+   this document to learn about any post-release discoveries or problems that
+   may already have been found and fixed.
+
+   Any version of this errata document actually distributed with the release
+   (for example, on a CDROM distribution) will be out of date by definition,
+   but other copies are kept updated on the Internet and should be consulted
+   as the "current errata" for this release. These other copies of the errata
+   are located at https://www.FreeBSD.org/releases/, plus any sites which
+   keep up-to-date mirrors of this location.
+
+   Source and binary snapshots of FreeBSD 12-CURRENT also contain up-to-date
+   copies of this document (as of the time of the snapshot).
+
+   For a list of all FreeBSD CERT security advisories, see
+   https://www.FreeBSD.org/security/.
+
+2. Security Advisories
+
+             Advisory                    Date                  Topic          
+   No advisories.                                                             
+
+3. Errata Notices
+
+              Errata                     Date                  Topic          
+   No errata notices.                                                         
+
+4. Open Issues
+
+   No open issues.
+
+5. Late-Breaking News
+
+   No news.

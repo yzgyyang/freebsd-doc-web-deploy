@@ -6,43 +6,43 @@
     <description>News from the FreeBSD Project</description>
   </channel>
   <item>
+    <title>New committer: Vincenzo Maffione (src)</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20180316:01</link>
+  </item>
+  <item>
+    <title>New committer: Koichiro Iwao (ports)</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20180314:01</link>
+  </item>
+  <item>
+    <title>New committer: Fernando Apesteguia (ports)</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20180303:01</link>
+  </item>
+  <item>
+    <title>New committer: Devin Teske (ports)</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20180301:01</link>
+  </item>
+  <item>
+    <title>FreeBSD Project to participate in Google Summer of Code 2018</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20180214:01</link>
+  </item>
+  <item>
+    <title>New committer: Slava Shwartsman (src)</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20180208:01</link>
+  </item>
+  <item>
+    <title>About the Meltdown and Spectre attacks</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20180104:01</link>
+  </item>
+  <item>
+    <title>July-September 2017 Status Report</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20171225:01</link>
+  </item>
+  <item>
+    <title>New committer: Jason W. Bacon (ports)</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20171111:01</link>
+  </item>
+  <item>
     <title>New committer: Alex Richardson (src)</title>
     <link>https://www.FreeBSD.org/news/newsflash.html#event20171030:01</link>
-  </item>
-  <item>
-    <title>New committer: Yuri Victorovich (ports)</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20171029:01</link>
-  </item>
-  <item>
-    <title>FreeBSD 10.4-RELEASE Available</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20171004:01</link>
-  </item>
-  <item>
-    <title>April-June 2017 Status Report</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20170927:01</link>
-  </item>
-  <item>
-    <title>FreeBSD 10.4-RC2 Available</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20170923:01</link>
-  </item>
-  <item>
-    <title>New committer: Eugene Grosbein (src)</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20170919:01</link>
-  </item>
-  <item>
-    <title>New committer: Guangyuan Yang (doc)</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20170918:01</link>
-  </item>
-  <item>
-    <title>FreeBSD 10.4-RC1 Available</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20170917:01</link>
-  </item>
-  <item>
-    <title>New committer: Craig Leres (ports)</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20170911:01</link>
-  </item>
-  <item>
-    <title>New committer: Dave Cottlehuber (ports)</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20170909:01</link>
   </item>
 </rdf:RDF>
