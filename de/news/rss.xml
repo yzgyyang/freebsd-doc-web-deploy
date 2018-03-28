@@ -16,6 +16,12 @@
     </image>
     <atom:link href="https://www.FreeBSD.org/news/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>New committer: Matthias Fechner (ports)</title>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20180323:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20180323:01</guid>
+      <pubDate>Fri, 23 Mar 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
       <title>New committer: Vincenzo Maffione (src)</title>
       <link>https://www.FreeBSD.org/news/newsflash.html#event20180316:01</link>
       <guid>https://www.FreeBSD.org/news/newsflash.html#event20180316:01</guid>
@@ -71,12 +77,6 @@
       <link>https://www.FreeBSD.org/news/newsflash.html#event20171111:01</link>
       <guid>https://www.FreeBSD.org/news/newsflash.html#event20171111:01</guid>
       <pubDate>Sat, 11 Nov 2017 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>New committer: Alex Richardson (src)</title>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20171030:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20171030:01</guid>
-      <pubDate>Mon, 30 Oct 2017 00:00:00 PST</pubDate>
     </item>
   </channel>
 </rss>

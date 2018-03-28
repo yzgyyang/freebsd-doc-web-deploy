@@ -6,6 +6,10 @@
     <description>News from the FreeBSD Project</description>
   </channel>
   <item>
+    <title>New committer: Matthias Fechner (ports)</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20180323:01</link>
+  </item>
+  <item>
     <title>New committer: Vincenzo Maffione (src)</title>
     <link>https://www.FreeBSD.org/news/newsflash.html#event20180316:01</link>
   </item>
@@ -40,9 +44,5 @@
   <item>
     <title>New committer: Jason W. Bacon (ports)</title>
     <link>https://www.FreeBSD.org/news/newsflash.html#event20171111:01</link>
-  </item>
-  <item>
-    <title>New committer: Alex Richardson (src)</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20171030:01</link>
   </item>
 </rdf:RDF>
