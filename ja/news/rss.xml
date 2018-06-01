@@ -16,67 +16,67 @@
     </image>
     <atom:link href="http://www.FreeBSD.org/ja/news/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
-      <title>新コミッタ就任: Vincenzo Maffione (src)</title>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180316:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180316:01</guid>
-      <pubDate>Fri, 16 Mar 2018 00:00:00 PST</pubDate>
+      <title>FreeBSD〓11.2-BETA3 公開</title>
+      <description>FreeBSD〓11.2 リリースサイクルから 3 回目の BETA ビルドが公開されました (アナウンス)。 FreeBSD ミラーサイト から amd64, armv6, arm64, i386, powerpc, powerpc64 および sparc64 アーキテクチャの ISO イメージを入手できます。</description>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180526:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180526:01</guid>
+      <pubDate>Sat, 26 May 2018 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>新コミッタ就任: Koichiro Iwao (ports)</title>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180314:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180314:01</guid>
-      <pubDate>Wed, 14 Mar 2018 00:00:00 PST</pubDate>
+      <title>新コミッタ就任: Breno Leitao (src)</title>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180522:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180522:01</guid>
+      <pubDate>Tue, 22 May 2018 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>新コミッタ就任: Fernando Apesteguia (ports)</title>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180303:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180303:01</guid>
-      <pubDate>Sat, 3 Mar 2018 00:00:00 PST</pubDate>
+      <title>新コミッタ就任: Leandro Lupori (src)</title>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180521:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180521:01</guid>
+      <pubDate>Mon, 21 May 2018 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>新コミッタ就任: Devin Teske (ports)</title>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180301:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180301:01</guid>
-      <pubDate>Thu, 1 Mar 2018 00:00:00 PST</pubDate>
+      <title>FreeBSD〓11.2-BETA2 公開</title>
+      <description>FreeBSD〓11.2 リリースサイクルから 2 回目の BETA ビルドが公開されました (アナウンス)。 FreeBSD ミラーサイト から amd64, armv6, arm64, i386, powerpc, powerpc64 および sparc64 アーキテクチャの ISO イメージを入手できます。</description>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180519:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180519:01</guid>
+      <pubDate>Sat, 19 May 2018 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>FreeBSD プロジェクトは、Google Summer of Code 2018 に参加します</title>
-      <description>FreeBSD プロジェクトは Google's 2018 Summer of Code プログラムに参加します。 これは夏の間に奨学金を提供し、 オープンソースプロジェクトに参加する学生を支援するプログラムです。 FreeBSD プロジェクトの参加は今年で 14 年目になります。 2005 年から 2017 年の間に、 長い夏の期間のコーディングプロジェクトを通して 210 人を越える学生の指導に成功してきました。</description>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180214:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180214:01</guid>
-      <pubDate>Wed, 14 Feb 2018 00:00:00 PST</pubDate>
+      <title>新コミッタ就任: Gleb Popov (ports)</title>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180515:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180515:01</guid>
+      <pubDate>Tue, 15 May 2018 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>新コミッタ就任: Slava Shwartsman (src)</title>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180208:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180208:01</guid>
-      <pubDate>Thu, 8 Feb 2018 00:00:00 PST</pubDate>
+      <title>FreeBSD〓11.2-BETA1 公開</title>
+      <description>FreeBSD〓11.2 リリースサイクルから最初の BETA ビルドが公開されました (アナウンス)。 FreeBSD ミラーサイト から amd64, armv6, arm64, i386, powerpc, powerpc64 および sparc64 アーキテクチャの ISO イメージを入手できます。</description>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180512:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180512:01</guid>
+      <pubDate>Sat, 12 May 2018 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>Meltdown および Spectre 攻撃について</title>
-      <description>Meltdown および Spectre 攻撃について:FreeBSD においても 2017 年 12 月下旬にはこれらの問題が明らかになっていました。 現在 CPU ベンダと協力し、 また公表された論文を基にこれらの攻撃の脅威を FreeBSD 上で軽減する対策を進めています。 しかしながら、この攻撃が基本的な部分に関わっているため、 現時点ではパッチの公開予定日は未定です。</description>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180104:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180104:01</guid>
-      <pubDate>Thu, 4 Jan 2018 00:00:00 PST</pubDate>
+      <title>新コミッタ就任: Sean Eric Fagan (src)</title>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180417:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180417:01</guid>
+      <pubDate>Tue, 17 Apr 2018 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>開発進捗レポート (2017 年 7 月 〓 9 月) 公開</title>
-      <description>2017 年 7 月 〓 9 月開発進捗レポート が公開されました。</description>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20171225:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20171225:01</guid>
-      <pubDate>Mon, 25 Dec 2017 00:00:00 PST</pubDate>
+      <title>新コミッタ就任: Tom Jones (src)</title>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180407:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180407:01</guid>
+      <pubDate>Sat, 7 Apr 2018 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>新コミッタ就任: Jason W. Bacon (ports)</title>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20171111:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20171111:01</guid>
-      <pubDate>Sat, 11 Nov 2017 00:00:00 PST</pubDate>
+      <title>新コミッタ就任: Ram Kishore Vegesna (src)</title>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180404:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180404:01</guid>
+      <pubDate>Wed, 4 Apr 2018 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>新コミッタ就任: Alex Richardson (src)</title>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20171030:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20171030:01</guid>
-      <pubDate>Mon, 30 Oct 2017 00:00:00 PST</pubDate>
+      <title>新コミッタ就任: Matthias Fechner (ports)</title>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180323:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180323:01</guid>
+      <pubDate>Fri, 23 Mar 2018 00:00:00 PST</pubDate>
     </item>
   </channel>
 </rss>

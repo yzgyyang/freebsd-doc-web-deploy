@@ -16,67 +16,67 @@
     </image>
     <atom:link href="https://www.FreeBSD.org/news/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>FreeBSD 11.2-BETA3 Available</title>
+      <description>The third BETA build for the FreeBSD 11.2 release cycle is now available. ISO images for the amd64, armv6, arm64, i386, powerpc, powerpc64 and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20180526:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20180526:01</guid>
+      <pubDate>Sat, 26 May 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>New committer: Breno Leitao (src)</title>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20180522:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20180522:01</guid>
+      <pubDate>Tue, 22 May 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>New committer: Leandro Lupori (src)</title>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20180521:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20180521:01</guid>
+      <pubDate>Mon, 21 May 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD 11.2-BETA2 Available</title>
+      <description>The second BETA build for the FreeBSD 11.2 release cycle is now available. ISO images for the amd64, armv6, arm64, i386, powerpc, powerpc64 and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20180519:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20180519:01</guid>
+      <pubDate>Sat, 19 May 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>New committer: Gleb Popov (ports)</title>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20180515:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20180515:01</guid>
+      <pubDate>Tue, 15 May 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD 11.2-BETA1 Available</title>
+      <description>The first BETA build for the FreeBSD 11.2 release cycle is now available. ISO images for the amd64, armv6, arm64, i386, powerpc, powerpc64 and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20180512:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20180512:01</guid>
+      <pubDate>Sat, 12 May 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>New commiter: Sean Eric Fagan (src)</title>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20180417:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20180417:01</guid>
+      <pubDate>Tue, 17 Apr 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>New committer: Tom Jones (src)</title>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20180407:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20180407:01</guid>
+      <pubDate>Sat, 7 Apr 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>New committer: Ram Kishore Vegesna (src)</title>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20180404:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20180404:01</guid>
+      <pubDate>Wed, 4 Apr 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
       <title>New committer: Matthias Fechner (ports)</title>
       <link>https://www.FreeBSD.org/news/newsflash.html#event20180323:01</link>
       <guid>https://www.FreeBSD.org/news/newsflash.html#event20180323:01</guid>
       <pubDate>Fri, 23 Mar 2018 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>New committer: Vincenzo Maffione (src)</title>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20180316:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20180316:01</guid>
-      <pubDate>Fri, 16 Mar 2018 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>New committer: Koichiro Iwao (ports)</title>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20180314:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20180314:01</guid>
-      <pubDate>Wed, 14 Mar 2018 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>New committer: Fernando Apesteguia (ports)</title>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20180303:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20180303:01</guid>
-      <pubDate>Sat, 3 Mar 2018 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>New committer: Devin Teske (ports)</title>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20180301:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20180301:01</guid>
-      <pubDate>Thu, 1 Mar 2018 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD Project to participate in Google Summer of Code 2018</title>
-      <description>The FreeBSD Project is pleased to announce its participation in Google's 2018 Summer of Code program, which funds summer students to participate in open source projects. This will be the FreeBSD Project's fourteenth year in the program, having mentored over 210 successful students through summer-long coding projects between 2005 and 2017.</description>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20180214:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20180214:01</guid>
-      <pubDate>Wed, 14 Feb 2018 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>New committer: Slava Shwartsman (src)</title>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20180208:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20180208:01</guid>
-      <pubDate>Thu, 8 Feb 2018 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>About the Meltdown and Spectre attacks</title>
-      <description>About the Meltdown and Spectre attacks: FreeBSD was made aware of the problems in late December 2017. We're working with CPU vendors and the published papers on these attacks to mitigate them on FreeBSD. Due to the fundamental nature of the attacks, no estimate is yet available for the publication date of patches.</description>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20180104:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20180104:01</guid>
-      <pubDate>Thu, 4 Jan 2018 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>July-September 2017 Status Report</title>
-      <description>The July to September 2017 Status Report is now available.</description>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20171225:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20171225:01</guid>
-      <pubDate>Mon, 25 Dec 2017 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>New committer: Jason W. Bacon (ports)</title>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20171111:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20171111:01</guid>
-      <pubDate>Sat, 11 Nov 2017 00:00:00 PST</pubDate>
     </item>
   </channel>
 </rss>

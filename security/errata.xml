@@ -16,6 +16,30 @@
     </image>
     <atom:link type="application/rss+xml" href="https://www.FreeBSD.org/security/rss.xml"/>
     <item>
+      <title>FreeBSD-EN-18:06.tzdata</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:06.tzdata.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:06.tzdata.asc</guid>
+      <pubDate>Tue, 8 May 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-EN-18:05.mem</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:05.mem.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:05.mem.asc</guid>
+      <pubDate>Tue, 8 May 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-EN-18:04.mem</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:04.mem.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:04.mem.asc</guid>
+      <pubDate>Wed, 4 Apr 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-EN-18:03.tzdata</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:03.tzdata.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:03.tzdata.asc</guid>
+      <pubDate>Wed, 4 Apr 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
       <title>FreeBSD-EN-18:02.file</title>
       <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:02.file.asc</link>
       <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:02.file.asc</guid>
@@ -50,30 +74,6 @@
       <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:06.hyperv.asc</link>
       <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:06.hyperv.asc</guid>
       <pubDate>Wed, 12 Jul 2017 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-EN-17:05.xen</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:05.xen.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:05.xen.asc</guid>
-      <pubDate>Wed, 12 Apr 2017 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-EN-17:04.mandoc</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:04.mandoc.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:04.mandoc.asc</guid>
-      <pubDate>Thu, 23 Feb 2017 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-EN-17:03.hyperv</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:03.hyperv.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:03.hyperv.asc</guid>
-      <pubDate>Thu, 23 Feb 2017 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-EN-17:02.yp</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:02.yp.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:02.yp.asc</guid>
-      <pubDate>Thu, 23 Feb 2017 00:00:00 PST</pubDate>
     </item>
   </channel>
 </rss>

@@ -17,6 +17,24 @@
     </image>
     <atom:link xmlns="http://www.w3.org/1999/xhtml" rel="self" type="application/rss+xml" href="http://www.FreeBSD.org/security/rss.xml"/>
     <item>
+      <title>FreeBSD-SA-18:06.debugreg</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:06.debugreg.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:06.debugreg.asc</guid>
+      <pubDate>2018 máj 8 00:00:00 CET, Tue</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-SA-18:05.ipsec</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:05.ipsec.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:05.ipsec.asc</guid>
+      <pubDate>2018 ápr 4 00:00:00 CET, Wed</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-SA-18:04.vt</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:04.vt.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:04.vt.asc</guid>
+      <pubDate>2018 ápr 4 00:00:00 CET, Wed</pubDate>
+    </item>
+    <item>
       <title>FreeBSD-SA-18:03.speculative_execution</title>
       <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:03.speculative_execution.asc</link>
       <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:03.speculative_execution.asc</guid>
@@ -57,24 +75,6 @@
       <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:09.shm.asc</link>
       <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:09.shm.asc</guid>
       <pubDate>2017 nov 15 00:00:00 CET, Wed</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-SA-17:08.ptrace</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:08.ptrace.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:08.ptrace.asc</guid>
-      <pubDate>2017 nov 15 00:00:00 CET, Wed</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-SA-17:07.wpa</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:07.wpa.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:07.wpa.asc</guid>
-      <pubDate>2017 okt 17 00:00:00 CET, Tue</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-SA-17:06.openssh</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:06.openssh.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:06.openssh.asc</guid>
-      <pubDate>2017 aug 10 00:00:00 CET, Thu</pubDate>
     </item>
   </channel>
 </rss>

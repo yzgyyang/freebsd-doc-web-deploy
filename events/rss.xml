@@ -23,5 +23,35 @@
       <link>https://www.bsdcan.org/2018/</link>
       <guid>https://www.bsdcan.org/2018/</guid>
     </item>
+    <item>
+      <title>EuroBSDcon 2018</title>
+      <description>EuroBSDcon 2018 (https://2018.eurobsdcon.org), University Politehnica of Bucharest, Bucharest, Romania 20 - 23 September, 2018. EuroBSDcon is the European annual technical
+      conference gathering users and developers working on and with
+      4.4BSD (Berkeley Software Distribution) based operating systems
+      family and related projects. EuroBSDcon gives the exceptional
+      opportunity to learn about latest news from the BSD world,
+      witness contemporary deployment case studies, and meet
+      personally other users and companies using BSD oriented
+      technologies. EuroBSDcon is also a boiler plate for ideas,
+      discussions and information exchange, which often turn into
+      programming projects. The conference has always attracted active
+      programmers, administrators and aspiring students, as well as IT
+      companies at large, which found the conference a convenient and
+      quality training option for its staff. We firmly believe that
+      high profile education is vital to the future of technology, and
+      hence greatly welcome students and young people to this regular
+      meeting.</description>
+      <link>https://2018.eurobsdcon.org</link>
+      <guid>https://2018.eurobsdcon.org</guid>
+    </item>
+    <item>
+      <title>MeetBSD 2018</title>
+      <description>MeetBSD 2018 (https://www.meetbsd.com/), Intel Campus, Santa Clara, CA, United States 19 - 20 October, 2018. MeetBSD 2018 is a mixed unConference format event
+      featuring both scheduled talks and community-driven events such
+      as birds-of-a-feather meetings and speed geeking
+      sessions.</description>
+      <link>https://www.meetbsd.com/</link>
+      <guid>https://www.meetbsd.com/</guid>
+    </item>
   </channel>
 </rss>

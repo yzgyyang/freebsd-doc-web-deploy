@@ -6,6 +6,18 @@
     <description>Security advisories published from the FreeBSD Project</description>
   </channel>
   <item>
+    <title>FreeBSD-SA-18:06.debugreg</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-18:06.debugreg.asc</link>
+  </item>
+  <item>
+    <title>FreeBSD-SA-18:05.ipsec</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-18:05.ipsec.asc</link>
+  </item>
+  <item>
+    <title>FreeBSD-SA-18:04.vt</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-18:04.vt.asc</link>
+  </item>
+  <item>
     <title>FreeBSD-SA-18:03.speculative_execution</title>
     <link>//security.FreeBSD.org/advisories/FreeBSD-SA-18:03.speculative_execution.asc</link>
   </item>
@@ -32,17 +44,5 @@
   <item>
     <title>FreeBSD-SA-17:09.shm</title>
     <link>//security.FreeBSD.org/advisories/FreeBSD-SA-17:09.shm.asc</link>
-  </item>
-  <item>
-    <title>FreeBSD-SA-17:08.ptrace</title>
-    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-17:08.ptrace.asc</link>
-  </item>
-  <item>
-    <title>FreeBSD-SA-17:07.wpa</title>
-    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-17:07.wpa.asc</link>
-  </item>
-  <item>
-    <title>FreeBSD-SA-17:06.openssh</title>
-    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-17:06.openssh.asc</link>
   </item>
 </rdf:RDF>
