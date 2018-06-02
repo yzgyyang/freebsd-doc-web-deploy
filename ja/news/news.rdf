@@ -6,6 +6,10 @@
     <description>News from the FreeBSD Project</description>
   </channel>
   <item>
+    <title>FreeBSD¢®11.2-RC1 Available</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20180602:01</link>
+  </item>
+  <item>
     <title>FreeBSD¢®11.2-BETA3 Available</title>
     <link>https://www.FreeBSD.org/news/newsflash.html#event20180526:01</link>
   </item>
@@ -40,9 +44,5 @@
   <item>
     <title>New committer: Ram Kishore Vegesna (src)</title>
     <link>https://www.FreeBSD.org/news/newsflash.html#event20180404:01</link>
-  </item>
-  <item>
-    <title>New committer: Matthias Fechner (ports)</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20180323:01</link>
   </item>
 </rdf:RDF>
