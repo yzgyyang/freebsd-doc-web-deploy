@@ -254,7 +254,6 @@ reports page</a>.</p>
   <li><a href="#documentation" shape="rect">Documentation</a></li>
   <li><a href="../advocacy/index.html" shape="rect">Advocacy</a></li>
   <li><a href="#applications" shape="rect">Applications</a></li>
-  <li><a href="#networking" shape="rect">Networking</a></li>
   <li><a href="#storage" shape="rect">Storage</a></li>
   <li><a href="#kernelandsecurity" shape="rect">Kernel and Security</a></li>
   <li><a href="#devicedrivers" shape="rect">Device drivers</a></li>
@@ -310,11 +309,11 @@ documentation and tutorials about how to install and run KDE on
 FreeBSD.  Project news and a FreeBSD-specific FAQ are also
 available.</li>
 
-<li><a name="mono" href="http://www.mono-project.com/Mono:FreeBSD" shape="rect" id="mono">
-Mono on FreeBSD</a>:
+<li>
+<a name="mono" href="http://www.mono-project.com/docs/about-mono/supported-platforms/bsd/" shape="rect" id="mono">Mono on FreeBSD</a>:
 Here you can find information about the state of Mono and C# for FreeBSD.</li>
 
-<li><a name="openoffice" href="http://porting.openoffice.org/freebsd/" shape="rect" id="openoffice">
+<li><a name="openoffice" href="https://porting.openoffice.org/freebsd/" shape="rect" id="openoffice">
 OpenOffice.org on FreeBSD</a>:
 Information about the various OpenOffice.org ports.</li>
 
@@ -328,7 +327,7 @@ to see if a specific application exists in the Ports Collection.</li>
 A list which checks the Ports Collection for unfetchable distfiles
 and provides a summary for each port.</li>
 
-<li><a href="http://FreshPorts.org/" shape="rect">FreshPorts</a>: Provides the most up-to-date list of
+<li><a href="https://FreshPorts.org/" shape="rect">FreshPorts</a>: Provides the most up-to-date list of
 ports and port changes.  Add your favourite ports to your watch list and receive email
 notification of any changes.</li>
 
@@ -337,34 +336,9 @@ notification of any changes.</li>
   logs for each port.</li>
 </ul>
 
-<a name="networking" shape="rect" id="networking"></a>
-<h3>Networking</h3>
-<ul>
-<li><a name="netperf" href="../projects/netperf/index.html" shape="rect" id="netperf">Netperf</a>:
-Network stack performance and optimization, a follow-on
-to the SMPng network stack locking work for FreeBSD 5.3.  This project is
-exploring and implementing optimizations strategies for a multi-threaded
-network stack.</li>
-<li><a name="kame" href="http://www.kame.net/" shape="rect" id="kame">KAME Project</a>: A free IPv6/IPsec stack for BSD.</li>
-<li><a name="SYSLOG-SECURE" href="http://www.faqs.org/rfcs/rfc3164.html" shape="rect" id="SYSLOG-SECURE">SYSLOG-SECURE</a>:
-In August 2001 a standard of syslog was made: RFC3164. This RFC
-describes some extensions to add security to syslog. A project
-started in 2002 to adapt RFC3164 to the FreeBSD version of syslog and to add
-some security extensions, at least syslog-sign. Both libc and syslogd will
-be modified.  And optionally some tools to verify or manage the security
-would be made.
-All help is welcome. Send an email to albert@ons-huis.net for info.</li>
-</ul>
-
 <a name="storage" shape="rect" id="storage"></a>
 <h3>Storage</h3>
 <ul>
-<li><a name="afs" href="http://www.stacken.kth.se/projekt/arla/" shape="rect" id="afs">Arla</a>:
-A free AFS client implementation.  The main goal is to
-make a fully functional client with all capabilities of normal AFS.
-Other planned and implemented things are all the normal management
-tools and a server.</li>
-
 <li><a name="coda" href="http://www.coda.cs.cmu.edu/" shape="rect" id="coda">Coda</a>:
 A distributed filesystem.  Among its features are disconnected
 operation, good security model, server replication and persistent
@@ -372,20 +346,6 @@ client side caching.</li>
 
 <li><a name="journaling" href="http://www.ece.cmu.edu/~ganger/papers/" shape="rect" id="journaling">
 Journaling versus Soft Updates</a>: Asynchronous Meta-data Protection in File Systems.</li>
-
-<li><a name="Tertiary" href="http://now.cs.berkeley.edu/Td/" shape="rect" id="Tertiary">Tertiary Disk</a>:
-A storage system architecture to create large disk storage systems
-that avoid the disadvantages of custom built disk arrays. The
-name comes from twin goals: to have the cost per megabyte and
-capacity of tape libraries and the performance of magnetic
-disks. We use commodity, off the shelf components to develop a
-scalable, low cost, terabyte capacity disk system. Our target is
-to build a complete storage system with about 30-50% extra to
-the cost of the raw disk.  Tertiary Disk uses PCs connected by a
-switched network to host a large number of disks. Our prototype
-consists of 20 200MHz PC PCs, which host 370 8GB disks. The PCs
-are connected through a 100Mbps Ethernet switch.</li>
-
 </ul>
 
 <a name="kernelandsecurity" shape="rect" id="kernelandsecurity"></a>
@@ -423,22 +383,11 @@ also tracks the progress of drivers towards being SMPng-safe.</li>
 <li><a name="homeauto" href="https://people.FreeBSD.org/~fsmp/HomeAuto/HomeAuto.html" shape="rect" id="homeauto">Home Automation</a>:
 Using FreeBSD to run appliance controllers, infra-red controllers,
 automated telephone systems, and more.</li>
-
-<li><a name="xircomcem" shape="rect" id="xircomcem">Xircom CEM Ethernet Driver</a>: A mailing list exists for further
-development of Scott Mitchell's Xircom CEM ethernet driver.  Send
-<tt>subscribe freebsd-xircom</tt> to <a href="mailto:majordomo@lovett.com" shape="rect">majordomo@lovett.com</a> to
-join.</li>
 </ul>
 
 <a name="architecture" shape="rect" id="architecture"></a>
 <h3>Architecture</h3>
 <ul>
-<li><a name="ia64" href="../platforms/ia64/index.html" shape="rect" id="ia64">
-Porting FreeBSD to IA-64 systems</a>:
-This project is responsible for porting FreeBSD to the IA-64
-architecture. Direct any questions specific to this project to the
-freebsd-ia64@FreeBSD.org mailing list. </li>
-
 <li><a name="ppc" href="../platforms/ppc.html" shape="rect" id="ppc">Porting FreeBSD to PowerPC® systems</a>:
 Contains information on the FreeBSD PPC port, such as mailing list
 information and so on.</li>
