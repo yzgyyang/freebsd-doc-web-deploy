@@ -6,9 +6,25 @@
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" media="screen,print" href="../layout/css/fixed.css?20130112" type="text/css" />
-    <script type="text/javascript" src="../layout/js/google.js"></script>
+    <script> 
+var allow_track = true; var h = document.location.hostname;
+var fbsdregex = /((docs|security|svnweb|wiki|www)\.freebsd\.org|google\.com)$/i;
+
+if (typeof navigator.doNotTrack !== 'undefined' &amp;&amp; (navigator.doNotTrack == '1')) {
+	allow_track = false;
+}
+if (allow_track &amp;&amp; fbsdregex.test(h)) {
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&amp;l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PXRWZVR');}
+</script>
   </head>
   <body>
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PXRWZVR" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
     <div id="containerwrap">
       <div id="container">
         <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
@@ -240,37 +256,11 @@
             </div>
           </div>
           <div id="contentwrap"><h1>Internationalization Policy</h1>
-
-  <h2>Policy</h2>
-
-  <p>When listing countries or other geographic areas in
-    documentation, menus, mirror/FTP lists, or other contexts, it is
-    important to introduce such lists as "Countries or Regions" so that
-    an implied sovereignty claim is neither made nor denied to those
-    regions which have their own top level domains.</p>
-
-  <p>The ISO 3166 country codes do not necessarily refer to
-    nation-states (e.g. Hong Kong) and should not be treated as such.
-    Likewise the "official" ISO 3166 short English names for those
-    countries and regions which have top level domains are in some cases
-    controversial, and not all of them are commonly used in the software
-    industry.</p>
-
-  <p>We follow the guidelines used by IBM, Microsoft, Google, and
-    other prominent software companies in their documentation in that
-    Taiwan should never be included with a distinction referring to the
-    Republic of China, People's Republic of China, or a national flag.
-    Interpretation of the word "Taiwan" is in the eye of the beholder,
-    and The FreeBSD Project does not endorse any particular position.</p>
-
-  <p>Reference:</p>
-
-  <ol>
-    <li><a href="http://www-01.ibm.com/software/globalization/topics/writing/" shape="rect">IBM
-      Localization guidelines</a></li>
-  </ol>
-
-
+      <h2>Policy</h2>
+      <p>The FreeBSD Project uses ISO 3166 country codes in
+	software included in the release distributions and the
+	official website to describe geographical regions in the
+	world.</p>
   </div>
           <br class="clearboth" />
         </div>

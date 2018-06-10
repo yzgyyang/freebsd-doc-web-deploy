@@ -6,9 +6,25 @@
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" media="screen,print" href="./layout/css/fixed.css?20130112" type="text/css" />
-    <script type="text/javascript" src="./layout/js/google.js"></script>
+    <script> 
+var allow_track = true; var h = document.location.hostname;
+var fbsdregex = /((docs|security|svnweb|wiki|www)\.freebsd\.org|google\.com)$/i;
+
+if (typeof navigator.doNotTrack !== 'undefined' &amp;&amp; (navigator.doNotTrack == '1')) {
+	allow_track = false;
+}
+if (allow_track &amp;&amp; fbsdregex.test(h)) {
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&amp;l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PXRWZVR');}
+</script>
   </head>
   <body>
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PXRWZVR" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
     <div id="containerwrap">
       <div id="container">
         <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
@@ -410,7 +426,7 @@
   </div>
 
 
-    <h1>FreeBSD 11.2-RC1</h1>
+    <h1>FreeBSD 11.2-RC2</h1>
 
     <table class="tblbasic tblwide tbldownload">
       <tbody>
@@ -435,23 +451,23 @@
 	  <td rowspan="1" colspan="1">
 	    <ul class="txtdownloadlist">
 	      <li><a href="https://download.FreeBSD.org/ftp/releases/VM-IMAGES/README.txt" shape="rect">README</a></li>
-	      <li><a href="https://download.FreeBSD.org/ftp/releases/VM-IMAGES/11.2-RC1/amd64/Latest/" shape="rect">amd64</a></li>
-	      <li><a href="https://download.FreeBSD.org/ftp/releases/VM-IMAGES/11.2-RC1/i386/Latest/" shape="rect">i386</a></li>
-	      <li><a href="https://download.FreeBSD.org/ftp/releases/VM-IMAGES/11.2-RC1/aarch64/Latest/" shape="rect">aarch64</a></li>
+	      <li><a href="https://download.FreeBSD.org/ftp/releases/VM-IMAGES/11.2-RC2/amd64/Latest/" shape="rect">amd64</a></li>
+	      <li><a href="https://download.FreeBSD.org/ftp/releases/VM-IMAGES/11.2-RC2/i386/Latest/" shape="rect">i386</a></li>
+	      <li><a href="https://download.FreeBSD.org/ftp/releases/VM-IMAGES/11.2-RC2/aarch64/Latest/" shape="rect">aarch64</a></li>
 	    </ul>
 	  </td>
 	  <td rowspan="1" colspan="1">
 	    <ul class="txtdownloadlist">
-	      <li><a href="https://download.FreeBSD.org/ftp/releases/arm/armv6/ISO-IMAGES/11.2/FreeBSD-11.2-RC1-arm-armv6-BANANAPI.img.xz" shape="rect">BANANAPI</a></li>
-	      <li><a href="https://download.FreeBSD.org/ftp/releases/arm/armv6/ISO-IMAGES/11.2/FreeBSD-11.2-RC1-arm-armv6-BEAGLEBONE.img.xz" shape="rect">BEAGLEBONE</a></li>
-	      <li><a href="https://download.FreeBSD.org/ftp/releases/arm/armv6/ISO-IMAGES/11.2/FreeBSD-11.2-RC1-arm-armv6-CUBIEBOARD.img.xz" shape="rect">CUBIEBOARD</a></li>
-	      <li><a href="https://download.FreeBSD.org/ftp/releases/arm/armv6/ISO-IMAGES/11.2/FreeBSD-11.2-RC1-arm-armv6-CUBIEBOARD2.img.xz" shape="rect">CUBIEBOARD2</a></li>
-	      <li><a href="https://download.FreeBSD.org/ftp/releases/arm/armv6/ISO-IMAGES/11.2/FreeBSD-11.2-RC1-arm-armv6-CUBOX-HUMMINGBOARD.img.xz" shape="rect">CUBOX/HUMMINGBOARD</a></li>
-	      <li><a href="https://download.FreeBSD.org/ftp/releases/arm/arm/ISO-IMAGES/11.2/FreeBSD-11.2-RC1-arm-GUMSTIX.img.xz" shape="rect">GUMSTIX</a></li>
-	      <li><a href="https://download.FreeBSD.org/ftp/releases/arm/armv6/ISO-IMAGES/11.2/FreeBSD-11.2-RC1-arm-armv6-PANDABOARD.img.xz" shape="rect">PANDABOARD</a></li>
-	      <li><a href="https://download.FreeBSD.org/ftp/releases/arm/armv6/ISO-IMAGES/11.2/FreeBSD-11.2-RC1-arm-armv6-RPI-B.img.xz" shape="rect">RPI-B</a></li>
-	      <li><a href="https://download.FreeBSD.org/ftp/releases/arm/armv6/ISO-IMAGES/11.2/FreeBSD-11.2-RC1-arm-armv6-RPI2.img.xz" shape="rect">RPI2</a></li>
-	      <li><a href="https://download.FreeBSD.org/ftp/releases/arm/armv6/ISO-IMAGES/11.2/FreeBSD-11.2-RC1-arm-armv6-WANDBOARD.img.xz" shape="rect">WANDBOARD</a></li>
+	      <li><a href="https://download.FreeBSD.org/ftp/releases/arm/armv6/ISO-IMAGES/11.2/FreeBSD-11.2-RC2-arm-armv6-BANANAPI.img.xz" shape="rect">BANANAPI</a></li>
+	      <li><a href="https://download.FreeBSD.org/ftp/releases/arm/armv6/ISO-IMAGES/11.2/FreeBSD-11.2-RC2-arm-armv6-BEAGLEBONE.img.xz" shape="rect">BEAGLEBONE</a></li>
+	      <li><a href="https://download.FreeBSD.org/ftp/releases/arm/armv6/ISO-IMAGES/11.2/FreeBSD-11.2-RC2-arm-armv6-CUBIEBOARD.img.xz" shape="rect">CUBIEBOARD</a></li>
+	      <li><a href="https://download.FreeBSD.org/ftp/releases/arm/armv6/ISO-IMAGES/11.2/FreeBSD-11.2-RC2-arm-armv6-CUBIEBOARD2.img.xz" shape="rect">CUBIEBOARD2</a></li>
+	      <li><a href="https://download.FreeBSD.org/ftp/releases/arm/armv6/ISO-IMAGES/11.2/FreeBSD-11.2-RC2-arm-armv6-CUBOX-HUMMINGBOARD.img.xz" shape="rect">CUBOX/HUMMINGBOARD</a></li>
+	      <li><a href="https://download.FreeBSD.org/ftp/releases/arm/arm/ISO-IMAGES/11.2/FreeBSD-11.2-RC2-arm-GUMSTIX.img.xz" shape="rect">GUMSTIX</a></li>
+	      <li><a href="https://download.FreeBSD.org/ftp/releases/arm/armv6/ISO-IMAGES/11.2/FreeBSD-11.2-RC2-arm-armv6-PANDABOARD.img.xz" shape="rect">PANDABOARD</a></li>
+	      <li><a href="https://download.FreeBSD.org/ftp/releases/arm/armv6/ISO-IMAGES/11.2/FreeBSD-11.2-RC2-arm-armv6-RPI-B.img.xz" shape="rect">RPI-B</a></li>
+	      <li><a href="https://download.FreeBSD.org/ftp/releases/arm/armv6/ISO-IMAGES/11.2/FreeBSD-11.2-RC2-arm-armv6-RPI2.img.xz" shape="rect">RPI2</a></li>
+	      <li><a href="https://download.FreeBSD.org/ftp/releases/arm/armv6/ISO-IMAGES/11.2/FreeBSD-11.2-RC2-arm-armv6-WANDBOARD.img.xz" shape="rect">WANDBOARD</a></li>
 	    </ul>
 	  </td>
 	  <td rowspan="1" colspan="1">

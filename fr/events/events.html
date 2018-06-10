@@ -7,9 +7,25 @@
     <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" media="screen,print" href="../../layout/css/fixed.css?20130112" type="text/css" />
     <link rel="alternate" type="application/rss+xml" title="Upcoming FreeBSD Events" href="../events/rss.xml" />
-    <script type="text/javascript" src="../../layout/js/google.js"></script>
+    <script> 
+var allow_track = true; var h = document.location.hostname;
+var fbsdregex = /((docs|security|svnweb|wiki|www)\.freebsd\.org|google\.com)$/i;
+
+if (typeof navigator.doNotTrack !== 'undefined' &amp;&amp; (navigator.doNotTrack == '1')) {
+	allow_track = false;
+}
+if (allow_track &amp;&amp; fbsdregex.test(h)) {
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&amp;l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PXRWZVR');}
+</script>
   </head>
   <body>
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PXRWZVR" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
     <div id="containerwrap">
       <div id="container">
         <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
@@ -217,7 +233,7 @@
           </div>
           <div id="contentwrap">
             <h1>FreeBSD Events</h1>
-<!--Generated on: 20180602-->
+<!--Generated on: 20180610-->
             <p>Si vous avez connaissance d'événements liés à FreeBSD, ou d'événements qui
       pourraient intéressés les utilisateurs FreeBSD, qui ne sont pas indiqués
       ici, veuillez envoyer tous les détails à <a href="mailto:www@FreeBSD.org">www@FreeBSD.org</a> de manière

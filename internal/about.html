@@ -6,9 +6,25 @@
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" media="screen,print" href="../layout/css/fixed.css?20130112" type="text/css" />
-    <script type="text/javascript" src="../layout/js/google.js"></script>
+    <script> 
+var allow_track = true; var h = document.location.hostname;
+var fbsdregex = /((docs|security|svnweb|wiki|www)\.freebsd\.org|google\.com)$/i;
+
+if (typeof navigator.doNotTrack !== 'undefined' &amp;&amp; (navigator.doNotTrack == '1')) {
+	allow_track = false;
+}
+if (allow_track &amp;&amp; fbsdregex.test(h)) {
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&amp;l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PXRWZVR');}
+</script>
   </head>
   <body>
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PXRWZVR" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
     <div id="containerwrap">
       <div id="container">
         <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
@@ -282,11 +298,11 @@
 
     <h2>Page Design</h2>
 
-    <p>The current website design was done by <a href="http://www.emilyboyd.com" shape="rect">Emily Boyd</a> as part of the
-      <a href="http://code.google.com/soc" shape="rect">Google Summer of Code</a>
+    <p>The current website design was done by Emily Boyd as part of the
+      <a href="https://summerofcode.withgoogle.com" shape="rect">Google Summer of Code</a>
       program in 2005.</p>
 
-    <p>The original page design was done by <a href="http://www.asis.com/~meganm/" shape="rect">Megan McCormack</a>.</p>
+    <p>The original page design was done by Megan McCormack.</p>
 
     <h2><a href="../doc/en_US.ISO8859-1/books/fdp-primer/the-website.html#the-website-build" shape="rect">
 	Building and updating the FreeBSD Web Pages</a></h2>

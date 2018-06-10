@@ -6,9 +6,25 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="shortcut icon" href="./../favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" media="screen,print" href="./../layout/css/fixed.css" type="text/css" />
-    <script type="text/javascript" src="./../layout/js/google.js"></script>
+    <script> 
+var allow_track = true; var h = document.location.hostname;
+var fbsdregex = /((docs|security|svnweb|wiki|www)\.freebsd\.org|google\.com)$/i;
+
+if (typeof navigator.doNotTrack !== 'undefined' &amp;&amp; (navigator.doNotTrack == '1')) {
+	allow_track = false;
+}
+if (allow_track &amp;&amp; fbsdregex.test(h)) {
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&amp;l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PXRWZVR');}
+</script>
   </head>
   <body>
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PXRWZVR" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
     <div id="containerwrap">
       <div id="container">
         <span class="txtoffscreen"><a href="#content" title="Skip site navigation" accesskey="1">Skip site navigation</a> (1)
@@ -327,6 +343,16 @@
                     <h2>最新新聞</h2>
                     <div class="newseventswrap">
                       <p xmlns="">
+                        <span class="txtdate">2018-06-09</span>
+                        <br />
+                        <a href="news/newsflash.html#event20180609:01">FreeBSD 11.2-RC2 Available<br /></a>
+                      </p>
+                      <p xmlns="">
+                        <span class="txtdate">2018-06-08</span>
+                        <br />
+                        <a href="news/newsflash.html#event20180608:01">Service outage<br /></a>
+                      </p>
+                      <p xmlns="">
                         <span class="txtdate">2018-06-02</span>
                         <br />
                         <a href="./news/newsflash.html#event20180602:01">FreeBSD 11.2-RC1 發佈了<br /></a>
@@ -350,18 +376,6 @@
              Leandro Lupori
 	    (src)<br /></a>
                       </p>
-                      <p xmlns="">
-                        <span class="txtdate">2018-05-19</span>
-                        <br />
-                        <a href="./news/newsflash.html#event20180519:01">FreeBSD 11.2-BETA2 發佈了<br /></a>
-                      </p>
-                      <p xmlns="">
-                        <span class="txtdate">2018-05-15</span>
-                        <br />
-                        <a href="./news/newsflash.html#event20180515:01">新任 committer:
-             Gleb Popov
-	    (ports)<br /></a>
-                      </p>
                       <div>
                         <ul class="newseventslist">
                           <li class="first-child">
@@ -384,13 +398,6 @@
                   <div id="fronteventscontent" class="txtnewsevent">
                     <h2>近期活動</h2>
                     <div class="newseventswrap">
-                      <p xmlns="">
-                        <span class="txtdate">2018-06-06 -  2018-06-09</span>
-                        <br />
-                        <a href="./../events/#event:2">BSDCan 2018<br />
-	  (Ottawa, Canada)
-	</a>
-                      </p>
                       <p xmlns="">
                         <span class="txtdate">2018-09-20 -  2018-09-23</span>
                         <br />
