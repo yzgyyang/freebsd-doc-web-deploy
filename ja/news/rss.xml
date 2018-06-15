@@ -16,6 +16,13 @@
     </image>
     <atom:link href="http://www.FreeBSD.org/ja/news/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>FreeBSD〓11.2-RC2 公開</title>
+      <description>FreeBSD〓11.2 リリースサイクルから 2 回目のリリース候補版が公開されました (アナウンス)。 FreeBSD ミラーサイト から amd64, armv6, arm64, i386, powerpc, powerpc64 および sparc64 アーキテクチャの ISO イメージを入手できます。</description>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180609:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180609:01</guid>
+      <pubDate>Sat, 9 Jun 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
       <title>サービス停止のお知らせ</title>
       <description>6 月 9 日 (土) に、FreeBSD クラスタの一部が、 電気工事の保守時間延長のためオフラインになります。 特にメーリングリストのトラフィックおよびウェブサービスの一部が影響を受けます。</description>
       <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180608:01</link>
@@ -73,12 +80,6 @@
       <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180417:01</link>
       <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180417:01</guid>
       <pubDate>Tue, 17 Apr 2018 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>新コミッタ就任: Tom Jones (src)</title>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180407:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180407:01</guid>
-      <pubDate>Sat, 7 Apr 2018 00:00:00 PST</pubDate>
     </item>
   </channel>
 </rss>
