@@ -6,6 +6,10 @@
     <description>News from the FreeBSD Project</description>
   </channel>
   <item>
+    <title>FreeBSD¢®11.2-RC3 Available</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20180616:01</link>
+  </item>
+  <item>
     <title>FreeBSD¢®11.2-RC2 Available</title>
     <link>https://www.FreeBSD.org/news/newsflash.html#event20180609:01</link>
   </item>
@@ -40,9 +44,5 @@
   <item>
     <title>FreeBSD¢®11.2-BETA1 Available</title>
     <link>https://www.FreeBSD.org/news/newsflash.html#event20180512:01</link>
-  </item>
-  <item>
-    <title>New commiter: Sean Eric Fagan (src)</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20180417:01</link>
   </item>
 </rdf:RDF>
