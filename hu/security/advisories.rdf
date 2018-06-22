@@ -7,6 +7,10 @@
 	biztonsági figyelmeztetések</description>
   </channel>
   <item>
+    <title>FreeBSD-SA-18:07.lazyfpu</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-18:07.lazyfpu.asc</link>
+  </item>
+  <item>
     <title>FreeBSD-SA-18:06.debugreg</title>
     <link>//security.FreeBSD.org/advisories/FreeBSD-SA-18:06.debugreg.asc</link>
   </item>
@@ -41,9 +45,5 @@
   <item>
     <title>FreeBSD-SA-17:10.kldstat</title>
     <link>//security.FreeBSD.org/advisories/FreeBSD-SA-17:10.kldstat.asc</link>
-  </item>
-  <item>
-    <title>FreeBSD-SA-17:09.shm</title>
-    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-17:09.shm.asc</link>
   </item>
 </rdf:RDF>

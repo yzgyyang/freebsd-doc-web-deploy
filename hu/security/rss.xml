@@ -17,6 +17,12 @@
     </image>
     <atom:link xmlns="http://www.w3.org/1999/xhtml" rel="self" type="application/rss+xml" href="http://www.FreeBSD.org/security/rss.xml"/>
     <item>
+      <title>FreeBSD-SA-18:07.lazyfpu</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:07.lazyfpu.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:07.lazyfpu.asc</guid>
+      <pubDate>2018 jún 21 00:00:00 CET, Thu</pubDate>
+    </item>
+    <item>
       <title>FreeBSD-SA-18:06.debugreg</title>
       <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:06.debugreg.asc</link>
       <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:06.debugreg.asc</guid>
@@ -68,12 +74,6 @@
       <title>FreeBSD-SA-17:10.kldstat</title>
       <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:10.kldstat.asc</link>
       <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:10.kldstat.asc</guid>
-      <pubDate>2017 nov 15 00:00:00 CET, Wed</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-SA-17:09.shm</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:09.shm.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:09.shm.asc</guid>
       <pubDate>2017 nov 15 00:00:00 CET, Wed</pubDate>
     </item>
   </channel>
