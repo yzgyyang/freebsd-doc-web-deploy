@@ -16,6 +16,13 @@
     </image>
     <atom:link href="http://www.FreeBSD.org/ja/news/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>ナショナル FreeBSD デー: 本日 FreeBSD は 25 歳を迎えました!</title>
+      <description>1993 年 6 月 19 日は、FreeBSD という名前が公式的につけられた日です。 この重要な日を一緒にお祝いする方法については、 こちら をご覧ください。</description>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180619:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180619:01</guid>
+      <pubDate>Tue, 19 Jun 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
       <title>FreeBSD〓11.2-RC3 公開</title>
       <description>FreeBSD〓11.2 リリースサイクルから 3 回目のリリース候補版が公開されました (アナウンス)。 FreeBSD ミラーサイト から amd64, armv6, arm64, i386, powerpc, powerpc64 および sparc64 アーキテクチャの ISO イメージを入手できます。</description>
       <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180616:01</link>
@@ -74,13 +81,6 @@
       <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180515:01</link>
       <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180515:01</guid>
       <pubDate>Tue, 15 May 2018 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD〓11.2-BETA1 公開</title>
-      <description>FreeBSD〓11.2 リリースサイクルから最初の BETA ビルドが公開されました (アナウンス)。 FreeBSD ミラーサイト から amd64, armv6, arm64, i386, powerpc, powerpc64 および sparc64 アーキテクチャの ISO イメージを入手できます。</description>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180512:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180512:01</guid>
-      <pubDate>Sat, 12 May 2018 00:00:00 PST</pubDate>
     </item>
   </channel>
 </rss>
