@@ -6,6 +6,10 @@
     <description>News from the FreeBSD Project</description>
   </channel>
   <item>
+    <title>FreeBSD¢®11.2-RELEASE Available</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20180627:01</link>
+  </item>
+  <item>
     <title>National FreeBSD Day: FreeBSD is 25 years old today!</title>
     <link>https://www.FreeBSD.org/news/newsflash.html#event20180619:01</link>
   </item>
@@ -40,9 +44,5 @@
   <item>
     <title>FreeBSD¢®11.2-BETA2 Available</title>
     <link>https://www.FreeBSD.org/news/newsflash.html#event20180519:01</link>
-  </item>
-  <item>
-    <title>New committer: Gleb Popov (ports)</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20180515:01</link>
   </item>
 </rdf:RDF>
