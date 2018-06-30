@@ -16,6 +16,13 @@
     </image>
     <atom:link href="http://www.FreeBSD.org/ja/news/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>FreeBSD〓11.2-RELEASE 公開</title>
+      <description>FreeBSD 11.2-RELEASE が公開されました。 インストール前に リリースノート および リリース Errata を読み、11.2 に関する最新情報や問題点などを確認してください。 FreeBSD のリリースに関するより詳しい情報については リリース情報 をご覧ください。</description>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180627:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180627:01</guid>
+      <pubDate>Wed, 27 Jun 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
       <title>ナショナル FreeBSD デー: 本日 FreeBSD は 25 歳を迎えました!</title>
       <description>1993 年 6 月 19 日は、FreeBSD という名前が公式的につけられた日です。 この重要な日を一緒にお祝いする方法については、 こちら をご覧ください。</description>
       <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180619:01</link>
@@ -75,12 +82,6 @@
       <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180519:01</link>
       <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180519:01</guid>
       <pubDate>Sat, 19 May 2018 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>新コミッタ就任: Gleb Popov (ports)</title>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180515:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180515:01</guid>
-      <pubDate>Tue, 15 May 2018 00:00:00 PST</pubDate>
     </item>
   </channel>
 </rss>
