@@ -2,7 +2,7 @@
 
   The FreeBSD Project
 
-   Copyright (c) 2000-2017 The FreeBSD Documentation Project
+   Copyright (c) 2000-2018 The FreeBSD Documentation Project
 
    FreeBSD is a registered trademark of the FreeBSD Foundation.
 
@@ -25,7 +25,7 @@
    claim, the designations have been followed by the "(TM)" or the "(R)"
    symbol.
 
-   Last modified on 2018-07-10 16:41:45 -0400 by Guangyuan Yang.
+   Last modified on 2018-07-12 14:54:51 +0000 by rcyu.
    Abstract
 
    This document gives a brief introduction to FreeBSD 12.0-CURRENT. It

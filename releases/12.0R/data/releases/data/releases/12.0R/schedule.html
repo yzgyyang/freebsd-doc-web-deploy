@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:db="http://docbook.org/ns/docbook">
   <head>
-    <title>FreeBSD 12.0 Release Information</title>
+    <title>FreeBSD 12.0 Release Process</title>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" media="screen,print" href="../../layout/css/fixed.css?20130112" type="text/css" />
@@ -170,6 +170,9 @@
                   <li>
                     <a href="https://wiki.FreeBSD.org">Wiki</a>
                   </li>
+                  <li>
+                    <a href="https://ci.FreeBSD.org">Continuous Integration Service</a>
+                  </li>
                 </ul>
               </li>
             </ul>
@@ -233,31 +236,198 @@
               </ul>
             </div>
           </div>
-          <div id="contentwrap"><h1>FreeBSD 12.0 Release Information</h1>
+          <div id="contentwrap"><h1>FreeBSD 12.0 Release Process</h1>
 
     <h1>Introduction</h1>
 
-    <p>This is the index page for FreeBSD 12.0.  For more
-      information about the release engineering process, please see
-      the <a href="../../releng/index.html" shape="rect">Release Engineering</a>
-      section of the web site.</p>
+    <p>This is the release schedule for FreeBSD 12.0.  For
+      more information about the release engineering process, please
+      see the <a href="../../releng/index.html" shape="rect">Release
+	Engineering</a> section of the web site.</p>
 
-    <h1>Detailed Information</h1>
+    <p>General discussions about the pending release and known issues
+      should be sent to the public <a href="mailto:FreeBSD-current@FreeBSD.org" shape="rect">freebsd-current</a>
+      mailing list.  <a href="../../doc/en_US.ISO8859-1/books/handbook/freebsd-glossary.html#mfc-glossary" shape="rect">MFC</a>
+      requests should be sent to <a href="mailto:re@FreeBSD.org" shape="rect">re@FreeBSD.org</a>.</p>
 
-    <p>More detailed information, such as release notes and hardware
-      notes can be found at these pages:</p>
+    
+    
+
+    <h1>Schedule</h1>
+
+    <p>During the head freeze, the Release Engineering
+      Team may create ALPHA snapshots to publish for testing purposes.
+      As the frequency and total number of the ALPHA snapshots will
+      depend on the length of time the head branch is
+      frozen, no official schedule is provided.</p>
+
+    <p>Announcements regarding the availability of the ALPHA snapshots
+      will be sent to the <a href="mailto:freebsd-current@FreeBSD.org" shape="rect">freebsd-current</a>
+      and <a href="mailto:freebsd-snapshots@FreeBSD.org" shape="rect">freebsd-snapshots</a>
+      mailing lists.</p>
+
+    <table class="tblbasic">
+      <tr class="heading">
+	<td rowspan="1" colspan="1">Action</td>
+	<td rowspan="1" colspan="1">Expected</td>
+	<td rowspan="1" colspan="1">Actual</td>
+	<td rowspan="1" colspan="1">Description</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Initial release schedule announcement</td>
+	<td rowspan="1" colspan="1">-</td>
+	<td rowspan="1" colspan="1">24 April 2018</td>
+	<td rowspan="1" colspan="1">Release Engineers send announcement email to developers
+	  with a rough schedule.</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Release schedule reminder</td>
+	<td rowspan="1" colspan="1">6 July 2018</td>
+	<td rowspan="1" colspan="1">11 July 2018</td>
+	<td rowspan="1" colspan="1">Release Engineers send reminder announcement e-mail to
+	  developers with updated schedule.</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Code slush begins</td>
+	<td rowspan="1" colspan="1">10 August 2018</td>
+	<td rowspan="1" colspan="1">-</td>
+	<td rowspan="1" colspan="1">Release Engineers announce that all further commits to the
+	  head branch will not require explicit
+	  approval, however new features should be avoided.</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Code freeze begins</td>
+	<td rowspan="1" colspan="1">24 August 2018</td>
+	<td rowspan="1" colspan="1">-</td>
+	<td rowspan="1" colspan="1">Release Engineers announce that all further commits to the
+	  head branch will require explicit approval.
+	  Certain blanket approvals will be granted for narrow areas
+	  of development, documentation improvements, etc.</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">KBI freeze begins</td>
+	<td rowspan="1" colspan="1">7 September 2018</td>
+	<td rowspan="1" colspan="1">-</td>
+	<td rowspan="1" colspan="1">Release Engineers announce that all further commits to the
+	  head branch will require explicit approval.
+	  Additionally, there can be no changes to the KBI until
+	  head is branched to
+	  stable/12.</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">stable/12 branch</td>
+	<td rowspan="1" colspan="1">21 September 2018</td>
+	<td rowspan="1" colspan="1">-</td>
+	<td rowspan="1" colspan="1">Subversion branch created; release engineering continues
+	  on this branch.</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">BETA1 builds begin</td>
+	<td rowspan="1" colspan="1">21 September 2018</td>
+	<td rowspan="1" colspan="1">-</td>
+	<td rowspan="1" colspan="1">First beta test snapshot.</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">head thaw</td>
+	<td rowspan="1" colspan="1">23 September 2018</td>
+	<td rowspan="1" colspan="1">-</td>
+	<td rowspan="1" colspan="1">The code freeze on the head branch
+	  is lifted.</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">BETA2 builds begin</td>
+	<td rowspan="1" colspan="1">28 September 2018</td>
+	<td rowspan="1" colspan="1">-</td>
+	<td rowspan="1" colspan="1">Second beta test snapshot.</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">BETA3 builds begin *</td>
+	<td rowspan="1" colspan="1">5 October 2018</td>
+	<td rowspan="1" colspan="1">-</td>
+	<td rowspan="1" colspan="1">Third beta test snapshot.</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">releng/12.0 branch</td>
+	<td rowspan="1" colspan="1">12 October 2018</td>
+	<td rowspan="1" colspan="1">-</td>
+	<td rowspan="1" colspan="1">Subversion branch created; future release engineering
+	  proceeds on this branch.</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">RC1 builds begin</td>
+	<td rowspan="1" colspan="1">12 October 2018</td>
+	<td rowspan="1" colspan="1">-</td>
+	<td rowspan="1" colspan="1">First release candidate.</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">stable/12 thaw</td>
+	<td rowspan="1" colspan="1">14 October 2018</td>
+	<td rowspan="1" colspan="1">-</td>
+	<td rowspan="1" colspan="1">The code freeze on the stable/12 branch
+	  is lifted.</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">RC2 builds begin</td>
+	<td rowspan="1" colspan="1">19 October 2018</td>
+	<td rowspan="1" colspan="1">-</td>
+	<td rowspan="1" colspan="1">Second release candidate.</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">RC3 builds begin *</td>
+	<td rowspan="1" colspan="1">26 October 2018</td>
+	<td rowspan="1" colspan="1">-</td>
+	<td rowspan="1" colspan="1">Third release candidate.</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">RELEASE builds begin</td>
+	<td rowspan="1" colspan="1">2 November 2018</td>
+	<td rowspan="1" colspan="1">-</td>
+	<td rowspan="1" colspan="1">12.0-RELEASE builds begin.</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">RELEASE announcement</td>
+	<td rowspan="1" colspan="1">6 November 2018</td>
+	<td rowspan="1" colspan="1">-</td>
+	<td rowspan="1" colspan="1">12.0-RELEASE press release.</td>
+      </tr>
+
+      <tr>
+	<td rowspan="1" colspan="1">Turn over to the secteam</td>
+	<td rowspan="1" colspan="1">-</td>
+	<td rowspan="1" colspan="1">-</td>
+	<td rowspan="1" colspan="1">releng/12.0 branch is handed over to the
+	  FreeBSD Security Officer Team in one or two weeks after
+	  the announcement.</td>
+      </tr>
+    </table>
+
+    <p>"*" indicates "as-needed" items.</p>
 
     
 
-    <a href="../../releases/12.0R/relnotes.html" shape="rect">FreeBSD 12.0-RELEASE release notes</a><br clear="none" />
+    <h1>Additional Information</h1>
 
-    
-
-    <a href="../../releases/12.0R/readme.html" shape="rect">FreeBSD 12.0-RELEASE readme</a><br clear="none" />
-
-    
-
-    <a href="../../releases/12.0R/schedule.html" shape="rect">FreeBSD 12.0-RELEASE schedule</a><br clear="none" />
+    <ul>
+      <li><a href="../../releng/index.html" shape="rect">FreeBSD Release
+	  Engineering website</a></li>
+    </ul>
   </div>
           <br class="clearboth" />
         </div>
