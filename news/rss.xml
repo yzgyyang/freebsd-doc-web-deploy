@@ -50,6 +50,12 @@
       <pubDate>Sat, 16 Jun 2018 00:00:00 PST</pubDate>
     </item>
     <item>
+      <title>New committer: Mateusz Piotrowski (ports)</title>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20180616:02</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20180616:02</guid>
+      <pubDate>Sat, 16 Jun 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
       <title>FreeBSD 11.2-RC2 Available</title>
       <description>The second RC build for the FreeBSD 11.2 release cycle is now available. ISO images for the amd64, armv6, arm64, i386, powerpc, powerpc64 and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
       <link>https://www.FreeBSD.org/news/newsflash.html#event20180609:01</link>
@@ -76,12 +82,6 @@
       <link>https://www.FreeBSD.org/news/newsflash.html#event20180526:01</link>
       <guid>https://www.FreeBSD.org/news/newsflash.html#event20180526:01</guid>
       <pubDate>Sat, 26 May 2018 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>New committer: Breno Leitao (src)</title>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20180522:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20180522:01</guid>
-      <pubDate>Tue, 22 May 2018 00:00:00 PST</pubDate>
     </item>
   </channel>
 </rss>
