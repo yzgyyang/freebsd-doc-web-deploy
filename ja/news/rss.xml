@@ -16,6 +16,12 @@
     </image>
     <atom:link href="http://www.FreeBSD.org/ja/news/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>新コミッタ就任: John Hixson (ports)</title>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180716:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180716:01</guid>
+      <pubDate>Mon, 16 Jul 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
       <title>新しい FreeBSD コアチームが選出されました</title>
       <description>10 回目の FreeBSD コアチームの選挙がアクティブなコミッタにより行われました。 詳細については、公式アナウンス をご覧ください。</description>
       <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180704:01</link>
@@ -75,13 +81,6 @@
       <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180602:01</link>
       <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180602:01</guid>
       <pubDate>Sat, 2 Jun 2018 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD〓11.2-BETA3 公開</title>
-      <description>FreeBSD〓11.2 リリースサイクルから 3 回目の BETA ビルドが公開されました (アナウンス)。 FreeBSD ミラーサイト から amd64, armv6, arm64, i386, powerpc, powerpc64 および sparc64 アーキテクチャの ISO イメージを入手できます。</description>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180526:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180526:01</guid>
-      <pubDate>Sat, 26 May 2018 00:00:00 PST</pubDate>
     </item>
   </channel>
 </rss>

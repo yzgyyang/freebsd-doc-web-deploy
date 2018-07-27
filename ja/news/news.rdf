@@ -6,6 +6,10 @@
     <description>News from the FreeBSD Project</description>
   </channel>
   <item>
+    <title>New committer: John Hixson (ports)</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20180716:01</link>
+  </item>
+  <item>
     <title>New FreeBSD Core Team Elected</title>
     <link>https://www.FreeBSD.org/news/newsflash.html#event20180704:01</link>
   </item>
@@ -40,9 +44,5 @@
   <item>
     <title>FreeBSD¢®11.2-RC1 Available</title>
     <link>https://www.FreeBSD.org/news/newsflash.html#event20180602:01</link>
-  </item>
-  <item>
-    <title>FreeBSD¢®11.2-BETA3 Available</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20180526:01</link>
   </item>
 </rdf:RDF>
