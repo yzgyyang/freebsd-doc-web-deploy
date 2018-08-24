@@ -159,6 +159,7 @@ $sectionpath = {
     'OpenBSD 6.0' => { 'path' => '1:2:3:3p:4:5:6:7:8:9', },
     'OpenBSD 6.1' => { 'path' => '1:2:3:3p:4:5:6:7:8:9', },
     'OpenBSD 6.2' => { 'path' => '1:2:3:3p:4:5:6:7:8:9', },
+    'OpenBSD 6.3' => { 'path' => '1:2:3:3p:4:5:6:7:8:9', },
 
     'CentOS Linux/i386 3.9' => { 'path' => '1:2:3:3p:4:5:6:7:8:9:n', },
     'CentOS Linux/i386 4.8' => { 'path' => '1:1p:2:3:3p:4:5:6:7:8:9:n:0p', },
@@ -298,8 +299,6 @@ $manPathDefault = 'FreeBSD 11.2-RELEASE and Ports';
 
     'FreeBSD 9.3-RELEASE',
 "$manLocalDir/FreeBSD-9.3-RELEASE/man:$manLocalDir/FreeBSD-9.3-RELEASE/openssl/man",
-    'FreeBSD 9.3-stable',
-"$manLocalDir/FreeBSD-9.3-stable/man:$manLocalDir/FreeBSD-9.3-stable/openssl/man",
     'FreeBSD 9.2-RELEASE',
 "$manLocalDir/FreeBSD-9.2-RELEASE/man:$manLocalDir/FreeBSD-9.2-RELEASE/openssl/man",
     'FreeBSD 9.1-RELEASE',
@@ -307,9 +306,6 @@ $manPathDefault = 'FreeBSD 11.2-RELEASE and Ports';
     'FreeBSD 9.0-RELEASE',
 "$manLocalDir/FreeBSD-9.0-RELEASE/man:$manLocalDir/FreeBSD-9.0-RELEASE/openssl/man",
 
-
-    'FreeBSD 8.4-stable',
-"$manLocalDir/FreeBSD-8.4-stable/man:$manLocalDir/FreeBSD-8.4-stable/openssl/man",
     'FreeBSD 8.4-RELEASE',
 "$manLocalDir/FreeBSD-8.4-RELEASE/man:$manLocalDir/FreeBSD-8.4-RELEASE/openssl/man",
     'FreeBSD 8.3-RELEASE',
@@ -421,8 +417,6 @@ $manPathDefault = 'FreeBSD 11.2-RELEASE and Ports';
     'FreeBSD 7.0-RELEASE',
 "$manLocalDir/FreeBSD-7.0-RELEASE/man:$manLocalDir/FreeBSD-7.0-RELEASE/openssl/man",
 
-    'FreeBSD 6.4-stable', 
-"$manLocalDir/FreeBSD-6.4-stable/man:$manLocalDir/FreeBSD-6.4-stable/openssl/man",
     'FreeBSD 6.4-RELEASE',
 "$manLocalDir/FreeBSD-6.4-RELEASE/man:$manLocalDir/FreeBSD-6.4-RELEASE/openssl/man",
     'FreeBSD 6.3-RELEASE',
@@ -536,6 +530,7 @@ $manPathDefault = 'FreeBSD 11.2-RELEASE and Ports';
     'OpenBSD 6.0', "$manLocalDir/OpenBSD-6.0",
     'OpenBSD 6.1', "$manLocalDir/OpenBSD-6.1",
     'OpenBSD 6.2', "$manLocalDir/OpenBSD-6.2",
+    'OpenBSD 6.3', "$manLocalDir/OpenBSD-6.3",
 
     #'NetBSD 0.9',            "$manLocalDir/NetBSD-0.9",
     'NetBSD 1.0',   "$manLocalDir/NetBSD-1.0",
@@ -570,6 +565,7 @@ $manPathDefault = 'FreeBSD 11.2-RELEASE and Ports';
     'NetBSD 6.1.5', "$manLocalDir/NetBSD-6.1.5",
     'NetBSD 7.0',   "$manLocalDir/NetBSD-7.0",
     'NetBSD 7.1',   "$manLocalDir/NetBSD-7.1",
+    'NetBSD 8.0',   "$manLocalDir/NetBSD-8.0",
 
     '2.8 BSD',      "$manLocalDir/2.8BSD",
     '2.9.1 BSD',    "$manLocalDir/2.9.1BSD",
@@ -777,6 +773,7 @@ my %arch = (
 'NetBSD 6.1.5' => { 'arch' => [qw/acorn26 acorn32 algor alpha amd64 amiga arc atari bebox cats cesfic cobalt dreamcast emips evbarm evbmips evbppc evbsh3 hp300 hp700 hpcarm hpcmips hpcsh i386 ibmnws luna68k mac68k macppc mipsco mmeye mvme68k mvmeppc netwinder news68k newsmips next68k ofppc pmax prep sandpoint sbmips sgimips shark sparc sparc64 sun2 sun3 vax x68k x86/] } ,
 'NetBSD 7.0' => { 'arch' => [qw/acorn26 acorn32 algor alpha amd64 amiga arc atari bebox cats cesfic cobalt dreamcast emips evbarm evbmips evbppc evbsh3 hp300 hp700 hpcarm hpcmips hpcsh i386 ibmnws luna68k mac68k macppc mipsco mmeye mvme68k mvmeppc netwinder news68k newsmips next68k ofppc pmax prep sandpoint sbmips sgimips shark sparc sparc64 sun2 sun3 vax x68k x86/] } ,
 'NetBSD 7.1' => { 'arch' => [qw/acorn26 acorn32 algor alpha amd64 amiga arc atari bebox cats cesfic cobalt dreamcast emips evbarm evbmips evbppc evbsh3 hp300 hpcarm hpcmips hpcsh hppa i386 ibmnws luna68k mac68k macppc mipsco mmeye mvme68k mvmeppc netwinder news68k newsmips next68k ofppc playstation2 pmax prep sandpoint sbmips sgimips shark sparc sparc64 sun2 sun3 vax x68k x86/] } ,
+'NetBSD 8.0' => { 'arch' => [qw/acorn26 acorn32 algor alpha amd64 amiga arc atari bebox cats cesfic cobalt dreamcast emips evbarm evbmips evbppc evbsh3 hp300 hpcarm hpcmips hpcsh hppa i386 ibmnws luna68k mac68k macppc mipsco mmeye mvme68k mvmeppc netwinder news68k newsmips next68k ofppc playstation2 pmax prep sandpoint sbmips sgimips shark sparc sparc64 sun2 sun3 vax x68k x86/] } ,
 'OpenBSD 4.7' => { 'arch' => [qw/alpha amd64 armish aviion hp300 hppa hppa64 i386 landisk loongson luna88k mac68k macppc mvme68k mvme88k mvmeppc palm sgi socppc sparc sparc64 vax zaurus/] }, 
 'OpenBSD 4.8' => { 'arch' => [qw/alpha amd64 armish aviion hp300 hppa hppa64 i386 landisk loongson luna88k mac68k macppc mvme68k mvme88k mvmeppc palm sgi socppc sparc sparc64 vax zaurus/] }, 
 'OpenBSD 4.9' => { 'arch' => [qw/alpha amd64 armish aviion hp300 hppa hppa64 i386 landisk loongson luna88k mac68k macppc mvme68k mvme88k mvmeppc palm sgi socppc sparc sparc64 vax zaurus/] }, 
@@ -793,6 +790,7 @@ my %arch = (
 'OpenBSD 6.0' => { 'arch' => [qw/alpha amd64 armish armv7 hppa i386 landisk loongson luna88k macppc octeon sgi socppc sparc sparc64 zaurus/] }, 
 'OpenBSD 6.1' => { 'arch' => [qw/alpha amd64 armv7 hppa i386 landisk loongson luna88k macppc octeon sgi socppc sparc64/] }, 
 'OpenBSD 6.2' => { 'arch' => [qw/alpha amd64 armv7 hppa i386 landisk loongson luna88k macppc octeon sgi socppc sparc64/] }, 
+'OpenBSD 6.3' => { 'arch' => [qw/alpha amd64 armv7 hppa i386 landisk loongson luna88k macppc octeon sgi socppc sparc64/] }, 
 );
 
 # delete not existing releases
@@ -818,12 +816,7 @@ while ( ( $key, $val ) = each %manPath ) {
 
     'freebsd-stable', 'FreeBSD 11.2-stable',
     'freebsd-stable11', 'FreeBSD 11.2-stable',
-
     'freebsd-stable10', 'FreeBSD 10.4-stable',
-    'freebsd-stable9', 'FreeBSD 9.3-stable',
-    'freebsd-stable8', 'FreeBSD 8.4-stable',
-    'freebsd-stable7', 'FreeBSD 7.4-stable',
-    'freebsd-stable6', 'FreeBSD 6.4-stable',
 
     'freebsd-current',       'FreeBSD 12-current',
     'freebsd-release-ports', 'FreeBSD 11.2-RELEASE and Ports',
@@ -839,8 +832,8 @@ while ( ( $key, $val ) = each %manPath ) {
     'opendarwin', 'OpenDarwin 7.2.1',
     'macosx',     'Darwin 8.0.1/ppc',
 
-    'netbsd',        'NetBSD 7.1',
-    'openbsd',       'OpenBSD 6.2',
+    'netbsd',        'NetBSD 8.0',
+    'openbsd',       'OpenBSD 6.3',
     'v7',            'Unix Seventh Edition',
     'v7man',         'Unix Seventh Edition',
     'x11',           'X11R7.4',

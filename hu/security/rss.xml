@@ -17,6 +17,30 @@
     </image>
     <atom:link xmlns="http://www.w3.org/1999/xhtml" rel="self" type="application/rss+xml" href="http://www.FreeBSD.org/security/rss.xml"/>
     <item>
+      <title>FreeBSD-SA-18:11.hostapd</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:11.hostapd.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:11.hostapd.asc</guid>
+      <pubDate>2018 aug 14 00:00:00 CET, Tue</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-SA-18:10.ip</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:10.ip.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:10.ip.asc</guid>
+      <pubDate>2018 aug 14 00:00:00 CET, Tue</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-SA-18:09.l1tf</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:09.l1tf.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:09.l1tf.asc</guid>
+      <pubDate>2018 aug 14 00:00:00 CET, Tue</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-SA-18:08.tcp</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:08.tcp.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:08.tcp.asc</guid>
+      <pubDate>2018 aug 6 00:00:00 CET, Mon</pubDate>
+    </item>
+    <item>
       <title>FreeBSD-SA-18:07.lazyfpu</title>
       <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:07.lazyfpu.asc</link>
       <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:07.lazyfpu.asc</guid>
@@ -51,30 +75,6 @@
       <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:02.ntp.asc</link>
       <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:02.ntp.asc</guid>
       <pubDate>2018 már 7 00:00:00 CET, Wed</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-SA-18:01.ipsec</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:01.ipsec.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:01.ipsec.asc</guid>
-      <pubDate>2018 már 7 00:00:00 CET, Wed</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-SA-17:12.openssl</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:12.openssl.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:12.openssl.asc</guid>
-      <pubDate>2017 dec 09 00:00:00 CET, Sat</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-SA-17:11.openssl</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:11.openssl.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:11.openssl.asc</guid>
-      <pubDate>2017 nov 29 00:00:00 CET, Wed</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-SA-17:10.kldstat</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:10.kldstat.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-17:10.kldstat.asc</guid>
-      <pubDate>2017 nov 15 00:00:00 CET, Wed</pubDate>
     </item>
   </channel>
 </rss>

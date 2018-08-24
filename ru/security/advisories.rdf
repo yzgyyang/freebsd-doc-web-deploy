@@ -6,6 +6,22 @@
     <description>Security advisories published from the FreeBSD Project</description>
   </channel>
   <item>
+    <title>FreeBSD-SA-18:11.hostapd</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-18:11.hostapd.asc</link>
+  </item>
+  <item>
+    <title>FreeBSD-SA-18:10.ip</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-18:10.ip.asc</link>
+  </item>
+  <item>
+    <title>FreeBSD-SA-18:09.l1tf</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-18:09.l1tf.asc</link>
+  </item>
+  <item>
+    <title>FreeBSD-SA-18:08.tcp</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-18:08.tcp.asc</link>
+  </item>
+  <item>
     <title>FreeBSD-SA-18:07.lazyfpu</title>
     <link>//security.FreeBSD.org/advisories/FreeBSD-SA-18:07.lazyfpu.asc</link>
   </item>
@@ -28,21 +44,5 @@
   <item>
     <title>FreeBSD-SA-18:02.ntp</title>
     <link>//security.FreeBSD.org/advisories/FreeBSD-SA-18:02.ntp.asc</link>
-  </item>
-  <item>
-    <title>FreeBSD-SA-18:01.ipsec</title>
-    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-18:01.ipsec.asc</link>
-  </item>
-  <item>
-    <title>FreeBSD-SA-17:12.openssl</title>
-    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-17:12.openssl.asc</link>
-  </item>
-  <item>
-    <title>FreeBSD-SA-17:11.openssl</title>
-    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-17:11.openssl.asc</link>
-  </item>
-  <item>
-    <title>FreeBSD-SA-17:10.kldstat</title>
-    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-17:10.kldstat.asc</link>
   </item>
 </rdf:RDF>

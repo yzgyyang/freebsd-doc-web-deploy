@@ -6,6 +6,10 @@
     <description>News from the FreeBSD Project</description>
   </channel>
   <item>
+    <title>Enhanced commit privileges: Li-Wen Hsu (ports, src)</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20180809:01</link>
+  </item>
+  <item>
     <title>New committer: John Hixson (ports)</title>
     <link>https://www.FreeBSD.org/news/newsflash.html#event20180716:01</link>
   </item>
@@ -40,9 +44,5 @@
   <item>
     <title>Service outage</title>
     <link>https://www.FreeBSD.org/news/newsflash.html#event20180608:01</link>
-  </item>
-  <item>
-    <title>FreeBSD 11.2-RC1 Available</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20180602:01</link>
   </item>
 </rdf:RDF>

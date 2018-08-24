@@ -39,7 +39,7 @@
    claim, the designations have been followed by the "(TM)" or the "(R)"
    symbol.
 
-   Last modified on 2018-07-27 13:40:20 -0400 by Guangyuan Yang.
+   Last modified on 2018-08-24 17:42:55 +0800 by Guangyuan Yang.
 
      ----------------------------------------------------------------------
 
@@ -4634,6 +4634,8 @@
      * Audiotrak Prodigy HD2
 
      * ESI Juli@
+
+     * ESI Juli@ XTe
 
      * M-Audio Audiophile 192
 

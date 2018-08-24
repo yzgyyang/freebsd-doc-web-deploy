@@ -16,15 +16,6 @@
     </image>
     <atom:link rel="self" type="application/rss+xml" href="https://www.FreeBSD.org/events/rss.xml"/>
     <item>
-      <title>Essen Hackathon 2018</title>
-      <description>Essen Hackathon 2018 (https://wiki.freebsd.org/DevSummit/201808Hackathon), Linuxhotel Villa Vogelsang, Essen, Germany 10 - 12 August, 2018. A weekend hackathon at the Linuxhotel in Essen,
-      Germany. A great opportunity to fix bugs, commit code, tinker
-      with devices, discuss new ideas, try out new things, and improve
-      FreeBSD.</description>
-      <link>https://wiki.freebsd.org/DevSummit/201808Hackathon</link>
-      <guid>https://wiki.freebsd.org/DevSummit/201808Hackathon</guid>
-    </item>
-    <item>
       <title>EuroBSDcon 2018</title>
       <description>EuroBSDcon 2018 (https://2018.eurobsdcon.org), University Politehnica of Bucharest, Bucharest, Romania 20 - 23 September, 2018. EuroBSDcon is the European annual technical
       conference gathering users and developers working on and with
