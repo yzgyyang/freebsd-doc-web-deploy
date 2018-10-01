@@ -16,6 +16,12 @@
     </image>
     <atom:link rel="self" type="application/rss+xml" href="https://www.FreeBSD.org/security/rss.xml"/>
     <item>
+      <title>FreeBSD-SA-18:12.elf</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:12.elf.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:12.elf.asc</guid>
+      <pubDate>Wed, 12 Sep 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
       <title>FreeBSD-SA-18:11.hostapd</title>
       <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:11.hostapd.asc</link>
       <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:11.hostapd.asc</guid>
@@ -68,12 +74,6 @@
       <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:03.speculative_execution.asc</link>
       <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:03.speculative_execution.asc</guid>
       <pubDate>Wed, 14 Mar 2018 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-SA-18:02.ntp</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:02.ntp.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-18:02.ntp.asc</guid>
-      <pubDate>Wed, 7 Mar 2018 00:00:00 PST</pubDate>
     </item>
   </channel>
 </rss>

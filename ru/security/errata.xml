@@ -16,6 +16,36 @@
     </image>
     <atom:link type="application/rss+xml" href="https://www.FreeBSD.org/security/rss.xml"/>
     <item>
+      <title>FreeBSD-EN-18:12.mem</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:12.mem.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:12.mem.asc</guid>
+      <pubDate>Thu, 27 Sep 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-EN-18:11.listen</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:11.listen.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:11.listen.asc</guid>
+      <pubDate>Thu, 27 Sep 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-EN-18:10.syscall</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:10.syscall.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:10.syscall.asc</guid>
+      <pubDate>Thu, 27 Sep 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-EN-18:09.ip</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:09.ip.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:09.ip.asc</guid>
+      <pubDate>Thu, 27 Sep 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-EN-18:08.lazyfpu</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:08.lazyfpu.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:08.lazyfpu.asc</guid>
+      <pubDate>Wed, 12 Sep 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
       <title>FreeBSD-EN-18:07.pmap</title>
       <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:07.pmap.asc</link>
       <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:07.pmap.asc</guid>
@@ -44,36 +74,6 @@
       <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:03.tzdata.asc</link>
       <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:03.tzdata.asc</guid>
       <pubDate>Wed, 4 Apr 2018 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-EN-18:02.file</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:02.file.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:02.file.asc</guid>
-      <pubDate>Wed, 7 Mar 2018 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-EN-18:01.tzdata</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:01.tzdata.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:01.tzdata.asc</guid>
-      <pubDate>Wed, 7 Mar 2018 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-EN-17:09.tzdata</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:09.tzdata.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:09.tzdata.asc</guid>
-      <pubDate>Thu, 2 Nov 2017 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-EN-17:08.pf</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:08.pf.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:08.pf.asc</guid>
-      <pubDate>Thu, 10 Aug 2017 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-EN-17:07.vnet</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:07.vnet.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-17:07.vnet.asc</guid>
-      <pubDate>Thu, 10 Aug 2017 00:00:00 PST</pubDate>
     </item>
   </channel>
 </rss>

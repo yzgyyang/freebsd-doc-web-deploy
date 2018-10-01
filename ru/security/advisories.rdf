@@ -6,6 +6,10 @@
     <description>Security advisories published from the FreeBSD Project</description>
   </channel>
   <item>
+    <title>FreeBSD-SA-18:12.elf</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-18:12.elf.asc</link>
+  </item>
+  <item>
     <title>FreeBSD-SA-18:11.hostapd</title>
     <link>//security.FreeBSD.org/advisories/FreeBSD-SA-18:11.hostapd.asc</link>
   </item>
@@ -40,9 +44,5 @@
   <item>
     <title>FreeBSD-SA-18:03.speculative_execution</title>
     <link>//security.FreeBSD.org/advisories/FreeBSD-SA-18:03.speculative_execution.asc</link>
-  </item>
-  <item>
-    <title>FreeBSD-SA-18:02.ntp</title>
-    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-18:02.ntp.asc</link>
   </item>
 </rdf:RDF>

@@ -16,6 +16,24 @@
     </image>
     <atom:link href="http://www.FreeBSD.org/ja/news/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>新コミッタ就任: Sergey Kozlov (ports)</title>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180921:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180921:01</guid>
+      <pubDate>Fri, 21 Sep 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>新コミッタ就任: Emmanuel Vadot (ports)</title>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180906:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180906:01</guid>
+      <pubDate>Thu, 6 Sep 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>新コミッタ就任: Kevin Bowling (ports)</title>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180902:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180902:01</guid>
+      <pubDate>Sun, 2 Sep 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
       <title>コミット権限の拡大: Li-Wen Hsu (ports, src)</title>
       <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180809:01</link>
       <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180809:01</guid>
@@ -60,26 +78,6 @@
       <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180616:01</link>
       <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180616:01</guid>
       <pubDate>Sat, 16 Jun 2018 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>新コミッタ就任: Mateusz Piotrowski (ports)</title>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180616:02</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180616:02</guid>
-      <pubDate>Sat, 16 Jun 2018 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD〓11.2-RC2 公開</title>
-      <description>FreeBSD〓11.2 リリースサイクルから 2 回目のリリース候補版が公開されました (アナウンス)。 FreeBSD ミラーサイト から amd64, armv6, arm64, i386, powerpc, powerpc64 および sparc64 アーキテクチャの ISO イメージを入手できます。</description>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180609:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180609:01</guid>
-      <pubDate>Sat, 9 Jun 2018 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>サービス停止のお知らせ</title>
-      <description>6 月 9 日 (土) に、FreeBSD クラスタの一部が、 電気工事の保守時間延長のためオフラインになります。 特にメーリングリストのトラフィックおよびウェブサービスの一部が影響を受けます。</description>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180608:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180608:01</guid>
-      <pubDate>Fri, 8 Jun 2018 00:00:00 PST</pubDate>
     </item>
   </channel>
 </rss>

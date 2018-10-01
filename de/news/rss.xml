@@ -16,6 +16,24 @@
     </image>
     <atom:link href="https://www.FreeBSD.org/news/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>New committer: Sergey Kozlov (ports)</title>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20180921:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20180921:01</guid>
+      <pubDate>Fri, 21 Sep 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>New committer: Emmanuel Vadot (ports)</title>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20180906:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20180906:01</guid>
+      <pubDate>Thu, 6 Sep 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>New committer: Kevin Bowling (ports)</title>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20180902:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20180902:01</guid>
+      <pubDate>Sun, 2 Sep 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
       <title>Enhanced commit privileges: Li-Wen Hsu (ports, src)</title>
       <link>https://www.FreeBSD.org/news/newsflash.html#event20180809:01</link>
       <guid>https://www.FreeBSD.org/news/newsflash.html#event20180809:01</guid>
@@ -60,26 +78,6 @@
       <link>https://www.FreeBSD.org/news/newsflash.html#event20180616:01</link>
       <guid>https://www.FreeBSD.org/news/newsflash.html#event20180616:01</guid>
       <pubDate>Sat, 16 Jun 2018 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>New committer: Mateusz Piotrowski (ports)</title>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20180616:02</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20180616:02</guid>
-      <pubDate>Sat, 16 Jun 2018 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD 11.2-RC2 Available</title>
-      <description>The second RC build for the FreeBSD 11.2 release cycle is now available. ISO images for the amd64, armv6, arm64, i386, powerpc, powerpc64 and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20180609:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20180609:01</guid>
-      <pubDate>Sat, 9 Jun 2018 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>Service outage</title>
-      <description>Portions of the FreeBSD cluster will be offline Saturday, June 9th for an extended maintenance window for electrical work. Services will be affected, most notably mailing list traffic and a portion of our web services.</description>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20180608:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20180608:01</guid>
-      <pubDate>Fri, 8 Jun 2018 00:00:00 PST</pubDate>
     </item>
   </channel>
 </rss>
