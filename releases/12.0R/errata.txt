@@ -1,4 +1,4 @@
-                          FreeBSD 12.0-CURRENT Errata
+                          FreeBSD 11.2-RELEASE Errata
 
   The FreeBSD Project
 
@@ -21,10 +21,10 @@
    claim, the designations have been followed by the "(TM)" or the "(R)"
    symbol.
 
-   Last modified on 2018-09-30 21:08:45 -0400 by Guangyuan Yang.
+   Last modified on 2018-11-06 21:55:58 +0000 by rene.
    Abstract
 
-   This document lists errata items for FreeBSD 12.0-CURRENT, containing
+   This document lists errata items for FreeBSD 11.2-RELEASE, containing
    significant information discovered after the release or too late in the
    release cycle to be otherwise included in the release documentation. This
    information includes security advisories, as well as news relating to the
@@ -32,8 +32,8 @@
    up-to-date version of this document should always be consulted before
    installing this version of FreeBSD.
 
-   This errata document for FreeBSD 12.0-CURRENT will be maintained until the
-   release of FreeBSD 12.0-RELEASE.
+   This errata document for FreeBSD 11.2-RELEASE will be maintained until the
+   release of FreeBSD 13.0-RELEASE.
 
      ----------------------------------------------------------------------
 
@@ -52,7 +52,7 @@
 1. Introduction
 
    This errata document contains "late-breaking news" about FreeBSD
-   12.0-CURRENT Before installing this version, it is important to consult
+   11.2-RELEASE Before installing this version, it is important to consult
    this document to learn about any post-release discoveries or problems that
    may already have been found and fixed.
 
@@ -63,7 +63,7 @@
    are located at https://www.FreeBSD.org/releases/, plus any sites which
    keep up-to-date mirrors of this location.
 
-   Source and binary snapshots of FreeBSD 12-CURRENT also contain up-to-date
+   Source and binary snapshots of FreeBSD 12-STABLE also contain up-to-date
    copies of this document (as of the time of the snapshot).
 
    For a list of all FreeBSD CERT security advisories, see

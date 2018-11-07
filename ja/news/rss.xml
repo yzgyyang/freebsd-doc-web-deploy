@@ -16,6 +16,51 @@
     </image>
     <atom:link href="http://www.FreeBSD.org/ja/news/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>FreeBSD〓12.0-BETA3 公開</title>
+      <description>FreeBSD〓12.0 リリースサイクルから 3 回目の BETA ビルドが公開されました (アナウンス)。 FreeBSD ミラーサイト から amd64, armv6, armv7, arm64, i386, powerpc, powerpc64 および sparc64 アーキテクチャの ISO イメージを入手できます。</description>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20181103:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20181103:01</guid>
+      <pubDate>Sat, 3 Nov 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD〓12.0-BETA2 公開</title>
+      <description>FreeBSD〓12.0 リリースサイクルから 2 回目の BETA ビルドが公開されました (アナウンス)。 FreeBSD ミラーサイト から amd64, armv6, armv7, arm64, i386, powerpc, powerpc64, powerpcspe および sparc64 アーキテクチャの ISO イメージを入手できます。</description>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20181027:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20181027:01</guid>
+      <pubDate>Sat, 27 Oct 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD〓12.0-BETA1 公開</title>
+      <description>FreeBSD〓12.0 リリースサイクルから最初の BETA ビルドが公開されました (アナウンス)。 FreeBSD ミラーサイト から amd64, armv6, armv7, arm64, i386, powerpc, powerpc64 および sparc64 アーキテクチャの ISO イメージを入手できます。</description>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20181020:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20181020:01</guid>
+      <pubDate>Sat, 20 Oct 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>新コミッタ就任: Thomas Munro (src)</title>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20181016:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20181016:01</guid>
+      <pubDate>Tue, 16 Oct 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>新コミッタ就任: Yuri Pankov (src)</title>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20181009:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20181009:01</guid>
+      <pubDate>Tue, 9 Oct 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>新コミッタ就任: Vinícius Zavam (ports)</title>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20181008:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20181008:01</guid>
+      <pubDate>Mon, 8 Oct 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>新コミッタ就任: Alexandre C. Guimaraes (ports)</title>
+      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20181001:01</link>
+      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20181001:01</guid>
+      <pubDate>Mon, 1 Oct 2018 00:00:00 PST</pubDate>
+    </item>
+    <item>
       <title>新コミッタ就任: Sergey Kozlov (ports)</title>
       <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180921:01</link>
       <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180921:01</guid>
@@ -32,52 +77,6 @@
       <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180902:01</link>
       <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180902:01</guid>
       <pubDate>Sun, 2 Sep 2018 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>コミット権限の拡大: Li-Wen Hsu (ports, src)</title>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180809:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180809:01</guid>
-      <pubDate>Thu, 9 Aug 2018 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>新コミッタ就任: John Hixson (ports)</title>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180716:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180716:01</guid>
-      <pubDate>Mon, 16 Jul 2018 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>新しい FreeBSD コアチームが選出されました</title>
-      <description>10 回目の FreeBSD コアチームの選挙がアクティブなコミッタにより行われました。 詳細については、公式アナウンス をご覧ください。</description>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180704:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180704:01</guid>
-      <pubDate>Wed, 4 Jul 2018 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>新コミッタ就任: Jesper Schmitz Mouridsen (ports)</title>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180630:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180630:01</guid>
-      <pubDate>Sat, 30 Jun 2018 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD〓11.2-RELEASE 公開</title>
-      <description>FreeBSD 11.2-RELEASE が公開されました。 インストール前に リリースノート および リリース Errata を読み、11.2 に関する最新情報や問題点などを確認してください。 FreeBSD のリリースに関するより詳しい情報については リリース情報 をご覧ください。</description>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180627:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180627:01</guid>
-      <pubDate>Wed, 27 Jun 2018 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>ナショナル FreeBSD デー: 本日 FreeBSD は 25 歳を迎えました!</title>
-      <description>1993 年 6 月 19 日は、FreeBSD という名前が公式的につけられた日です。 この大切な日を 一緒にお祝い しましょう。</description>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180619:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180619:01</guid>
-      <pubDate>Tue, 19 Jun 2018 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD〓11.2-RC3 公開</title>
-      <description>FreeBSD〓11.2 リリースサイクルから 3 回目のリリース候補版が公開されました (アナウンス)。 FreeBSD ミラーサイト から amd64, armv6, arm64, i386, powerpc, powerpc64 および sparc64 アーキテクチャの ISO イメージを入手できます。</description>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180616:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180616:01</guid>
-      <pubDate>Sat, 16 Jun 2018 00:00:00 PST</pubDate>
     </item>
   </channel>
 </rss>

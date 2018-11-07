@@ -6,6 +6,34 @@
     <description>News from the FreeBSD Project</description>
   </channel>
   <item>
+    <title>FreeBSD 12.0-BETA3 Available</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20181103:01</link>
+  </item>
+  <item>
+    <title>FreeBSD 12.0-BETA2 Available</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20181027:01</link>
+  </item>
+  <item>
+    <title>FreeBSD 12.0-BETA1 Available</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20181020:01</link>
+  </item>
+  <item>
+    <title>New committer: Thomas Munro (src)</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20181016:01</link>
+  </item>
+  <item>
+    <title>New committer: Yuri Pankov (src)</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20181009:01</link>
+  </item>
+  <item>
+    <title>New committer: Vinícius Zavam (ports)</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20181008:01</link>
+  </item>
+  <item>
+    <title>New committer: Alexandre C. Guimaraes (ports)</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20181001:01</link>
+  </item>
+  <item>
     <title>New committer: Sergey Kozlov (ports)</title>
     <link>https://www.FreeBSD.org/news/newsflash.html#event20180921:01</link>
   </item>
@@ -16,33 +44,5 @@
   <item>
     <title>New committer: Kevin Bowling (ports)</title>
     <link>https://www.FreeBSD.org/news/newsflash.html#event20180902:01</link>
-  </item>
-  <item>
-    <title>Enhanced commit privileges: Li-Wen Hsu (ports, src)</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20180809:01</link>
-  </item>
-  <item>
-    <title>New committer: John Hixson (ports)</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20180716:01</link>
-  </item>
-  <item>
-    <title>New FreeBSD Core Team Elected</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20180704:01</link>
-  </item>
-  <item>
-    <title>New committer: Jesper Schmitz Mouridsen (ports)</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20180630:01</link>
-  </item>
-  <item>
-    <title>FreeBSD 11.2-RELEASE Available</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20180627:01</link>
-  </item>
-  <item>
-    <title>National FreeBSD Day: FreeBSD is 25 years old today!</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20180619:01</link>
-  </item>
-  <item>
-    <title>FreeBSD 11.2-RC3 Available</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20180616:01</link>
   </item>
 </rdf:RDF>

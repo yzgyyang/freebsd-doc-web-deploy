@@ -1,4 +1,4 @@
-                          FreeBSD 12.0-CURRENT README
+                          FreeBSD 12.0-RELEASE README
 
   The FreeBSD Project
 
@@ -25,10 +25,10 @@
    claim, the designations have been followed by the "(TM)" or the "(R)"
    symbol.
 
-   Last modified on 2018-09-30 21:08:45 -0400 by Guangyuan Yang.
+   Last modified on 2018-11-06 21:55:58 +0000 by rene.
    Abstract
 
-   This document gives a brief introduction to FreeBSD 12.0-CURRENT. It
+   This document gives a brief introduction to FreeBSD 12.0-RELEASE. It
    includes some information on how to obtain FreeBSD, a listing of various
    ways to contact the FreeBSD Project, and pointers to some other sources of
    information.
@@ -49,8 +49,8 @@
 
 1. Introduction
 
-   This distribution is a snapshot of FreeBSD 12.0-CURRENT, the latest point
-   along the 12-CURRENT branch.
+   This distribution is a snapshot of FreeBSD 12.0-RELEASE, the latest point
+   along the 12-STABLE branch.
 
   1.1. About FreeBSD
 
@@ -85,30 +85,30 @@
    This snapshot is aimed primarily at early adopters and various other users
    who want to get involved with the ongoing development of FreeBSD. While
    the FreeBSD development team tries its best to ensure that each snapshot
-   works as advertised, 12-CURRENT is very much a work-in-progress.
+   works as advertised, 12-STABLE is very much a work-in-progress.
 
    The basic requirements for using this snapshot are technical proficiency
    with FreeBSD and an understanding of the ongoing development process of
-   FreeBSD 12-CURRENT (as discussed on the FreeBSD-CURRENT mailing list).
+   FreeBSD 12-STABLE (as discussed on the FreeBSD-CURRENT mailing list).
 
    For those more interested in doing business with FreeBSD than in
    experimenting with new FreeBSD technology, formal releases (such as
-   10.3-RELEASE) are frequently more appropriate. Releases undergo a period
+   10.4-RELEASE) are frequently more appropriate. Releases undergo a period
    of testing and quality assurance checking to ensure high reliability and
    dependability.
 
    This snapshot is aimed primarily at early adopters and various other users
    who want to get involved with the ongoing development of FreeBSD. While
    the FreeBSD development team tries its best to ensure that each snapshot
-   works as advertised, 12-CURRENT is very much a work-in-progress.
+   works as advertised, 12-STABLE is very much a work-in-progress.
 
    The basic requirements for using this snapshot are technical proficiency
    with FreeBSD and an understanding of the ongoing development process of
-   FreeBSD 12-CURRENT (as discussed on the FreeBSD-CURRENT mailing list).
+   FreeBSD 12-STABLE (as discussed on the FreeBSD-CURRENT mailing list).
 
    For those more interested in doing business with FreeBSD than in
    experimenting with new FreeBSD technology, formal releases (such as
-   10.3-RELEASE) are frequently more appropriate. Releases undergo a period
+   10.4-RELEASE) are frequently more appropriate. Releases undergo a period
    of testing and quality assurance checking to ensure high reliability and
    dependability.
 
@@ -162,7 +162,7 @@
    For any questions or general technical support issues, please send mail to
    the FreeBSD general questions mailing list.
 
-   If you're tracking the 12-CURRENT development efforts, you must join the
+   If you're tracking the 12-STABLE development efforts, you must join the
    FreeBSD-CURRENT mailing list, in order to keep abreast of recent
    developments and changes that may affect the way you use and maintain the
    system.
@@ -228,8 +228,8 @@
        FreeBSD as well as some cursory notes about obtaining a distribution.
 
      * RELNOTES.TXT: The release notes, showing what's new and different in
-       FreeBSD 12.0-CURRENT compared to the previous release (FreeBSD
-       11.0-RELEASE).
+       FreeBSD 12.0-RELEASE compared to the previous release (FreeBSD
+       11.2-RELEASE).
 
      * HARDWARE.TXT: The hardware compatibility list, showing devices with
        which FreeBSD has been tested and is known to work.

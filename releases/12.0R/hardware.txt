@@ -1,4 +1,4 @@
-                      FreeBSD 12.0-CURRENT Hardware Notes
+                      FreeBSD 12.0-RELEASE Hardware Notes
 
   The FreeBSD Documentation Project
 
@@ -39,7 +39,7 @@
    claim, the designations have been followed by the "(TM)" or the "(R)"
    symbol.
 
-   Last modified on 2018-09-30 21:08:45 -0400 by Guangyuan Yang.
+   Last modified on 2018-11-06 21:55:58 +0000 by rene.
 
      ----------------------------------------------------------------------
 
@@ -54,7 +54,7 @@
 1. Introduction
 
    This document contains the hardware compatibility notes for FreeBSD
-   12.0-CURRENT. It lists the hardware platforms supported by FreeBSD, as
+   12.0-RELEASE. It lists the hardware platforms supported by FreeBSD, as
    well as the various types of hardware devices (storage controllers,
    network interfaces, and so on), along with known working instances of
    these devices.
@@ -215,7 +215,7 @@
    Sun Ultra(TM) 5 and Sun Ultra(TM) 10) driver must use the serial console.
 
    If you have a system that is not listed here, it may not have been tested
-   with FreeBSD 12.0-CURRENT. We encourage you to try it and send a note to
+   with FreeBSD 12.0-RELEASE. We encourage you to try it and send a note to
    the FreeBSD SPARC porting mailing list with your results, including which
    devices work and which do not.
 
@@ -2802,27 +2802,48 @@
 
      * Intel(R) 82598EB 10 Gigabit AT CX4 Network Connection
 
-   The ixl(4) driver supports these SFP+ Pluggable Optics:
+   Most adapters in the Intel Ethernet 700 Series with SFP+/SFP28/QSFP+ cages
+   have firmware that requires that Intel qualified modules are used; these
+   qualified modules are listed below. This qualification check cannot be
+   disabled by the driver.
 
-     * Intel TRIPLE RATE 1G/10G/40G QSFP+ SR (bailed) E40GQSFPSR
+   The ixl(4) driver supports 40Gb Ethernet adapters with these QSFP+
+   modules:
 
-     * Intel TRIPLE RATE 1G/10G/40G QSFP+ SR (bailed) E40GQSFPLR
+     * Intel 4x10G/40G QSFP+ 40GBASE-SR4 E40GQSFPSR
 
-   The ixl(4) driver supports 10Gb and 1Gb Ethernet adapters with SR Modules:
+     * Intel 4x10G/40G QSFP+ 40GBASE-LR4 E40GQSFPLR
 
-     * Intel DUAL RATE 1G/10G SFP+ SR (bailed) FTLX8571D3BCV-IT
+   The ixl(4) driver supports 25Gb Ethernet adapters with these SFP28
+   modules:
 
-     * Intel DUAL RATE 1G/10G SFP+ SR (bailed) AFBR-703SDZ-IN2
+     * Intel 10G/25G SFP28 25GBASE-SR E25GSFP28SR
 
-   The ixl(4) driver supports 10Gb and 1Gb Ethernet adapters with LR Modules:
+     * Intel 10G/25G SFP28 25GBASE-SR E25GSFP28SRX (Extended Temp)
 
-     * Intel DUAL RATE 1G/10G SFP+ LR (bailed) FTLX1471D3BCV-IT
+   The ixl(4) driver supports 25Gb and 10Gb Ethernet adapters with these SFP+
+   modules:
 
-     * Intel DUAL RATE 1G/10G SFP+ LR (bailed) AFCT-701SDZ-IN2
+     * Intel 1G/10G SFP+ SR FTLX8571D3BCV-IT
 
-   Note that X710/XL710 Based SFP+ adapters also support all passive and
-   active limiting direct attach cables that comply with SFF-8431 v4.1 and
-   SFF-8472 v10.4 specifications.
+     * Intel 1G/10G SFP+ SR AFBR-703SDZ-IN2
+
+     * Intel 1G/10G SFP+ LR FTLX1471D3BCV-IT
+
+     * Intel 1G/10G SFP+ LR AFCT-701SDZ-IN2
+
+     * Intel 1G/10G SFP+ 10GBASE-SR E10GSFPSR
+
+     * Intel 10G SFP+ 10GBASE-SR E10GSFPSRX (Extended Temp)
+
+     * Intel 1G/10G SFP+ 10GBASE-LR E10GSFPLR
+
+   Note that adapters also support all passive and active limiting direct
+   attach cables that comply with SFF-8431 v4.1 and SFF-8472 v10.4
+   specifications.
+
+   This is not an exhaustive list; please consult product documentation for
+   an up-to-date list of supported media.
 
    The jme(4) device driver provides support for the following Ethernet
    controllers:

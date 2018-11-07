@@ -1,4 +1,4 @@
-                       FreeBSD 12.0-CURRENT Release Notes
+                       FreeBSD 12.0-RELEASE Release Notes
 
   The FreeBSD Project
 
@@ -28,14 +28,14 @@
    claim, the designations have been followed by the "(TM)" or the "(R)"
    symbol.
 
-   Last modified on 2018-09-30 21:08:45 -0400 by Guangyuan Yang.
+   Last modified on 2018-11-06 21:55:58 +0000 by rene.
    Abstract
 
-   The release notes for FreeBSD 12.0-CURRENT contain a summary of the
-   changes made to the FreeBSD base system on the 12-CURRENT development
-   line. This document lists applicable security advisories that were issued
-   since the last release, as well as significant changes to the FreeBSD
-   kernel and userland. Some brief remarks on upgrading are also presented.
+   The release notes for FreeBSD 12.0-RELEASE contain a summary of the
+   changes made to the FreeBSD base system on the 12-STABLE development line.
+   This document lists applicable security advisories that were issued since
+   the last release, as well as significant changes to the FreeBSD kernel and
+   userland. Some brief remarks on upgrading are also presented.
 
      ----------------------------------------------------------------------
 
@@ -69,23 +69,23 @@
 
 1. Introduction
 
-   This document contains the release notes for FreeBSD 12.0-CURRENT. It
+   This document contains the release notes for FreeBSD 12.0-RELEASE. It
    describes recently added, changed, or deleted features of FreeBSD. It also
    provides some notes on upgrading from previous versions of FreeBSD.
 
    The snapshot distribution to which these release notes apply represents
-   the latest point along the 12-CURRENT development branch since 12-CURRENT
+   the latest point along the 12-STABLE development branch since 12-STABLE
    was created. Information regarding pre-built, binary snapshot
    distributions along this branch can be found at
    https://www.FreeBSD.org/snapshots/.
 
    The snapshot distribution to which these release notes apply represents a
-   point along the 12-CURRENT development branch between 11.0-RELEASE and the
-   future 12.0-RELEASE. Information regarding pre-built, binary snapshot
+   point along the 12-STABLE development branch between 11.2-RELEASE and the
+   future 13.0-RELEASE. Information regarding pre-built, binary snapshot
    distributions along this branch can be found at
    https://www.FreeBSD.org/snapshots/.
 
-   This distribution of FreeBSD 12.0-CURRENT is a snapshot distribution. It
+   This distribution of FreeBSD 12.0-RELEASE is a snapshot distribution. It
    can be found at https://www.FreeBSD.org/snapshots/ or any of its mirrors.
    More information on obtaining this (or other) snapshot distributions of
    FreeBSD can be found in the "Obtaining FreeBSD" appendix to the FreeBSD
@@ -96,14 +96,14 @@
    discovered late in the release cycle or after the release. Typically, it
    contains information on known bugs, security advisories, and corrections
    to documentation. An up-to-date copy of the errata for FreeBSD
-   12.0-CURRENT can be found on the FreeBSD Web site.
+   12.0-RELEASE can be found on the FreeBSD Web site.
 
    This document describes the most user-visible new or changed features in
-   FreeBSD since 11.0-RELEASE. In general, changes described here are unique
-   to the 12-CURRENT branch unless specifically marked as MERGED features.
+   FreeBSD since 11.2-RELEASE. In general, changes described here are unique
+   to the 12-STABLE branch unless specifically marked as MERGED features.
 
    Typical release note items document recent security advisories issued
-   after 11.0-RELEASE, new drivers or hardware support, new commands or
+   after 11.2-RELEASE, new drivers or hardware support, new commands or
    options, major bug fixes, or contributed software upgrades. They may also
    list changes to major ports/packages or release engineering practices.
    Clearly the release notes cannot list every single change made to FreeBSD
@@ -131,7 +131,7 @@
 3. Security and Errata
 
    This section lists the various Security Advisories and Errata Notices
-   since 11.0-RELEASE.
+   since 11.2-RELEASE.
 
   3.1. Security Advisories
 
@@ -150,16 +150,71 @@
 
   4.1. Userland Configuration Changes
 
-    
+   The default PAGER now defaults to less(1) for most commands.
+
+   LDNS now enables DANE-TA, and GOST has been removed.
 
   4.2. Userland Application Changes
 
    xlint and the ability to build lint libraries or lint source code has been
    removed.
 
+   The dd(1) utility has been updated to add the status=progress option,
+   which prints the status of its operation on a single line once per second,
+   similar to GNU dd(1).
+
+   The date(1) utility has been updated to include a new flag, -I, which
+   prints its output in ISO 8601 formatting.
+
+   The bectl(8) utility has been added, providing an administrative interface
+   for managing ZFS boot environments, similar to sysutils/beadm.
+
+   The ls(1) utility has been updated to include a new --color=when flag,
+   where when can be one of always, auto (default), or never.
+
   4.3. Contributed Software
 
-    
+   The xz(1) utility has been updated to version 5.2.4.
+
+   The clang, llvm, lld, lldb, compiler-rt utilities and libc++ have been
+   updated to version 6.0.1.
+
+   The bsnmp utility has been updated to version 1.13.
+
+   The WPA utilities have been updated to version 2.6.
+
+   The ntpd(8) utility has been updated to allow being run as a non-root
+   user.
+
+  Note:
+
+   Source-based upgrades from FreeBSD 11.x and earlier require the ntpd UID
+   (123) and GID (123) to exist before the installworld target is run. See
+   the "rebuild everything and install" section of UPDATING for the
+   documented procedure for source-based upgrades for more details.
+
+   Support for UDP-lite has been added via dtrace_udplite(4).
+
+   The file(1) utility has been updated to version 5.34.
+
+   The lua utility has been updated to version 5.3.5.
+
+   Support for send, receive, and state-change providers have been added to
+   dtrace_sctp(4).
+
+   The ntpd(8) utility has been updated to version 4.2.8p12.
+
+   OpenSSH has been updated to version 7.8p1.
+
+   The mandoc(1) utility has been updated to version 1.14.4.
+
+   Serf has been updated to version 1.3.9.
+
+   OpenSSL has been updated to version 1.1.1.
+
+   Unbound has been updated to version 1.8.1.
+
+   The timezone database files have been updated to version 2018g.
 
   4.4. Installation and Configuration Tools
 
@@ -175,7 +230,10 @@
 
   4.7. Runtime Libraries and API
 
-    
+   The arc4random(3) library has been updated to match the OpenBSD version
+   1.35.
+
+   The libarchive(3) library has been updated to version 3.3.3.
 
   4.8. ABI Compatibility
 
@@ -201,7 +259,7 @@
 6. Devices and Drivers
 
    This section covers changes and additions to devices and device drivers
-   since 11.0-RELEASE.
+   since 11.2-RELEASE.
 
   6.1. Device Drivers
 
@@ -214,6 +272,12 @@
   6.3. Network Drivers
 
     
+
+  6.4. Deprecated Drivers
+
+   The following drivers have been deprecated in FreeBSD 12.0, and not
+   present in FreeBSD 13.0: ae(4), de(4), ed(4), ep(4), ex(4), fe(4), pcn(4),
+   sf(4), sn(4), tl(4), tx(4), txp(4), vx(4), wb(4), xe(4)
 
 7. Hardware Support
 
