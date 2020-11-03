@@ -16,6 +16,34 @@
     </image>
     <atom:link href="https://www.FreeBSD.org/news/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>FreeBSD 12.2-RELEASE Available</title>
+      <description>FreeBSD 12.2-RELEASE is now available. Please be sure to check the Release Notes and Release Errata before installation for any late-breaking news and/or issues with 12.2. More information about FreeBSD releases can be found on the Release Information page.</description>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20201027:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20201027:01</guid>
+      <pubDate>Tue, 27 Oct 2020 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>July-September 2020 Status Report</title>
+      <description>The July to September 2020 Status Report is now available with 35 entries.</description>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20201021:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20201021:01</guid>
+      <pubDate>Wed, 21 Oct 2020 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD 12.2-RC3 Available</title>
+      <description>The third RC build for the FreeBSD 12.2 release cycle is now available. ISO images for the amd64, armv6, armv7, arm64, i386, powerpc, powerpc64, powerpcspe, and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20201017:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20201017:01</guid>
+      <pubDate>Sat, 17 Oct 2020 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD 12.2-RC2 Available</title>
+      <description>The second RC build for the FreeBSD 12.2 release cycle is now available. ISO images for the amd64, armv6, armv7, arm64, i386, powerpc, powerpc64, powerpcspe, and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20201010:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20201010:01</guid>
+      <pubDate>Sat, 10 Oct 2020 00:00:00 PST</pubDate>
+    </item>
+    <item>
       <title>FreeBSD 12.2-RC1 Available</title>
       <description>The first RC build for the FreeBSD 12.2 release cycle is now available. ISO images for the amd64, armv6, armv7, arm64, i386, powerpc, powerpc64, powerpcspe, and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
       <link>https://www.FreeBSD.org/news/newsflash.html#event20201003:01</link>
@@ -54,33 +82,6 @@
       <link>https://www.FreeBSD.org/news/newsflash.html#event20200726:01</link>
       <guid>https://www.FreeBSD.org/news/newsflash.html#event20200726:01</guid>
       <pubDate>Sun, 26 Jul 2020 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>New committer: Robert Wing (src)</title>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20200723:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20200723:01</guid>
-      <pubDate>Thu, 23 Jul 2020 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>April-June 2020 Status Report</title>
-      <description>The April to June 2020 Status Report is now available with 51 entries.</description>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20200715:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20200715:01</guid>
-      <pubDate>Wed, 15 Jul 2020 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>New FreeBSD Core Team Elected</title>
-      <description>Active committers to the project have elected your eleventh FreeBSD Core Team. For details, refer to the official announcement.</description>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20200701:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20200701:01</guid>
-      <pubDate>Wed, 1 Jul 2020 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD 11.4-RELEASE Available</title>
-      <description>FreeBSD 11.4-RELEASE is now available. Please be sure to check the Release Notes and Release Errata before installation for any late-breaking news and/or issues with 11.4. More information about FreeBSD releases can be found on the Release Information page.</description>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20200616:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20200616:01</guid>
-      <pubDate>Tue, 16 Jun 2020 00:00:00 PST</pubDate>
     </item>
   </channel>
 </rss>

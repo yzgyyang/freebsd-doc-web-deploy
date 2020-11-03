@@ -6,6 +6,22 @@
     <description>News from the FreeBSD Project</description>
   </channel>
   <item>
+    <title>FreeBSD 12.2-RELEASE Available</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20201027:01</link>
+  </item>
+  <item>
+    <title>July-September 2020 Status Report</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20201021:01</link>
+  </item>
+  <item>
+    <title>FreeBSD 12.2-RC3 Available</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20201017:01</link>
+  </item>
+  <item>
+    <title>FreeBSD 12.2-RC2 Available</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20201010:01</link>
+  </item>
+  <item>
     <title>FreeBSD 12.2-RC1 Available</title>
     <link>https://www.FreeBSD.org/news/newsflash.html#event20201003:01</link>
   </item>
@@ -28,21 +44,5 @@
   <item>
     <title>New committer: Daniel Ebdrup Jensen (doc)</title>
     <link>https://www.FreeBSD.org/news/newsflash.html#event20200726:01</link>
-  </item>
-  <item>
-    <title>New committer: Robert Wing (src)</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20200723:01</link>
-  </item>
-  <item>
-    <title>April-June 2020 Status Report</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20200715:01</link>
-  </item>
-  <item>
-    <title>New FreeBSD Core Team Elected</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20200701:01</link>
-  </item>
-  <item>
-    <title>FreeBSD 11.4-RELEASE Available</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20200616:01</link>
   </item>
 </rdf:RDF>

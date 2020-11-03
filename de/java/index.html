@@ -260,44 +260,41 @@
     <h3>OpenJDK</h3>
 
     <p>Das OpenJDK® Project bietet ihnen eine native Open
-      Source-Implementierung der Java® SE-Plattform und ist in den
-      Versionen 7 und 8 für alle unterstützten FreeBSD-Versionen
-      auf den Plattformen i386 sowie amd64 verfügbar.</p>
+      Source-Implementierung der Java® SE-Plattform und ist für alle
+      aktuell unterstützten FreeBSD-Versionen in den folgenden
+      Versionen (sortiert nach Plattform) verfügbar:</p>
 
-    <p>OpenJDK® 7 wird regelmäßig aktualisiert.  Lesen Sie das <a href="https://svnweb.freebsd.org/ports/head/java/openjdk7/Makefile?view=log" shape="rect">Revisionslog</a>,
+    <p><b>aarch64</b>: <code>openjdk8</code>, <code>openjdk11</code>, <code>openjdk12</code>, <code>openjdk13</code></p>
+    <p><b>amd64</b>: <code>openjdk7</code>, <code>openjdk8</code>, <code>openjdk11</code>, <code>openjdk12</code>, <code>openjdk13</code></p>
+    <p><b>arm6</b>: <code>openjdk8</code></p>
+    <p><b>arm7</b>: <code>openjdk8</code></p>
+    <p><b>i386</b>: <code>openjdk7</code>, <code>openjdk8</code>, <code>openjdk11</code>, <code>openjdk12</code>, <code>openjdk13</code></p>
+    <p><b>powerpc</b>: <code>openjdk8</code></p>
+    <p><b>powerpc64</b>: <code>openjdk8</code>, <code>openjdk11</code>, <code>openjdk12</code>, <code>openjdk13</code></p>
+
+    <p>OpenJDK® wird regelmäßig aktualisiert.  Lesen sie bitte das
+      <a href="https://svnweb.freebsd.org/ports/head/java/" shape="rect">Revisionlog</a>,
       um sich über Änderungen zu informieren.  Weitere Informationen sind
-      auf <a href="https://www.freshports.org/java/openjdk7" shape="rect">FreshPorts</a>
+      auf <a href="https://www.freshports.org/search.php?query=openjdk&amp;search=go&amp;num=10&amp;stype=name&amp;method=match&amp;deleted=excludedeleted&amp;start=1&amp;casesensitivity=caseinsensitive" shape="rect">FreshPorts</a>
       verfügbar.</p>
 
-    <p>Verwenden Sie pkg(8), um OpenJDK® 7 zu installieren:</p>
+    <p>OpenJDK® kann über <a href="../../cgi/man.cgi?query=pkg" shape="rect"><tt>pkg</tt></a> oder die
+      Ports-Sammlung installiert werden:</p>
 
-    <p>
-      <code>pkg install openjdk</code>
-      <br clear="none" />
-      oder nutzen Sie die Ports-Sammlung:
-      <br clear="none" />
-      <code>cd /usr/ports/java/openjdk7
-      <br clear="none" />make install clean
-      </code>
-    </p>
+    <p><code>pkg install openjdk[version]</code></p>
+    <p>oder</p>
+    <p><code>cd /usr/ports/java/openjdk[version]
+    <br clear="none" />make install clean
+    </code></p>
 
-    <p>OpenJDK® 8 wird regelmäßig aktualisiert.  Lesen Sie das <a href="https://svnweb.freebsd.org/ports/head/java/openjdk8/Makefile?view=log" shape="rect">Revisionslog</a>,
-      um sich über Änderungen zu informieren.  Weitere Informationen sind
-      auf <a href="https://www.freshports.org/java/openjdk8" shape="rect">FreshPorts</a>
-      verfügbar.</p>
-
-    <p>Verwenden Sie pkg(8), um OpenJDK® 8 zu installieren:</p>
-
-    <p>
-      <code>pkg install openjdk8</code>
-      <br clear="none" />
-      oder nutzen Sie die Ports-Sammlung:
-      <br clear="none" />
-      <code>cd /usr/ports/java/openjdk8
-      <br clear="none" />make install clean
-      </code>
-    </p>
-    </li>
+    <p>wobei [version] für 7, 8, 11, 12 oder 13 steht.  Am Beispiel <code>openjdk11</code>:</p>
+    
+    <p><code>pkg install openjdk11</code></p>
+    <p>oder</p>
+    <p><code>cd /usr/ports/java/openjdk11
+    <br clear="none" />make install clean
+    </code></p>
+  </li>
 
     <li>
     <h3>Oracle JDK für Linux</h3>
@@ -306,6 +303,8 @@
       von Oracle.  Unter FreeBSD läuft es daher im
       Linux-Kompatibilitätsmodus.</p>
 
+    <p><code>pkg install linux-oracle-jdk18</code></p>
+    <p>oder</p>
     <p><code>cd /usr/ports/java/linux-oracle-jdk18
     <br clear="none" />make install clean
     </code></p>
@@ -326,6 +325,12 @@
   </ul>
 
   <h2>Ich will helfen, indem ich ...</h2>
+
+  <h3>... Bugs behebe und neue Features hinzufüge.</h3>
+
+  <p>Die Repositories für den BSD-Port von OpenJDK sind auf GitHub
+    verfügbar, wobei Pull-Requests erlaubt sind.  Weitere Informationen
+    finden Sie im <a href="https://wiki.freebsd.org/Ports/openjdk_11" shape="rect">OpenJDK-Wiki</a>.</p>
 
   <h3>... Software teste.</h3>
 

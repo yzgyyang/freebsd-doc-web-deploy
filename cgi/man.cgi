@@ -170,6 +170,7 @@ $sectionpath = {
     'OpenBSD 6.5' => { 'path' => '1:2:3:3p:4:5:6:7:8:9', },
     'OpenBSD 6.6' => { 'path' => '1:2:3:3p:4:5:6:7:8:9', },
     'OpenBSD 6.7' => { 'path' => '1:2:3:3p:4:5:6:7:8:9', },
+    'OpenBSD 6.8' => { 'path' => '1:2:3:3p:4:5:6:7:8:9', },
 
     'CentOS 3.9' => { 'path' => '1:2:3:3p:4:5:6:7:8:9:n', },
     'CentOS 4.8' => { 'path' => '1:1p:2:3:3p:4:5:6:7:8:9:n:0p', },
@@ -238,10 +239,12 @@ foreach my $os ( keys %$sectionpath ) {
 
 $manLocalDir    = '/usr/local/www/bsddoc/man';
 # this should be the latest "release and ports"
-$manPathDefault = 'FreeBSD 12.1-RELEASE and Ports';
+$manPathDefault = 'FreeBSD 12.2-RELEASE and Ports';
 
 %manPath = (
     # supported releases / stable / current 
+    'FreeBSD 12.2-RELEASE and Ports',
+"$manLocalDir/FreeBSD-12.2-RELEASE/man:$manLocalDir/FreeBSD-12.2-RELEASE/openssl/man:$manLocalDir/FreeBSD-ports-12.2-RELEASE/man:$manLocalDir/FreeBSD-ports-12.2-RELEASE/misc",
     'FreeBSD 12.1-RELEASE and Ports',
 "$manLocalDir/FreeBSD-12.1-RELEASE/man:$manLocalDir/FreeBSD-12.1-RELEASE/openssl/man:$manLocalDir/FreeBSD-ports-12.1-RELEASE/man:$manLocalDir/FreeBSD-ports-12.1-RELEASE/misc",
     'FreeBSD 12.0-RELEASE and Ports',
@@ -293,9 +296,11 @@ $manPathDefault = 'FreeBSD 12.1-RELEASE and Ports';
     'FreeBSD 13-current',
 "$manLocalDir/FreeBSD-13-current/man:$manLocalDir/FreeBSD-13-current/openssl/man",
 
-    'FreeBSD 12.1-stable',
-"$manLocalDir/FreeBSD-12.1-stable/man:$manLocalDir/FreeBSD-12.1-stable/openssl/man",
-    'FreeBSD 12.1-RELEASE',
+    'FreeBSD 12.2-stable',
+"$manLocalDir/FreeBSD-12.2-stable/man:$manLocalDir/FreeBSD-12.2-stable/openssl/man",
+    'FreeBSD 12.2-RELEASE',
+"$manLocalDir/FreeBSD-12.2-RELEASE/man:$manLocalDir/FreeBSD-12.2-RELEASE/openssl/man",
+    'FreeBSD 12.2-RELEASE',
 "$manLocalDir/FreeBSD-12.1-RELEASE/man:$manLocalDir/FreeBSD-12.1-RELEASE/openssl/man",
     'FreeBSD 12.0-RELEASE',
 "$manLocalDir/FreeBSD-12.0-RELEASE/man:$manLocalDir/FreeBSD-12.0-RELEASE/openssl/man",
@@ -400,6 +405,7 @@ $manPathDefault = 'FreeBSD 12.1-RELEASE and Ports';
     'FreeBSD Ports 11.4', "$manLocalDir/FreeBSD-ports-11.4-RELEASE/man:$manLocalDir/FreeBSD-ports-11.4-RELEASE/misc",
     'FreeBSD Ports 12.0', "$manLocalDir/FreeBSD-ports-12.0-RELEASE/man:$manLocalDir/FreeBSD-ports-12.0-RELEASE/misc",
     'FreeBSD Ports 12.1', "$manLocalDir/FreeBSD-ports-12.1-RELEASE/man:$manLocalDir/FreeBSD-ports-12.1-RELEASE/misc",
+    'FreeBSD Ports 12.2', "$manLocalDir/FreeBSD-ports-12.2-RELEASE/man:$manLocalDir/FreeBSD-ports-12.2-RELEASE/misc",
 
 
     # FreeBSD Releases + Ports
@@ -568,6 +574,7 @@ $manPathDefault = 'FreeBSD 12.1-RELEASE and Ports';
     'OpenBSD 6.5', "$manLocalDir/OpenBSD-6.5",
     'OpenBSD 6.6', "$manLocalDir/OpenBSD-6.6",
     'OpenBSD 6.7', "$manLocalDir/OpenBSD-6.7",
+    'OpenBSD 6.8', "$manLocalDir/OpenBSD-6.8",
 
     #'NetBSD 0.9',            "$manLocalDir/NetBSD-0.9",
     'NetBSD 1.0',   "$manLocalDir/NetBSD-1.0",
@@ -606,6 +613,7 @@ $manPathDefault = 'FreeBSD 12.1-RELEASE and Ports';
     'NetBSD 8.1',   "$manLocalDir/NetBSD-8.1",
     'NetBSD 8.2',   "$manLocalDir/NetBSD-8.2",
     'NetBSD 9.0',   "$manLocalDir/NetBSD-9.0",
+    'NetBSD 9.1',   "$manLocalDir/NetBSD-9.1",
 
     '2.8 BSD',      "$manLocalDir/2.8BSD",
     '2.9.1 BSD',    "$manLocalDir/2.9.1BSD",
@@ -845,6 +853,7 @@ my %arch = (
 'NetBSD 8.1' => { 'arch' => [qw/acorn26 acorn32 algor alpha amd64 amiga arc atari bebox cats cesfic cobalt dreamcast emips evbarm evbmips evbppc evbsh3 hp300 hpcarm hpcmips hpcsh hppa i386 ibmnws luna68k mac68k macppc mipsco mmeye mvme68k mvmeppc netwinder news68k newsmips next68k ofppc playstation2 pmax prep sandpoint sbmips sgimips shark sparc sparc64 sun2 sun3 vax x68k x86/] } ,
 'NetBSD 8.2' => { 'arch' => [qw/acorn26 acorn32 algor alpha amd64 amiga arc atari bebox cats cesfic cobalt dreamcast emips evbarm evbmips evbppc evbsh3 hp300 hpcarm hpcmips hpcsh hppa i386 ibmnws luna68k mac68k macppc mipsco mmeye mvme68k mvmeppc netwinder news68k newsmips next68k ofppc playstation2 pmax prep sandpoint sbmips sgimips shark sparc sparc64 sun2 sun3 vax x68k x86/] } ,
 'NetBSD 9.0' => { 'arch' => [qw/acorn26 acorn32 algor alpha amd64 amiga arc atari bebox cats cesfic cobalt dreamcast emips evbarm evbmips evbppc evbsh3 hp300 hpcarm hpcmips hpcsh hppa i386 ibmnws luna68k mac68k macppc mipsco mmeye mvme68k mvmeppc netwinder news68k newsmips next68k ofppc playstation2 pmax prep sandpoint sbmips sgimips shark sparc sparc64 sun2 sun3 vax x68k x86/] } ,
+'NetBSD 9.1' => { 'arch' => [qw/acorn26 acorn32 algor alpha amd64 amiga arc atari bebox cats cesfic cobalt dreamcast emips evbarm evbmips evbppc evbsh3 hp300 hpcarm hpcmips hpcsh hppa i386 ibmnws luna68k mac68k macppc mipsco mmeye mvme68k mvmeppc netwinder news68k newsmips next68k ofppc playstation2 pmax prep sandpoint sbmips sgimips shark sparc sparc64 sun2 sun3 vax x68k x86/] } ,
 'OpenBSD 4.7' => { 'arch' => [qw/alpha amd64 armish aviion hp300 hppa hppa64 i386 landisk loongson luna88k mac68k macppc mvme68k mvme88k mvmeppc palm sgi socppc sparc sparc64 vax zaurus/] }, 
 'OpenBSD 4.8' => { 'arch' => [qw/alpha amd64 armish aviion hp300 hppa hppa64 i386 landisk loongson luna88k mac68k macppc mvme68k mvme88k mvmeppc palm sgi socppc sparc sparc64 vax zaurus/] }, 
 'OpenBSD 4.9' => { 'arch' => [qw/alpha amd64 armish aviion hp300 hppa hppa64 i386 landisk loongson luna88k mac68k macppc mvme68k mvme88k mvmeppc palm sgi socppc sparc sparc64 vax zaurus/] }, 
@@ -866,6 +875,7 @@ my %arch = (
 'OpenBSD 6.5' => { 'arch' => [qw/alpha amd64 armv7 hppa i386 landisk loongson luna88k macppc octeon sgi socppc sparc64/] }, 
 'OpenBSD 6.6' => { 'arch' => [qw/alpha amd64 armv7 hppa i386 landisk loongson luna88k macppc octeon sgi socppc sparc64/] }, 
 'OpenBSD 6.7' => { 'arch' => [qw/alpha amd64 armv7 hppa i386 landisk loongson luna88k macppc octeon sgi socppc sparc64/] }, 
+'OpenBSD 6.8' => { 'arch' => [qw/alpha amd64 arm64 armv7 hppa i386 landisk loongson luna88k macppc octeon powerpc64 sgi sparc64/] }, 
 );
 
 # delete not existing releases
@@ -886,17 +896,17 @@ while ( ( $key, $val ) = each %manPath ) {
 
 # keywords must be in lower cases.
 %manPathAliases = (
-    'freebsd',         'FreeBSD 12.1-RELEASE',
-    'freebsd-release', 'FreeBSD 12.1-RELEASE',
+    'freebsd',         'FreeBSD 12.2-RELEASE',
+    'freebsd-release', 'FreeBSD 12.2-RELEASE',
 
-    'freebsd-stable', 'FreeBSD 12.1-stable',
-    'freebsd-stable12', 'FreeBSD 12.1-stable',
+    'freebsd-stable', 'FreeBSD 12.2-stable',
+    'freebsd-stable12', 'FreeBSD 12.2-stable',
     'freebsd-stable11', 'FreeBSD 11.3-stable',
     'freebsd-stable10', 'FreeBSD 10.4-stable',
 
     'freebsd-current',       'FreeBSD 13-current',
-    'freebsd-release-ports', 'FreeBSD 12.1-RELEASE and Ports',
-    'freebsd-ports', 'FreeBSD Ports 12.1',
+    'freebsd-release-ports', 'FreeBSD 12.2-RELEASE and Ports',
+    'freebsd-ports', 'FreeBSD Ports 12.2',
 
     'slackware',  'Linux Slackware 3.1',
     'redhat',     'Red Hat 9',
@@ -908,8 +918,8 @@ while ( ( $key, $val ) = each %manPath ) {
     'opendarwin', 'OpenDarwin 7.2.1',
     'macosx',     'Darwin 8.0.1/ppc',
 
-    'netbsd',        'NetBSD 9.0',
-    'openbsd',       'OpenBSD 6.7',
+    'netbsd',        'NetBSD 9.1',
+    'openbsd',       'OpenBSD 6.8',
     'v7',            'Unix Seventh Edition',
     'v7man',         'Unix Seventh Edition',
     'x11',           'X11R7.4',

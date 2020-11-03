@@ -21,7 +21,7 @@
    claim, the designations have been followed by the "(TM)" or the "(R)"
    symbol.
 
-   Last modified on 2020-11-03 01:10:13 +0800 by Guangyuan Yang.
+   Last modified on 2020-11-03 12:39:32 +0000 by 0mp.
    Abstract
 
    This document lists errata items for FreeBSD 12.2-RELEASE, containing
@@ -81,8 +81,34 @@
 
 4. Open Issues
 
-     * No open issues.
+     * [2020-10-27] A regression in ipfw(8) was discovered where packets are
+       not properly forwarded with multiple IP addresses bound to the same
+       interface.
+
+       An Errata Notice is planned for 12.2-RELEASE.
+
+       See PR 250434 for additional details.
+
+     * [2020-10-27] A regression with zfs(8) send/recv was discovered where
+       ZFS snapshots are not properly deleted under certain conditions.
+
+       An Errata Notice is planned for 12.2-RELEASE.
+
+       See PR 249438 for additional details.
+
+     * [2020-10-27] A regression was discovered with the FreeBSD/armv7
+       BEAGLEBONE images where SD card I/O takes an excessive amount of time.
+       As such, there are no BEAGLEBONE images for this release.
 
 5. Late-Breaking News
 
-     * No news.
+     * [2020-10-27] A very late issue was discovered with the x11/gdm package
+       included on the amd64 and i386 DVD installer which causes GDM to fail
+       to start properly.
+
+       Those installing GNOME as a new installation from the DVD should
+       upgrade x11/gdm from the upstream pkg(8) mirrors after installation.
+
+       Those installing GNOME on a new installation from the upstream pkg(8)
+       mirrors, or upgrading from a previous FreeBSD release should not
+       experience any issues.
