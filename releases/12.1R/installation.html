@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>FreeBSD 12.1-RELEASE Installation Instructions</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><meta name="description" content="This article gives some brief instructions on installing FreeBSD 12.1-RELEASE and upgrading the systems running earlier releases." /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="article"><div xmlns="" class="titlepage"><div><div><h1 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="top"></a>FreeBSD 12.1-RELEASE Installation
+      Instructions</h1></div><div><div xmlns="http://www.w3.org/1999/xhtml" class="author"><h3 class="author"><span class="orgname">The FreeBSD Project</span></h3></div></div><div><p xmlns="http://www.w3.org/1999/xhtml" class="copyright">Copyright © 2019 The FreeBSD Documentation
+	Project</p></div><div><div xmlns="http://www.w3.org/1999/xhtml" class="legalnotice"><a id="trademarks"></a><p>FreeBSD is a registered trademark of
+  the FreeBSD Foundation.</p><p>Intel, Celeron, Centrino, Core, EtherExpress, i386,
+  i486, Itanium, Pentium, and Xeon are trademarks or registered
+  trademarks of Intel Corporation or its subsidiaries in the United
+  States and other countries.</p><p>SPARC, SPARC64, and
+  UltraSPARC are trademarks of SPARC International, Inc in the United
+  States and other countries.  SPARC International, Inc owns all of the
+  SPARC trademarks and under licensing agreements allows the proper use
+  of these trademarks by its members.</p><p>Many of the designations used by
+  manufacturers and sellers to distinguish their products are claimed
+  as trademarks.  Where those designations appear in this document,
+  and the FreeBSD Project was aware of the trademark claim, the
+  designations have been followed by the <span class="quote">&#8220;<span class="quote">&#8482;</span>&#8221;</span> or the
+  <span class="quote">&#8220;<span class="quote">®</span>&#8221;</span> symbol.</p></div></div><div>Last modified on 2020-11-03 01:10:13 +0800 by Guangyuan Yang.</div><div><div xmlns="http://www.w3.org/1999/xhtml" class="abstract"><div class="abstract-title">Abstract</div><p>This article gives some brief instructions on installing
+	FreeBSD 12.1-RELEASE and upgrading the systems running
+	earlier releases.</p></div></div></div><hr /></div><div class="toc"><div class="toc-title">Table of Contents</div><dl class="toc"><dt><span class="sect1"><a href="#install">1. Installing FreeBSD</a></span></dt><dt><span class="sect1"><a href="#upgrade">2. Upgrading FreeBSD</a></span></dt></dl></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="install"></a>1. Installing FreeBSD</h2></div></div></div><p>The <code class="uri"><a class="uri" href="../../../../doc/en_US.ISO8859-1/books/handbook/bsdinstall.html" target="_top">Installing
+	FreeBSD</a></code> chapter of the <code class="uri"><a class="uri" href="../../../../doc/en_US.ISO8859-1/books/handbook/" target="_top">FreeBSD Handbook</a></code>
+      provides more in-depth information about the installation
+      program itself, including a guided walk-through with
+      screenshots.</p></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="upgrade"></a>2. Upgrading FreeBSD</h2></div></div></div><p>If you are upgrading from a previous release of FreeBSD, please
+      read <code class="uri"><a class="uri" href="http://www.FreeBSD.org/releases/12.1R/relnotes.html#upgrade" target="_top">upgrading
+      section in the Release Notes</a></code> for notable
+      incompatibilities carefully.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="upgrade-source"></a>2.1. Upgrading from Source</h3></div></div></div><p>The procedure for doing a source code based update is
+	described in <code class="uri"><a class="uri" href="../../../../doc/en_US.ISO8859-1/books/handbook/makeworld.html" target="_top">Updating
+	  FreeBSD from Source</a></code>.</p><p>For SVN use the <code class="filename">releng/12.1</code>
+	branch which will be where any upcoming Security Advisories or
+	Errata Notices will be applied.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="upgrade-binary"></a>2.2. Upgrading Using <span class="quote">&#8220;<span class="quote">FreeBSD Update</span>&#8221;</span></h3></div></div></div><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=freebsd-update&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">freebsd-update</span>(8)</span></a> utility supports binary
+	upgrades of i386 and amd64 systems running
+	earlier FreeBSD releases.  Systems running
+	<code class="literal">11.3-RELEASE</code> or
+	<code class="literal">12.0-RELEASE</code> can upgrade as follows:</p><pre class="screen"><code class="prompt">#</code> freebsd-update fetch
+<code class="prompt">#</code> freebsd-update install</pre><p>Now the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=freebsd-update&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">freebsd-update</span>(8)</span></a> utility can fetch bits
+	belonging to 12.1-RELEASE.  During this process
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=freebsd-update&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">freebsd-update</span>(8)</span></a> will ask for help in merging
+	configuration files.</p><pre class="screen"><code class="prompt">#</code> freebsd-update upgrade -r 12.1-RELEASE</pre><pre class="screen"><code class="prompt">#</code> freebsd-update install</pre><p>The system must now be rebooted with the newly installed
+	kernel before the non-kernel components are updated.</p><pre class="screen"><code class="prompt">#</code> shutdown -r now</pre><p>After rebooting, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=freebsd-update&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">freebsd-update</span>(8)</span></a> needs to be run
+	again to install the new userland components:</p><pre class="screen"><code class="prompt">#</code> freebsd-update install</pre><p>At this point, users of systems being upgraded from
+	earlier FreeBSD releases will be prompted by
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=freebsd-update&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">freebsd-update</span>(8)</span></a> to rebuild all third-party applications
+	(e.g., ports installed from the ports tree) due to updates in
+	system libraries.</p><p>After updating installed third-party applications (and
+	again, only if <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=freebsd-update&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">freebsd-update</span>(8)</span></a> printed a message
+	indicating that this was necessary), run
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=freebsd-update&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">freebsd-update</span>(8)</span></a> again so that it can delete the old (no
+	longer used) system libraries:</p><pre class="screen"><code class="prompt">#</code> freebsd-update install</pre><p>Finally, reboot into 12.1-RELEASE</p><pre class="screen"><code class="prompt">#</code> shutdown -r now</pre><p>After rebooting, it is recommended to regenerate the pkg
+	binary tool to prevent future issues when installing some
+	applications using the pkg tool.</p><pre class="screen"><code class="prompt">#</code> pkg-static install -f pkg</pre></div></div></div></body></html>

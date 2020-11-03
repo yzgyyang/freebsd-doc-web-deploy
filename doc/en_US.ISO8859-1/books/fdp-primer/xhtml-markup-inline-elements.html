@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>8.5. In-line Elements</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Documentation Project Primer for New Contributors" /><link rel="up" href="xhtml-markup.html" title="Chapter 8. XHTML Markup" /><link rel="prev" href="xhtml-markup-block-elements.html" title="8.4. Block Elements" /><link rel="next" href="docbook-markup.html" title="Chapter 9. DocBook Markup" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">8.5. In-line Elements</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="xhtml-markup-block-elements.html">Prev</a> </td><th width="60%" align="center">Chapter 8. <acronym class="acronym">XHTML</acronym> Markup</th><td width="20%" align="right"> <a accesskey="n" href="docbook-markup.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="xhtml-markup-inline-elements"></a>8.5. In-line Elements</h2></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="xhtml-markup-inline-elements-emphasizing-information"></a>8.5.1. Emphasizing Information</h3></div></div></div><p>Two levels of emphasis are available in
+	<acronym class="acronym">XHTML</acronym>, <code class="sgmltag-element">em</code> and
+	<code class="sgmltag-element">strong</code>.  <code class="sgmltag-element">em</code> is for a
+	normal level of emphasis and <code class="sgmltag-element">strong</code>
+	indicates stronger emphasis.</p><p><code class="sgmltag-element">em</code> is typically rendered in italic
+	and <code class="sgmltag-element">strong</code> is rendered in bold.  This is
+	not always the case, and should not be relied upon.  According
+	to best practices, web pages only hold structural and
+	semantical information, and stylesheets are later applied to
+	them.  Think of semantics, not formatting, when using these
+	tags.</p><div class="example"><a id="idp51687288"></a><div class="example-title">Example 8.12. <code class="sgmltag-element">em</code> and
+	  <code class="sgmltag-element">strong</code> Example</div><div class="example-contents"><p>Usage:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;p&gt;</code><code class="sgmltag-starttag">&lt;em&gt;</code>This<code class="sgmltag-endtag">&lt;/em&gt;</code> has been emphasized, while
+  <code class="sgmltag-starttag">&lt;strong&gt;</code>this<code class="sgmltag-endtag">&lt;/strong&gt;</code> has been strongly emphasized.<code class="sgmltag-endtag">&lt;/p&gt;</code></pre></div></div><br class="example-break" /></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="xhtml-markup-inline-elements-fixed-pitch-text"></a>8.5.2. Indicating Fixed-Pitch Text</h3></div></div></div><p>Content that should be rendered in a fixed pitch
+	(typewriter) typeface is tagged with <code class="sgmltag-element">tt</code>
+	(for <span class="quote">&#8220;<span class="quote">teletype</span>&#8221;</span>).</p><div class="example"><a id="idp51694200"></a><div class="example-title">Example 8.13. <code class="sgmltag-element">tt</code> Example</div><div class="example-contents"><p>Usage:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;p&gt;</code>Many system settings are stored in
+  <code class="sgmltag-starttag">&lt;tt&gt;</code>/etc<code class="sgmltag-endtag">&lt;/tt&gt;</code>.<code class="sgmltag-endtag">&lt;/p&gt;</code></pre></div></div><br class="example-break" /></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="xhtml-markup-inline-elements-links"></a>8.5.3. Links</h3></div></div></div><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Links are also inline elements.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="xhtml-markup-inline-elements-linking"></a>8.5.3.1. Linking to Other Documents on the Web</h4></div></div></div><p>A link points to the <acronym class="acronym">URL</acronym> of a
+	  document on the web.  The link is indicated with
+	  <code class="sgmltag-element">a</code>, and the
+	  <code class="sgmltag-attribute">href</code> attribute contains
+	  the <acronym class="acronym">URL</acronym> of the target document.  The
+	  content of the element becomes the link, indicated to the
+	  user by showing it in a different color or with an
+	  underline.</p><div class="example"><a id="idp51702264"></a><div class="example-title">Example 8.14. Using
+	    <code class="sgmltag-starttag">&lt;a href="..."&gt;</code></div><div class="example-contents"><p>Usage:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;p&gt;</code>More information is available at the
+  <code class="sgmltag-starttag">&lt;a href="http://www.&amp;os;.org/"&gt;</code>&amp;os; web site<code class="sgmltag-endtag">&lt;/a&gt;</code>.<code class="sgmltag-endtag">&lt;/p&gt;</code></pre></div></div><br class="example-break" /><p>This link always takes the user to the top of the linked
+	  document.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="xhtml-markup-inline-elements-specific-parts"></a>8.5.3.2. Linking to Specific Parts of Documents</h4></div></div></div><p>To link to a specific point within a document, that
+	  document must include an <span class="emphasis"><em>anchor</em></span> at the
+	  desired point.  Anchors are included by setting the
+	  <code class="sgmltag-attribute">id</code> attribute of an
+	  element to a name.  This example creates an anchor by
+	  setting the <code class="sgmltag-attribute">id</code>
+	  attribute of a <code class="sgmltag-element">p</code>
+	  element.</p><div class="example"><a id="idp51709560"></a><div class="example-title">Example 8.15. Creating an Anchor</div><div class="example-contents"><p>Usage:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;p id="samplepara"&gt;</code>This paragraph can be referenced
+  in other links with the name <code class="sgmltag-starttag">&lt;tt&gt;</code>samplepara<code class="sgmltag-endtag">&lt;/tt&gt;</code>.<code class="sgmltag-endtag">&lt;/p&gt;</code></pre></div></div><br class="example-break" /><p>Links to anchors are similar to plain links, but include
+	  a <code class="literal">#</code> symbol and the anchor's
+	  <acronym class="acronym">ID</acronym> at the end of the
+	  <acronym class="acronym">URL</acronym>.</p><div class="example"><a id="idp51734904"></a><div class="example-title">Example 8.16. Linking to a Named Part of a Different
+	    Document</div><div class="example-contents"><p>The <code class="literal">samplepara</code> example is part of a
+	    document called <code class="filename">foo.html</code>.  A link to
+	    that specific paragraph in the document is constructed in
+	    this example.</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;p&gt;</code>More information can be found in the
+  <code class="sgmltag-starttag">&lt;a href="foo.html#samplepara"&gt;</code>sample paragraph<code class="sgmltag-endtag">&lt;/a&gt;</code> of
+  <code class="sgmltag-starttag">&lt;tt&gt;</code>foo.html<code class="sgmltag-endtag">&lt;/tt&gt;</code>.<code class="sgmltag-endtag">&lt;/p&gt;</code></pre></div></div><br class="example-break" /><p>To link to a named anchor within the same document, omit
+	  the document's <acronym class="acronym">URL</acronym>, and just use the
+	  <code class="literal">#</code> symbol followed by the name of the
+	  anchor.</p><div class="example"><a id="idp51741176"></a><div class="example-title">Example 8.17. Linking to a Named Part of the Same Document</div><div class="example-contents"><p>The <code class="literal">samplepara</code> example
+	    resides in this document.  To link to it:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;p&gt;</code>More information can be found in the
+  <code class="sgmltag-starttag">&lt;a href="#samplepara"&gt;</code>sample paragraph<code class="sgmltag-endtag">&lt;/a&gt;</code> of this
+  document.<code class="sgmltag-endtag">&lt;/p&gt;</code></pre></div></div><br class="example-break" /></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="xhtml-markup-block-elements.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="xhtml-markup.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="docbook-markup.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">8.4. Block Elements </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 9. DocBook Markup</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

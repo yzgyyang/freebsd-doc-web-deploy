@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>24.4. Using DTrace</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="dtrace.html" title="Chapter 24. DTrace" /><link rel="prev" href="dtrace-enable.html" title="24.3. Enabling DTrace Support" /><link rel="next" href="usb-device-mode.html" title="Chapter 25. USB Device Mode / USB OTG" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">24.4. Using DTrace</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="dtrace-enable.html">Prev</a> </td><th width="60%" align="center">Chapter 24. DTrace</th><td width="20%" align="right"> <a accesskey="n" href="usb-device-mode.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="dtrace-using"></a>24.4. Using DTrace</h2></div></div></div><p>DTrace scripts consist of a list of one or more
+      <em class="firstterm">probes</em>, or instrumentation points, where
+      each probe is associated with an action.  Whenever the condition
+      for a probe is met, the associated action is executed.  For
+      example, an action may occur when a file is opened, a process is
+      started, or a line of code is executed.  The action might be to
+      log some information or to modify context variables.  The
+      reading and writing of context variables allows probes to share
+      information and to cooperatively analyze the correlation of
+      different events.</p><p>To view all probes, the administrator can execute the
+      following command:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>dtrace -l | more</code></strong></pre><p>Each probe has an <code class="literal">ID</code>, a
+      <code class="literal">PROVIDER</code> (dtrace or fbt), a
+      <code class="literal">MODULE</code>, and a
+      <code class="literal">FUNCTION NAME</code>.    Refer to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=dtrace&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">dtrace</span>(1)</span></a> for
+      more information about this command.</p><p>The examples in this section provide an overview of how to
+      use two of the fully supported scripts from the
+      DTrace Toolkit: the
+      <code class="filename">hotkernel</code> and
+      <code class="filename">procsystime</code> scripts.</p><p>The <code class="filename">hotkernel</code> script is designed to
+      identify which function is using the most kernel time.  It will
+      produce output similar to the following:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/local/share/dtrace-toolkit</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>./hotkernel</code></strong>
+Sampling... Hit Ctrl-C to end.</pre><p>As instructed, use the
+      <span class="keycap"><strong>Ctrl</strong></span>+<span class="keycap"><strong>C</strong></span> key combination to stop the process.  Upon
+      termination, the script will display a list of kernel functions
+      and timing information, sorting the output in increasing order
+      of time:</p><pre class="screen">kernel`_thread_lock_flags                                   2   0.0%
+0xc1097063                                                  2   0.0%
+kernel`sched_userret                                        2   0.0%
+kernel`kern_select                                          2   0.0%
+kernel`generic_copyin                                       3   0.0%
+kernel`_mtx_assert                                          3   0.0%
+kernel`vm_fault                                             3   0.0%
+kernel`sopoll_generic                                       3   0.0%
+kernel`fixup_filename                                       4   0.0%
+kernel`_isitmyx                                             4   0.0%
+kernel`find_instance                                        4   0.0%
+kernel`_mtx_unlock_flags                                    5   0.0%
+kernel`syscall                                              5   0.0%
+kernel`DELAY                                                5   0.0%
+0xc108a253                                                  6   0.0%
+kernel`witness_lock                                         7   0.0%
+kernel`read_aux_data_no_wait                                7   0.0%
+kernel`Xint0x80_syscall                                     7   0.0%
+kernel`witness_checkorder                                   7   0.0%
+kernel`sse2_pagezero                                        8   0.0%
+kernel`strncmp                                              9   0.0%
+kernel`spinlock_exit                                       10   0.0%
+kernel`_mtx_lock_flags                                     11   0.0%
+kernel`witness_unlock                                      15   0.0%
+kernel`sched_idletd                                       137   0.3%
+0xc10981a5                                              42139  99.3%</pre><p>This script will also work with kernel modules.  To use this
+      feature, run the script with <code class="option">-m</code>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>./hotkernel -m</code></strong>
+Sampling... Hit Ctrl-C to end.
+^C
+MODULE                                                  COUNT   PCNT
+0xc107882e                                                  1   0.0%
+0xc10e6aa4                                                  1   0.0%
+0xc1076983                                                  1   0.0%
+0xc109708a                                                  1   0.0%
+0xc1075a5d                                                  1   0.0%
+0xc1077325                                                  1   0.0%
+0xc108a245                                                  1   0.0%
+0xc107730d                                                  1   0.0%
+0xc1097063                                                  2   0.0%
+0xc108a253                                                 73   0.0%
+kernel                                                    874   0.4%
+0xc10981a5                                             213781  99.6%</pre><p>The <code class="filename">procsystime</code> script captures and
+      prints the system call time usage for a given process
+      <acronym class="acronym">ID</acronym> (<acronym class="acronym">PID</acronym>) or process name.
+      In the following example, a new instance of
+      <code class="filename">/bin/csh</code> was spawned.  Then,
+      <code class="filename">procsystime</code> was executed and remained
+      waiting while a few commands were typed on the other incarnation
+      of <code class="command">csh</code>.  These are the results of this
+      test:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>./procsystime -n csh</code></strong>
+Tracing... Hit Ctrl-C to end...
+^C
+
+Elapsed Times for processes csh,
+
+         SYSCALL          TIME (ns)
+          getpid               6131
+       sigreturn               8121
+           close              19127
+           fcntl              19959
+             dup              26955
+         setpgid              28070
+            stat              31899
+       setitimer              40938
+           wait4              62717
+       sigaction              67372
+     sigprocmask             119091
+    gettimeofday             183710
+           write             263242
+          execve             492547
+           ioctl             770073
+           vfork            3258923
+      sigsuspend            6985124
+            read         3988049784</pre><p>As shown, the <code class="function">read()</code> system call used
+      the most time in nanoseconds while the
+      <code class="function">getpid()</code> system call used the least amount
+      of time.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="dtrace-enable.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="dtrace.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="usb-device-mode.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">24.3. Enabling DTrace Support </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 25. USB Device Mode / USB OTG</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

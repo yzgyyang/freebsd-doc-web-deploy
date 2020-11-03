@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>10.7. DMA</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Architecture Handbook" /><link rel="up" href="isa-driver.html" title="Chapter 10. ISA Device Drivers" /><link rel="prev" href="isa-driver-busmem.html" title="10.6. Bus Memory Mapping" /><link rel="next" href="isa-driver-probe.html" title="10.8. xxx_isa_probe" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">10.7. DMA</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="isa-driver-busmem.html">Prev</a> </td><th width="60%" align="center">Chapter 10. ISA Device Drivers</th><td width="20%" align="right"> <a accesskey="n" href="isa-driver-probe.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="isa-driver-dma"></a>10.7. DMA</h2></div></div></div><a id="idp56493816" class="indexterm"></a><p>
+          The Direct Memory Access (DMA) is implemented in the ISA bus
+          through the DMA controller (actually, two of them but that is
+          an irrelevant detail).  To make the early ISA devices simple
+          and cheap the logic of the bus control and address
+          generation was concentrated in the DMA controller.
+          Fortunately, FreeBSD provides a set of functions that mostly
+          hide the annoying details of the DMA controller from the
+          device drivers.
+        </p><p>
+          The simplest case is for the fairly intelligent
+          devices. Like the bus master devices on PCI they can
+          generate the bus cycles and memory addresses all by
+          themselves. The only thing they really need from the DMA
+          controller is bus arbitration. So for this purpose they
+          pretend to be cascaded slave DMA controllers. And the only
+          thing needed from the system DMA controller is to enable the
+          cascaded mode on a DMA channel by calling the following
+          function when attaching the driver:
+        </p><p>
+          <code class="function">void isa_dmacascade(int channel_number)</code>
+        </p><p>
+          All the further activity is done by programming the
+          device. When detaching the driver no DMA-related functions
+          need to be called.
+        </p><p>
+          For the simpler devices things get more complicated. The
+          functions used are:
+        </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+            <code class="function">int isa_dma_acquire(int chanel_number)</code>
+          </p><p>
+                Reserve a DMA channel. Returns 0 on success or EBUSY
+                if the channel was already reserved by this or a
+                different driver. Most of the ISA devices are not able
+                to share DMA channels anyway, so normally this
+                function is called when attaching a device. This
+                reservation was made redundant by the modern interface
+                of bus resources but still must be used in addition to
+                the latter. If not used then later, other DMA routines
+                will panic.
+          </p></li><li class="listitem"><p>
+            <code class="function">int isa_dma_release(int chanel_number)</code>
+          </p><p>
+                Release a previously reserved DMA channel. No
+                transfers must be in progress when the channel is
+                released (in addition the device must not try to
+                initiate transfer after the channel is released).
+          </p></li><li class="listitem"><p>
+            <code class="function">void isa_dmainit(int chan, u_int
+            bouncebufsize)</code>
+          </p><p>
+                Allocate a bounce buffer for use with the specified
+                channel. The requested size of the buffer can not exceed
+                64KB. This bounce buffer will be automatically used
+                later if a transfer buffer happens to be not
+                physically contiguous or outside of the memory
+                accessible by the ISA bus or crossing the 64KB
+                boundary. If the transfers will be always done from
+                buffers which conform to these conditions (such as
+                those allocated by
+                <code class="function">bus_dmamem_alloc()</code> with proper
+                limitations) then <code class="function">isa_dmainit()</code>
+                does not have to be called. But it is quite convenient
+                to transfer arbitrary data using the DMA controller.
+                The bounce buffer will automatically care of the
+                scatter-gather issues.
+          </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem"><p>
+                    <span class="emphasis"><em>chan</em></span> - channel number
+                  </p></li><li class="listitem"><p>
+                    <span class="emphasis"><em>bouncebufsize</em></span> - size of the
+                    bounce buffer in bytes
+                  </p></li></ul></div></li><li class="listitem"><p>
+            <code class="function">void isa_dmastart(int flags, caddr_t addr, u_int
+            nbytes, int chan)</code>
+          </p><p>
+                Prepare to start a DMA transfer. This function must be
+                called to set up the DMA controller before actually
+                starting transfer on the device. It checks that the
+                buffer is contiguous and falls into the ISA memory
+                range, if not then the bounce buffer is automatically
+                used. If bounce buffer is required but not set up by
+                <code class="function">isa_dmainit()</code> or too small for
+                the requested transfer size then the system will
+                panic. In case of a write request with bounce buffer
+                the data will be automatically copied to the bounce
+                buffer.
+          </p></li><li class="listitem"><p>flags - a bitmask determining the type of operation to
+          be done. The direction bits B_READ and B_WRITE are mutually
+          exclusive.
+          </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem"><p>
+                B_READ - read from the ISA bus into memory
+              </p></li><li class="listitem"><p>
+                B_WRITE - write from the memory to the ISA bus
+              </p></li><li class="listitem"><p>
+                B_RAW - if set then the DMA controller will remember
+                the buffer and after the end of transfer will
+                automatically re-initialize itself to repeat transfer
+                of the same buffer again (of course, the driver may
+                change the data in the buffer before initiating
+                another transfer in the device). If not set then the
+                parameters will work only for one transfer, and
+                <code class="function">isa_dmastart()</code> will have to be
+                called again before initiating the next
+                transfer. Using B_RAW makes sense only if the bounce
+                buffer is not used.
+              </p></li></ul></div></li><li class="listitem"><p>
+            addr - virtual address of the buffer
+          </p></li><li class="listitem"><p>
+            nbytes - length of the buffer. Must be less or equal to
+            64KB. Length of 0 is not allowed: the DMA controller will
+            understand it as 64KB while the kernel code will
+            understand it as 0 and that would cause unpredictable
+            effects. For channels number 4 and higher the length must
+            be even because these channels transfer 2 bytes at a
+            time. In case of an odd length the last byte will not be
+            transferred.
+          </p></li><li class="listitem"><p>
+            chan - channel number
+          </p></li><li class="listitem"><p>
+            <code class="function">void isa_dmadone(int flags, caddr_t addr, int
+            nbytes, int chan)</code>
+          </p><p>
+            Synchronize the memory after device reports that transfer
+            is done. If that was a read operation with a bounce buffer
+            then the data will be copied from the bounce buffer to the
+            original buffer. Arguments are the same as for
+            <code class="function">isa_dmastart()</code>. Flag B_RAW is
+            permitted but it does not affect
+            <code class="function">isa_dmadone()</code> in any way.
+          </p></li><li class="listitem"><p>
+            <code class="function">int isa_dmastatus(int channel_number)</code>
+          </p><p>
+            Returns the number of bytes left in the current transfer
+            to be transferred.  In case the flag B_READ was set in
+            <code class="function">isa_dmastart()</code> the number returned
+            will never be equal to zero. At the end of transfer it
+            will be automatically reset back to the length of
+            buffer. The normal use is to check the number of bytes
+            left after the device signals that the transfer is
+            completed.  If the number of bytes is not 0 then something
+            probably went wrong with that transfer.
+          </p></li><li class="listitem"><p>
+            <code class="function">int isa_dmastop(int channel_number)</code>
+          </p><p>
+            Aborts the current transfer and returns the number of
+            bytes left untransferred.
+          </p></li></ul></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="isa-driver-busmem.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="isa-driver.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="isa-driver-probe.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">10.6. Bus Memory Mapping </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 10.8. xxx_isa_probe</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

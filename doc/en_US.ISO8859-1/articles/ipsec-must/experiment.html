@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>3. The Experiment</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Independent Verification of IPsec Functionality in FreeBSD" /><link rel="up" href="index.html" title="Independent Verification of IPsec Functionality in FreeBSD" /><link rel="prev" href="solution.html" title="2. The Solution" /><link rel="next" href="caveat.html" title="4. Caveat" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">3. The Experiment</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="solution.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="caveat.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="experiment"></a>3. The Experiment</h2></div></div></div><p>Here is the experiment:</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p>Open a window to an IPsec host and another window to an
+	  insecure host.</p></li><li class="step"><p>Now start <a class="link" href="solution.html#tcpdump" title="2.2. Tcpdump">capturing
+	  packets</a>.</p></li><li class="step"><p>In the <span class="quote">&#8220;<span class="quote">secure</span>&#8221;</span> window, run the <span class="trademark">UNIX</span>®
+	  command <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=yes&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">yes</span>(1)</span></a>, which will stream the <code class="literal">y</code>
+	  character.  After a while, stop this.  Switch to the
+	  insecure window, and repeat.  After a while, stop.</p></li><li class="step"><p>Now run <a class="link" href="code.html" title="8. Maurer's Universal Statistical Test (for block size=8 bits)">MUST</a> on the
+	  captured packets.  You should see something like the
+	  following.  The important thing to note is that the secure
+	  connection has 93% (6.7) of the expected value (7.18), and
+	  the <span class="quote">&#8220;<span class="quote">normal</span>&#8221;</span> connection has 29% (2.1) of the
+	  expected value.</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>tcpdump -c 4000 -s 10000 -w <em class="replaceable"><code>ipsecdemo.bin</code></em></code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>uliscan <em class="replaceable"><code>ipsecdemo.bin</code></em></code></strong>
+
+Uliscan 21 Dec 98
+L=8 256 258560
+Measuring file ipsecdemo.bin
+Init done
+Expected value for L=8 is 7.1836656
+6.9396 --------------------------------------------------------
+6.6177 -----------------------------------------------------
+6.4100 ---------------------------------------------------
+2.1101 -----------------
+2.0838 -----------------
+2.0983 -----------------</pre></li></ol></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="solution.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="caveat.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2. The Solution </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 4. Caveat</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

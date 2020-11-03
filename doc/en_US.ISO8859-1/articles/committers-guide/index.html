@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>Committer's Guide</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><meta name="description" content="This document provides information for the FreeBSD committer community. All new committers should read this document before they start, and existing committers are strongly encouraged to review it from time to time. Almost all FreeBSD developers have commit rights to one or more repositories. However, a few developers do not, and some of the information here applies to them as well. (For instance, some people only have rights to work with the Problem Report database). Please see for more information. This document may also be of interest to members of the FreeBSD community who want to learn more about how the project works." /><link rel="home" href="index.html" title="Committer's Guide" /><link rel="next" href="pgpkeys.html" title="2. OpenPGP Keys for FreeBSD" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Committer's Guide</th></tr><tr><td width="20%" align="left"> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="pgpkeys.html">Next</a></td></tr></table><hr /></div><div xml:lang="en" class="article" lang="en"><div xmlns="" class="titlepage"><div><div><h1 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp46773112"></a>Committer's Guide</h1></div><div><div xmlns="http://www.w3.org/1999/xhtml" class="author"><h3 class="author"><span class="orgname">The FreeBSD Documentation Project</span></h3></div></div><div>Revision: <a href="https://svnweb.freebsd.org/changeset/doc/b889271990"><span class="svnref">b889271990</span></a></div><div><p xmlns="http://www.w3.org/1999/xhtml" class="copyright">Copyright © 1999-2020 The FreeBSD Documentation Project</p></div><div><a xmlns="http://www.w3.org/1999/xhtml" href="trademarks.html">Legal Notice</a></div><div>Last modified on 2020-10-10 00:17:25 +0000 by linimon.</div><div><div xmlns="http://www.w3.org/1999/xhtml" class="abstract"><div class="abstract-title">Abstract</div><p>This document provides information for the FreeBSD
+	committer community.  All new committers should read this
+	document before they start, and existing committers are
+	strongly encouraged to review it from time to time.</p><p>Almost all FreeBSD developers have commit rights to one or
+	more repositories.  However, a few developers do not, and some
+	of the information here applies to them as well.  (For
+	instance, some people only have rights to work with the
+	Problem Report database).  Please see
+	<a class="xref" href="non-committers.html" title="21. Issues Specific to Developers Who Are Not Committers">Section 21, &#8220;Issues Specific to Developers Who Are Not
+      Committers&#8221;</a> for more information.</p><p>This document may also be of interest to members of the
+	FreeBSD community who want to learn more about how the project
+	works.</p></div></div></div><div class="docformatnavi">
+      [
+      
+	  Split HTML
+	
+      /
+      <a href="article.html">Single HTML</a>
+      ]
+    </div><hr /></div><div class="toc"><div class="toc-title">Table of Contents</div><dl class="toc"><dt><span class="sect1"><a href="index.html#admin">1. Administrative Details</a></span></dt><dt><span class="sect1"><a href="pgpkeys.html">2. Open<acronym class="acronym">PGP</acronym> Keys for FreeBSD</a></span></dt><dt><span class="sect1"><a href="kerberos-ldap.html">3. Kerberos and LDAP web Password for FreeBSD Cluster</a></span></dt><dt><span class="sect1"><a href="committer.types.html">4. Commit Bit Types</a></span></dt><dt><span class="sect1"><a href="subversion-primer.html">5. Subversion Primer</a></span></dt><dt><span class="sect1"><a href="conventions.html">6. Setup, Conventions, and Traditions</a></span></dt><dt><span class="sect1"><a href="pre-commit-review.html">7. Pre-Commit Review</a></span></dt><dt><span class="sect1"><a href="commit-log-message.html">8. Commit Log Messages</a></span></dt><dt><span class="sect1"><a href="pref-license.html">9. Preferred License for New Files</a></span></dt><dt><span class="sect1"><a href="tracking.license.grants.html">10. Keeping Track of Licenses Granted to the FreeBSD
+      Project</a></span></dt><dt><span class="sect1"><a href="developer.relations.html">11. Developer Relations</a></span></dt><dt><span class="sect1"><a href="if-in-doubt.html">12. If in Doubt...</a></span></dt><dt><span class="sect1"><a href="bugzilla.html">13. Bugzilla</a></span></dt><dt><span class="sect1"><a href="phabricator.html">14. Phabricator</a></span></dt><dt><span class="sect1"><a href="people.html">15. Who's Who</a></span></dt><dt><span class="sect1"><a href="ssh.guide.html">16. SSH Quick-Start Guide</a></span></dt><dt><span class="sect1"><a href="coverity.html">17. <span class="trademark">Coverity</span>® Availability for FreeBSD Committers</a></span></dt><dt><span class="sect1"><a href="rules.html">18. The FreeBSD Committers' Big List of Rules</a></span></dt><dt><span class="sect1"><a href="archs.html">19. Support for Multiple Architectures</a></span></dt><dt><span class="sect1"><a href="ports.html">20. Ports Specific FAQ</a></span></dt><dt><span class="sect1"><a href="non-committers.html">21. Issues Specific to Developers Who Are Not
+      Committers</a></span></dt><dt><span class="sect1"><a href="google-analytics.html">22. Information About Google Analytics</a></span></dt><dt><span class="sect1"><a href="misc.html">23. Miscellaneous Questions</a></span></dt><dt><span class="sect1"><a href="benefits.html">24. Benefits and Perks for FreeBSD Committers</a></span></dt></dl></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="admin"></a>1. Administrative Details</h2></div></div></div><div class="informaltable"><table class="informaltable" width="100%" border="0"><colgroup><col /><col /></colgroup><tbody><tr><td><span class="emphasis"><em>Login Methods</em></span></td><td><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ssh&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ssh</span>(1)</span></a>, protocol 2 only</td></tr><tr><td><span class="emphasis"><em>Main Shell Host</em></span></td><td><code class="systemitem">freefall.FreeBSD.org</code></td></tr><tr><td><span class="emphasis"><em>SMTP Host</em></span></td><td>
+	      <code class="literal"><code class="systemitem">smtp.FreeBSD.org</code>:587</code>
+	      (see also <a class="xref" href="conventions.html#smtp-setup" title="6.2.1. SMTP Access Setup">Section 6.2.1, &#8220;SMTP Access Setup&#8221;</a>).</td></tr><tr><td><span class="emphasis"><em><code class="literal">src/</code> Subversion
+		Root</em></span></td><td><code class="literal">svn+ssh://</code><code class="systemitem">repo.FreeBSD.org</code><code class="filename">/base</code>
+	      (see also <a class="xref" href="subversion-primer.html#svn-getting-started-base-layout" title="5.2.2. RELENG_* Branches and General Layout">Section 5.2.2, &#8220;<code class="literal">RELENG_*</code> Branches and General
+	  Layout&#8221;</a>).</td></tr><tr><td><span class="emphasis"><em><code class="literal">doc/</code> Subversion
+		Root</em></span></td><td><code class="literal">svn+ssh://</code><code class="systemitem">repo.FreeBSD.org</code><code class="filename">/doc</code>
+	      (see also <a class="xref" href="subversion-primer.html#svn-getting-started-doc-layout" title="5.2.3. FreeBSD Documentation Project Branches and Layout">Section 5.2.3, &#8220;FreeBSD Documentation Project Branches and
+	  Layout&#8221;</a>).</td></tr><tr><td><span class="emphasis"><em><code class="literal">ports/</code> Subversion
+		Root</em></span></td><td><code class="literal">svn+ssh://</code><code class="systemitem">repo.FreeBSD.org</code><code class="filename">/ports</code>
+	      (see also <a class="xref" href="subversion-primer.html#svn-getting-started-ports-layout" title="5.2.4. FreeBSD Ports Tree Branches and Layout">Section 5.2.4, &#8220;FreeBSD Ports Tree Branches and Layout&#8221;</a>).</td></tr><tr><td><span class="emphasis"><em>Internal Mailing Lists</em></span></td><td>developers (technically called all-developers),
+	      doc-developers, doc-committers, ports-developers,
+	      ports-committers, src-developers, src-committers.  (Each
+	      project repository has its own -developers and
+	      -committers mailing lists.  Archives for these lists can
+	      be found in the files
+	      <code class="filename">/local/mail/<em class="replaceable"><code>repository-name</code></em>-developers-archive</code>
+	      and
+	      <code class="filename">/local/mail/<em class="replaceable"><code>repository-name</code></em>-committers-archive</code>
+	      on the <code class="systemitem">FreeBSD.org</code>
+	      cluster.)</td></tr><tr><td><span class="emphasis"><em>Core Team monthly
+		reports</em></span></td><td><code class="filename">/home/core/public/monthly-reports</code>
+	      on the <code class="systemitem">FreeBSD.org</code>
+	      cluster.</td></tr><tr><td><span class="emphasis"><em>Ports Management Team monthly
+		reports</em></span></td><td><code class="filename">/home/portmgr/public/monthly-reports</code>
+	      on the <code class="systemitem">FreeBSD.org</code>
+	      cluster.</td></tr><tr><td><span class="emphasis"><em>Noteworthy <code class="literal">src/</code> SVN
+		Branches</em></span></td><td>
+	      <code class="literal">stable/</code><em class="replaceable"><code>n</code></em>
+	      (<em class="replaceable"><code>n</code></em>-STABLE),
+	      <code class="literal">head</code> (-CURRENT)</td></tr></tbody></table></div><p><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ssh&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ssh</span>(1)</span></a> is required to connect to the project hosts.
+      For more information, see <a class="xref" href="ssh.guide.html" title="16. SSH Quick-Start Guide">Section 16, &#8220;SSH Quick-Start Guide&#8221;</a>.</p><p>Useful links:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><a class="link" href="../../../../internal/" target="_top">FreeBSD
+	    Project Internal Pages</a></p></li><li class="listitem"><p><a class="link" href="../../../../internal/machines.html" target="_top">FreeBSD
+	    Project Hosts</a></p></li><li class="listitem"><p><a class="link" href="../../../../administration.html" target="_top">FreeBSD
+	    Project Administrative Groups</a></p></li></ul></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="pgpkeys.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"> </td><td width="20%" align="center"> </td><td width="40%" align="right" valign="top"> 2. Open<acronym class="acronym">PGP</acronym> Keys for FreeBSD</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

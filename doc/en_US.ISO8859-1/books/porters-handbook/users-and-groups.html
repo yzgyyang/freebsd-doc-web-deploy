@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>6.27. Adding Users and Groups</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Porter's Handbook" /><link rel="up" href="special.html" title="Chapter 6. Special Considerations" /><link rel="prev" href="rc-scripts.html" title="6.26. Starting and Stopping Services (rc Scripts)" /><link rel="next" href="requiring-kernel-sources.html" title="6.28. Ports That Rely on Kernel Sources" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.27. Adding Users and Groups</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="rc-scripts.html">Prev</a> </td><th width="60%" align="center">Chapter 6. Special Considerations</th><td width="20%" align="right"> <a accesskey="n" href="requiring-kernel-sources.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="users-and-groups"></a>6.27. Adding Users and Groups</h2></div></div></div><p>Some ports require a particular user account to be present,
+      usually for daemons that run as that user.  For these ports,
+      choose a <span class="emphasis"><em>unique</em></span> UID from 50 to 999 and
+      register it in <code class="filename">ports/UIDs</code> (for users) and
+      <code class="filename">ports/GIDs</code> (for groups).  The unique
+      identification should be the same for users and groups.</p><p>Please include a patch against these two files when
+      requiring a new user or group to be created for the
+      port.</p><p>Then use <code class="varname">USERS</code> and
+      <code class="varname">GROUPS</code> in
+      <code class="filename">Makefile</code>, and the user will be
+      automatically created when installing the port.</p><pre class="programlisting">USERS=	pulse
+GROUPS=	pulse pulse-access pulse-rt</pre><p>The current list of reserved UIDs and GIDs can be found
+      in <code class="filename">ports/UIDs</code> and
+      <code class="filename">ports/GIDs</code>.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="rc-scripts.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="special.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="requiring-kernel-sources.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">6.26. Starting and Stopping Services (<code class="literal">rc</code>
+      Scripts) </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 6.28. Ports That Rely on Kernel Sources</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

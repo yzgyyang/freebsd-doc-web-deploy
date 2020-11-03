@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>6.3. Productivity</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="desktop.html" title="Chapter 6. Desktop Applications" /><link rel="prev" href="desktop-browsers.html" title="6.2. Browsers" /><link rel="next" href="desktop-viewers.html" title="6.4. Document Viewers" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.3. Productivity</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="desktop-browsers.html">Prev</a> </td><th width="60%" align="center">Chapter 6. Desktop Applications</th><td width="20%" align="right"> <a accesskey="n" href="desktop-viewers.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="desktop-productivity"></a>6.3. Productivity</h2></div></div></div><p>When it comes to productivity, users often look for an
+      office suite or an easy-to-use word processor.  While some
+      <a class="link" href="x11-wm.html" title="5.7. Desktop Environments">desktop environments</a> like
+      <span class="application">KDE</span> provide an office suite, there
+      is no default productivity package.  Several office suites and
+      graphical word processors are available for FreeBSD, regardless
+      of the installed window manager.</p><p>This section demonstrates how to install the following
+      popular productivity software and indicates if the application
+      is resource-heavy, takes time to compile from ports, or has any
+      major dependencies.</p><div class="informaltable"><table class="informaltable" width="100%" border="0"><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th>Application Name</th><th>Resources Needed</th><th>Installation from Ports</th><th>Major Dependencies</th></tr></thead><tbody><tr><td><span class="application">Calligra</span></td><td>light</td><td>heavy</td><td><span class="application">KDE</span></td></tr><tr><td><span class="application">AbiWord</span></td><td>light</td><td>light</td><td><span class="application">Gtk+</span> or
+	      <span class="application">GNOME</span></td></tr><tr><td><span class="application">The Gimp</span></td><td>light</td><td>heavy</td><td><span class="application">Gtk+</span></td></tr><tr><td><span class="application">Apache
+		OpenOffice</span></td><td>heavy</td><td>huge</td><td><span class="application"><span class="trademark">JDK</span>&#8482;</span> and
+	      <span class="application">Mozilla</span></td></tr><tr><td><span class="application">LibreOffice</span></td><td>somewhat heavy</td><td>huge</td><td><span class="application">Gtk+</span>, or
+	      <span class="application">KDE</span>/
+	      <span class="application">GNOME</span>, or
+	      <span class="application"><span class="trademark">JDK</span>&#8482;</span></td></tr></tbody></table></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp54852088"></a>6.3.1. Calligra</h3></div></div></div><a id="idp54865016" class="indexterm"></a><a id="idp54865912" class="indexterm"></a><p>The KDE desktop environment includes
+	an office suite which can be installed separately from
+	<span class="application">KDE</span>.
+	<span class="application">Calligra</span> includes standard
+	components that can be found in other office suites.
+	<span class="application">Words</span> is the word processor,
+	<span class="application">Sheets</span> is the spreadsheet program,
+	<span class="application">Stage</span> manages slide presentations,
+	and <span class="application">Karbon</span> is used to draw
+	graphical documents.</p><p>In FreeBSD, <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/editors/calligra/pkg-descr">editors/calligra</a> can be
+	installed as a package or a port.  To install the
+	package:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg install calligra</code></strong></pre><p>If the package is not available, use the Ports Collection
+	instead:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/ports/editors/calligra</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make install clean</code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp54877816"></a>6.3.2. AbiWord</h3></div></div></div><a id="idp54878456" class="indexterm"></a><p><span class="application">AbiWord</span> is a free word
+	processing program similar in look and feel to
+	<span class="application"><span class="trademark">Microsoft</span>® Word</span>.  It is fast,
+	contains many features, and is user-friendly.</p><p><span class="application">AbiWord</span> can import or export
+	many file formats, including some proprietary ones like
+	<span class="trademark">Microsoft</span>® <code class="filename">.rtf</code>.</p><p>To install the <span class="application">AbiWord</span>
+	package:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg install abiword</code></strong></pre><p>If the package is not available, it can be compiled from
+	the Ports Collection:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/ports/editors/abiword</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make install clean</code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp54886136"></a>6.3.3. The GIMP</h3></div></div></div><a id="idp54886776" class="indexterm"></a><p>For image authoring or picture retouching,
+	<span class="application">The GIMP</span> provides a sophisticated
+	image manipulation program.  It can be used as a simple paint
+	program or as a quality photo retouching suite.  It supports a
+	large number of plugins and features a scripting interface.
+	<span class="application">The GIMP</span> can read and write a wide
+	range of file formats and supports interfaces with scanners
+	and tablets.</p><p>To install the package:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg install gimp</code></strong></pre><p>Alternately, use the Ports Collection:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/ports/graphics/gimp</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make install clean</code></strong></pre><p>The graphics category (<a class="link" href="https://www.FreeBSD.org/ports/graphics.html" target="_top">freebsd.org/ports/graphics.html</a>)
+	of the Ports Collection contains several
+	<span class="application">GIMP</span>-related plugins, help files,
+	and user manuals.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp54893560"></a>6.3.4. Apache OpenOffice</h3></div></div></div><a id="idp54894200" class="indexterm"></a><a id="idp54895352" class="indexterm"></a><p><span class="application">Apache OpenOffice</span> is an open
+	source office suite which is developed under the wing of the
+	Apache Software Foundation's Incubator.  It includes all of
+	the applications found in a complete office productivity
+	suite: a word processor, spreadsheet, presentation manager,
+	and drawing program.  Its user interface is similar to other
+	office suites, and it can import and export in various popular
+	file formats.  It is available in a number of different
+	languages and internationalization has been extended to
+	interfaces, spell checkers, and dictionaries.</p><p>The word processor of <span class="application">Apache
+	  OpenOffice</span> uses a native XML file format for
+	increased portability and flexibility.  The spreadsheet
+	program features a macro language which can be interfaced
+	with external databases.  <span class="application">Apache
+	  OpenOffice</span> is stable and runs natively on
+	<span class="trademark">Windows</span>®, <span class="trademark">Solaris</span>&#8482;, <span class="trademark">Linux</span>®, FreeBSD, and <span class="trademark">Mac OS</span>® X.
+	More information about <span class="application">Apache
+	  OpenOffice</span> can be found at <a class="link" href="http://openoffice.org/" target="_top">openoffice.org</a>.
+	For FreeBSD specific information refer to <a class="link" href="http://porting.openoffice.org/freebsd/" target="_top">porting.openoffice.org/freebsd/</a>.</p><p>To install the <span class="application">Apache
+	  OpenOffice</span> package:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg install apache-openoffice</code></strong></pre><p>Once the package is installed, type the following command
+	to launch <span class="application">Apache OpenOffice</span>:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>openoffice-<em class="replaceable"><code>X.Y.Z</code></em></code></strong></pre><p>where <em class="replaceable"><code>X.Y.Z</code></em> is the version
+	number of the installed version of <span class="application">Apache
+	  OpenOffice</span>.  The first time
+	<span class="application">Apache OpenOffice</span> launches, some
+	questions will be asked and a
+	<code class="filename">.openoffice.org</code> folder will be created in
+	the user's home directory.</p><p>If the desired <span class="application">Apache
+	  OpenOffice</span> package is not available, compiling
+	the port is still an option.  However, this requires a lot of
+	disk space and a fairly long time to compile:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/ports/editors/openoffice-4</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make install clean</code></strong></pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">To build a localized version, replace the previous
+	  command with:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="screen"><code class="prompt">#</code> <strong class="userinput"><code>make LOCALIZED_LANG=<em class="replaceable"><code>your_language</code></em> install clean</code></strong></pre><p xmlns="http://www.w3.org/1999/xhtml">Replace
+	  <em class="replaceable"><code>your_language</code></em> with the correct
+	  language ISO-code.  A list of supported language codes is
+	  available in
+	  <code class="filename">files/Makefile.localized</code>, located in
+	  the port's directory.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp54917368"></a>6.3.5. LibreOffice</h3></div></div></div><a id="idp54918008" class="indexterm"></a><a id="idp54918904" class="indexterm"></a><p><span class="application">LibreOffice</span> is a free software
+	office suite developed by <a class="link" href="http://www.documentfoundation.org/" target="_top">documentfoundation.org</a>.
+	It is compatible with other major office suites and available
+	on a variety of platforms.  It is a rebranded fork of
+	<span class="application">Apache OpenOffice</span> and includes
+	applications found in a complete office productivity suite:
+	a word processor, spreadsheet, presentation manager, drawing
+	program, database management program, and a tool for creating
+	and editing mathematical formulæ.  It is available in
+	a number of different languages and internationalization has
+	been extended to interfaces, spell checkers, and
+	dictionaries.</p><p>The word processor of
+	<span class="application">LibreOffice</span> uses a native XML file
+	format for increased portability and flexibility.  The
+	spreadsheet program features a macro language which can be
+	interfaced with external databases.
+	<span class="application">LibreOffice</span> is stable and runs
+	natively on <span class="trademark">Windows</span>®, <span class="trademark">Linux</span>®, FreeBSD, and <span class="trademark">Mac OS</span>® X.
+	More information about <span class="application">LibreOffice</span>
+	can be found at <a class="link" href="http://www.libreoffice.org/" target="_top">libreoffice.org</a>.</p><p>To install the English version of the
+	<span class="application">LibreOffice</span> package:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg install libreoffice</code></strong></pre><p>The editors category (<a class="link" href="https://www.FreeBSD.org/ports/editors.html" target="_top">freebsd.org/ports/editors.html</a>)
+	of the Ports Collection contains several localizations for
+	<span class="application">LibreOffice</span>.  When installing a
+	localized package, replace <code class="literal">libreoffice</code>
+	with the name of the localized package.</p><p>Once the package is installed, type the following command
+	to run <span class="application">LibreOffice</span>:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>libreoffice</code></strong></pre><p>During the first launch, some questions will be asked
+	and a <code class="filename">.libreoffice</code> folder will be created
+	in the user's home directory.</p><p>If the desired <span class="application">LibreOffice</span>
+	package is not available, compiling the port is still an
+	option.  However, this requires a lot of disk space and a
+	fairly long time to compile.  This example compiles the
+	English version:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/ports/editors/libreoffice</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make install clean</code></strong></pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">To build a localized version,
+	  <code class="command">cd</code> into the port directory of
+	  the desired language.  Supported languages can be found
+	  in the editors category (<a class="link" href="https://www.FreeBSD.org/ports/editors.html" target="_top">freebsd.org/ports/editors.html</a>)
+	  of the Ports Collection.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="desktop-browsers.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="desktop.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="desktop-viewers.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">6.2. Browsers </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 6.4. Document Viewers</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

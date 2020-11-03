@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>12.7. Timeout Handling</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Architecture Handbook" /><link rel="up" href="scsi.html" title="Chapter 12. Common Access Method SCSI Controllers" /><link rel="prev" href="scsi-errors.html" title="12.6. Errors Summary" /><link rel="next" href="usb.html" title="Chapter 13. USB Devices" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">12.7. Timeout Handling</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="scsi-errors.html">Prev</a> </td><th width="60%" align="center">Chapter 12. Common Access Method SCSI Controllers</th><td width="20%" align="right"> <a accesskey="n" href="usb.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="scsi-timeout"></a>12.7. Timeout Handling</h2></div></div></div><p>When the timeout for an HCB expires that request should be
+      aborted, just like with an XPT_ABORT request.  The only
+      difference is that the returned status of aborted request should
+      be CAM_CMD_TIMEOUT instead of CAM_REQ_ABORTED (that is why
+      implementation of the abort better be done as a function).  But
+      there is one more possible problem: what if the abort request
+      itself will get stuck? In this case the SCSI bus should be
+      reset, just like with an XPT_RESET_BUS request (and the idea
+      about implementing it as a function called from both places
+      applies here too).  Also we should reset the whole SCSI bus if a
+      device reset request got stuck.  So after all the timeout
+      function would look like:</p><pre class="programlisting">static void
+xxx_timeout(void *arg)
+{
+    struct xxx_hcb *hcb = (struct xxx_hcb *)arg;
+    struct xxx_softc *softc;
+    struct ccb_hdr *ccb_h;
+
+    softc = hcb-&gt;softc;
+    ccb_h = &amp;hcb-&gt;ccb-&gt;ccb_h;
+
+    if(hcb-&gt;flags &amp; HCB_BEING_ABORTED
+    || ccb_h-&gt;func_code == XPT_RESET_DEV) {
+        xxx_reset_bus(softc);
+    } else {
+        xxx_abort_ccb(hcb-&gt;ccb, CAM_CMD_TIMEOUT);
+    }
+}</pre><p>When we abort a request all the other disconnected requests
+      to the same target/LUN get aborted too.  So there appears a
+      question, should we return them with status CAM_REQ_ABORTED or
+      CAM_CMD_TIMEOUT?  The current drivers use CAM_CMD_TIMEOUT. This
+      seems logical because if one request got timed out then probably
+      something really bad is happening to the device, so if they
+      would not be disturbed they would time out by themselves.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="scsi-errors.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="scsi.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="usb.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">12.6. Errors Summary </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 13. USB Devices</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

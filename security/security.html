@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">Search</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="//www.FreeBSD.org/cgi/man.cgi">Manual Pages</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">Presentations and Papers</a>
                   </li>
                   <li>
                     <a href="../doc/en_US.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
@@ -316,6 +318,44 @@
     Additional information can be found at the <a href="reporting.html" shape="rect">reporting FreeBSD security incidents</a>
     page.</p>
 
+  <a name="when-reporting" shape="rect" id="when-reporting"></a>
+  <h2>When is a Security Advisory considered?</h2>
+
+  <p>For every issue that gets reported, an internal tracking number is
+    created, unless something is very obviously not a security issue.
+    To determine whether or not a Security Advisory is warranted we use
+    the following scheme:</p>
+
+  <ul>
+    <li>Is it a privilege escalation vulnerability?</li>
+    <li>Is it a code injection vulnerability?</li>
+    <li>Is it a memory disclosure or dataleak vulnerability?
+      <ul>
+	<li>From either the kernel</li>
+	<li>From a privileged process</li>
+	<li>From a process owned by another user?</li>
+      </ul>
+    </li>
+    <li>Is it a Denial of Service vulnerability?
+      <ul>
+	<li>Only when remotely exploitable, where remotely means that it
+	  comes from a different broadcast domain, so ARP and/or NDP based
+	  attacks do not qualify.</li>
+      </ul>
+    </li>
+    <li>Is it an unassisted jailbreak vulnerability?</li>
+    <li>Is it a malfunction that could lead to generating insecure crypto keys,
+      such as a PRNG bug?</li>
+  </ul>
+
+  <p>For items that fall under these categories, a Security Advisory is very likely.
+    Items that are not on this list are looked into individually and it will be determined
+    then whether or not it will receive a Security Advisory or an Errata Notice.</p>
+
+  <p>Once it had been determined that a Security Advisory is warranted, either the
+    submitter delivers a CVE number if he/she already requested one, or we use one
+    from the FreeBSD pool available.</p>
+
   <a name="recent" shape="rect" id="recent"></a>
   <h2>Recent FreeBSD security vulnerabilities</h2>
 
@@ -368,7 +408,7 @@
   <h2>How to update your system</h2>
 
   <p>For users that have previously installed a binary version of FreeBSD
-    (e.g., 11.2 or 10.4),
+    (e.g., 12.0 or 11.2),
     commands:</p>
 
   <tt># freebsd-update fetch<br clear="none" />
@@ -405,23 +445,32 @@
     <tr>
       <th rowspan="1" colspan="1">Branch</th>
       <th rowspan="1" colspan="1">Release</th>
-      <th rowspan="1" colspan="1">Type</th>
       <th rowspan="1" colspan="1">Release Date</th>
       <th rowspan="1" colspan="1">Expected EoL</th>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">stable/12</td>
+      <td rowspan="1" colspan="1">n/a</td>
+      <td rowspan="1" colspan="1">n/a</td>
+      <td rowspan="1" colspan="1">June 30, 2024</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">releng/12.1</td>
+      <td rowspan="1" colspan="1">12.1-RELEASE</td>
+      <td rowspan="1" colspan="1">November 4, 2019</td>
+      <td rowspan="1" colspan="1">12.2-RELEASE + 3 months</td>
     </tr>
     <tr>
       <td rowspan="1" colspan="1">stable/11</td>
       <td rowspan="1" colspan="1">n/a</td>
       <td rowspan="1" colspan="1">n/a</td>
-      <td rowspan="1" colspan="1">n/a</td>
       <td rowspan="1" colspan="1">September 30, 2021</td>
     </tr>
     <tr>
-      <td rowspan="1" colspan="1">releng/11.2</td>
-      <td rowspan="1" colspan="1">11.2-RELEASE</td>
-      <td rowspan="1" colspan="1">n/a</td>
-      <td rowspan="1" colspan="1">June 28, 2018</td>
-      <td rowspan="1" colspan="1">11.3-RELEASE + 3 months</td>
+      <td rowspan="1" colspan="1">releng/11.4</td>
+      <td rowspan="1" colspan="1">11.4-RELEASE</td>
+      <td rowspan="1" colspan="1">June 16, 2020</td>
+      <td rowspan="1" colspan="1">September 30, 2021</td>
     </tr>
   </table>
 
@@ -434,46 +483,21 @@
   <a name="model" shape="rect" id="model"></a>
   <h2>The FreeBSD support model</h2>
 
-  <p>Effective FreeBSD 11.0-RELEASE, the support model has been
-    changed to allow more rapid development while also providing
-    timely security updates for all supported releases.</p>
-
-  <p>Under the new support model, each major version's stable branch
+  <p>Under the current support model, each major version's stable branch
     is explicitly supported for 5 years, while each individual point
     release is only supported for three months after the next point
     release.</p>
 
-  <p>The details and rationale behind this change can be found in the
+  <p>The details and rationale behind this model can be found in the
     <a href="https://lists.freebsd.org/pipermail/freebsd-announce/2015-February/001624.html" shape="rect">official
       announcement</a> sent in February 2015.</p>
 
-  <p>Previously, branches were designated as either <em>Normal</em> or
-    <em>Extended</em>.  The designation was used as a guideline for
-    determining the lifetime of the branch as follows:</p>
-
-  <dl>
-    <dt>Normal</dt>
-    <dd>Releases which are published from a -STABLE branch were
-      supported by the Security Officer for a minimum of 12 months
-      after the release, and for sufficient additional time (if
-      needed) to ensure that there is a newer release for at least
-      3 months before the older Normal release expires.
-    </dd>
-    <dt>Extended</dt>
-    <dd>Selected releases (normally every second release plus the last
-      release from each -STABLE branch) were supported by the Security
-      Officer for a minimum of 24 months after the release, and for
-      sufficient additional time (if needed) to ensure that there is
-      a newer Extended release for at least 3 months before the older
-      Extended release expires.
-    </dd>
-  </dl>
 </div>
           <br class="clearboth" />
         </div>
         <div id="footer">
           <span><a href="../search/index-site.html">Site Map</a> |
-  <a href="../copyright/">Legal Notices</a> | © 1995&#8211;2018 The FreeBSD Project.
+  <a href="../copyright/">Legal Notices</a> | © 1995&#8211;2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>4. PAM Configuration</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Pluggable Authentication Modules" /><link rel="up" href="index.html" title="Pluggable Authentication Modules" /><link rel="prev" href="pam-essentials.html" title="3. PAM Essentials" /><link rel="next" href="pam-freebsd-modules.html" title="5. FreeBSD PAM Modules" /><link rel="copyright" href="pam-legalnotice.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">4. PAM Configuration</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="pam-essentials.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="pam-freebsd-modules.html">Next</a></td></tr></table><hr /></div><div class="section"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="pam-config"></a>4. PAM Configuration</h2></div></div></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-config-file"></a>4.1. PAM Policy Files</h3></div></div></div><div class="section"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-config-pam.conf"></a>4.1.1. The
+	  <code class="filename">/etc/pam.conf</code></h4></div></div></div><p>The traditional PAM policy file is
+	  <code class="filename">/etc/pam.conf</code>.  This file contains all
+	  the PAM policies for your system.  Each line of the file
+	  describes one step in a chain, as shown below:</p><pre class="programlisting">login   auth    required        pam_nologin.so  no_warn</pre><p>The fields are, in order: service name, facility name,
+	  control flag, module name, and module arguments.  Any
+	  additional fields are interpreted as additional module
+	  arguments.</p><p>A separate chain is constructed for each service /
+	  facility pair, so while the order in which lines for the
+	  same service and facility appear is significant, the order
+	  in which the individual services and facilities are listed
+	  is not.  The examples in the original PAM paper grouped
+	  configuration lines by facility, and the <span class="trademark">Solaris</span>&#8482; stock
+	  <code class="filename">pam.conf</code> still does that, but FreeBSD's
+	  stock configuration groups configuration lines by service.
+	  Either way is fine; either way makes equal sense.</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-config-pam.d"></a>4.1.2. The
+	  <code class="filename">/etc/pam.d</code></h4></div></div></div><p>OpenPAM and Linux-PAM support an alternate configuration
+	  mechanism, which is the preferred mechanism in FreeBSD.  In
+	  this scheme, each policy is contained in a separate file
+	  bearing the name of the service it applies to.  These files
+	  are stored in <code class="filename">/etc/pam.d/</code>.</p><p>These per-service policy files have only four fields
+	  instead of <code class="filename">pam.conf</code>'s five: the service
+	  name field is omitted.  Thus, instead of the sample
+	  <code class="filename">pam.conf</code> line from the previous
+	  section, one would have the following line in
+	  <code class="filename">/etc/pam.d/login</code>:</p><pre class="programlisting">auth    required        pam_nologin.so  no_warn</pre><p>As a consequence of this simplified syntax, it is
+	  possible to use the same policy for multiple services by
+	  linking each service name to a same policy file.  For
+	  instance, to use the same policy for the
+	  <code class="literal">su</code> and <code class="literal">sudo</code> services,
+	  one could do as follows:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /etc/pam.d</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>ln -s su sudo</code></strong></pre><p>This works because the service name is determined from
+	  the file name rather than specified in the policy file, so
+	  the same file can be used for multiple differently-named
+	  services.</p><p>Since each service's policy is stored in a separate
+	  file, the <code class="filename">pam.d</code> mechanism also makes it
+	  very easy to install additional policies for third-party
+	  software packages.</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-config-file-order"></a>4.1.3. The Policy Search
+	  Order</h4></div></div></div><p>As we have seen above, PAM policies can be found in a
+	  number of places.  What happens if policies for the same
+	  service exist in multiple places?</p><p>It is essential to understand that PAM's configuration
+	  system is centered on chains.</p></div></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-config-breakdown"></a>4.2. Breakdown of a
+	Configuration Line</h3></div></div></div><p>As explained in <a class="xref" href="pam-config.html#pam-config-file" title="4.1. PAM Policy Files">Section 4.1, &#8220;PAM Policy Files&#8221;</a>, each
+	line in <code class="filename">/etc/pam.conf</code> consists of four or
+	more fields: the service name, the facility name, the control
+	flag, the module name, and zero or more module
+	arguments.</p><p>The service name is generally (though not always) the name
+	of the application the statement applies to.  If you are
+	unsure, refer to the individual application's documentation to
+	determine what service name it uses.</p><p>Note that if you use <code class="filename">/etc/pam.d/</code>
+	instead of <code class="filename">/etc/pam.conf</code>, the service
+	name is specified by the name of the policy file, and omitted
+	from the actual configuration lines, which then start with the
+	facility name.</p><p>The facility is one of the four facility keywords
+	described in <a class="xref" href="pam-essentials.html#pam-facilities-primitives" title="3.1. Facilities and Primitives">Section 3.1, &#8220;Facilities and
+	Primitives&#8221;</a>.</p><p>Likewise, the control flag is one of the four keywords
+	described in <a class="xref" href="pam-essentials.html#pam-chains-policies" title="3.3. Chains and Policies">Section 3.3, &#8220;Chains and
+	Policies&#8221;</a>, describing
+	how to interpret the return code from the module.  Linux-PAM
+	supports an alternate syntax that lets you specify the action
+	to associate with each possible return code, but this should
+	be avoided as it is non-standard and closely tied in with the
+	way Linux-PAM dispatches service calls (which differs greatly
+	from the way <span class="trademark">Solaris</span>&#8482; and OpenPAM do it.) Unsurprisingly,
+	OpenPAM does not support this syntax.</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-policies"></a>4.3. Policies</h3></div></div></div><p>To configure PAM correctly, it is essential to understand
+	how policies are interpreted.</p><p>When an application calls <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_start&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_start</span>(3)</span></a>, the PAM
+	library loads the policy for the specified service and
+	constructs four module chains (one for each facility.)  If one
+	or more of these chains are empty, the corresponding chains
+	from the policy for the <code class="literal">other</code> service are
+	substituted.</p><p>When the application later calls one of the six PAM
+	primitives, the PAM library retrieves the chain for the
+	corresponding facility and calls the appropriate service
+	function in each module listed in the chain, in the order in
+	which they were listed in the configuration.  After each call
+	to a service function, the module type and the error code
+	returned by the service function are used to determine what
+	happens next.  With a few exceptions, which we discuss below,
+	the following table applies:</p><div class="table"><a id="idp47348088"></a><div class="table-title">Table 1. PAM Chain Execution Summary</div><div class="table-contents"><table class="table" summary="PAM Chain Execution Summary" border="1"><colgroup><col class="type" /><col class="success" /><col class="ignore" /><col class="other" /></colgroup><thead><tr><th> </th><th><code class="literal">PAM_SUCCESS</code></th><th><code class="literal">PAM_IGNORE</code></th><th><code class="literal">other</code></th></tr></thead><tbody><tr><td>binding</td><td>if (!fail) break;</td><td>-</td><td>fail = true;</td></tr><tr><td>required</td><td>-</td><td>-</td><td>fail = true;</td></tr><tr><td>requisite</td><td>-</td><td>-</td><td>fail = true; break;</td></tr><tr><td>sufficient</td><td>if (!fail) break;</td><td>-</td><td>-</td></tr><tr><td>optional</td><td>-</td><td>-</td><td>-</td></tr></tbody></table></div></div><br class="table-break" /><p>If <code class="varname">fail</code> is true at the end of a chain,
+	or when a <span class="quote">&#8220;<span class="quote">break</span>&#8221;</span> is reached, the dispatcher
+	returns the error code returned by the first module that
+	failed.  Otherwise, it returns
+	<code class="literal">PAM_SUCCESS</code>.</p><p>The first exception of note is that the error code
+	<code class="literal">PAM_NEW_AUTHTOK_REQD</code> is treated like a
+	success, except that if no module failed, and at least one
+	module returned <code class="literal">PAM_NEW_AUTHTOK_REQD</code>, the
+	dispatcher will return
+	<code class="literal">PAM_NEW_AUTHTOK_REQD</code>.</p><p>The second exception is that <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_setcred&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_setcred</span>(3)</span></a> treats
+	<code class="literal">binding</code> and <code class="literal">sufficient</code>
+	modules as if they were <code class="literal">required</code>.</p><p>The third and final exception is that
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_chauthtok&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_chauthtok</span>(3)</span></a> runs the entire chain twice (once for
+	preliminary checks and once to actually set the password), and
+	in the preliminary phase it treats <code class="literal">binding</code>
+	and <code class="literal">sufficient</code> modules as if they were
+	<code class="literal">required</code>.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="pam-essentials.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="pam-freebsd-modules.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">3. PAM Essentials </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 5. FreeBSD PAM
+      Modules</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

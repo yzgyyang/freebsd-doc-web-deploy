@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' site: www.FreeBSD.org site: docs.FreeBSD.org site: lists.FreeBSD.org site: wiki.FreeBSD.org site: forums.FreeBSD.org'">
                   <h2 class="blockhide">
                     <label for="words">Suche</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="//www.FreeBSD.org/cgi/man.cgi">Manualpages</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">Presentations and Papers</a>
                   </li>
                   <li>
                     <a href="../../doc/de_DE.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
@@ -225,13 +227,15 @@
                   <a href="../releases/">Release Informationen</a>
                   <ul>
                     <li>Produktiv-<br />Version:
-		  <a href="../../releases/11.2R/announce.html">11.2</a></li>
+		  <a href="../../releases/12.1R/announce.html">12.1</a></li>
+                    <li>Produktiv-<br />-Version: <br /><a href="../../releases/11.4R/announce.html">11.4</a></li>
                   </ul>
                 </li>
                 <li>
                   <a href="../snapshots/">Snapshots</a>
                   <ul>
-                    <li>Testversion: <a href="../../releases/12.0R/schedule.html">12.0</a></li>
+                    <li>Testversion: <a href="../../releases/12.2R/schedule.html">12.2</a></li>
+                    <li>Testversion: <a href="../../releases/13.0R/schedule.html">13.0</a></li>
                   </ul>
                 </li>
                 <li>
@@ -260,7 +264,7 @@
     <p>Alle Informationen zu derzeit unterstützten Versionen
       (Datum der Veröffentlichung sowie Ende der
       Unterstützung mit Sicherheitsupdates) finden Sie im
-      Abschnitt <a href="../security/security.html#sup" shape="rect">Unterstützte
+      Abschnitt <a href="../security/unsupported.html" shape="rect">Nicht mehr unterstützte
       FreeBSD-Versionen</a> auf der Seite <a href="../security/security.html" shape="rect">FreeBSD Sicherheit</a>.</p>
 
     <a name="current" shape="rect" id="current"></a>
@@ -269,18 +273,31 @@
 
     <h3>Produktion</h3>
 
-    <p><b>Release 11.2</b> (Juni 2018) 
-      <em>
-        <a href="../../releases/11.2R/announce.html" shape="rect">Announcement</a> :
-        <a href="../../releases/11.2R/relnotes.html" shape="rect">Release Notes</a> :
-        <a href="../../releases/11.2R/installation.html" shape="rect">Installation Instructions</a>
-        <a href="../../releases/11.2R/hardware.html" shape="rect">Hardware Notes</a> :
-        <a href="../../releases/11.2R/readme.html" shape="rect">Readme</a> :
-        <a href="../../releases/11.2R/errata.html" shape="rect">Errata</a> :
-	<a href="../../releases/11.2R/signatures.html" shape="rect">Checksums</a>
+      <p><b>Release 12.1</b> (November 2019)
+	<em>
+	<a href="../../releases/12.1R/announce.html" shape="rect">Announcement</a> :
+	<a href="../../releases/12.1R/relnotes.html" shape="rect">Release Notes</a> :
+	<a href="../../releases/12.1R/installation.html" shape="rect">Installation Instructions</a> :
+	<a href="../../releases/12.1R/hardware.html" shape="rect">Hardware Notes</a> :
+	<a href="../../releases/12.1R/readme.html" shape="rect">Readme</a> :
+	<a href="../../releases/12.1R/errata.html" shape="rect">Errata</a> :
+	<a href="../../releases/12.1R/signatures.html" shape="rect">Checksums</a>
+      </em></p>
+
+      <p><b>Release 11.4</b> (Juni 2020)
+	<em>
+	<a href="../../releases/11.4R/announce.html" shape="rect">Announcement</a> :
+	<a href="../../releases/11.4R/relnotes.html" shape="rect">Release Notes</a> :
+	<a href="../../releases/11.4R/installation.html" shape="rect">Installation
+	  Instructions</a> :
+	<a href="../../releases/11.4R/hardware.html" shape="rect">Hardware Notes</a> :
+	<a href="../../releases/11.4R/readme.html" shape="rect">Readme</a> :
+	<a href="../../releases/11.4R/errata.html" shape="rect">Errata</a> :
+	<a href="../../releases/11.4R/signatures.html" shape="rect">Checksums</a>
       </em></p>
 
     
+
     <a name="future" shape="rect" id="future"></a>
 
     <h2>Zukünftige Versionen</h2>
@@ -305,10 +322,47 @@
     <p>Alle Informationen zu diesen Versionen, darunter Datum der
       Veröffentlichung, Versionsart, Ende der
       Unterstützung mit Sicherheitsupdates (End-of-Life-Datum)
-      finden Sie im Abschnitt <a href="../security/security.html#sup" shape="rect">Unterstützte
+      finden Sie im Abschnitt <a href="../security/unsupported.html" shape="rect">Nicht mehr unterstützte
       FreeBSD-Versionen</a> auf der Seite <a href="../security/security.html" shape="rect">FreeBSD Sicherheit</a>.</p>
-      
+
     <ul>
+
+      <li><b>12.0</b> (Dezember 2018)
+	<em>
+	  <a href="../../releases/12.0R/announce.html" shape="rect">Announcement</a>:
+	  <a href="../../releases/12.0R/relnotes.html" shape="rect">Release Notes</a>:
+	  <a href="../../releases/12.0R/installation.html" shape="rect">Installation Instructions</a>:
+	  <a href="../../releases/12.0R/hardware.html" shape="rect">Hardware Notes</a>:
+	  <a href="../../releases/12.0R/readme.html" shape="rect">Readme</a>:
+	  <a href="../../releases/12.0R/errata.html" shape="rect">Errata</a>:
+	  <a href="../../releases/12.0R/signatures.html" shape="rect">Checksums</a>
+	</em>
+      </li>
+
+      <li><b>11.3</b> (Juli 2019)
+	<em>
+	  <a href="../../releases/11.3R/announce.html" shape="rect">Announcement</a>:
+	  <a href="../../releases/11.3R/relnotes.html" shape="rect">Release Notes</a>:
+	  <a href="../../releases/11.3R/installation.html" shape="rect">Installation Instructions</a>:
+	  <a href="../../releases/11.3R/hardware.html" shape="rect">Hardware Notes</a>:
+	  <a href="../../releases/11.3R/readme.html" shape="rect">Readme</a>:
+	  <a href="../../releases/11.3R/errata.html" shape="rect">Errata</a>:
+	  <a href="../../releases/11.3R/signatures.html" shape="rect">Checksums</a>
+	</em>
+      </li>
+
+      <li><b>11.2</b> (Juni 2018)
+	<em>
+	  <a href="../../releases/11.2R/announce.html" shape="rect">Announcement</a>:
+	  <a href="../../releases/11.2R/relnotes.html" shape="rect">Release Notes</a>:
+	  <a href="../../releases/11.2R/installation.html" shape="rect">Installation Instructions</a>:
+	  <a href="../../releases/11.2R/hardware.html" shape="rect">Hardware Notes</a>:
+	  <a href="../../releases/11.2R/readme.html" shape="rect">Readme</a>:
+	  <a href="../../releases/11.2R/errata.html" shape="rect">Errata</a>:
+	  <a href="../../releases/11.2R/signatures.html" shape="rect">Checksums</a>
+	</em>
+      </li>
+
       <li><b>11.1</b> (Juli 2017)
 	<em>
 	  <a href="../../releases/11.1R/announce.html" shape="rect">Announcement</a>:
@@ -330,6 +384,18 @@
 	  <a href="../../releases/11.0R/readme.html" shape="rect">Readme</a>:
 	  <a href="../../releases/11.0R/errata.html" shape="rect">Errata</a>:
 	  <a href="../../releases/11.0R/signatures.html" shape="rect">Checksums</a>
+	</em>
+      </li>
+
+      <li><a name="rel10-4" shape="rect" id="rel10-4"></a><b>10.4</b> (October 2017)
+	<em>
+	  <a href="../../releases/10.4R/announce.html" shape="rect">Announcement</a>:
+	  <a href="../../releases/10.4R/relnotes.html" shape="rect">Release Notes</a>:
+	  <a href="../../releases/10.4R/installation.html" shape="rect">Installation Instructions</a>:
+	  <a href="../../releases/10.4R/hardware.html" shape="rect">Hardware Notes</a>:
+	  <a href="../../releases/10.4R/readme.html" shape="rect">Readme</a>:
+	  <a href="../../releases/10.4R/errata.html" shape="rect">Errata</a>:
+	  <a href="../../releases/10.4R/signatures.html" shape="rect">Checksums</a>
 	</em>
       </li>
 
@@ -514,6 +580,17 @@
 	</em>
       </li>
 
+      <li><a name="rel6-4" shape="rect" id="rel6-4"></a><b>6.4</b> (November 2008)
+	<em>
+	  <a href="../../releases/6.4R/announce.html" shape="rect">Announcement</a>:
+	  <a href="../../releases/6.4R/relnotes.html" shape="rect">Release Notes</a>:
+	  <a href="../../releases/6.4R/hardware.html" shape="rect">Hardware Notes</a>:
+	  <a href="../../releases/6.4R/installation.html" shape="rect">Installation Notes</a>:
+	  <a href="../../releases/6.4R/readme.html" shape="rect">Readme</a>:
+	  <a href="../../releases/6.4R/errata.html" shape="rect">Errata</a>
+	</em>
+      </li>
+
       <li><b>6.3</b> (Januar 2008)
 	<em>
 	  <a href="../../releases/6.3R/announce.html" shape="rect">Announcement</a>:
@@ -636,7 +713,16 @@
 	</em>
       </li>
 
-      <li><b>4.10</b> (Mai 2004)</li>
+      <li><b>4.10</b> (Mai 2004)
+	<em>
+	  <a href="../../releases/4.10R/announce.html" shape="rect">Announcement</a>:
+	  <a href="../../releases//4.10R/relnotes.html" shape="rect">Release Notes</a>:
+	  <a href="../../releases/4.10R/hardware.html" shape="rect">Hardware Notes</a>:
+	  <a href="../../releases//4.10R/installation.html" shape="rect">Installation Notes</a>:
+	  <a href="../../releases/4.10R/readme.html" shape="rect">Readme</a>:
+	  <a href="../../releases/4.10R/errata.html" shape="rect">Errata</a>
+	</em>
+      </li>
 
       <li><b>4.9</b> (Oktober 2003)
 	<em>
@@ -681,78 +767,238 @@
 	</em>
       </li>
 
-      <li><b>4.6</b> (Juni 2002)</li>
+      <li><b>4.6</b> (Juni 2002)
+	<em>
+	  <a href="../../releases/4.6R/announce.html" shape="rect">Announcement</a>:
+	  <a href="../../releases/4.6R/relnotes.html" shape="rect">Release Notes</a>:
+	  <a href="../../releases/4.6R/hardware.html" shape="rect">Hardware Notes</a>:
+	  <a href="../../releases/4.6R/installation.html" shape="rect">Installation Notes</a>:
+	  <a href="../../releases/4.6R/errata.html" shape="rect">Errata</a>
+	</em>
+      </li>
 
-      <li><b>4.5</b> (Januar 2002)</li>
+      <li><b>4.5</b> (Januar 2002)
+	<em>
+	  <a href="../../releases/4.5R/announce.html" shape="rect">Announcement</a>:
+	  <a href="../../releases/4.5R/notes.html" shape="rect">Release Notes</a>:
+	  <a href="../../releases/4.5R/hardware.html" shape="rect">Hardware Notes</a>:
+	  <a href="../../releases/4.5R/errata.html" shape="rect">Errata</a>
+	</em>
+      </li>
 
-      <li><b>4.4</b> (September 2001)</li>
+      <li><b>4.4</b> (September 2001)
+	<em>
+	  <a href="../../releases/4.4R/announce.html" shape="rect">Announcement</a>:
+	  <a href="../../releases/4.4R/notes.html" shape="rect">Release Notes</a>:
+	  <a href="../../releases/4.4R/hardware.html" shape="rect">Hardware Notes</a>:
+	  <a href="../../releases/4.4R/errata.html" shape="rect">Errata</a>
+	</em>
+      </li>
 
-      <li><b>4.3</b> (April 2001)</li>
+      <li><b>4.3</b> (April 2001)
+	<em>
+	  <a href="../../releases/4.3R/announce.html" shape="rect">Announcement</a>:
+	  <a href="../../releases/4.3R/notes.html" shape="rect">Release Notes</a>:
+	  <a href="../../releases/4.3R/errata.html" shape="rect">Errata</a>
+	</em>
+      </li>
 
-      <li><b>4.2</b> (November 2000)</li>
+      <li><b>4.2</b> (November 2000)
+	<em>
+	  <a href="../../releases/4.2R/announce.html" shape="rect">Announcement</a>:
+	  <a href="../../releases/4.2R/notes.html" shape="rect">Release Notes</a>:
+	  <a href="../../releases/4.2R/errata.html" shape="rect">Errata</a>
+	</em>
+      </li>
 
-      <li><b>4.1.1</b> (September 2000)</li>
+      <li><b>4.1.1</b> (September 2000)
+	<em>
+	<a href="../../releases/4.1.1R/announce.html" shape="rect">Announcement</a> :
+	<a href="../../releases/4.1.1R/notes.html" shape="rect">Release Notes</a> :
+	<a href="../../releases/4.1.1R/errata.html" shape="rect">Errata</a>
+	</em>
+      </li>
 
-      <li><b>4.1</b> (Juli 2000)</li>
+      <li><b>4.1</b> (Juli 2000)
+	<em>
+	  <a href="../../releases/4.1R/announce.html" shape="rect">Announcement</a>:
+	  <a href="../../releases/4.1R/notes.html" shape="rect">Release Notes</a>:
+	  <a href="../../releases/4.1R/errata.html" shape="rect">Errata</a>
+	</em>
+      </li>
 
-      <li><b>4.0</b> (März 2000)</li>
+      <li><b>4.0</b> (März 2000)
+	<em>
+	  <a href="../../releases/4.0R/announce.html" shape="rect">Announcement</a>:
+	  <a href="../../releases/4.0R/notes.html" shape="rect">Release Notes</a>:
+	  <a href="../../releases/4.0R/errata.html" shape="rect">Errata</a>
+	</em>
+      </li>
 
-      <li><b>3.5</b> (Juni 2000)</li>
+      <li><b>3.5</b> (Juni 2000)
+	<em>
+	  <a href="../../releases/3.5R/announce.html" shape="rect">Announcement</a>:
+	  <a href="../../releases/3.5R/notes.html" shape="rect">Release Notes</a>:
+	  <a href="../../releases/3.5R/errata.html" shape="rect">Errata</a>
+	</em>
+      </li>
 
-      <li><b>3.4</b> (Dezember 1999)</li>
+      <li><b>3.4</b> (Dezember 1999)
+	<em>
+	  <a href="../../releases/3.4R/announce.html" shape="rect">Announcement</a>:
+	  <a href="../../releases/3.4R/notes.html" shape="rect">Release Notes</a>:
+	  <a href="../../releases/3.4R/errata.html" shape="rect">Errata</a>
+	</em>
+      </li>
 
-      <li><b>3.3</b> (September 1999)</li>
+      <li><b>3.3</b> (September 1999)
+	<em>
+	  <a href="../../releases/3.3R/announce.html" shape="rect">Announcement</a> :
+	  <a href="../../releases/3.3R/notes.html" shape="rect">Release Notes</a> :
+	  <a href="../../releases/3.3R/errata.html" shape="rect">Errata</a>
+	</em>
+      </li>
 
-      <li><b>3.2</b> (Mai 1999)</li>
+      <li><b>3.2</b> (Mai 1999)
+	<em>
+	  <a href="../../releases/3.2R/announce.html" shape="rect">Announcement</a> :
+	  <a href="../../releases/3.2R/notes.html" shape="rect">Release Notes</a> :
+	  <a href="../../releases/3.2R/errata.html" shape="rect">Errata</a>
+	</em>
+      </li>
 
-      <li><b>3.1</b> (Februar 1999)</li>
+      <li><b>3.1</b> (Februar 1999)
+	<em>
+	  <a href="../../releases/3.1R/announce.html" shape="rect">Announcement</a> :
+	  <a href="../../releases/3.1R/notes.html" shape="rect">Release Notes</a> :
+	  <a href="../../releases/3.1R/errata.html" shape="rect">Errata</a>
+	</em>
+      </li>
 
-      <li><b>3.0</b> (Oktober 1998)</li>
+      <li><b>3.0</b> (Oktober 1998)
+	<em>
+	  <a href="../../releases/3.0R/announce.html" shape="rect">Announcement</a> :
+	  <a href="../../releases/3.0R/notes.html" shape="rect">Release Notes</a> :
+	  <a href="../../releases/3.0R/errata.html" shape="rect">Errata</a>
+	</em>
+      </li>
 
-      <li><b>2.2.8</b> (Dezember 1998)</li>
+      <li><b>2.2.8</b> (Dezember 1998)
+	<em>
+	  <a href="../../releases/2.2.8R/announce.html" shape="rect">Announcement</a> :
+	  <a href="../../releases/2.2.8R/notes.html" shape="rect">Release Notes</a> :
+	  <a href="../../releases/2.2.8R/errata.html" shape="rect">Errata</a>
+	</em>
+      </li>
 
-      <li><b>2.2.7</b> (Juli 1998)</li>
+      <li><b>2.2.7</b> (Juli 1998)
+	<em>
+	  <a href="../../releases/2.2.7R/announce.html" shape="rect">Announcement</a> :
+	  <a href="../../releases/2.2.7R/notes.html" shape="rect">Release Notes</a> :
+	  <a href="../../releases/2.2.7R/errata.html" shape="rect">Errata</a>
+	</em>
+      </li>
 
-      <li><b>2.2.6</b> (März 1998)</li>
+      <li><b>2.2.6</b> (März 1998)
+	<em>
+	  <a href="../../releases/2.2.6R/announce.html" shape="rect">Announcement</a> :
+	  <a href="../../releases/2.2.6R/notes.html" shape="rect">Release Notes</a> :
+	  <a href="../../releases/2.2.6R/errata.html" shape="rect">Errata</a>
+	</em>
+      </li>
 
-      <li><b>2.2.5</b> (Oktober 1997)</li>
+      <li><b>2.2.5</b> (Oktober 1997)
+	<em>
+	  <a href="../../releases/2.2.5R/announce.html" shape="rect">Announcement</a> :
+	  <a href="../../releases/2.2.5R/notes.html" shape="rect">Release Notes</a> :
+	  <a href="../../releases/2.2.5R/errata.html" shape="rect">Errata</a>
+	</em>
+      </li>
 
-      <li><b>2.2.2</b> (Mai 1997)</li>
+      <li><b>2.2.2</b> (Mai 1997)
+	<em>
+	  <a href="../../releases/2.2.2R/notes.html" shape="rect">Release Notes</a> :
+	  <a href="../../releases/2.2.2R/errata.html" shape="rect">Errata</a>
+	</em>
+      </li>
 
-      <li><b>2.2.1</b> (April 1997)</li>
+      <li><b>2.2.1</b> (April 1997)
+        <em>
+	  <a href="../../releases/2.2.1R/notes.html" shape="rect">Release Notes</a>
+        </em>
+      </li>
 
-      <li><b>2.2</b> (März 1997)</li>
+      <li><b>2.2</b> (März 1997)
+	<em>
+	  <a href="../../releases/2.2R/announce.html" shape="rect">Announcement</a> :
+	  <a href="../../releases/2.2R/notes.html" shape="rect">Release Notes</a>
+	</em>
+      </li>
 
-      <li><b>2.1.7</b> (Februar 1997)</li>
+      <li><b>2.1.7</b> (Februar 1997)
+	<em>
+	  <a href="../../releases/2.1.7R/announce.html" shape="rect">Announcement</a> :
+	  <a href="../../releases/2.1.7R/notes.html" shape="rect">Release Notes</a>
+	</em>
+      </li>
 
-      <li><b>2.1.6</b> (Dezember 1996)</li>
+      <li><b>2.1.6</b> (Dezember 1996)
+	<em>
+	  <a href="../../releases/2.1.6R/announce.html" shape="rect">Announcement</a> :
+	  <a href="../../releases/2.1.6R/notes.html" shape="rect">Release Notes</a>
+	</em>
+      </li>
 
-      <li><b>2.1.5</b> (Juli 1996)</li>
+      <li><b>2.1.5</b> (Juli 1996)
+	<em>
+	  <a href="../../releases/2.1.5R/announce.html" shape="rect">Announcement</a> :
+	  <a href="../../releases/2.1.5R/notes.html" shape="rect">Release Notes</a>
+	</em>
+      </li>
 
-      <li><b>2.1</b> (November 1995)</li>
+      <li><b>2.1</b> (November 1995)
+	<em>
+	  <a href="../../releases/2.1R/announce.html" shape="rect">Announcement</a> :
+	  <a href="../../releases/2.1R/notes.html" shape="rect">Release Notes</a>
+	</em>
+      </li>
 
-      <li><b>2.0.5</b> (Juni 1995)</li>
+      <li><b>2.0.5</b> (Juni 1995)
+	<em>
+	  <a href="../../releases/2.0.5R/announce.html" shape="rect">Announcement</a> :
+	  <a href="../../releases/2.0.5R/notes.html" shape="rect">Release Notes</a>
+	</em>
+      </li>
 
-      <li><b>2.0</b> (November 1994)</li>
+      <li><b>2.0</b> (November 1994)
+	<em>
+	  <a href="../../releases/2.0/announce.html" shape="rect">Announcement</a> :
+	  <a href="../../releases/2.0/notes.html" shape="rect">Release Notes</a>
+	</em>
+      </li>
 
       <li><b>1.1.5.1</b> (Juli 1994)
 	<em>
-	  <a href="../../releases/1.1.5.1/ANNOUNCEMENT.FreeBSD" shape="rect">Announcement</a> :
-	  <a href="../../releases/1.1.5.1/WHATS_NEW-1.1.5.1" shape="rect">What's New</a>
+	  <a href="../../releases/1.1.5.1/ANNOUNCEMENT.FreeBSD.txt" shape="rect">Announcement</a> :
+	  <a href="../../releases/1.1.5.1/WHATS_NEW-1.1.5.1.txt" shape="rect">What's New</a>
 	</em>
       </li>
 
       <li><b>1.1.5</b>
 	<em>
-	  <a href="../../releases/1.1.5/RELNOTES.FreeBSD" shape="rect">Release Notes</a>
-	  <a href="../../releases/1.1.5/WHATS_NEW-1.1.5" shape="rect">What's New</a>
+	  <a href="../../releases/1.1.5/RELNOTES.FreeBSD.txt" shape="rect">Release Notes</a>
+	  <a href="../../releases/1.1.5/WHATS_NEW-1.1.5.txt" shape="rect">What's New</a>
 	</em>
       </li>
 
-      <li><b>1.1</b> (Mai 1994)</li>
+      <li><b>1.1</b> (Mai 1994)
+	<em>
+	  <a href="../../releases/1.1/RELNOTES.FreeBSD.txt" shape="rect">Release Notes</a>
+	</em>
+      </li>
 
       <li><b>1.0</b> (November 1993)
-      	<em>
+	<em>
 	  <a href="../../releases/1.0/announce.html" shape="rect">Announcement</a>
 	</em>
       </li>
@@ -762,7 +1008,7 @@
           <br class="clearboth" />
         </div>
         <div id="footer">
-          <span><a href="../../search/index-site.html">Sitemap</a> | <a href="../../copyright/">Legal Notices</a> | © 1995&#8211;2018 The FreeBSD Project.  Alle Rechte vorbehalten.</span>
+          <span><a href="../../search/index-site.html">Sitemap</a> | <a href="../../copyright/">Legal Notices</a> | © 1995&#8211;2020 The FreeBSD Project.  Alle Rechte vorbehalten.</span>
           <br />
         </div>
       </div>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>5.4. Encumbered Files</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Developers' Handbook" /><link rel="up" href="policies.html" title="Chapter 5. Source Tree Guidelines and Policies" /><link rel="prev" href="policies-contributed.html" title="5.3. Contributed Software" /><link rel="next" href="policies-shlib.html" title="5.5. Shared Libraries" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5.4. Encumbered Files</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="policies-contributed.html">Prev</a> </td><th width="60%" align="center">Chapter 5. Source Tree Guidelines and Policies</th><td width="20%" align="right"> <a accesskey="n" href="policies-shlib.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="policies-encumbered"></a>5.4. Encumbered Files</h2></div></div></div><p>It might occasionally be necessary to include an encumbered
+      file in the FreeBSD source tree.  For example, if a device
+      requires a small piece of binary code to be loaded to it before
+      the device will operate, and we do not have the source to that
+      code, then the binary file is said to be encumbered.  The
+      following policies apply to including encumbered files in the
+      FreeBSD source tree.</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>Any file which is interpreted or executed by the system
+	  CPU(s) and not in source format is encumbered.</p></li><li class="listitem"><p>Any file with a license more restrictive than BSD or GNU
+	  is encumbered.</p></li><li class="listitem"><p>A file which contains downloadable binary data for use
+	  by the hardware is not encumbered, unless (1) or (2) apply
+	  to it.  It must be stored in an architecture neutral ASCII
+	  format (file2c or uuencoding is recommended).</p></li><li class="listitem"><p>Any encumbered file requires specific approval from the
+	  <a class="link" href="../../../../administration.html#t-core" target="_top">Core
+	    Team</a> before it is added to the repository.</p></li><li class="listitem"><p>Encumbered files go in <code class="filename">src/contrib</code>
+	  or <code class="filename">src/sys/contrib</code>.</p></li><li class="listitem"><p>The entire module should be kept together.  There is no
+	  point in splitting it, unless there is code-sharing with
+	  non-encumbered code.</p></li><li class="listitem"><p>Object files are named
+	  <code class="filename"><em class="replaceable"><code>arch</code></em>/<em class="replaceable"><code>filename</code></em>.o.uu&gt;</code>.</p></li><li class="listitem"><p>Kernel files:</p><div class="orderedlist"><ol class="orderedlist" type="a"><li class="listitem"><p>Should always be referenced in
+	      <code class="filename">conf/files.*</code> (for build
+	      simplicity).</p></li><li class="listitem"><p>Should always be in <code class="filename">LINT</code>, but
+	      the <a class="link" href="../../../../administration.html#t-core" target="_top">Core
+		Team</a> decides per case if it should be commented
+	      out or not.  The <a class="link" href="../../../../administration.html#t-core" target="_top">Core
+		Team</a> can, of course, change their minds later
+	      on.</p></li><li class="listitem"><p>The <em class="firstterm">Release Engineer</em>
+	      decides whether or not it goes into the release.</p></li></ol></div></li><li class="listitem"><p>User-land files:</p><div class="orderedlist"><ol class="orderedlist" type="a"><li class="listitem"><p>The <a class="link" href="../../../../administration.html#t-core" target="_top">Core
+		team</a><a id="idp51126392" class="indexterm"></a> decides if the code
+	      should be part of <code class="command">make world</code>.</p></li><li class="listitem"><p>The <a class="link" href="../../../../administration.html#t-re" target="_top">Release
+		Engineering</a><a id="idp51128440" class="indexterm"></a> decides if it goes
+	      into the release.</p></li></ol></div></li></ol></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="policies-contributed.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="policies.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="policies-shlib.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">5.3. Contributed Software </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 5.5. Shared Libraries</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

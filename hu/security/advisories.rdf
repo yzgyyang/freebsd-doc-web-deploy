@@ -7,43 +7,43 @@
 	biztonsági figyelmeztetések</description>
   </channel>
   <item>
-    <title>FreeBSD-SA-18:12.elf</title>
-    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-18:12.elf.asc</link>
+    <title>FreeBSD-SA-20:30.ftpd</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-20:30.ftpd.asc</link>
   </item>
   <item>
-    <title>FreeBSD-SA-18:11.hostapd</title>
-    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-18:11.hostapd.asc</link>
+    <title>FreeBSD-SA-20:29.bhyve_svm</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-20:29.bhyve_svm.asc</link>
   </item>
   <item>
-    <title>FreeBSD-SA-18:10.ip</title>
-    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-18:10.ip.asc</link>
+    <title>FreeBSD-SA-20:28.bhyve_vmcs</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-20:28.bhyve_vmcs.asc</link>
   </item>
   <item>
-    <title>FreeBSD-SA-18:09.l1tf</title>
-    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-18:09.l1tf.asc</link>
+    <title>FreeBSD-SA-20:27.ure</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-20:27.ure.asc</link>
   </item>
   <item>
-    <title>FreeBSD-SA-18:08.tcp</title>
-    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-18:08.tcp.asc</link>
+    <title>FreeBSD-SA-20:26.dhclient</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-20:26.dhclient.asc</link>
   </item>
   <item>
-    <title>FreeBSD-SA-18:07.lazyfpu</title>
-    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-18:07.lazyfpu.asc</link>
+    <title>FreeBSD-SA-20:25.sctp</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-20:25.sctp.asc</link>
   </item>
   <item>
-    <title>FreeBSD-SA-18:06.debugreg</title>
-    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-18:06.debugreg.asc</link>
+    <title>FreeBSD-SA-20:24.ipv6</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-20:24.ipv6.asc</link>
   </item>
   <item>
-    <title>FreeBSD-SA-18:05.ipsec</title>
-    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-18:05.ipsec.asc</link>
+    <title>FreeBSD-SA-20:23.sendmsg</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-20:23.sendmsg.asc</link>
   </item>
   <item>
-    <title>FreeBSD-SA-18:04.vt</title>
-    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-18:04.vt.asc</link>
+    <title>FreeBSD-SA-20:22.sqlite</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-20:22.sqlite.asc</link>
   </item>
   <item>
-    <title>FreeBSD-SA-18:03.speculative_execution</title>
-    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-18:03.speculative_execution.asc</link>
+    <title>FreeBSD-SA-20:21.usb_net</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-20:21.usb_net.asc</link>
   </item>
 </rdf:RDF>

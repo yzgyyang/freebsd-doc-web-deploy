@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>Chapter 11. PCI Devices</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Architecture Handbook" /><link rel="up" href="devicedrivers.html" title="Part II. Device Drivers" /><link rel="prev" href="isa-driver-intr.html" title="10.12. xxx_intr" /><link rel="next" href="pci-bus.html" title="11.2. Bus Resources" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 11. PCI Devices</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="isa-driver-intr.html">Prev</a> </td><th width="60%" align="center">Part II. Device Drivers</th><td width="20%" align="right"> <a accesskey="n" href="pci-bus.html">Next</a></td></tr></table><hr /></div><div class="chapter"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pci"></a>Chapter 11. PCI Devices</h2></div></div></div><div class="toc"><div class="toc-title">Table of Contents</div><dl class="toc"><dt><span class="sect1"><a href="pci.html#pci-probe">11.1. Probe and Attach</a></span></dt><dt><span class="sect1"><a href="pci-bus.html">11.2. Bus Resources</a></span></dt></dl></div><a id="idp56694904" class="indexterm"></a><p>This chapter will talk about the FreeBSD mechanisms for
+    writing a device driver for a device on a PCI bus.</p><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="pci-probe"></a>11.1. Probe and Attach</h2></div></div></div><p>Information here about how the PCI bus code iterates through
+      the unattached devices and see if a newly loaded kld will attach
+      to any of them.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp56696952"></a>11.1.1. Sample Driver Source
+	(<code class="filename">mypci.c</code>)</h3></div></div></div><pre class="programlisting">/*
+ * Simple KLD to play with the PCI functions.
+ *
+ * Murray Stokely
+ */
+
+#include &lt;sys/param.h&gt;		/* defines used in kernel.h */
+#include &lt;sys/module.h&gt;
+#include &lt;sys/systm.h&gt;
+#include &lt;sys/errno.h&gt;
+#include &lt;sys/kernel.h&gt;		/* types used in module initialization */
+#include &lt;sys/conf.h&gt;		/* cdevsw struct */
+#include &lt;sys/uio.h&gt;		/* uio struct */
+#include &lt;sys/malloc.h&gt;
+#include &lt;sys/bus.h&gt;		/* structs, prototypes for pci bus stuff and DEVMETHOD macros! */
+
+#include &lt;machine/bus.h&gt;
+#include &lt;sys/rman.h&gt;
+#include &lt;machine/resource.h&gt;
+
+#include &lt;dev/pci/pcivar.h&gt;	/* For pci_get macros! */
+#include &lt;dev/pci/pcireg.h&gt;
+
+/* The softc holds our per-instance data. */
+struct mypci_softc {
+	device_t	my_dev;
+	struct cdev	*my_cdev;
+};
+
+/* Function prototypes */
+static d_open_t		mypci_open;
+static d_close_t	mypci_close;
+static d_read_t		mypci_read;
+static d_write_t	mypci_write;
+
+/* Character device entry points */
+
+static struct cdevsw mypci_cdevsw = {
+	.d_version =	D_VERSION,
+	.d_open =	mypci_open,
+	.d_close =	mypci_close,
+	.d_read =	mypci_read,
+	.d_write =	mypci_write,
+	.d_name =	"mypci",
+};
+
+/*
+ * In the cdevsw routines, we find our softc by using the si_drv1 member
+ * of struct cdev.  We set this variable to point to our softc in our
+ * attach routine when we create the /dev entry.
+ */
+
+int
+mypci_open(struct cdev *dev, int oflags, int devtype, struct thread *td)
+{
+	struct mypci_softc *sc;
+
+	/* Look up our softc. */
+	sc = dev-&gt;si_drv1;
+	device_printf(sc-&gt;my_dev, "Opened successfully.\n");
+	return (0);
+}
+
+int
+mypci_close(struct cdev *dev, int fflag, int devtype, struct thread *td)
+{
+	struct mypci_softc *sc;
+
+	/* Look up our softc. */
+	sc = dev-&gt;si_drv1;
+	device_printf(sc-&gt;my_dev, "Closed.\n");
+	return (0);
+}
+
+int
+mypci_read(struct cdev *dev, struct uio *uio, int ioflag)
+{
+	struct mypci_softc *sc;
+
+	/* Look up our softc. */
+	sc = dev-&gt;si_drv1;
+	device_printf(sc-&gt;my_dev, "Asked to read %zd bytes.\n", uio-&gt;uio_resid);
+	return (0);
+}
+
+int
+mypci_write(struct cdev *dev, struct uio *uio, int ioflag)
+{
+	struct mypci_softc *sc;
+
+	/* Look up our softc. */
+	sc = dev-&gt;si_drv1;
+	device_printf(sc-&gt;my_dev, "Asked to write %zd bytes.\n", uio-&gt;uio_resid);
+	return (0);
+}
+
+/* PCI Support Functions */
+
+/*
+ * Compare the device ID of this device against the IDs that this driver
+ * supports.  If there is a match, set the description and return success.
+ */
+static int
+mypci_probe(device_t dev)
+{
+
+	device_printf(dev, "MyPCI Probe\nVendor ID : 0x%x\nDevice ID : 0x%x\n",
+	    pci_get_vendor(dev), pci_get_device(dev));
+
+	if (pci_get_vendor(dev) == 0x11c1) {
+		printf("We've got the Winmodem, probe successful!\n");
+		device_set_desc(dev, "WinModem");
+		return (BUS_PROBE_DEFAULT);
+	}
+	return (ENXIO);
+}
+
+/* Attach function is only called if the probe is successful. */
+
+static int
+mypci_attach(device_t dev)
+{
+	struct mypci_softc *sc;
+
+	printf("MyPCI Attach for : deviceID : 0x%x\n", pci_get_devid(dev));
+
+	/* Look up our softc and initialize its fields. */
+	sc = device_get_softc(dev);
+	sc-&gt;my_dev = dev;
+
+	/*
+	 * Create a /dev entry for this device.  The kernel will assign us
+	 * a major number automatically.  We use the unit number of this
+	 * device as the minor number and name the character device
+	 * "mypci&lt;unit&gt;".
+	 */
+	sc-&gt;my_cdev = make_dev(<code class="literal">&amp;</code>mypci_cdevsw, device_get_unit(dev),
+	    UID_ROOT, GID_WHEEL, 0600, "mypci%u", device_get_unit(dev));
+	sc-&gt;my_cdev-&gt;si_drv1 = sc;
+	printf("Mypci device loaded.\n");
+	return (0);
+}
+
+/* Detach device. */
+
+static int
+mypci_detach(device_t dev)
+{
+	struct mypci_softc *sc;
+
+	/* Teardown the state in our softc created in our attach routine. */
+	sc = device_get_softc(dev);
+	destroy_dev(sc-&gt;my_cdev);
+	printf("Mypci detach!\n");
+	return (0);
+}
+
+/* Called during system shutdown after sync. */
+
+static int
+mypci_shutdown(device_t dev)
+{
+
+	printf("Mypci shutdown!\n");
+	return (0);
+}
+
+/*
+ * Device suspend routine.
+ */
+static int
+mypci_suspend(device_t dev)
+{
+
+	printf("Mypci suspend!\n");
+	return (0);
+}
+
+/*
+ * Device resume routine.
+ */
+static int
+mypci_resume(device_t dev)
+{
+
+	printf("Mypci resume!\n");
+	return (0);
+}
+
+static device_method_t mypci_methods[] = {
+	/* Device interface */
+	DEVMETHOD(device_probe,		mypci_probe),
+	DEVMETHOD(device_attach,	mypci_attach),
+	DEVMETHOD(device_detach,	mypci_detach),
+	DEVMETHOD(device_shutdown,	mypci_shutdown),
+	DEVMETHOD(device_suspend,	mypci_suspend),
+	DEVMETHOD(device_resume,	mypci_resume),
+
+	DEVMETHOD_END
+};
+
+static devclass_t mypci_devclass;
+
+DEFINE_CLASS_0(mypci, mypci_driver, mypci_methods, sizeof(struct mypci_softc));
+DRIVER_MODULE(mypci, pci, mypci_driver, mypci_devclass, 0, 0);</pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp56698872"></a>11.1.2. <code class="filename">Makefile</code> for Sample Driver</h3></div></div></div><pre class="programlisting"># Makefile for mypci driver
+
+KMOD=	mypci
+SRCS=	mypci.c
+SRCS+=	device_if.h bus_if.h pci_if.h
+
+.include &lt;bsd.kmod.mk&gt;</pre><p>If you place the above source file and
+	<code class="filename">Makefile</code> into a directory, you may run
+	<code class="command">make</code> to compile the sample driver.
+	Additionally, you may run <code class="command">make load</code> to load
+	the driver into the currently running kernel and <code class="command">make
+	unload</code> to unload the driver after it is
+	loaded.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp56706296"></a>11.1.3. Additional Resources</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><a class="link" href="http://www.pcisig.org/" target="_top">PCI
+	    Special Interest Group</a></li><li class="listitem">PCI System Architecture, Fourth Edition by
+	    Tom Shanley, et al.</li></ul></div></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="isa-driver-intr.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="devicedrivers.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="pci-bus.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">10.12. xxx_intr </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 11.2. Bus Resources</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

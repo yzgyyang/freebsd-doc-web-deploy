@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>9.5. Block Elements</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Documentation Project Primer for New Contributors" /><link rel="up" href="docbook-markup.html" title="Chapter 9. DocBook Markup" /><link rel="prev" href="docbook-markup-document-structure.html" title="9.4. Document Structure" /><link rel="next" href="docbook-markup-inline-elements.html" title="9.6. In-line Elements" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">9.5. Block Elements</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="docbook-markup-document-structure.html">Prev</a> </td><th width="60%" align="center">Chapter 9. DocBook Markup</th><td width="20%" align="right"> <a accesskey="n" href="docbook-markup-inline-elements.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="docbook-markup-block-elements"></a>9.5. Block Elements</h2></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="docbook-markup-paragraphs"></a>9.5.1. Paragraphs</h3></div></div></div><p>DocBook supports three types of paragraphs:
+	<code class="sgmltag-element">formalpara</code>, <code class="sgmltag-element">para</code>, and
+	<code class="sgmltag-element">simpara</code>.</p><p>Almost all paragraphs in FreeBSD documentation use
+	<code class="sgmltag-element">para</code>.  <code class="sgmltag-element">formalpara</code>
+	includes a <code class="sgmltag-element">title</code> element, and
+	<code class="sgmltag-element">simpara</code> disallows some elements from
+	within <code class="sgmltag-element">para</code>.  Stick with
+	<code class="sgmltag-element">para</code>.</p><div class="example"><a id="idp52076024"></a><div class="example-title">Example 9.6. <code class="sgmltag-element">para</code> Example</div><div class="example-contents"><p>Usage:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;para&gt;</code>This is a paragraph.  It can contain just about any
+  other element.<code class="sgmltag-endtag">&lt;/para&gt;</code></pre><p>Appearance:</p><p>This is a paragraph.  It can contain just about any
+	  other element.</p></div></div><br class="example-break" /></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="docbook-markup-block-quotations"></a>9.5.2. Block Quotations</h3></div></div></div><p>A block quotation is an extended quotation from another
+	document that should not appear within the current paragraph.
+	These are rarely needed.</p><p>Blockquotes can optionally contain a title and an
+	attribution (or they can be left untitled and
+	unattributed).</p><div class="example"><a id="idp52085240"></a><div class="example-title">Example 9.7. <code class="sgmltag-element">blockquote</code> Example</div><div class="example-contents"><p>Usage:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;para&gt;</code>A small excerpt from the US Constitution:<code class="sgmltag-endtag">&lt;/para&gt;</code>
+
+<code class="sgmltag-starttag">&lt;blockquote&gt;</code>
+  <code class="sgmltag-starttag">&lt;title&gt;</code>Preamble to the Constitution of the United States<code class="sgmltag-endtag">&lt;/title&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;attribution&gt;</code>Copied from a web site somewhere<code class="sgmltag-endtag">&lt;/attribution&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;para&gt;</code>We the People of the United States, in Order to form a more
+    perfect Union, establish Justice, insure domestic Tranquility,
+    provide for the common defence, promote the general Welfare, and
+    secure the Blessings of Liberty to ourselves and our Posterity, do
+    ordain and establish this Constitution for the United States of
+    America.<code class="sgmltag-endtag">&lt;/para&gt;</code>
+<code class="sgmltag-endtag">&lt;/blockquote&gt;</code></pre><p>Appearance:</p><p>A small excerpt from the US Constitution:</p><div class="blockquote"><table border="0" class="blockquote" style="width: 100%; cellspacing: 0; cellpadding: 0;" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><div class="blockquote-title">Preamble to the Constitution of the United
+	    States</div><p>We the People of the United States, in Order to form
+	    a more perfect Union, establish Justice, insure domestic
+	    Tranquility, provide for the common defence, promote the
+	    general Welfare, and secure the Blessings of Liberty to
+	    ourselves and our Posterity, do ordain and establish
+	    this Constitution for the United States of
+	    America.</p></td><td width="10%" valign="top"> </td></tr><tr><td width="10%" valign="top"> </td><td colspan="2" align="right" valign="top">--<span class="attribution">Copied from a web site
+	    somewhere</span></td></tr></table></div></div></div><br class="example-break" /></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="docbook-markup-tips-notes"></a>9.5.3. Tips, Notes, Warnings, Cautions, and Important
+	Information</h3></div></div></div><p>Extra information may need to be separated from
+	the main body of the text.  Typically this is
+	<span class="quote">&#8220;<span class="quote">meta</span>&#8221;</span> information of which the user should be
+	aware.</p><p>Several types of admonitions are available:
+	<code class="sgmltag-element">tip</code>, <code class="sgmltag-element">note</code>,
+	<code class="sgmltag-element">warning</code>, <code class="sgmltag-element">caution</code>, and
+	<code class="sgmltag-element">important</code>.</p><p>Which admonition to choose depends on the situation.
+	The DocBook
+	documentation suggests:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Note is for information that should be heeded by
+	    all readers.</p></li><li class="listitem"><p>Important is a variation on Note.</p></li><li class="listitem"><p>Caution is for information regarding possible data
+	    loss or software damage.</p></li><li class="listitem"><p>Warning is for information regarding possible
+	    hardware damage or injury to life or limb.</p></li></ul></div><div class="example"><a id="idp52102008"></a><div class="example-title">Example 9.8. <code class="sgmltag-element">tip</code> and <code class="sgmltag-element">important</code> Example</div><div class="example-contents"><p>Usage:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;tip&gt;</code>
+  <code class="sgmltag-starttag">&lt;para&gt;</code>&amp;os; may reduce stress.<code class="sgmltag-endtag">&lt;/para&gt;</code>
+<code class="sgmltag-endtag">&lt;/tip&gt;</code>
+
+<code class="sgmltag-starttag">&lt;important&gt;</code>
+  <code class="sgmltag-starttag">&lt;para&gt;</code>Please use admonitions sparingly.  Too many admonitions
+    are visually jarring and can have the opposite of the
+    intended effect.<code class="sgmltag-endtag">&lt;/para&gt;</code>
+<code class="sgmltag-endtag">&lt;/important&gt;</code></pre></div></div><br class="example-break" /><p>Appearance:</p><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">FreeBSD may reduce stress.</p></div><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">Please use admonitions sparingly.  Too many admonitions
+	  are visually jarring and can have the opposite of the
+	  intended effect.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="docbook-markup-example"></a>9.5.4. Examples</h3></div></div></div><p>Examples can be shown with <code class="sgmltag-element">example</code>.</p><div class="example"><a id="idp52124152"></a><div class="example-title">Example 9.9. <code class="sgmltag-element">example</code> Source</div><div class="example-contents"><p>Usage:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;example&gt;</code>
+  <code class="sgmltag-starttag">&lt;para&gt;</code>Empty files can be created easily:<code class="sgmltag-endtag">&lt;/para&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;screen&gt;</code>&amp;prompt.user; <code class="sgmltag-starttag">&lt;userinput&gt;</code>touch file1 file2 file3<code class="sgmltag-endtag">&lt;/userinput&gt;</code><code class="sgmltag-endtag">&lt;/screen&gt;</code>
+<code class="sgmltag-endtag">&lt;/example&gt;</code></pre></div></div><br class="example-break" /><p>Appearance:</p><div class="example"><a id="idp52130296"></a><div class="example-title">Example 9.10. Rendered <code class="sgmltag-element">example</code></div><div class="example-contents"><p>Empty files can be created easily:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>touch file1 file2 file3</code></strong></pre></div></div><br class="example-break" /></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="docbook-markup-lists-and-procedures"></a>9.5.5. Lists and Procedures</h3></div></div></div><p>Information often needs to be presented as lists, or as a
+	number of steps that must be carried out in order to
+	accomplish a particular goal.</p><p>To do this, use <code class="sgmltag-element">itemizedlist</code>,
+	<code class="sgmltag-element">orderedlist</code>, <code class="sgmltag-element">variablelist</code>, or
+	<code class="sgmltag-element">procedure</code>.  There are other types of list
+	elements in DocBook, but we will not cover them here.</p><p><code class="sgmltag-element">itemizedlist</code> and
+	<code class="sgmltag-element">orderedlist</code> are similar to their
+	counterparts in <acronym class="acronym">HTML</acronym>, <code class="sgmltag-element">ul</code>
+	and <code class="sgmltag-element">ol</code>.  Each one consists of one or more
+	<code class="sgmltag-element">listitem</code> elements, and each
+	<code class="sgmltag-element">listitem</code> contains one or more block
+	elements.  The <code class="sgmltag-element">listitem</code> elements are
+	analogous to <acronym class="acronym">HTML</acronym>'s <code class="sgmltag-element">li</code>
+	tags.  However, unlike HTML, they are required.</p><div class="example"><a id="idp52148088"></a><div class="example-title">Example 9.11. <code class="sgmltag-element">itemizedlist</code> and
+	  <code class="sgmltag-element">orderedlist</code> Example</div><div class="example-contents"><p>Usage:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;itemizedlist&gt;</code>
+  <code class="sgmltag-starttag">&lt;listitem&gt;</code>
+    <code class="sgmltag-starttag">&lt;para&gt;</code>This is the first itemized item.<code class="sgmltag-endtag">&lt;/para&gt;</code>
+  <code class="sgmltag-endtag">&lt;/listitem&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;listitem&gt;</code>
+    <code class="sgmltag-starttag">&lt;para&gt;</code>This is the second itemized item.<code class="sgmltag-endtag">&lt;/para&gt;</code>
+  <code class="sgmltag-endtag">&lt;/listitem&gt;</code>
+<code class="sgmltag-endtag">&lt;/itemizedlist&gt;</code>
+
+<code class="sgmltag-starttag">&lt;orderedlist&gt;</code>
+  <code class="sgmltag-starttag">&lt;listitem&gt;</code>
+    <code class="sgmltag-starttag">&lt;para&gt;</code>This is the first ordered item.<code class="sgmltag-endtag">&lt;/para&gt;</code>
+  <code class="sgmltag-endtag">&lt;/listitem&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;listitem&gt;</code>
+    <code class="sgmltag-starttag">&lt;para&gt;</code>This is the second ordered item.<code class="sgmltag-endtag">&lt;/para&gt;</code>
+  <code class="sgmltag-endtag">&lt;/listitem&gt;</code>
+<code class="sgmltag-endtag">&lt;/orderedlist&gt;</code></pre><p>Appearance:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>This is the first itemized item.</p></li><li class="listitem"><p>This is the second itemized item.</p></li></ul></div><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>This is the first ordered item.</p></li><li class="listitem"><p>This is the second ordered item.</p></li></ol></div></div></div><br class="example-break" /><p><a id="docbook-markup-varlist"></a>An alternate and often
+	useful way of presenting information is the
+	<code class="sgmltag-element">variablelist</code>.  These are lists where each entry has
+	a term and a description.  They are well suited for many types
+	of descriptions, and present information in a form that is
+	often easier for the reader than sections and
+	subsections.</p><p>A <code class="sgmltag-element">variablelist</code> has a <code class="sgmltag-element">title</code>, and then
+	pairs of <code class="sgmltag-element">term</code> and <code class="sgmltag-element">listitem</code>
+	entries.</p><div class="example"><a id="docbook-markup-variablelist-example"></a><div class="example-title">Example 9.12. <code class="sgmltag-element">variablelist</code> Example</div><div class="example-contents"><p>Usage:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;variablelist&gt;</code>
+  <code class="sgmltag-starttag">&lt;varlistentry&gt;</code>
+    <code class="sgmltag-starttag">&lt;term&gt;</code>Parallel<code class="sgmltag-endtag">&lt;/term&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;listitem&gt;</code>
+      <code class="sgmltag-starttag">&lt;para&gt;</code>In parallel communications, groups of bits arrive
+	at the same time over multiple communications
+	channels.<code class="sgmltag-endtag">&lt;/para&gt;</code>
+    <code class="sgmltag-endtag">&lt;/listitem&gt;</code>
+  <code class="sgmltag-endtag">&lt;/varlistentry&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;varlistentry&gt;</code>
+    <code class="sgmltag-starttag">&lt;term&gt;</code>Serial<code class="sgmltag-endtag">&lt;/term&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;listitem&gt;</code>
+      <code class="sgmltag-starttag">&lt;para&gt;</code>In serial communications, bits arrive one at a
+	time over a single communications
+	channel.<code class="sgmltag-endtag">&lt;/para&gt;</code>
+    <code class="sgmltag-endtag">&lt;/listitem&gt;</code>
+  <code class="sgmltag-endtag">&lt;/varlistentry&gt;</code>
+<code class="sgmltag-endtag">&lt;/variablelist&gt;</code></pre><p>Appearance:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">Parallel</span></dt><dd><p>In parallel communications, groups of bits arrive
+		at the same time over multiple communications
+		channels.</p></dd><dt><span class="term">Serial</span></dt><dd><p>In serial communications, bits arrive one at a
+		time over a single communications channel.</p></dd></dl></div></div></div><br class="example-break" /><p>A <code class="sgmltag-element">procedure</code> shows a series of <code class="sgmltag-element">step</code>s,
+	which may in turn consist of more <code class="sgmltag-element">step</code>s or
+	<code class="sgmltag-element">substep</code>s.  Each <code class="sgmltag-element">step</code> contains block
+	elements and may include an optional title.</p><p>Sometimes, steps are not sequential, but present a choice:
+	do <span class="emphasis"><em>this</em></span> or do <span class="emphasis"><em>that</em></span>,
+	but not both.  For these alternative choices, use
+	<code class="sgmltag-element">stepalternatives</code>.</p><div class="example"><a id="idp52218616"></a><div class="example-title">Example 9.13. <code class="sgmltag-element">procedure</code> Example</div><div class="example-contents"><p>Usage:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;procedure&gt;</code>
+  <code class="sgmltag-starttag">&lt;step&gt;</code>
+    <code class="sgmltag-starttag">&lt;para&gt;</code>Do this.<code class="sgmltag-endtag">&lt;/para&gt;</code>
+  <code class="sgmltag-endtag">&lt;/step&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;step&gt;</code>
+    <code class="sgmltag-starttag">&lt;para&gt;</code>Then do this.<code class="sgmltag-endtag">&lt;/para&gt;</code>
+  <code class="sgmltag-endtag">&lt;/step&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;step&gt;</code>
+    <code class="sgmltag-starttag">&lt;substeps&gt;</code>
+      <code class="sgmltag-starttag">&lt;step&gt;</code>
+        <code class="sgmltag-starttag">&lt;para&gt;</code>And now do this smaller thing.<code class="sgmltag-endtag">&lt;/para&gt;</code>
+      <code class="sgmltag-endtag">&lt;/step&gt;</code>
+
+      <code class="sgmltag-starttag">&lt;step&gt;</code>
+        <code class="sgmltag-starttag">&lt;para&gt;</code>And now do this other smaller thing.<code class="sgmltag-endtag">&lt;/para&gt;</code>
+      <code class="sgmltag-endtag">&lt;/step&gt;</code>
+    <code class="sgmltag-endtag">&lt;/substeps&gt;</code>
+  <code class="sgmltag-endtag">&lt;/step&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;step&gt;</code>
+    <code class="sgmltag-starttag">&lt;para&gt;</code>Finally, do one of these:<code class="sgmltag-endtag">&lt;/para&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;stepalternatives&gt;</code>
+      <code class="sgmltag-starttag">&lt;step&gt;</code>
+	<code class="sgmltag-starttag">&lt;para&gt;</code>Go left.<code class="sgmltag-endtag">&lt;/para&gt;</code>
+      <code class="sgmltag-endtag">&lt;/step&gt;</code>
+
+      <code class="sgmltag-starttag">&lt;step&gt;</code>
+	<code class="sgmltag-starttag">&lt;para&gt;</code>Go right.<code class="sgmltag-endtag">&lt;/para&gt;</code>
+      <code class="sgmltag-endtag">&lt;/step&gt;</code>
+    <code class="sgmltag-endtag">&lt;/stepalternatives&gt;</code>
+  <code class="sgmltag-endtag">&lt;/step&gt;</code>
+<code class="sgmltag-endtag">&lt;/procedure&gt;</code></pre><p>Appearance:</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p>Do this.</p></li><li class="step"><p>Then do this.</p></li><li class="step"><ol type="a" class="substeps"><li class="step"><p>And now do this small thing.</p></li><li class="step"><p>And this other small thing.</p></li></ol></li><li class="step"><p>Finally, do one of these:</p><ul class="stepalternatives">
+	      <li class="step"><p>Go left.</p></li>
+
+	      <li class="step"><p>Go right.</p></li>
+	    </ul></li></ol></div></div></div><br class="example-break" /></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="docbook-markup-showing-file-samples"></a>9.5.6. Showing File Samples</h3></div></div></div><p>Fragments of a file (or perhaps a complete file) are shown
+	by wrapping them in the <code class="sgmltag-element">programlisting</code>
+	element.</p><p>White space and line breaks within
+	<code class="sgmltag-element">programlisting</code> <span class="emphasis"><em>are</em></span>
+	significant.  In particular, this means that the opening tag
+	should appear on the same line as the first line of the
+	output, and the closing tag should appear on the same line
+	as the last line of the output, otherwise spurious blank
+	lines may be included.</p><div class="example"><a id="idp52265080"></a><div class="example-title">Example 9.14. <code class="sgmltag-element">programlisting</code> Example</div><div class="example-contents"><p>Usage:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;para&gt;</code>When finished, the program will look like
+  this:<code class="sgmltag-endtag">&lt;/para&gt;</code>
+
+<code class="sgmltag-starttag">&lt;programlisting&gt;</code>#include &amp;lt;stdio.h&amp;gt;
+
+int
+main(void)
+{
+    printf("hello, world\n");
+    return 0;
+}<code class="sgmltag-endtag">&lt;/programlisting&gt;</code></pre><p>Notice how the angle brackets in the
+	  <code class="literal">#include</code> line need to be referenced by
+	  their entities instead of being included literally.</p><p>Appearance:</p><p>When finished, the program will look like this:</p><pre class="programlisting">#include &lt;stdio.h&gt;
+
+int
+main(void)
+{
+    printf("hello, world\n");
+    return 0;
+}</pre></div></div><br class="example-break" /></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="docbook-markup-callouts"></a>9.5.7. Callouts</h3></div></div></div><p>A callout is a visual marker for referring to a
+	piece of text or specific position within an
+	example.</p><p>Callouts are marked with the <code class="sgmltag-element">co</code>
+	element.  Each element must have a unique
+	<code class="literal">id</code> assigned to it.  After the example,
+	include a <code class="sgmltag-element">calloutlist</code> that describes each
+	callout.</p><div class="example"><a id="idp52277496"></a><div class="example-title">Example 9.15. <code class="sgmltag-element">co</code> and
+	  <code class="sgmltag-element">calloutlist</code> Example</div><div class="example-contents"><pre class="programlisting"><code class="sgmltag-starttag">&lt;para&gt;</code>When finished, the program will look like
+  this:<code class="sgmltag-endtag">&lt;/para&gt;</code>
+
+<code class="sgmltag-starttag">&lt;programlisting&gt;</code>#include &amp;lt;stdio.h&amp;gt; <code class="sgmltag-emptytag">&lt;co xml:id="co-ex-include"/&gt;</code>
+
+int <code class="sgmltag-emptytag">&lt;co xml:id="co-ex-return"/&gt;</code>
+main(void)
+{
+    printf("hello, world\n"); <code class="sgmltag-emptytag">&lt;co xml:id="co-ex-printf"/&gt;</code>
+}<code class="sgmltag-endtag">&lt;/programlisting&gt;</code>
+
+<code class="sgmltag-starttag">&lt;calloutlist&gt;</code>
+  <code class="sgmltag-starttag">&lt;callout arearefs="co-ex-include"&gt;</code>
+    <code class="sgmltag-starttag">&lt;para&gt;</code>Includes the standard IO header file.<code class="sgmltag-endtag">&lt;/para&gt;</code>
+  <code class="sgmltag-endtag">&lt;/callout&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;callout arearefs="co-ex-return"&gt;</code>
+    <code class="sgmltag-starttag">&lt;para&gt;</code>Specifies that <code class="sgmltag-starttag">&lt;function&gt;</code>main()<code class="sgmltag-endtag">&lt;/function&gt;</code> returns an
+      int.<code class="sgmltag-endtag">&lt;/para&gt;</code>
+  <code class="sgmltag-endtag">&lt;/callout&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;callout arearefs="co-ex-printf"&gt;</code>
+    <code class="sgmltag-starttag">&lt;para&gt;</code>The <code class="sgmltag-starttag">&lt;function&gt;</code>printf()<code class="sgmltag-endtag">&lt;/function&gt;</code> call that writes
+      <code class="sgmltag-starttag">&lt;literal&gt;</code>hello, world<code class="sgmltag-endtag">&lt;/literal&gt;</code> to standard output.<code class="sgmltag-endtag">&lt;/para&gt;</code>
+  <code class="sgmltag-endtag">&lt;/callout&gt;</code>
+<code class="sgmltag-endtag">&lt;/calloutlist&gt;</code></pre><p>Appearance:</p><p>When finished, the program will look like this:</p><pre class="programlisting">#include &lt;stdio.h&gt; <a id="co-ex-include"></a><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span>
+
+int <a id="co-ex-return"></a><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span>
+main(void)
+{
+    printf("hello, world\n"); <a id="co-ex-printf"></a><span><img src="./imagelib/callouts/3.png" alt="3" border="0" /></span>
+}</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#co-ex-include"><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span></a> </p></td><td valign="top" align="left"><p>Includes the standard IO header file.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#co-ex-return"><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span></a> </p></td><td valign="top" align="left"><p>Specifies that <code class="function">main()</code> returns
+	      an int.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#co-ex-printf"><span><img src="./imagelib/callouts/3.png" alt="3" border="0" /></span></a> </p></td><td valign="top" align="left"><p>The <code class="function">printf()</code> call that writes
+	      <code class="literal">hello, world</code> to standard
+	      output.</p></td></tr></table></div></div></div><br class="example-break" /></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="docbook-markup-tables"></a>9.5.8. Tables</h3></div></div></div><p>Unlike <acronym class="acronym">HTML</acronym>, DocBook does not need
+	tables for layout purposes, as the stylesheet handles those
+	issues.  Instead, just use tables for marking up tabular
+	data.</p><p>In general terms (and see the DocBook documentation for
+	more detail) a table (which can be either formal or informal)
+	consists of a <code class="sgmltag-element">table</code> element.  This contains
+	at least one <code class="sgmltag-element">tgroup</code> element, which
+	specifies (as an attribute) the number of columns in this
+	table group.  Within the tablegroup there is one
+	<code class="sgmltag-element">thead</code> element, which contains elements for
+	the table headings (column headings), and one
+	<code class="sgmltag-element">tbody</code> which contains the body of the
+	table.</p><p>Both <code class="sgmltag-element">tgroup</code> and
+	<code class="sgmltag-element">thead</code> contain <code class="sgmltag-element">row</code>
+	elements, which in turn contain <code class="sgmltag-element">entry</code>
+	elements.  Each <code class="sgmltag-element">entry</code> element specifies
+	one cell in the table.</p><div class="example"><a id="idp52325880"></a><div class="example-title">Example 9.16. <code class="sgmltag-element">informaltable</code> Example</div><div class="example-contents"><p>Usage:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;informaltable pgwide="1"&gt;</code>
+  <code class="sgmltag-starttag">&lt;tgroup cols="2"&gt;</code>
+    <code class="sgmltag-starttag">&lt;thead&gt;</code>
+      <code class="sgmltag-starttag">&lt;row&gt;</code>
+        <code class="sgmltag-starttag">&lt;entry&gt;</code>This is Column Head 1<code class="sgmltag-endtag">&lt;/entry&gt;</code>
+        <code class="sgmltag-starttag">&lt;entry&gt;</code>This is Column Head 2<code class="sgmltag-endtag">&lt;/entry&gt;</code>
+      <code class="sgmltag-endtag">&lt;/row&gt;</code>
+    <code class="sgmltag-endtag">&lt;/thead&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;tbody&gt;</code>
+      <code class="sgmltag-starttag">&lt;row&gt;</code>
+	<code class="sgmltag-starttag">&lt;entry&gt;</code>Row 1, column 1<code class="sgmltag-endtag">&lt;/entry&gt;</code>
+	<code class="sgmltag-starttag">&lt;entry&gt;</code>Row 1, column 2<code class="sgmltag-endtag">&lt;/entry&gt;</code>
+      <code class="sgmltag-endtag">&lt;/row&gt;</code>
+
+      <code class="sgmltag-starttag">&lt;row&gt;</code>
+	<code class="sgmltag-starttag">&lt;entry&gt;</code>Row 2, column 1<code class="sgmltag-endtag">&lt;/entry&gt;</code>
+	<code class="sgmltag-starttag">&lt;entry&gt;</code>Row 2, column 2<code class="sgmltag-endtag">&lt;/entry&gt;</code>
+      <code class="sgmltag-endtag">&lt;/row&gt;</code>
+    <code class="sgmltag-endtag">&lt;/tbody&gt;</code>
+  <code class="sgmltag-endtag">&lt;/tgroup&gt;</code>
+<code class="sgmltag-endtag">&lt;/informaltable&gt;</code></pre><p>Appearance:</p><div class="informaltable"><table class="informaltable" width="100%" border="1"><colgroup><col /><col /></colgroup><thead><tr><th>This is Column Head 1</th><th>This is Column Head 2</th></tr></thead><tbody><tr><td>Row 1, column 1</td><td>Row 1, column 2</td></tr><tr><td>Row 2, column 1</td><td>Row 2, column 2</td></tr></tbody></table></div></div></div><br class="example-break" /><p>Always use the <code class="literal">pgwide</code> attribute with
+	a value of <code class="literal">1</code> with the
+	<code class="sgmltag-element">informaltable</code> element.  A bug in Internet
+	Explorer can cause the table to render incorrectly if this
+	is omitted.</p><p>Table borders can be suppressed by setting the
+	<code class="literal">frame</code> attribute to <code class="literal">none</code>
+	in the <code class="sgmltag-element">informaltable</code> element.  For example,
+	<code class="literal">informaltable frame="none"</code>.</p><div class="example"><a id="idp52353912"></a><div class="example-title">Example 9.17. Table with <code class="literal">frame="none"</code>
+	  Example</div><div class="example-contents"><p>Appearance:</p><div class="informaltable"><table class="informaltable" width="100%" border="0"><colgroup><col /><col /></colgroup><thead><tr><th>This is Column Head 1</th><th>This is Column Head 2</th></tr></thead><tbody><tr><td>Row 1, column 1</td><td>Row 1, column 2</td></tr><tr><td>Row 2, column 1</td><td>Row 2, column 2</td></tr></tbody></table></div></div></div><br class="example-break" /></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="docbook-markup-examples"></a>9.5.9. Examples for the User to Follow</h3></div></div></div><p>Examples for the user to follow are often necessary.
+	Typically, these will consist of dialogs with the computer;
+	the user types in a command, the user gets a response back,
+	the user types another command, and so on.</p><p>A number of distinct elements and entities come into
+	play here.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="sgmltag-element">screen</code></span></dt><dd><p>Everything the user sees in this example will be
+	      on the computer screen, so the next element is
+	      <code class="sgmltag-element">screen</code>.</p><p>Within <code class="sgmltag-element">screen</code>, white space is
+	      significant.</p></dd><dt><span class="term"><code class="sgmltag-element">prompt</code>,
+	    <code class="literal">&amp;prompt.root;</code> and
+	    <code class="literal">&amp;prompt.user;</code></span></dt><dd><p>Some of the things the user will be seeing on the
+	      screen are prompts from the computer (either from the
+	      operating system, command shell, or application).  These
+	      should be marked up using
+	      <code class="sgmltag-element">prompt</code>.</p><p>As a special case, the two shell prompts for the
+	      normal user and the root user have been provided as
+	      entities.  To indicate the user is at a shell prompt,
+	      use one of <code class="literal">&amp;prompt.root;</code> and
+	      <code class="literal">&amp;prompt.user;</code> as necessary.  They
+	      do not need to be inside
+	      <code class="sgmltag-element">prompt</code>.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml"><code class="literal">&amp;prompt.root;</code> and
+		<code class="literal">&amp;prompt.user;</code> are FreeBSD
+		extensions to DocBook, and are not part of the
+		original <acronym class="acronym">DTD</acronym>.</p></div></dd><dt><span class="term"><code class="sgmltag-element">userinput</code></span></dt><dd><p>When displaying text that the user should type in,
+	      wrap it in <code class="sgmltag-element">userinput</code> tags.  It will
+	      be displayed differently than system output text.</p></dd></dl></div><div class="example"><a id="idp52390264"></a><div class="example-title">Example 9.18. <code class="sgmltag-element">screen</code>, <code class="sgmltag-element">prompt</code>,
+	  and <code class="sgmltag-element">userinput</code> Example</div><div class="example-contents"><p>Usage:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;screen&gt;</code>&amp;prompt.user; <code class="sgmltag-starttag">&lt;userinput&gt;</code>ls -1<code class="sgmltag-endtag">&lt;/userinput&gt;</code>
+foo1
+foo2
+foo3
+&amp;prompt.user; <code class="sgmltag-starttag">&lt;userinput&gt;</code>ls -1 | grep foo2<code class="sgmltag-endtag">&lt;/userinput&gt;</code>
+foo2
+&amp;prompt.user; <code class="sgmltag-starttag">&lt;userinput&gt;</code>su<code class="sgmltag-endtag">&lt;/userinput&gt;</code>
+<code class="sgmltag-starttag">&lt;prompt&gt;</code>Password: <code class="sgmltag-endtag">&lt;/prompt&gt;</code>
+&amp;prompt.root; <code class="sgmltag-starttag">&lt;userinput&gt;</code>cat foo2<code class="sgmltag-endtag">&lt;/userinput&gt;</code>
+This is the file called 'foo2'<code class="sgmltag-endtag">&lt;/screen&gt;</code></pre><p>Appearance:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>ls -1</code></strong>
+foo1
+foo2
+foo3
+<code class="prompt">%</code> <strong class="userinput"><code>ls -1 | grep foo2</code></strong>
+foo2
+<code class="prompt">%</code> <strong class="userinput"><code>su</code></strong>
+<code class="prompt">Password: </code>
+<code class="prompt">#</code> <strong class="userinput"><code>cat foo2</code></strong>
+This is the file called 'foo2'</pre></div></div><br class="example-break" /><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Even though we are displaying the contents of the file
+	  <code class="filename">foo2</code>, it is <span class="emphasis"><em>not</em></span>
+	  marked up as <code class="sgmltag-element">programlisting</code>.  Reserve
+	  <code class="sgmltag-element">programlisting</code> for showing fragments of
+	  files outside the context of user actions.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="docbook-markup-document-structure.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="docbook-markup.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="docbook-markup-inline-elements.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">9.4. Document Structure </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 9.6. In-line Elements</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

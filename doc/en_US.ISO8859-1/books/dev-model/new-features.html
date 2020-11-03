@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>6.4. Development of new features</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="A project model for the FreeBSD Project" /><link rel="up" href="model-processes.html" title="Chapter 6. Processes" /><link rel="prev" href="process-core-election.html" title="6.3. Core election" /><link rel="next" href="model-maintenance.html" title="6.5. Maintenance" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.4. Development of new features</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="process-core-election.html">Prev</a> </td><th width="60%" align="center">Chapter 6. Processes</th><td width="20%" align="right"> <a accesskey="n" href="model-maintenance.html">Next</a></td></tr></table><hr /></div><div class="section"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="new-features"></a>6.4. Development of new features</h2></div></div></div><p>
+                    Within the project there are sub-projects that are working on
+                    new features. These projects are generally done by one person
+                    [<span class="citation"><a class="xref" href="bibliography.html#jorgensen2001">Jørgensen, 2001</a></span>].
+                    Every project is free to
+                    organise development as it sees fit. However, when the project
+                    is merged to the -CURRENT branch it must follow the project
+                    guidelines. When the code has been well tested in the
+                    -CURRENT branch and deemed stable enough and relevant
+                    to the -STABLE branch, it is merged to the -STABLE branch.
+                </p><p>
+                    The requirements of the project are given by developer
+                    wishes, requests from the community in terms of direct
+                    requests by mail, Problem Reports, commercial funding for the development
+                    of features, or contributions by the scientific community.
+                    The wishes that come within the responsibility of a developer
+                    are given to that developer who prioritises their time between
+                    the request and their wishes. A common way to do this is maintain
+                    a TODO-list maintained by the project. Items that do not come within
+                    someone's responsibility are collected on TODO-lists unless someone
+                    volunteers to take the responsibility. All
+                    requests, their distribution and follow-up are
+                    handled by the <a class="xref" href="tool-bugzilla.html" title="7.2. Bugzilla">Bugzilla</a> tool.
+                </p><p>
+                    Requirements analysis happens in two ways. The requests that
+                    come in are discussed on mailing lists, both within the main
+                    project and in the sub-project that the request belongs to or is
+                    spawned by the request. Furthermore, individual developers on
+                    the sub-project will evaluate the feasibility of the requests
+                    and determine the prioritisation between them. Other than archives
+                    of the discussions that have taken place, no outcome is created
+                    by this phase that is merged into the main project.
+                </p><p>
+                    As the requests are prioritised by the individual developers on
+                    the basis of doing what they find interesting, necessary, or are
+                    funded to do, there is no overall strategy or prioritisation of
+                    what requests to regard as requirements and following up their
+                    correct implementation. However, most developers have some
+                    shared vision of what issues are more important, and they can
+                    ask for guidelines from the release engineering team.
+                    
+                </p><p>
+                    The verification phase of the project is two-fold. Before
+                    committing code to the current-branch, developers request their
+                    code to be reviewed by their peers. This review is for the most
+                    part done by functional testing, but also code review is
+                    important. When the code is committed to the branch, a broader
+                    functional testing will happen, that may trigger further code
+                    review and debugging should the code not behave as
+                    expected. This second verification form may be regarded as
+                    structural verification.
+                    Although the sub-projects themselves may write formal
+                    tests such as unit tests, these are usually not collected by the main
+                    project and are usually removed before the code is committed to
+                    the current branch.
+                    <a href="#ftn.idp47763576" class="footnote" id="idp47763576"><sup class="footnote">[9]</sup></a>
+                </p><div class="footnotes"><br /><hr class="footnote-hr" /><div id="ftn.idp47763576" class="footnote"><p><a href="#idp47763576" class="para"><sup class="para">[9] </sup></a>
+                            More and more tests are however performed when
+                            building the system (<span class="quote">&#8220;<span class="quote">make
+                            world</span>&#8221;</span>). These tests are however a very new
+                            addition and no systematic framework for these
+                            tests have yet been created.
+                        </p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="process-core-election.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="model-processes.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="model-maintenance.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">6.3. Core election </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 6.5. Maintenance</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

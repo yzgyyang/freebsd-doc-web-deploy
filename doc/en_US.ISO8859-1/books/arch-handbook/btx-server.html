@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>1.6. The BTX Server</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Architecture Handbook" /><link rel="up" href="boot.html" title="Chapter 1. Bootstrapping and Kernel Initialization" /><link rel="prev" href="boot-boot1.html" title="1.5. boot1 Stage" /><link rel="next" href="boot2.html" title="1.7. boot2 Stage" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.6. The <acronym class="acronym">BTX</acronym> Server</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="boot-boot1.html">Prev</a> </td><th width="60%" align="center">Chapter 1. Bootstrapping and Kernel Initialization</th><td width="20%" align="right"> <a accesskey="n" href="boot2.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="btx-server"></a>1.6. The <acronym class="acronym">BTX</acronym> Server</h2></div></div></div><p>Next in our boot sequence is the
+      <acronym class="acronym">BTX</acronym> Server.  Let us quickly remember how we
+      got here:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>The <acronym class="acronym">BIOS</acronym> loads the absolute sector
+	  one (the <acronym class="acronym">MBR</acronym>, or
+	  <code class="filename">boot0</code>), to address
+	  <code class="literal">0x7c00</code> and jumps there.</p></li><li class="listitem"><p><code class="filename">boot0</code> relocates itself to
+	  <code class="literal">0x600</code>, the address it was linked to
+	  execute, and jumps over there.  It then reads the first
+	  sector of the FreeBSD slice (which consists of
+	  <code class="filename">boot1</code>) into address
+	  <code class="literal">0x7c00</code> and jumps over there.</p></li><li class="listitem"><p><code class="filename">boot1</code> loads the first 16 sectors
+	  of the FreeBSD slice into address <code class="literal">0x8c00</code>.
+	  This 16 sectors, or 8192 bytes, is the whole file
+	  <code class="filename">boot</code>.  The file is a
+	  concatenation of <code class="filename">boot1</code> and
+	  <code class="filename">boot2</code>.  <code class="filename">boot2</code>, in
+	  turn, contains the <acronym class="acronym">BTX</acronym> server and the
+	  <code class="filename">boot2</code> client.  Finally, a jump is made
+	  to address <code class="literal">0x9010</code>, the entry point of the
+	  <acronym class="acronym">BTX</acronym> server.</p></li></ul></div><p>Before studying the <acronym class="acronym">BTX</acronym> Server in detail,
+      let us further review how the single, all-in-one
+      <code class="filename">boot</code> file is created.  The way
+      <code class="filename">boot</code> is built is defined in its
+      <code class="filename">Makefile</code>
+      (<code class="filename">/usr/src/sys/boot/i386/boot2/Makefile</code>).
+      Let us look at the rule that creates the
+      <code class="filename">boot</code> file:</p><div class="figure"><a id="boot-boot1-make-boot"></a><div class="figure-title">Figure 1.20. <code class="filename">sys/boot/i386/boot2/Makefile</code></div><div class="figure-contents"><pre class="programlisting">      boot: boot1 boot2
+	cat boot1 boot2 &gt; boot</pre></div></div><br class="figure-break" /><p>This tells us that <code class="filename">boot1</code> and
+      <code class="filename">boot2</code> are needed, and the rule simply
+      concatenates them to produce a single file called
+      <code class="filename">boot</code>.  The rules for creating
+      <code class="filename">boot1</code> are also quite simple:</p><div class="figure"><a id="boot-boot1-make-boot1"></a><div class="figure-title">Figure 1.21. <code class="filename">sys/boot/i386/boot2/Makefile</code></div><div class="figure-contents"><pre class="programlisting">      boot1: boot1.out
+	objcopy -S -O binary boot1.out boot1
+
+      boot1.out: boot1.o
+	ld -e start -Ttext 0x7c00 -o boot1.out boot1.o</pre></div></div><br class="figure-break" /><p>To apply the rule for creating
+      <code class="filename">boot1</code>, <code class="filename">boot1.out</code> must
+      be resolved.  This, in turn, depends on the existence of
+      <code class="filename">boot1.o</code>.  This last file is simply the
+      result of assembling our familiar <code class="filename">boot1.S</code>,
+      without linking.  Now, the rule for creating
+      <code class="filename">boot1.out</code> is applied.  This tells us that
+      <code class="filename">boot1.o</code> should be linked with
+      <code class="literal">start</code> as its entry point, and starting at
+      address <code class="literal">0x7c00</code>.  Finally,
+      <code class="filename">boot1</code> is created from
+      <code class="filename">boot1.out</code> applying the appropriate rule.
+      This rule is the <code class="filename">objcopy</code> command applied to
+      <code class="filename">boot1.out</code>.  Note the flags passed to
+      <code class="filename">objcopy</code>: <code class="literal">-S</code> tells it to
+      strip all relocation and symbolic information;
+      <code class="literal">-O binary</code> indicates the output format, that
+      is, a simple, unformatted binary file.</p><p>Having <code class="filename">boot1</code>, let us take a look at how
+      <code class="filename">boot2</code> is constructed:</p><div class="figure"><a id="boot-boot1-make-boot2"></a><div class="figure-title">Figure 1.22. <code class="filename">sys/boot/i386/boot2/Makefile</code></div><div class="figure-contents"><pre class="programlisting">      boot2: boot2.ld
+	@set -- `ls -l boot2.ld`; x=$$((7680-$$5)); \
+	    echo "$$x bytes available"; test $$x -ge 0
+	dd if=boot2.ld of=boot2 obs=7680 conv=osync
+
+      boot2.ld: boot2.ldr boot2.bin ../btx/btx/btx
+	btxld -v -E 0x2000 -f bin -b ../btx/btx/btx -l boot2.ldr \
+	    -o boot2.ld -P 1 boot2.bin
+
+      boot2.ldr:
+	dd if=/dev/zero of=boot2.ldr bs=512 count=1
+
+      boot2.bin: boot2.out
+	objcopy -S -O binary boot2.out boot2.bin
+
+      boot2.out: ../btx/lib/crt0.o boot2.o sio.o
+	ld -Ttext 0x2000 -o boot2.out
+
+      boot2.o: boot2.s
+	${CC} ${ACFLAGS} -c boot2.s
+
+      boot2.s: boot2.c boot2.h ${.CURDIR}/../../common/ufsread.c
+	${CC} ${CFLAGS} -S -o boot2.s.tmp ${.CURDIR}/boot2.c
+	sed -e '/align/d' -e '/nop/d' "MISSING" boot2.s.tmp &gt; boot2.s
+	rm -f boot2.s.tmp
+
+      boot2.h: boot1.out
+	${NM} -t d ${.ALLSRC} | awk '/([0-9])+ T xread/ \
+	    { x = $$1 - ORG1; \
+	    printf("#define XREADORG %#x\n", REL1 + x) }' \
+	    ORG1=`printf "%d" ${ORG1}` \
+	    REL1=`printf "%d" ${REL1}` &gt; ${.TARGET}</pre></div></div><br class="figure-break" /><p>The mechanism for building <code class="filename">boot2</code> is
+      far more elaborate.  Let us point out the most relevant facts.
+      The dependency list is as follows:</p><div class="figure"><a id="boot-boot1-make-boot2-more"></a><div class="figure-title">Figure 1.23. <code class="filename">sys/boot/i386/boot2/Makefile</code></div><div class="figure-contents"><pre class="programlisting">      boot2: boot2.ld
+      boot2.ld: boot2.ldr boot2.bin ${BTXDIR}/btx/btx
+      boot2.bin: boot2.out
+      boot2.out: ${BTXDIR}/lib/crt0.o boot2.o sio.o
+      boot2.o: boot2.s
+      boot2.s: boot2.c boot2.h ${.CURDIR}/../../common/ufsread.c
+      boot2.h: boot1.out</pre></div></div><br class="figure-break" /><p>Note that initially there is no header file
+      <code class="filename">boot2.h</code>, but its creation depends on
+      <code class="filename">boot1.out</code>, which we already have.  The rule
+      for its creation is a bit terse, but the important thing is that
+      the output, <code class="filename">boot2.h</code>, is something like
+      this:</p><div class="figure"><a id="boot-boot1-make-boot2h"></a><div class="figure-title">Figure 1.24. <code class="filename">sys/boot/i386/boot2/boot2.h</code></div><div class="figure-contents"><pre class="programlisting">#define XREADORG 0x725</pre></div></div><br class="figure-break" /><p>Recall that <code class="filename">boot1</code> was relocated (i.e.,
+      copied from <code class="literal">0x7c00</code> to
+      <code class="literal">0x700</code>).  This relocation will now make sense,
+      because as we will see, the <acronym class="acronym">BTX</acronym> server
+      reclaims some memory, including the space where
+      <code class="filename">boot1</code> was originally loaded.  However, the
+      <acronym class="acronym">BTX</acronym> server needs access to
+      <code class="filename">boot1</code>'s <code class="literal">xread</code> function;
+      this function, according to the output of
+      <code class="filename">boot2.h</code>, is at location
+      <code class="literal">0x725</code>.  Indeed, the
+      <acronym class="acronym">BTX</acronym> server uses the
+      <code class="literal">xread</code> function from
+      <code class="filename">boot1</code>'s relocated code.  This function is
+      now accessible from within the <code class="filename">boot2</code>
+      client.</p><p>We next build <code class="filename">boot2.s</code> from files
+      <code class="filename">boot2.h</code>, <code class="filename">boot2.c</code> and
+      <code class="filename">/usr/src/sys/boot/common/ufsread.c</code>.  The
+      rule for this is to compile the code in
+      <code class="filename">boot2.c</code> (which includes
+      <code class="filename">boot2.h</code> and <code class="filename">ufsread.c</code>)
+      into assembly code.  Having <code class="filename">boot2.s</code>, the
+      next rule assembles <code class="filename">boot2.s</code>, creating the
+      object file <code class="filename">boot2.o</code>.  The
+      next rule directs the linker to link various files
+      (<code class="filename">crt0.o</code>,
+      <code class="filename">boot2.o</code> and <code class="filename">sio.o</code>).
+      Note that the output file, <code class="filename">boot2.out</code>, is
+      linked to execute at address <code class="literal">0x2000</code>.  Recall
+      that <code class="filename">boot2</code> will be executed in user mode,
+      within a special user segment set up by the
+      <acronym class="acronym">BTX</acronym> server.  This segment starts at
+      <code class="literal">0xa000</code>.  Also, remember that the
+      <code class="filename">boot2</code> portion of <code class="filename">boot</code>
+      was copied to address <code class="literal">0xc000</code>, that is, offset
+      <code class="literal">0x2000</code> from the start of the user segment, so
+      <code class="filename">boot2</code> will work properly when we transfer
+      control to it.  Next, <code class="filename">boot2.bin</code> is created
+      from <code class="filename">boot2.out</code> by stripping its symbols and
+      format information; boot2.bin is a <span class="emphasis"><em>raw</em></span>
+      binary.  Now, note that a file <code class="filename">boot2.ldr</code> is
+      created as a 512-byte file full of zeros.  This space is
+      reserved for the bsdlabel.</p><p>Now that we have files <code class="filename">boot1</code>,
+      <code class="filename">boot2.bin</code> and
+      <code class="filename">boot2.ldr</code>, only the
+      <acronym class="acronym">BTX</acronym> server is missing before creating the
+      all-in-one <code class="filename">boot</code> file.  The
+      <acronym class="acronym">BTX</acronym> server is located in
+      <code class="filename">/usr/src/sys/boot/i386/btx/btx</code>; it has its
+      own <code class="filename">Makefile</code> with its own set of rules for
+      building.  The important thing to notice is that it is also
+      compiled as a <span class="emphasis"><em>raw</em></span> binary, and that it is
+      linked to execute at address <code class="literal">0x9000</code>.  The
+      details can be found in
+      <code class="filename">/usr/src/sys/boot/i386/btx/btx/Makefile</code>.</p><p>Having the files that comprise the <code class="filename">boot</code>
+      program, the final step is to <span class="emphasis"><em>merge</em></span> them.
+      This is done by a special program called
+      <code class="filename">btxld</code> (source located in
+      <code class="filename">/usr/src/usr.sbin/btxld</code>).  Some arguments
+      to this program include the name of the output file
+      (<code class="filename">boot</code>), its entry point
+      (<code class="literal">0x2000</code>) and its file format
+      (raw binary).  The various files are
+      finally merged by this utility into the file
+      <code class="filename">boot</code>, which consists of
+      <code class="filename">boot1</code>, <code class="filename">boot2</code>, the
+      <code class="literal">bsdlabel</code> and the
+      <acronym class="acronym">BTX</acronym> server.  This file, which takes
+      exactly 16 sectors, or 8192 bytes, is what is
+      actually written to the beginning of the FreeBSD slice
+      during installation.  Let us now proceed to study the
+      <acronym class="acronym">BTX</acronym> server program.</p><p>The <acronym class="acronym">BTX</acronym> server prepares a simple
+      environment and switches from 16-bit real mode to 32-bit
+      protected mode, right before passing control to the client.
+      This includes initializing and updating the following data
+      structures:</p><a id="idp47962616" class="indexterm"></a><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Modifies the
+	  <code class="literal">Interrupt Vector Table (IVT)</code>.  The
+	  <acronym class="acronym">IVT</acronym> provides exception and interrupt
+	  handlers for Real-Mode code.</p></li><li class="listitem"><p>The <code class="literal">Interrupt Descriptor Table (IDT)</code>
+	  is created.  Entries are provided for processor exceptions,
+	  hardware interrupts, two system calls and V86 interface.
+	  The IDT provides exception and interrupt handlers for
+	  Protected-Mode code.</p></li><li class="listitem"><p>A <code class="literal">Task-State Segment (TSS)</code> is
+	  created.  This is necessary because the processor works in
+	  the <span class="emphasis"><em>least</em></span> privileged level when
+	  executing the client (<code class="filename">boot2</code>), but in
+	  the <span class="emphasis"><em>most</em></span> privileged level when
+	  executing the <acronym class="acronym">BTX</acronym> server.</p></li><li class="listitem"><p>The <acronym class="acronym">GDT</acronym> (Global Descriptor Table) is
+	  set up.  Entries (descriptors) are provided for
+	  supervisor code and data, user code and data, and real-mode
+	  code and data.
+	  <a href="#ftn.idp47983224" class="footnote" id="idp47983224"><sup class="footnote">[9]</sup></a></p></li></ul></div><p>Let us now start studying the actual implementation.  Recall
+      that <code class="filename">boot1</code> made a jump to address
+      <code class="literal">0x9010</code>, the <acronym class="acronym">BTX</acronym> server's
+      entry point.  Before studying program execution there,
+      note that the <acronym class="acronym">BTX</acronym> server has a special header
+      at address range <code class="literal">0x9000-0x900f</code>, right before
+      its entry point.  This header is defined as follows:</p><div class="figure"><a id="btx-header"></a><div class="figure-title">Figure 1.25. <code class="filename">sys/boot/i386/btx/btx/btx.S</code></div><div class="figure-contents"><pre class="programlisting">start:						# Start of code
+/*
+ * BTX header.
+ */
+btx_hdr:	.byte 0xeb			# Machine ID
+		.byte 0xe			# Header size
+		.ascii "BTX"			# Magic
+		.byte 0x1			# Major version
+		.byte 0x2			# Minor version
+		.byte BTX_FLAGS			# Flags
+		.word PAG_CNT-MEM_ORG&gt;&gt;0xc	# Paging control
+		.word break-start		# Text size
+		.long 0x0			# Entry address</pre></div></div><br class="figure-break" /><p>Note the first two bytes are <code class="literal">0xeb</code> and
+      <code class="literal">0xe</code>.  In the IA-32 architecture, these two
+      bytes are interpreted as a relative jump past the header into
+      the entry point, so in theory, <code class="filename">boot1</code> could
+      jump here (address <code class="literal">0x9000</code>) instead of address
+      <code class="literal">0x9010</code>.  Note that the last field in the
+      <acronym class="acronym">BTX</acronym> header is a pointer to the client's
+      (<code class="filename">boot2</code>) entry point.  This field is patched
+      at link time.</p><p>Immediately following the header is the
+      <acronym class="acronym">BTX</acronym> server's entry point:</p><div class="figure"><a id="btx-init"></a><div class="figure-title">Figure 1.26. <code class="filename">sys/boot/i386/btx/btx/btx.S</code></div><div class="figure-contents"><pre class="programlisting">/*
+ * Initialization routine.
+ */
+init:		cli				# Disable interrupts
+		xor %ax,%ax			# Zero/segment
+		mov %ax,%ss			# Set up
+		mov $0x1800,%sp		#  stack
+		mov %ax,%es			# Address
+		mov %ax,%ds			#  data
+		pushl $0x2			# Clear
+		popfl				#  flags</pre></div></div><br class="figure-break" /><p>This code disables interrupts, sets up a working stack
+      (starting at address <code class="literal">0x1800</code>) and clears the
+      flags in the EFLAGS register.  Note that the
+      <code class="literal">popfl</code> instruction pops out a doubleword (4
+      bytes) from the stack and places it in the EFLAGS register.
+      Because the value actually popped is <code class="literal">2</code>, the
+      EFLAGS register is effectively cleared (IA-32 requires that bit
+      2 of the EFLAGS register always be 1).</p><p>Our next code block clears (sets to <code class="literal">0</code>)
+      the memory range <code class="literal">0x5e00-0x8fff</code>.  This range
+      is where the various data structures will be created:</p><div class="figure"><a id="btx-clear-mem"></a><div class="figure-title">Figure 1.27. <code class="filename">sys/boot/i386/btx/btx/btx.S</code></div><div class="figure-contents"><pre class="programlisting">/*
+ * Initialize memory.
+ */
+		mov $0x5e00,%di		# Memory to initialize
+		mov $(0x9000-0x5e00)/2,%cx	# Words to zero
+		rep				# Zero-fill
+		stosw				#  memory</pre></div></div><br class="figure-break" /><p>Recall that <code class="filename">boot1</code> was originally loaded
+      to address <code class="literal">0x7c00</code>, so, with this memory
+      initialization, that copy effectively disappeared.  However,
+      also recall that <code class="filename">boot1</code> was relocated to
+      <code class="literal">0x700</code>, so <span class="emphasis"><em>that</em></span> copy is
+      still in memory, and the <acronym class="acronym">BTX</acronym> server will make
+      use of it.</p><p>Next, the real-mode <acronym class="acronym">IVT</acronym> (Interrupt Vector
+      Table is updated.  The <acronym class="acronym">IVT</acronym> is an array of
+      segment/offset pairs for exception and interrupt handlers.  The
+      <acronym class="acronym">BIOS</acronym> normally maps hardware interrupts to
+      interrupt vectors <code class="literal">0x8</code> to
+      <code class="literal">0xf</code> and <code class="literal">0x70</code> to
+      <code class="literal">0x77</code> but, as will be seen, the 8259A
+      Programmable Interrupt Controller, the chip controlling the
+      actual mapping of hardware interrupts to interrupt vectors, is
+      programmed to remap these interrupt vectors from
+      <code class="literal">0x8-0xf</code> to <code class="literal">0x20-0x27</code> and
+      from <code class="literal">0x70-0x77</code> to
+      <code class="literal">0x28-0x2f</code>.  Thus, interrupt handlers are
+      provided for interrupt vectors <code class="literal">0x20-0x2f</code>.
+      The reason the <acronym class="acronym">BIOS</acronym>-provided handlers are not
+      used directly is because they work in 16-bit real mode, but not
+      32-bit protected mode.  Processor mode will be switched to
+      32-bit protected mode shortly.  However, the
+      <acronym class="acronym">BTX</acronym> server sets up a mechanism to effectively
+      use the handlers provided by the <acronym class="acronym">BIOS</acronym>:</p><div class="figure"><a id="btx-ivt"></a><div class="figure-title">Figure 1.28. <code class="filename">sys/boot/i386/btx/btx/btx.S</code></div><div class="figure-contents"><pre class="programlisting">/*
+ * Update real mode IDT for reflecting hardware interrupts.
+ */
+		mov $intr20,%bx			# Address first handler
+		mov $0x10,%cx			# Number of handlers
+		mov $0x20*4,%di			# First real mode IDT entry
+init.0:		mov %bx,(%di)			# Store IP
+		inc %di				# Address next
+		inc %di				#  entry
+		stosw				# Store CS
+		add $4,%bx			# Next handler
+		loop init.0			# Next IRQ</pre></div></div><br class="figure-break" /><p>The next block creates the <acronym class="acronym">IDT</acronym> (Interrupt
+      Descriptor Table).  The <acronym class="acronym">IDT</acronym> is analogous, in
+      protected mode, to the <acronym class="acronym">IVT</acronym> in real mode.
+      That is, the <acronym class="acronym">IDT</acronym> describes the various
+      exception and interrupt handlers used when the processor is
+      executing in protected mode.  In essence, it also consists of an
+      array of segment/offset pairs, although the structure is
+      somewhat more complex, because segments in protected mode are
+      different than in real mode, and various protection mechanisms
+      apply:</p><div class="figure"><a id="btx-idt"></a><div class="figure-title">Figure 1.29. <code class="filename">sys/boot/i386/btx/btx/btx.S</code></div><div class="figure-contents"><pre class="programlisting">/*
+ * Create IDT.
+ */
+		mov $0x5e00,%di			# IDT's address
+		mov $idtctl,%si			# Control string
+init.1:		lodsb				# Get entry
+		cbw				#  count
+		xchg %ax,%cx			#  as word
+		jcxz init.4			# If done
+		lodsb				# Get segment
+		xchg %ax,%dx			#  P:DPL:type
+		lodsw				# Get control
+		xchg %ax,%bx			#  set
+		lodsw				# Get handler offset
+		mov $SEL_SCODE,%dh		# Segment selector
+init.2:		shr %bx				# Handle this int?
+		jnc init.3			# No
+		mov %ax,(%di)			# Set handler offset
+		mov %dh,0x2(%di)		#  and selector
+		mov %dl,0x5(%di)		# Set P:DPL:type
+		add $0x4,%ax			# Next handler
+init.3:		lea 0x8(%di),%di		# Next entry
+		loop init.2			# Till set done
+		jmp init.1			# Continue</pre></div></div><br class="figure-break" /><p>Each entry in the <code class="literal">IDT</code> is 8 bytes long.
+      Besides the segment/offset information, they also describe the
+      segment type, privilege level, and whether the segment is
+      present in memory or not.  The construction is such that
+      interrupt vectors from <code class="literal">0</code> to
+      <code class="literal">0xf</code> (exceptions) are handled by function
+      <code class="literal">intx00</code>; vector <code class="literal">0x10</code> (also
+      an exception) is handled by <code class="literal">intx10</code>; hardware
+      interrupts, which are later configured to start at interrupt
+      vector <code class="literal">0x20</code> all the way to interrupt vector
+      <code class="literal">0x2f</code>, are handled by function
+      <code class="literal">intx20</code>.  Lastly, interrupt vector
+      <code class="literal">0x30</code>, which is used for system calls, is
+      handled by <code class="literal">intx30</code>, and vectors
+      <code class="literal">0x31</code> and <code class="literal">0x32</code> are handled
+      by <code class="literal">intx31</code>.  It must be noted that only
+      descriptors for interrupt vectors <code class="literal">0x30</code>,
+      <code class="literal">0x31</code> and <code class="literal">0x32</code> are given
+      privilege level 3, the same privilege level as the
+      <code class="filename">boot2</code> client, which means the client can
+      execute a software-generated interrupt to this vectors through
+      the <code class="literal">int</code> instruction without failing (this is
+      the way <code class="filename">boot2</code> use the services provided by
+      the <acronym class="acronym">BTX</acronym> server).  Also, note that
+      <span class="emphasis"><em>only</em></span> software-generated interrupts are
+      protected from code executing in lesser privilege levels.
+      Hardware-generated interrupts and processor-generated exceptions
+      are <span class="emphasis"><em>always</em></span> handled adequately, regardless
+      of the actual privileges involved.</p><p>The next step is to initialize the <acronym class="acronym">TSS</acronym>
+      (Task-State Segment).  The <acronym class="acronym">TSS</acronym> is a hardware
+      feature that helps the operating system or executive software
+      implement multitasking functionality through process
+      abstraction.  The IA-32 architecture demands the creation and
+      use of <span class="emphasis"><em>at least</em></span> one <acronym class="acronym">TSS</acronym>
+      if multitasking facilities are used or different privilege
+      levels are defined.  Because the <code class="filename">boot2</code>
+      client is executed in privilege level 3, but the
+      <acronym class="acronym">BTX</acronym> server does in privilege level 0, a
+      <acronym class="acronym">TSS</acronym> must be defined:</p><div class="figure"><a id="btx-tss"></a><div class="figure-title">Figure 1.30. <code class="filename">sys/boot/i386/btx/btx/btx.S</code></div><div class="figure-contents"><pre class="programlisting">/*
+ * Initialize TSS.
+ */
+init.4:		movb $_ESP0H,TSS_ESP0+1(%di)	# Set ESP0
+		movb $SEL_SDATA,TSS_SS0(%di)	# Set SS0
+		movb $_TSSIO,TSS_MAP(%di)	# Set I/O bit map base</pre></div></div><br class="figure-break" /><p>Note that a value is given for the Privilege Level 0 stack
+      pointer and stack segment in the <acronym class="acronym">TSS</acronym>.  This
+      is needed because, if an interrupt or exception is received
+      while executing <code class="filename">boot2</code> in Privilege Level 3,
+      a change to Privilege Level 0 is automatically performed by the
+      processor, so a new working stack is needed.  Finally, the I/O
+      Map Base Address field of the <acronym class="acronym">TSS</acronym> is given a
+      value, which is a 16-bit offset from the beginning of the
+      <acronym class="acronym">TSS</acronym> to the I/O Permission Bitmap and the
+      Interrupt Redirection Bitmap.</p><p>After the <acronym class="acronym">IDT</acronym> and <acronym class="acronym">TSS</acronym>
+      are created, the processor is ready to switch to protected mode.
+      This is done in the next block:</p><div class="figure"><a id="btx-prot"></a><div class="figure-title">Figure 1.31. <code class="filename">sys/boot/i386/btx/btx/btx.S</code></div><div class="figure-contents"><pre class="programlisting">/*
+ * Bring up the system.
+ */
+		mov $0x2820,%bx			# Set protected mode
+		callw setpic			#  IRQ offsets
+		lidt idtdesc			# Set IDT
+		lgdt gdtdesc			# Set GDT
+		mov %cr0,%eax			# Switch to protected
+		inc %ax				#  mode
+		mov %eax,%cr0			#
+		ljmp $SEL_SCODE,$init.8		# To 32-bit code
+		.code32
+init.8:		xorl %ecx,%ecx			# Zero
+		movb $SEL_SDATA,%cl		# To 32-bit
+		movw %cx,%ss			#  stack</pre></div></div><br class="figure-break" /><p>First, a call is made to <code class="literal">setpic</code> to
+      program the 8259A <acronym class="acronym">PIC</acronym> (Programmable Interrupt
+      Controller).  This chip is connected to multiple hardware
+      interrupt sources.  Upon receiving an interrupt from a device,
+      it signals the processor with the appropriate interrupt vector.
+      This can be customized so that specific interrupts are
+      associated with specific interrupt vectors, as explained before.
+      Next, the <acronym class="acronym">IDTR</acronym> (Interrupt Descriptor Table
+      Register) and <acronym class="acronym">GDTR</acronym> (Global Descriptor Table
+      Register) are loaded with the instructions
+      <code class="literal">lidt</code> and <code class="literal">lgdt</code>,
+      respectively.  These registers are loaded with the base address
+      and limit address for the <acronym class="acronym">IDT</acronym> and
+      <acronym class="acronym">GDT</acronym>.  The following three instructions set
+      the Protection Enable (PE) bit of the <code class="literal">%cr0</code>
+      register.  This effectively switches the processor to 32-bit
+      protected mode.  Next, a long jump is made to
+      <code class="literal">init.8</code> using segment selector SEL_SCODE,
+      which selects the Supervisor Code Segment.  The processor is
+      effectively executing in CPL 0, the most privileged level, after
+      this jump.  Finally, the Supervisor Data Segment is selected for
+      the stack by assigning the segment selector SEL_SDATA to the
+      <code class="literal">%ss</code> register.  This data segment also has a
+      privilege level of <code class="literal">0</code>.</p><p>Our last code block is responsible for loading the
+      <acronym class="acronym">TR</acronym> (Task Register) with the segment selector
+      for the <acronym class="acronym">TSS</acronym> we created earlier, and setting
+      the User Mode environment before passing execution control to
+      the <code class="filename">boot2</code> client.</p><div class="figure"><a id="btx-end"></a><div class="figure-title">Figure 1.32. <code class="filename">sys/boot/i386/btx/btx/btx.S</code></div><div class="figure-contents"><pre class="programlisting">/*
+ * Launch user task.
+ */
+		movb $SEL_TSS,%cl		# Set task
+		ltr %cx				#  register
+		movl $0xa000,%edx		# User base address
+		movzwl %ss:BDA_MEM,%eax		# Get free memory
+		shll $0xa,%eax			# To bytes
+		subl $ARGSPACE,%eax		# Less arg space
+		subl %edx,%eax			# Less base
+		movb $SEL_UDATA,%cl		# User data selector
+		pushl %ecx			# Set SS
+		pushl %eax			# Set ESP
+		push $0x202			# Set flags (IF set)
+		push $SEL_UCODE			# Set CS
+		pushl btx_hdr+0xc		# Set EIP
+		pushl %ecx			# Set GS
+		pushl %ecx			# Set FS
+		pushl %ecx			# Set DS
+		pushl %ecx			# Set ES
+		pushl %edx			# Set EAX
+		movb $0x7,%cl			# Set remaining
+init.9:		push $0x0			#  general
+		loop init.9			#  registers
+		popa				#  and initialize
+		popl %es			# Initialize
+		popl %ds			#  user
+		popl %fs			#  segment
+		popl %gs			#  registers
+		iret				# To user mode</pre></div></div><br class="figure-break" /><p>Note that the client's environment include a stack segment
+      selector and stack pointer (registers <code class="literal">%ss</code> and
+      <code class="literal">%esp</code>).  Indeed, once the
+      <acronym class="acronym">TR</acronym> is loaded with the appropriate stack
+      segment selector (instruction <code class="literal">ltr</code>), the stack
+      pointer is calculated and pushed onto the stack along with the
+      stack's segment selector.  Next, the value
+      <code class="literal">0x202</code> is pushed onto the stack; it is the
+      value that the EFLAGS will get when control is passed to the
+      client.  Also, the User Mode code segment selector and the
+      client's entry point are pushed.  Recall that this entry
+      point is patched in the <acronym class="acronym">BTX</acronym> header at link
+      time.  Finally, segment selectors (stored in register
+      <code class="literal">%ecx</code>) for the segment registers
+      <code class="literal">%gs, %fs, %ds and %es</code> are pushed onto the
+      stack, along with the value at <code class="literal">%edx</code>
+      (<code class="literal">0xa000</code>).  Keep in mind the various values
+      that have been pushed onto the stack (they will be popped out
+      shortly).  Next, values for the remaining general purpose
+      registers are also pushed onto the stack (note the
+      <code class="literal">loop</code> that pushes the value
+      <code class="literal">0</code> seven times).  Now, values will be started
+      to be popped out of the stack.  First, the
+      <code class="literal">popa</code> instruction pops out of the stack the
+      latest seven values pushed.  They are stored in the general
+      purpose registers in order
+      <code class="literal">%edi, %esi, %ebp, %ebx, %edx, %ecx, %eax</code>.
+      Then, the various segment selectors pushed are popped into the
+      various segment registers.  Five values still remain on the
+      stack.  They are popped when the <code class="literal">iret</code>
+      instruction is executed.  This instruction first pops
+      the value that was pushed from the <acronym class="acronym">BTX</acronym>
+      header.  This value is a pointer to <code class="filename">boot2</code>'s
+      entry point.  It is placed in the register
+      <code class="literal">%eip</code>, the instruction pointer register.
+      Next, the segment selector for the User Code Segment is popped
+      and copied to register <code class="literal">%cs</code>.  Remember that
+      this segment's privilege level is 3, the least privileged
+      level.  This means that we must provide values for the stack of
+      this privilege level.  This is why the processor, besides
+      further popping the value for the EFLAGS register, does two more
+      pops out of the stack.  These values go to the stack
+      pointer (<code class="literal">%esp</code>) and the stack segment
+      (<code class="literal">%ss</code>).  Now, execution continues at
+      <code class="literal">boot0</code>'s entry point.</p><p>It is important to note how the User Code Segment is
+      defined.  This segment's <span class="emphasis"><em>base address</em></span> is
+      set to <code class="literal">0xa000</code>.  This means that code memory
+      addresses are <span class="emphasis"><em>relative</em></span> to address 0xa000;
+      if code being executed is fetched from address
+      <code class="literal">0x2000</code>, the <span class="emphasis"><em>actual</em></span>
+      memory addressed is
+      <code class="literal">0xa000+0x2000=0xc000</code>.</p><div class="footnotes"><br /><hr class="footnote-hr" /><div id="ftn.idp47983224" class="footnote"><p><a href="#idp47983224" class="para"><sup class="para">[9] </sup></a>Real-mode code and data are necessary when switching
+	      back to real mode from protected mode, as suggested by
+	      the Intel manuals.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="boot-boot1.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="boot.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="boot2.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.5. <code class="literal">boot1</code> Stage </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 1.7. <span class="application">boot2</span> Stage</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

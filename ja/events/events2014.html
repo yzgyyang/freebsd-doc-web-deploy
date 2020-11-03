@@ -44,11 +44,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">検索</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -120,6 +119,9 @@
                   </li>
                   <li>
                     <a href="../../cgi/man.cgi">マニュアルページ</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">プレゼンテーションと論文</a>
                   </li>
                   <li>
                     <a href="../../doc/en_US.ISO8859-1/books/fdp-primer">新しい貢献者のためのドキュメンテーションプロジェクト入門</a>
@@ -238,9 +240,6 @@
                   <a href="../usergroups.html">ユーザグループ</a>
                 </li>
                 <li>
-                  <a href="https://planet.FreeBSD.org/">ブログ</a>
-                </li>
-                <li>
                   <a href="../events/events.html">イベント</a>
                 </li>
                 <li>
@@ -263,7 +262,7 @@
           </div>
           <div id="contentwrap">
             <h1>FreeBSD Past Events</h1>
-<!--Generated on: 20181107-->
+<!--Generated on: 20201103-->
             <p xmlns="">ここに掲載されていない FreeBSD に関連したイベントや、
       FreeBSD ユーザが興味をもちそうなイベント詳細をご存知でしたら、
       <a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>
@@ -276,11 +275,11 @@
       以下の地図において暗赤色に塗られています。
       過去に FreeBSD に関連したイベントを開催した国は黄色やオレンジ色で塗られています。
       より暗い色で塗られた地域ほど過去に多くのイベントを開催しています。</p>
-            <img xmlns="" src="https://chart.googleapis.com/chart?cht=t&amp;chs=400x200&amp;chtm=world&amp;chco=ffffff,ffbe38,600000&amp;chf=bg,s,4D89F9&amp;chd=t:33.0,31.0,100.0,100.0,16.0,100.0,12.0,9.0,5.0,5.0,5.0,100.0,4.0,4.0,4.0,4.0,3.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0&amp;chld=DEUSJPCAUSBEFRCHARUAPLGBITATTWDKNLTWBRRUNLUKAUTRROAMRSSEBGMTSKHUINESPTCLCOKRCN" />
+            <img xmlns="" src="https://chart.googleapis.com/chart?cht=t&amp;chs=400x200&amp;chtm=world&amp;chco=ffffff,ffbe38,600000&amp;chf=bg,s,4D89F9&amp;chd=t:34.0,31.0,24.0,22.0,19.0,14.0,12.0,9.0,6.0,5.0,5.0,5.0,4.0,4.0,4.0,4.0,3.0,3.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0&amp;chld=DEUSCAUSJPBEFRCHARATUAPLGBITTWDKTWNLSEINBRRUNLUKAUTRNOROAMRSBGMTSKHUESPTCLCOKRCN" />
             <h2 xmlns="" id="past">過去のイベント</h2>
             <h3 id="month:201411">November 2014</h3>
             <ul>
-              <li id="event:49">
+              <li id="event:86">
                 <p><b><a href="https://www.meetbsd.com/">MeetBSD California 2014</a></b>, Western Digital Campus, San Jose, United States<br /><em>2014 年 11 月 1 -  2 日</em><br />MeetBSD 2014 uses a mixed unConference format featuring
       both scheduled talks and community-driven events such as
       birds-of-a-feather meetings, lightning talks, and speed geeking
@@ -292,7 +291,7 @@
             </ul>
             <h3 id="month:201410">October 2014</h3>
             <ul>
-              <li id="event:48">
+              <li id="event:85">
                 <p><b><a href="http://wiki.x.org/wiki/Events/XDC2014/">X Developer's Conference 2014</a></b>, LaBRI, Université de Bordeaux 1, Bordeaux, France<br /><em>2014 年 10 月 8 -  10 日</em><br />XDC is the annual conference where people working
       on the FOSS graphics stack meet.  Talks cover projects status,
       work-in-progress, proposals for change, and so on.  Like many
@@ -308,7 +307,7 @@
             </ul>
             <h3 id="month:201409">September 2014</h3>
             <ul>
-              <li id="event:47">
+              <li id="event:84">
                 <p><b><a href="http://2014.eurobsdcon.org/">EuroBSDCon 2014</a></b>, InterExpo Congress Center, Sofia, Bulgaria<br /><em>2014 年 9 月 25 -  28 日</em><br />EuroBSDcon is the premier European conference on the
       open source BSD operating systems attracting about 250 highly
       skilled engineering professionals, software developers, computer
@@ -325,7 +324,7 @@
             </ul>
             <h3 id="month:201408">August 2014</h3>
             <ul>
-              <li id="event:46">
+              <li id="event:83">
                 <p><b><a href="http://bsdday.org/">BSDday</a></b>, University
 	of Buenos Aires' Faculty of natural and exact sciences, Buenos Aires, Argentina<br /><em>2014 年 8 月 9 日</em><br />BSDday Argentina is a conference for users, sysadmins
       and developers of BSD software and based systems.  The
@@ -341,7 +340,7 @@
             </ul>
             <h3 id="month:201407">July 2014</h3>
             <ul>
-              <li id="event:45">
+              <li id="event:82">
                 <p><b><a href="http://bsdcam.cl.cam.ac.uk/">BSDCam 2014</a></b>, University of Cambridge, Cambridge, United Kingdom<br /><em>2014 年 7 月 9 -  12 日</em><br />The Cambridge FreeBSD Developers Summit is an annual
       invite-only event focused on bringing together developers and
       vendors to discuss and build the future of the FreeBSD project.
@@ -356,7 +355,7 @@
             </ul>
             <h3 id="month:201405">May 2014</h3>
             <ul>
-              <li id="event:44">
+              <li id="event:81">
                 <p><b><a href="http://www.bsdcan.org/">BSDCan 2014</a></b>, University of Ottawa, Ottawa, Canada<br /><em>2014 年 5 月 14 -  17 日</em><br />BSDCan is a technical conference for people working
       on and with BSD operating systems and related projects.  It is
       a developers conference with a strong focus on emerging
@@ -372,7 +371,7 @@
             </ul>
             <h3 id="month:201403">March 2014</h3>
             <ul>
-              <li id="event:43">
+              <li id="event:80">
                 <p><b><a href="http://2014.asiabsdcon.org/">AsiaBSDCon 2014</a></b>, Tokyo University of Science, Tokyo, Japan<br /><em>2014 年 3 月 13 -  16 日</em><br />AsiaBSDCon is a conference for users and developers
       on BSD based systems.  The conference is for anyone developing,
       deploying and using systems based on FreeBSD, NetBSD, OpenBSD,
@@ -385,7 +384,7 @@
                 <p>Social links: <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=AsiaBSDCon 2014&amp;m=text">
       Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=AsiaBSDCon 2014">Blog Search</a>.</p>
               </li>
-              <li id="event:42">
+              <li id="event:79">
                 <p><b><a href="http://bhyvecon.org/">bhyvecon 2014</a></b>, SAKURA Internet Research Center, Tokyo, Japan<br /><em>2014 年 3 月 12 日</em><br />See the bhyve hypervisor in action and ask a core bhyve
       developer your technical questions.
     </p>
@@ -395,7 +394,7 @@
             </ul>
             <h3 id="month:201402">February 2014</h3>
             <ul>
-              <li id="event:41">
+              <li id="event:78">
                 <p><b><a href="http://www.nycbsdcon.org/2014/">NYCBSDCon 2014</a></b>, Suspender Bar &amp; Restaurant, Manhattan, New York City, United States<br /><em>2014 年 2 月 8 日</em><br />A day-long event with a theme of "The BSDs in
       Production." With increased focus on the critical roles
       the BSDs do and can play in infrastructures, NYCBSDCon
@@ -463,7 +462,7 @@
         </div>
         <div id="footer">
           <span><a href="../search/index-site.html">サイトマップ</a> |
-  <a href="../copyright/">知的財産権について</a> | (C) 1995〓2018 The FreeBSD Project.
+  <a href="../copyright/">知的財産権について</a> | (C) 1995〓2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

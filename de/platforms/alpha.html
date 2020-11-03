@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' site: www.FreeBSD.org site: docs.FreeBSD.org site: lists.FreeBSD.org site: wiki.FreeBSD.org site: forums.FreeBSD.org'">
                   <h2 class="blockhide">
                     <label for="words">Suche</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="//www.FreeBSD.org/cgi/man.cgi">Manualpages</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">Presentations and Papers</a>
                   </li>
                   <li>
                     <a href="../../doc/de_DE.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
@@ -290,7 +292,7 @@
           <br class="clearboth" />
         </div>
         <div id="footer">
-          <span><a href="../../search/index-site.html">Sitemap</a> | <a href="../../copyright/">Legal Notices</a> | © 1995&#8211;2018 The FreeBSD Project.  Alle Rechte vorbehalten.</span>
+          <span><a href="../../search/index-site.html">Sitemap</a> | <a href="../../copyright/">Legal Notices</a> | © 1995&#8211;2020 The FreeBSD Project.  Alle Rechte vorbehalten.</span>
           <br />
         </div>
       </div>

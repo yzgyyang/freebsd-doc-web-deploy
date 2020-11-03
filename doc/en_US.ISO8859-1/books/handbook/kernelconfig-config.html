@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>8.4. The Configuration File</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="kernelconfig.html" title="Chapter 8. Configuring the FreeBSD Kernel" /><link rel="prev" href="kernelconfig-devices.html" title="8.3. Finding the System Hardware" /><link rel="next" href="kernelconfig-building.html" title="8.5. Building and Installing a Custom Kernel" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">8.4. The Configuration File</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="kernelconfig-devices.html">Prev</a> </td><th width="60%" align="center">Chapter 8. Configuring the FreeBSD Kernel</th><td width="20%" align="right"> <a accesskey="n" href="kernelconfig-building.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="kernelconfig-config"></a>8.4. The Configuration File</h2></div></div></div><p>In order to create a custom kernel configuration file and
+      build a custom kernel, the full FreeBSD source tree must first be
+      installed.</p><p>If <code class="filename">/usr/src/</code> does not exist or it is
+      empty, source has not been installed.  Source can be installed
+      using <span class="application">Subversion</span> and the instructions
+      in <a class="xref" href="svn.html" title="A.3. Using Subversion">Section A.3, &#8220;Using <span class="application">Subversion</span>&#8221;</a>.</p><p>Once source is installed, review the contents of
+      <code class="filename">/usr/src/sys</code>.  This directory contains a
+      number of subdirectories, including those which represent the
+      following supported architectures: <code class="filename">amd64</code>,
+      <code class="filename">i386</code>,
+      <code class="filename">powerpc</code>, and
+      <code class="filename">sparc64</code>.  Everything inside a particular
+      architecture's directory deals with that architecture only and
+      the rest of the code is machine independent code common to all
+      platforms.  Each supported architecture has a
+      <code class="filename">conf</code> subdirectory which contains the
+      <code class="filename">GENERIC</code> kernel configuration file for that
+      architecture.</p><p>Do not make edits to <code class="filename">GENERIC</code>.  Instead,
+      copy the file to a different name and make edits to the copy.
+      The convention is to use a name with all capital letters.  When
+      maintaining multiple FreeBSD machines with different hardware, it
+      is a good idea to name it after the machine's hostname.  This
+      example creates a copy, named <code class="filename">MYKERNEL</code>, of
+      the <code class="filename">GENERIC</code> configuration file for the
+      <code class="literal">amd64</code> architecture:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/src/sys/<em class="replaceable"><code>amd64</code></em>/conf</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>cp GENERIC <em class="replaceable"><code>MYKERNEL</code></em></code></strong></pre><p><code class="filename"><em class="replaceable"><code>MYKERNEL</code></em></code> can
+      now be customized with any <acronym class="acronym">ASCII</acronym> text editor.
+      The default editor is <span class="application">vi</span>, though an
+      easier editor for beginners, called
+      <span class="application">ee</span>, is also installed with
+      FreeBSD.</p><a id="idp55854456" class="indexterm"></a><a id="idp55855608" class="indexterm"></a><a id="idp55860216" class="indexterm"></a><p>The format of the kernel configuration file is simple.
+      Each line contains a keyword that represents a device or
+      subsystem, an argument, and a brief description.  Any text
+      after a <code class="literal">#</code> is considered a comment and
+      ignored.  To remove kernel support for a device or subsystem,
+      put a <code class="literal">#</code> at the beginning of the line
+      representing that device or subsystem.  Do not add or remove a
+      <code class="literal">#</code> for any line that you do not
+      understand.</p><div xmlns="" class="warning"><h3 class="admontitle">Warning: </h3><p xmlns="http://www.w3.org/1999/xhtml">It is easy to remove support for a device or option and
+	end up with a broken kernel.  For example, if the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ata&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ata</span>(4)</span></a>
+	driver is removed from the kernel configuration file, a system
+	using <acronym class="acronym">ATA</acronym> disk drivers may not boot.  When
+	in doubt, just leave support in the kernel.</p></div><p>In addition to the brief descriptions provided in this file,
+      additional descriptions are contained in
+      <code class="filename">NOTES</code>, which can be found in the same
+      directory as <code class="filename">GENERIC</code> for that architecture.
+      For architecture independent options, refer to
+      <code class="filename">/usr/src/sys/conf/NOTES</code>.</p><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">When finished customizing the kernel configuration file,
+	save a backup copy to a location outside of
+	<code class="filename">/usr/src</code>.</p><p xmlns="http://www.w3.org/1999/xhtml">Alternately, keep the kernel configuration file elsewhere
+	and create a symbolic link to the file:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/src/sys/amd64/conf</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>mkdir /root/kernels</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>cp GENERIC /root/kernels/MYKERNEL</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>ln -s /root/kernels/MYKERNEL</code></strong></pre></div><p>An <code class="literal">include</code> directive is available for use
+      in configuration files.  This allows another configuration file
+      to be included in the current one, making it easy to maintain
+      small changes relative to an existing file.  If only a small
+      number of additional options or drivers are required, this
+      allows a delta to be maintained with respect to
+      <code class="filename">GENERIC</code>, as seen in this example:</p><pre class="programlisting">include GENERIC
+ident MYKERNEL
+
+options         IPFIREWALL
+options         DUMMYNET
+options         IPFIREWALL_DEFAULT_TO_ACCEPT
+options         IPDIVERT</pre><p>Using this method, the local configuration file expresses
+      local differences from a <code class="filename">GENERIC</code> kernel.
+      As upgrades are performed, new features added to
+      <code class="filename">GENERIC</code> will also be added to the local
+      kernel unless they are specifically prevented using
+      <code class="literal">nooptions</code> or <code class="literal">nodevice</code>.  A
+      comprehensive list of configuration directives and their
+      descriptions may be found in <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=config&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">config</span>(5)</span></a>.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">To build a file which contains all available options,
+	run the following command as <code class="systemitem">root</code>:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/src/sys/<em class="replaceable"><code>arch</code></em>/conf &amp;&amp; make LINT</code></strong></pre></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="kernelconfig-devices.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="kernelconfig.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="kernelconfig-building.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">8.3. Finding the System Hardware </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 8.5. Building and Installing a Custom Kernel</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

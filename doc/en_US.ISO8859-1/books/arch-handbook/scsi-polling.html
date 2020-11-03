@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>12.3. Polling</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Architecture Handbook" /><link rel="up" href="scsi.html" title="Chapter 12. Common Access Method SCSI Controllers" /><link rel="prev" href="scsi-general.html" title="12.2. General Architecture" /><link rel="next" href="scsi-async.html" title="12.4. Asynchronous Events" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">12.3. Polling</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="scsi-general.html">Prev</a> </td><th width="60%" align="center">Chapter 12. Common Access Method SCSI Controllers</th><td width="20%" align="right"> <a accesskey="n" href="scsi-async.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="scsi-polling"></a>12.3. Polling</h2></div></div></div><div class="funcsynopsis"><table border="0" class="funcprototype-table" summary="Function synopsis" style="cellspacing: 0; cellpadding: 0;"><tr><td><code class="funcdef">static void
+	  <strong class="fsfunc">xxx_poll</strong>
+	(</code></td><td><var class="pdparam">struct cam_sim *sim</var><code>)</code>;</td><td> </td></tr></table><div class="paramdef-list"><code>
+	  <var class="pdparam">struct cam_sim *sim</var>
+	</code>;</div><div class="funcprototype-spacer"> </div></div><p>The poll function is used to simulate the interrupts when
+      the interrupt subsystem is not functioning (for example, when
+      the system has crashed and is creating the system dump).  The
+      CAM subsystem sets the proper interrupt level before calling the
+      poll routine.  So all it needs to do is to call the interrupt
+      routine (or the other way around, the poll routine may be doing
+      the real action and the interrupt routine would just call the
+      poll routine).  Why bother about a separate function then?
+      Because of different calling conventions.  The
+      <code class="function">xxx_poll</code> routine gets the struct cam_sim
+      pointer as its argument when the PCI interrupt routine by common
+      convention gets pointer to the struct
+      <code class="varname">xxx_softc</code> and the ISA interrupt routine
+      gets just the device unit number.  So the poll routine would
+      normally look as:</p><pre class="programlisting">static void
+xxx_poll(struct cam_sim *sim)
+{
+    xxx_intr((struct xxx_softc *)cam_sim_softc(sim)); /* for PCI device */
+}</pre><p>or</p><pre class="programlisting">static void
+xxx_poll(struct cam_sim *sim)
+{
+    xxx_intr(cam_sim_unit(sim)); /* for ISA device */
+}</pre></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="scsi-general.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="scsi.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="scsi-async.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">12.2. General Architecture </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 12.4. Asynchronous Events</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

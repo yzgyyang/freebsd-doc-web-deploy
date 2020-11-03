@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>6.4. Ports with Distribution Restrictions or Legal Concerns</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Porter's Handbook" /><link rel="up" href="special.html" title="Chapter 6. Special Considerations" /><link rel="prev" href="porting-shlibs.html" title="6.3. Shared Libraries" /><link rel="next" href="building.html" title="6.5. Building Mechanisms" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.4. Ports with Distribution Restrictions or Legal
+      Concerns</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="porting-shlibs.html">Prev</a> </td><th width="60%" align="center">Chapter 6. Special Considerations</th><td width="20%" align="right"> <a accesskey="n" href="building.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="porting-restrictions"></a>6.4. Ports with Distribution Restrictions or Legal
+      Concerns</h2></div></div></div><p>Licenses vary, and some of them place restrictions on how
+      the application can be packaged, whether it can be sold for
+      profit, and so on.</p><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">It is the responsibility of a porter to read the
+	licensing terms of the software and make sure that the
+	FreeBSD project will not be held accountable for violating
+	them by redistributing the source or compiled binaries
+	either via FTP/HTTP or CD-ROM.  If in doubt, please contact
+	the <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo/freebsd-ports" target="_top">FreeBSD ports mailing list</a>.</p></div><p>In situations like this, the variables described in the
+      next sections can be set.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="porting-restrictions-no_package"></a>6.4.1. <code class="varname">NO_PACKAGE</code></h3></div></div></div><p>This variable indicates that we may not generate a
+	binary package of the application.  For instance, the
+	license may disallow binary redistribution, or it may
+	prohibit distribution of packages created from patched
+	sources.</p><p>However, the port's <code class="varname">DISTFILES</code> may be
+	freely mirrored on FTP/HTTP.  They may also be distributed
+	on a CD-ROM (or similar media) unless
+	<code class="varname">NO_CDROM</code> is set as well.</p><p>If the
+	binary package is not generally useful, and the application
+	must always be compiled from the source code, use
+	<code class="varname">NO_PACKAGE</code>.  For
+	example, if the application has configuration information
+	that is site specific hard coded into it at compile time,
+	set <code class="varname">NO_PACKAGE</code>.</p><p>Set <code class="varname">NO_PACKAGE</code> to a string
+	describing the reason why the package cannot be
+	generated.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="porting-restrictions-no_cdrom"></a>6.4.2. <code class="varname">NO_CDROM</code></h3></div></div></div><p>This variable alone indicates that, although we are
+	allowed to generate binary packages, we may put neither
+	those packages nor the port's <code class="varname">DISTFILES</code>
+	onto a CD-ROM (or similar media) for resale.  However, the
+	binary packages and the port's <code class="varname">DISTFILES</code>
+	will still be available via FTP/HTTP.</p><p>If this variable is set along with
+	<code class="varname">NO_PACKAGE</code>, then only the port's
+	<code class="varname">DISTFILES</code> will be available, and only via
+	FTP/HTTP.</p><p>Set <code class="varname">NO_CDROM</code> to a string
+	describing the reason why the port cannot be redistributed
+	on CD-ROM.  For instance, use this if the port's
+	license is for <span class="quote">&#8220;<span class="quote">non-commercial</span>&#8221;</span> use
+	only.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="porting-restrictions-nofetchfiles"></a>6.4.3. <code class="varname">NOFETCHFILES</code></h3></div></div></div><p>Files defined in <code class="varname">NOFETCHFILES</code>
+	are not fetchable from any of
+	<code class="varname">MASTER_SITES</code>.  An example of such a file
+	is when the file is supplied on CD-ROM by the vendor.</p><p>Tools which check for the availability of these files
+	on <code class="varname">MASTER_SITES</code> have to ignore these
+	files and not report about them.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="porting-restrictions-restricted"></a>6.4.4. <code class="varname">RESTRICTED</code></h3></div></div></div><p>Set this variable alone if the application's license
+	permits neither mirroring the application's
+	<code class="varname">DISTFILES</code> nor distributing the binary
+	package in any way.</p><p>Do not set <code class="varname">NO_CDROM</code> or
+	<code class="varname">NO_PACKAGE</code> along with
+	<code class="varname">RESTRICTED</code>, since the latter variable
+	implies the former ones.</p><p>Set <code class="varname">RESTRICTED</code> to a string
+	describing the reason why the port cannot be redistributed.
+	Typically, this indicates that the port contains proprietary
+	software and that the user will need to manually download
+	the <code class="varname">DISTFILES</code>, possibly after registering
+	for the software or agreeing to accept the terms of an
+	<acronym class="acronym">EULA</acronym>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="porting-restrictions-restricted_files"></a>6.4.5. <code class="varname">RESTRICTED_FILES</code></h3></div></div></div><p>When <code class="varname">RESTRICTED</code> or
+	<code class="varname">NO_CDROM</code> is set, this variable defaults
+	to <code class="literal">${DISTFILES} ${PATCHFILES}</code>, otherwise
+	it is empty.  If only some of the distribution files are
+	restricted, then set this variable to list them.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="porting-restrictions-legal_text"></a>6.4.6. <code class="varname">LEGAL_TEXT</code></h3></div></div></div><p>If the port has legal concerns not addressed by the
+	above variables, set <code class="varname">LEGAL_TEXT</code>
+	to a string explaining the concern.  For
+	example, if special permission was obtained for FreeBSD to
+	redistribute the binary, this variable must indicate
+	so.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="porting-restrictions-legal"></a>6.4.7. <code class="filename">/usr/ports/LEGAL</code> and
+	<code class="varname">LEGAL</code></h3></div></div></div><p>A port which sets any of the above variables must also
+	be added to <code class="filename">/usr/ports/LEGAL</code>.  The
+	first column is a glob which matches the restricted
+	distfiles.  The second column is the port's origin.  The
+	third column is the output of
+	<code class="command">make -VLEGAL</code>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="porting-restrictions-examples"></a>6.4.8. Examples</h3></div></div></div><p>The preferred way to state "the distfiles for this port
+	must be fetched manually" is as follows:</p><pre class="programlisting">.if !exists(${DISTDIR}/${DISTNAME}${EXTRACT_SUFX})
+IGNORE=	may not be redistributed because of licensing reasons. Please visit <em class="replaceable"><code>some-website</code></em> to accept their license and download ${DISTFILES} into ${DISTDIR}
+.endif</pre><p>This both informs the user, and sets the proper metadata
+	on the user's machine for use by automated programs.</p><p>Note that this stanza must be preceded by an inclusion
+	of <code class="filename">bsd.port.pre.mk</code>.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="porting-shlibs.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="special.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="building.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">6.3. Shared Libraries </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 6.5. Building Mechanisms</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

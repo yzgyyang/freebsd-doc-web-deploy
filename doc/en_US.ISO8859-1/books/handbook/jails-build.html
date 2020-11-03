@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>14.3. Creating and Controlling Jails</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="jails.html" title="Chapter 14. Jails" /><link rel="prev" href="jails-terms.html" title="14.2. Terms Related to Jails" /><link rel="next" href="jails-tuning.html" title="14.4. Fine Tuning and Administration" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">14.3. Creating and Controlling Jails</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="jails-terms.html">Prev</a> </td><th width="60%" align="center">Chapter 14. Jails</th><td width="20%" align="right"> <a accesskey="n" href="jails-tuning.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="jails-build"></a>14.3. Creating and Controlling Jails</h2></div></div></div><p>Some administrators divide jails into the following two
+      types: <span class="quote">&#8220;<span class="quote">complete</span>&#8221;</span> jails, which resemble a real FreeBSD
+      system, and <span class="quote">&#8220;<span class="quote">service</span>&#8221;</span> jails, dedicated to one
+      application or service, possibly running with privileges.  This
+      is only a conceptual division and the process of building a jail
+      is not affected by it.  When creating a <span class="quote">&#8220;<span class="quote">complete</span>&#8221;</span>
+      jail there are two options for the source of the userland: use
+      prebuilt binaries (such as those supplied on an install media)
+      or build from source.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp60139000"></a>14.3.1. Installing a Jail</h3></div></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="jails-install-internet"></a>14.3.1.1. To install a Jail from the Internet</h4></div></div></div><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=bsdinstall&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">bsdinstall</span>(8)</span></a> tool can be used to fetch and
+          install the binaries needed for a jail.  This will walk through
+          the picking of a mirror, which distributions will be installed
+          into the destination directory, and some basic configuration
+          of the jail:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>bsdinstall jail <em class="replaceable"><code>/here/is/the/jail</code></em></code></strong></pre><p>Once the command is complete, the next step is configuring
+          the host to run the jail.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="jails-install-iso"></a>14.3.1.2. To install a Jail from an ISO</h4></div></div></div><p>To install the userland from installation media, first
+      create the root directory for the jail.  This can be done by
+      setting the <code class="varname">DESTDIR</code> variable to the proper
+      location.</p><p>Start a shell and define <code class="varname">DESTDIR</code>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>sh</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>export DESTDIR=<em class="replaceable"><code>/here/is/the/jail</code></em></code></strong></pre><p>Mount the install media as covered in <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mdconfig&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mdconfig</span>(8)</span></a>
+      when using the install ISO:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>mount -t cd9660 /dev/`mdconfig -f cdimage.iso` /mnt</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>cd /mnt/usr/freebsd-dist/</code></strong></pre><p>Extract the binaries from the tarballs on the install media
+      into the declared destination.  Minimally, only the base set
+      needs to be extracted, but a complete install can be performed
+      when preferred.</p><p>To install just the base system:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>tar -xf base.txz -C $DESTDIR</code></strong></pre><p>To install everything except the kernel:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>for set in base ports; do tar -xf $set.txz -C $DESTDIR ; done</code></strong></pre></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="jails-install-source"></a>14.3.1.3. To build and install a Jail from source</h4></div></div></div><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jail&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jail</span>(8)</span></a> manual page explains the procedure for
+      building a jail:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>setenv D <em class="replaceable"><code>/here/is/the/jail</code></em></code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>mkdir -p $D</code></strong>      <a id="jailpath"></a><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span>
+<code class="prompt">#</code> <strong class="userinput"><code>cd /usr/src</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make buildworld</code></strong>  <a id="jailbuildworld"></a><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span>
+<code class="prompt">#</code> <strong class="userinput"><code>make installworld DESTDIR=$D</code></strong>  <a id="jailinstallworld"></a><span><img src="./imagelib/callouts/3.png" alt="3" border="0" /></span>
+<code class="prompt">#</code> <strong class="userinput"><code>make distribution DESTDIR=$D</code></strong>  <a id="jaildistrib"></a><span><img src="./imagelib/callouts/4.png" alt="4" border="0" /></span>
+<code class="prompt">#</code> <strong class="userinput"><code>mount -t devfs devfs $D/dev</code></strong>   <a id="jaildevfs"></a><span><img src="./imagelib/callouts/5.png" alt="5" border="0" /></span></pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#jailpath"><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span></a> </p></td><td valign="top" align="left"><p>Selecting a location for a jail is the best starting
+	  point.  This is where the jail will physically reside within
+	  the file system of the jail's host.  A good choice can be
+	  <code class="filename">/usr/jail/<em class="replaceable"><code>jailname</code></em></code>,
+	  where <em class="replaceable"><code>jailname</code></em> is the hostname
+	  identifying the jail.  Usually, <code class="filename">/usr/</code>
+	  has enough space for the jail file system, which for
+	  <span class="quote">&#8220;<span class="quote">complete</span>&#8221;</span> jails is, essentially, a replication
+	  of every file present in a default installation of the FreeBSD
+	  base system.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#jailbuildworld"><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span></a> </p></td><td valign="top" align="left"><p>If you have already rebuilt your userland using
+	  <code class="command">make world</code> or
+	  <code class="command">make buildworld</code>, you can skip this step
+	  and install your existing userland into the new jail.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#jailinstallworld"><span><img src="./imagelib/callouts/3.png" alt="3" border="0" /></span></a> </p></td><td valign="top" align="left"><p>This command will populate the directory subtree chosen
+	  as jail's physical location on the file system with the
+	  necessary binaries, libraries, manual pages and so
+	  on.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#jaildistrib"><span><img src="./imagelib/callouts/4.png" alt="4" border="0" /></span></a> </p></td><td valign="top" align="left"><p>The <code class="buildtarget">distribution</code> target for
+	  <span class="application">make</span> installs every needed
+	  configuration file.  In simple words, it installs every
+	  installable file of
+	  <code class="filename">/usr/src/etc/</code> to the
+	  <code class="filename">/etc</code> directory of the
+	  jail environment:
+	  <code class="filename">$D/etc/</code>.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#jaildevfs"><span><img src="./imagelib/callouts/5.png" alt="5" border="0" /></span></a> </p></td><td valign="top" align="left"><p>Mounting the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=devfs&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">devfs</span>(8)</span></a> file system inside a jail is
+	  not required.  On the other hand, any, or almost any
+	  application requires access to at least one device,
+	  depending on the purpose of the given application.  It is
+	  very important to control access to devices from inside a
+	  jail, as improper settings could permit an attacker to do
+	  nasty things in the jail.  Control over <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=devfs&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">devfs</span>(8)</span></a> is
+	  managed through rulesets which are described in the
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=devfs&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">devfs</span>(8)</span></a> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=devfs.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">devfs.conf</span>(5)</span></a> manual pages.</p></td></tr></table></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp60196216"></a>14.3.2. Configuring the Host</h3></div></div></div><p>Once a jail is installed, it can be started by using the
+      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jail&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jail</span>(8)</span></a> utility.  The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jail&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jail</span>(8)</span></a> utility takes four
+      mandatory arguments which are described in the <a class="xref" href="jails.html#jails-synopsis" title="14.1. Synopsis">Section 14.1, &#8220;Synopsis&#8221;</a>.  Other arguments may be specified
+      too, e.g., to run the jailed process with the credentials of a
+      specific user.  The
+      <code class="option"><em class="replaceable"><code>command</code></em></code> argument
+      depends on the type of the jail; for a
+      <span class="emphasis"><em>virtual system</em></span>,
+      <code class="filename">/etc/rc</code> is a good choice, since it will
+      replicate the startup sequence of a real FreeBSD system.  For a
+      <span class="emphasis"><em>service</em></span> jail, it depends on the service or
+      application that will run within the jail.</p><p>Jails are often started at boot time and the FreeBSD
+      <code class="filename">rc</code> mechanism provides an easy way to do
+      this.</p><div class="procedure"><ul class="procedure"><li class="step"><p>Configure jail parameters in
+	  <code class="filename">jail.conf</code>:</p><pre class="programlisting"><em class="replaceable"><code>www</code></em> {
+    host.hostname = <em class="replaceable"><code>www.example.org</code></em>;           # Hostname
+    ip4.addr = <em class="replaceable"><code>192.168.0.10</code></em>;                   # IP address of the jail
+    path = "<em class="replaceable"><code>/usr/jail/www</code></em>";                    # Path to the jail
+    devfs_ruleset = "<em class="replaceable"><code>www_ruleset</code></em>";             # devfs ruleset
+    mount.devfs;                               # Mount devfs inside the jail
+    exec.start = "/bin/sh /etc/rc";            # Start command
+    exec.stop = "/bin/sh /etc/rc.shutdown";    # Stop command
+}</pre><p>Configure jails to start at boot time in
+	  <code class="filename">rc.conf</code>:</p><pre class="programlisting">jail_enable="YES"   # Set to NO to disable starting of any jails</pre><p>The default startup of jails configured in
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jail.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jail.conf</span>(5)</span></a>, will run the <code class="filename">/etc/rc</code>
+	  script of the jail, which assumes the jail is a complete
+	  virtual system.  For service jails, the default startup
+	  command of the jail should be changed, by setting the
+	  <code class="varname">exec.start</code>
+	  option appropriately.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">For a full list of available options, please see the
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jail.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jail.conf</span>(5)</span></a> manual page.</p></div></li></ul></div><p><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=service&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">service</span>(8)</span></a> can be used to start or stop a jail by hand,
+      if an entry for it exists in
+      <code class="filename">jail.conf</code>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service jail start <em class="replaceable"><code>www</code></em></code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>service jail stop <em class="replaceable"><code>www</code></em></code></strong></pre><p>Jails can be shut down with <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jexec&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jexec</span>(8)</span></a>.  Use <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jls&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jls</span>(8)</span></a>
+      to identify the jail's <code class="varname">JID</code>, then use
+      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jexec&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jexec</span>(8)</span></a> to run the shutdown script in that jail.</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>jls</code></strong>
+   JID  IP Address      Hostname                      Path
+     3  192.168.0.10    www                           /usr/jail/www
+<code class="prompt">#</code> <strong class="userinput"><code>jexec <em class="replaceable"><code>3</code></em> /etc/rc.shutdown</code></strong></pre><p>More information about this can be found in the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jail&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jail</span>(8)</span></a>
+      manual page.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="jails-terms.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="jails.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="jails-tuning.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">14.2. Terms Related to Jails </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 14.4. Fine Tuning and Administration</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

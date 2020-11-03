@@ -1,0 +1,736 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>5.13. Makefile Options</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Porter's Handbook" /><link rel="up" href="makefiles.html" title="Chapter 5. Configuring the Makefile" /><link rel="prev" href="makefile-info.html" title="5.12. Info Files" /><link rel="next" href="makefile-wrkdir.html" title="5.14. Specifying the Working Directory" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5.13. Makefile Options</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="makefile-info.html">Prev</a> </td><th width="60%" align="center">Chapter 5. Configuring the Makefile</th><td width="20%" align="right"> <a accesskey="n" href="makefile-wrkdir.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="makefile-options"></a>5.13. Makefile Options</h2></div></div></div><p>Many applications can be built with optional or differing
+      configurations.  Examples include choice of natural (human)
+      language, GUI versus command-line, or type of database to
+      support.  Users may need a different configuration than the
+      default, so the ports system provides hooks the port author can
+      use to control which variant will be built.  Supporting these
+      options properly will make users happy, and effectively provide
+      two or more ports for the price of one.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="makefile-options-options"></a>5.13.1. <code class="varname">OPTIONS</code></h3></div></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="makefile-options-background"></a>5.13.1.1. Background</h4></div></div></div><p><code class="varname">OPTIONS_<em class="replaceable"><code>*</code></em></code>
+	  give the user installing the port a dialog showing the
+	  available options, and then saves those options to
+	  <code class="filename">${PORT_DBDIR}/${OPTIONS_NAME}/options</code>.
+	  The next time the port is built, the options are
+	  reused.  <code class="varname">PORT_DBDIR</code> defaults to
+	  <code class="filename">/var/db/ports</code>.
+	  <code class="varname">OPTIONS_NAME</code> is to the port origin with
+	  an underscore as the space separator, for example, for
+	  <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/dns/bind99/pkg-descr">dns/bind99</a> it will be
+	  <code class="literal">dns_bind99</code>.</p><p>When the user runs <code class="command">make config</code> (or
+	  runs <code class="command">make build</code> for the first time), the
+	  framework checks for
+	  <code class="filename">${PORT_DBDIR}/${OPTIONS_NAME}/options</code>.
+	  If that file does not exist, the values of
+	  <code class="varname">OPTIONS_<em class="replaceable"><code>*</code></em></code>
+	  are used, and a dialog box is
+	  displayed where the options can be enabled or disabled.
+	  Then <code class="filename">options</code> is saved and the
+	  configured variables are used when building the port.</p><p>If a new version of the port adds new
+	  <code class="varname">OPTIONS</code>, the dialog will be presented to
+	  the user with the saved values of old
+	  <code class="varname">OPTIONS</code> prefilled.</p><p><code class="command">make showconfig</code> shows the saved
+	  configuration.  Use <code class="command">make rmconfig</code>
+	  to remove the saved configuration.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="makefile-options-syntax"></a>5.13.1.2. Syntax</h4></div></div></div><p><code class="varname">OPTIONS_DEFINE</code> contains a list of
+	  <code class="varname">OPTIONS</code> to be used.  These are
+	  independent of each other and are not grouped:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1 OPT2</pre><p>Once defined, <code class="varname">OPTIONS</code> are
+	  described (optional, but strongly recommended):</p><pre class="programlisting">OPT1_DESC=	Describe OPT1
+OPT2_DESC=	Describe OPT2
+OPT3_DESC=	Describe OPT3
+OPT4_DESC=	Describe OPT4
+OPT5_DESC=	Describe OPT5
+OPT6_DESC=	Describe OPT6</pre><p><code class="filename">ports/Mk/bsd.options.desc.mk</code>
+	  has descriptions for many common <code class="varname">OPTIONS</code>.
+	  While often useful, override them if the
+	  description is insufficient for the port.</p><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">When describing options, view it from the
+	    perspective of the user: <span class="quote">&#8220;<span class="quote">What functionality does it
+	      change?</span>&#8221;</span>
+	    and <span class="quote">&#8220;<span class="quote">Why would I want to enable this?</span>&#8221;</span>
+	    Do not just repeat the name.  For example, describing the
+	    <code class="literal">NLS</code> option as
+	    <span class="quote">&#8220;<span class="quote">include NLS support</span>&#8221;</span> does not help the user,
+	    who can already see the option name but may not know what
+	    it means.  Describing it as <span class="quote">&#8220;<span class="quote">Native Language Support
+	      via gettext utilities</span>&#8221;</span> is much more
+	    helpful.</p></div><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">Option names are always in all uppercase.  They
+	    cannot use mixed case or lowercase.</p></div><p><code class="varname">OPTIONS</code> can be grouped as radio
+	  choices, where only one choice from each group is
+	  allowed:</p><pre class="programlisting">OPTIONS_SINGLE=		SG1
+OPTIONS_SINGLE_SG1=	OPT3 OPT4</pre><div xmlns="" class="warning"><h3 class="admontitle">Warning: </h3><p xmlns="http://www.w3.org/1999/xhtml">There <span class="emphasis"><em>must</em></span> be one of each
+	    <code class="literal">OPTIONS_SINGLE</code> group selected at all
+	    times for the options to be valid.  One option of each
+	    group <span class="emphasis"><em>must</em></span> be added to
+	    <code class="varname">OPTIONS_DEFAULT</code>.</p></div><p><code class="varname">OPTIONS</code> can be grouped as radio
+	  choices, where none or only one choice from each group
+	  is allowed:</p><pre class="programlisting">OPTIONS_RADIO=		RG1
+OPTIONS_RADIO_RG1=	OPT7 OPT8</pre><p><code class="varname">OPTIONS</code> can also be grouped as
+	  <span class="quote">&#8220;<span class="quote">multiple-choice</span>&#8221;</span> lists, where
+	  <span class="emphasis"><em>at least one</em></span> option must be
+	  enabled:</p><pre class="programlisting">OPTIONS_MULTI=		MG1
+OPTIONS_MULTI_MG1=	OPT5 OPT6</pre><p><code class="varname">OPTIONS</code> can also be grouped as
+	  <span class="quote">&#8220;<span class="quote">multiple-choice</span>&#8221;</span> lists, where none or any
+	  option can be enabled:</p><pre class="programlisting">OPTIONS_GROUP=		GG1
+OPTIONS_GROUP_GG1=	OPT9 OPT10</pre><p><code class="varname">OPTIONS</code> are unset by default,
+	  unless they are listed in
+	  <code class="varname">OPTIONS_DEFAULT</code>:</p><pre class="programlisting">OPTIONS_DEFAULT=	OPT1 OPT3 OPT6</pre><p><code class="varname">OPTIONS</code> definitions must appear
+	  before the inclusion of
+	  <code class="filename">bsd.port.options.mk</code>.
+	  <code class="varname">PORT_OPTIONS</code> values can only be tested
+	  after the inclusion of
+	  <code class="filename">bsd.port.options.mk</code>.  Inclusion of
+	  <code class="filename">bsd.port.pre.mk</code> can be used instead,
+	  too, and is still widely used in ports written before the
+	  introduction of <code class="filename">bsd.port.options.mk</code>.
+	  But be aware that some variables will not work as expected
+	  after the inclusion of <code class="filename">bsd.port.pre.mk</code>,
+	  typically some
+	  <code class="varname">USE_<em class="replaceable"><code>*</code></em></code>
+	  flags.</p><div class="example"><a id="ports-options-simple-use"></a><div class="example-title">Example 5.39. Simple Use of <code class="varname">OPTIONS</code></div><div class="example-contents"><pre class="programlisting">OPTIONS_DEFINE=	FOO BAR
+OPTIONS_DEFAULT=FOO
+
+FOO_DESC=	Option foo support
+BAR_DESC=	Feature bar support
+
+# Will add --with-foo / --without-foo
+FOO_CONFIGURE_WITH=	foo
+BAR_RUN_DEPENDS=	bar:bar/bar
+
+.include &lt;bsd.port.mk&gt;</pre></div></div><br class="example-break" /><div class="example"><a id="ports-options-check-unset"></a><div class="example-title">Example 5.40. Check for Unset Port
+	    <code class="varname">OPTIONS</code></div><div class="example-contents"><pre class="programlisting">.if ! ${PORT_OPTIONS:MEXAMPLES}
+CONFIGURE_ARGS+=--without-examples
+.endif</pre><p>The form shown above is discouraged.  The preferred
+	    method is using a configure knob to really enable and
+	    disable the feature to match the option:</p><pre class="programlisting"># Will add --with-examples / --without-examples
+EXAMPLES_CONFIGURE_WITH=	examples</pre></div></div><br class="example-break" /><div class="example"><a id="ports-options-practical-use"></a><div class="example-title">Example 5.41. Practical Use of <code class="varname">OPTIONS</code></div><div class="example-contents"><pre class="programlisting">OPTIONS_DEFINE=		EXAMPLES
+OPTIONS_DEFAULT=	PGSQL LDAP SSL
+
+OPTIONS_SINGLE=		BACKEND
+OPTIONS_SINGLE_BACKEND=	MYSQL PGSQL BDB
+
+OPTIONS_MULTI=		AUTH
+OPTIONS_MULTI_AUTH=	LDAP PAM SSL
+
+EXAMPLES_DESC=		Install extra examples
+MYSQL_DESC=		Use MySQL as backend
+PGSQL_DESC=		Use PostgreSQL as backend
+BDB_DESC=		Use Berkeley DB as backend
+LDAP_DESC=		Build with LDAP authentication support
+PAM_DESC=		Build with PAM support
+SSL_DESC=		Build with OpenSSL support
+
+# Will add USE_PGSQL=yes
+PGSQL_USE=	pgsql=yes
+# Will add --enable-postgres / --disable-postgres
+PGSQL_CONFIGURE_ENABLE=	postgres
+
+ICU_LIB_DEPENDS=	libicuuc.so:devel/icu
+
+# Will add --with-examples / --without-examples
+EXAMPLES_CONFIGURE_WITH=	examples
+
+# Check other OPTIONS
+
+.include &lt;bsd.port.mk&gt;</pre></div></div><br class="example-break" /></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="makefile-options-default"></a>5.13.1.3. Default Options</h4></div></div></div><p>These options are always on by default.</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="literal">DOCS</code> &#8212; build and install
+	      documentation.</p></li><li class="listitem"><p><code class="literal">NLS</code> &#8212; Native Language
+	      Support.</p></li><li class="listitem"><p><code class="literal">EXAMPLES</code> &#8212; build and
+	      install examples.</p></li><li class="listitem"><p><code class="literal">IPV6</code> &#8212; IPv6 protocol
+	      support.</p></li></ul></div><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">There is no need to add these to
+	    <code class="varname">OPTIONS_DEFAULT</code>.  To have them active,
+	    and show up in the options selection dialog, however, they
+	    must be added to <code class="varname">OPTIONS_DEFINE</code>.</p></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="makefile-options-auto-activation"></a>5.13.2. Feature Auto-Activation</h3></div></div></div><p>When using a GNU configure script, keep an eye on which
+	optional features are activated by auto-detection.  Explicitly
+	disable optional features that are not needed by
+	adding <code class="literal">--without-xxx</code> or
+	<code class="literal">--disable-xxx</code> in
+	<code class="varname">CONFIGURE_ARGS</code>.</p><div class="example"><a id="makefile-options-auto-activation-bad"></a><div class="example-title">Example 5.42. Wrong Handling of an Option</div><div class="example-contents"><pre class="programlisting">.if ${PORT_OPTIONS:MFOO}
+LIB_DEPENDS+=		libfoo.so:devel/foo
+CONFIGURE_ARGS+=	--enable-foo
+.endif</pre></div></div><br class="example-break" /><p>In the example above, imagine a library libfoo is
+	installed on the system.  The user does not want this
+	application to use libfoo, so he toggled the option off in the
+	<code class="literal">make config</code> dialog.  But the application's
+	configure script detects the library present in the system and
+	includes its support in the resulting executable.  Now when
+	the user decides to remove libfoo from the system, the ports
+	system does not protest (no dependency on libfoo was recorded)
+	but the application breaks.</p><div class="example"><a id="makefile-options-auto-activation-good"></a><div class="example-title">Example 5.43. Correct Handling of an Option</div><div class="example-contents"><pre class="programlisting">FOO_LIB_DEPENDS=		libfoo.so:devel/foo
+# Will add --enable-foo / --disable-foo
+FOO_CONFIGURE_ENABLE=	foo</pre></div></div><br class="example-break" /><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Under some circumstances, the shorthand conditional
+	  syntax can cause problems with complex constructs.  The
+	  errors are usually
+	  <code class="literal">Malformed conditional</code>, an alternative
+	  syntax can be used.</p><pre xmlns="http://www.w3.org/1999/xhtml" class="programlisting">.if !empty(VARIABLE:MVALUE)</pre><p xmlns="http://www.w3.org/1999/xhtml">as an alternative to</p><pre xmlns="http://www.w3.org/1999/xhtml" class="programlisting">.if ${VARIABLE:MVALUE}</pre></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="options-helpers"></a>5.13.3. Options Helpers</h3></div></div></div><p>There are some macros to help simplify conditional values
+	which differ based on the options set.  For easier access, a
+	comprehensive list is provided:</p><div class="variablelist"><a id="options-helpers-list"></a><dl class="variablelist"><dt><span class="term"><code class="varname">PLIST_SUB</code>,
+	    <code class="varname">SUB_LIST</code></span></dt><dd><p>For automatic
+	      <code class="literal">%%<em class="replaceable"><code>OPT</code></em>%%</code>
+	      and
+	      <code class="literal">%%NO_<em class="replaceable"><code>OPT</code></em>%%</code>
+	      generation, see <a class="xref" href="makefile-options.html#options_sub" title="5.13.3.1. OPTIONS_SUB">Section 5.13.3.1, &#8220;<code class="varname">OPTIONS_SUB</code>&#8221;</a>.</p><p>For more complex usage, see <a class="xref" href="makefile-options.html#options-variables" title="5.13.3.11. Generic Variables Replacement, OPT_VARIABLE and OPT_VARIABLE_OFF">Section 5.13.3.11, &#8220;Generic Variables Replacement,
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_<em class="replaceable"><code>VARIABLE</code></em></code>
+	  and
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_<em class="replaceable"><code>VARIABLE</code></em>_OFF</code>&#8221;</a>.</p></dd><dt><span class="term"><code class="varname">CONFIGURE_ARGS</code></span></dt><dd><p>For
+	      <code class="literal">--enable-<em class="replaceable"><code>x</code></em></code>
+	      and
+	      <code class="literal">--disable-<em class="replaceable"><code>x</code></em></code>,
+	      see <a class="xref" href="makefile-options.html#options-configure_enable" title="5.13.3.3.1. OPT_CONFIGURE_ENABLE">Section 5.13.3.3.1, &#8220;<code class="varname"><em class="replaceable"><code>OPT</code></em>_CONFIGURE_ENABLE</code>&#8221;</a>.</p><p>For
+	      <code class="literal">--with-<em class="replaceable"><code>x</code></em></code>
+	      and
+	      <code class="literal">--without-<em class="replaceable"><code>x</code></em></code>,
+	      see <a class="xref" href="makefile-options.html#options-configure_with" title="5.13.3.3.2. OPT_CONFIGURE_WITH">Section 5.13.3.3.2, &#8220;<code class="varname"><em class="replaceable"><code>OPT</code></em>_CONFIGURE_WITH</code>&#8221;</a>.</p><p>For all other cases, see <a class="xref" href="makefile-options.html#options-configure_on" title="5.13.3.3.3. OPT_CONFIGURE_ON and OPT_CONFIGURE_OFF">Section 5.13.3.3.3, &#8220;<code class="varname"><em class="replaceable"><code>OPT</code></em>_CONFIGURE_ON</code>
+	    and
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_CONFIGURE_OFF</code>&#8221;</a>.</p></dd><dt><span class="term"><code class="varname">CMAKE_ARGS</code></span></dt><dd><p>For arguments that are booleans
+	      (<code class="literal">on</code>, <code class="literal">off</code>,
+	      <code class="literal">true</code>, <code class="literal">false</code>,
+	      <code class="literal">0</code>, <code class="literal">1</code>) see <a class="xref" href="makefile-options.html#options-cmake_bool" title="5.13.3.4.2. OPT_CMAKE_BOOL and OPT_CMAKE_BOOL_OFF">Section 5.13.3.4.2, &#8220;<code class="varname"><em class="replaceable"><code>OPT</code></em>_CMAKE_BOOL</code>
+	    and
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_CMAKE_BOOL_OFF</code>&#8221;</a>.</p><p>For all other cases, see <a class="xref" href="makefile-options.html#options-cmake_on" title="5.13.3.4.1. OPT_CMAKE_ON and OPT_CMAKE_OFF">Section 5.13.3.4.1, &#8220;<code class="varname"><em class="replaceable"><code>OPT</code></em>_CMAKE_ON</code>
+	    and
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_CMAKE_OFF</code>&#8221;</a>.</p></dd><dt><span class="term"><code class="varname">MESON_ARGS</code></span></dt><dd><p>For arguments that take <code class="literal">true</code> or
+	      <code class="literal">false</code>, see <a class="xref" href="makefile-options.html#options-meson_true" title="5.13.3.5.2. OPT_MESON_TRUE and OPT_MESON_FALSE">Section 5.13.3.5.2, &#8220;<code class="varname"><em class="replaceable"><code>OPT</code></em>_MESON_TRUE</code>
+	    and
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_MESON_FALSE</code>&#8221;</a>.</p><p>For arguments that take <code class="literal">yes</code> or
+	      <code class="literal">no</code>, use <a class="xref" href="makefile-options.html#options-meson_yes" title="5.13.3.5.3. OPT_MESON_YES and OPT_MESON_NO">Section 5.13.3.5.3, &#8220;<code class="varname"><em class="replaceable"><code>OPT</code></em>_MESON_YES</code>
+	    and
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_MESON_NO</code>&#8221;</a>.</p><p>For arguments that take <code class="literal">enabled</code>
+	      or <code class="literal">disabled</code>, see <a class="xref" href="makefile-options.html#options-meson_enabled" title="5.13.3.5.4. OPT_MESON_ENABLED and OPT_MESON_DISABLED">Section 5.13.3.5.4, &#8220;<code class="varname"><em class="replaceable"><code>OPT</code></em>_MESON_ENABLED</code>
+	    and
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_MESON_DISABLED</code>&#8221;</a>.</p><p>For all other cases, use <a class="xref" href="makefile-options.html#options-meson_on" title="5.13.3.5.1. OPT_MESON_ON and OPT_MESON_OFF">Section 5.13.3.5.1, &#8220;<code class="varname"><em class="replaceable"><code>OPT</code></em>_MESON_ON</code>
+	    and
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_MESON_OFF</code>&#8221;</a>.</p></dd><dt><span class="term"><code class="varname">QMAKE_ARGS</code></span></dt><dd><p>See <a class="xref" href="makefile-options.html#options-qmake_on" title="5.13.3.6. OPT_QMAKE_ON and OPT_QMAKE_OFF">Section 5.13.3.6, &#8220;<code class="varname"><em class="replaceable"><code>OPT</code></em>_QMAKE_ON</code>
+	  and
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_QMAKE_OFF</code>&#8221;</a>.</p></dd><dt><span class="term"><code class="varname">USE_<em class="replaceable"><code>*</code></em></code></span></dt><dd><p>See <a class="xref" href="makefile-options.html#options-use" title="5.13.3.2. OPT_USE and OPT_USE_OFF">Section 5.13.3.2, &#8220;<code class="varname"><em class="replaceable"><code>OPT</code></em>_USE</code>
+	  and
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_USE_OFF</code>&#8221;</a>.</p></dd><dt><span class="term"><code class="varname"><em class="replaceable"><code>*</code></em>_DEPENDS</code></span></dt><dd><p>See <a class="xref" href="makefile-options.html#options-dependencies" title="5.13.3.10. Dependencies, OPT_DEPTYPE and OPT_DEPTYPE_OFF">Section 5.13.3.10, &#8220;Dependencies,
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_<em class="replaceable"><code>DEPTYPE</code></em></code>
+	  and
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_<em class="replaceable"><code>DEPTYPE</code></em>_OFF</code>&#8221;</a>.</p></dd><dt><span class="term"><em class="replaceable"><code>*</code></em> (Any variable)</span></dt><dd><p>The most used variables have direct helpers, see
+	      <a class="xref" href="makefile-options.html#options-variables" title="5.13.3.11. Generic Variables Replacement, OPT_VARIABLE and OPT_VARIABLE_OFF">Section 5.13.3.11, &#8220;Generic Variables Replacement,
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_<em class="replaceable"><code>VARIABLE</code></em></code>
+	  and
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_<em class="replaceable"><code>VARIABLE</code></em>_OFF</code>&#8221;</a>.</p><p>For any variable without a specific helper, see
+	      <a class="xref" href="makefile-options.html#options-vars" title="5.13.3.9. OPT_VARS and OPT_VARS_OFF">Section 5.13.3.9, &#8220;<code class="varname"><em class="replaceable"><code>OPT</code></em>_VARS</code>
+	  and
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_VARS_OFF</code>&#8221;</a>.</p></dd><dt><span class="term">Options dependencies</span></dt><dd><p>When an option need another option to work, see
+	      <a class="xref" href="makefile-options.html#options-implies" title="5.13.3.7. OPT_IMPLIES">Section 5.13.3.7, &#8220;<code class="varname"><em class="replaceable"><code>OPT</code></em>_IMPLIES</code>&#8221;</a>.</p></dd><dt><span class="term">Options conflicts</span></dt><dd><p>When an option cannot work if another is also
+	      enabled, see <a class="xref" href="makefile-options.html#options-prevents" title="5.13.3.8. OPT_PREVENTS and OPT_PREVENTS_MSG">Section 5.13.3.8, &#8220;<code class="varname"><em class="replaceable"><code>OPT</code></em>_PREVENTS</code>
+	  and
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_PREVENTS_MSG</code>&#8221;</a>.</p></dd><dt><span class="term">Build targets</span></dt><dd><p>When an option need some extra processing, see <a class="xref" href="makefile-options.html#options-targets" title="5.13.3.12. Additional Build Targets, target-OPT-on and target-OPT-off">Section 5.13.3.12, &#8220;Additional Build Targets,
+	  <code class="buildtarget"><em class="replaceable"><code>target</code></em>-<em class="replaceable"><code>OPT</code></em>-on</code>
+	  and
+	  <code class="buildtarget"><em class="replaceable"><code>target</code></em>-<em class="replaceable"><code>OPT</code></em>-off</code>&#8221;</a>.</p></dd></dl></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="options_sub"></a>5.13.3.1. <code class="varname">OPTIONS_SUB</code></h4></div></div></div><p>If <code class="varname">OPTIONS_SUB</code> is set to
+	  <code class="literal">yes</code> then each of the options added to
+	  <code class="varname">OPTIONS_DEFINE</code> will be added to
+	  <code class="varname">PLIST_SUB</code> and
+	  <code class="varname">SUB_LIST</code>, for example:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1
+OPTIONS_SUB=	yes</pre><p>is equivalent to:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1
+
+.include &lt;bsd.port.options.mk&gt;
+
+.if ${PORT_OPTIONS:MOPT1}
+PLIST_SUB+=	OPT1="" NO_OPT1="@comment "
+SUB_LIST+=	OPT1="" NO_OPT1="@comment "
+.else
+PLIST_SUB+=	OPT1="@comment " NO_OPT1=""
+SUB_LIST+=	OPT1="@comment " NO_OPT1=""
+.endif</pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">The value of <code class="varname">OPTIONS_SUB</code> is
+	    ignored.  Setting it to any value will add
+	    <code class="varname">PLIST_SUB</code> and
+	    <code class="varname">SUB_LIST</code> entries for
+	    <span class="emphasis"><em>all</em></span> options.</p></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="options-use"></a>5.13.3.2. <code class="varname"><em class="replaceable"><code>OPT</code></em>_USE</code>
+	  and
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_USE_OFF</code></h4></div></div></div><p>When option <em class="replaceable"><code>OPT</code></em> is selected,
+	  for each
+	  <code class="literal"><em class="replaceable"><code>key</code></em>=<em class="replaceable"><code>value</code></em></code>
+	  pair in
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_USE</code>,
+	  <em class="replaceable"><code>value</code></em> is appended to the
+	  corresponding
+	  <code class="varname">USE_<em class="replaceable"><code>KEY</code></em></code>.  If
+	  <em class="replaceable"><code>value</code></em> has spaces in it, replace
+	  them with commas and they will be changed back to spaces
+	  during processing.
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_USE_OFF</code>
+	  works the same way, but when <code class="literal">OPT</code> is
+	  <span class="emphasis"><em>not</em></span> selected.   For example:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1
+OPT1_USES=	xorg
+OPT1_USE=	mysql=yes xorg=x11,xextproto,xext,xrandr
+OPT1_USE_OFF=	openssl=yes</pre><p>is equivalent to:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1
+
+.include &lt;bsd.port.options.mk&gt;
+
+.if ${PORT_OPTIONS:MOPT1}
+USE_MYSQL=	yes
+USES+=		xorg
+USE_XORG=	x11 xextproto xext xrandr
+.else
+USE_OPENSSL=	yes
+.endif</pre></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="options-configure-helpers"></a>5.13.3.3. <code class="varname">CONFIGURE_ARGS</code> Helpers</h4></div></div></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="options-configure_enable"></a>5.13.3.3.1. <code class="varname"><em class="replaceable"><code>OPT</code></em>_CONFIGURE_ENABLE</code></h5></div></div></div><p>When option <em class="replaceable"><code>OPT</code></em> is
+	    selected, for each <em class="replaceable"><code>entry</code></em> in
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_CONFIGURE_ENABLE</code>
+	    then
+	    <code class="literal">--enable-<em class="replaceable"><code>entry</code></em></code>
+	    is appended to <code class="varname">CONFIGURE_ARGS</code>.  When
+	    option <em class="replaceable"><code>OPT</code></em> is
+	    <span class="emphasis"><em>not</em></span> selected,
+	    <code class="literal">--disable-<em class="replaceable"><code>entry</code></em></code>
+	    is appended to <code class="varname">CONFIGURE_ARGS</code>.  An
+	    optional argument can be specified with an
+	    <code class="literal">=</code> symbol.  This argument is only
+	    appended to the
+	    <code class="literal">--enable-<em class="replaceable"><code>entry</code></em></code>
+	    configure option.  For example:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1 OPT2
+OPT1_CONFIGURE_ENABLE=	test1 test2
+OPT2_CONFIGURE_ENABLE=	test2=exhaustive</pre><p>is equivalent to:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1
+
+.include &lt;bsd.port.options.mk&gt;
+
+.if ${PORT_OPTIONS:MOPT1}
+CONFIGURE_ARGS+=	--enable-test1 --enable-test2
+.else
+CONFIGURE_ARGS+=	--disable-test1 --disable-test2
+.endif
+
+.if ${PORT_OPTIONS:MOPT2}
+CONFIGURE_ARGS+=	--enable-test2=exhaustive
+.else
+CONFIGURE_ARGS+=	--disable-test2
+.endif</pre></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="options-configure_with"></a>5.13.3.3.2. <code class="varname"><em class="replaceable"><code>OPT</code></em>_CONFIGURE_WITH</code></h5></div></div></div><p>When option <em class="replaceable"><code>OPT</code></em> is
+	    selected, for each <em class="replaceable"><code>entry</code></em> in
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_CONFIGURE_WITH</code>
+	    then
+	    <code class="literal">--with-<em class="replaceable"><code>entry</code></em></code>
+	    is appended to <code class="varname">CONFIGURE_ARGS</code>.  When
+	    option <em class="replaceable"><code>OPT</code></em> is
+	    <span class="emphasis"><em>not</em></span> selected,
+	    <code class="literal">--without-<em class="replaceable"><code>entry</code></em></code>
+	    is appended to <code class="varname">CONFIGURE_ARGS</code>.  An
+	    optional argument can be specified with an
+	    <code class="literal">=</code> symbol.  This argument is only
+	    appended to the
+	    <code class="literal">--with-<em class="replaceable"><code>entry</code></em></code>
+	    configure option.  For example:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1 OPT2
+OPT1_CONFIGURE_WITH=	test1
+OPT2_CONFIGURE_WITH=	test2=exhaustive</pre><p>is equivalent to:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1 OPT2
+
+.include &lt;bsd.port.options.mk&gt;
+
+.if ${PORT_OPTIONS:MOPT1}
+CONFIGURE_ARGS+=	--with-test1
+.else
+CONFIGURE_ARGS+=	--without-test1
+.endif
+
+.if ${PORT_OPTIONS:MOPT2}
+CONFIGURE_ARGS+=	--with-test2=exhaustive
+.else
+CONFIGURE_ARGS+=	--without-test2
+.endif</pre></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="options-configure_on"></a>5.13.3.3.3. <code class="varname"><em class="replaceable"><code>OPT</code></em>_CONFIGURE_ON</code>
+	    and
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_CONFIGURE_OFF</code></h5></div></div></div><p>When option <em class="replaceable"><code>OPT</code></em> is
+	    selected, the value of
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_CONFIGURE_ON</code>,
+	    if defined, is appended to
+	    <code class="varname">CONFIGURE_ARGS</code>.
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_CONFIGURE_OFF</code>
+	    works the same way, but when <code class="literal">OPT</code> is
+	    <span class="emphasis"><em>not</em></span> selected.  For example:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1
+OPT1_CONFIGURE_ON=	--add-test
+OPT1_CONFIGURE_OFF=	--no-test</pre><p>is equivalent to:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1
+
+.include &lt;bsd.port.options.mk&gt;
+
+.if ${PORT_OPTIONS:MOPT1}
+CONFIGURE_ARGS+=	--add-test
+.else
+CONFIGURE_ARGS+=	--no-test
+.endif</pre><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">Most of the time, the helpers in <a class="xref" href="makefile-options.html#options-configure_enable" title="5.13.3.3.1. OPT_CONFIGURE_ENABLE">Section 5.13.3.3.1, &#8220;<code class="varname"><em class="replaceable"><code>OPT</code></em>_CONFIGURE_ENABLE</code>&#8221;</a> and <a class="xref" href="makefile-options.html#options-configure_with" title="5.13.3.3.2. OPT_CONFIGURE_WITH">Section 5.13.3.3.2, &#8220;<code class="varname"><em class="replaceable"><code>OPT</code></em>_CONFIGURE_WITH</code>&#8221;</a> provide a shorter
+	      and more comprehensive functionality.</p></div></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="options-cmake-helpers"></a>5.13.3.4. <code class="varname">CMAKE_ARGS</code> Helpers</h4></div></div></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="options-cmake_on"></a>5.13.3.4.1. <code class="varname"><em class="replaceable"><code>OPT</code></em>_CMAKE_ON</code>
+	    and
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_CMAKE_OFF</code></h5></div></div></div><p>When option <em class="replaceable"><code>OPT</code></em> is
+	    selected, the value of
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_CMAKE_ON</code>,
+	    if defined, is appended to <code class="varname">CMAKE_ARGS</code>.
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_CMAKE_OFF</code>
+	    works the same way, but when <code class="literal">OPT</code> is
+	    <span class="emphasis"><em>not</em></span> selected.  For example:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1
+OPT1_CMAKE_ON=	-DTEST:BOOL=true -DDEBUG:BOOL=true
+OPT1_CMAKE_OFF=	-DOPTIMIZE:BOOL=true</pre><p>is equivalent to:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1
+
+.include &lt;bsd.port.options.mk&gt;
+
+.if ${PORT_OPTIONS:MOPT1}
+CMAKE_ARGS+=	-DTEST:BOOL=true -DDEBUG:BOOL=true
+.else
+CMAKE_ARGS+=	-DOPTIMIZE:BOOL=true
+.endif</pre><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">See <a class="xref" href="makefile-options.html#options-cmake_bool" title="5.13.3.4.2. OPT_CMAKE_BOOL and OPT_CMAKE_BOOL_OFF">Section 5.13.3.4.2, &#8220;<code class="varname"><em class="replaceable"><code>OPT</code></em>_CMAKE_BOOL</code>
+	    and
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_CMAKE_BOOL_OFF</code>&#8221;</a> for a
+	      shorter helper when the value is boolean.</p></div></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="options-cmake_bool"></a>5.13.3.4.2. <code class="varname"><em class="replaceable"><code>OPT</code></em>_CMAKE_BOOL</code>
+	    and
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_CMAKE_BOOL_OFF</code></h5></div></div></div><p>When option <em class="replaceable"><code>OPT</code></em> is
+	    selected, for each <em class="replaceable"><code>entry</code></em> in
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_CMAKE_BOOL</code>
+	    then
+	    <code class="literal">-D<em class="replaceable"><code>entry</code></em>:BOOL=true</code>
+	    is appended to <code class="varname">CMAKE_ARGS</code>.  When option
+	    <em class="replaceable"><code>OPT</code></em> is <span class="emphasis"><em>not</em></span>
+	    selected,
+	    <code class="literal">-D<em class="replaceable"><code>entry</code></em>:BOOL=false</code>
+	    is appended to <code class="varname">CONFIGURE_ARGS</code>.
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_CMAKE_BOOL_OFF</code>
+	    is the opposite,
+	    <code class="literal">-D<em class="replaceable"><code>entry</code></em>:BOOL=false</code>
+	    is appended to <code class="varname">CMAKE_ARGS</code> when the
+	    option is selected, and
+	    <code class="literal">-D<em class="replaceable"><code>entry</code></em>:BOOL=true</code>
+	    when the option is <span class="emphasis"><em>not</em></span> selected.  For
+	    example:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1
+OPT1_CMAKE_BOOL=	TEST DEBUG
+OPT1_CMAKE_BOOL_OFF=	OPTIMIZE</pre><p>is equivalent to:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1
+
+.include &lt;bsd.port.options.mk&gt;
+
+.if ${PORT_OPTIONS:MOPT1}
+CMAKE_ARGS+=	-DTEST:BOOL=true -DDEBUG:BOOL=true \
+		-DOPTIMIZE:BOOL=false
+.else
+CMAKE_ARGS+=	-DTEST:BOOL=false -DDEBUG:BOOL=false \
+		-DOPTIMIZE:BOOL=true
+.endif</pre></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="options-meson-helpers"></a>5.13.3.5. <code class="varname">MESON_ARGS</code> Helpers</h4></div></div></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="options-meson_on"></a>5.13.3.5.1. <code class="varname"><em class="replaceable"><code>OPT</code></em>_MESON_ON</code>
+	    and
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_MESON_OFF</code></h5></div></div></div><p>When option <em class="replaceable"><code>OPT</code></em> is
+	    selected, the value of
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_MESON_ON</code>,
+	    if defined, is appended to <code class="varname">MESON_ARGS</code>.
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_MESON_OFF</code>
+	    works the same way, but when <code class="literal">OPT</code> is
+	    <span class="emphasis"><em>not</em></span> selected.  For example:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1
+OPT1_MESON_ON=	-Dopt=1
+OPT1_MESON_OFF=	-Dopt=2</pre><p>is equivalent to:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1
+
+.include &lt;bsd.port.options.mk&gt;
+
+.if ${PORT_OPTIONS:MOPT1}
+MESON_ARGS+=	-Dopt=1
+.else
+MESON_ARGS+=	-Dopt=2
+.endif</pre></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="options-meson_true"></a>5.13.3.5.2. <code class="varname"><em class="replaceable"><code>OPT</code></em>_MESON_TRUE</code>
+	    and
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_MESON_FALSE</code></h5></div></div></div><p>When option <em class="replaceable"><code>OPT</code></em> is
+	    selected, for each <em class="replaceable"><code>entry</code></em> in
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_MESON_TRUE</code>
+	    then
+	    <code class="literal">-D<em class="replaceable"><code>entry</code></em>=true</code>
+	    is appended to <code class="varname">MESON_ARGS</code>.  When option
+	    <em class="replaceable"><code>OPT</code></em> is <span class="emphasis"><em>not</em></span>
+	    selected,
+	    <code class="literal">-D<em class="replaceable"><code>entry</code></em>=false</code>
+	    is appended to <code class="varname">MESON_ARGS</code>.
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_MESON_FALSE</code>
+	    is the opposite,
+	    <code class="literal">-D<em class="replaceable"><code>entry</code></em>=false</code>
+	    is appended to <code class="varname">MESON_ARGS</code> when the
+	    option is selected, and
+	    <code class="literal">-D<em class="replaceable"><code>entry</code></em>=true</code>
+	    when the option is <span class="emphasis"><em>not</em></span> selected.  For
+	    example:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1
+OPT1_MESON_TRUE=	test debug
+OPT1_MESON_FALSE=	optimize</pre><p>is equivalent to:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1
+
+.include &lt;bsd.port.options.mk&gt;
+
+.if ${PORT_OPTIONS:MOPT1}
+MESON_ARGS+=	-Dtest=true -Ddebug=true \
+		-Doptimize=false
+.else
+MESON_ARGS+=	-Dtest=false -Ddebug=false \
+		-Doptimize=true
+.endif</pre></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="options-meson_yes"></a>5.13.3.5.3. <code class="varname"><em class="replaceable"><code>OPT</code></em>_MESON_YES</code>
+	    and
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_MESON_NO</code></h5></div></div></div><p>When option <em class="replaceable"><code>OPT</code></em> is
+	    selected, for each <em class="replaceable"><code>entry</code></em> in
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_MESON_YES</code>
+	    then
+	    <code class="literal">-D<em class="replaceable"><code>entry</code></em>=yes</code>
+	    is appended to <code class="varname">MESON_ARGS</code>.  When option
+	    <em class="replaceable"><code>OPT</code></em> is <span class="emphasis"><em>not</em></span>
+	    selected,
+	    <code class="literal">-D<em class="replaceable"><code>entry</code></em>=no</code>
+	    is appended to <code class="varname">MESON_ARGS</code>.
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_MESON_NO</code>
+	    is the opposite,
+	    <code class="literal">-D<em class="replaceable"><code>entry</code></em>=no</code>
+	    is appended to <code class="varname">MESON_ARGS</code> when the
+	    option is selected, and
+	    <code class="literal">-D<em class="replaceable"><code>entry</code></em>=yes</code>
+	    when the option is <span class="emphasis"><em>not</em></span> selected.  For
+	    example:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1
+OPT1_MESON_YES=	test debug
+OPT1_MESON_NO=	optimize</pre><p>is equivalent to:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1
+
+.include &lt;bsd.port.options.mk&gt;
+
+.if ${PORT_OPTIONS:MOPT1}
+MESON_ARGS+=	-Dtest=yes -Ddebug=yes \
+		-Doptimize=no
+.else
+MESON_ARGS+=	-Dtest=no -Ddebug=no \
+		-Doptimize=yes
+.endif</pre></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="options-meson_enabled"></a>5.13.3.5.4. <code class="varname"><em class="replaceable"><code>OPT</code></em>_MESON_ENABLED</code>
+	    and
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_MESON_DISABLED</code></h5></div></div></div><p>When option <em class="replaceable"><code>OPT</code></em> is
+	    selected, for each <em class="replaceable"><code>entry</code></em> in
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_MESON_ENABLED</code>
+	    then
+	    <code class="literal">-D<em class="replaceable"><code>entry</code></em>=enabled</code>
+	    is appended to <code class="varname">MESON_ARGS</code>.  When option
+	    <em class="replaceable"><code>OPT</code></em> is <span class="emphasis"><em>not</em></span>
+	    selected,
+	    <code class="literal">-D<em class="replaceable"><code>entry</code></em>=disabled</code>
+	    is appended to <code class="varname">MESON_ARGS</code>.
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_MESON_DISABLED</code>
+	    is the opposite,
+	    <code class="literal">-D<em class="replaceable"><code>entry</code></em>=disabled</code>
+	    is appended to <code class="varname">MESON_ARGS</code> when the
+	    option is selected, and
+	    <code class="literal">-D<em class="replaceable"><code>entry</code></em>=enabled</code>
+	    when the option is <span class="emphasis"><em>not</em></span> selected.  For
+	    example:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1
+OPT1_MESON_ENABLED=	test
+OPT1_MESON_DISABLED=	debug</pre><p>is equivalent to:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1
+
+.include &lt;bsd.port.options.mk&gt;
+
+.if ${PORT_OPTIONS:MOPT1}
+MESON_ARGS+=	-Dtest=enabled -Ddebug=disabled
+.else
+MESON_ARGS+=	-Dtest=disabled -Ddebug=enabled
+.endif</pre></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="options-qmake_on"></a>5.13.3.6. <code class="varname"><em class="replaceable"><code>OPT</code></em>_QMAKE_ON</code>
+	  and
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_QMAKE_OFF</code></h4></div></div></div><p>When option <em class="replaceable"><code>OPT</code></em> is selected,
+	  the value of
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_QMAKE_ON</code>,
+	  if defined, is appended to <code class="varname">QMAKE_ARGS</code>.
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_QMAKE_OFF</code>
+	  works the same way, but when <code class="literal">OPT</code> is
+	  <span class="emphasis"><em>not</em></span> selected.  For example:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1
+OPT1_QMAKE_ON=	-DTEST:BOOL=true
+OPT1_QMAKE_OFF=	-DPRODUCTION:BOOL=true</pre><p>is equivalent to:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1
+
+.include &lt;bsd.port.options.mk&gt;
+
+.if ${PORT_OPTIONS:MOPT1}
+QMAKE_ARGS+=	-DTEST:BOOL=true
+.else
+QMAKE_ARGS+=	-DPRODUCTION:BOOL=true
+.endif</pre></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="options-implies"></a>5.13.3.7. <code class="varname"><em class="replaceable"><code>OPT</code></em>_IMPLIES</code></h4></div></div></div><p>Provides a way to add dependencies between
+	  options.</p><p>When <em class="replaceable"><code>OPT</code></em> is selected, all the
+	  options listed in this variable will be selected too.  Using
+	  the <a class="link" href="makefile-options.html#options-configure_enable" title="5.13.3.3.1. OPT_CONFIGURE_ENABLE"><code class="varname"><em class="replaceable"><code>OPT</code></em>_CONFIGURE_ENABLE</code></a>
+	  described earlier to illustrate:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1 OPT2
+OPT1_IMPLIES=	OPT2
+
+OPT1_CONFIGURE_ENABLE=	opt1
+OPT2_CONFIGURE_ENABLE=	opt2</pre><p>Is equivalent to:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1 OPT2
+
+.include &lt;bsd.port.options.mk&gt;
+
+.if ${PORT_OPTIONS:MOPT1}
+CONFIGURE_ARGS+=	--enable-opt1
+.else
+CONFIGURE_ARGS+=	--disable-opt1
+.endif
+
+.if ${PORT_OPTIONS:MOPT2} || ${PORT_OPTIONS:MOPT1}
+CONFIGURE_ARGS+=	--enable-opt2
+.else
+CONFIGURE_ARGS+=	--disable-opt2
+.endif</pre><div class="example"><a id="options-implies-ex1"></a><div class="example-title">Example 5.44. Simple Use of
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_IMPLIES</code></div><div class="example-contents"><p>This port has a <code class="literal">X11</code> option, and a
+	    <code class="literal">GNOME</code> option that needs the
+	    <code class="literal">X11</code> option to be selected to
+	    build.</p><pre class="programlisting">OPTIONS_DEFINE=	X11 GNOME
+OPTIONS_DEFAULT=	X11
+
+X11_USES=	xorg
+X11_USE=	xorg=xi,xextproto
+GNOME_USE=	gnome=gtk30
+GNOME_IMPLIES=	X11</pre></div></div><br class="example-break" /></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="options-prevents"></a>5.13.3.8. <code class="varname"><em class="replaceable"><code>OPT</code></em>_PREVENTS</code>
+	  and
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_PREVENTS_MSG</code></h4></div></div></div><p>Provides a way to add conflicts between options.</p><p>When <em class="replaceable"><code>OPT</code></em> is selected, all the
+	  options listed in <code class="varname"><em class="replaceable"><code>OPT</code></em>_PREVENTS</code>
+	  must be un-selected.  If <code class="varname"><em class="replaceable"><code>OPT</code></em>_PREVENTS_MSG</code>
+	  is set and a conflict is triggered, its content will be shown explaining
+	  why they conflict.  For example:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1 OPT2
+OPT1_PREVENTS=	OPT2
+OPT1_PREVENTS_MSG=	OPT1 and OPT2 enable conflicting options</pre><p>Is roughly equivalent to:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1 OPT2
+
+.include &lt;bsd.port.options.mk&gt;
+
+.if ${PORT_OPTIONS:MOPT2} &amp;&amp; ${PORT_OPTIONS:MOPT1}
+BROKEN=	Option OPT1 conflicts with OPT2 (select only one)
+.endif</pre><p>The only difference is that the first one will write an
+	  error after running <code class="command">make config</code>,
+	  suggesting changing the selected options.</p><div class="example"><a id="options-prevents-ex1"></a><div class="example-title">Example 5.45. Simple Use of
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_PREVENTS</code></div><div class="example-contents"><p>This port has <code class="literal">X509</code> and
+	    <code class="literal">SCTP</code> options.  Both options add
+	    patches, but the patches conflict with each other, so they
+	    cannot be selected at the same time.</p><pre class="programlisting">OPTIONS_DEFINE=	X509 SCTP
+
+SCTP_PATCHFILES=	${PORTNAME}-6.8p1-sctp-2573.patch.gz:-p1
+SCTP_CONFIGURE_WITH=	sctp
+
+X509_PATCH_SITES=	http://www.roumenpetrov.info/openssh/x509/:x509
+X509_PATCHFILES=	${PORTNAME}-7.0p1+x509-8.5.diff.gz:-p1:x509
+X509_PREVENTS=		SCTP
+X509_PREVENTS_MSG=	X509 and SCTP patches conflict</pre></div></div><br class="example-break" /></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="options-vars"></a>5.13.3.9. <code class="varname"><em class="replaceable"><code>OPT</code></em>_VARS</code>
+	  and
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_VARS_OFF</code></h4></div></div></div><p>Provides a generic way to set and append to
+	  variables.</p><div xmlns="" class="warning"><h3 class="admontitle">Warning: </h3><p xmlns="http://www.w3.org/1999/xhtml">Before using
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_VARS</code> and
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_VARS_OFF</code>,
+	  see if there is already a more specific helper available in
+	  <a class="xref" href="makefile-options.html#options-variables" title="5.13.3.11. Generic Variables Replacement, OPT_VARIABLE and OPT_VARIABLE_OFF">Section 5.13.3.11, &#8220;Generic Variables Replacement,
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_<em class="replaceable"><code>VARIABLE</code></em></code>
+	  and
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_<em class="replaceable"><code>VARIABLE</code></em>_OFF</code>&#8221;</a>.</p></div><p>When option <em class="replaceable"><code>OPT</code></em> is selected,
+	  and <code class="varname"><em class="replaceable"><code>OPT</code></em>_VARS</code>
+	  defined,
+	  <code class="literal"><em class="replaceable"><code>key</code></em>=<em class="replaceable"><code>value</code></em></code>
+	  and
+	  <code class="literal"><em class="replaceable"><code>key</code></em>+=<em class="replaceable"><code>value</code></em></code>
+	  pairs are evaluated from
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_VARS</code>.  An
+	  <code class="literal">=</code> cause the existing value of
+	  <code class="literal">KEY</code> to be overwritten, an
+	  <code class="literal">+=</code> appends to the value.
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_VARS_OFF</code>
+	  works the same way, but when <code class="literal">OPT</code> is
+	  <span class="emphasis"><em>not</em></span> selected.</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1 OPT2 OPT3
+OPT1_VARS=	also_build+=bin1
+OPT2_VARS=	also_build+=bin2
+OPT3_VARS=	bin3_build=yes
+OPT3_VARS_OFF=	bin3_build=no
+
+MAKE_ARGS=	ALSO_BUILD="${ALSO_BUILD}" BIN3_BUILD="${BIN3_BUILD}"</pre><p>is equivalent to:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1 OPT2
+
+MAKE_ARGS=	ALSO_BUILD="${ALSO_BUILD}" BIN3_BUILD="${BIN3_BUILD}"
+
+.include &lt;bsd.port.options.mk&gt;
+
+.if ${PORT_OPTIONS:MOPT1}
+ALSO_BUILD+=	bin1
+.endif
+
+.if ${PORT_OPTIONS:MOPT2}
+ALSO_BUILD+=	bin2
+.endif
+
+.if ${PORT_OPTIONS:MOPT2}
+BIN3_BUILD=	yes
+.else
+BIN3_BUILD=	no
+.endif</pre><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">Values containing whitespace must be enclosed in
+	    quotes:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="programlisting">OPT_VARS=	foo="bar baz"</pre><p xmlns="http://www.w3.org/1999/xhtml">This is due to the way <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=make&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">make</span>(1)</span></a> variable expansion
+	    deals with whitespace.  When <code class="literal">OPT_VARS= foo=bar
+	      baz</code> is expanded, the variable ends up
+	    containing two strings, <code class="literal">foo=bar</code> and
+	    <code class="literal">baz</code>.  But the submitter probably
+	    intended there to be only one string, <code class="literal">foo=bar
+	      baz</code>.  Quoting the value prevents whitespace
+	    from being used as a delimiter.</p><p xmlns="http://www.w3.org/1999/xhtml">Also, <span class="emphasis"><em>do not</em></span> add extra spaces
+	    after the
+	    <code class="literal"><em class="replaceable"><code>var</code></em>=</code> sign
+	    and before the value, it would also be split into two
+	    strings.  <span class="emphasis"><em>This will not work</em></span>:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="programlisting">OPT_VARS=	foo=	bar</pre></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="options-dependencies"></a>5.13.3.10. Dependencies,
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_<em class="replaceable"><code>DEPTYPE</code></em></code>
+	  and
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_<em class="replaceable"><code>DEPTYPE</code></em>_OFF</code></h4></div></div></div><p>For any of these dependency types:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="varname">PKG_DEPENDS</code></p></li><li class="listitem"><p><code class="varname">EXTRACT_DEPENDS</code></p></li><li class="listitem"><p><code class="varname">PATCH_DEPENDS</code></p></li><li class="listitem"><p><code class="varname">FETCH_DEPENDS</code></p></li><li class="listitem"><p><code class="varname">BUILD_DEPENDS</code></p></li><li class="listitem"><p><code class="varname">LIB_DEPENDS</code></p></li><li class="listitem"><p><code class="varname">RUN_DEPENDS</code></p></li></ul></div><p>When option <em class="replaceable"><code>OPT</code></em> is
+	  selected, the value of
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_<em class="replaceable"><code>DEPTYPE</code></em></code>,
+	  if defined, is appended to
+	  <code class="literal"><em class="replaceable"><code>DEPTYPE</code></em></code>.
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_<em class="replaceable"><code>DEPTYPE</code></em>_OFF</code>
+	  works the same, but when <code class="literal">OPT</code> is
+	  <span class="emphasis"><em>not</em></span>
+	  selected.  For example:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1
+OPT1_LIB_DEPENDS=	liba.so:devel/a
+OPT1_LIB_DEPENDS_OFF=	libb.so:devel/b</pre><p>is equivalent to:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1
+
+.include &lt;bsd.port.options.mk&gt;
+
+.if ${PORT_OPTIONS:MOPT1}
+LIB_DEPENDS+=	liba.so:devel/a
+.else
+LIB_DEPENDS+=	libb.so:devel/b
+.endif</pre></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="options-variables"></a>5.13.3.11. Generic Variables Replacement,
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_<em class="replaceable"><code>VARIABLE</code></em></code>
+	  and
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_<em class="replaceable"><code>VARIABLE</code></em>_OFF</code></h4></div></div></div><p>For any of these variables:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="varname">ALL_TARGET</code></p></li><li class="listitem"><p><code class="varname">BINARY_ALIAS</code></p></li><li class="listitem"><p><code class="varname">BROKEN</code></p></li><li class="listitem"><p><code class="varname">CATEGORIES</code></p></li><li class="listitem"><p><code class="varname">CFLAGS</code></p></li><li class="listitem"><p><code class="varname">CONFIGURE_ENV</code></p></li><li class="listitem"><p><code class="varname">CONFLICTS</code></p></li><li class="listitem"><p><code class="varname">CONFLICTS_BUILD</code></p></li><li class="listitem"><p><code class="varname">CONFLICTS_INSTALL</code></p></li><li class="listitem"><p><code class="varname">CPPFLAGS</code></p></li><li class="listitem"><p><code class="varname">CXXFLAGS</code></p></li><li class="listitem"><p><code class="varname">DESKTOP_ENTRIES</code></p></li><li class="listitem"><p><code class="varname">DISTFILES</code></p></li><li class="listitem"><p><code class="varname">EXTRACT_ONLY</code></p></li><li class="listitem"><p><code class="varname">EXTRA_PATCHES</code></p></li><li class="listitem"><p><code class="varname">GH_ACCOUNT</code></p></li><li class="listitem"><p><code class="varname">GH_PROJECT</code></p></li><li class="listitem"><p><code class="varname">GH_SUBDIR</code></p></li><li class="listitem"><p><code class="varname">GH_TAGNAME</code></p></li><li class="listitem"><p><code class="varname">GH_TUPLE</code></p></li><li class="listitem"><p><code class="varname">GL_ACCOUNT</code></p></li><li class="listitem"><p><code class="varname">GL_COMMIT</code></p></li><li class="listitem"><p><code class="varname">GL_PROJECT</code></p></li><li class="listitem"><p><code class="varname">GL_SITE</code></p></li><li class="listitem"><p><code class="varname">GL_SUBDIR</code></p></li><li class="listitem"><p><code class="varname">GL_TUPLE</code></p></li><li class="listitem"><p><code class="varname">IGNORE</code></p></li><li class="listitem"><p><code class="varname">INFO</code></p></li><li class="listitem"><p><code class="varname">INSTALL_TARGET</code></p></li><li class="listitem"><p><code class="varname">LDFLAGS</code></p></li><li class="listitem"><p><code class="varname">LIBS</code></p></li><li class="listitem"><p><code class="varname">MAKE_ARGS</code></p></li><li class="listitem"><p><code class="varname">MAKE_ENV</code></p></li><li class="listitem"><p><code class="varname">MASTER_SITES</code></p></li><li class="listitem"><p><code class="varname">PATCHFILES</code></p></li><li class="listitem"><p><code class="varname">PATCH_SITES</code></p></li><li class="listitem"><p><code class="varname">PLIST_DIRS</code></p></li><li class="listitem"><p><code class="varname">PLIST_FILES</code></p></li><li class="listitem"><p><code class="varname">PLIST_SUB</code></p></li><li class="listitem"><p><code class="varname">PORTDOCS</code></p></li><li class="listitem"><p><code class="varname">PORTEXAMPLES</code></p></li><li class="listitem"><p><code class="varname">SUB_FILES</code></p></li><li class="listitem"><p><code class="varname">SUB_LIST</code></p></li><li class="listitem"><p><code class="varname">TEST_TARGET</code></p></li><li class="listitem"><p><code class="varname">USES</code></p></li></ul></div><p>When option <em class="replaceable"><code>OPT</code></em> is
+	  selected, the value of
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_<em class="replaceable"><code>ABOVEVARIABLE</code></em></code>,
+	  if defined, is appended to
+	  <code class="literal"><em class="replaceable"><code>ABOVEVARIABLE</code></em></code>.
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_<em class="replaceable"><code>ABOVEVARIABLE</code></em>_OFF</code>
+	  works the same way, but when <code class="literal">OPT</code> is
+	  <span class="emphasis"><em>not</em></span>
+	  selected.  For example:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1
+OPT1_USES=	gmake
+OPT1_CFLAGS_OFF=	-DTEST</pre><p>is equivalent to:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1
+
+.include &lt;bsd.port.options.mk&gt;
+
+.if ${PORT_OPTIONS:MOPT1}
+USES+=		gmake
+.else
+CFLAGS+=	-DTEST
+.endif</pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Some variables are not in this list, in particular
+	    <code class="varname">PKGNAMEPREFIX</code> and
+	    <code class="varname">PKGNAMESUFFIX</code>.  This is intentional.  A
+	    port <span class="emphasis"><em>must not</em></span> change its name when
+	    its option set changes.</p></div><div xmlns="" class="warning"><h3 class="admontitle">Warning: </h3><p xmlns="http://www.w3.org/1999/xhtml">Some of these variables, at least
+	    <code class="varname">ALL_TARGET</code>,
+	    <code class="varname">DISTFILES</code> and
+	    <code class="varname">INSTALL_TARGET</code>, have their default
+	    values set <span class="emphasis"><em>after</em></span> the options are
+	    processed.</p><p xmlns="http://www.w3.org/1999/xhtml">With these lines in the
+	    <code class="filename">Makefile</code>:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="programlisting">ALL_TARGET=	all
+
+DOCS_ALL_TARGET=	doc</pre><p xmlns="http://www.w3.org/1999/xhtml">If the <code class="literal">DOCS</code> option is enabled,
+	    <code class="varname">ALL_TARGET</code> will have a final value of
+	    <code class="literal">all doc</code>; if the option is disabled, it
+	    would have a value of <code class="literal">all</code>.</p><p xmlns="http://www.w3.org/1999/xhtml">With only the options helper line in the
+	    <code class="filename">Makefile</code>:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="programlisting">DOCS_ALL_TARGET=	doc</pre><p xmlns="http://www.w3.org/1999/xhtml">If the <code class="literal">DOCS</code> option is enabled,
+	    <code class="varname">ALL_TARGET</code> will have a final value of
+	    <code class="literal">doc</code>; if the option is disabled, it
+	    would have a value of <code class="literal">all</code>.</p></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="options-targets"></a>5.13.3.12. Additional Build Targets,
+	  <code class="buildtarget"><em class="replaceable"><code>target</code></em>-<em class="replaceable"><code>OPT</code></em>-on</code>
+	  and
+	  <code class="buildtarget"><em class="replaceable"><code>target</code></em>-<em class="replaceable"><code>OPT</code></em>-off</code></h4></div></div></div><p>These <code class="filename">Makefile</code> targets can accept
+	  optional extra build targets:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="buildtarget">pre-fetch</code></p></li><li class="listitem"><p><code class="buildtarget">do-fetch</code></p></li><li class="listitem"><p><code class="buildtarget">post-fetch</code></p></li><li class="listitem"><p><code class="buildtarget">pre-extract</code></p></li><li class="listitem"><p><code class="buildtarget">do-extract</code></p></li><li class="listitem"><p><code class="buildtarget">post-extract</code></p></li><li class="listitem"><p><code class="buildtarget">pre-patch</code></p></li><li class="listitem"><p><code class="buildtarget">do-patch</code></p></li><li class="listitem"><p><code class="buildtarget">post-patch</code></p></li><li class="listitem"><p><code class="buildtarget">pre-configure</code></p></li><li class="listitem"><p><code class="buildtarget">do-configure</code></p></li><li class="listitem"><p><code class="buildtarget">post-configure</code></p></li><li class="listitem"><p><code class="buildtarget">pre-build</code></p></li><li class="listitem"><p><code class="buildtarget">do-build</code></p></li><li class="listitem"><p><code class="buildtarget">post-build</code></p></li><li class="listitem"><p><code class="buildtarget">pre-install</code></p></li><li class="listitem"><p><code class="buildtarget">do-install</code></p></li><li class="listitem"><p><code class="buildtarget">post-install</code></p></li><li class="listitem"><p><code class="buildtarget">post-stage</code></p></li><li class="listitem"><p><code class="buildtarget">pre-package</code></p></li><li class="listitem"><p><code class="buildtarget">do-package</code></p></li><li class="listitem"><p><code class="buildtarget">post-package</code></p></li></ul></div><p>When option <em class="replaceable"><code>OPT</code></em> is
+	  selected, the target
+	  <code class="buildtarget"><em class="replaceable"><code>TARGET</code></em>-<em class="replaceable"><code>OPT</code></em>-on</code>,
+	  if defined, is executed after
+	  <code class="buildtarget"><em class="replaceable"><code>TARGET</code></em></code>.
+	  <code class="buildtarget"><em class="replaceable"><code>TARGET</code></em>-<em class="replaceable"><code>OPT</code></em>-off</code>
+	  works the same way, but when <code class="literal">OPT</code> is
+	  <span class="emphasis"><em>not</em></span> selected.  For example:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1
+
+post-patch-OPT1-on:
+	@${REINPLACE_CMD} -e '/opt1/s|/usr/bin/|${EXAMPLESDIR}/|' ${WRKSRC}/Makefile
+
+post-patch-OPT1-off:
+	@${REINPLACE_CMD} -e '/opt1/s|/usr/bin/|${PREFIX}/bin/|' ${WRKSRC}/Makefile</pre><p>is equivalent to:</p><pre class="programlisting">OPTIONS_DEFINE=	OPT1
+
+.include &lt;bsd.port.options.mk&gt;
+
+post-patch:
+.if ${PORT_OPTIONS:MOPT1}
+	@${REINPLACE_CMD} -e '/opt1/s|/usr/bin/|${EXAMPLESDIR}/|' ${WRKSRC}/Makefile
+.else
+	@${REINPLACE_CMD} -e '/opt1/s|/usr/bin/|${PREFIX}/bin/|' ${WRKSRC}/Makefile
+.endif</pre></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="makefile-info.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="makefiles.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="makefile-wrkdir.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">5.12. Info Files </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 5.14. Specifying the Working Directory</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

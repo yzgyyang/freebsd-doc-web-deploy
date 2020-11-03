@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>Chapter 10. Kernel Debugging</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Developers' Handbook" /><link rel="up" href="kernel.html" title="Part III. Kernel" /><link rel="prev" href="kernelbuild.html" title="Chapter 9. Building and Installing a FreeBSD Kernel" /><link rel="next" href="kerneldebug-gdb.html" title="10.2. Debugging a Kernel Crash Dump with kgdb" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 10. Kernel Debugging</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="kernelbuild.html">Prev</a> </td><th width="60%" align="center">Part III. Kernel</th><td width="20%" align="right"> <a accesskey="n" href="kerneldebug-gdb.html">Next</a></td></tr></table><hr /></div><div class="chapter"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="kerneldebug"></a>Chapter 10. Kernel Debugging</h2></div><div><span class="authorgroup">Contributed by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Paul</span> <span class="surname">Richards</span></span>, <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Jörg</span> <span class="surname">Wunsch</span></span> and <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Robert</span> <span class="surname">Watson</span></span>. </span></div></div></div><div class="toc"><div class="toc-title">Table of Contents</div><dl class="toc"><dt><span class="sect1"><a href="kerneldebug.html#kerneldebug-obtain">10.1. Obtaining a Kernel Crash Dump</a></span></dt><dt><span class="sect1"><a href="kerneldebug-gdb.html">10.2. Debugging a Kernel Crash Dump with <code class="command">kgdb</code></a></span></dt><dt><span class="sect1"><a href="kerneldebug-online-ddb.html">10.3. On-Line Kernel Debugging Using DDB</a></span></dt><dt><span class="sect1"><a href="kerneldebug-online-gdb.html">10.4. On-Line Kernel Debugging Using Remote GDB</a></span></dt><dt><span class="sect1"><a href="kerneldebug-console.html">10.5. Debugging a Console Driver</a></span></dt><dt><span class="sect1"><a href="kerneldebug-deadlocks.html">10.6. Debugging Deadlocks</a></span></dt><dt><span class="sect1"><a href="kerneldebug-dcons.html">10.7. Kernel debugging with Dcons</a></span></dt><dt><span class="sect1"><a href="kerneldebug-options.html">10.8. Glossary of Kernel Options for Debugging</a></span></dt></dl></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="kerneldebug-obtain"></a>10.1. Obtaining a Kernel Crash Dump</h2></div></div></div><p>When running a development kernel (e.g., FreeBSD-CURRENT), such as a
+      kernel under extreme conditions (e.g., very high load averages,
+      tens of thousands of connections, exceedingly high number of
+      concurrent users, hundreds of <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jail&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jail</span>(8)</span></a>s, etc.), or using a
+      new feature or device driver on FreeBSD-STABLE (e.g.,
+      <acronym class="acronym">PAE</acronym>), sometimes a kernel will panic.  In the
+      event that it does, this chapter will demonstrate how to extract
+      useful information out of a crash.</p><p>A system reboot is inevitable once a kernel panics.  Once a
+      system is rebooted, the contents of a system's physical memory
+      (<acronym class="acronym">RAM</acronym>) is lost, as well as any bits that are
+      on the swap device before the panic.  To preserve the bits in
+      physical memory, the kernel makes use of the swap device as a
+      temporary place to store the bits that are in RAM across a
+      reboot after a crash.  In doing this, when FreeBSD boots after a
+      crash, a kernel image can now be extracted and debugging can
+      take place.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">A swap device that has been configured as a dump
+      device still acts as a swap device.  Dumps to non-swap devices
+      (such as tapes or CDRWs, for example) are not supported at this time.  A
+      <span class="quote">&#8220;<span class="quote">swap device</span>&#8221;</span> is synonymous with a <span class="quote">&#8220;<span class="quote">swap
+      partition.</span>&#8221;</span></p></div><p>Several types of kernel crash dumps are available:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">Full memory dumps</span></dt><dd><p>Hold the complete contents of physical
+	      memory.</p></dd><dt><span class="term">Minidumps</span></dt><dd><p>Hold only memory pages in use by the kernel
+	      (FreeBSD 6.2 and higher).</p></dd><dt><span class="term">Textdumps</span></dt><dd><p>Hold captured, scripted, or interactive debugger
+	      output (FreeBSD 7.1 and higher).</p></dd></dl></div><p>Minidumps are the default dump type as of FreeBSD 7.0,
+	and in most cases will capture all necessary information
+	present in a full memory dump, as most problems can be
+	isolated only using kernel state.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="config-dumpdev"></a>10.1.1. Configuring the Dump Device</h3></div></div></div><p>Before the kernel will dump the contents of its physical
+	memory to a dump device, a dump device must be configured.  A
+	dump device is specified by using the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=dumpon&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">dumpon</span>(8)</span></a> command
+	to tell the kernel where to save kernel crash dumps.  The
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=dumpon&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">dumpon</span>(8)</span></a> program must be called after the swap partition
+	has been configured with <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=swapon&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">swapon</span>(8)</span></a>.  This is normally
+	handled by setting the <code class="varname">dumpdev</code> variable in
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rc.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rc.conf</span>(5)</span></a> to the path of the swap device (the
+	recommended way to extract a kernel dump) or
+	<code class="literal">AUTO</code> to use the first configured swap
+	device.  The default for <code class="varname">dumpdev</code> is
+	<code class="literal">AUTO</code> in HEAD, and changed to
+	<code class="literal">NO</code> on RELENG_* branches (except for RELENG_7,
+	which was left set to <code class="literal">AUTO</code>).
+	On FreeBSD 9.0-RELEASE and later versions,
+	<span class="application">bsdinstall</span> will ask whether crash dumps
+	should be enabled on the target system during the install process.</p><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">Check <code class="filename">/etc/fstab</code> or
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=swapinfo&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">swapinfo</span>(8)</span></a> for a list of swap devices.</p></div><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">Make sure the <code class="varname">dumpdir</code>
+        specified in <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rc.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rc.conf</span>(5)</span></a> exists before a kernel
+        crash!</p><pre xmlns="http://www.w3.org/1999/xhtml" class="screen"><code class="prompt">#</code> <strong class="userinput"><code>mkdir /var/crash</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>chmod 700 /var/crash</code></strong></pre><p xmlns="http://www.w3.org/1999/xhtml">Also, remember that the contents of
+	  <code class="filename">/var/crash</code> is sensitive and very likely
+	  contains confidential information such as passwords.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="extract-dump"></a>10.1.2. Extracting a Kernel Dump</h3></div></div></div><p>Once a dump has been written to a dump device, the dump
+	  must be extracted before the swap device is mounted.
+	  To extract a dump
+	  from a dump device, use the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=savecore&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">savecore</span>(8)</span></a> program.  If
+	  <code class="varname">dumpdev</code> has been set in <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rc.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rc.conf</span>(5)</span></a>,
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=savecore&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">savecore</span>(8)</span></a> will be called automatically on the first
+	  multi-user boot after the crash and before the swap device
+	  is mounted.  The location of the extracted core is placed in
+	  the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rc.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rc.conf</span>(5)</span></a> value <code class="varname">dumpdir</code>, by
+	  default <code class="filename">/var/crash</code> and will be named
+	  <code class="filename">vmcore.0</code>.</p><p>In the event that there is already a file called
+          <code class="filename">vmcore.0</code> in
+          <code class="filename">/var/crash</code> (or whatever
+          <code class="varname">dumpdir</code> is set to), the kernel will
+          increment the trailing number for every crash to avoid
+          overwriting an existing <code class="filename">vmcore</code> (e.g.,
+          <code class="filename">vmcore.1</code>).  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=savecore&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">savecore</span>(8)</span></a> will always
+	  create a symbolic link to named <code class="filename">vmcore.last</code>
+	  in <code class="filename">/var/crash</code> after a dump is saved.
+	  This symbolic link can be used to locate the name of the most
+	  recent dump.</p><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=crashinfo&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">crashinfo</span>(8)</span></a> utility generates a text file
+	  containing a summary of information from a full memory dump
+	  or minidump.  If <code class="varname">dumpdev</code> has been set in
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rc.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rc.conf</span>(5)</span></a>, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=crashinfo&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">crashinfo</span>(8)</span></a> will be invoked
+	  automatically after <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=savecore&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">savecore</span>(8)</span></a>.  The output is saved
+	  to a file in <code class="varname">dumpdir</code> named
+	  <code class="filename">core.txt.<em class="replaceable"><code>N</code></em></code>.</p><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">If you are testing a new kernel but need to boot a different one in
+      order to get your system up and running again, boot it only into single
+      user mode using the <code class="option">-s</code> flag at the boot prompt, and
+      then perform the following steps:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="screen"><code class="prompt">#</code> <strong class="userinput"><code>fsck -p</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>mount -a -t ufs</code></strong>       # make sure /var/crash is writable
+<code class="prompt">#</code> <strong class="userinput"><code>savecore /var/crash /dev/ad0s1b</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>exit</code></strong>                  # exit to multi-user</pre><p xmlns="http://www.w3.org/1999/xhtml">This instructs <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=savecore&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">savecore</span>(8)</span></a> to extract a kernel dump
+      from <code class="filename">/dev/ad0s1b</code> and place the contents in
+      <code class="filename">/var/crash</code>.  Do not forget to make sure the
+      destination directory <code class="filename">/var/crash</code> has enough
+      space for the dump.  Also, do not forget to specify the correct path to your swap
+      device as it is likely different than
+      <code class="filename">/dev/ad0s1b</code>!</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp52895480"></a>10.1.3. Testing Kernel Dump Configuration</h3></div></div></div><p>The kernel includes a <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sysctl&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sysctl</span>(8)</span></a> node that requests a
+       kernel panic.  This can be used to verify that your system is
+       properly configured to save kernel crash dumps.  You may wish
+       to remount existing file systems as read-only in single user
+       mode before triggering the crash to avoid data loss.</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>shutdown now</code></strong>
+...
+Enter full pathname of shell or RETURN for /bin/sh:
+<code class="prompt">#</code> <strong class="userinput"><code>mount -a -u -r</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>sysctl debug.kdb.panic=1</code></strong>
+debug.kdb.panic:panic: kdb_sysctl_panic
+...</pre><p>After rebooting, your system should save a dump in
+        <code class="filename">/var/crash</code> along with a matching summary
+        from <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=crashinfo&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">crashinfo</span>(8)</span></a>.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="kernelbuild.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="kernel.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="kerneldebug-gdb.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 9. Building and Installing a FreeBSD Kernel </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 10.2. Debugging a Kernel Crash Dump with <code class="command">kgdb</code></td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>6.9. Using X11</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Porter's Handbook" /><link rel="up" href="special.html" title="Chapter 6. Special Considerations" /><link rel="prev" href="using-perl.html" title="6.8. Using Perl" /><link rel="next" href="using-gnome.html" title="6.10. Using GNOME" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.9. Using X11</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="using-perl.html">Prev</a> </td><th width="60%" align="center">Chapter 6. Special Considerations</th><td width="20%" align="right"> <a accesskey="n" href="using-gnome.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="using-x11"></a>6.9. Using X11</h2></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x11-variables"></a>6.9.1. X.Org Components</h3></div></div></div><p>The X11 implementation available in The Ports Collection
+	is X.Org.  If the application depends on X components, add
+	<code class="varname">USES=	xorg</code> and set
+	<code class="varname">USE_XORG</code> to the list of required
+	components.  A full list can be found in <a class="xref" href="uses-xorg.html" title="17.93. xorg">Section 17.93, &#8220;<code class="literal">xorg</code>&#8221;</a>.</p><p>The Mesa Project is an effort to provide free OpenGL
+	implementation.  To specify a dependency on various
+	components of this project, use <code class="literal">USES= gl</code>
+	and <code class="varname">USE_GL</code>.  See
+	<a class="xref" href="uses-gl.html" title="17.31. gl">Section 17.31, &#8220;<code class="literal">gl</code>&#8221;</a> for a full list of available
+	components.  For backwards compatibility, the value of
+	<code class="literal">yes</code> maps to <code class="literal">glu</code>.</p><div class="example"><a id="use-xorg-example"></a><div class="example-title">Example 6.17. <code class="varname">USE_XORG</code> Example</div><div class="example-contents"><pre class="programlisting">USES=		gl xorg
+USE_GL=		glu
+USE_XORG=	xrender xft xkbfile xt xaw</pre></div></div><br class="example-break" /><div class="table"><a id="using-xorg-variables"></a><div class="table-title">Table 6.7. Variables for Ports That Use X</div><div class="table-contents"><table class="table" summary="Variables for Ports That Use X" border="0"><colgroup><col /><col /></colgroup><tbody><tr><td><code class="literal">USES= imake</code></td><td>The port uses <code class="command">imake</code>.</td></tr><tr><td><code class="varname">XMKMF</code></td><td>Set to the path of <code class="command">xmkmf</code> if
+		not in the <code class="envar">PATH</code>.  Defaults to
+		<code class="literal">xmkmf -a</code>.</td></tr></tbody></table></div></div><br class="table-break" /><div class="example"><a id="using-x11-vars"></a><div class="example-title">Example 6.18. Using X11-Related Variables</div><div class="example-contents"><pre class="programlisting"># Use some X11 libraries
+USES=		xorg
+USE_XORG=	x11 xpm</pre></div></div><br class="example-break" /></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x11-motif"></a>6.9.2. Ports That Require Motif</h3></div></div></div><p>If the port requires a Motif library, define
+	<code class="varname">USES= motif</code> in the
+	<code class="filename">Makefile</code>.  Default Motif implementation
+	is
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/x11-toolkits/open-motif/pkg-descr">x11-toolkits/open-motif</a>.
+	Users can choose
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/x11-toolkits/lesstif/pkg-descr">x11-toolkits/lesstif</a>
+	instead by setting <code class="varname">WANT_LESSTIF</code>
+	in their <code class="filename">make.conf</code>.</p><p><code class="varname">MOTIFLIB</code> will be set by
+	<code class="filename">motif.mk</code> to reference the
+	appropriate Motif library.  Please patch the source of the
+	port to use <code class="literal">${MOTIFLIB}</code> wherever
+	the Motif library is referenced in the original
+	<code class="filename">Makefile</code> or
+	<code class="filename">Imakefile</code>.</p><p>There are two common cases:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>If the port refers to the Motif library as
+	    <code class="literal">-lXm</code> in its
+	    <code class="filename">Makefile</code> or
+	    <code class="filename">Imakefile</code>, substitute
+	    <code class="literal">${MOTIFLIB}</code> for it.</p></li><li class="listitem"><p>If the port uses <code class="literal">XmClientLibs</code> in
+	    its <code class="filename">Imakefile</code>, change it to
+	    <code class="literal">${MOTIFLIB} ${XTOOLLIB}
+	      ${XLIB}</code>.</p></li></ul></div><p>Note that <code class="varname">MOTIFLIB</code> (usually) expands
+	to <code class="literal">-L/usr/local/lib -lXm -lXp</code> or
+	<code class="literal">/usr/local/lib/libXm.a</code>, so there is no
+	need to add <code class="literal">-L</code> or <code class="literal">-l</code>
+	in front.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x11-fonts"></a>6.9.3. X11 Fonts</h3></div></div></div><p>If the port installs fonts for the X Window System, put
+	them in
+	<code class="filename">LOCALBASE/lib/X11/fonts/local</code>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x11-fake-display"></a>6.9.4. Getting a Fake <code class="envar">DISPLAY</code> with Xvfb</h3></div></div></div><p>Some applications require a working X11 display for
+	compilation to succeed.  This poses a problem for machines
+	that operate headless.  When this variable is used,
+	the build infrastructure will start the virtual framebuffer
+	X server.  The working <code class="envar">DISPLAY</code> is then passed
+	to the build.  See <a class="link" href="uses-display.html" title="17.17. display"><code class="literal">USES=display</code></a>
+	for the possible arguments.</p><pre class="programlisting">USES=	display</pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="desktop-entries"></a>6.9.5. Desktop Entries</h3></div></div></div><p>Desktop entries (<a class="link" href="http://standards.freedesktop.org/desktop-entry-spec/latest/" target="_top">a
+	  Freedesktop standard</a>) provide a way to
+	automatically adjust desktop features when a new program is
+	installed, without requiring user intervention.  For
+	example, newly-installed programs automatically appear in
+	the application menus of compatible desktop environments.
+	Desktop entries originated in the
+	<span class="application">GNOME</span> desktop environment, but
+	are now a standard and also work with
+	<span class="application">KDE</span> and
+	<span class="application">Xfce</span>.  This bit of automation
+	provides a real benefit to the user, and desktop entries are
+	encouraged for applications which can be used in a desktop
+	environment.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="desktop-entries-predefined"></a>6.9.5.1. Using Predefined <code class="filename">.desktop</code>
+	  Files</h4></div></div></div><p>Ports that include predefined
+	  <code class="filename"><em class="replaceable"><code>*</code></em>.desktop</code>
+	  must include those files in <code class="filename">pkg-plist</code>
+	  and install them in the
+	  <code class="filename">$LOCALBASE/share/applications</code>
+	  directory.  The <a class="link" href="install.html#install-macros" title="5.16.1. INSTALL_* Macros"><code class="varname">INSTALL_DATA</code>
+	    macro</a> is useful for installing these
+	  files.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="updating-desktop-database"></a>6.9.5.2. Updating Desktop Database</h4></div></div></div><p>If a port has a MimeType entry in its
+	  <code class="filename"><em class="replaceable"><code>portname</code></em>.desktop</code>,
+	  the desktop database must be updated after install and
+	  deinstall.  To do this, define <code class="varname">USES</code>=
+	  desktop-file-utils.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="desktop-entries-macro"></a>6.9.5.3. Creating Desktop Entries with
+	  <code class="varname">DESKTOP_ENTRIES</code></h4></div></div></div><p>Desktop entries can be easily created for applications
+	  by using <code class="varname">DESKTOP_ENTRIES</code>.  A
+	  file named
+	  <code class="filename"><em class="replaceable"><code>name</code></em>.desktop</code>
+	  will be created, installed, and added to
+	  <code class="filename">pkg-plist</code> automatically.  Syntax
+	  is:</p><pre class="programlisting">DESKTOP_ENTRIES=	"NAME" "COMMENT" "ICON" "COMMAND" "CATEGORY" StartupNotify</pre><p>The list of possible categories is available on the
+	  <a class="link" href="http://standards.freedesktop.org/menu-spec/latest/apa.html" target="_top">Freedesktop
+	    website</a>.  <code class="varname">StartupNotify</code>
+	  indicates whether the application is compatible with
+	  <span class="emphasis"><em>startup notifications</em></span>.  These are
+	  typically a graphic indicator like a clock that appear at
+	  the mouse pointer, menu, or panel to give the user an
+	  indication when a program is starting.  A program that is
+	  compatible with startup notifications clears the indicator
+	  after it has started.  Programs that are not compatible
+	  with startup notifications would never clear the indicator
+	  (potentially confusing and infuriating the user), and
+	  must have <code class="varname">StartupNotify</code> set to
+	  <code class="literal">false</code> so the indicator is not shown at
+	  all.</p><p>Example:</p><pre class="programlisting">DESKTOP_ENTRIES=	"ToME" "Roguelike game based on JRR Tolkien's work" \
+			"${DATADIR}/xtra/graf/tome-128.png" \
+			"tome -v -g" "Application;Game;RolePlaying;" \
+			false</pre></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="using-perl.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="special.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="using-gnome.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">6.8. Using <span class="application">Perl</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 6.10. Using GNOME</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

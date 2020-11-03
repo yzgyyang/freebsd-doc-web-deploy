@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>Pluggable Authentication Modules</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><meta name="description" content="This article describes the underlying principles and mechanisms of the Pluggable Authentication Modules (PAM) library, and explains how to configure PAM, how to integrate PAM into applications, and how to write PAM modules." /><link rel="home" href="index.html" title="Pluggable Authentication Modules" /><link rel="next" href="pam-terms.html" title="2. Terms and Conventions" /><link rel="copyright" href="pam-legalnotice.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Pluggable Authentication Modules</th></tr><tr><td width="20%" align="left"> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="pam-terms.html">Next</a></td></tr></table><hr /></div><div xml:lang="en" class="article" lang="en"><div xmlns="" class="titlepage"><div><div><h1 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp46676856"></a>Pluggable Authentication Modules</h1></div><div><div xmlns="http://www.w3.org/1999/xhtml" class="authorgroup"><div class="author"><h3 class="author"><span class="firstname">Dag-Erling</span> <span class="surname">Smørgrav</span></h3><span class="contrib">Contributed by </span> </div></div></div><div>Revision: <a href="https://svnweb.freebsd.org/changeset/doc/fb89b07f44"><span class="svnref">fb89b07f44</span></a></div><div><p xmlns="http://www.w3.org/1999/xhtml" class="copyright">Copyright © 2001-2003 Networks Associates Technology, Inc.</p></div><div><a xmlns="http://www.w3.org/1999/xhtml" href="pam-legalnotice.html">Legal Notice</a></div><div><a xmlns="http://www.w3.org/1999/xhtml" href="trademarks.html">Legal Notice</a></div><div><div xmlns="http://www.w3.org/1999/xhtml" class="abstract"><div class="abstract-title">Abstract</div><p>This article describes the underlying principles and
+	mechanisms of the Pluggable Authentication Modules (PAM)
+	library, and explains how to configure PAM, how to integrate
+	PAM into applications, and how to write PAM modules.</p></div></div></div><div class="docformatnavi">
+      [
+      
+	  Split HTML
+	
+      /
+      <a href="article.html">Single HTML</a>
+      ]
+    </div><hr /></div><div class="toc"><div class="toc-title">Table of Contents</div><dl class="toc"><dt><span class="section"><a href="index.html#pam-intro">1. Introduction</a></span></dt><dt><span class="section"><a href="pam-terms.html">2. Terms and Conventions</a></span></dt><dt><span class="section"><a href="pam-essentials.html">3. PAM Essentials</a></span></dt><dt><span class="section"><a href="pam-config.html">4. PAM Configuration</a></span></dt><dt><span class="section"><a href="pam-freebsd-modules.html">5. FreeBSD PAM
+      Modules</a></span></dt><dt><span class="section"><a href="pam-appl-prog.html">6. PAM Application
+      Programming</a></span></dt><dt><span class="section"><a href="pam-module-prog.html">7. PAM Module
+      Programming</a></span></dt><dt><span class="appendix"><a href="pam-sample-appl.html">A. Sample PAM
+      Application</a></span></dt><dt><span class="appendix"><a href="pam-sample-module.html">B. Sample PAM Module</a></span></dt><dt><span class="appendix"><a href="pam-sample-conv.html">C. Sample PAM Conversation
+      Function</a></span></dt><dt><span class="bibliography"><a href="pam-further.html">Further Reading</a></span></dt></dl></div><div class="section"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="pam-intro"></a>1. Introduction</h2></div></div></div><p>The Pluggable Authentication Modules (PAM) library is a
+      generalized API for authentication-related services which allows
+      a system administrator to add new authentication methods simply
+      by installing new PAM modules, and to modify authentication
+      policies by editing configuration files.</p><p>PAM was defined and developed in 1995 by Vipin Samar and
+      Charlie Lai of Sun Microsystems, and has not changed much since.
+      In 1997, the Open Group published the X/Open Single Sign-on
+      (XSSO) preliminary specification, which standardized the PAM API
+      and added extensions for single (or rather integrated) sign-on.
+      At the time of this writing, this specification has not yet been
+      adopted as a standard.</p><p>Although this article focuses primarily on FreeBSD 5.x,
+      which uses OpenPAM, it should be equally applicable to FreeBSD
+      4.x, which uses Linux-PAM, and other operating systems such as
+      Linux and <span class="trademark">Solaris</span>&#8482;.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="pam-terms.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"> </td><td width="20%" align="center"> </td><td width="40%" align="right" valign="top"> 2. Terms and Conventions</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

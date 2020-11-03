@@ -1,0 +1,954 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>Pluggable Authentication Modules</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><meta name="description" content="This article describes the underlying principles and mechanisms of the Pluggable Authentication Modules (PAM) library, and explains how to configure PAM, how to integrate PAM into applications, and how to write PAM modules." /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div xml:lang="en" class="article" lang="en"><div xmlns="" class="titlepage"><div><div><h1 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp44056312"></a>Pluggable Authentication Modules</h1></div><div><div xmlns="http://www.w3.org/1999/xhtml" class="authorgroup"><div class="author"><h3 class="author"><span class="firstname">Dag-Erling</span> <span class="surname">Smørgrav</span></h3><span class="contrib">Contributed by </span> </div></div></div><div>Revision: <a href="https://svnweb.freebsd.org/changeset/doc/fb89b07f44"><span class="svnref">fb89b07f44</span></a></div><div><p xmlns="http://www.w3.org/1999/xhtml" class="copyright">Copyright © 2001-2003 Networks Associates Technology, Inc.</p></div><div><div xmlns="http://www.w3.org/1999/xhtml" class="legalnotice"><a id="pam-legalnotice"></a><p>This article was written for the FreeBSD Project by
+	ThinkSec AS and Network Associates Laboratories, the Security
+	Research Division of Network Associates, Inc. under
+	DARPA/SPAWAR contract N66001-01-C-8035 (<span class="quote">&#8220;<span class="quote">CBOSS</span>&#8221;</span>),
+	as part of the DARPA CHATS research program.</p></div></div><div><div xmlns="http://www.w3.org/1999/xhtml" class="legalnotice"><a id="trademarks"></a><p>FreeBSD is a registered trademark of
+  the FreeBSD Foundation.</p><p>Linux is a registered trademark of
+  Linus Torvalds.</p><p>Motif, OSF/1, and UNIX are
+  registered trademarks and IT DialTone and The Open Group are
+  trademarks of The Open Group in the United States and other
+  countries.</p><p>Sun, Sun Microsystems, Java, Java
+  Virtual Machine, JDK, JRE, JSP, JVM, Netra, OpenJDK,
+  Solaris, StarOffice, SunOS
+  and VirtualBox are trademarks or registered trademarks of
+  Sun Microsystems, Inc. in the United States and other countries.</p><p>Many of the designations used by
+  manufacturers and sellers to distinguish their products are claimed
+  as trademarks.  Where those designations appear in this document,
+  and the FreeBSD Project was aware of the trademark claim, the
+  designations have been followed by the <span class="quote">&#8220;<span class="quote">&#8482;</span>&#8221;</span> or the
+  <span class="quote">&#8220;<span class="quote">®</span>&#8221;</span> symbol.</p></div></div><div><div xmlns="http://www.w3.org/1999/xhtml" class="abstract"><div class="abstract-title">Abstract</div><p>This article describes the underlying principles and
+	mechanisms of the Pluggable Authentication Modules (PAM)
+	library, and explains how to configure PAM, how to integrate
+	PAM into applications, and how to write PAM modules.</p></div></div></div><div class="docformatnavi">
+      [
+      <a href="index.html">Split HTML</a>
+      /
+      
+	  Single HTML
+	
+      ]
+    </div><hr /></div><div class="toc"><div class="toc-title">Table of Contents</div><dl class="toc"><dt><span class="section"><a href="#pam-intro">1. Introduction</a></span></dt><dt><span class="section"><a href="#pam-terms">2. Terms and Conventions</a></span></dt><dt><span class="section"><a href="#pam-essentials">3. PAM Essentials</a></span></dt><dt><span class="section"><a href="#pam-config">4. PAM Configuration</a></span></dt><dt><span class="section"><a href="#pam-freebsd-modules">5. FreeBSD PAM
+      Modules</a></span></dt><dt><span class="section"><a href="#pam-appl-prog">6. PAM Application
+      Programming</a></span></dt><dt><span class="section"><a href="#pam-module-prog">7. PAM Module
+      Programming</a></span></dt><dt><span class="appendix"><a href="#pam-sample-appl">A. Sample PAM
+      Application</a></span></dt><dt><span class="appendix"><a href="#pam-sample-module">B. Sample PAM Module</a></span></dt><dt><span class="appendix"><a href="#pam-sample-conv">C. Sample PAM Conversation
+      Function</a></span></dt><dt><span class="bibliography"><a href="#pam-further">Further Reading</a></span></dt></dl></div><div class="section"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="pam-intro"></a>1. Introduction</h2></div></div></div><p>The Pluggable Authentication Modules (PAM) library is a
+      generalized API for authentication-related services which allows
+      a system administrator to add new authentication methods simply
+      by installing new PAM modules, and to modify authentication
+      policies by editing configuration files.</p><p>PAM was defined and developed in 1995 by Vipin Samar and
+      Charlie Lai of Sun Microsystems, and has not changed much since.
+      In 1997, the Open Group published the X/Open Single Sign-on
+      (XSSO) preliminary specification, which standardized the PAM API
+      and added extensions for single (or rather integrated) sign-on.
+      At the time of this writing, this specification has not yet been
+      adopted as a standard.</p><p>Although this article focuses primarily on FreeBSD 5.x,
+      which uses OpenPAM, it should be equally applicable to FreeBSD
+      4.x, which uses Linux-PAM, and other operating systems such as
+      Linux and <span class="trademark">Solaris</span>&#8482;.</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="pam-terms"></a>2. Terms and Conventions</h2></div></div></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-definitions"></a>2.1. Definitions</h3></div></div></div><p>The terminology surrounding PAM is rather confused.
+	Neither Samar and Lai's original paper nor the XSSO
+	specification made any attempt at formally defining terms for
+	the various actors and entities involved in PAM, and the terms
+	that they do use (but do not define) are sometimes misleading
+	and ambiguous.  The first attempt at establishing a consistent
+	and unambiguous terminology was a whitepaper written by Andrew
+	G. Morgan (author of Linux-PAM) in 1999.  While Morgan's
+	choice of terminology was a huge leap forward, it is in this
+	author's opinion by no means perfect.  What follows is an
+	attempt, heavily inspired by Morgan, to define precise and
+	unambiguous terms for all actors and entities involved in
+	PAM.</p><div class="glosslist"><dl><dt><span class="glossterm">account</span></dt><dd class="glossdef"><p>The set of credentials the applicant is requesting
+	      from the arbitrator.</p></dd><dt><span class="glossterm">applicant</span></dt><dd class="glossdef"><p>The user or entity requesting authentication.</p></dd><dt><span class="glossterm">arbitrator</span></dt><dd class="glossdef"><p>The user or entity who has the privileges necessary
+	      to verify the applicant's credentials and the authority
+	      to grant or deny the request.</p></dd><dt><span class="glossterm">chain</span></dt><dd class="glossdef"><p>A sequence of modules that will be invoked in
+	      response to a PAM request.  The chain includes
+	      information about the order in which to invoke the
+	      modules, what arguments to pass to them, and how to
+	      interpret the results.</p></dd><dt><span class="glossterm">client</span></dt><dd class="glossdef"><p>The application responsible for initiating an
+	      authentication request on behalf of the applicant and
+	      for obtaining the necessary authentication information
+	      from him.</p></dd><dt><span class="glossterm">facility</span></dt><dd class="glossdef"><p>One of the four basic groups of functionality
+	      provided by PAM: authentication, account management,
+	      session management and authentication token
+	      update.</p></dd><dt><span class="glossterm">module</span></dt><dd class="glossdef"><p>A collection of one or more related functions
+	      implementing a particular authentication facility,
+	      gathered into a single (normally dynamically loadable)
+	      binary file and identified by a single name.</p></dd><dt><span class="glossterm">policy</span></dt><dd class="glossdef"><p>The complete set of configuration statements
+	      describing how to handle PAM requests for a particular
+	      service.  A policy normally consists of four chains, one
+	      for each facility, though some services do not use all
+	      four facilities.</p></dd><dt><span class="glossterm">server</span></dt><dd class="glossdef"><p>The application acting on behalf of the arbitrator
+	      to converse with the client, retrieve authentication
+	      information, verify the applicant's credentials and
+	      grant or deny requests.</p></dd><dt><span class="glossterm">service</span></dt><dd class="glossdef"><p>A class of servers providing similar or related
+	      functionality and requiring similar authentication.  PAM
+	      policies are defined on a per-service basis, so all
+	      servers that claim the same service name will be subject
+	      to the same policy.</p></dd><dt><span class="glossterm">session</span></dt><dd class="glossdef"><p>The context within which service is rendered to the
+	      applicant by the server.  One of PAM's four facilities,
+	      session management, is concerned exclusively with
+	      setting up and tearing down this context.</p></dd><dt><span class="glossterm">token</span></dt><dd class="glossdef"><p>A chunk of information associated with the account,
+	      such as a password or passphrase, which the applicant
+	      must provide to prove his identity.</p></dd><dt><span class="glossterm">transaction</span></dt><dd class="glossdef"><p>A sequence of requests from the same applicant to
+	      the same instance of the same server, beginning with
+	      authentication and session set-up and ending with
+	      session tear-down.</p></dd></dl></div></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-usage-examples"></a>2.2. Usage Examples</h3></div></div></div><p>This section aims to illustrate the meanings of some of
+	the terms defined above by way of a handful of simple
+	examples.</p><div class="section"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp45024248"></a>2.2.1. Client and Server Are One</h4></div></div></div><p>This simple example shows <code class="literal">alice</code>
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=su&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">su</span>(1)</span></a>'ing to <code class="literal">root</code>.</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>whoami</code></strong>
+alice
+<code class="prompt">%</code> <strong class="userinput"><code>ls -l `which su`</code></strong>
+-r-sr-xr-x  1 root  wheel  10744 Dec  6 19:06 /usr/bin/su
+<code class="prompt">%</code> <strong class="userinput"><code>su -</code></strong>
+Password: <strong class="userinput"><code>xi3kiune</code></strong>
+<code class="prompt">#</code> whoami
+root</pre><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>The applicant is <code class="literal">alice</code>.</p></li><li class="listitem"><p>The account is <code class="literal">root</code>.</p></li><li class="listitem"><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=su&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">su</span>(1)</span></a> process is both client and
+	      server.</p></li><li class="listitem"><p>The authentication token is
+	      <code class="literal">xi3kiune</code>.</p></li><li class="listitem"><p>The arbitrator is <code class="literal">root</code>, which is
+	      why <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=su&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">su</span>(1)</span></a> is setuid <code class="literal">root</code>.</p></li></ul></div></div><div class="section"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp45084536"></a>2.2.2. Client and Server Are Separate</h4></div></div></div><p>The example below shows <code class="literal">eve</code> try to
+	  initiate an <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ssh&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ssh</span>(1)</span></a> connection to
+	  <code class="literal">login.example.com</code>, ask to log in as
+	  <code class="literal">bob</code>, and succeed.  Bob should have chosen
+	  a better password!</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>whoami</code></strong>
+eve
+<code class="prompt">%</code> <strong class="userinput"><code>ssh bob@login.example.com</code></strong>
+bob@login.example.com's password: <strong class="userinput"><code>god</code></strong>
+Last login: Thu Oct 11 09:52:57 2001 from 192.168.0.1
+Copyright (c) 1980, 1983, 1986, 1988, 1990, 1991, 1993, 1994
+	The Regents of the University of California.  All rights reserved.
+FreeBSD 4.4-STABLE (LOGIN) #4: Tue Nov 27 18:10:34 PST 2001
+
+Welcome to FreeBSD!
+<code class="prompt">%</code></pre><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>The applicant is <code class="literal">eve</code>.</p></li><li class="listitem"><p>The client is Eve's <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ssh&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ssh</span>(1)</span></a> process.</p></li><li class="listitem"><p>The server is the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sshd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sshd</span>(8)</span></a> process on
+	      <code class="literal">login.example.com</code></p></li><li class="listitem"><p>The account is <code class="literal">bob</code>.</p></li><li class="listitem"><p>The authentication token is
+	      <code class="literal">god</code>.</p></li><li class="listitem"><p>Although this is not shown in this example, the
+	      arbitrator is <code class="literal">root</code>.</p></li></ul></div></div><div class="section"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp45119608"></a>2.2.3. Sample Policy</h4></div></div></div><p>The following is FreeBSD's default policy for
+	  <code class="literal">sshd</code>:</p><pre class="programlisting">sshd	auth		required	pam_nologin.so	no_warn
+sshd	auth		required	pam_unix.so	no_warn try_first_pass
+sshd	account		required	pam_login_access.so
+sshd	account		required	pam_unix.so
+sshd	session		required	pam_lastlog.so	no_fail
+sshd	password	required	pam_permit.so</pre><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>This policy applies to the <code class="literal">sshd</code>
+	      service (which is not necessarily restricted to the
+	      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sshd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sshd</span>(8)</span></a> server.)</p></li><li class="listitem"><p><code class="literal">auth</code>, <code class="literal">account</code>,
+	      <code class="literal">session</code> and
+	      <code class="literal">password</code> are facilities.</p></li><li class="listitem"><p><code class="filename">pam_nologin.so</code>,
+	      <code class="filename">pam_unix.so</code>,
+	      <code class="filename">pam_login_access.so</code>,
+	      <code class="filename">pam_lastlog.so</code> and
+	      <code class="filename">pam_permit.so</code> are modules.  It is
+	      clear from this example that
+	      <code class="filename">pam_unix.so</code> provides at least two
+	      facilities (authentication and account
+	      management.)</p></li></ul></div></div></div></div><div class="section"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="pam-essentials"></a>3. PAM Essentials</h2></div></div></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-facilities-primitives"></a>3.1. Facilities and
+	Primitives</h3></div></div></div><p>The PAM API offers six different authentication primitives
+	grouped in four facilities, which are described below.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">auth</code></span></dt><dd><p><span class="emphasis"><em>Authentication.</em></span> This facility
+	      concerns itself with authenticating the applicant and
+	      establishing the account credentials.  It provides two
+	      primitives:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_authenticate&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_authenticate</span>(3)</span></a> authenticates the
+		  applicant, usually by requesting an authentication
+		  token and comparing it with a value stored in a
+		  database or obtained from an authentication
+		  server.</p></li><li class="listitem"><p><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_setcred&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_setcred</span>(3)</span></a> establishes account
+		  credentials such as user ID, group membership and
+		  resource limits.</p></li></ul></div></dd><dt><span class="term"><code class="literal">account</code></span></dt><dd><p><span class="emphasis"><em>Account management.</em></span> This
+	      facility handles non-authentication-related issues of
+	      account availability, such as access restrictions based
+	      on the time of day or the server's work load.  It
+	      provides a single primitive:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_acct_mgmt&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_acct_mgmt</span>(3)</span></a> verifies that the
+		  requested account is available.</p></li></ul></div></dd><dt><span class="term"><code class="literal">session</code></span></dt><dd><p><span class="emphasis"><em>Session management.</em></span> This
+	      facility handles tasks associated with session set-up
+	      and tear-down, such as login accounting.  It provides
+	      two primitives:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_open_session&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_open_session</span>(3)</span></a> performs tasks
+		  associated with session set-up: add an entry in the
+		  <code class="filename">utmp</code> and
+		  <code class="filename">wtmp</code> databases, start an SSH
+		  agent, etc.</p></li><li class="listitem"><p><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_close_session&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_close_session</span>(3)</span></a> performs tasks
+		  associated with session tear-down: add an entry in
+		  the <code class="filename">utmp</code> and
+		  <code class="filename">wtmp</code> databases, stop the SSH
+		  agent, etc.</p></li></ul></div></dd><dt><span class="term"><code class="literal">password</code></span></dt><dd><p><span class="emphasis"><em>Password management.</em></span> This
+	      facility is used to change the authentication token
+	      associated with an account, either because it has
+	      expired or because the user wishes to change it.  It
+	      provides a single primitive:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_chauthtok&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_chauthtok</span>(3)</span></a> changes the authentication
+		  token, optionally verifying that it is sufficiently
+		  hard to guess, has not been used previously,
+		  etc.</p></li></ul></div></dd></dl></div></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-modules"></a>3.2. Modules</h3></div></div></div><p>Modules are a very central concept in PAM; after all,
+	they are the <span class="quote">&#8220;<span class="quote">M</span>&#8221;</span> in <span class="quote">&#8220;<span class="quote">PAM</span>&#8221;</span>.  A PAM
+	module is a self-contained piece of program code that
+	implements the primitives in one or more facilities for one
+	particular mechanism; possible mechanisms for the
+	authentication facility, for instance, include the <span class="trademark">UNIX</span>®
+	password database, NIS, LDAP and Radius.</p><div class="section"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-module-naming"></a>3.2.1. Module Naming</h4></div></div></div><p>FreeBSD implements each mechanism in a single module,
+	  named
+	  <code class="literal">pam_<em class="replaceable"><code>mechanism</code></em>.so</code>
+	  (for instance, <code class="literal">pam_unix.so</code> for the <span class="trademark">UNIX</span>®
+	  mechanism.)  Other implementations sometimes have separate
+	  modules for separate facilities, and include the facility
+	  name as well as the mechanism name in the module name.  To
+	  name one example, <span class="trademark">Solaris</span>&#8482; has a
+	  <code class="literal">pam_dial_auth.so.1</code> module which is
+	  commonly used to authenticate dialup users.</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-module-versioning"></a>3.2.2. Module
+	  Versioning</h4></div></div></div><p>FreeBSD's original PAM implementation, based on
+	  Linux-PAM, did not use version numbers for PAM modules.
+	  This would commonly cause problems with legacy applications,
+	  which might be linked against older versions of the system
+	  libraries, as there was no way to load a matching version of
+	  the required modules.</p><p>OpenPAM, on the other hand, looks for modules that have
+	  the same version number as the PAM library (currently 2),
+	  and only falls back to an unversioned module if no versioned
+	  module could be loaded.  Thus legacy modules can be provided
+	  for legacy applications, while allowing new (or newly built)
+	  applications to take advantage of the most recent
+	  modules.</p><p>Although <span class="trademark">Solaris</span>&#8482; PAM modules commonly have a version
+	  number, they are not truly versioned, because the number is
+	  a part of the module name and must be included in the
+	  configuration.</p></div></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-chains-policies"></a>3.3. Chains and
+	Policies</h3></div></div></div><p>When a server initiates a PAM transaction, the PAM library
+	tries to load a policy for the service specified in the
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_start&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_start</span>(3)</span></a> call.  The policy specifies how
+	authentication requests should be processed, and is defined in
+	a configuration file.  This is the other central concept in
+	PAM: the possibility for the admin to tune the system security
+	policy (in the wider sense of the word) simply by editing a
+	text file.</p><p>A policy consists of four chains, one for each of the four
+	PAM facilities.  Each chain is a sequence of configuration
+	statements, each specifying a module to invoke, some
+	(optional) parameters to pass to the module, and a control
+	flag that describes how to interpret the return code from the
+	module.</p><p>Understanding the control flags is essential to
+	understanding PAM configuration files.  There are four
+	different control flags:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">binding</code></span></dt><dd><p>If the module succeeds and no earlier module in the
+	      chain has failed, the chain is immediately terminated
+	      and the request is granted.  If the module fails, the
+	      rest of the chain is executed, but the request is
+	      ultimately denied.</p><p>This control flag was introduced by Sun in <span class="trademark">Solaris</span>&#8482;
+	      9 (<span class="trademark">SunOS</span>&#8482; 5.9), and is also supported by
+	      OpenPAM.</p></dd><dt><span class="term"><code class="literal">required</code></span></dt><dd><p>If the module succeeds, the rest of the chain is
+	      executed, and the request is granted unless some other
+	      module fails.  If the module fails, the rest of the
+	      chain is also executed, but the request is ultimately
+	      denied.</p></dd><dt><span class="term"><code class="literal">requisite</code></span></dt><dd><p>If the module succeeds, the rest of the chain is
+	      executed, and the request is granted unless some other
+	      module fails.  If the module fails, the chain is
+	      immediately terminated and the request is denied.</p></dd><dt><span class="term"><code class="literal">sufficient</code></span></dt><dd><p>If the module succeeds and no earlier module in the
+	      chain has failed, the chain is immediately terminated
+	      and the request is granted.  If the module fails, the
+	      module is ignored and the rest of the chain is
+	      executed.</p><p>As the semantics of this flag may be somewhat
+	      confusing, especially when it is used for the last
+	      module in a chain, it is recommended that the
+	      <code class="literal">binding</code> control flag be used instead
+	      if the implementation supports it.</p></dd><dt><span class="term"><code class="literal">optional</code></span></dt><dd><p>The module is executed, but its result is ignored.
+	      If all modules in a chain are marked
+	      <code class="literal">optional</code>, all requests will always be
+	      granted.</p></dd></dl></div><p>When a server invokes one of the six PAM primitives, PAM
+	retrieves the chain for the facility the primitive belongs to,
+	and invokes each of the modules listed in the chain, in the
+	order they are listed, until it reaches the end, or determines
+	that no further processing is necessary (either because a
+	<code class="literal">binding</code> or
+	<code class="literal">sufficient</code> module succeeded, or because a
+	<code class="literal">requisite</code> module failed.)  The request is
+	granted if and only if at least one module was invoked, and
+	all non-optional modules succeeded.</p><p>Note that it is possible, though not very common, to have
+	the same module listed several times in the same chain.  For
+	instance, a module that looks up user names and passwords in a
+	directory server could be invoked multiple times with
+	different parameters specifying different directory servers to
+	contact.  PAM treat different occurrences of the same module
+	in the same chain as different, unrelated modules.</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-transactions"></a>3.4. Transactions</h3></div></div></div><p>The lifecycle of a typical PAM transaction is described
+	below.  Note that if any of these steps fails, the server
+	should report a suitable error message to the client and abort
+	the transaction.</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>If necessary, the server obtains arbitrator
+	    credentials through a mechanism independent of
+	    PAM&#8212;most commonly by virtue of having been started
+	    by <code class="literal">root</code>, or of being setuid
+	    <code class="literal">root</code>.</p></li><li class="listitem"><p>The server calls <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_start&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_start</span>(3)</span></a> to initialize the
+	    PAM library and specify its service name and the target
+	    account, and register a suitable conversation
+	    function.</p></li><li class="listitem"><p>The server obtains various information relating to the
+	    transaction (such as the applicant's user name and the
+	    name of the host the client runs on) and submits it to PAM
+	    using <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_set_item&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_set_item</span>(3)</span></a>.</p></li><li class="listitem"><p>The server calls <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_authenticate&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_authenticate</span>(3)</span></a> to
+	    authenticate the applicant.</p></li><li class="listitem"><p>The server calls <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_acct_mgmt&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_acct_mgmt</span>(3)</span></a> to verify that
+	    the requested account is available and valid.  If the
+	    password is correct but has expired, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_acct_mgmt&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_acct_mgmt</span>(3)</span></a>
+	    will return <code class="literal">PAM_NEW_AUTHTOK_REQD</code>
+	    instead of <code class="literal">PAM_SUCCESS</code>.</p></li><li class="listitem"><p>If the previous step returned
+	    <code class="literal">PAM_NEW_AUTHTOK_REQD</code>, the server now
+	    calls <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_chauthtok&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_chauthtok</span>(3)</span></a> to force the client to change
+	    the authentication token for the requested account.</p></li><li class="listitem"><p>Now that the applicant has been properly
+	    authenticated, the server calls <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_setcred&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_setcred</span>(3)</span></a> to
+	    establish the credentials of the requested account.  It is
+	    able to do this because it acts on behalf of the
+	    arbitrator, and holds the arbitrator's credentials.</p></li><li class="listitem"><p>Once the correct credentials have been established,
+	    the server calls <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_open_session&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_open_session</span>(3)</span></a> to set up the
+	    session.</p></li><li class="listitem"><p>The server now performs whatever service the client
+	    requested&#8212;for instance, provide the applicant with a
+	    shell.</p></li><li class="listitem"><p>Once the server is done serving the client, it calls
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_close_session&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_close_session</span>(3)</span></a> to tear down the session.</p></li><li class="listitem"><p>Finally, the server calls <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_end&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_end</span>(3)</span></a> to notify
+	    the PAM library that it is done and that it can release
+	    whatever resources it has allocated in the course of the
+	    transaction.</p></li></ol></div></div></div><div class="section"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="pam-config"></a>4. PAM Configuration</h2></div></div></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-config-file"></a>4.1. PAM Policy Files</h3></div></div></div><div class="section"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-config-pam.conf"></a>4.1.1. The
+	  <code class="filename">/etc/pam.conf</code></h4></div></div></div><p>The traditional PAM policy file is
+	  <code class="filename">/etc/pam.conf</code>.  This file contains all
+	  the PAM policies for your system.  Each line of the file
+	  describes one step in a chain, as shown below:</p><pre class="programlisting">login   auth    required        pam_nologin.so  no_warn</pre><p>The fields are, in order: service name, facility name,
+	  control flag, module name, and module arguments.  Any
+	  additional fields are interpreted as additional module
+	  arguments.</p><p>A separate chain is constructed for each service /
+	  facility pair, so while the order in which lines for the
+	  same service and facility appear is significant, the order
+	  in which the individual services and facilities are listed
+	  is not.  The examples in the original PAM paper grouped
+	  configuration lines by facility, and the <span class="trademark">Solaris</span>&#8482; stock
+	  <code class="filename">pam.conf</code> still does that, but FreeBSD's
+	  stock configuration groups configuration lines by service.
+	  Either way is fine; either way makes equal sense.</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-config-pam.d"></a>4.1.2. The
+	  <code class="filename">/etc/pam.d</code></h4></div></div></div><p>OpenPAM and Linux-PAM support an alternate configuration
+	  mechanism, which is the preferred mechanism in FreeBSD.  In
+	  this scheme, each policy is contained in a separate file
+	  bearing the name of the service it applies to.  These files
+	  are stored in <code class="filename">/etc/pam.d/</code>.</p><p>These per-service policy files have only four fields
+	  instead of <code class="filename">pam.conf</code>'s five: the service
+	  name field is omitted.  Thus, instead of the sample
+	  <code class="filename">pam.conf</code> line from the previous
+	  section, one would have the following line in
+	  <code class="filename">/etc/pam.d/login</code>:</p><pre class="programlisting">auth    required        pam_nologin.so  no_warn</pre><p>As a consequence of this simplified syntax, it is
+	  possible to use the same policy for multiple services by
+	  linking each service name to a same policy file.  For
+	  instance, to use the same policy for the
+	  <code class="literal">su</code> and <code class="literal">sudo</code> services,
+	  one could do as follows:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /etc/pam.d</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>ln -s su sudo</code></strong></pre><p>This works because the service name is determined from
+	  the file name rather than specified in the policy file, so
+	  the same file can be used for multiple differently-named
+	  services.</p><p>Since each service's policy is stored in a separate
+	  file, the <code class="filename">pam.d</code> mechanism also makes it
+	  very easy to install additional policies for third-party
+	  software packages.</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-config-file-order"></a>4.1.3. The Policy Search
+	  Order</h4></div></div></div><p>As we have seen above, PAM policies can be found in a
+	  number of places.  What happens if policies for the same
+	  service exist in multiple places?</p><p>It is essential to understand that PAM's configuration
+	  system is centered on chains.</p></div></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-config-breakdown"></a>4.2. Breakdown of a
+	Configuration Line</h3></div></div></div><p>As explained in <a class="xref" href="#pam-config-file" title="4.1. PAM Policy Files">Section 4.1, &#8220;PAM Policy Files&#8221;</a>, each
+	line in <code class="filename">/etc/pam.conf</code> consists of four or
+	more fields: the service name, the facility name, the control
+	flag, the module name, and zero or more module
+	arguments.</p><p>The service name is generally (though not always) the name
+	of the application the statement applies to.  If you are
+	unsure, refer to the individual application's documentation to
+	determine what service name it uses.</p><p>Note that if you use <code class="filename">/etc/pam.d/</code>
+	instead of <code class="filename">/etc/pam.conf</code>, the service
+	name is specified by the name of the policy file, and omitted
+	from the actual configuration lines, which then start with the
+	facility name.</p><p>The facility is one of the four facility keywords
+	described in <a class="xref" href="#pam-facilities-primitives" title="3.1. Facilities and Primitives">Section 3.1, &#8220;Facilities and
+	Primitives&#8221;</a>.</p><p>Likewise, the control flag is one of the four keywords
+	described in <a class="xref" href="#pam-chains-policies" title="3.3. Chains and Policies">Section 3.3, &#8220;Chains and
+	Policies&#8221;</a>, describing
+	how to interpret the return code from the module.  Linux-PAM
+	supports an alternate syntax that lets you specify the action
+	to associate with each possible return code, but this should
+	be avoided as it is non-standard and closely tied in with the
+	way Linux-PAM dispatches service calls (which differs greatly
+	from the way <span class="trademark">Solaris</span>&#8482; and OpenPAM do it.) Unsurprisingly,
+	OpenPAM does not support this syntax.</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-policies"></a>4.3. Policies</h3></div></div></div><p>To configure PAM correctly, it is essential to understand
+	how policies are interpreted.</p><p>When an application calls <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_start&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_start</span>(3)</span></a>, the PAM
+	library loads the policy for the specified service and
+	constructs four module chains (one for each facility.)  If one
+	or more of these chains are empty, the corresponding chains
+	from the policy for the <code class="literal">other</code> service are
+	substituted.</p><p>When the application later calls one of the six PAM
+	primitives, the PAM library retrieves the chain for the
+	corresponding facility and calls the appropriate service
+	function in each module listed in the chain, in the order in
+	which they were listed in the configuration.  After each call
+	to a service function, the module type and the error code
+	returned by the service function are used to determine what
+	happens next.  With a few exceptions, which we discuss below,
+	the following table applies:</p><div class="table"><a id="idp45493752"></a><div class="table-title">Table 1. PAM Chain Execution Summary</div><div class="table-contents"><table class="table" summary="PAM Chain Execution Summary" border="1"><colgroup><col class="type" /><col class="success" /><col class="ignore" /><col class="other" /></colgroup><thead><tr><th> </th><th><code class="literal">PAM_SUCCESS</code></th><th><code class="literal">PAM_IGNORE</code></th><th><code class="literal">other</code></th></tr></thead><tbody><tr><td>binding</td><td>if (!fail) break;</td><td>-</td><td>fail = true;</td></tr><tr><td>required</td><td>-</td><td>-</td><td>fail = true;</td></tr><tr><td>requisite</td><td>-</td><td>-</td><td>fail = true; break;</td></tr><tr><td>sufficient</td><td>if (!fail) break;</td><td>-</td><td>-</td></tr><tr><td>optional</td><td>-</td><td>-</td><td>-</td></tr></tbody></table></div></div><br class="table-break" /><p>If <code class="varname">fail</code> is true at the end of a chain,
+	or when a <span class="quote">&#8220;<span class="quote">break</span>&#8221;</span> is reached, the dispatcher
+	returns the error code returned by the first module that
+	failed.  Otherwise, it returns
+	<code class="literal">PAM_SUCCESS</code>.</p><p>The first exception of note is that the error code
+	<code class="literal">PAM_NEW_AUTHTOK_REQD</code> is treated like a
+	success, except that if no module failed, and at least one
+	module returned <code class="literal">PAM_NEW_AUTHTOK_REQD</code>, the
+	dispatcher will return
+	<code class="literal">PAM_NEW_AUTHTOK_REQD</code>.</p><p>The second exception is that <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_setcred&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_setcred</span>(3)</span></a> treats
+	<code class="literal">binding</code> and <code class="literal">sufficient</code>
+	modules as if they were <code class="literal">required</code>.</p><p>The third and final exception is that
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_chauthtok&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_chauthtok</span>(3)</span></a> runs the entire chain twice (once for
+	preliminary checks and once to actually set the password), and
+	in the preliminary phase it treats <code class="literal">binding</code>
+	and <code class="literal">sufficient</code> modules as if they were
+	<code class="literal">required</code>.</p></div></div><div class="section"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="pam-freebsd-modules"></a>5. FreeBSD PAM
+      Modules</h2></div></div></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-modules-deny"></a>5.1. <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_deny&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_deny</span>(8)</span></a></h3></div></div></div><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_deny&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_deny</span>(8)</span></a> module is one of the simplest modules
+	available; it responds to any request with
+	<code class="literal">PAM_AUTH_ERR</code>.  It is useful for quickly
+	disabling a service (add it to the top of every chain), or for
+	terminating chains of <code class="literal">sufficient</code>
+	modules.</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-modules-echo"></a>5.2. <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_echo&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_echo</span>(8)</span></a></h3></div></div></div><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_echo&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_echo</span>(8)</span></a> module simply passes its arguments to
+	the conversation function as a
+	<code class="literal">PAM_TEXT_INFO</code> message.  It is mostly useful
+	for debugging, but can also serve to display messages such as
+	<span class="quote">&#8220;<span class="quote">Unauthorized access will be prosecuted</span>&#8221;</span> before
+	starting the authentication procedure.</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-modules-exec"></a>5.3. <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_exec&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_exec</span>(8)</span></a></h3></div></div></div><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_exec&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_exec</span>(8)</span></a> module takes its first argument to be
+	the name of a program to execute, and the remaining arguments
+	are passed to that program as command-line arguments.  One
+	possible application is to use it to run a program at login
+	time which mounts the user's home directory.</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-modules-ftpusers"></a>5.4. <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_ftpusers&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_ftpusers</span>(8)</span></a></h3></div></div></div><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_ftpusers&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_ftpusers</span>(8)</span></a> module</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-modules-group"></a>5.5. <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_group&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_group</span>(8)</span></a></h3></div></div></div><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_group&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_group</span>(8)</span></a> module accepts or rejects applicants
+	on the basis of their membership in a particular file group
+	(normally <code class="literal">wheel</code> for <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=su&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">su</span>(1)</span></a>).  It is
+	primarily intended for maintaining the traditional behavior of
+	BSD <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=su&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">su</span>(1)</span></a>, but has many other uses, such as excluding
+	certain groups of users from a particular service.</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-modules-guest"></a>5.6. <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_guest&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_guest</span>(8)</span></a></h3></div></div></div><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_guest&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_guest</span>(8)</span></a> module allows guest logins using
+	fixed login names.  Various requirements can be placed on the
+	password, but the default behavior is to allow any password as
+	long as the login name is that of a guest account.  The
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_guest&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_guest</span>(8)</span></a> module can easily be used to implement
+	anonymous FTP logins.</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-modules-krb5"></a>5.7. <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_krb5&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_krb5</span>(8)</span></a></h3></div></div></div><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_krb5&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_krb5</span>(8)</span></a> module</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-modules-ksu"></a>5.8. <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_ksu&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_ksu</span>(8)</span></a></h3></div></div></div><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_ksu&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_ksu</span>(8)</span></a> module</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-modules-lastlog"></a>5.9. <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_lastlog&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_lastlog</span>(8)</span></a></h3></div></div></div><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_lastlog&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_lastlog</span>(8)</span></a> module</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-modules-login-access"></a>5.10. <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_login_access&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_login_access</span>(8)</span></a></h3></div></div></div><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_login_access&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_login_access</span>(8)</span></a> module provides an
+	implementation of the account management primitive which
+	enforces the login restrictions specified in the
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=login.access&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">login.access</span>(5)</span></a> table.</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-modules-nologin"></a>5.11. <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_nologin&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_nologin</span>(8)</span></a></h3></div></div></div><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_nologin&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_nologin</span>(8)</span></a> module refuses non-root logins
+	when <code class="filename">/var/run/nologin</code> exists.  This file
+	is normally created by <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=shutdown&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">shutdown</span>(8)</span></a> when less than five
+	minutes remain until the scheduled shutdown time.</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-modules-opie"></a>5.12. <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_opie&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_opie</span>(8)</span></a></h3></div></div></div><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_opie&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_opie</span>(8)</span></a> module implements the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=opie&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">opie</span>(4)</span></a>
+	authentication method.  The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=opie&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">opie</span>(4)</span></a> system is a
+	challenge-response mechanism where the response to each
+	challenge is a direct function of the challenge and a
+	passphrase, so the response can be easily computed <span class="quote">&#8220;<span class="quote">just
+	  in time</span>&#8221;</span> by anyone possessing the passphrase,
+	eliminating the need for password lists.  Moreover, since
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=opie&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">opie</span>(4)</span></a> never reuses a challenge that has been correctly
+	answered, it is not vulnerable to replay attacks.</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-modules-opieaccess"></a>5.13. <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_opieaccess&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_opieaccess</span>(8)</span></a></h3></div></div></div><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_opieaccess&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_opieaccess</span>(8)</span></a> module is a companion module to
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_opie&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_opie</span>(8)</span></a>.  Its purpose is to enforce the restrictions
+	codified in <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=opieaccess&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">opieaccess</span>(5)</span></a>, which regulate the conditions
+	under which a user who would normally authenticate herself
+	using <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=opie&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">opie</span>(4)</span></a> is allowed to use alternate methods.  This
+	is most often used to prohibit the use of password
+	authentication from untrusted hosts.</p><p>In order to be effective, the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_opieaccess&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_opieaccess</span>(8)</span></a>
+	module must be listed as <code class="literal">requisite</code>
+	immediately after a <code class="literal">sufficient</code> entry for
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_opie&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_opie</span>(8)</span></a>, and before any other modules, in the
+	<code class="literal">auth</code> chain.</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-modules-passwdqc"></a>5.14. <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_passwdqc&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_passwdqc</span>(8)</span></a></h3></div></div></div><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_passwdqc&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_passwdqc</span>(8)</span></a> module</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-modules-permit"></a>5.15. <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_permit&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_permit</span>(8)</span></a></h3></div></div></div><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_permit&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_permit</span>(8)</span></a> module is one of the simplest
+	modules available; it responds to any request with
+	<code class="literal">PAM_SUCCESS</code>.  It is useful as a placeholder
+	for services where one or more chains would otherwise be
+	empty.</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-modules-radius"></a>5.16. <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_radius&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_radius</span>(8)</span></a></h3></div></div></div><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_radius&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_radius</span>(8)</span></a> module</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-modules-rhosts"></a>5.17. <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_rhosts&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_rhosts</span>(8)</span></a></h3></div></div></div><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_rhosts&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_rhosts</span>(8)</span></a> module</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-modules-rootok"></a>5.18. <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_rootok&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_rootok</span>(8)</span></a></h3></div></div></div><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_rootok&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_rootok</span>(8)</span></a> module reports success if and only
+	if the real user id of the process calling it (which is
+	assumed to be run by the applicant) is 0.  This is useful for
+	non-networked services such as <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=su&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">su</span>(1)</span></a> or <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=passwd&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">passwd</span>(1)</span></a>,
+	to which the <code class="literal">root</code> should have automatic
+	access.</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-modules-securetty"></a>5.19. <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_securetty&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_securetty</span>(8)</span></a></h3></div></div></div><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_securetty&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_securetty</span>(8)</span></a> module</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-modules-self"></a>5.20. <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_self&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_self</span>(8)</span></a></h3></div></div></div><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_self&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_self</span>(8)</span></a> module reports success if and only if
+	the names of the applicant matches that of the target account.
+	It is most useful for non-networked services such as
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=su&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">su</span>(1)</span></a>, where the identity of the applicant can be easily
+	verified.</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-modules-ssh"></a>5.21. <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_ssh&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_ssh</span>(8)</span></a></h3></div></div></div><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_ssh&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_ssh</span>(8)</span></a> module provides both authentication
+	and session services.  The authentication service allows users
+	who have passphrase-protected SSH secret keys in their
+	<code class="filename">~/.ssh</code> directory to authenticate
+	themselves by typing their passphrase.  The session service
+	starts <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ssh-agent&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ssh-agent</span>(1)</span></a> and preloads it with the keys that
+	were decrypted in the authentication phase.  This feature is
+	particularly useful for local logins, whether in X (using
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=xdm&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">xdm</span>(1)</span></a> or another PAM-aware X login manager) or at the
+	console.</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-modules-tacplus"></a>5.22. <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_tacplus&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_tacplus</span>(8)</span></a></h3></div></div></div><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_tacplus&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_tacplus</span>(8)</span></a> module</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-modules-unix"></a>5.23. <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_unix&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_unix</span>(8)</span></a></h3></div></div></div><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_unix&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_unix</span>(8)</span></a> module implements traditional <span class="trademark">UNIX</span>®
+	password authentication, using <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=getpwnam&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">getpwnam</span>(3)</span></a> to obtain the
+	target account's password and compare it with the one provided
+	by the applicant.  It also provides account management
+	services (enforcing account and password expiration times) and
+	password-changing services.  This is probably the single most
+	useful module, as the great majority of admins will want to
+	maintain historical behavior for at least some
+	services.</p></div></div><div class="section"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="pam-appl-prog"></a>6. PAM Application
+      Programming</h2></div></div></div><p>This section has not yet been written.</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="pam-module-prog"></a>7. PAM Module
+      Programming</h2></div></div></div><p>This section has not yet been written.</p></div><div class="appendix"><h2 class="title" style="clear: both"><a id="pam-sample-appl"></a>A. Sample PAM
+      Application</h2><p>The following is a minimal implementation of <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=su&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">su</span>(1)</span></a>
+      using PAM.  Note that it uses the OpenPAM-specific
+      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=openpam_ttyconv&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">openpam_ttyconv</span>(3)</span></a> conversation function, which is
+      prototyped in <code class="filename">security/openpam.h</code>.  If you
+      wish build this application on a system with a different PAM
+      library, you will have to provide your own conversation
+      function.  A robust conversation function is surprisingly
+      difficult to implement; the one presented in <a class="xref" href="#pam-sample-conv" title="C. Sample PAM Conversation Function">Appendix C, <em>Sample PAM Conversation
+      Function</em></a> is a good starting point, but
+      should not be used in real-world applications.</p><pre class="programlisting">/*-
+ * Copyright (c) 2002,2003 Networks Associates Technology, Inc.
+ * All rights reserved.
+ *
+ * This software was developed for the FreeBSD Project by ThinkSec AS and
+ * Network Associates Laboratories, the Security Research Division of
+ * Network Associates, Inc.  under DARPA/SPAWAR contract N66001-01-C-8035
+ * ("CBOSS"), as part of the DARPA CHATS research program.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 3. The name of the author may not be used to endorse or promote
+ *    products derived from this software without specific prior written
+ *    permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ *
+ * $P4: //depot/projects/openpam/bin/su/su.c#10 $
+ * $FreeBSD$
+ */
+
+#include &lt;sys/param.h&gt;
+#include &lt;sys/wait.h&gt;
+
+#include &lt;err.h&gt;
+#include &lt;pwd.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;syslog.h&gt;
+#include &lt;unistd.h&gt;
+
+#include &lt;security/pam_appl.h&gt;
+#include &lt;security/openpam.h&gt;	/* for openpam_ttyconv() */
+
+extern char **environ;
+
+static pam_handle_t *pamh;
+static struct pam_conv pamc;
+
+static void
+usage(void)
+{
+
+	fprintf(stderr, "Usage: su [login [args]]\n");
+	exit(1);
+}
+
+int
+main(int argc, char *argv[])
+{
+	char hostname[MAXHOSTNAMELEN];
+	const char *user, *tty;
+	char **args, **pam_envlist, **pam_env;
+	struct passwd *pwd;
+	int o, pam_err, status;
+	pid_t pid;
+
+	while ((o = getopt(argc, argv, "h")) != -1)
+		switch (o) {
+		case 'h':
+		default:
+			usage();
+		}
+
+	argc -= optind;
+	argv += optind;
+
+	if (argc &gt; 0) {
+		user = *argv;
+		--argc;
+		++argv;
+	} else {
+		user = "root";
+	}
+
+	/* initialize PAM */
+	pamc.conv = &amp;openpam_ttyconv;
+	pam_start("su", user, &amp;pamc, &amp;pamh);
+
+	/* set some items */
+	gethostname(hostname, sizeof(hostname));
+	if ((pam_err = pam_set_item(pamh, PAM_RHOST, hostname)) != PAM_SUCCESS)
+		goto pamerr;
+	user = getlogin();
+	if ((pam_err = pam_set_item(pamh, PAM_RUSER, user)) != PAM_SUCCESS)
+		goto pamerr;
+	tty = ttyname(STDERR_FILENO);
+	if ((pam_err = pam_set_item(pamh, PAM_TTY, tty)) != PAM_SUCCESS)
+		goto pamerr;
+
+	/* authenticate the applicant */
+	if ((pam_err = pam_authenticate(pamh, 0)) != PAM_SUCCESS)
+		goto pamerr;
+	if ((pam_err = pam_acct_mgmt(pamh, 0)) == PAM_NEW_AUTHTOK_REQD)
+		pam_err = pam_chauthtok(pamh, PAM_CHANGE_EXPIRED_AUTHTOK);
+	if (pam_err != PAM_SUCCESS)
+		goto pamerr;
+
+	/* establish the requested credentials */
+	if ((pam_err = pam_setcred(pamh, PAM_ESTABLISH_CRED)) != PAM_SUCCESS)
+		goto pamerr;
+
+	/* authentication succeeded; open a session */
+	if ((pam_err = pam_open_session(pamh, 0)) != PAM_SUCCESS)
+		goto pamerr;
+
+	/* get mapped user name; PAM may have changed it */
+	pam_err = pam_get_item(pamh, PAM_USER, (const void **)&amp;user);
+	if (pam_err != PAM_SUCCESS || (pwd = getpwnam(user)) == NULL)
+		goto pamerr;
+
+	/* export PAM environment */
+	if ((pam_envlist = pam_getenvlist(pamh)) != NULL) {
+		for (pam_env = pam_envlist; *pam_env != NULL; ++pam_env) {
+			putenv(*pam_env);
+			free(*pam_env);
+		}
+		free(pam_envlist);
+	}
+
+	/* build argument list */
+	if ((args = calloc(argc + 2, sizeof *args)) == NULL) {
+		warn("calloc()");
+		goto err;
+	}
+	*args = pwd-&gt;pw_shell;
+	memcpy(args + 1, argv, argc * sizeof *args);
+
+	/* fork and exec */
+	switch ((pid = fork())) {
+	case -1:
+		warn("fork()");
+		goto err;
+	case 0:
+		/* child: give up privs and start a shell */
+
+		/* set uid and groups */
+		if (initgroups(pwd-&gt;pw_name, pwd-&gt;pw_gid) == -1) {
+			warn("initgroups()");
+			_exit(1);
+		}
+		if (setgid(pwd-&gt;pw_gid) == -1) {
+			warn("setgid()");
+			_exit(1);
+		}
+		if (setuid(pwd-&gt;pw_uid) == -1) {
+			warn("setuid()");
+			_exit(1);
+		}
+		execve(*args, args, environ);
+		warn("execve()");
+		_exit(1);
+	default:
+		/* parent: wait for child to exit */
+		waitpid(pid, &amp;status, 0);
+
+		/* close the session and release PAM resources */
+		pam_err = pam_close_session(pamh, 0);
+		pam_end(pamh, pam_err);
+
+		exit(WEXITSTATUS(status));
+	}
+
+pamerr:
+	fprintf(stderr, "Sorry\n");
+err:
+	pam_end(pamh, pam_err);
+	exit(1);
+}
+</pre></div><div class="appendix"><h2 class="title" style="clear: both"><a id="pam-sample-module"></a>B. Sample PAM Module</h2><p>The following is a minimal implementation of
+      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_unix&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_unix</span>(8)</span></a>, offering only authentication services.  It
+      should build and run with most PAM implementations, but takes
+      advantage of OpenPAM extensions if available: note the use of
+      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pam_get_authtok&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pam_get_authtok</span>(3)</span></a>, which enormously simplifies prompting
+      the user for a password.</p><pre class="programlisting">/*-
+ * Copyright (c) 2002 Networks Associates Technology, Inc.
+ * All rights reserved.
+ *
+ * This software was developed for the FreeBSD Project by ThinkSec AS and
+ * Network Associates Laboratories, the Security Research Division of
+ * Network Associates, Inc.  under DARPA/SPAWAR contract N66001-01-C-8035
+ * ("CBOSS"), as part of the DARPA CHATS research program.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 3. The name of the author may not be used to endorse or promote
+ *    products derived from this software without specific prior written
+ *    permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ *
+ * $P4: //depot/projects/openpam/modules/pam_unix/pam_unix.c#3 $
+ * $FreeBSD$
+ */
+
+#include &lt;sys/param.h&gt;
+
+#include &lt;pwd.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;unistd.h&gt;
+
+#include &lt;security/pam_modules.h&gt;
+#include &lt;security/pam_appl.h&gt;
+
+#ifndef _OPENPAM
+static char password_prompt[] = "Password:";
+#endif
+
+#ifndef PAM_EXTERN
+#define PAM_EXTERN
+#endif
+
+PAM_EXTERN int
+pam_sm_authenticate(pam_handle_t *pamh, int flags,
+	int argc, const char *argv[])
+{
+#ifndef _OPENPAM
+	struct pam_conv *conv;
+	struct pam_message msg;
+	const struct pam_message *msgp;
+	struct pam_response *resp;
+#endif
+	struct passwd *pwd;
+	const char *user;
+	char *crypt_password, *password;
+	int pam_err, retry;
+
+	/* identify user */
+	if ((pam_err = pam_get_user(pamh, &amp;user, NULL)) != PAM_SUCCESS)
+		return (pam_err);
+	if ((pwd = getpwnam(user)) == NULL)
+		return (PAM_USER_UNKNOWN);
+
+	/* get password */
+#ifndef _OPENPAM
+	pam_err = pam_get_item(pamh, PAM_CONV, (const void **)&amp;conv);
+	if (pam_err != PAM_SUCCESS)
+		return (PAM_SYSTEM_ERR);
+	msg.msg_style = PAM_PROMPT_ECHO_OFF;
+	msg.msg = password_prompt;
+	msgp = &amp;msg;
+#endif
+	for (retry = 0; retry &lt; 3; ++retry) {
+#ifdef _OPENPAM
+		pam_err = pam_get_authtok(pamh, PAM_AUTHTOK,
+		    (const char **)&amp;password, NULL);
+#else
+		resp = NULL;
+		pam_err = (*conv-&gt;conv)(1, &amp;msgp, &amp;resp, conv-&gt;appdata_ptr);
+		if (resp != NULL) {
+			if (pam_err == PAM_SUCCESS)
+				password = resp-&gt;resp;
+			else
+				free(resp-&gt;resp);
+			free(resp);
+		}
+#endif
+		if (pam_err == PAM_SUCCESS)
+			break;
+	}
+	if (pam_err == PAM_CONV_ERR)
+		return (pam_err);
+	if (pam_err != PAM_SUCCESS)
+		return (PAM_AUTH_ERR);
+
+	/* compare passwords */
+	if ((!pwd-&gt;pw_passwd[0] &amp;&amp; (flags &amp; PAM_DISALLOW_NULL_AUTHTOK)) ||
+	    (crypt_password = crypt(password, pwd-&gt;pw_passwd)) == NULL ||
+	    strcmp(crypt_password, pwd-&gt;pw_passwd) != 0)
+		pam_err = PAM_AUTH_ERR;
+	else
+		pam_err = PAM_SUCCESS;
+#ifndef _OPENPAM
+	free(password);
+#endif
+	return (pam_err);
+}
+
+PAM_EXTERN int
+pam_sm_setcred(pam_handle_t *pamh, int flags,
+	int argc, const char *argv[])
+{
+
+	return (PAM_SUCCESS);
+}
+
+PAM_EXTERN int
+pam_sm_acct_mgmt(pam_handle_t *pamh, int flags,
+	int argc, const char *argv[])
+{
+
+	return (PAM_SUCCESS);
+}
+
+PAM_EXTERN int
+pam_sm_open_session(pam_handle_t *pamh, int flags,
+	int argc, const char *argv[])
+{
+
+	return (PAM_SUCCESS);
+}
+
+PAM_EXTERN int
+pam_sm_close_session(pam_handle_t *pamh, int flags,
+	int argc, const char *argv[])
+{
+
+	return (PAM_SUCCESS);
+}
+
+PAM_EXTERN int
+pam_sm_chauthtok(pam_handle_t *pamh, int flags,
+	int argc, const char *argv[])
+{
+
+	return (PAM_SERVICE_ERR);
+}
+
+#ifdef PAM_MODULE_ENTRY
+PAM_MODULE_ENTRY("pam_unix");
+#endif
+</pre></div><div class="appendix"><h2 class="title" style="clear: both"><a id="pam-sample-conv"></a>C. Sample PAM Conversation
+      Function</h2><p>The conversation function presented below is a greatly
+      simplified version of OpenPAM's <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=openpam_ttyconv&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">openpam_ttyconv</span>(3)</span></a>.  It is
+      fully functional, and should give the reader a good idea of how
+      a conversation function should behave, but it is far too simple
+      for real-world use.  Even if you are not using OpenPAM, feel
+      free to download the source code and adapt
+      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=openpam_ttyconv&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">openpam_ttyconv</span>(3)</span></a> to your uses; we believe it to be as
+      robust as a tty-oriented conversation function can reasonably
+      get.</p><pre class="programlisting">/*-
+ * Copyright (c) 2002 Networks Associates Technology, Inc.
+ * All rights reserved.
+ *
+ * This software was developed for the FreeBSD Project by ThinkSec AS and
+ * Network Associates Laboratories, the Security Research Division of
+ * Network Associates, Inc.  under DARPA/SPAWAR contract N66001-01-C-8035
+ * ("CBOSS"), as part of the DARPA CHATS research program.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 3. The name of the author may not be used to endorse or promote
+ *    products derived from this software without specific prior written
+ *    permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ *
+ * $FreeBSD$
+ */
+
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;unistd.h&gt;
+
+#include &lt;security/pam_appl.h&gt;
+
+int
+converse(int n, const struct pam_message **msg,
+	struct pam_response **resp, void *data)
+{
+	struct pam_response *aresp;
+	char buf[PAM_MAX_RESP_SIZE];
+	int i;
+
+	data = data;
+	if (n &lt;= 0 || n &gt; PAM_MAX_NUM_MSG)
+		return (PAM_CONV_ERR);
+	if ((aresp = calloc(n, sizeof *aresp)) == NULL)
+		return (PAM_BUF_ERR);
+	for (i = 0; i &lt; n; ++i) {
+		aresp[i].resp_retcode = 0;
+		aresp[i].resp = NULL;
+		switch (msg[i]-&gt;msg_style) {
+		case PAM_PROMPT_ECHO_OFF:
+			aresp[i].resp = strdup(getpass(msg[i]-&gt;msg));
+			if (aresp[i].resp == NULL)
+				goto fail;
+			break;
+		case PAM_PROMPT_ECHO_ON:
+			fputs(msg[i]-&gt;msg, stderr);
+			if (fgets(buf, sizeof buf, stdin) == NULL)
+				goto fail;
+			aresp[i].resp = strdup(buf);
+			if (aresp[i].resp == NULL)
+				goto fail;
+			break;
+		case PAM_ERROR_MSG:
+			fputs(msg[i]-&gt;msg, stderr);
+			if (strlen(msg[i]-&gt;msg) &gt; 0 &amp;&amp;
+			    msg[i]-&gt;msg[strlen(msg[i]-&gt;msg) - 1] != '\n')
+				fputc('\n', stderr);
+			break;
+		case PAM_TEXT_INFO:
+			fputs(msg[i]-&gt;msg, stdout);
+			if (strlen(msg[i]-&gt;msg) &gt; 0 &amp;&amp;
+			    msg[i]-&gt;msg[strlen(msg[i]-&gt;msg) - 1] != '\n')
+				fputc('\n', stdout);
+			break;
+		default:
+			goto fail;
+		}
+	}
+	*resp = aresp;
+	return (PAM_SUCCESS);
+ fail:
+        for (i = 0; i &lt; n; ++i) {
+                if (aresp[i].resp != NULL) {
+                        memset(aresp[i].resp, 0, strlen(aresp[i].resp));
+                        free(aresp[i].resp);
+                }
+        }
+        memset(aresp, 0, n * sizeof *aresp);
+	*resp = NULL;
+	return (PAM_CONV_ERR);
+}
+</pre></div><div class="bibliography"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pam-further"></a>Further Reading</h2></div></div></div><div class="bibliodiv"><h3 class="title"><a id="idp45937272"></a>Papers</h3><div class="biblioentry"><a id="idp45938936"></a><p><span class="citetitle"><em class="citetitle">Making Login Services Independent of Authentication
+	  Technologies</em>. </span><span class="authorgroup"><span class="firstname">Vipin</span> <span class="surname">Samar</span> and <span class="firstname">Charlie</span> <span class="surname">Lai</span>. </span><span class="orgname">Sun Microsystems. </span></p></div><div class="biblioentry"><a id="idp45950712"></a><p><span class="citetitle"><em class="citetitle"><a class="link" href="https://pubs.opengroup.org/onlinepubs/8329799/toc.htm" target="_top">X/Open
+	    Single Sign-on Preliminary
+	    Specification</a></em>. </span><span class="orgname">The Open Group. </span><span class="biblioid">1-85912-144-6. </span><span class="pubdate">June 1997. </span></p></div><div class="biblioentry"><a id="idp45955064"></a><p><span class="citetitle"><em class="citetitle"><a class="link" href="https://mirrors.kernel.org/pub/linux/libs/pam/pre/doc/draft-morgan-pam-07.txt" target="_top">
+	    Pluggable Authentication Modules</a></em>. </span><span class="author"><span class="firstname">Andrew</span> <span class="othername">G.</span> <span class="surname">Morgan</span>. </span><span class="pubdate">1999-10-06. </span></p></div></div><div class="bibliodiv"><h3 class="title"><a id="idp45967992"></a>User Manuals</h3><div class="biblioentry"><a id="idp45981944"></a><p><span class="citetitle"><em class="citetitle"><a class="link" href="https://docs.oracle.com/cd/E26505_01/html/E27224/pam-1.html" target="_top">
+	    PAM Administration</a></em>. </span><span class="orgname">Sun Microsystems. </span></p></div></div><div class="bibliodiv"><h3 class="title"><a id="idp45985400"></a>Related Web Pages</h3><div class="biblioentry"><a id="idp45987064"></a><p><span class="citetitle"><em class="citetitle"><a class="link" href="https://www.openpam.org/" target="_top">OpenPAM
+	    homepage</a></em>. </span><span class="author"><span class="firstname">Dag-Erling</span> <span class="surname">Smørgrav</span>. </span><span class="orgname">ThinkSec AS. </span></p></div><div class="biblioentry"><a id="idp45994232"></a><p><span class="citetitle"><em class="citetitle"><a class="link" href="http://www.kernel.org/pub/linux/libs/pam/" target="_top">Linux-PAM
+	    homepage</a></em>. </span><span class="author"><span class="firstname">Andrew</span> <span class="othername">G.</span> <span class="surname">Morgan</span>. </span></p></div><div class="biblioentry"><a id="idp46002168"></a><p><span class="citetitle"><em class="citetitle">Solaris PAM homepage</em>. </span><span class="orgname">Sun Microsystems. </span></p></div></div></div></div></body></html>

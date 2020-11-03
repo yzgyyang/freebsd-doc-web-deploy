@@ -81,7 +81,7 @@ $i_topbar = qq`
 	      </div>
 
               <div id="search">
-		<form method="get" id="search" action="https://duckduckgo.com/">
+		<form method="get" id="search-form" action="https://duckduckgo.com/">
 		  <h2 class="blockhide"><label for="words">Search</label></h2>
 		  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
 		  <input type="hidden" name="ka" value="v" />
@@ -238,7 +238,7 @@ sub html_footer {
     return qq`
 	</div>
         <div id="footer">
-          <a href="$hsty_base/copyright/">Legal Notices</a> | &copy; 1995-2018
+          <a href="$hsty_base/copyright/">Legal Notices</a> | &copy; 1995-2020
           The FreeBSD Project. All rights reserved.<br />
 	  <address>$hsty_author<br />$hsty_date</address>
         </div>

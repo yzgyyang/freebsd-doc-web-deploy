@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>4.4. Using pkg for Binary Package Management</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="ports.html" title="Chapter 4. Installing Applications: Packages and Ports" /><link rel="prev" href="ports-finding-applications.html" title="4.3. Finding Software" /><link rel="next" href="ports-using.html" title="4.5. Using the Ports Collection" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">4.4. Using <span class="application">pkg</span> for Binary Package
+      Management</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ports-finding-applications.html">Prev</a> </td><th width="60%" align="center">Chapter 4. Installing Applications: Packages and Ports</th><td width="20%" align="right"> <a accesskey="n" href="ports-using.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="pkgng-intro"></a>4.4. Using <span class="application">pkg</span> for Binary Package
+      Management</h2></div></div></div><p><span class="application">pkg</span> is the next generation
+      replacement for the traditional FreeBSD package management tools,
+      offering many features that make dealing with binary packages
+      faster and easier.</p><p>For sites wishing to only use prebuilt binary packages
+      from the FreeBSD mirrors, managing packages with
+      <span class="application">pkg</span> can be sufficient.</p><p>However, for those sites building from source or using their
+      own repositories, a separate <a class="link" href="ports-using.html#ports-upgrading-tools" title="4.5.3.1. Tools to Upgrade and Manage Ports">port management tool</a>
+      will be needed.</p><p>Since <span class="application">pkg</span> only works with
+      binary packages, it
+      is not a replacement for such tools.  Those tools can be
+      used to install software from both binary packages
+      and the Ports Collection, while
+      <span class="application">pkg</span> installs only binary
+      packages.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pkgng-initial-setup"></a>4.4.1. Getting Started with
+	<span class="application">pkg</span></h3></div></div></div><p>FreeBSD includes a bootstrap utility which can be used to
+	download and install <span class="application">pkg</span>
+	and its manual pages.  This utility is designed to work
+	with versions of FreeBSD starting with
+	10.<em class="replaceable"><code>X</code></em>.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Not all FreeBSD versions and architectures
+	  support this bootstrap process.  The current list is at
+	  <a class="link" href="https://pkg.freebsd.org/" target="_top">https://pkg.freebsd.org/</a>.
+	  For other cases,
+	  <span class="application">pkg</span> must instead be installed
+	  from the Ports Collection or as a binary package.</p></div><p>To bootstrap the system, run:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>/usr/sbin/pkg</code></strong></pre><p>You must have a working Internet connection for the
+	bootstrap process to succeed.</p><p>Otherwise, to install the port, run:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/ports/ports-mgmt/pkg</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make install clean</code></strong></pre><p>When upgrading an existing system that originally used the
+	older pkg_* tools, the database must be converted to the
+	new format, so that the new tools are aware of the already
+	installed packages.  Once <span class="application">pkg</span> has
+	been installed, the
+	package database must be converted from the traditional format
+	to the new format by running this command:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg2ng</code></strong></pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">This step is not required for new installations that
+	do not yet have any third-party software
+	installed.</p></div><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">This step is not reversible.  Once the package database
+	  has been converted to the <span class="application">pkg</span>
+	  format, the traditional <code class="literal">pkg_*</code> tools
+	  should no longer be used.</p></div><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">The package database conversion may emit errors as the
+	  contents are converted to the new version.  Generally, these
+	  errors can be safely ignored.  However, a list of
+	  software that was not successfully converted
+	  is shown after <code class="command">pkg2ng</code> finishes.
+	  These applications must be manually reinstalled.</p></div><p>To ensure that the Ports Collection registers
+	new software with <span class="application">pkg</span> instead of
+	the traditional packages database, FreeBSD versions earlier than
+	10.<em class="replaceable"><code>X</code></em> require this line in
+	<code class="filename">/etc/make.conf</code>:</p><pre class="programlisting">WITH_PKGNG=	yes</pre><p>By default, <span class="application">pkg</span> uses the
+	binary packages from the FreeBSD
+	package mirrors (the <span class="emphasis"><em>repository</em></span>).
+	For information about building a custom
+	package repository, see
+	<a class="xref" href="ports-poudriere.html" title="4.6. Building Packages with Poudriere">Section 4.6, &#8220;Building Packages with
+      <span class="application">Poudriere</span>&#8221;</a>.</p><p>Additional <span class="application">pkg</span> configuration
+	options are described in <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pkg.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pkg.conf</span>(5)</span></a>.</p><p>Usage information for <span class="application">pkg</span> is
+	available in the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pkg&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pkg</span>(8)</span></a> manual page or by running
+	<code class="command">pkg</code> without additional arguments.</p><p>Each <span class="application">pkg</span> command argument is
+	documented in a command-specific manual page.  To read the
+	manual page for <code class="command">pkg install</code>, for example,
+	run either of these commands:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg help install</code></strong></pre><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>man pkg-install</code></strong></pre><p>The rest of this section demonstrates common binary
+	package management tasks which can be performed using
+	<span class="application">pkg</span>.  Each demonstrated command
+	provides many switches to customize its use.  Refer to a
+	command's help or man page for details and more
+	examples.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="quarterly-latest-branch"></a>4.4.2. Quarterly and Latest Ports Branches</h3></div></div></div><p>The <code class="literal">Quarterly</code> branch provides users
+	with a more predictable and stable experience for port and
+	package installation and upgrades.  This is done essentially
+	by only allowing non-feature updates.  Quarterly branches aim
+	to receive security fixes (that may be version updates, or
+	backports of commits), bug fixes and ports compliance or
+	framework changes.  The Quarterly branch is cut from HEAD at
+	the beginning of every (yearly) quarter in January, April,
+	July, and October.  Branches are named according to the year
+	(YYYY) and quarter (Q1-4) they are created in.  For example,
+	the quarterly branch created in January 2016, is named 2016Q1.
+	And the <code class="literal">Latest</code> branch provides the latest
+	versions of the packages to the users.</p><p>To switch from quarterly to latest run the following
+	commands:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cp /etc/pkg/FreeBSD.conf /usr/local/etc/pkg/repos/FreeBSD.conf</code></strong></pre><p>Edit the file
+	<code class="filename">/usr/local/etc/pkg/repos/FreeBSD.conf</code>
+	and change the string <span class="emphasis"><em>quarterly</em></span> to
+	<span class="emphasis"><em>latest</em></span> in the <code class="literal">url:</code>
+	line.</p><p>The result should be similar to the following:</p><pre class="programlisting">FreeBSD: {
+  url: "pkg+http://pkg.FreeBSD.org/${ABI}/latest",
+  mirror_type: "srv",
+  signature_type: "fingerprints",
+  fingerprints: "/usr/share/keys/pkg",
+  enabled: yes
+}</pre><p>And finally run this command to update from the new
+	(latest) repository metadata.</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg update -f</code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pkgng-pkg-info"></a>4.4.3. Obtaining Information About Installed Packages</h3></div></div></div><p>Information about the packages installed on a system
+	can be viewed by running <code class="command">pkg info</code> which,
+	when run without any switches, will list the package version
+	for either all installed packages or the specified
+	package.</p><p>For example, to see which version of
+	<span class="application">pkg</span> is installed, run:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg info pkg</code></strong>
+pkg-1.1.4_1</pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pkgng-installing-deinstalling"></a>4.4.4. Installing and Removing Packages</h3></div></div></div><p>To install a binary package use the following command,
+	where <em class="replaceable"><code>packagename</code></em> is the name of
+	the package to install:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg install <em class="replaceable"><code>packagename</code></em></code></strong></pre><p>This command uses repository data to determine which
+	version of the software to install and if it has any
+	uninstalled dependencies.  For example, to install
+	<span class="application">curl</span>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg install curl</code></strong>
+Updating repository catalogue
+/usr/local/tmp/All/curl-7.31.0_1.txz          100% of 1181 kB 1380 kBps 00m01s
+
+/usr/local/tmp/All/ca_root_nss-3.15.1_1.txz   100% of  288 kB 1700 kBps 00m00s
+
+Updating repository catalogue
+The following 2 packages will be installed:
+
+        Installing ca_root_nss: 3.15.1_1
+        Installing curl: 7.31.0_1
+
+The installation will require 3 MB more space
+
+0 B to be downloaded
+
+Proceed with installing packages [y/N]: <strong class="userinput"><code>y</code></strong>
+Checking integrity... done
+[1/2] Installing ca_root_nss-3.15.1_1... done
+[2/2] Installing curl-7.31.0_1... done
+Cleaning up cache files...Done</pre><p>The new package and any additional packages that were
+	  installed as dependencies can be seen in the installed
+	  packages list:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg info</code></strong>
+ca_root_nss-3.15.1_1	The root certificate bundle from the Mozilla Project
+curl-7.31.0_1	Non-interactive tool to get files from FTP, GOPHER, HTTP(S) servers
+pkg-1.1.4_6	New generation package manager</pre><p>Packages that are no longer needed can be removed with
+	  <code class="command">pkg delete</code>.  For example:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg delete curl</code></strong>
+The following packages will be deleted:
+
+	curl-7.31.0_1
+
+The deletion will free 3 MB
+
+Proceed with deleting packages [y/N]: <strong class="userinput"><code>y</code></strong>
+[1/1] Deleting curl-7.31.0_1... done</pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pkgng-upgrading"></a>4.4.5. Upgrading Installed Packages</h3></div></div></div><p>Installed packages can be upgraded to their latest
+	versions by running:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg upgrade</code></strong></pre><p>This command will compare the installed versions with
+	those available in the repository catalogue and upgrade them
+	from the repository.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pkgng-auditing"></a>4.4.6. Auditing Installed Packages</h3></div></div></div><p>Software vulnerabilities are regularly discovered
+	in third-party applications.  To address this,
+	<span class="application">pkg</span> includes a built-in auditing
+	mechanism.  To determine if there are any known
+	vulnerabilities for the software installed on the system,
+	run:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg audit -F</code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pkgng-autoremove"></a>4.4.7. Automatically Removing Unused Packages</h3></div></div></div><p>Removing a package may leave behind dependencies which
+	are no longer required.  Unneeded packages that were installed
+	as dependencies (leaf packages) can be automatically detected
+	and removed using:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg autoremove</code></strong>
+Packages to be autoremoved:
+	ca_root_nss-3.15.1_1
+
+The autoremoval will free 723 kB
+
+Proceed with autoremoval of packages [y/N]: <strong class="userinput"><code>y</code></strong>
+Deinstalling ca_root_nss-3.15.1_1... done</pre><p>Packages installed as dependencies are
+	called <span class="emphasis"><em>automatic</em></span> packages.  Non-automatic
+	packages, i.e the packages that were explicity installed not
+	as a dependency to another package, can be listed
+	using:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg prime-list</code></strong>
+nginx
+openvpn
+sudo</pre><p><code class="command">pkg prime-list</code> is an alias command
+	declared in <code class="filename">/usr/local/etc/pkg.conf</code>.
+	There are many others that can be used to query the package
+	database of the system.  For instance, command
+	<code class="command">pkg prime-origins</code> can be used to get the
+	origin port directory of the list mentioned above:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg prime-origins</code></strong>
+www/nginx
+security/openvpn
+security/sudo</pre><p>This list can be used to rebuild all packages
+	installed on a system using build tools such as <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/&#10;&#9;ports-mgmt/poudriere/pkg-descr">
+	ports-mgmt/poudriere</a> or <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/&#10;&#9;ports-mgmt/synth/pkg-descr">
+	ports-mgmt/synth</a>.</p><p>Marking an installed package as automatic can be
+      done using:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg set -A 1 devel/cmake</code></strong></pre><p>Once a package is a leaf package and is marked
+	as automatic, it gets selected by
+	<code class="command">pkg autoremove</code>.</p><p>Marking an installed package as <span class="emphasis"><em>not</em></span>
+	automatic can be done using:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg set -A 0 devel/cmake</code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pkgng-backup"></a>4.4.8. Restoring the Package Database</h3></div></div></div><p>Unlike the traditional package management system,
+	<span class="application">pkg</span> includes its own package
+	database backup mechanism.  This functionality is enabled by
+	default.</p><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">To disable the periodic script from backing up the
+	  package database, set
+	  <code class="literal">daily_backup_pkgdb_enable="NO"</code> in
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=periodic.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">periodic.conf</span>(5)</span></a>.</p></div><p>To restore the contents of a previous package database
+	backup, run the following command replacing
+	<em class="replaceable"><code>/path/to/pkg.sql</code></em> with the location
+	of the backup:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg backup -r <em class="replaceable"><code>/path/to/pkg.sql</code></em></code></strong></pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">If restoring a backup taken by the periodic script,
+	  it must be decompressed prior to being restored.</p></div><p>To run a manual backup of the
+	<span class="application">pkg</span> database, run the following
+	command, replacing <em class="replaceable"><code>/path/to/pkg.sql</code></em>
+	with a suitable file name and location:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg backup -d <em class="replaceable"><code>/path/to/pkg.sql</code></em></code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pkgng-clean"></a>4.4.9. Removing Stale Packages</h3></div></div></div><p>By default, <span class="application">pkg</span> stores
+	binary packages in a cache directory defined by
+	<code class="envar">PKG_CACHEDIR</code> in <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pkg.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pkg.conf</span>(5)</span></a>.  Only copies
+	of the latest installed packages are kept.  Older versions of
+	<span class="application">pkg</span> kept all previous packages.  To
+	remove these outdated binary packages, run:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg clean</code></strong></pre><p>The entire cache may be cleared by running:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg clean -a</code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pkgng-set"></a>4.4.10. Modifying Package Metadata</h3></div></div></div><p>Software within the FreeBSD Ports Collection can
+	undergo major version number changes.  To address this,
+	<span class="application">pkg</span> has a built-in command to
+	update package origins.  This can be useful, for example, if
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/lang/php5/pkg-descr">lang/php5</a> is renamed to
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/lang/php53/pkg-descr">lang/php53</a> so that
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/lang/php5/pkg-descr">lang/php5</a> can now
+	represent version <code class="literal">5.4</code>.</p><p>To change the package origin for the above example,
+	run:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg set -o lang/php5:lang/php53</code></strong></pre><p>As another example, to update
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/lang/ruby18/pkg-descr">lang/ruby18</a> to
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/lang/ruby19/pkg-descr">lang/ruby19</a>, run:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg set -o lang/ruby18:lang/ruby19</code></strong></pre><p>As a final example, to change the origin of the
+	<code class="filename">libglut</code> shared libraries from
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/graphics/libglut/pkg-descr">graphics/libglut</a> to
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/graphics/freeglut/pkg-descr">graphics/freeglut</a>, run:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg set -o graphics/libglut:graphics/freeglut</code></strong></pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">When changing package origins, it is important to
+	  reinstall packages that are dependent on the package with
+	  the modified origin.  To force a reinstallation of dependent
+	  packages, run:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg install -Rf <em class="replaceable"><code>graphics/freeglut</code></em></code></strong></pre></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ports-finding-applications.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ports.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ports-using.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">4.3. Finding Software </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 4.5. Using the Ports Collection</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

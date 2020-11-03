@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>13.3. Markup</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Documentation Project Primer for New Contributors" /><link rel="up" href="manpages.html" title="Chapter 13. Manual Pages" /><link rel="prev" href="manpages-sections.html" title="13.2. Sections" /><link rel="next" href="manpages-sample-structures.html" title="13.4. Sample Manual Page Structures" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">13.3. Markup</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="manpages-sections.html">Prev</a> </td><th width="60%" align="center">Chapter 13. Manual Pages</th><td width="20%" align="right"> <a accesskey="n" href="manpages-sample-structures.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="manpages-markup"></a>13.3. Markup</h2></div></div></div><p>Various markup forms and rendering programs have been used
+      for manual pages.  FreeBSD has used <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=groff&amp;sektion=7&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">groff</span>(7)</span></a> and the newer
+      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mandoc&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mandoc</span>(1)</span></a>.  Most existing FreeBSD manual pages, and all new
+      ones, use the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mdoc&amp;sektion=7&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mdoc</span>(7)</span></a> form of markup.  This is a simple
+      line-based markup that is reasonably expressive.  It is mostly
+      semantic: parts of text are marked up for what they are, rather
+      than for how they should appear when rendered.  There is some
+      appearance-based markup which is usually best avoided.</p><p>Manual page source is usually interpreted and displayed to
+      the screen interactively.  The source files can be ordinary text
+      files or compressed with <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=gzip&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">gzip</span>(1)</span></a> to save space.</p><p>Manual pages can also be rendered to other formats,
+      including PostScript for printing or <acronym class="acronym">PDF</acronym>
+      generation.  See <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=man&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">man</span>(1)</span></a>.</p><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">Testing a new manual page can be challenging when it is
+	not located in the normal manual page search path.
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=man&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">man</span>(1)</span></a> also does not look in the current directory.  If
+	the new manual page is in the current directory, prefix
+	the filename with a <code class="literal">./</code>:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="screen"><code class="prompt">%</code> <strong class="userinput"><code>man ./mynewmanpage.8</code></strong></pre><p xmlns="http://www.w3.org/1999/xhtml">An absolute path can also be used:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="screen"><code class="prompt">%</code> <strong class="userinput"><code>man /home/xsmith/mynewmanpage.8</code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="manpages-markup-sections"></a>13.3.1. Manual Page Sections</h3></div></div></div><p>Manual pages are composed of several standard sections.
+	Each section has a title in upper case, and the sections for a
+	particular type of manual page appear in a specific order.
+	For a category 1 General Command manual page, the sections
+	are:</p><div class="informaltable"><table class="informaltable" border="1"><colgroup><col /><col /></colgroup><thead><tr><th>Section Name</th><th>Description</th></tr></thead><tbody><tr><td>NAME</td><td>Name of the command</td></tr><tr><td>SYNOPSIS</td><td>Format of options and arguments</td></tr><tr><td>DESCRIPTION</td><td>Description of purpose and usage</td></tr><tr><td>ENVIRONMENT</td><td>Environment settings that affect
+		operation</td></tr><tr><td>EXIT STATUS</td><td>Error codes returned on exit</td></tr><tr><td>EXAMPLES</td><td>Examples of usage</td></tr><tr><td>COMPATIBILITY</td><td>Compatibility with other implementations</td></tr><tr><td>SEE ALSO</td><td>Cross-reference to related manual pages</td></tr><tr><td>STANDARDS</td><td>Compatibility with standards like POSIX</td></tr><tr><td>HISTORY</td><td>History of implementation</td></tr><tr><td>BUGS</td><td>Known bugs</td></tr><tr><td>AUTHORS</td><td>People who created the command or wrote the
+		manual page.</td></tr></tbody></table></div><p>Some sections are optional, and the combination of
+	sections for a specific type of manual page vary.  Examples of
+	the most common types are shown later in this chapter.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="manpages-markup-macros"></a>13.3.2. Macros</h3></div></div></div><p><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mdoc&amp;sektion=7&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mdoc</span>(7)</span></a> markup is based on
+	<span class="emphasis"><em>macros</em></span>.  Lines that begin with a dot
+	contain macro commands, each two or three letters long.  For
+	example, consider this portion of the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ls&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ls</span>(1)</span></a> manual
+	page:</p><a id="manpages-markup-macros-example-ls"></a><pre class="programlisting">
+.Dd December 1, 2015  <a id="co-manpages-macro-example-ls-1"></a><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span>
+.Dt LS 1
+.Sh NAME  <a id="co-manpages-macro-example-ls-2"></a><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span>
+.Nm ls
+.Nd list directory contents
+.Sh SYNOPSIS  <a id="co-manpages-macro-example-ls-3"></a><span><img src="./imagelib/callouts/3.png" alt="3" border="0" /></span>
+.Nm  <a id="co-manpages-macro-example-ls-4"></a><span><img src="./imagelib/callouts/4.png" alt="4" border="0" /></span>
+.Op Fl -libxo  <a id="co-manpages-macro-example-ls-5"></a><span><img src="./imagelib/callouts/5.png" alt="5" border="0" /></span>
+.Op Fl ABCFGHILPRSTUWZabcdfghiklmnopqrstuwxy1,  <a id="co-manpages-macro-example-ls-6"></a><span><img src="./imagelib/callouts/6.png" alt="6" border="0" /></span>
+.Op Fl D Ar format  <a id="co-manpages-macro-example-ls-7"></a><span><img src="./imagelib/callouts/7.png" alt="7" border="0" /></span>
+.Op Ar  <a id="co-manpages-macro-example-ls-8"></a><span><img src="./imagelib/callouts/8.png" alt="8" border="0" /></span>
+.Sh DESCRIPTION  <a id="co-manpages-macro-example-ls-9"></a><span><img src="./imagelib/callouts/9.png" alt="9" border="0" /></span>
+For each operand that names a
+.Ar file
+of a type other than
+directory,
+.Nm
+displays its name as well as any requested,
+associated information.
+For each operand that names a
+.Ar file
+of type directory,
+.Nm
+displays the names of files contained
+within that directory, as well as any requested, associated
+information.</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#co-manpages-macro-example-ls-1"><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span></a> </p></td><td valign="top" align="left"><p>A <span class="emphasis"><em>Document date</em></span> and
+	    <span class="emphasis"><em>Document title</em></span> are defined.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#co-manpages-macro-example-ls-2"><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span></a> </p></td><td valign="top" align="left"><p>A <span class="emphasis"><em>Section header</em></span> for the NAME
+	    section is defined.  Then the <span class="emphasis"><em>Name</em></span>
+	    of the command and a one-line
+	    <span class="emphasis"><em>Name description</em></span> are defined.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#co-manpages-macro-example-ls-3"><span><img src="./imagelib/callouts/3.png" alt="3" border="0" /></span></a> </p></td><td valign="top" align="left"><p>The SYNOPSIS section begins.  This section describes
+	    the command-line options and arguments accepted.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#co-manpages-macro-example-ls-4"><span><img src="./imagelib/callouts/4.png" alt="4" border="0" /></span></a> </p></td><td valign="top" align="left"><p><span class="emphasis"><em>Name</em></span> (<code class="literal">.Nm</code>) has
+	    already been defined, and repeating it here just displays
+	    the defined value in the text.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#co-manpages-macro-example-ls-5"><span><img src="./imagelib/callouts/5.png" alt="5" border="0" /></span></a> </p></td><td valign="top" align="left"><p>An <span class="emphasis"><em>Optional</em></span>
+	    <span class="emphasis"><em>Flag</em></span> called <code class="literal">-libxo</code>
+	    is shown.  The <code class="literal">Fl</code> macro adds a dash to
+	    the beginning of flags, so this appears in the manual
+	    page as <code class="literal">--libxo</code>.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#co-manpages-macro-example-ls-6"><span><img src="./imagelib/callouts/6.png" alt="6" border="0" /></span></a> </p></td><td valign="top" align="left"><p>A long list of optional single-character flags are
+	    shown.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#co-manpages-macro-example-ls-7"><span><img src="./imagelib/callouts/7.png" alt="7" border="0" /></span></a> </p></td><td valign="top" align="left"><p>An optional <code class="literal">-D</code> flag is defined.  If
+	    the <code class="literal">-D</code> flag is given, it must be
+	    followed by an <span class="emphasis"><em>Argument</em></span>.  The
+	    argument is a <span class="emphasis"><em>format</em></span>, a string that
+	    tells <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ls&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ls</span>(1)</span></a> what to display and how to display it.
+	    Details on the format string are given later in the manual
+	    page.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#co-manpages-macro-example-ls-8"><span><img src="./imagelib/callouts/8.png" alt="8" border="0" /></span></a> </p></td><td valign="top" align="left"><p>A final optional argument is defined.  Because no name
+	    is specified for the argument, the default of
+	    <code class="literal">file ...</code> is used.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#co-manpages-macro-example-ls-9"><span><img src="./imagelib/callouts/9.png" alt="9" border="0" /></span></a> </p></td><td valign="top" align="left"><p>The <span class="emphasis"><em>Section header</em></span> for the
+	    DESCRIPTION section is defined.</p></td></tr></table></div><p>When rendered with the command <code class="command">man ls</code>,
+	the result displayed on the screen looks like this:</p><pre class="programlisting">LS(1)                   FreeBSD General Commands Manual                  LS(1)
+
+NAME
+     ls &#8212; list directory contents
+
+SYNOPSIS
+     ls [--libxo] [-ABCFGHILPRSTUWZabcdfghiklmnopqrstuwxy1,] [-D format]
+        [file ...]
+
+DESCRIPTION
+     For each operand that names a file of a type other than directory, ls
+     displays its name as well as any requested, associated information.  For
+     each operand that names a file of type directory, ls displays the names
+     of files contained within that directory, as well as any requested,
+     associated information.</pre><p>Optional values are shown inside square brackets.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="manpages-markup-guidelines"></a>13.3.3. Markup Guidelines</h3></div></div></div><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mdoc&amp;sektion=7&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mdoc</span>(7)</span></a> markup language is not very strict.  For
+	clarity and consistency, the FreeBSD Documentation project adds
+	some additional style guidelines:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">Only the first letter of macros is upper case</span></dt><dd><p>Always use upper case for the first letter of a
+	      macro and lower case for the remaining letters.</p></dd><dt><span class="term">Begin new sentences on new lines</span></dt><dd><p>Start a new sentence on a new line, do not begin it
+	      on the same line as an existing sentence.</p></dd><dt><span class="term">Update <code class="literal">.Dd</code> when making non-trivial
+	    changes to a manual page</span></dt><dd><p>The <span class="emphasis"><em>Document date</em></span> informs the
+	      reader about the last time the manual page was updated.
+	      It is important to update whenever non-trivial changes
+	      are made to the manual pages.  Trivial changes like
+	      spelling or punctuation fixes that do not affect usage
+	      can be made without updating
+	      <code class="literal">.Dd</code>.</p></dd><dt><span class="term">Give examples</span></dt><dd><p>Show the reader examples when possible.  Even
+	      trivial examples are valuable, because what is trivial
+	      to the writer is not necessarily trivial to the reader.
+	      Three examples are a good goal.  A trivial example shows
+	      the minimal requirements, a serious example shows actual
+	      use, and an in-depth example demonstrates unusual or
+	      non-obvious functionality.</p></dd><dt><span class="term">Include the BSD license</span></dt><dd><p>Include the BSD license on new manual pages.  The
+	      preferred license is available from the <a class="link" href="../../../../doc/en_US.ISO8859-1/articles/committers-guidepref-license" target="_top">Committer's
+		Guide</a>.</p></dd></dl></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="manpages-markup-tricks"></a>13.3.4. Markup Tricks</h3></div></div></div><p>Add a space before punctuation on a line with
+	macros.  Example:</p><pre class="programlisting">.Sh SEE ALSO
+.Xr geom 4 ,
+.Xr boot0cfg 8 ,
+.Xr geom 8 ,
+.Xr gptboot 8</pre><p>Note how the commas at the end of the
+	<code class="literal">.Xr</code> lines have been placed after a space.
+	The <code class="literal">.Xr</code> macro expects two parameters to
+	follow it, the name of an external manual page, and a section
+	number.  The space separates the punctuation from the section
+	number.  Without the space, the external links would
+	incorrectly point to section <code class="literal">4,</code> or
+	<code class="literal">8,</code>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="manpages-markup-important-macros"></a>13.3.5. Important Macros</h3></div></div></div><p>Some very common macros will be shown here.  For
+	more usage examples, see <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mdoc&amp;sektion=7&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mdoc</span>(7)</span></a>, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=groff_mdoc&amp;sektion=7&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">groff_mdoc</span>(7)</span></a>, or
+	search for actual use in
+	<code class="filename">/usr/share/man/man*</code> directories.  For
+	example, to search for examples of the <code class="literal">.Bd</code>
+	<span class="emphasis"><em>Begin display</em></span> macro:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>find /usr/share/man/man* | xargs zgrep '.Bd'</code></strong></pre><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="manpages-markup-important-macros-organizational"></a>13.3.5.1. Organizational Macros</h4></div></div></div><p>Some macros are used to define logical blocks of a
+	  manual page.</p><div class="informaltable"><table class="informaltable" border="1"><colgroup><col /><col /></colgroup><thead><tr><th>Organizational Macro</th><th>Use</th></tr></thead><tbody><tr><td><code class="literal">.Sh</code></td><td>Section header.  Followed by the name of
+		  the section, traditionally all upper case.
+		  Think of these as chapter titles.</td></tr><tr><td><code class="literal">.Ss</code></td><td>Subsection header.  Followed by the name of
+		  the subsection.  Used to divide a
+		  <code class="literal">.Sh</code> section into
+		  subsections.</td></tr><tr><td><code class="literal">.Bl</code></td><td>Begin list.  Start a list of items.</td></tr><tr><td><code class="literal">.El</code></td><td>End a list.</td></tr><tr><td><code class="literal">.Bd</code></td><td>Begin display.  Begin a special area of
+		  text, like an indented area.</td></tr><tr><td><code class="literal">.Ed</code></td><td>End display.</td></tr></tbody></table></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="manpages-markup-important-macros-inline"></a>13.3.5.2. Inline Macros</h4></div></div></div><p>Many macros are used to mark up inline text.</p><div class="informaltable"><table class="informaltable" border="1"><colgroup><col /><col /></colgroup><thead><tr><th>Inline Macro</th><th>Use</th></tr></thead><tbody><tr><td><code class="literal">.Nm</code></td><td>Name.  Called with a name as a parameter on the
+		  first use, then used later without the parameter to
+		  display the name that has already been
+		  defined.</td></tr><tr><td><code class="literal">.Pa</code></td><td>Path to a file.  Used to mark up filenames and
+		  directory paths.</td></tr></tbody></table></div></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="manpages-sections.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="manpages.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="manpages-sample-structures.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">13.2. Sections </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 13.4. Sample Manual Page Structures</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

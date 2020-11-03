@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>Implementing UFS Journaling on a Desktop PC</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><meta name="description" content="A journaling file system uses a log to record all transactions that take place in the file system, and preserves its integrity in the event of a system crash or power failure. Although it is still possible to lose unsaved changes to files, journaling almost completely eliminates the possibility of file system corruption caused by an unclean shutdown. It also shortens to a minimum the time required for after-failure file system checking. Although the UFS file system employed by FreeBSD does not implement journaling itself, the new journal class of the GEOM framework in FreeBSD 7.X can be used to provide file system independent journaling. This article explains how to implement UFS journaling on a typical desktop PC scenario." /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div xml:lang="en" class="article" lang="en"><div xmlns="" class="titlepage"><div><div><h1 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp44025592"></a>Implementing UFS Journaling on a Desktop PC</h1></div><div><div xmlns="http://www.w3.org/1999/xhtml" class="author"><h3 class="author"><span class="firstname">Manolis</span> <span class="surname">Kiagias</span></h3><div class="affiliation"><div class="address"><p><code class="email">&lt;<a xmlns="" class="email" href="mailto:manolis@FreeBSD.org">manolis@FreeBSD.org</a>&gt;</code></p></div></div></div></div><div>Revision: <a href="https://svnweb.freebsd.org/changeset/doc/0b702c5af4"><span class="svnref">0b702c5af4</span></a></div><div><p xmlns="http://www.w3.org/1999/xhtml" class="copyright">Copyright © 2008 Manolis Kiagias</p></div><div><div xmlns="http://www.w3.org/1999/xhtml" class="legalnotice"><a id="trademarks"></a><p>FreeBSD is a registered trademark of
+  the FreeBSD Foundation.</p><p>Many of the designations used by
+  manufacturers and sellers to distinguish their products are claimed
+  as trademarks.  Where those designations appear in this document,
+  and the FreeBSD Project was aware of the trademark claim, the
+  designations have been followed by the <span class="quote">&#8220;<span class="quote">&#8482;</span>&#8221;</span> or the
+  <span class="quote">&#8220;<span class="quote">®</span>&#8221;</span> symbol.</p></div></div><div>Last modified on 2017-12-30 22:56:56 +0000 by eadler.</div><div><div xmlns="http://www.w3.org/1999/xhtml" class="abstract"><div class="abstract-title">Abstract</div><p>A journaling file system uses a log to record all transactions
+	that take place in the file system, and preserves its integrity in the
+	event of a system crash or power failure.  Although it is still
+	possible to lose unsaved changes to files, journaling almost
+	completely eliminates the possibility of file system corruption caused
+	by an unclean shutdown.  It also shortens to a minimum the time
+	required for after-failure file system checking.  Although the UFS
+	file system employed by FreeBSD does not implement journaling itself,
+	the new journal class of the GEOM framework in FreeBSD 7.<em class="replaceable"><code>X</code></em> can be
+	used to provide file system independent journaling. This article
+	explains how to implement UFS journaling on a typical desktop PC
+	scenario.</p></div></div></div><div class="docformatnavi">
+      [
+      <a href="index.html">Split HTML</a>
+      /
+      
+	  Single HTML
+	
+      ]
+    </div><hr /></div><div class="toc"><div class="toc-title">Table of Contents</div><dl class="toc"><dt><span class="sect1"><a href="#introduction">1. Introduction</a></span></dt><dt><span class="sect1"><a href="#understanding-journaling">2. Understanding Journaling in FreeBSD</a></span></dt><dt><span class="sect1"><a href="#reserve-space">3. Steps During the Installation of FreeBSD</a></span></dt><dt><span class="sect1"><a href="#configure-journal">4. Setting Up Journaling</a></span></dt><dt><span class="sect1"><a href="#troubleshooting-gjournal">5. Troubleshooting Journaling</a></span></dt><dt><span class="sect1"><a href="#further-reading">6. Further Reading</a></span></dt></dl></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="introduction"></a>1. Introduction</h2></div></div></div><p>While  professional servers are usually well protected from
+      unforeseen shutdowns, the typical desktop is at the mercy of power
+      failures, accidental resets, and other user related incidents that can
+      lead to unclean shutdowns.  Soft Updates usually protect the file system
+      efficiently in such cases, although most of the times a lengthy
+      background check is required.  On rare occasions, file system corruption
+      reaches a point where user intervention is required and data may be
+      lost.</p><p>The new journaling capability provided by GEOM can greatly assist
+      in such scenarios, by virtually eliminating the time required for
+      file system checking, and ensuring that the file system is quickly
+      restored to a consistent state.</p><p>This article describes a procedure for implementing UFS journaling
+      on a typical desktop PC scenario (one hard disk used for both operating
+      system and data).  It should be followed during a fresh installation of
+      FreeBSD.  The steps are simple enough and do not require overly complex
+      interaction with the command line.</p><p>After reading this article, you will know:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>How to reserve space for journaling during a new installation of
+	  FreeBSD.</p></li><li class="listitem"><p>How to load and enable the <code class="literal">geom_journal</code>
+	  module (or build support for it in your custom kernel).</p></li><li class="listitem"><p>How to convert your existing file systems to utilize journaling,
+	  and what options to use in <code class="filename">/etc/fstab</code> to mount
+	  them.</p></li><li class="listitem"><p>How to implement journaling in new (empty) partitions.</p></li><li class="listitem"><p>How to troubleshoot common problems associated with
+	  journaling.</p></li></ul></div><p>Before reading this article, you should be able to:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Understand basic <span class="trademark">UNIX</span>® and FreeBSD concepts.</p></li><li class="listitem"><p>Be familiar with the installation procedure of FreeBSD and the
+	<span class="application">sysinstall</span> utility.</p></li></ul></div><div xmlns="" class="warning"><h3 class="admontitle">Warning: </h3><p xmlns="http://www.w3.org/1999/xhtml">The procedure described here is intended for preparing a new
+	installation where no actual user data is stored on the disk yet.
+	While it is possible to modify and extend this procedure for
+	systems already in production, you should <span class="emphasis"><em>backup</em></span>
+	all important data before doing so.  Messing around with disks and
+	partitions at a low level can lead to fatal mistakes and data
+	loss.</p></div></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="understanding-journaling"></a>2. Understanding Journaling in FreeBSD</h2></div></div></div><p>The journaling provided by GEOM in FreeBSD 7.<em class="replaceable"><code>X</code></em> is not file system
+      specific (unlike for example the ext3 file system in <span class="trademark">Linux</span>®) but is
+      functioning at the block level.  Though this means it can be applied
+      to different file systems, for FreeBSD 7.0-RELEASE, it can only be used
+      on UFS2.</p><p>This functionality is provided by loading the
+      <code class="filename">geom_journal.ko</code> module into the kernel (or
+      building it into a custom kernel) and using the
+      <code class="command">gjournal</code> command to configure the file systems.
+      In general, you would like to journal large file systems, like
+      <code class="filename">/usr</code>.  You will need however (see the following
+      section) to reserve some free disk space.</p><p>When a file system is journaled, some disk space is needed to keep
+      the journal itself.  The disk space that holds the actual data is
+      referred to as the <span class="emphasis"><em>data provider</em></span>, while the one
+      that holds the journal is referred to as the
+      <span class="emphasis"><em>journal provider</em></span>.  The data and journal providers
+      need to be on different partitions when journaling an existing
+      (non-empty) partition.  When journaling a new partition, you have the
+      option to use a single provider for both data and journal.  In any case,
+      the <code class="command">gjournal</code> command combines both providers to
+      create the final journaled file system.  For example:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>You wish to journal your <code class="filename">/usr</code> file system,
+	  stored in <code class="filename">/dev/ad0s1f</code> (which
+	  already contains data).</p></li><li class="listitem"><p>You reserved some free disk space in a partition in
+	  <code class="filename">/dev/ad0s1g</code>.</p></li><li class="listitem"><p>Using <code class="command">gjournal</code>, a new <code class="filename">/dev/ad0s1f.journal</code> device is created
+	  where <code class="filename">/dev/ad0s1f</code> is the data
+	  provider, and <code class="filename">/dev/ad0s1g</code> is
+	  the journal provider.  This new device is then used for all
+	  subsequent file operations.</p></li></ul></div><p>The amount of disk space you need to reserve for the journal
+      provider depends on the usage load of the file system and not on the
+      size of the data provider.  For example on a typical office desktop,
+      a 1 GB journal provider for the <code class="filename">/usr</code> file system
+      will suffice, while a machine that deals with heavy disk I/O (i.e.
+      video editing) may need more.  A kernel panic will occur if the
+      journal space is exhausted before it has a chance to be
+      committed.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">The journal sizes suggested here, are highly unlikely to cause
+	problems in typical desktop use (such as web browsing, word
+	processing and playback of media files).  If your workload
+	includes intense disk activity, use the following rule for maximum
+	reliability: Your RAM size should fit in 30% of the journal provider's
+	space.  For example, if your system has 1 GB RAM, create an
+	approximately 3.3 GB journal provider. (Multiply your
+	RAM size with 3.3 to obtain the size of the journal).</p></div><p>For more information about journaling, please read the manual
+      page of <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=gjournal&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">gjournal</span>(8)</span></a>.</p></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="reserve-space"></a>3. Steps During the Installation of FreeBSD</h2></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp45013368"></a>3.1. Reserving Space for Journaling</h3></div></div></div><p>A typical desktop machine usually has one hard disk that stores
+	both the OS and user data.  Arguably, the default partitioning scheme
+	selected by <span class="application">sysinstall</span> is more or less
+	suitable:  A desktop machine does not need a large
+	<code class="filename">/var</code> partition, while <code class="filename">/usr</code>
+	is allocated the bulk of the disk space, since user data and a lot of
+	packages are installed into its subdirectories.</p><p>The default partitioning (the one obtained by pressing
+	<span class="keycap"><strong>A</strong></span> at the FreeBSD partition editor, called <span class="application">Disklabel</span>) does not leave any
+	unallocated space.  Each partition that will be journaled, requires
+	another	partition for the journal.  Since the <code class="filename">/usr</code>
+	partition is the largest, it makes sense to shrink this partition
+	slightly, to obtain the space required for journaling.</p><p>In our example, an 80 GB disk is used.  The following screenshot
+	shows the default partitions created by <span class="application">Disklabel</span> during
+	installation:</p><div class="mediaobject"><img src="disklabel1.png" /></div><p>If this is more or less what you need, it is very easy to adjust
+	for journaling.  Simply use the
+	arrow keys to move the highlight to the
+	<code class="filename">/usr</code> partition and press <span class="keycap"><strong>D</strong></span> to
+	delete it.</p><p>Now, move the highlight to the disk name at the top of the screen
+	and press <span class="keycap"><strong>C</strong></span> to create a new partition for
+	<code class="filename">/usr</code>.  This new partition should be smaller by
+	1 GB (if you intend to journal <code class="filename">/usr</code> only), or
+	2 GB (if you intend to journal both <code class="filename">/usr</code> and
+	<code class="filename">/var</code>).  From the pop-up that appears, opt to
+	create a file system, and type <code class="filename">/usr</code> as the mount
+	point.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Should you journal the <code class="filename">/var</code> partition?
+	  Normally, journaling makes sense on quite large partitions.  You may
+	  decide not to journal <code class="filename">/var</code>, although doing so
+	  on a typical desktop will cause no harm.  If the file system is
+	  lightly used (quite probable for a desktop) you may wish to
+	  allocate less disk space for its journal.</p><p xmlns="http://www.w3.org/1999/xhtml">In our example, we journal both <code class="filename">/usr</code> and
+	  <code class="filename">/var</code>.  You may of course adjust the procedure
+	  to your own needs.</p></div><p>To keep things as easy going as possible, we are going to use
+	<span class="application">sysinstall</span> to create the partitions
+	required for journaling.  However, during installation,
+	<span class="application">sysinstall</span> insists on asking a mount point
+	for each partition you create.  At this point, you do not have any
+	mount points for the partitions that will hold the journals, and in
+	reality you <span class="emphasis"><em>do not even need them</em></span>.  These are
+	not partitions that we are ever going to mount somewhere.</p><p>To avoid these problems with
+	<span class="application">sysinstall</span>, we are going to create the
+	journal partitions as swap space.  Swap is never mounted, and
+	<span class="application">sysinstall</span> has no problem creating as many
+	swap partitions as needed.  After the first reboot,
+	<code class="filename">/etc/fstab</code> will have to be edited, and the extra
+	swap space entries removed.</p><p>To create the swap, again use the
+	arrow keys to move the highlight to the top of
+	<span class="application">Disklabel</span> screen, so that the disk name itself is
+	highlighted.  Then press <span class="keycap"><strong>N</strong></span>, enter the desired size
+	(<em class="replaceable"><code>1024M</code></em>), and select
+	<span class="quote">&#8220;<span class="quote">swap space</span>&#8221;</span> from the pop-up menu that appears.  Repeat
+	for every journal you wish to create.  In our example, we create two
+	partitions to provide for the journals of <code class="filename">/usr</code> and
+	<code class="filename">/var</code>.  The final result is shown in the following
+	screenshot:</p><div class="mediaobject"><img src="disklabel2.png" /></div><p>When you have completed creating the partitions, we suggest you
+	write down the partition names, and mount points, so you can easily
+	refer to this information during the configuration phase.  This will
+	help alleviate mistakes that may damage your installation.  The
+	following table shows our notes for the sample configuration:</p><div class="table"><a id="idp45092472"></a><div class="table-title">Table 1. Partitions and Journals</div><div class="table-contents"><table class="table" summary="Partitions and Journals" width="100%" border="1"><colgroup><col /><col /><col /></colgroup><thead><tr><th>Partition</th><th>Mount Point</th><th>Journal</th></tr></thead><tbody><tr><td>ad0s1d</td><td>/var</td><td>ad0s1h</td></tr><tr><td>ad0s1f</td><td>/usr</td><td>ad0s1g</td></tr></tbody></table></div></div><br class="table-break" /><p>Continue the installation as you would normally do.  We would
+	however suggest you postpone installation of third party software
+	(packages) until you have completely setup journaling.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="first-boot"></a>3.2. Booting for the first time</h3></div></div></div><p>Your system will come up normally, but you will need to edit
+	<code class="filename">/etc/fstab</code> and remove the extra swap partitions
+	you created for the journals.  Normally, the swap partition you will
+	actually use is the one with the <span class="quote">&#8220;<span class="quote">b</span>&#8221;</span> suffix (i.e.
+	ad0s1b in our example).  Remove all other swap space entries and
+	reboot so that FreeBSD will stop using them.</p><p>When the system comes up again, we will be ready to configure
+	journaling.</p></div></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="configure-journal"></a>4. Setting Up Journaling</h2></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="running-gjournal"></a>4.1. Executing <code class="command">gjournal</code></h3></div></div></div><p>Having prepared all the required partitions, it is quite easy
+	to configure journaling.  We will need to switch to single user
+	mode, so login as <code class="systemitem">root</code> and type:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>shutdown now</code></strong></pre><p>Press <span class="keycap"><strong>Enter</strong></span> to get the default shell.  We will need to unmount
+	the partitions that will be journaled, in our example
+	<code class="filename">/usr</code> and <code class="filename">/var</code>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>umount /usr /var</code></strong></pre><p>Load the module required for journaling:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>gjournal load</code></strong></pre><p>Now, use your notes to determine which partition will be used
+	for each journal.  In our example,  <code class="filename">/usr</code> is
+	<code class="filename">ad0s1f</code> and its journal will be
+	<code class="filename">ad0s1g</code>, while
+	<code class="filename">/var</code> is <code class="filename">ad0s1d</code> and will
+	be journaled to <code class="filename">ad0s1h</code>.
+	The following commands are required:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>gjournal label ad0s1f ad0s1g</code></strong>
+
+GEOM_JOURNAL: Journal 2948326772: ad0s1f contains data.
+GEOM_JOURNAL: Journal 2948326772: ad0s1g contains journal.
+
+<code class="prompt">#</code> <strong class="userinput"><code>gjournal label ad0s1d ad0s1h</code></strong>
+
+GEOM_JOURNAL: Journal 3193218002: ad0s1d contains data.
+GEOM_JOURNAL: Journal 3193218002: ad0s1h contains journal.</pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">If the last sector of either partition is used,
+	  <code class="command">gjournal</code> will return an error.  You will have
+	  to run the command using the <code class="option">-f</code> flag to force an
+	  overwrite, i.e.:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="screen"><code class="prompt">#</code> <strong class="userinput"><code>gjournal label -f ad0s1d ad0s1h</code></strong></pre><p xmlns="http://www.w3.org/1999/xhtml">Since this is a new installation, it is highly unlikely that
+	  anything will be actually overwritten.</p></div><p>At this point, two new devices are created, namely
+	<code class="filename">ad0s1d.journal</code> and
+	<code class="filename">ad0s1f.journal</code>.  These represent
+	the <code class="filename">/var</code> and <code class="filename">/usr</code>
+	partitions we have to mount.  Before mounting, we must however set
+	the journal flag on them and clear the Soft Updates flag:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>tunefs -J enable -n disable ad0s1d.journal</code></strong>
+
+tunefs: gjournal set
+tunefs: soft updates cleared
+
+<code class="prompt">#</code> <strong class="userinput"><code>tunefs -J enable -n disable ad0s1f.journal</code></strong>
+
+tunefs: gjournal set
+tunefs: soft updates cleared</pre><p>Now, mount the new devices manually at their respective places
+	(note that we can now use the <code class="option">async</code> mount
+	option):</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>mount -o async /dev/ad0s1d.journal /var</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>mount -o async /dev/ad0s1f.journal /usr</code></strong></pre><p>Edit <code class="filename">/etc/fstab</code> and update the entries for
+	<code class="filename">/usr</code> and <code class="filename">/var</code>:</p><pre class="programlisting">/dev/ad0s1f.journal     /usr            ufs     rw,async      2       2
+/dev/ad0s1d.journal     /var            ufs     rw,async      2       2</pre><div xmlns="" class="warning"><h3 class="admontitle">Warning: </h3><p xmlns="http://www.w3.org/1999/xhtml">Make sure the above entries are correct, or you will have
+	  trouble starting up normally after you reboot!</p></div><p>Finally, edit <code class="filename">/boot/loader.conf</code> and add the
+	following line so the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=gjournal&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">gjournal</span>(8)</span></a> module is loaded at every
+	boot:</p><pre class="programlisting">geom_journal_load="YES"</pre><p>Congratulations! Your system is now set for journaling.  You can
+	either type <strong class="userinput"><code>exit</code></strong> to return to multi-user mode, or
+	reboot to test your configuration (recommended).  During the boot you
+	will see messages like the following:</p><pre class="screen">ad0: 76293MB XEC XE800JD-00HBC0 08.02D08 at ata0-master SATA150
+GEOM_JOURNAL: Journal 2948326772: ad0s1g contains journal.
+GEOM_JOURNAL: Journal 3193218002: ad0s1h contains journal.
+GEOM_JOURNAL: Journal 3193218002: ad0s1d contains data.
+GEOM_JOURNAL: Journal ad0s1d clean.
+GEOM_JOURNAL: Journal 2948326772: ad0s1f contains data.
+GEOM_JOURNAL: Journal ad0s1f clean.</pre><p>After an unclean shutdown, the messages will vary slightly,
+	i.e.:</p><pre class="screen">GEOM_JOURNAL: Journal ad0s1d consistent.</pre><p>This usually means that <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=gjournal&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">gjournal</span>(8)</span></a> used the information in
+	the journal provider to return the file system to a consistent
+	state.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="gjournal-new"></a>4.2. Journaling Newly Created Partitions</h3></div></div></div><p>While the above procedure is necessary for journaling partitions
+	that already contain data, journaling an empty partition is somewhat
+	easier, since both the data and the journal provider can be stored
+	in the same partition.  For example, assume a new disk was installed,
+	and a new partition <code class="filename">/dev/ad1s1d</code>
+	was created.  Creating the journal would be as simple as:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>gjournal label ad1s1d</code></strong></pre><p>The journal size will be 1 GB by default. You may adjust it by
+	using the <code class="option">-s</code> option.  The value can be given in
+	bytes, or appended by <code class="literal">K</code>, <code class="literal">M</code> or
+	<code class="literal">G</code> to denote Kilobytes, Megabytes or Gigabytes
+	respectively.  Note that <code class="command">gjournal</code> will not allow
+	you to create unsuitably small journal sizes.</p><p>For example, to create a 2 GB journal, you could use the following
+	command:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>gjournal label -s 2G ad1s1d</code></strong></pre><p>You can then create a file system on your new partition, and
+	enable journaling using the <code class="option">-J</code> option:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>newfs -J /dev/ad1s1d.journal</code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="configure-kernel"></a>4.3. Building Journaling into Your Custom Kernel</h3></div></div></div><p>If you do not wish to load <code class="literal">geom_journal</code> as a
+	module, you can build its functions right into your kernel.  Edit your
+	custom kernel configuration file, and make sure it includes these two
+	lines:</p><pre class="programlisting">options UFS_GJOURNAL # Note: This is already in GENERIC
+
+options GEOM_JOURNAL # You will have to add this one</pre><p>Rebuild and reinstall your kernel following the relevant
+	<a class="link" href="../../../../doc/en_US.ISO8859-1/books/handbook/kernelconfig.html" target="_top">instructions in
+	the FreeBSD Handbook.</a></p><p>Do not forget to remove the relevant <span class="quote">&#8220;<span class="quote">load</span>&#8221;</span> entry
+	from <code class="filename">/boot/loader.conf</code> if you have previously
+	used it.</p></div></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="troubleshooting-gjournal"></a>5. Troubleshooting Journaling</h2></div></div></div><p>The following section covers frequently asked questions regarding
+      problems related to journaling.</p><div class="qandaset"><a id="idp45272440"></a><dl><dt>5.1. <a href="#idp45273336">I am getting kernel panics during periods of high disk
+	    activity.  How is this related to journaling?</a></dt><dt>5.2. <a href="#idp45279864">I made some mistake during configuration, and I cannot boot
+	    normally now.  Can this be fixed some way?</a></dt><dt>5.3. <a href="#idp45323000">Can I remove journaling and return to my standard file system
+	      with Soft Updates?</a></dt></dl><table border="0" style="width: 100%;"><colgroup><col align="left" width="1%" /><col /></colgroup><tbody><tr class="question"><td align="left" valign="top"><a id="idp45273336"></a><a id="kernel-panic"></a><p><strong>5.1.</strong></p></td><td align="left" valign="top"><p>I am getting kernel panics during periods of high disk
+	    activity.  How is this related to journaling?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>The journal probably fills up before it has a chance to get
+	    committed (flushed) to disk.  Keep in mind the size of the
+	    journal depends on the usage load, and not the size of the data
+	    provider.  If your disk activity is high, you need a larger
+	    partition for the journal.  See the note in the <a class="link" href="#understanding-journaling" title="2. Understanding Journaling in FreeBSD">Understanding Journaling</a> section.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp45279864"></a><a id="unable-boot"></a><p><strong>5.2.</strong></p></td><td align="left" valign="top"><p>I made some mistake during configuration, and I cannot boot
+	    normally now.  Can this be fixed some way?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>You either forgot (or misspelled) the entry in
+	    <code class="filename">/boot/loader.conf</code>, or there are errors in
+	    your <code class="filename">/etc/fstab</code> file.  These are usually easy
+	    to fix.  Press <span class="keycap"><strong>Enter</strong></span> to get to the default single user shell.  Then
+	    locate the root of the problem:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cat /boot/loader.conf</code></strong></pre><p>If the <code class="literal">geom_journal_load</code> entry is missing
+	    or misspelled, the journaled devices are never created. Load the
+	    module manually,  mount all partitions, and continue with
+	    multi-user boot:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>gjournal load</code></strong>
+
+GEOM_JOURNAL: Journal 2948326772: ad0s1g contains journal.
+GEOM_JOURNAL: Journal 3193218002: ad0s1h contains journal.
+GEOM_JOURNAL: Journal 3193218002: ad0s1d contains data.
+GEOM_JOURNAL: Journal ad0s1d clean.
+GEOM_JOURNAL: Journal 2948326772: ad0s1f contains data.
+GEOM_JOURNAL: Journal ad0s1f clean.
+
+<code class="prompt">#</code> <strong class="userinput"><code>mount -a</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>exit</code></strong>
+<span class="emphasis"><em>(boot continues)</em></span></pre><p>If, on the other hand, this entry is correct, have a look at
+	    <code class="filename">/etc/fstab</code>.  You will probably find a
+	    misspelled or missing entry.  In this case, mount all remaining
+	    partitions by hand and continue with the multi-user boot.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp45323000"></a><a id="remove-journaling"></a><p><strong>5.3.</strong></p></td><td align="left" valign="top"><p>Can I remove journaling and return to my standard file system
+	      with Soft Updates?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>Sure. Use the following procedure, which reverses the
+	    changes.  The partitions you created for the journal providers
+	    can then be used for other purposes, if you so wish.</p><p>Login as <code class="systemitem">root</code> and switch to single user mode:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>shutdown now</code></strong></pre><p>Unmount the journaled partitions:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>umount /usr /var</code></strong></pre><p>Synchronize the journals:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>gjournal sync</code></strong></pre><p>Stop the journaling providers:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>gjournal stop ad0s1d.journal</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>gjournal stop ad0s1f.journal</code></strong></pre><p>Clear journaling metadata from all the devices used:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>gjournal clear ad0s1d</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>gjournal clear ad0s1f</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>gjournal clear ad0s1g</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>gjournal clear ad0s1h</code></strong></pre><p>Clear the file system journaling flag, and restore the Soft
+	    Updates flag:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>tunefs -J disable -n enable ad0s1d</code></strong>
+
+tunefs: gjournal cleared
+tunefs: soft updates set
+
+<code class="prompt">#</code> <strong class="userinput"><code>tunefs -J disable -n enable ad0s1f</code></strong>
+
+tunefs: gjournal cleared
+tunefs: soft updates set</pre><p>Remount the old devices by hand:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>mount -o rw /dev/ad0s1d /var</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>mount -o rw /dev/ad0s1f /usr</code></strong></pre><p>Edit <code class="filename">/etc/fstab</code> and restore it to its
+	    original state:</p><pre class="programlisting">/dev/ad0s1f     /usr            ufs     rw      2       2
+/dev/ad0s1d     /var            ufs     rw      2       2</pre><p>Finally, edit <code class="filename">/boot/loader.conf</code>, remove
+	    the entry that loads the <code class="literal">geom_journal</code> module
+	    and reboot.</p></td></tr></tbody></table></div></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="further-reading"></a>6. Further Reading</h2></div></div></div><p>Journaling is a fairly new feature of FreeBSD, and as such, it is
+      not very well documented yet.  You may however find the following
+      additional references useful:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>A <a class="link" href="../../../../doc/en_US.ISO8859-1/books/handbook/geom-gjournal.html" target="_top">new section on journaling</a>
+	  is now part of the FreeBSD Handbook.</p></li><li class="listitem"><p><a class="link" href="https://lists.freebsd.org/pipermail/freebsd-current/2006-June/064043.html" target="_top">This post</a>
+	  in <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo/freebsd-current" target="_top">freebsd-current</a> by <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=gjournal&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">gjournal</span>(8)</span></a>'s developer, Pawe&#322; Jakub Dawidek <code class="email">&lt;<a xmlns="" class="email" href="mailto:pjd@FreeBSD.org">pjd@FreeBSD.org</a>&gt;</code>.</p></li><li class="listitem"><p><a class="link" href="https://lists.freebsd.org/pipermail/freebsd-questions/2008-April/173501.html" target="_top">This post</a>
+	  in <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo/freebsd-questions" target="_top">freebsd-questions</a> by Ivan Voras <code class="email">&lt;<a xmlns="" class="email" href="mailto:ivoras@FreeBSD.org">ivoras@FreeBSD.org</a>&gt;</code>.</p></li><li class="listitem"><p>The manual pages of <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=gjournal&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">gjournal</span>(8)</span></a> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=geom&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">geom</span>(8)</span></a>.</p></li></ul></div></div></div></body></html>

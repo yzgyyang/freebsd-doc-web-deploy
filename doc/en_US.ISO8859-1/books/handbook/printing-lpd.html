@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>9.5. LPD (Line Printer Daemon)</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="printing.html" title="Chapter 9. Printing" /><link rel="prev" href="printing-direct.html" title="9.4. Direct Printing" /><link rel="next" href="printing-other.html" title="9.6. Other Printing Systems" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">9.5. <acronym class="acronym">LPD</acronym> (Line Printer Daemon)</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="printing-direct.html">Prev</a> </td><th width="60%" align="center">Chapter 9. Printing</th><td width="20%" align="right"> <a accesskey="n" href="printing-other.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="printing-lpd"></a>9.5. <acronym class="acronym">LPD</acronym> (Line Printer Daemon)</h2></div></div></div><p>Printing a file in the background is called
+      <span class="emphasis"><em>spooling</em></span>.  A spooler allows the user to
+      continue with other programs on the computer without waiting for
+      the printer to slowly complete the print job.</p><p>FreeBSD includes a spooler called <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=lpd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">lpd</span>(8)</span></a>.  Print jobs are
+      submitted with <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=lpr&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">lpr</span>(1)</span></a>.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="printing-lpd-setup"></a>9.5.1. Initial Setup</h3></div></div></div><p>A directory for storing print jobs is created, ownership
+	is set, and the permissions are set to prevent other users
+	from viewing the contents of those files:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>mkdir -p /var/spool/lpd/lp</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>chown daemon:daemon /var/spool/lpd/lp</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>chmod 770 /var/spool/lpd/lp</code></strong></pre><p>Printers are defined in
+	<code class="filename">/etc/printcap</code>.  An entry for each printer
+	includes details like a name, the port where it is attached,
+	and various other settings.  Create
+	<code class="filename">/etc/printcap</code> with these contents:</p><pre class="programlisting">lp:\				<a id="printing-lpd-co-name"></a><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span>
+	:lp=/dev/unlpt0:\	<a id="printing-lpd-co-device"></a><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span>
+	:sh:\			<a id="printing-lpd-co-header"></a><span><img src="./imagelib/callouts/3.png" alt="3" border="0" /></span>
+	:mx#0:\			<a id="printing-lpd-co-mx"></a><span><img src="./imagelib/callouts/4.png" alt="4" border="0" /></span>
+	:sd=/var/spool/lpd/lp:\	<a id="printing-lpd-co-sd"></a><span><img src="./imagelib/callouts/5.png" alt="5" border="0" /></span>
+	:lf=/var/log/lpd-errs:	<a id="printing-lpd-co-lf"></a><span><img src="./imagelib/callouts/6.png" alt="6" border="0" /></span></pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#printing-lpd-co-name"><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span></a> </p></td><td valign="top" align="left"><p>The name of this printer.  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=lpr&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">lpr</span>(1)</span></a> sends print
+	    jobs to the <code class="literal">lp</code> printer unless another
+	    printer is specified with <code class="option">-P</code>, so the
+	    default printer should be named
+	    <code class="literal">lp</code>.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#printing-lpd-co-device"><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span></a> </p></td><td valign="top" align="left"><p>The device where the printer is connected.  Replace
+	    this line with the appropriate one for the connection type
+	    shown here.</p><div class="informaltable"><a id="printing-lpd-co-device-tbl"></a><table class="informaltable" border="1"><colgroup><col /><col /></colgroup><thead><tr><th>Connection Type</th><th>Device Entry in
+		    <code class="filename">/etc/printcap</code></th></tr></thead><tbody><tr><td><acronym class="acronym">USB</acronym></td><td><pre class="programlisting">:lp=/dev/unlpt0:\</pre>
+
+		    <p>This is the
+		      <span class="emphasis"><em>non-resetting</em></span>
+		      <acronym class="acronym">USB</acronym> printer device.  If
+		      problems are experienced, use
+		      <code class="filename">ulpt0</code> instead, which resets
+		      the <acronym class="acronym">USB</acronym> port on each
+		      use.</p></td></tr><tr><td>Parallel</td><td><pre class="programlisting">:lp=/dev/lpt0:\</pre></td></tr><tr><td>Network</td><td><p>For a printer supporting the
+		    <acronym class="acronym">LPD</acronym> protocol:</p>
+
+		    <pre class="programlisting">:lp=:rm=<em class="replaceable"><code>network-printer-name</code></em>:rp=raw:\</pre>
+
+		    <p>For printers supporting port 9100
+		      printing:</p>
+
+		    <pre class="programlisting">:lp=9100@<em class="replaceable"><code>network-printer-name</code></em>:\</pre>
+
+		    <p>For both types, replace
+		      <em class="replaceable"><code>network-printer-name</code></em>
+		      with the <acronym class="acronym">DNS</acronym> host name of the
+		      network printer.</p></td></tr><tr><td>Serial</td><td><pre class="programlisting">:lp=/dev/cuau0:br=9600:pa=none:\</pre>
+
+		    <p>These values are for a typical serial
+		      printer connected to a motherboard serial port.
+		      The baud rate is 9600, and no parity is
+		      used.</p></td></tr></tbody></table></div></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#printing-lpd-co-header"><span><img src="./imagelib/callouts/3.png" alt="3" border="0" /></span></a> </p></td><td valign="top" align="left"><p>Suppress the printing of a header page at the start of
+	    a print job.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#printing-lpd-co-mx"><span><img src="./imagelib/callouts/4.png" alt="4" border="0" /></span></a> </p></td><td valign="top" align="left"><p>Do not limit the maximum size of a print job.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#printing-lpd-co-sd"><span><img src="./imagelib/callouts/5.png" alt="5" border="0" /></span></a> </p></td><td valign="top" align="left"><p>The path to the spooling directory for this printer.
+	    Each printer uses its own spooling directory.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#printing-lpd-co-lf"><span><img src="./imagelib/callouts/6.png" alt="6" border="0" /></span></a> </p></td><td valign="top" align="left"><p>The log file where errors on this printer will be
+	    reported.</p></td></tr></table></div><p>After creating <code class="filename">/etc/printcap</code>, use
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=chkprintcap&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">chkprintcap</span>(8)</span></a> to test it for errors:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>chkprintcap</code></strong></pre><p>Fix any reported problems before continuing.</p><p>Enable <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=lpd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">lpd</span>(8)</span></a> in
+	<code class="filename">/etc/rc.conf</code>:</p><pre class="programlisting">lpd_enable="YES"</pre><p>Start the service:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service lpd start</code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="printing-lpd-lpr"></a>9.5.2. Printing with <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=lpr&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">lpr</span>(1)</span></a></h3></div></div></div><p>Documents are sent to the printer with
+	<code class="command">lpr</code>.  A file to be printed can be named on
+	the command line or piped into <code class="command">lpr</code>.  These
+	two commands are equivalent, sending the contents of
+	<code class="filename">doc.txt</code> to the default printer:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>lpr doc.txt</code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>cat doc.txt | lpr</code></strong></pre><p>Printers can be selected with <code class="option">-P</code>.  To
+	print to a printer called
+	<em class="replaceable"><code>laser</code></em>:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>lpr -Plaser doc.txt</code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="printing-lpd-filters"></a>9.5.3. Filters</h3></div></div></div><p>The examples shown so far have sent the contents of a text
+	file directly to the printer.  As long as the printer
+	understands the content of those files, output will be printed
+	correctly.</p><p>Some printers are not capable of printing plain text, and
+	the input file might not even be plain text.</p><p><span class="emphasis"><em>Filters</em></span> allow files to be
+	translated or processed.  The typical use is to translate one
+	type of input, like plain text, into a form that the printer
+	can understand, like <span class="trademark">PostScript</span>® or <acronym class="acronym">PCL</acronym>.
+	Filters can also be used to provide additional features, like
+	adding page numbers or highlighting source code to make it
+	easier to read.</p><p>The filters discussed here are
+	<span class="emphasis"><em>input filters</em></span> or
+	<span class="emphasis"><em>text filters</em></span>.  These filters convert the
+	incoming file into different forms.  Use <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=su&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">su</span>(1)</span></a> to become
+	<code class="systemitem">root</code> before
+	creating the files.</p><p>Filters are specified in
+	<code class="filename">/etc/printcap</code> with the
+	<code class="literal">if=</code> identifier.  To use
+	<code class="filename">/usr/local/libexec/lf2crlf</code> as a filter,
+	modify <code class="filename">/etc/printcap</code> like this:</p><pre class="programlisting">lp:\
+	:lp=/dev/unlpt0:\
+	:sh:\
+	:mx#0:\
+	:sd=/var/spool/lpd/lp:\
+	:if=/usr/local/libexec/lf2crlf:\   <a id="printing-lpd-filters-co-if"></a><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span>
+	:lf=/var/log/lpd-errs:</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#printing-lpd-filters-co-if"><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span></a> </p></td><td valign="top" align="left"><p><code class="literal">if=</code> identifies the
+	    <span class="emphasis"><em>input filter</em></span> that will be used on
+	    incoming text.</p></td></tr></table></div><div xmlns="" class="tip"><h3 class="admontitle"><a xmlns="http://www.w3.org/1999/xhtml" id="printing-lpd-filters-oneline"></a>Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">The backslash <span class="emphasis"><em>line continuation</em></span>
+	  characters at the end of the lines in
+	  <code class="filename">printcap</code> entries reveal that an entry
+	  for a printer is really just one long line with entries
+	  delimited by colon characters.  An earlier example can be
+	  rewritten as a single less-readable line:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="programlisting">lp:lp=/dev/unlpt0:sh:mx#0:sd=/var/spool/lpd/lp:if=/usr/local/libexec/lf2crlf:lf=/var/log/lpd-errs:</pre></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="printing-lpd-filters-stairstep"></a>9.5.3.1. Preventing Stairstepping on Plain Text Printers</h4></div></div></div><p>Typical FreeBSD text files contain only a single line feed
+	  character at the end of each line.  These lines will
+	  <span class="quote">&#8220;<span class="quote">stairstep</span>&#8221;</span> on a standard printer:</p><pre class="programlisting">A printed file looks
+                    like the steps of a staircase
+                                                 scattered by the wind</pre><p>A filter can convert the newline characters into
+	  carriage returns and newlines.  The carriage returns make
+	  the printer return to the left after each line.  Create
+	  <code class="filename">/usr/local/libexec/lf2crlf</code> with these
+	  contents:</p><pre class="programlisting">#!/bin/sh
+CR=$'\r'
+/usr/bin/sed -e "s/$/${CR}/g"</pre><p>Set the permissions and make it executable:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>chmod 555 /usr/local/libexec/lf2crlf</code></strong></pre><p>Modify <code class="filename">/etc/printcap</code> to use the
+	  new filter:</p><pre class="programlisting">:if=/usr/local/libexec/lf2crlf:\</pre><p>Test the filter by printing the same plain text file.
+	  The carriage returns will cause each line to start at the
+	  left side of the page.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="printing-lpd-filters-enscript"></a>9.5.3.2. Fancy Plain Text on <span class="trademark">PostScript</span>® Printers with
+	  <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/print/enscript/pkg-descr">print/enscript</a></h4></div></div></div><p><acronym class="acronym">GNU</acronym>
+	  <span class="application">Enscript</span> converts plain text
+	  files into nicely-formatted <span class="trademark">PostScript</span>® for printing on
+	  <span class="trademark">PostScript</span>® printers.  It adds page numbers, wraps long
+	  lines, and provides numerous other features to make printed
+	  text files easier to read.  Depending on the local paper
+	  size, install either
+	  <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/print/enscript-letter/pkg-descr">print/enscript-letter</a> or
+	  <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/print/enscript-a4/pkg-descr">print/enscript-a4</a> from the
+	  Ports Collection.</p><p>Create <code class="filename">/usr/local/libexec/enscript</code>
+	  with these contents:</p><pre class="programlisting">#!/bin/sh
+/usr/local/bin/enscript -o -</pre><p>Set the permissions and make it executable:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>chmod 555 /usr/local/libexec/enscript</code></strong></pre><p>Modify <code class="filename">/etc/printcap</code> to use the
+	  new filter:</p><pre class="programlisting">:if=/usr/local/libexec/enscript:\</pre><p>Test the filter by printing a plain text file.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="printing-lpd-filters-ps2pcl"></a>9.5.3.3. Printing <span class="trademark">PostScript</span>® to
+	  <acronym class="acronym">PCL</acronym> Printers</h4></div></div></div><p>Many programs produce <span class="trademark">PostScript</span>® documents.
+	  However, inexpensive printers often only understand plain
+	  text or <acronym class="acronym">PCL</acronym>.  This filter converts
+	  <span class="trademark">PostScript</span>® files to <acronym class="acronym">PCL</acronym> before sending
+	  them to the printer.</p><p>Install the Ghostscript <span class="trademark">PostScript</span>® interpreter,
+	  <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/print/ghostscript9-base/pkg-descr">print/ghostscript9-base</a>,
+	  from the Ports Collection.</p><p>Create <code class="filename">/usr/local/libexec/ps2pcl</code>
+	  with these contents:</p><pre class="programlisting">#!/bin/sh
+/usr/local/bin/gs -dSAFER -dNOPAUSE -dBATCH -q -sDEVICE=ljet4 -sOutputFile=- -</pre><p>Set the permissions and make it executable:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>chmod 555 /usr/local/libexec/ps2pcl</code></strong></pre><p><span class="trademark">PostScript</span>® input sent to this script will be rendered
+	  and converted to <acronym class="acronym">PCL</acronym> before being sent on
+	  to the printer.</p><p>Modify <code class="filename">/etc/printcap</code> to use this
+	  new input filter:</p><pre class="programlisting">:if=/usr/local/libexec/ps2pcl:\</pre><p>Test the filter by sending a small <span class="trademark">PostScript</span>® program
+	  to it:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>printf "%%\!PS \n /Helvetica findfont 18 scalefont setfont \
+72 432 moveto (PostScript printing successful.) show showpage \004" | lpr</code></strong></pre></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="printing-lpd-filters-smart"></a>9.5.3.4. Smart Filters</h4></div></div></div><p>A filter that detects the type of input and
+	  automatically converts it to the correct format for the
+	  printer can be very convenient.  The first two characters of
+	  a <span class="trademark">PostScript</span>® file are usually <code class="literal">%!</code>.  A
+	  filter can detect those two characters.  <span class="trademark">PostScript</span>® files
+	  can be sent on to a <span class="trademark">PostScript</span>® printer unchanged.  Text
+	  files can be converted to <span class="trademark">PostScript</span>® with
+	  <span class="application">Enscript</span> as shown earlier.
+	  Create <code class="filename">/usr/local/libexec/psif</code> with
+	  these contents:</p><pre class="programlisting">#!/bin/sh
+#
+#  psif - Print PostScript or plain text on a PostScript printer
+#
+IFS="" read -r first_line
+first_two_chars=`expr "$first_line" : '\(..\)'`
+
+case "$first_two_chars" in
+%!)
+    # %! : PostScript job, print it.
+    echo "$first_line" &amp;&amp; cat &amp;&amp; exit 0
+    exit 2
+    ;;
+*)
+    # otherwise, format with enscript
+    ( echo "$first_line"; cat ) | /usr/local/bin/enscript -o - &amp;&amp; exit 0
+    exit 2
+    ;;
+esac</pre><p>Set the permissions and make it executable:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>chmod 555 /usr/local/libexec/psif</code></strong></pre><p>Modify <code class="filename">/etc/printcap</code> to use this
+	  new input filter:</p><pre class="programlisting">:if=/usr/local/libexec/psif:\</pre><p>Test the filter by printing <span class="trademark">PostScript</span>® and plain text
+	  files.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="printing-lpd-filters-othersmart"></a>9.5.3.5. Other Smart Filters</h4></div></div></div><p>Writing a filter that detects many different types of
+	  input and formats them correctly is challenging.
+	  <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/print/apsfilter/pkg-descr">print/apsfilter</a> from the
+	  Ports Collection is a smart <span class="quote">&#8220;<span class="quote">magic</span>&#8221;</span> filter that
+	  detects dozens of file types and automatically converts them
+	  to the <acronym class="acronym">PDL</acronym> understood by the printer.
+	  See <a class="link" href="http://www.apsfilter.org" target="_top">http://www.apsfilter.org</a> for
+	  more details.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="printing-lpd-queues"></a>9.5.4. Multiple Queues</h3></div></div></div><p>The entries in <code class="filename">/etc/printcap</code> are
+	really definitions of <span class="emphasis"><em>queues</em></span>.  There can
+	be more than one queue for a single printer.  When combined
+	with filters, multiple queues provide users more control over
+	how their jobs are printed.</p><p>As an example, consider a networked <span class="trademark">PostScript</span>® laser
+	printer in an office.  Most users want to print plain text,
+	but a few advanced users want to be able to print <span class="trademark">PostScript</span>®
+	files directly.  Two entries can be created for the same
+	printer in <code class="filename">/etc/printcap</code>:</p><pre class="programlisting">textprinter:\
+	:lp=9100@officelaser:\
+	:sh:\
+	:mx#0:\
+	:sd=/var/spool/lpd/textprinter:\
+	:if=/usr/local/libexec/enscript:\
+	:lf=/var/log/lpd-errs:
+
+psprinter:\
+	:lp=9100@officelaser:\
+	:sh:\
+	:mx#0:\
+	:sd=/var/spool/lpd/psprinter:\
+	:lf=/var/log/lpd-errs:</pre><p>Documents sent to <code class="literal">textprinter</code> will be
+	formatted by the
+	<code class="filename">/usr/local/libexec/enscript</code> filter shown
+	in an earlier example.  Advanced users can print <span class="trademark">PostScript</span>®
+	files on <code class="literal">psprinter</code>, where no filtering is
+	done.</p><p>This multiple queue technique can be used to provide
+	direct access to all kinds of printer features.  A printer
+	with a duplexer could use two queues, one for ordinary
+	single-sided printing, and one with a filter that sends the
+	command sequence to enable double-sided printing and then
+	sends the incoming file.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="printing-lpd-monitor"></a>9.5.5. Monitoring and Controlling Printing</h3></div></div></div><p>Several utilities are available to monitor print jobs and
+	check and control printer operation.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="printing-lpd-monitor-lpq"></a>9.5.5.1. <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=lpq&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">lpq</span>(1)</span></a></h4></div></div></div><p><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=lpq&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">lpq</span>(1)</span></a> shows the status of a user's print
+	  jobs.  Print jobs from other users are not shown.</p><p>Show the current user's pending jobs on a single
+	  printer:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>lpq -P<em class="replaceable"><code>lp</code></em></code></strong>
+Rank   Owner      Job  Files                                 Total Size
+1st    jsmith     0    (standard input)                      12792 bytes</pre><p>Show the current user's pending jobs on all
+	  printers:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>lpq -a</code></strong>
+lp:
+Rank   Owner      Job  Files                                 Total Size
+1st    jsmith     1    (standard input)                      27320 bytes
+
+laser:
+Rank   Owner      Job  Files                                 Total Size
+1st    jsmith     287  (standard input)                      22443 bytes</pre></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="printing-lpd-monitor-lprm"></a>9.5.5.2. <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=lprm&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">lprm</span>(1)</span></a></h4></div></div></div><p><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=lprm&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">lprm</span>(1)</span></a> is used to remove print jobs.  Normal users
+	  are only allowed to remove their own jobs.
+	  <code class="systemitem">root</code> can remove
+	  any or all jobs.</p><p>Remove all pending jobs from a printer:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>lprm -P<em class="replaceable"><code>lp</code></em> -</code></strong>
+dfA002smithy dequeued
+cfA002smithy dequeued
+dfA003smithy dequeued
+cfA003smithy dequeued
+dfA004smithy dequeued
+cfA004smithy dequeued</pre><p>Remove a single job from a
+	  printer.  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=lpq&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">lpq</span>(1)</span></a> is used to find the job number.</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>lpq</code></strong>
+Rank   Owner      Job  Files                                 Total Size
+1st    jsmith     5    (standard input)                      12188 bytes
+<code class="prompt">%</code> <strong class="userinput"><code>lprm -P<em class="replaceable"><code>lp</code></em> <em class="replaceable"><code>5</code></em></code></strong>
+dfA005smithy dequeued
+cfA005smithy dequeued</pre></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="printing-lpd-monitor-lpc"></a>9.5.5.3. <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=lpc&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">lpc</span>(8)</span></a></h4></div></div></div><p><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=lpc&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">lpc</span>(8)</span></a> is used to check and modify printer status.
+	  <code class="literal">lpc</code> is followed by a command and an
+	  optional printer name.  <code class="literal">all</code> can be used
+	  instead of a specific printer name, and the command will be
+	  applied to all printers.  Normal users can view status with
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=lpc&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">lpc</span>(8)</span></a>.  Only
+	  <code class="systemitem">root</code> can use
+	  commands which modify printer status.</p><p>Show the status of all printers:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>lpc status all</code></strong>
+lp:
+	queuing is enabled
+	printing is enabled
+	1 entry in spool area
+	printer idle
+laser:
+	queuing is enabled
+	printing is enabled
+	1 entry in spool area
+	waiting for laser to come up</pre><p>Prevent a printer from accepting new jobs, then begin
+	  accepting new jobs again:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>lpc disable <em class="replaceable"><code>lp</code></em></code></strong>
+lp:
+	queuing disabled
+<code class="prompt">#</code> <strong class="userinput"><code>lpc enable <em class="replaceable"><code>lp</code></em></code></strong>
+lp:
+	queuing enabled</pre><p>Stop printing, but continue to accept new jobs.  Then
+	  begin printing again:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>lpc stop <em class="replaceable"><code>lp</code></em></code></strong>
+lp:
+	printing disabled
+<code class="prompt">#</code> <strong class="userinput"><code>lpc start <em class="replaceable"><code>lp</code></em></code></strong>
+lp:
+	printing enabled
+	daemon started</pre><p>Restart a printer after some error condition:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>lpc restart <em class="replaceable"><code>lp</code></em></code></strong>
+lp:
+	no daemon to abort
+	printing enabled
+	daemon restarted</pre><p>Turn the print queue off and disable printing, with a
+	  message to explain the problem to users:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>lpc down <em class="replaceable"><code>lp</code></em> Repair parts will arrive on Monday</code></strong>
+lp:
+	printer and queuing disabled
+	status message is now: Repair parts will arrive on Monday</pre><p>Re-enable a printer that is down:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>lpc up <em class="replaceable"><code>lp</code></em></code></strong>
+lp:
+	printing enabled
+	daemon started</pre><p>See <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=lpc&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">lpc</span>(8)</span></a> for more commands and options.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="printing-lpd-shared"></a>9.5.6. Shared Printers</h3></div></div></div><p>Printers are often shared by multiple users in businesses
+	and schools.  Additional features are provided to make sharing
+	printers more convenient.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="printing-shared-aliases"></a>9.5.6.1. Aliases</h4></div></div></div><p>The printer name is set in the first line of the
+	  entry in <code class="filename">/etc/printcap</code>.  Additional
+	  names, or <span class="emphasis"><em>aliases</em></span>, can be added after
+	  that name.  Aliases are separated from the name and each
+	  other by vertical bars:</p><pre class="programlisting">lp|<em class="replaceable"><code>repairsprinter</code></em>|<em class="replaceable"><code>salesprinter</code></em>:\</pre><p>Aliases can be used in place of the printer name.  For
+	  example, users in the Sales department print to their
+	  printer with</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>lpr -P<em class="replaceable"><code>salesprinter</code></em> <em class="replaceable"><code>sales-report.txt</code></em></code></strong></pre><p>Users in the Repairs department print to
+	  <span class="emphasis"><em>their</em></span> printer with</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>lpr -P<em class="replaceable"><code>repairsprinter</code></em> <em class="replaceable"><code>repairs-report.txt</code></em></code></strong></pre><p>All of the documents print on that single printer.  When
+	  the Sales department grows enough to need their own printer,
+	  the alias can be removed from the shared printer entry and
+	  used as the name of a new printer.  Users in both
+	  departments continue to use the same commands, but the Sales
+	  documents are sent to the new printer.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="printing-shared-headers"></a>9.5.6.2. Header Pages</h4></div></div></div><p>It can be difficult for users to locate their documents
+	  in the stack of pages produced by a busy shared printer.
+	  <span class="emphasis"><em>Header pages</em></span> were created to solve this
+	  problem.  A header page with the user name and document name
+	  is printed before each print job.  These pages are also
+	  sometimes called <span class="emphasis"><em>banner</em></span> or
+	  <span class="emphasis"><em>separator</em></span> pages.</p><p>Enabling header pages differs depending on whether the
+	  printer is connected directly to the computer with a
+	  <acronym class="acronym">USB</acronym>, parallel, or serial cable, or
+	  is connected remotely over a network.</p><p>Header pages on directly-connected printers are enabled
+	  by removing the <code class="literal">:sh:\</code> (Suppress Header)
+	  line from the entry in <code class="filename">/etc/printcap</code>.
+	  These header pages only use line feed characters for new
+	  lines.  Some printers will need the
+	  <code class="filename">/usr/share/examples/printing/hpif</code>
+	  filter to prevent stairstepped text.  The filter configures
+	  <acronym class="acronym">PCL</acronym> printers to print both carriage
+	  returns and line feeds when a line feed is received.</p><p>Header pages for network printers must be configured on
+	  the printer itself.  Header page entries in
+	  <code class="filename">/etc/printcap</code> are ignored.  Settings
+	  are usually available from the printer front panel or a
+	  configuration web page accessible with a web browser.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="printing-lpd-references"></a>9.5.7. References</h3></div></div></div><p>Example files: <code class="filename">/usr/share/examples/printing/</code>.</p><p>The <span class="emphasis"><em>4.3BSD Line Printer Spooler
+	  Manual</em></span>,
+	<code class="filename">/usr/share/doc/smm/07.lpd/paper.ascii.gz</code>.</p><p>Manual pages: <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=printcap&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">printcap</span>(5)</span></a>, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=lpd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">lpd</span>(8)</span></a>, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=lpr&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">lpr</span>(1)</span></a>,
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=lpc&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">lpc</span>(8)</span></a>, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=lprm&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">lprm</span>(1)</span></a>, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=lpq&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">lpq</span>(1)</span></a>.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="printing-direct.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="printing.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="printing-other.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">9.4. Direct Printing </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 9.6. Other Printing Systems</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

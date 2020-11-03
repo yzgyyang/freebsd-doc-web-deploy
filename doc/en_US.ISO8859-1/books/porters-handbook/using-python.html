@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>6.17. Using Python</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Porter's Handbook" /><link rel="up" href="special.html" title="Chapter 6. Special Considerations" /><link rel="prev" href="using-php.html" title="6.16. Web Applications, Apache and PHP" /><link rel="next" href="using-tcl.html" title="6.18. Using Tcl/Tk" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.17. Using Python</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="using-php.html">Prev</a> </td><th width="60%" align="center">Chapter 6. Special Considerations</th><td width="20%" align="right"> <a accesskey="n" href="using-tcl.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="using-python"></a>6.17. Using Python</h2></div></div></div><p>The Ports Collection supports parallel installation of
+      multiple Python versions.  Ports must use a
+      correct <code class="command">python</code> interpreter, according to
+      the user-settable <code class="varname">PYTHON_VERSION</code>.
+      Most prominently, this means replacing the path to
+      <code class="command">python</code> executable in scripts with the value
+      of <code class="varname">PYTHON_CMD</code>.</p><p>Ports that install files under
+      <code class="varname">PYTHON_SITELIBDIR</code> must use the
+      <code class="literal">pyXY-</code> package name prefix, so their package
+      name embeds the version of Python they are installed
+      into.</p><pre class="programlisting">PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}</pre><div class="table"><a id="using-python-variables"></a><div class="table-title">Table 6.25. Most Useful Variables for Ports That Use Python</div><div class="table-contents"><table class="table" summary="Most Useful Variables for Ports That Use Python" border="0"><colgroup><col /><col /></colgroup><tbody><tr><td><code class="varname">USES=python</code></td><td>The port needs Python.  The minimal required
+	      version can be specified with values such as
+	      <code class="literal">2.7+</code>.  Version ranges can also be
+	      specified by separating two version numbers with a dash:
+	      <code class="literal">USES=python:3.2-3.3</code></td></tr><tr><td><code class="varname">USE_PYTHON=distutils</code></td><td>Use Python distutils for configuring, compiling,
+	      and installing.  This is required when the port comes
+	      with <code class="filename">setup.py</code>.  This overrides
+	      the <code class="buildtarget">do-build</code> and
+	      <code class="buildtarget">do-install</code> targets and may
+	      also override <code class="buildtarget">do-configure</code>
+	      if <code class="varname">GNU_CONFIGURE</code> is not
+	      defined.  Additionally, it implies
+	      <code class="literal">USE_PYTHON=flavors</code>.</td></tr><tr><td><code class="varname">USE_PYTHON=autoplist</code></td><td>Create the packaging list automatically.  This also
+	      requires <code class="literal">USE_PYTHON=distutils</code> to be
+	      set.</td></tr><tr><td><code class="varname">USE_PYTHON=concurrent</code></td><td>The port will use an unique prefix, typically
+	      <code class="literal">PYTHON_PKGNAMEPREFIX</code> for certain
+	      directories, such as <code class="literal">EXAMPLESDIR</code> and
+	      <code class="literal">DOCSDIR</code> and also will append a
+	      suffix, the python version from
+	      <code class="literal">PYTHON_VER</code>, to binaries and scripts
+	      to be installed.  This allows ports to be installed for
+	      different Python versions at the same time, which
+	      otherwise would install conflicting files.</td></tr><tr><td><code class="literal">USE_PYTHON=flavors</code></td><td>The port does not use distutils but still supports
+	      multiple Python versions.  <code class="varname">FLAVORS</code>
+	      will be set to the supported Python versions.  See <a class="xref" href="flavors-auto-python.html" title="7.4. USES=python and Flavors">Section 7.4, &#8220;<code class="literal">USES=python</code> and Flavors&#8221;</a> for more
+	      information.</td></tr><tr><td><code class="literal">USE_PYTHON=optsuffix</code></td><td>If the current Python version is not the default
+	      version, the port will gain
+	      <code class="literal">PKGNAMESUFFIX=${PYTHON_PKGNAMESUFFIX}</code>.
+	      Only useful with flavors.</td></tr><tr><td><code class="varname">PYTHON_PKGNAMEPREFIX</code></td><td>Used as a <code class="varname">PKGNAMEPREFIX</code> to
+	      distinguish packages for different Python versions.
+	      Example: <code class="literal">py27-</code></td></tr><tr><td><code class="varname">PYTHON_SITELIBDIR</code></td><td>Location of the site-packages tree, that contains
+	      installation path of Python (usually
+	      <code class="varname">LOCALBASE</code>).
+	      <code class="varname">PYTHON_SITELIBDIR</code> can be
+	      very useful when installing Python modules.</td></tr><tr><td><code class="varname">PYTHONPREFIX_SITELIBDIR</code></td><td>The PREFIX-clean variant of PYTHON_SITELIBDIR.
+	      Always use <code class="literal">%%PYTHON_SITELIBDIR%%</code> in
+	      <code class="filename">pkg-plist</code> when possible.  The
+	      default value of
+	      <code class="literal">%%PYTHON_SITELIBDIR%%</code> is
+	      <code class="literal">lib/python%%PYTHON_VERSION%%/site-packages</code></td></tr><tr><td><code class="varname">PYTHON_CMD</code></td><td>Python interpreter command line, including
+	      version number.</td></tr></tbody></table></div></div><br class="table-break" /><div class="table"><a id="using-python-variables-helpers"></a><div class="table-title">Table 6.26. Python Module Dependency Helpers</div><div class="table-contents"><table class="table" summary="Python Module Dependency Helpers" border="0"><colgroup><col /><col /></colgroup><tbody><tr><td><code class="varname">PYNUMERIC</code></td><td>Dependency line for numeric extension.</td></tr><tr><td><code class="varname">PYNUMPY</code></td><td>Dependency line for the new numeric extension,
+	      numpy.  (PYNUMERIC is deprecated by upstream
+	      vendor).</td></tr><tr><td><code class="varname">PYXML</code></td><td>Dependency line for XML extension (not needed for
+	      Python 2.0 and higher as it is also in base
+	      distribution).</td></tr><tr><td><code class="varname">PY_ENUM34</code></td><td>Conditional dependency on
+	      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/devel/py-enum34/pkg-descr">devel/py-enum34</a> depending on the
+	      Python version.</td></tr><tr><td><code class="varname">PY_ENUM_COMPAT</code></td><td>Conditional dependency on
+	      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/devel/py-enum-compat/pkg-descr">devel/py-enum-compat</a> depending on the
+	      Python version.</td></tr><tr><td><code class="varname">PY_PATHLIB</code></td><td>Conditional dependency on
+	      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/devel/py-pathlib/pkg-descr">devel/py-pathlib</a> depending on the
+	      Python version.</td></tr><tr><td><code class="varname">PY_IPADDRESS</code></td><td>Conditional dependency on
+	      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/net/py-ipaddress/pkg-descr">net/py-ipaddress</a> depending on the
+	      Python version.</td></tr><tr><td><code class="varname">PY_FUTURES</code></td><td>Conditional dependency on
+	      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/devel/py-futures/pkg-descr">devel/py-futures</a> depending on the
+	      Python version.</td></tr></tbody></table></div></div><br class="table-break" /><p>A complete list of available variables can be found in
+      <code class="filename">/usr/ports/Mk/Uses/python.mk</code>.</p><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">All dependencies to <span class="application">Python</span>
+	ports using <a class="link" href="flavors-auto-python.html" title="7.4. USES=python and Flavors"><span class="application">Python</span>
+	  flavors</a> (either with
+	<code class="literal">USE_PYTHON=distutils</code> or
+	<code class="literal">USE_PYTHON=flavors</code>) must have the Python
+	flavor appended to their origin using
+	<code class="literal">@${PY_FLAVOR}</code>.  See <a class="xref" href="using-python.html#python-Makefile" title="Example 6.25. Makefile for a Simple Python Module">Example 6.25, &#8220;Makefile for a Simple <span class="application">Python</span>
+	Module&#8221;</a>.</p></div><div class="example"><a id="python-Makefile"></a><div class="example-title">Example 6.25. Makefile for a Simple <span class="application">Python</span>
+	Module</div><div class="example-contents"><pre class="programlisting">PORTNAME=	sample
+DISTVERSION=	1.2.3
+CATEGORIES=	devel
+
+MAINTAINER=	john@doe.tld
+COMMENT=	Python sample module
+
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}six&gt;0:devel/py-six@${PY_FLAVOR}
+
+USES=		python
+USE_PYTHON=	autoplist distutils
+
+.include &lt;bsd.port.mk&gt;</pre></div></div><br class="example-break" /><p>Some Python applications claim to have
+      <code class="varname">DESTDIR</code> support (which would be required
+      for staging) but it is broken (Mailman up to 2.1.16, for
+      instance).  This can be worked around by recompiling the
+      scripts.  This can be done, for example, in the
+      <code class="buildtarget">post-build</code> target.  Assuming the
+      Python scripts are supposed to reside in
+      <code class="varname">PYTHONPREFIX_SITELIBDIR</code> after installation,
+      this solution can be applied:</p><pre class="programlisting">(cd ${STAGEDIR}${PREFIX} \
+  &amp;&amp; ${PYTHON_CMD} ${PYTHON_LIBDIR}/compileall.py \
+   -d ${PREFIX} -f ${PYTHONPREFIX_SITELIBDIR:S;${PREFIX}/;;})</pre><p>This recompiles the sources with a path relative to the
+      stage directory, and prepends the value of
+      <code class="varname">PREFIX</code> to the file name recorded in the
+      byte-compiled output file by <code class="literal">-d</code>.
+      <code class="literal">-f</code> is required to force recompilation, and
+      the <code class="literal">:S;${PREFIX}/;;</code> strips prefixes from
+      the value of <code class="varname">PYTHONPREFIX_SITELIBDIR</code>
+      to make it relative to
+      <code class="varname">PREFIX</code>.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="using-php.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="special.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="using-tcl.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">6.16. Web Applications, Apache and PHP </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 6.18. Using <span class="application">Tcl/Tk</span></td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

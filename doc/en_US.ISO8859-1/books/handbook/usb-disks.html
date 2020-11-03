@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>17.4. USB Storage Devices</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="disks.html" title="Chapter 17. Storage" /><link rel="prev" href="disks-growing.html" title="17.3. Resizing and Growing Disks" /><link rel="next" href="creating-cds.html" title="17.5. Creating and Using CD Media" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">17.4. <acronym class="acronym">USB</acronym> Storage Devices</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="disks-growing.html">Prev</a> </td><th width="60%" align="center">Chapter 17. Storage</th><td width="20%" align="right"> <a accesskey="n" href="creating-cds.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="usb-disks"></a>17.4. <acronym class="acronym">USB</acronym> Storage Devices</h2></div><div><span class="authorgroup">Contributed by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Marc</span> <span class="surname">Fonvieille</span></span>. </span></div></div></div><a id="idp61855480" class="indexterm"></a><p>Many external storage solutions, such as hard drives,
+      <acronym class="acronym">USB</acronym> thumbdrives, and <acronym class="acronym">CD</acronym>
+      and <acronym class="acronym">DVD</acronym> burners, use the Universal Serial Bus
+      (<acronym class="acronym">USB</acronym>).  FreeBSD provides support for
+      <acronym class="acronym">USB</acronym> 1.x, 2.0, and 3.0 devices.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml"><acronym class="acronym">USB</acronym> 3.0 support is not compatible with
+	some hardware, including Haswell (Lynx point) chipsets.  If
+	FreeBSD boots with a <span class="errorname">failed with error 19</span>
+	message, disable xHCI/USB3 in the system
+	<acronym class="acronym">BIOS</acronym>.</p></div><p>Support for <acronym class="acronym">USB</acronym> storage devices is built
+      into the <code class="filename">GENERIC</code> kernel.  For a custom
+      kernel, be sure that the following lines are present in the
+      kernel configuration file:</p><pre class="programlisting">device scbus	# SCSI bus (required for ATA/SCSI)
+device da	# Direct Access (disks)
+device pass	# Passthrough device (direct ATA/SCSI access)
+device uhci	# provides USB 1.x support
+device ohci	# provides USB 1.x support
+device ehci	# provides USB 2.0 support
+device xhci	# provides USB 3.0 support
+device usb	# USB Bus (required)
+device umass	# Disks/Mass storage - Requires scbus and da
+device cd	# needed for CD and DVD burners</pre><p>FreeBSD uses the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=umass&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">umass</span>(4)</span></a> driver which uses the
+      <acronym class="acronym">SCSI</acronym> subsystem to access
+      <acronym class="acronym">USB</acronym> storage devices.  Since any
+      <acronym class="acronym">USB</acronym> device will be seen as a
+      <acronym class="acronym">SCSI</acronym> device by the system, if the
+      <acronym class="acronym">USB</acronym> device is a <acronym class="acronym">CD</acronym> or
+      <acronym class="acronym">DVD</acronym> burner, do <span class="emphasis"><em>not</em></span>
+      include <code class="option">device atapicam</code> in a custom kernel
+      configuration file.</p><p>The rest of this section demonstrates how to verify that a
+      <acronym class="acronym">USB</acronym> storage device is recognized by FreeBSD and
+      how to configure the device so that it can be used.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp61876088"></a>17.4.1. Device Configuration</h3></div></div></div><p>To test the <acronym class="acronym">USB</acronym> configuration, plug in
+	the <acronym class="acronym">USB</acronym> device.  Use
+	<code class="command">dmesg</code> to confirm that the drive appears in
+	the system message buffer.  It should look something like
+	this:</p><pre class="screen">umass0: &lt;STECH Simple Drive, class 0/0, rev 2.00/1.04, addr 3&gt; on usbus0
+umass0:  SCSI over Bulk-Only; quirks = 0x0100
+umass0:4:0:-1: Attached to scbus4
+da0 at umass-sim0 bus 0 scbus4 target 0 lun 0
+da0: &lt;STECH Simple Drive 1.04&gt; Fixed Direct Access SCSI-4 device
+da0: Serial Number WD-WXE508CAN263
+da0: 40.000MB/s transfers
+da0: 152627MB (312581808 512 byte sectors: 255H 63S/T 19457C)
+da0: quirks=0x2&lt;NO_6_BYTE&gt;</pre><p>The brand, device node (<code class="filename">da0</code>), speed,
+	and size will differ according to the device.</p><p>Since the <acronym class="acronym">USB</acronym> device is seen as a
+	<acronym class="acronym">SCSI</acronym> one, <code class="command">camcontrol</code> can
+	be used to list the <acronym class="acronym">USB</acronym> storage devices
+	attached to the system:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>camcontrol devlist</code></strong>
+&lt;STECH Simple Drive 1.04&gt;          at scbus4 target 0 lun 0 (pass3,da0)</pre><p>Alternately, <code class="command">usbconfig</code> can be used to
+	list the device.  Refer to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=usbconfig&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">usbconfig</span>(8)</span></a> for more
+	information about this command.</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>usbconfig</code></strong>
+ugen0.3: &lt;Simple Drive STECH&gt; at usbus0, cfg=0 md=HOST spd=HIGH (480Mbps) pwr=ON (2mA)</pre><p>If the device has not been formatted, refer to <a class="xref" href="disks-adding.html" title="17.2. Adding Disks">Section 17.2, &#8220;Adding Disks&#8221;</a> for instructions on how to format
+	and create partitions on the <acronym class="acronym">USB</acronym> drive.  If
+	the drive comes with a file system, it can be mounted by
+	<code class="systemitem">root</code> using the
+	instructions in <a class="xref" href="mount-unmount.html" title="3.7. Mounting and Unmounting File Systems">Section 3.7, &#8220;Mounting and Unmounting File Systems&#8221;</a>.</p><div xmlns="" class="warning"><h3 class="admontitle">Warning: </h3><p xmlns="http://www.w3.org/1999/xhtml">Allowing untrusted users to mount arbitrary media, by
+	  enabling <code class="varname">vfs.usermount</code> as described
+	  below, should not be considered safe from a security point
+	  of view.  Most file systems were not built to safeguard
+	  against malicious devices.</p></div><p>To make the device mountable as a normal user, one
+	solution is to make all users of the device a member of the
+	<code class="systemitem">operator</code> group
+	using <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pw&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pw</span>(8)</span></a>.  Next, ensure that <code class="systemitem">operator</code> is able to read and
+	write the device by adding these lines to
+	<code class="filename">/etc/devfs.rules</code>:</p><pre class="programlisting">[localrules=5]
+add path 'da*' mode 0660 group operator</pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">If internal <acronym class="acronym">SCSI</acronym> disks are also
+	  installed in the system, change the second line as
+	  follows:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="programlisting">add path 'da[<em class="replaceable"><code>3</code></em>-9]*' mode 0660 group operator</pre><p xmlns="http://www.w3.org/1999/xhtml">This will exclude the first three
+	  <acronym class="acronym">SCSI</acronym> disks (<code class="filename">da0</code> to
+	  <code class="filename">da2</code>)from belonging to the <code class="systemitem">operator</code> group.  Replace
+	  <em class="replaceable"><code>3</code></em> with the number of internal
+	  <acronym class="acronym">SCSI</acronym> disks.  Refer to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=devfs.rules&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">devfs.rules</span>(5)</span></a>
+	  for more information about this file.</p></div><p>Next, enable the ruleset in
+	<code class="filename">/etc/rc.conf</code>:</p><pre class="programlisting">devfs_system_ruleset="localrules"</pre><p>Then, instruct the system to allow regular users to mount
+	file systems by adding the following line to
+	<code class="filename">/etc/sysctl.conf</code>:</p><pre class="programlisting">vfs.usermount=1</pre><p>Since this only takes effect after the next reboot, use
+	<code class="command">sysctl</code> to set this variable now:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>sysctl vfs.usermount=1</code></strong>
+vfs.usermount: 0 -&gt; 1</pre><p>The final step is to create a directory where the file
+	system is to be mounted.  This directory needs to be owned by
+	the user that is to mount the file system.  One way to do that
+	is for <code class="systemitem">root</code> to
+	create a subdirectory owned by that user as <code class="filename">/mnt/<em class="replaceable"><code>username</code></em></code>.
+	In the following example, replace
+	<em class="replaceable"><code>username</code></em> with the login name of the
+	user and <em class="replaceable"><code>usergroup</code></em> with the user's
+	primary group:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>mkdir /mnt/<em class="replaceable"><code>username</code></em></code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>chown <em class="replaceable"><code>username</code></em>:<em class="replaceable"><code>usergroup</code></em> /mnt/<em class="replaceable"><code>username</code></em></code></strong></pre><p>Suppose a <acronym class="acronym">USB</acronym> thumbdrive is plugged in,
+	and a device <code class="filename">/dev/da0s1</code> appears.  If the
+	device is formatted with a <acronym class="acronym">FAT</acronym> file system,
+	the user can mount it using:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>mount -t msdosfs -o -m=644,-M=755 /dev/da0s1 /mnt/<em class="replaceable"><code>username</code></em></code></strong></pre><p>Before the device can be unplugged, it
+	<span class="emphasis"><em>must</em></span> be unmounted first:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>umount /mnt/<em class="replaceable"><code>username</code></em></code></strong></pre><p>After device removal, the system message buffer will show
+	messages similar to the following:</p><pre class="screen">umass0: at uhub3, port 2, addr 3 (disconnected)
+da0 at umass-sim0 bus 0 scbus4 target 0 lun 0
+da0: &lt;STECH Simple Drive 1.04&gt; s/n WD-WXE508CAN263          detached
+(da0:umass-sim0:0:0:0): Periph destroyed</pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp61928056"></a>17.4.2. Automounting Removable Media</h3></div></div></div><p><acronym class="acronym">USB</acronym> devices can be automatically
+	mounted by uncommenting this line in
+	<code class="filename">/etc/auto_master</code>:</p><pre class="screen">/media		-media		-nosuid</pre><p>Then add these lines to
+	<code class="filename">/etc/devd.conf</code>:</p><pre class="screen">notify 100 {
+	match "system" "GEOM";
+	match "subsystem" "DEV";
+	action "/usr/sbin/automount -c";
+};</pre><p>Reload the configuration if <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=autofs&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">autofs</span>(5)</span></a>
+	and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=devd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">devd</span>(8)</span></a> are already running:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service automount restart</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>service devd restart</code></strong></pre><p><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=autofs&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">autofs</span>(5)</span></a> can be set to start at boot by adding this
+	line to <code class="filename">/etc/rc.conf</code>:</p><pre class="programlisting">autofs_enable="YES"</pre><p><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=autofs&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">autofs</span>(5)</span></a> requires <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=devd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">devd</span>(8)</span></a> to be enabled, as it
+	is by default.</p><p>Start the services immediately with:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service automount start</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>service automountd start</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>service autounmountd start</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>service devd start</code></strong></pre><p>Each file system that can be automatically mounted appears
+	as a directory in <code class="filename">/media/</code>.  The directory
+	is named after the file system label.  If the label is
+	missing, the directory is named after the device node.</p><p>The file system is transparently mounted on the first
+	access, and unmounted after a period of inactivity.
+	Automounted drives can also be unmounted manually:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>automount -fu</code></strong></pre><p>This mechanism is typically used for memory cards and
+	<acronym class="acronym">USB</acronym> memory sticks.  It can be used with
+	any block device, including optical drives or
+	<acronym class="acronym">iSCSI</acronym> <acronym class="acronym">LUN</acronym>s.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="disks-growing.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="disks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="creating-cds.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">17.3. Resizing and Growing Disks </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 17.5. Creating and Using <acronym class="acronym">CD</acronym> Media</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

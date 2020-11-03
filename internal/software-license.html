@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">Search</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="//www.FreeBSD.org/cgi/man.cgi">Manual Pages</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">Presentations and Papers</a>
                   </li>
                   <li>
                     <a href="../doc/en_US.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
@@ -231,6 +233,9 @@
                   <a href="//www.FreeBSD.org/cgi/man.cgi">Manual Pages</a>
                 </li>
                 <li>
+                  <a href="https://papers.FreeBSD.org">Presentations and Papers</a>
+                </li>
+                <li>
                   <a href="../docs/books.html">Books and Articles Online</a>
                 </li>
                 <li>
@@ -314,25 +319,48 @@
       </li>
 
       <li>
-	<p>We will allow existing GPLv2 licensed software to be
-	converted to GPLv3 or other similar license changes on a
-	case-by-case basis provided that the FreeBSD Core Team is
-	given appropriate technical justification.</p>
+	<p>The Apache License 2.0 is acceptable for use in some cases.
+	  The Core Team must approve the import of new Apache
+	  License licensed components or the change of license of
+	  existing components to the Apache License.</p>
 
-	<p>Each piece of software that is being converted to a
-	different license must be submitted to the FreeBSD Core Team
-	for approval through this process as though it were a new
-	piece of software.</p>
-
-	<p>For Free Software Foundation maintained software except
-	GCC, GDB, and binutils, all patches posted after the date the
-	software switched to GPLv3 will be considered to be covered by
-	the GPLv3 and thus will be subject to this rule.  For GCC, GDB
-	and binutils we accept the community practice of allowing
-	patches to be relicensed under GPLv2 at the patch author's
-	discretion.  The author's permission must be documented in the
-	commit message for each patch that is committed.</p>
+	<p>This license is approved for the following components:</p>
+	<ul>
+	  <li>LLVM toolchain and (with LLVM Exceptions) runtime
+	    components.</li>
+	  <li>Subversion and its dependencies</li>
+	</ul>
+	<p></p>
       </li>
+
+      <li>
+	<p>The BSD+Patent License is acceptable for use in some cases.
+	  The Core Team must approve the import of new BSD+Patent
+	  License licensed components or the change of license of
+	  existing components to the BSD+Patent License.</p>
+
+	<p>This license is approved for the following components:</p>
+	<ul>
+	  <li>EDK2 derived code related to UEFI functionality</li>
+	</ul>
+	<p></p>
+      </li>
+
+      <li>
+	<p>The Common Development and Distribution License (CDDL) is
+	  acceptable for use in some cases. The Core Team must approve
+	  the import of new CDDL licensed components or the change of
+	  license of existing components to the CDDL.</p>
+
+	<p>This license is approved for the following components:</p>
+	<ul>
+	  <li>DTrace</li>
+	  <li>ZFS filesystem including kernel support and userland
+	    utilities</li>
+	</ul>
+	<p></p>
+      </li>
+
       <li>
 	<p>Historically, the phrase 'All Rights Reserved.' was
 	included in all copyright notices. The BSD releases had it to
@@ -480,7 +508,7 @@
         </div>
         <div id="footer">
           <span><a href="../search/index-site.html">Site Map</a> |
-  <a href="../copyright/">Legal Notices</a> | © 1995&#8211;2018 The FreeBSD Project.
+  <a href="../copyright/">Legal Notices</a> | © 1995&#8211;2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

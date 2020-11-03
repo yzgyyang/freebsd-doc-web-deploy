@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">検索</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="../../cgi/man.cgi">マニュアルページ</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">プレゼンテーションと論文</a>
                   </li>
                   <li>
                     <a href="../../doc/en_US.ISO8859-1/books/fdp-primer">新しい貢献者のためのドキュメンテーションプロジェクト入門</a>
@@ -260,48 +262,41 @@
 
     <p>OpenJDK® プロジェクトは、Java®
       SE プラットフォームのネイティブなオープンソースの実装を提供しています。
-      i386 および amd64 プラットフォーム上のすべてのサポートされている FreeBSD
-      リリースにおいて、バージョン 7 および 8 が利用できます。</p>
+      現在サポートされているすべての FreeBSD リリースにおいて、
+      以下のバージョンとアーキテクチャの組み合わせで利用できます。</p>
 
-    <p>OpenJDK® 7 は頻繁にアップデートされています。
+    <p><b>aarch64</b>: <code>openjdk8</code>, <code>openjdk11</code>, <code>openjdk12</code>, <code>openjdk13</code></p>
+    <p><b>amd64</b>: <code>openjdk7</code>, <code>openjdk8</code>, <code>openjdk11</code>, <code>openjdk12</code>, <code>openjdk13</code></p>
+    <p><b>arm6</b>: <code>openjdk8</code></p>
+    <p><b>arm7</b>: <code>openjdk8</code></p>
+    <p><b>i386</b>: <code>openjdk7</code>, <code>openjdk8</code>, <code>openjdk11</code>, <code>openjdk12</code>, <code>openjdk13</code></p>
+    <p><b>powerpc</b>: <code>openjdk8</code></p>
+    <p><b>powerpc64</b>: <code>openjdk8</code>, <code>openjdk11</code>, <code>openjdk12</code>, <code>openjdk13</code></p>
+
+    <p>OpenJDK® は頻繁にアップデートされています。
       詳細なリリースの変遷を知るには、
-      <a href="https://svnweb.freebsd.org/ports/head/java/openjdk7/Makefile?view=log" shape="rect">リビジョンログ</a>
+      <a href="https://svnweb.freebsd.org/ports/head/java/" shape="rect">リビジョンログ</a>
       を参照してください。さらに、
-      <a href="https://www.freshports.org/java/openjdk7" shape="rect">FreshPorts</a>
+      <a href="https://www.freshports.org/search.php?query=openjdk&amp;search=go&amp;num=10&amp;stype=name&amp;method=match&amp;deleted=excludedeleted&amp;start=1&amp;casesensitivity=caseinsensitive" shape="rect">FreshPorts</a>
       でより多くの情報をレビューすることもできます。</p>
 
-    <p>OpenJDK® 7 package をインストールするには、
-      pkg(8) ユーティリティを使用してください。</p>
+    <p>OpenJDK® package をインストールするには、
+      <a href="../../cgi/man.cgi?query=pkg" shape="rect"><tt>pkg</tt></a>
+      ユーティリティまたは ports システムを使用してください。</p>
 
-    <p>
-      <code>pkg install openjdk</code>
-      <br clear="none" />
-      もしくは
-      <br clear="none" />
-      <code>cd /usr/ports/java/openjdk7
-      <br clear="none" />make install clean
-      </code>
-    </p>
+    <p><code>pkg install openjdk[バージョン]</code></p>
+    <p>または</p>
+    <p><code>cd /usr/ports/java/openjdk[version]
+    <br clear="none" />make install clean
+    </code></p>
 
-    <p>OpenJDK® 8 は頻繁にアップデートされています。
-      詳細なリリースの変遷を知るには、
-      <a href="https://svnweb.freebsd.org/ports/head/java/openjdk8/Makefile?view=log" shape="rect">リビジョンログ</a>
-      を参照してください。さらに、
-      <a href="https://www.freshports.org/java/openjdk8" shape="rect">FreshPorts</a>
-      でより多くの情報をレビューすることもできます。</p>
-
-    <p>OpenJDK® 8 package をインストールするには、
-      pkg(8) ユーティリティを使用してください。</p>
-
-    <p>
-      <code>pkg install openjdk8</code>
-      <br clear="none" />
-      もしくは
-      <br clear="none" />
-      <code>cd /usr/ports/java/openjdk8
-      <br clear="none" />make install clean
-      </code>
-    </p>
+    <p>ここで [バージョン] は、7, 8, 11, 12, または 13 のどれかです。
+    (<code>openjdk11</code>) の例は以下になります。</p>
+    <p><code>pkg install openjdk11</code></p>
+    <p>または</p>
+    <p><code>cd /usr/ports/java/openjdk11
+    <br clear="none" />make install clean
+    </code></p>
   </li>
 
   <li>
@@ -311,6 +306,8 @@
       をインストールします。これは、Linux 互換機能を用いることで FreeBSD
       上でも、動作します。</p>
 
+    <p><code>pkg install linux-oracle-jdk18</code></p>
+    <p>または</p>
     <p><code>cd /usr/ports/java/linux-oracle-jdk18
     <br clear="none" />make install clean
     </code></p>
@@ -329,6 +326,14 @@
   </ul>
 
   <h2>How to help</h2>
+
+  <h3>...バグの修正または新しい機能の追加</h3>
+
+  <p>OpenJDK の BSD port のメインリポジトリは、Github で公開されています。
+    プルリクエストは歓迎です。
+    より多くの情報は
+    <a href="https://wiki.freebsd.org/Ports/openjdk_11" shape="rect">Wiki</a>
+    にあります。</p>
 
   <h3>...テストを支援</h3>
 
@@ -371,7 +376,7 @@
         </div>
         <div id="footer">
           <span><a href="../search/index-site.html">サイトマップ</a> |
-  <a href="../copyright/">知的財産権について</a> | (C) 1995〓2018 The FreeBSD Project.
+  <a href="../copyright/">知的財産権について</a> | (C) 1995〓2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>Chapter 13. USB Devices</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Architecture Handbook" /><link rel="up" href="devicedrivers.html" title="Part II. Device Drivers" /><link rel="prev" href="scsi-timeout.html" title="12.7. Timeout Handling" /><link rel="next" href="usb-hc.html" title="13.2. Host Controllers" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 13. USB Devices</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="scsi-timeout.html">Prev</a> </td><th width="60%" align="center">Part II. Device Drivers</th><td width="20%" align="right"> <a accesskey="n" href="usb-hc.html">Next</a></td></tr></table><hr /></div><div class="chapter"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="usb"></a>Chapter 13. USB Devices</h2></div><div><span class="authorgroup">Written by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Nick</span> <span class="surname">Hibma</span></span>. </span></div><div><span class="authorgroup">Modifications for Handbook made by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Murray</span> <span class="surname">Stokely</span></span>. </span></div></div></div><div class="toc"><div class="toc-title">Table of Contents</div><dl class="toc"><dt><span class="sect1"><a href="usb.html#usb-intro">13.1. Introduction</a></span></dt><dt><span class="sect1"><a href="usb-hc.html">13.2. Host Controllers</a></span></dt><dt><span class="sect1"><a href="usb-dev.html">13.3. USB Device Information</a></span></dt><dt><span class="sect1"><a href="usb-devprobe.html">13.4. Device Probe and Attach</a></span></dt><dt><span class="sect1"><a href="usb-protocol.html">13.5. USB Drivers Protocol Information</a></span></dt></dl></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="usb-intro"></a>13.1. Introduction</h2></div></div></div><a id="idp57245432" class="indexterm"></a><a id="idp57245944" class="indexterm"></a><p>The Universal Serial Bus (USB) is a new way of attaching
+      devices to personal computers.  The bus architecture features
+      two-way communication and has been developed as a response to
+      devices becoming smarter and requiring more interaction with the
+      host.  USB support is included in all current PC chipsets and is
+      therefore available in all recently built PCs.  Apple's
+      introduction of the USB-only iMac has been a major incentive for
+      hardware manufacturers to produce USB versions of their devices.
+      The future PC specifications specify that all legacy connectors
+      on PCs should be replaced by one or more USB connectors,
+      providing generic plug and play capabilities.  Support for USB
+      hardware was available at a very early stage in NetBSD and was
+      developed by Lennart Augustsson for the NetBSD project.  The
+      code has been ported to FreeBSD and we are currently maintaining
+      a shared code base.  For the implementation of the USB subsystem
+      a number of features of USB are important.</p><p><span class="emphasis"><em>Lennart Augustsson has done most of the
+	implementation of the USB support for the NetBSD project.
+	Many thanks for this incredible amount of work.  Many thanks
+	also to Ardy and Dirk for their comments and proofreading of
+	this paper.</em></span></p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Devices connect to ports on the computer directly or on
+	  devices called hubs, forming a treelike device
+	  structure.</p></li><li class="listitem"><p>The devices can be connected and disconnected at run
+	  time.</p></li><li class="listitem"><p>Devices can suspend themselves and trigger resumes of
+	  the host system</p></li><li class="listitem"><p>As the devices can be powered from the bus, the host
+	  software has to keep track of power budgets for each
+	  hub.</p></li><li class="listitem"><p>Different quality of service requirements by the
+	  different device types together with the maximum of 126
+	  devices that can be connected to the same bus, require
+	  proper scheduling of transfers on the shared bus to take
+	  full advantage of the 12Mbps bandwidth available.  (over
+	  400Mbps with USB 2.0)</p></li><li class="listitem"><p>Devices are intelligent and contain easily accessible
+	  information about themselves</p></li></ul></div><p>The development of drivers for the USB subsystem and devices
+      connected to it is supported by the specifications that have
+      been developed and will be developed.  These specifications are
+      publicly available from the USB home pages.  Apple has been very
+      strong in pushing for standards based drivers, by making drivers
+      for the generic classes available in their operating system
+      MacOS and discouraging the use of separate drivers for each new
+      device.  This chapter tries to collate essential information for
+      a basic understanding of the USB 2.0 implementation stack in
+      FreeBSD/NetBSD.  It is recommended however to read it together
+      with the relevant 2.0 specifications and other developer
+      resources:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>USB 2.0 Specification (<a class="link" href="http://www.usb.org/developers/docs/usb20_docs/" target="_top">http://www.usb.org/developers/docs/usb20_docs/</a>)</p></li><li class="listitem"><p>Universal Host Controller Interface
+	  (<acronym class="acronym">UHCI</acronym>) Specification (<a class="link" href="ftp://ftp.netbsd.org/pub/NetBSD/misc/blymn/uhci11d.pdf" target="_top">ftp://ftp.netbsd.org/pub/NetBSD/misc/blymn/uhci11d.pdf)</a></p></li><li class="listitem"><p>Open Host Controller Interface (<acronym class="acronym">OHCI</acronym>)
+	  Specification(<a class="link" href="ftp://ftp.compaq.com/pub/supportinformation/papers/hcir1_0a.pdf" target="_top">ftp://ftp.compaq.com/pub/supportinformation/papers/hcir1_0a.pdf</a>)</p></li><li class="listitem"><p>Developer section of <acronym class="acronym">USB</acronym> home page
+	  (<a class="link" href="http://www.usb.org/developers/" target="_top">http://www.usb.org/developers/</a>)</p></li></ul></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57259512"></a>13.1.1. Structure of the USB Stack</h3></div></div></div><p>The USB support in FreeBSD can be split into three layers.
+	The lowest layer contains the host controller driver,
+	providing a generic interface to the hardware and its
+	scheduling facilities.  It supports initialisation of the
+	hardware, scheduling of transfers and handling of completed
+	and/or failed transfers.  Each host controller driver
+	implements a virtual hub providing hardware independent access
+	to the registers controlling the root ports on the back of the
+	machine.</p><p>The middle layer handles the device connection and
+	disconnection, basic initialisation of the device, driver
+	selection, the communication channels (pipes) and does
+	resource management.  This services layer also controls the
+	default pipes and the device requests transferred over
+	them.</p><p>The top layer contains the individual drivers supporting
+	specific (classes of) devices.  These drivers implement the
+	protocol that is used over the pipes other than the default
+	pipe.  They also implement additional functionality to make
+	the device available to other parts of the kernel or userland.
+	They use the USB driver interface (USBDI) exposed by the
+	services layer.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="scsi-timeout.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="devicedrivers.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="usb-hc.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">12.7. Timeout Handling </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 13.2. Host Controllers</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>31.5. Bluetooth</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="advanced-networking.html" title="Chapter 31. Advanced Networking" /><link rel="prev" href="network-usb-tethering.html" title="31.4. USB Tethering" /><link rel="next" href="network-bridging.html" title="31.6. Bridging" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">31.5. Bluetooth</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="network-usb-tethering.html">Prev</a> </td><th width="60%" align="center">Chapter 31. Advanced Networking</th><td width="20%" align="right"> <a accesskey="n" href="network-bridging.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="network-bluetooth"></a>31.5. Bluetooth</h2></div><div><span class="authorgroup">Written by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Pav</span> <span class="surname">Lucistnik</span></span>. </span></div></div></div><a id="idp73642232" class="indexterm"></a><p>Bluetooth is a wireless technology for creating personal
+      networks operating in the 2.4 GHz unlicensed band, with a
+      range of 10 meters.  Networks are usually formed ad-hoc from
+      portable devices such as cellular phones, handhelds, and
+      laptops.  Unlike Wi-Fi wireless technology, Bluetooth offers
+      higher level service profiles, such as
+      <acronym class="acronym">FTP</acronym>-like file servers, file pushing, voice
+      transport, serial line emulation, and more.</p><p>This section describes the use of a <acronym class="acronym">USB</acronym>
+      Bluetooth dongle on a FreeBSD system.  It then describes the
+      various Bluetooth protocols and utilities.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp73644664"></a>31.5.1. Loading Bluetooth Support</h3></div></div></div><p>The Bluetooth stack in FreeBSD is implemented using the
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=netgraph&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">netgraph</span>(4)</span></a> framework.  A broad variety of Bluetooth
+	<acronym class="acronym">USB</acronym> dongles is supported by <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ng_ubt&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ng_ubt</span>(4)</span></a>.
+	Broadcom BCM2033 based Bluetooth devices are supported by the
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ubtbcmfw&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ubtbcmfw</span>(4)</span></a> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ng_ubt&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ng_ubt</span>(4)</span></a> drivers.  The 3Com
+	Bluetooth PC Card 3CRWB60-A is supported by the
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ng_bt3c&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ng_bt3c</span>(4)</span></a> driver.  Serial and UART based Bluetooth
+	devices are supported by <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sio&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sio</span>(4)</span></a>, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ng_h4&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ng_h4</span>(4)</span></a>, and
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=hcseriald&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">hcseriald</span>(8)</span></a>.</p><p>Before attaching a device, determine which of the above
+	drivers it uses, then load the driver.  For example, if the
+	device uses the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ng_ubt&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ng_ubt</span>(4)</span></a> driver:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>kldload ng_ubt</code></strong></pre><p>If the Bluetooth device will be attached to the system
+	during system startup, the system can be configured to load
+	the module at boot time by adding the driver to
+	<code class="filename">/boot/loader.conf</code>:</p><pre class="programlisting">ng_ubt_load="YES"</pre><p>Once the driver is loaded, plug in the
+	<acronym class="acronym">USB</acronym> dongle.  If the driver load was
+	successful, output similar to the following should appear on
+	the console and in
+	<code class="filename">/var/log/messages</code>:</p><pre class="screen">ubt0: vendor 0x0a12 product 0x0001, rev 1.10/5.25, addr 2
+ubt0: Interface 0 endpoints: interrupt=0x81, bulk-in=0x82, bulk-out=0x2
+ubt0: Interface 1 (alt.config 5) endpoints: isoc-in=0x83, isoc-out=0x3,
+      wMaxPacketSize=49, nframes=6, buffer size=294</pre><p>To start and stop the Bluetooth stack, use its startup
+	script.  It is a good idea to stop the stack before unplugging
+	the device.  Starting the bluetooth stack might require
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=hcsecd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">hcsecd</span>(8)</span></a> to be started.  When starting the stack, the
+	output should be similar to the following:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service bluetooth start ubt0</code></strong>
+BD_ADDR: 00:02:72:00:d4:1a
+Features: 0xff 0xff 0xf 00 00 00 00 00
+&lt;3-Slot&gt; &lt;5-Slot&gt; &lt;Encryption&gt; &lt;Slot offset&gt;
+&lt;Timing accuracy&gt; &lt;Switch&gt; &lt;Hold mode&gt; &lt;Sniff mode&gt;
+&lt;Park mode&gt; &lt;RSSI&gt; &lt;Channel quality&gt; &lt;SCO link&gt;
+&lt;HV2 packets&gt; &lt;HV3 packets&gt; &lt;u-law log&gt; &lt;A-law log&gt; &lt;CVSD&gt;
+&lt;Paging scheme&gt; &lt;Power control&gt; &lt;Transparent SCO data&gt;
+Max. ACL packet size: 192 bytes
+Number of ACL packets: 8
+Max. SCO packet size: 64 bytes
+Number of SCO packets: 8</pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp73667576"></a>31.5.2. Finding Other Bluetooth Devices</h3></div></div></div><a id="idp73668216" class="indexterm"></a><p>The Host Controller Interface (<acronym class="acronym">HCI</acronym>)
+	provides a uniform method for accessing Bluetooth baseband
+	capabilities.  In FreeBSD, a netgraph <acronym class="acronym">HCI</acronym> node
+	is created for each Bluetooth device.  For more details, refer
+	to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ng_hci&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ng_hci</span>(4)</span></a>.</p><p>One of the most common tasks is discovery of Bluetooth
+	devices within <acronym class="acronym">RF</acronym> proximity.  This
+	operation is called <span class="emphasis"><em>inquiry</em></span>.  Inquiry and
+	other <acronym class="acronym">HCI</acronym> related operations are done using
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=hccontrol&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">hccontrol</span>(8)</span></a>.  The example below shows how to find out
+	which Bluetooth devices are in range.  The list of devices
+	should be displayed in a few seconds.  Note that a remote
+	device will only answer the inquiry if it is set to
+	<span class="emphasis"><em>discoverable</em></span> mode.</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>hccontrol -n ubt0hci inquiry</code></strong>
+Inquiry result, num_responses=1
+Inquiry result #0
+       BD_ADDR: 00:80:37:29:19:a4
+       Page Scan Rep. Mode: 0x1
+       Page Scan Period Mode: 00
+       Page Scan Mode: 00
+       Class: 52:02:04
+       Clock offset: 0x78ef
+Inquiry complete. Status: No error [00]</pre><p>The <code class="literal">BD_ADDR</code> is the unique address of a
+	Bluetooth device, similar to the <acronym class="acronym">MAC</acronym>
+	address of a network card.  This address is needed for further
+	communication with a device and it is possible to assign a
+	human readable name to a <code class="literal">BD_ADDR</code>.
+	Information regarding the known Bluetooth hosts is contained
+	in <code class="filename">/etc/bluetooth/hosts</code>.  The following
+	example shows how to obtain the human readable name that was
+	assigned to the remote device:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>hccontrol -n ubt0hci remote_name_request 00:80:37:29:19:a4</code></strong>
+BD_ADDR: 00:80:37:29:19:a4
+Name: Pav's T39</pre><p>If an inquiry is performed on a remote Bluetooth device,
+	it will find the computer as
+	<span class="quote">&#8220;<span class="quote">your.host.name (ubt0)</span>&#8221;</span>.  The name assigned to
+	the local device can be changed at any time.</p><p>Remote devices can be assigned aliases in
+	<code class="filename">/etc/bluetooth/hosts</code>.  More information
+	about <code class="filename">/etc/bluetooth/hosts</code> file might be
+	found in <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=bluetooth.hosts&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">bluetooth.hosts</span>(5)</span></a>.</p><p>The Bluetooth system provides a point-to-point connection
+	between two Bluetooth units, or a point-to-multipoint
+	connection which is shared among several Bluetooth devices.
+	The following example shows how to create a connection to a
+	remote device:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>hccontrol -n ubt0hci create_connection <em class="replaceable"><code>BT_ADDR</code></em></code></strong></pre><p><code class="literal">create_connection</code> accepts
+	<code class="literal">BT_ADDR</code> as well as host aliases in
+	<code class="filename">/etc/bluetooth/hosts</code>.</p><p>The following example shows how to obtain the list of
+	active baseband connections for the local device:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>hccontrol -n ubt0hci read_connection_list</code></strong>
+Remote BD_ADDR    Handle Type Mode Role Encrypt Pending Queue State
+00:80:37:29:19:a4     41  ACL    0 MAST    NONE       0     0 OPEN</pre><p>A <span class="emphasis"><em>connection handle</em></span> is useful when
+	termination of the baseband connection is required, though
+	it is normally not required to do this by hand.  The stack
+	will automatically terminate inactive baseband
+	connections.</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>hccontrol -n ubt0hci disconnect 41</code></strong>
+Connection handle: 41
+Reason: Connection terminated by local host [0x16]</pre><p>Type <code class="command">hccontrol help</code> for a complete
+	listing of available <acronym class="acronym">HCI</acronym> commands.  Most
+	of the <acronym class="acronym">HCI</acronym> commands do not require
+	superuser privileges.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp73716728"></a>31.5.3. Device Pairing</h3></div></div></div><p>By default, Bluetooth communication is not authenticated,
+	and any device can talk to any other device.  A Bluetooth
+	device, such as a cellular phone, may choose to require
+	authentication to provide a particular service.  Bluetooth
+	authentication is normally done with a
+	<span class="emphasis"><em><acronym class="acronym">PIN</acronym> code</em></span>, an ASCII
+	string up to 16 characters in length.  The user is required
+	to enter the same <acronym class="acronym">PIN</acronym> code on both devices.
+	Once the user has entered the <acronym class="acronym">PIN</acronym> code,
+	both devices will generate a <span class="emphasis"><em>link key</em></span>.
+	After that, the link key can be stored either in the devices
+	or in a persistent storage.  Next time, both devices will
+	use the previously generated link key.  This procedure is
+	called <span class="emphasis"><em>pairing</em></span>.  Note that if the link
+	key is lost by either device, the pairing must be
+	repeated.</p><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=hcsecd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">hcsecd</span>(8)</span></a> daemon is responsible for handling
+	Bluetooth authentication requests.  The default configuration
+	file is <code class="filename">/etc/bluetooth/hcsecd.conf</code>.  An
+	example section for a cellular phone with the
+	<acronym class="acronym">PIN</acronym> code set to <code class="literal">1234</code> is
+	shown below:</p><pre class="programlisting">device {
+        bdaddr  00:80:37:29:19:a4;
+        name    "Pav's T39";
+        key     nokey;
+        pin     "1234";
+      }</pre><p>The only limitation on <acronym class="acronym">PIN</acronym> codes is
+	length.  Some devices, such as Bluetooth headsets, may have
+	a fixed <acronym class="acronym">PIN</acronym> code built in.  The
+	<code class="option">-d</code> switch forces <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=hcsecd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">hcsecd</span>(8)</span></a> to stay in
+	the foreground, so it is easy to see what is happening.  Set
+	the remote device to receive pairing and initiate the
+	Bluetooth connection to the remote device.  The remote device
+	should indicate that pairing was accepted and request the
+	<acronym class="acronym">PIN</acronym> code.  Enter the same
+	<acronym class="acronym">PIN</acronym> code listed in
+	<code class="filename">hcsecd.conf</code>.  Now the computer and the
+	remote device are paired.  Alternatively, pairing can be
+	initiated on the remote device.</p><p>The following line can be added to
+	<code class="filename">/etc/rc.conf</code> to configure <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=hcsecd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">hcsecd</span>(8)</span></a>
+	to start automatically on system start:</p><pre class="programlisting">hcsecd_enable="YES"</pre><p>The following is a sample of the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=hcsecd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">hcsecd</span>(8)</span></a> daemon
+	output:</p><pre class="programlisting">hcsecd[16484]: Got Link_Key_Request event from 'ubt0hci', remote bdaddr 0:80:37:29:19:a4
+hcsecd[16484]: Found matching entry, remote bdaddr 0:80:37:29:19:a4, name 'Pav's T39', link key doesn't exist
+hcsecd[16484]: Sending Link_Key_Negative_Reply to 'ubt0hci' for remote bdaddr 0:80:37:29:19:a4
+hcsecd[16484]: Got PIN_Code_Request event from 'ubt0hci', remote bdaddr 0:80:37:29:19:a4
+hcsecd[16484]: Found matching entry, remote bdaddr 0:80:37:29:19:a4, name 'Pav's T39', PIN code exists
+hcsecd[16484]: Sending PIN_Code_Reply to 'ubt0hci' for remote bdaddr 0:80:37:29:19:a4</pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp73742200"></a>31.5.4. Network Access with
+	<acronym class="acronym">PPP</acronym> Profiles</h3></div></div></div><p>A Dial-Up Networking (<acronym class="acronym">DUN</acronym>) profile can
+	be used to configure a cellular phone as a wireless modem for
+	connecting to a dial-up Internet access server.  It can also
+	be used to configure a computer to receive data calls from a
+	cellular phone.</p><p>Network access with a <acronym class="acronym">PPP</acronym> profile can
+	be used to provide <acronym class="acronym">LAN</acronym> access for a single
+	Bluetooth device or multiple Bluetooth devices.  It can also
+	provide <acronym class="acronym">PC</acronym> to <acronym class="acronym">PC</acronym>
+	connection using <acronym class="acronym">PPP</acronym> networking over serial
+	cable emulation.</p><p>In FreeBSD, these profiles are implemented with <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ppp&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ppp</span>(8)</span></a>
+	and the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rfcomm_pppd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rfcomm_pppd</span>(8)</span></a> wrapper which converts a
+	Bluetooth connection into something
+	<acronym class="acronym">PPP</acronym> can use.  Before a profile can be used,
+	a new <acronym class="acronym">PPP</acronym> label must be created in
+	<code class="filename">/etc/ppp/ppp.conf</code>.  Consult
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rfcomm_pppd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rfcomm_pppd</span>(8)</span></a> for examples.</p><p>In this example, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rfcomm_pppd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rfcomm_pppd</span>(8)</span></a> is used to open a
+	connection to a remote device with a
+	<code class="literal">BD_ADDR</code> of
+	<code class="literal">00:80:37:29:19:a4</code> on a
+	<acronym class="acronym">DUN</acronym> <acronym class="acronym">RFCOMM</acronym>
+	channel:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>rfcomm_pppd -a 00:80:37:29:19:a4 -c -C dun -l rfcomm-dialup</code></strong></pre><p>The actual channel number will be obtained from the remote
+	device using the <acronym class="acronym">SDP</acronym> protocol.  It is
+	possible to specify the <acronym class="acronym">RFCOMM</acronym> channel by
+	hand, and in this case <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rfcomm_pppd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rfcomm_pppd</span>(8)</span></a> will not perform
+	the <acronym class="acronym">SDP</acronym> query.  Use <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sdpcontrol&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sdpcontrol</span>(8)</span></a> to
+	find out the <acronym class="acronym">RFCOMM</acronym> channel on the remote
+	device.</p><p>In order to provide network access with the
+	<acronym class="acronym">PPP</acronym> <acronym class="acronym">LAN</acronym> service,
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sdpd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sdpd</span>(8)</span></a> must be running and a new entry for
+	<acronym class="acronym">LAN</acronym> clients must be created in
+	<code class="filename">/etc/ppp/ppp.conf</code>.  Consult
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rfcomm_pppd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rfcomm_pppd</span>(8)</span></a> for examples.  Finally, start the
+	<acronym class="acronym">RFCOMM</acronym> <acronym class="acronym">PPP</acronym> server on a
+	valid <acronym class="acronym">RFCOMM</acronym> channel number.  The
+	<acronym class="acronym">RFCOMM</acronym> <acronym class="acronym">PPP</acronym> server will
+	automatically register the Bluetooth <acronym class="acronym">LAN</acronym>
+	service with the local <acronym class="acronym">SDP</acronym> daemon.  The
+	example below shows how to start the <acronym class="acronym">RFCOMM</acronym>
+	<acronym class="acronym">PPP</acronym> server.</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>rfcomm_pppd -s -C 7 -l rfcomm-server</code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp73785592"></a>31.5.5. Bluetooth Protocols</h3></div></div></div><p>This section provides an overview of the various Bluetooth
+	protocols, their function, and associated utilities.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp73786744"></a>31.5.5.1. Logical Link Control and Adaptation Protocol
+	  (<acronym class="acronym">L2CAP</acronym>)</h4></div></div></div><a id="idp73787768" class="indexterm"></a><p>The Logical Link Control and Adaptation Protocol
+	  (<acronym class="acronym">L2CAP</acronym>) provides connection-oriented and
+	  connectionless data services to upper layer protocols.
+	  <acronym class="acronym">L2CAP</acronym> permits higher level protocols and
+	  applications to transmit and receive
+	  <acronym class="acronym">L2CAP</acronym> data packets up to 64 kilobytes in
+	  length.</p><p><acronym class="acronym">L2CAP</acronym> is based around the concept of
+	  <span class="emphasis"><em>channels</em></span>.  A channel is a logical
+	  connection on top of a baseband connection, where each
+	  channel is bound to a single protocol in a many-to-one
+	  fashion.  Multiple channels can be bound to the same
+	  protocol, but a channel cannot be bound to multiple
+	  protocols.  Each <acronym class="acronym">L2CAP</acronym> packet received on
+	  a channel is directed to the appropriate higher level
+	  protocol.  Multiple channels can share the same baseband
+	  connection.</p><p>In FreeBSD, a netgraph <acronym class="acronym">L2CAP</acronym> node is
+	  created for each Bluetooth device.  This node is normally
+	  connected to the downstream Bluetooth <acronym class="acronym">HCI</acronym>
+	  node and upstream Bluetooth socket nodes.  The default name
+	  for the <acronym class="acronym">L2CAP</acronym> node is
+	  <span class="quote">&#8220;<span class="quote">devicel2cap</span>&#8221;</span>.  For more details refer to
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ng_l2cap&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ng_l2cap</span>(4)</span></a>.</p><p>A useful command is <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=l2ping&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">l2ping</span>(8)</span></a>, which can be used to
+	  ping other devices.  Some Bluetooth implementations might
+	  not return all of the data sent to them, so <code class="literal">0
+	    bytes</code> in the following example is normal.</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>l2ping -a 00:80:37:29:19:a4</code></strong>
+0 bytes from 0:80:37:29:19:a4 seq_no=0 time=48.633 ms result=0
+0 bytes from 0:80:37:29:19:a4 seq_no=1 time=37.551 ms result=0
+0 bytes from 0:80:37:29:19:a4 seq_no=2 time=28.324 ms result=0
+0 bytes from 0:80:37:29:19:a4 seq_no=3 time=46.150 ms result=0</pre><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=l2control&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">l2control</span>(8)</span></a> utility is used to perform various
+	  operations on <acronym class="acronym">L2CAP</acronym> nodes.  This example
+	  shows how to obtain the list of logical connections
+	  (channels) and the list of baseband connections for the
+	  local device:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>l2control -a 00:02:72:00:d4:1a read_channel_list</code></strong>
+L2CAP channels:
+Remote BD_ADDR     SCID/ DCID   PSM  IMTU/ OMTU State
+00:07:e0:00:0b:ca    66/   64     3   132/  672 OPEN
+<code class="prompt">%</code> <strong class="userinput"><code>l2control -a 00:02:72:00:d4:1a read_connection_list</code></strong>
+L2CAP connections:
+Remote BD_ADDR    Handle Flags Pending State
+00:07:e0:00:0b:ca     41 O           0 OPEN</pre><p>Another diagnostic tool is <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=btsockstat&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">btsockstat</span>(1)</span></a>.  It is
+	  similar to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=netstat&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">netstat</span>(1)</span></a>, but for Bluetooth
+	  network-related data structures.  The example below shows
+	  the same logical connection as <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=l2control&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">l2control</span>(8)</span></a>
+	  above.</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>btsockstat</code></strong>
+Active L2CAP sockets
+PCB      Recv-Q Send-Q Local address/PSM       Foreign address   CID   State
+c2afe900      0      0 00:02:72:00:d4:1a/3     00:07:e0:00:0b:ca 66    OPEN
+Active RFCOMM sessions
+L2PCB    PCB      Flag MTU   Out-Q DLCs State
+c2afe900 c2b53380 1    127   0     Yes  OPEN
+Active RFCOMM sockets
+PCB      Recv-Q Send-Q Local address     Foreign address   Chan DLCI State
+c2e8bc80      0    250 00:02:72:00:d4:1a 00:07:e0:00:0b:ca 3    6    OPEN</pre></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp73808248"></a>31.5.5.2. Radio Frequency Communication
+	  (<acronym class="acronym">RFCOMM</acronym>)</h4></div></div></div><p>The <acronym class="acronym">RFCOMM</acronym> protocol provides
+	  emulation of serial ports over the <acronym class="acronym">L2CAP</acronym>
+	  protocol.  <acronym class="acronym">RFCOMM</acronym> is a simple transport
+	  protocol, with additional provisions for emulating the 9
+	  circuits of RS-232 (EIATIA-232-E) serial ports.  It
+	  supports up to 60 simultaneous connections
+	  (<acronym class="acronym">RFCOMM</acronym> channels) between two Bluetooth
+	  devices.</p><p>For the purposes of <acronym class="acronym">RFCOMM</acronym>, a
+	  complete communication path involves two applications
+	  running on the communication endpoints with a communication
+	  segment between them.  <acronym class="acronym">RFCOMM</acronym> is intended
+	  to cover applications that make use of the serial ports of
+	  the devices in which they reside.  The communication segment
+	  is a direct connect Bluetooth link from one device to
+	  another.</p><p><acronym class="acronym">RFCOMM</acronym> is only concerned with the
+	  connection between the devices in the direct connect case,
+	  or between the device and a modem in the network case.
+	  <acronym class="acronym">RFCOMM</acronym> can support other configurations,
+	  such as modules that communicate via Bluetooth wireless
+	  technology on one side and provide a wired interface on the
+	  other side.</p><p>In FreeBSD, <acronym class="acronym">RFCOMM</acronym> is implemented at the
+	  Bluetooth sockets layer.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp73830648"></a>31.5.5.3. Service Discovery Protocol
+	  (<acronym class="acronym">SDP</acronym>)</h4></div></div></div><a id="idp73831672" class="indexterm"></a><p>The Service Discovery Protocol (<acronym class="acronym">SDP</acronym>)
+	  provides the means for client applications to discover the
+	  existence of services provided by server applications as
+	  well as the attributes of those services.  The attributes of
+	  a service include the type or class of service offered and
+	  the mechanism or protocol information needed to utilize the
+	  service.</p><p><acronym class="acronym">SDP</acronym> involves communication between a
+	  <acronym class="acronym">SDP</acronym> server and a <acronym class="acronym">SDP</acronym>
+	  client.  The server maintains a list of service records that
+	  describe the characteristics of services associated with the
+	  server.  Each service record contains information about a
+	  single service.  A client may retrieve information from a
+	  service record maintained by the <acronym class="acronym">SDP</acronym>
+	  server by issuing a <acronym class="acronym">SDP</acronym> request.  If the
+	  client, or an application associated with the client,
+	  decides to use a service, it must open a separate connection
+	  to the service provider in order to utilize the service.
+	  <acronym class="acronym">SDP</acronym> provides a mechanism for discovering
+	  services and their attributes, but it does not provide a
+	  mechanism for utilizing those services.</p><p>Normally, a <acronym class="acronym">SDP</acronym> client searches for
+	  services based on some desired characteristics of the
+	  services.  However, there are times when it is desirable to
+	  discover which types of services are described by an
+	  <acronym class="acronym">SDP</acronym> server's service records without any
+	  prior information about the services.  This process of
+	  looking for any offered services is called
+	  <span class="emphasis"><em>browsing</em></span>.</p><p>The Bluetooth <acronym class="acronym">SDP</acronym> server,
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sdpd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sdpd</span>(8)</span></a>, and command line client, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sdpcontrol&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sdpcontrol</span>(8)</span></a>,
+	  are included in the standard FreeBSD installation.  The
+	  following example shows how to perform a
+	  <acronym class="acronym">SDP</acronym> browse query.</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>sdpcontrol -a 00:01:03:fc:6e:ec browse</code></strong>
+Record Handle: 00000000
+Service Class ID List:
+        Service Discovery Server (0x1000)
+Protocol Descriptor List:
+        L2CAP (0x0100)
+                Protocol specific parameter #1: u/int/uuid16 1
+                Protocol specific parameter #2: u/int/uuid16 1
+
+Record Handle: 0x00000001
+Service Class ID List:
+        Browse Group Descriptor (0x1001)
+
+Record Handle: 0x00000002
+Service Class ID List:
+        LAN Access Using PPP (0x1102)
+Protocol Descriptor List:
+        L2CAP (0x0100)
+        RFCOMM (0x0003)
+                Protocol specific parameter #1: u/int8/bool 1
+Bluetooth Profile Descriptor List:
+        LAN Access Using PPP (0x1102) ver. 1.0</pre><p>Note that each service has a list of attributes, such
+	  as the <acronym class="acronym">RFCOMM</acronym> channel.  Depending on the
+	  service, the user might need to make note of some of the
+	  attributes.  Some Bluetooth implementations do not support
+	  service browsing and may return an empty list.  In this
+	  case, it is possible to search for the specific service.
+	  The example below shows how to search for the
+	  <acronym class="acronym">OBEX</acronym> Object Push
+	  (<acronym class="acronym">OPUSH</acronym>) service:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>sdpcontrol -a 00:01:03:fc:6e:ec search OPUSH</code></strong></pre><p>Offering services on FreeBSD to Bluetooth clients is done
+	  with the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sdpd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sdpd</span>(8)</span></a> server.  The following line can be
+	  added to <code class="filename">/etc/rc.conf</code>:</p><pre class="programlisting">sdpd_enable="YES"</pre><p>Then the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sdpd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sdpd</span>(8)</span></a> daemon can be started with:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service sdpd start</code></strong></pre><p>The local server application that wants to provide a
+	  Bluetooth service to remote clients will register the
+	  service with the local <acronym class="acronym">SDP</acronym> daemon.  An
+	  example of such an application is <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rfcomm_pppd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rfcomm_pppd</span>(8)</span></a>.  Once
+	  started, it will register the Bluetooth LAN service with the
+	  local <acronym class="acronym">SDP</acronym> daemon.</p><p>The list of services registered with the local
+	  <acronym class="acronym">SDP</acronym> server can be obtained by issuing a
+	  <acronym class="acronym">SDP</acronym> browse query via the local control
+	  channel:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>sdpcontrol -l browse</code></strong></pre></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp73867896"></a>31.5.5.4. <acronym class="acronym">OBEX</acronym> Object Push
+	  (<acronym class="acronym">OPUSH</acronym>)</h4></div></div></div><a id="idp73869176" class="indexterm"></a><p>Object Exchange (<acronym class="acronym">OBEX</acronym>) is a widely
+	  used protocol for simple file transfers between mobile
+	  devices.  Its main use is in infrared communication, where
+	  it is used for generic file transfers between notebooks or
+	  <acronym class="acronym">PDA</acronym>s, and for sending business cards or
+	  calendar entries between cellular phones and other devices
+	  with Personal Information Manager (<acronym class="acronym">PIM</acronym>)
+	  applications.</p><p>The <acronym class="acronym">OBEX</acronym> server and client are
+	  implemented by <span class="application">obexapp</span>, which can
+	  be installed using the <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/comms/obexapp/pkg-descr">comms/obexapp</a>
+	  package or port.</p><p>The <acronym class="acronym">OBEX</acronym> client is used to push
+	  and/or pull objects from the <acronym class="acronym">OBEX</acronym> server.
+	  An example object is a business card or an appointment.
+	  The <acronym class="acronym">OBEX</acronym> client can obtain the
+	  <acronym class="acronym">RFCOMM</acronym> channel number from the remote
+	  device via <acronym class="acronym">SDP</acronym>.  This can be done by
+	  specifying the service name instead of the
+	  <acronym class="acronym">RFCOMM</acronym> channel number.  Supported service
+	  names are: <code class="literal">IrMC</code>, <code class="literal">FTRN</code>,
+	  and <code class="literal">OPUSH</code>.  It is also possible to
+	  specify the <acronym class="acronym">RFCOMM</acronym> channel as a number.
+	  Below is an example of an <acronym class="acronym">OBEX</acronym> session
+	  where the device information object is pulled from the
+	  cellular phone, and a new object, the business card, is
+	  pushed into the phone's directory.</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>obexapp -a 00:80:37:29:19:a4 -C IrMC</code></strong>
+obex&gt; get telecom/devinfo.txt devinfo-t39.txt
+Success, response: OK, Success (0x20)
+obex&gt; put new.vcf
+Success, response: OK, Success (0x20)
+obex&gt; di
+Success, response: OK, Success (0x20)</pre><p>In order to provide the <acronym class="acronym">OPUSH</acronym>
+	  service, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sdpd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sdpd</span>(8)</span></a> must be running and a root folder,
+	  where all incoming objects will be stored, must be created.
+	  The default path to the root folder is
+	  <code class="filename">/var/spool/obex</code>.  Finally, start the
+	  <acronym class="acronym">OBEX</acronym> server on a valid
+	  <acronym class="acronym">RFCOMM</acronym> channel number.  The
+	  <acronym class="acronym">OBEX</acronym> server will automatically register
+	  the <acronym class="acronym">OPUSH</acronym> service with the local
+	  <acronym class="acronym">SDP</acronym> daemon.  The example below shows how
+	  to start the <acronym class="acronym">OBEX</acronym> server.</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>obexapp -s -C 10</code></strong></pre></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp73887992"></a>31.5.5.5. Serial Port Profile (<acronym class="acronym">SPP</acronym>)</h4></div></div></div><p>The Serial Port Profile (<acronym class="acronym">SPP</acronym>) allows
+	  Bluetooth devices to perform serial cable emulation.  This
+	  profile allows legacy applications to use Bluetooth as a
+	  cable replacement, through a virtual serial port
+	  abstraction.</p><p>In FreeBSD, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rfcomm_sppd&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rfcomm_sppd</span>(1)</span></a> implements
+	  <acronym class="acronym">SPP</acronym> and a pseudo tty is used as a virtual
+	  serial port abstraction.  The example below shows how to
+	  connect to a remote device's serial port service.  A
+	  <acronym class="acronym">RFCOMM</acronym> channel does not have to be
+	  specified as <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rfcomm_sppd&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rfcomm_sppd</span>(1)</span></a> can obtain it from the
+	  remote device via <acronym class="acronym">SDP</acronym>.  To override this,
+	  specify a <acronym class="acronym">RFCOMM</acronym> channel on the command
+	  line.</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>rfcomm_sppd -a 00:07:E0:00:0B:CA -t</code></strong>
+rfcomm_sppd[94692]: Starting on /dev/pts/6...
+/dev/pts/6</pre><p>Once connected, the pseudo tty can be used as serial
+	  port:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cu -l /dev/pts/6</code></strong></pre><p>The pseudo tty is printed on stdout and can be read by
+	  wrapper scripts:</p><pre class="programlisting">PTS=`rfcomm_sppd -a 00:07:E0:00:0B:CA -t`
+cu -l $PTS</pre></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp73912952"></a>31.5.6. Troubleshooting</h3></div></div></div><p>By default, when FreeBSD is accepting a new connection, it
+	tries to perform a role switch and become master.  Some older
+	Bluetooth devices which do not support role switching will not
+	be able to connect.  Since role switching is performed when a
+	new connection is being established, it is not possible to ask
+	the remote device if it supports role switching.  However,
+	there is a <acronym class="acronym">HCI</acronym> option to disable role
+	switching on the local side:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>hccontrol -n ubt0hci write_node_role_switch 0</code></strong></pre><p>To display Bluetooth packets, use the third-party package
+	<span class="application">hcidump</span>, which can be installed
+	using the <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/comms/hcidump/pkg-descr">comms/hcidump</a> package or port.
+	This utility is similar to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=tcpdump&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">tcpdump</span>(1)</span></a> and can be used to
+	display the contents of Bluetooth packets on the terminal and
+	to dump the Bluetooth packets to a file.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="network-usb-tethering.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="advanced-networking.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="network-bridging.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">31.4. USB Tethering </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 31.6. Bridging</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

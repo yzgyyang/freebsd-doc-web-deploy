@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>Design elements of the FreeBSD VM system</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><meta name="description" content="The title is really just a fancy way of saying that I am going to attempt to describe the whole VM enchilada, hopefully in a way that everyone can follow. For the last year I have concentrated on a number of major kernel subsystems within FreeBSD, with the VM and Swap subsystems being the most interesting and NFS being a necessary chore. I rewrote only small portions of the code. In the VM arena the only major rewrite I have done is to the swap subsystem. Most of my work was cleanup and maintenance, with only moderate code rewriting and no major algorithmic adjustments within the VM subsystem. The bulk of the VM subsystem's theoretical base remains unchanged and a lot of the credit for the modernization effort in the last few years belongs to John Dyson and David Greenman. Not being a historian like Kirk I will not attempt to tag all the various features with peoples names, since I will invariably get it wrong." /><link rel="home" href="index.html" title="Design elements of the FreeBSD VM system" /><link rel="next" href="vm-objects.html" title="2. VM Objects" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Design elements of the FreeBSD VM system</th></tr><tr><td width="20%" align="left"> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="vm-objects.html">Next</a></td></tr></table><hr /></div><div xml:lang="en" class="article" lang="en"><div xmlns="" class="titlepage"><div><div><h1 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp46774008"></a>Design elements of the FreeBSD VM system</h1></div><div><div xmlns="http://www.w3.org/1999/xhtml" class="authorgroup"><div class="author"><h3 class="author"><span class="firstname">Matthew</span> <span class="surname">Dillon</span></h3><div class="affiliation"><div class="address"><p><br />
+	    <code class="email">&lt;<a xmlns="" class="email" href="mailto:dillon@apollo.backplane.com">dillon@apollo.backplane.com</a>&gt;</code><br />
+	  </p></div></div></div></div></div><div>Revision: <a href="https://svnweb.freebsd.org/changeset/doc/d994e9dd5a"><span class="svnref">d994e9dd5a</span></a></div><div><a xmlns="http://www.w3.org/1999/xhtml" href="trademarks.html">Legal Notice</a></div><div><a xmlns="http://www.w3.org/1999/xhtml" href="legalnotice.html">Legal Notice</a></div><div>Last modified on 2013-11-13 07:52:45 +0000 by hrs.</div><div><div xmlns="http://www.w3.org/1999/xhtml" class="abstract"><div class="abstract-title">Abstract</div><p>The title is really just a fancy way of saying that I am going to
+	attempt to describe the whole VM enchilada, hopefully in a way that
+	everyone can follow.  For the last year I have concentrated on a number
+	of major kernel subsystems within FreeBSD, with the VM and Swap
+	subsystems being the most interesting and NFS being <span class="quote">&#8220;<span class="quote">a necessary
+	chore</span>&#8221;</span>.  I rewrote only small portions of the code.  In the VM
+	arena the only major rewrite I have done is to the swap subsystem.
+	Most of my work was cleanup and maintenance, with only moderate code
+	rewriting and no major algorithmic adjustments within the VM
+	subsystem.  The bulk of the VM subsystem's theoretical base remains
+	unchanged and a lot of the credit for the modernization effort in the
+	last few years belongs to John Dyson and David Greenman.  Not being a
+	historian like Kirk I will not attempt to tag all the various features
+	with peoples names, since I will invariably get it wrong.</p></div></div></div><div class="docformatnavi">
+      [
+      
+	  Split HTML
+	
+      /
+      <a href="article.html">Single HTML</a>
+      ]
+    </div><hr /></div><div class="toc"><div class="toc-title">Table of Contents</div><dl class="toc"><dt><span class="sect1"><a href="index.html#introduction">1. Introduction</a></span></dt><dt><span class="sect1"><a href="vm-objects.html">2. VM Objects</a></span></dt><dt><span class="sect1"><a href="swap-layers.html">3. SWAP Layers</a></span></dt><dt><span class="sect1"><a href="freeing-pages.html">4. When to free a page</a></span></dt><dt><span class="sect1"><a href="prefault-optimizations.html">5. Pre-Faulting and Zeroing Optimizations</a></span></dt><dt><span class="sect1"><a href="page-table-optimizations.html">6. Page Table Optimizations</a></span></dt><dt><span class="sect1"><a href="page-coloring-optimizations.html">7. Page Coloring</a></span></dt><dt><span class="sect1"><a href="conclusion.html">8. Conclusion</a></span></dt><dt><span class="sect1"><a href="allen-briggs-qa.html">9. Bonus QA session by Allen Briggs
+      <code class="email">&lt;<a xmlns="" class="email" href="mailto:briggs@ninthwonder.com">briggs@ninthwonder.com</a>&gt;</code></a></span></dt></dl></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="introduction"></a>1. Introduction</h2></div></div></div><p>Before moving along to the actual design let's spend a little time
+      on the necessity of maintaining and modernizing any long-living
+      codebase.  In the programming world, algorithms tend to be more
+      important than code and it is precisely due to BSD's academic roots that
+      a great deal of attention was paid to algorithm design from the
+      beginning.  More attention paid to the design generally leads to a clean
+      and flexible codebase that can be fairly easily modified, extended, or
+      replaced over time.  While BSD is considered an <span class="quote">&#8220;<span class="quote">old</span>&#8221;</span>
+      operating system by some people, those of us who work on it tend to view
+      it more as a <span class="quote">&#8220;<span class="quote">mature</span>&#8221;</span> codebase which has various components
+      modified, extended, or replaced with modern code.  It has evolved, and
+      FreeBSD is at the bleeding edge no matter how old some of the code might
+      be.  This is an important distinction to make and one that is
+      unfortunately lost to many people.  The biggest error a programmer can
+      make is to not learn from history, and this is precisely the error that
+      many other modern operating systems have made.  <span class="trademark">Windows NT</span>® is the best example
+      of this, and the consequences have been dire.  Linux also makes this
+      mistake to some degree&#8212;enough that we BSD folk can make small
+      jokes about it every once in a while, anyway.  Linux's problem is simply
+      one of a lack of experience and history to compare ideas against, a
+      problem that is easily and rapidly being addressed by the Linux
+      community in the same way it has been addressed in the BSD
+      community&#8212;by continuous code development.  The <span class="trademark">Windows NT</span>® folk, on the
+      other hand, repeatedly make the same mistakes solved by <span class="trademark">UNIX</span>® decades ago
+      and then spend years fixing them. Over and over again.  They have a
+      severe case of <span class="quote">&#8220;<span class="quote">not designed here</span>&#8221;</span> and <span class="quote">&#8220;<span class="quote">we are always
+      right because our marketing department says so</span>&#8221;</span>.  I have little
+      tolerance for anyone who cannot learn from history.</p><p>Much of the apparent complexity of the FreeBSD design, especially in
+      the VM/Swap subsystem, is a direct result of having to solve serious
+      performance issues that occur under various conditions.  These issues
+      are not due to bad algorithmic design but instead rise from
+      environmental factors.  In any direct comparison between platforms,
+      these issues become most apparent when system resources begin to get
+      stressed.  As I describe FreeBSD's VM/Swap subsystem the reader should
+      always keep two points in mind:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>The most important aspect of performance design is what is
+          known as <span class="quote">&#8220;<span class="quote">Optimizing the Critical Path</span>&#8221;</span>.  It is often
+          the case that performance optimizations add a little bloat to the
+          code in order to make the critical path perform better.</p></li><li class="listitem"><p>A solid, generalized design outperforms a heavily-optimized
+          design over the long run.  While a generalized design may end up
+          being slower than an heavily-optimized design when they are
+          first implemented, the generalized design tends to be easier to
+          adapt to changing conditions and the heavily-optimized design
+          winds up having to be thrown away.</p></li></ol></div><p>Any codebase that will survive and be maintainable for
+      years must therefore be designed properly from the beginning even if it
+      costs some performance.  Twenty years ago people were still arguing that
+      programming in assembly was better than programming in a high-level
+      language because it produced code that was ten times as fast.  Today,
+      the fallibility of that argument is obvious  &#8212; as are
+      the parallels to algorithmic design and code generalization.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="vm-objects.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"> </td><td width="20%" align="center"> </td><td width="40%" align="right" valign="top"> 2. VM Objects</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

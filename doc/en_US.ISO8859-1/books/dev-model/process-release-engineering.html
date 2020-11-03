@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>6.8. Release engineering</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="A project model for the FreeBSD Project" /><link rel="up" href="model-processes.html" title="Chapter 6. Processes" /><link rel="prev" href="process-reactions.html" title="6.7. Reacting to misbehavior" /><link rel="next" href="tools.html" title="Chapter 7. Tools" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.8. Release engineering</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="process-reactions.html">Prev</a> </td><th width="60%" align="center">Chapter 6. Processes</th><td width="20%" align="right"> <a accesskey="n" href="tools.html">Next</a></td></tr></table><hr /></div><div class="section"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="process-release-engineering"></a>6.8. Release engineering</h2></div></div></div><p>
+                    The FreeBSD project has a Release Engineering  team with a
+                    principal release engineer that is responsible for creating releases
+                    of FreeBSD that can be brought out to the user community via the
+                    net or sold in retail outlets. Since FreeBSD is available on multiple
+                    platforms and releases for the different architectures are made
+                    available at the same time, the team has one person in charge of
+                    each architecture. Also, there are roles in the team responsible
+                    for coordinating quality assurance  efforts, building a package
+                    set and for having an updated set of documents.
+                    When referring to the release engineer,
+                    a representative for the release engineering team is
+                    meant.
+                </p><p>
+                    When a release is coming, the FreeBSD project changes shape
+                    somewhat. A release schedule is made containing feature- and
+                    code-freezes, release of interim releases and the final
+                    release. A feature-freeze means no new features are allowed to
+                    be committed to the branch without the release engineers'
+                    explicit consent. Code-freeze means no changes to the code (like
+                    bugs-fixes) are allowed to be committed without the release
+                    engineers' explicit consent. This feature- and code-freeze is
+                    known as stabilising. During the release process, the release
+                    engineer has the full authority to revert to older versions of
+                    code and thus "back out" changes should they find that the changes
+                    are not suitable to be included in the release.
+                </p><p>
+                    There are three different kinds of releases:
+                    </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
+                                .0 releases are the first release of a major
+                                version. These are branched of the -CURRENT branch
+                                and have a significantly longer release engineering
+                                cycle due to the unstable nature of the -CURRENT branch
+                        </p></li><li class="listitem"><p>
+                                .X releases are releases of the -STABLE
+                                branch. They are scheduled to come out every 4 months.
+                        </p></li><li class="listitem"><p>
+                                .X.Y releases are security releases that follow
+                                the .X branch. These come out only when sufficient
+                                security fixes have been merged since the last
+                                release on that branch. New features are rarely
+                                included, and the security team is far more
+                                involved in these than in regular releases.
+
+                        </p></li></ol></div><p>
+
+                </p><p>
+                    For releases of the -STABLE-branch, the release process starts 45
+                    days before the anticipated
+                    release date. During the first phase, the first 15 days, the
+                    developers merge what changes they have had in -CURRENT
+                    that they want to have in the release to the release
+                    branch. When this period is over, the code enters a 15
+                    day code freeze in which only bug fixes, documentation updates,
+                    security-related fixes and minor device driver changes are
+                    allowed. These changes must be approved by the release engineer
+                    in advance. At the beginning of the last 15 day period a release
+                    candidate is created for widespread testing. Updates are less
+                    likely to be allowed during this period, except for important
+                    bug fixes and security updates. In this final period, all
+                    releases are considered release candidates. At the end of the
+                    release process, a release is created with the new version
+                    number, including binary distributions on web sites and the
+                    creation of CD-ROM images.  However, the release is not
+                    considered "really released" until a <a class="xref" href="tool-pgp.html" title="7.4. Pretty Good Privacy">PGP</a>-signed message stating
+                    exactly that, is sent to the mailing list freebsd-announce; anything
+                    labelled as a "release" before that may well be in-process and
+                    subject to change before the PGP-signed message is sent.
+
+                    <a href="#ftn.idp47926136" class="footnote" id="idp47926136"><sup class="footnote">[11]</sup></a>.
+
+
+                </p><p>
+                    The releases of the -CURRENT-branch (that is, all releases that
+                    end with <span class="quote">&#8220;<span class="quote">.0</span>&#8221;</span>) are very similar, but with twice as
+                    long timeframe. It starts 8 weeks prior to the release with
+                    announcement of the release time line. Two weeks into the
+                    release process, the feature freeze is initiated and performance
+                    tweaks should be kept to a minimum. Four weeks prior to the
+                    release, an official beta version is made available. Two weeks
+                    prior to release, the code is officially branched into a new
+                    version. This version is given release candidate status, and as
+                    with the release engineering of -STABLE, the code freeze of the
+                    release candidate is
+                    hardened. However, development on the main development branch
+                    can continue. Other than these differences, the release
+                    engineering processes are alike.
+
+                </p><p>
+                    .0 releases go into their own branch and are aimed
+                    mainly at early adopters. The branch then goes through a period
+                    of stabilisation, and it is not until the <a class="xref" href="official-hats.html#role-releng">Release Engineering Team</a>
+                    decides the demands to stability have been satisfied that
+                    the branch becomes -STABLE and -CURRENT targets the next major
+                    version. While this for the majority has been with .1 versions,
+                    this is not a demand.
+                </p><p>
+                    Most releases are made when a given date that has been deemed a
+                    long enough time since the previous release comes. A target is
+                    set for having major releases every 18 months and minor
+                    releases every 4 months.
+
+                    The user community has made it very clear that security and
+                    stability cannot be sacrificed by self-imposed deadlines and
+                    target release dates.
+
+                    For slips of time not to become too long with regards to security
+                    and stability issues,
+                    extra discipline is required when committing changes to -STABLE.
+
+                </p><p>
+                    </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>Make release schedule</p></li><li class="listitem"><p>Feature freeze</p></li><li class="listitem"><p>Code freeze</p></li><li class="listitem"><p>Make branch</p></li><li class="listitem"><p>Release candidate</p></li><li class="listitem"><p>Stabilize release (loop back to
+                            previous step as many times as necessary; when
+                            release is considered stable, proceed with next
+                            step)
+                        </p></li><li class="listitem"><p>Build packages</p></li><li class="listitem"><p>Warn mirrors</p></li><li class="listitem"><p>Publish release</p></li></ol></div><p>
+                </p><p>
+                    [<span class="citation"><a class="xref" href="bibliography.html#freebsd-releng">FreeBSD, 2002E</a></span>]
+                </p><div class="footnotes"><br /><hr class="footnote-hr" /><div id="ftn.idp47926136" class="footnote"><p><a href="#idp47926136" class="para"><sup class="para">[11] </sup></a>
+                            Many commercial vendors use these images to create
+                            CD-ROMs that are sold in retail outlets.
+                        </p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="process-reactions.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="model-processes.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="tools.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">6.7. Reacting to misbehavior </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 7. Tools</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

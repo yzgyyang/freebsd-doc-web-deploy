@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">搜索</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -273,7 +272,7 @@
 
   <h3><a name="hw" shape="rect" id="hw">硬件列表</a></h3>
 
-  <p>可支持的 CPU 列表可以在 <a href="../releases/11.2R/hardware-i386.html" shape="rect">FreeBSD/i386
+  <p>可支持的 CPU 列表可以在 <a href="../releases/12.0R/hardware-i386.html" shape="rect">FreeBSD/i386
       硬件说明</a>中找到。</p>
 
   <h3><a name="links" shape="rect" id="links">其他相关资源</a></h3>

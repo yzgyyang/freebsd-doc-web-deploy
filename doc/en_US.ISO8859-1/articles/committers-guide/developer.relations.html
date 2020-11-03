@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>11. Developer Relations</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Committer's Guide" /><link rel="up" href="index.html" title="Committer's Guide" /><link rel="prev" href="tracking.license.grants.html" title="10. Keeping Track of Licenses Granted to the FreeBSD Project" /><link rel="next" href="if-in-doubt.html" title="12. If in Doubt..." /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">11. Developer Relations</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="tracking.license.grants.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="if-in-doubt.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="developer.relations"></a>11. Developer Relations</h2></div></div></div><p>When working directly on your own code or on code which is
+      already well established as your responsibility, then there is
+      probably little need to check with other committers before
+      jumping in with a commit.  Working on a bug in an area of the
+      system which is clearly orphaned (and there are a few such
+      areas, to our shame), the same applies.  When modifying
+      parts of the system which are maintained, formally, or
+      informally, consider asking for review just as a developer
+      would have before becoming a
+      committer.  For ports, contact the listed
+      <code class="varname">MAINTAINER</code> in the
+      <code class="filename">Makefile</code>.</p><p>To determine if an area of the tree is maintained, check the
+      MAINTAINERS file at the root of the tree.  If nobody is listed,
+      scan the revision history to see who has committed
+      changes in the past.  An example script that lists each person
+      who has committed to a given file along with the number of
+      commits each person has made can be found at on
+      <code class="systemitem">freefall</code> at
+      <code class="filename">~eadler/bin/whodid</code>.  If queries go
+      unanswered or the committer otherwise indicates a lack of
+      interest in the area affected, go ahead and commit it.</p><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">Avoid sending private emails to maintainers.  Other people
+	might be interested in the conversation, not just the final
+	output.</p></div><p>If there is any doubt about a commit for any reason at all,
+      have it reviewed before
+      committing.  Better to have it flamed then and there rather than
+      when it is part of the repository.  If a commit does results in
+      controversy erupting, it may be advisable to consider backing
+      the change out again until the matter is settled.  Remember,
+      with a version control system we can always change it
+      back.</p><p>Do not impugn the intentions of others.  If they see a
+      different solution to a problem, or even a different problem, it
+      is probably not because they are stupid, because they have
+      questionable parentage, or because they are trying to destroy
+      hard work, personal image, or FreeBSD, but basically because they
+      have a different outlook on the world.  Different is
+      good.</p><p>Disagree honestly.  Argue your position from its merits,
+      be honest about any shortcomings it may have, and be open to
+      seeing their solution, or even their vision of the problem,
+      with an open mind.</p><p>Accept correction.  We are all fallible.  When you have made
+      a mistake, apologize and get on with life.  Do not beat up
+      yourself, and certainly do not beat up others for your mistake.
+      Do not waste time on embarrassment or recrimination, just fix
+      the problem and move on.</p><p>Ask for help.  Seek out (and give) peer reviews.  One of
+      the ways open source software is supposed to excel is in the
+      number of eyeballs applied to it; this does not apply if nobody
+      will review code.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="tracking.license.grants.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="if-in-doubt.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">10. Keeping Track of Licenses Granted to the FreeBSD
+      Project </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 12. If in Doubt...</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

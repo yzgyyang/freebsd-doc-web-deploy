@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>5.17. Use BINARY_ALIAS to Rename Commands Instead of Patching the Build</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Porter's Handbook" /><link rel="up" href="makefiles.html" title="Chapter 5. Configuring the Makefile" /><link rel="prev" href="install.html" title="5.16. Installing Files" /><link rel="next" href="special.html" title="Chapter 6. Special Considerations" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5.17. Use <code class="varname">BINARY_ALIAS</code> to Rename Commands
+      Instead of Patching the Build</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="install.html">Prev</a> </td><th width="60%" align="center">Chapter 5. Configuring the Makefile</th><td width="20%" align="right"> <a accesskey="n" href="special.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="binary-alias"></a>5.17. Use <code class="varname">BINARY_ALIAS</code> to Rename Commands
+      Instead of Patching the Build</h2></div></div></div><p>When <code class="varname">BINARY_ALIAS</code> is defined it will
+      create symlinks of the given commands in a directory which
+      will be prepended to <code class="varname">PATH</code>.</p><p>Use it to substitute hardcoded commands the build phase
+      relies on without having to patch any build files.</p><div class="example"><a id="binary-alias-ex1"></a><div class="example-title">Example 5.48. Using <code class="varname">BINARY_ALIAS</code> to Make
+	<code class="command">gsed</code> Available as
+	<code class="command">sed</code></div><div class="example-contents"><p>Some ports expect <code class="command">sed</code> to behave like
+	<span class="application">GNU sed</span> and use features that
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sed&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sed</span>(1)</span></a> does not provide.
+	<span class="application">GNU sed</span> is available from
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/textproc/gsed/pkg-descr">textproc/gsed</a> on FreeBSD.</p><p>Use <code class="varname">BINARY_ALIAS</code> to substitute
+	<code class="command">sed</code> with <code class="command">gsed</code>
+	for the duration of the build:</p><pre class="programlisting">BUILD_DEPENDS=	gsed:textproc/gsed
+...
+BINARY_ALIAS=	sed=gsed</pre></div></div><br class="example-break" /><div class="example"><a id="binary-alias-ex2"></a><div class="example-title">Example 5.49. Using <code class="varname">BINARY_ALIAS</code> to Provide Aliases
+	for Hardcoded <code class="command">python3</code> Commands</div><div class="example-contents"><p>A port that has a hardcoded reference to
+	<code class="command">python3</code> in its build scripts will need
+	to have it available in <code class="varname">PATH</code> at build
+	time.  Use <code class="varname">BINARY_ALIAS</code> to create an alias
+	that points to the right Python 3 binary:</p><pre class="programlisting">USES=	python:3.4+,build
+...
+BINARY_ALIAS=	python3=${PYTHON_CMD}</pre><p>See <a class="xref" href="using-python.html" title="6.17. Using Python">Section 6.17, &#8220;Using Python&#8221;</a> for more information
+	about <code class="literal">USES=python</code>.</p></div></div><br class="example-break" /></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="install.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="makefiles.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="special.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">5.16. Installing Files </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 6. Special Considerations</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

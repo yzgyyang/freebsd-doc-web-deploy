@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>3. Preparation - mfsBSD</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Remote Installation of the FreeBSD Operating System Without a Remote Console" /><link rel="up" href="index.html" title="Remote Installation of the FreeBSD Operating System Without a Remote Console" /><link rel="prev" href="intro.html" title="2. Introduction" /><link rel="next" href="installation.html" title="4. Installation of the FreeBSD Operating System" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">3. Preparation - <span class="application">mfsBSD</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="intro.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="installation.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="preparation"></a>3. Preparation - <span class="application">mfsBSD</span></h2></div></div></div><p>Before FreeBSD may be installed on the target system, it is
+      necessary to build the minimal FreeBSD operating system image which
+      will boot from the hard drive.  This way the new system can be
+      accessed from the network, and the rest of the installation can
+      be done without remote access to the system console.</p><p>The <span class="application">mfsBSD</span> tool-set can be used
+      to build a tiny FreeBSD image.  As the name of
+      <span class="application">mfsBSD</span> suggests (<span class="quote">&#8220;<span class="quote">mfs</span>&#8221;</span>
+      means <span class="quote">&#8220;<span class="quote">memory file system</span>&#8221;</span>), the resulting image
+      runs entirely from a ramdisk.  Thanks to this feature, the
+      manipulation of hard drives will not be limited, therefore it
+      will be possible to install a complete FreeBSD operating system.
+      The <span class="application">mfsBSD</span> <code class="uri"><a class="uri" href="http://mfsbsd.vx.sk/" target="_top">home page</a></code>
+      includes pointers to the latest release of the toolset.</p><p>Please note that the internals of
+      <span class="application">mfsBSD</span> and how it all fits together
+      is beyond the scope of this article.  The interested reader
+      should consult the original documentation of
+      <span class="application">mfsBSD</span> for more details.</p><p>Download and extract the latest
+      <span class="application">mfsBSD</span> release and change your
+      working directory to the directory where the
+      <span class="application">mfsBSD</span> scripts will reside:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>fetch http://mfsbsd.vx.sk/release/mfsbsd-<em class="replaceable"><code>2.1</code></em>.tar.gz</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>tar xvzf mfsbsd-<em class="replaceable"><code>2.1</code></em>.tar.gz</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>cd mfsbsd-<em class="replaceable"><code>2.1</code></em>/</code></strong></pre><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mfsbsd-config"></a>3.1. Configuration of
+	<span class="application">mfsBSD</span></h3></div></div></div><p>Before booting <span class="application">mfsBSD</span>, a few
+	important configuration options have to be set.  The most
+	important that we have to get right is, naturally, the network
+	setup.  The most suitable method to configure networking
+	options depends on whether we know beforehand the type of the
+	network interface we will use, and the network interface
+	driver to be loaded for our hardware.  We will see how
+	<span class="application">mfsBSD</span> can be configured in either
+	case.</p><p>Another important thing to set is the <code class="systemitem">root</code> password.  This can be
+	done by editing <code class="filename">conf/loader.conf</code>.  Please
+	see the included comments.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp46914680"></a>3.1.1. The <code class="filename">conf/interfaces.conf</code>
+	  method</h4></div></div></div><p>When the installed network interface card is unknown, it
+	  is possible to use the auto-detection features of
+	  <span class="application">mfsBSD</span>.  The startup scripts of
+	  <span class="application">mfsBSD</span> can detect the correct
+	  driver to use, based on the MAC address of the interface, if
+	  we set the following options in
+	  <code class="filename">conf/interfaces.conf</code>:</p><pre class="programlisting">mac_interfaces="ext1"
+ifconfig_ext1_mac="00:00:00:00:00:00"
+ifconfig_ext1="inet 192.168.0.2/24"</pre><p>Do not forget to add the
+	  <code class="literal">defaultrouter</code> information to
+	  <code class="filename">conf/rc.conf</code>:</p><pre class="programlisting">defaultrouter="192.168.0.1"</pre></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp46926456"></a>3.1.2. The <code class="filename">conf/rc.conf</code> Method</h4></div></div></div><p>When the network interface driver is known, it is more
+	  convenient to use <code class="filename">conf/rc.conf</code> for
+	  networking options.  The syntax of this file is the same as
+	  the one used in the standard <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rc.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rc.conf</span>(5)</span></a> file of
+	  FreeBSD.</p><p>For example, if you know that a <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=re&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">re</span>(4)</span></a> network
+	  interface is going to be available, you can set the
+	  following options in
+	  <code class="filename">conf/rc.conf</code>:</p><pre class="programlisting">defaultrouter="192.168.0.1"
+ifconfig_re0="inet 192.168.0.2/24"</pre></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mfsbsd-build"></a>3.2. Building an <span class="application">mfsBSD</span>
+	Image</h3></div></div></div><p>The process of building an
+	<span class="application">mfsBSD</span> image is pretty
+	straightforward.</p><p>The first step is to mount the FreeBSD installation
+	<acronym class="acronym">CD</acronym>, or the installation
+	<acronym class="acronym">ISO</acronym> image to <code class="filename">/cdrom</code>.
+	For the sake of example, in this article we will assume that
+	you have downloaded the FreeBSD 10.1-RELEASE
+	<acronym class="acronym">ISO</acronym>.  Mounting this ISO image to the
+	<code class="filename">/cdrom</code> directory is easy with the
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mdconfig&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mdconfig</span>(8)</span></a> utility:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>mdconfig -a -t vnode -u 10 -f <em class="replaceable"><code>FreeBSD-10.1-RELEASE-amd64-disc1.iso</code></em></code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>mount_cd9660 /dev/md10 /cdrom</code></strong></pre><p>Since the recent FreeBSD releases do not contain regular
+	distribution sets, it is required to extract the FreeBSD distribution
+	files from the distribution archives located on the
+	<acronym class="acronym">ISO</acronym> image:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>mkdir <em class="replaceable"><code>DIST</code></em></code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>tar -xvf /cdrom/usr/freebsd-dist/base.txz -C <em class="replaceable"><code>DIST</code></em></code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>tar -xvf /cdrom/usr/freebsd-dist/kernel.txz -C <em class="replaceable"><code>DIST</code></em></code></strong></pre><p>Next, build the bootable <span class="application">mfsBSD</span>
+	image:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>make BASE=<em class="replaceable"><code>DIST</code></em></code></strong></pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">The above <code class="command">make</code> has to be run from the
+	  top level of the <span class="application">mfsBSD</span> directory
+	  tree, for example
+	  <code class="filename">~/mfsbsd-2.1/</code>.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp46994936"></a>3.3. Booting <span class="application">mfsBSD</span></h3></div></div></div><p>Now that the <span class="application">mfsBSD</span> image is
+	ready, it must be uploaded to the remote system running a live
+	rescue system or pre-installed <span class="trademark">Linux</span>® distribution.  The most
+	suitable tool for this task is
+	<span class="application">scp</span>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>scp disk.img root@192.168.0.2:.</code></strong></pre><p>To boot <span class="application">mfsBSD</span> image properly,
+	it must be placed on the first (bootable) device of the given
+	machine.  This may be accomplished using this example
+	providing that <code class="filename">sda</code> is the first bootable
+	disk device:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>dd if=/root/disk.img of=/dev/sda bs=1m</code></strong></pre><p>If all went well, the image should now be in the
+	<acronym class="acronym">MBR</acronym> of the first device and the machine can
+	be rebooted.  Watch for the machine to boot up properly with
+	the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ping&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ping</span>(8)</span></a> tool.  Once it has came back on-line, it
+	should be possible to access it over <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ssh&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ssh</span>(1)</span></a> as user
+	<code class="systemitem">root</code> with the
+	configured password.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="intro.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="installation.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2. Introduction </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 4. Installation of the FreeBSD Operating System</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

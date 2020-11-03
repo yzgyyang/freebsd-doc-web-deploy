@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>11.7. Configuring System Logging</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="config-tuning.html" title="Chapter 11. Configuration and Tuning" /><link rel="prev" href="configtuning-virtual-hosts.html" title="11.6. Virtual Hosts" /><link rel="next" href="configtuning-configfiles.html" title="11.8. Configuration Files" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">11.7. Configuring System Logging</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="configtuning-virtual-hosts.html">Prev</a> </td><th width="60%" align="center">Chapter 11. Configuration and Tuning</th><td width="20%" align="right"> <a accesskey="n" href="configtuning-configfiles.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="configtuning-syslog"></a>11.7. Configuring System Logging</h2></div><div><span class="authorgroup">Contributed by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Niclas</span> <span class="surname">Zeising</span></span>. </span></div></div></div><a id="idp57177208" class="indexterm"></a><a id="idp57177976" class="indexterm"></a><a id="idp57178744" class="indexterm"></a><p>Generating and reading system logs is an important aspect of
+      system administration.  The information in system logs can be
+      used to detect hardware and software issues as well as
+      application and system configuration errors.  This information
+      also plays an important role in security auditing and incident
+      response.  Most system daemons and applications will generate
+      log entries.</p><p>FreeBSD provides a system logger,
+      <span class="application">syslogd</span>, to manage logging.  By
+      default, <span class="application">syslogd</span> is started when the
+      system boots.  This is controlled by the variable
+      <code class="literal">syslogd_enable</code> in
+      <code class="filename">/etc/rc.conf</code>.  There are numerous
+      application arguments that can be set using
+      <code class="literal">syslogd_flags</code> in
+      <code class="filename">/etc/rc.conf</code>.  Refer to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=syslogd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">syslogd</span>(8)</span></a> for
+      more information on the available arguments.</p><p>This section describes how to configure the FreeBSD system
+      logger for both local and remote logging and how to perform log
+      rotation and log management.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57184248"></a>11.7.1. Configuring Local Logging</h3></div></div></div><a id="idp57184888" class="indexterm"></a><p>The configuration file,
+	<code class="filename">/etc/syslog.conf</code>, controls what
+	<span class="application">syslogd</span> does with log entries as
+	they are received.  There are several parameters to control
+	the handling of incoming events.  The
+	<em class="firstterm">facility</em> describes which subsystem
+	generated the message, such as the kernel or a daemon, and the
+	<em class="firstterm">level</em> describes the severity of the
+	event that occurred.  This makes it possible to configure if
+	and where a log message is logged, depending on the facility
+	and level.  It is also possible to take action depending on
+	the application that sent the message, and in the case of
+	remote logging, the hostname of the machine generating the
+	logging event.</p><p>This configuration file contains one line per action,
+	where the syntax for each line is a selector field followed by
+	an action field.  The syntax of the selector field is
+	<em class="replaceable"><code>facility.level</code></em> which will match log
+	messages from <em class="replaceable"><code>facility</code></em> at level
+	<em class="replaceable"><code>level</code></em> or higher.  It is also
+	possible to add an optional comparison flag before the level
+	to specify more precisely what is logged.  Multiple selector
+	fields can be used for the same action, and are separated with
+	a semicolon (<code class="literal">;</code>).  Using
+	<code class="literal">*</code> will match everything.  The action field
+	denotes where to send the log message, such as to a file or
+	remote log host.  As an example, here is the default
+	<code class="filename">syslog.conf</code> from FreeBSD:</p><pre class="programlisting"># <span translate="no" class="phrase">$FreeBSD$</span>
+#
+#       Spaces ARE valid field separators in this file. However,
+#       other *nix-like systems still insist on using tabs as field
+#       separators. If you are sharing this file between systems, you
+#       may want to use only tabs as field separators here.
+#       Consult the syslog.conf(5) manpage.
+*.err;kern.warning;auth.notice;mail.crit                /dev/console
+*.notice;authpriv.none;kern.debug;lpr.info;mail.crit;news.err   /var/log/messages
+security.*                                      /var/log/security
+auth.info;authpriv.info                         /var/log/auth.log
+mail.info                                       /var/log/maillog
+lpr.info                                        /var/log/lpd-errs
+ftp.info                                        /var/log/xferlog
+cron.*                                          /var/log/cron
+!-devd
+*.=debug                                        /var/log/debug.log
+*.emerg                                         *
+# uncomment this to log all writes to /dev/console to /var/log/console.log
+#console.info                                   /var/log/console.log
+# uncomment this to enable logging of all log messages to /var/log/all.log
+# touch /var/log/all.log and chmod it to mode 600 before it will work
+#*.*                                            /var/log/all.log
+# uncomment this to enable logging to a remote loghost named loghost
+#*.*                                            @loghost
+# uncomment these if you're running inn
+# news.crit                                     /var/log/news/news.crit
+# news.err                                      /var/log/news/news.err
+# news.notice                                   /var/log/news/news.notice
+# Uncomment this if you wish to see messages produced by devd
+# !devd
+# *.&gt;=info
+!ppp
+*.*                                             /var/log/ppp.log
+!*</pre><p>In this example:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Line 8 matches all messages with a level of
+	    <code class="literal">err</code> or higher, as well as
+	    <code class="literal">kern.warning</code>,
+	    <code class="literal">auth.notice</code> and
+	    <code class="literal">mail.crit</code>, and sends these log messages
+	    to the console
+	    (<code class="filename">/dev/console</code>).</p></li><li class="listitem"><p>Line 12 matches all messages from the
+	    <code class="literal">mail</code> facility at level
+	    <code class="literal">info</code> or above and logs the messages to
+	    <code class="filename">/var/log/maillog</code>.</p></li><li class="listitem"><p>Line 17 uses a comparison flag (<code class="literal">=</code>)
+	    to only match messages at level <code class="literal">debug</code>
+	    and logs them to
+	    <code class="filename">/var/log/debug.log</code>.</p></li><li class="listitem"><p>Line 33 is an example usage of a program
+	    specification.  This makes the rules following it only
+	    valid for the specified program.  In this case, only the
+	    messages generated by <span class="application">ppp</span> are
+	    logged to <code class="filename">/var/log/ppp.log</code>.</p></li></ul></div><p>The available levels, in order from most to least
+	critical are <code class="literal">emerg</code>,
+	<code class="literal">alert</code>, <code class="literal">crit</code>,
+	<code class="literal">err</code>, <code class="literal">warning</code>,
+	<code class="literal">notice</code>, <code class="literal">info</code>, and
+	<code class="literal">debug</code>.</p><p>The facilities, in no particular order, are
+	<code class="literal">auth</code>, <code class="literal">authpriv</code>,
+	<code class="literal">console</code>, <code class="literal">cron</code>,
+	<code class="literal">daemon</code>, <code class="literal">ftp</code>,
+	<code class="literal">kern</code>, <code class="literal">lpr</code>,
+	<code class="literal">mail</code>, <code class="literal">mark</code>,
+	<code class="literal">news</code>, <code class="literal">security</code>,
+	<code class="literal">syslog</code>, <code class="literal">user</code>,
+	<code class="literal">uucp</code>, and <code class="literal">local0</code> through
+	<code class="literal">local7</code>.  Be aware that other operating
+	systems might have different facilities.</p><p>To log everything of level <code class="literal">notice</code> and
+	higher to <code class="filename">/var/log/daemon.log</code>, add the
+	following entry:</p><pre class="programlisting">daemon.notice                                        /var/log/daemon.log</pre><p>For more information about the different levels and
+	facilities, refer to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=syslog&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">syslog</span>(3)</span></a> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=syslogd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">syslogd</span>(8)</span></a>.
+	For more information about
+	<code class="filename">/etc/syslog.conf</code>, its syntax, and more
+	advanced usage examples, see <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=syslog.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">syslog.conf</span>(5)</span></a>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57276408"></a>11.7.2. Log Management and Rotation</h3></div></div></div><a id="idp57277048" class="indexterm"></a><a id="idp57277560" class="indexterm"></a><a id="idp57278072" class="indexterm"></a><a id="idp57278584" class="indexterm"></a><p>Log files can grow quickly, taking up disk space and
+	making it more difficult to locate useful information.  Log
+	management attempts to mitigate this.  In FreeBSD,
+	<span class="application">newsyslog</span> is used to manage log
+	files.  This built-in program periodically rotates and
+	compresses log files, and optionally creates missing log files
+	and signals programs when log files are moved.  The log files
+	may be generated by <span class="application">syslogd</span> or by
+	any other program which generates log files.  While
+	<span class="application">newsyslog</span> is normally run from
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=cron&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">cron</span>(8)</span></a>, it is not a system daemon.  In the default
+	configuration, it runs every hour.</p><p>To know which actions to take,
+	<span class="application">newsyslog</span> reads its configuration
+	file, <code class="filename">/etc/newsyslog.conf</code>.  This file
+	contains one line for each log file that
+	<span class="application">newsyslog</span> manages.  Each line
+	states the file owner, permissions, when to rotate that file,
+	optional flags that affect log rotation, such as compression,
+	and programs to signal when the log is rotated.  Here is the
+	default configuration in FreeBSD:</p><pre class="programlisting"># configuration file for newsyslog
+# <span translate="no" class="phrase">$FreeBSD$</span>
+#
+# Entries which do not specify the '/pid_file' field will cause the
+# syslogd process to be signalled when that log file is rotated.  This
+# action is only appropriate for log files which are written to by the
+# syslogd process (ie, files listed in /etc/syslog.conf).  If there
+# is no process which needs to be signalled when a given log file is
+# rotated, then the entry for that file should include the 'N' flag.
+#
+# The 'flags' field is one or more of the letters: BCDGJNUXZ or a '-'.
+#
+# Note: some sites will want to select more restrictive protections than the
+# defaults.  In particular, it may be desirable to switch many of the 644
+# entries to 640 or 600.  For example, some sites will consider the
+# contents of maillog, messages, and lpd-errs to be confidential.  In the
+# future, these defaults may change to more conservative ones.
+#
+# logfilename          [owner:group]    mode count size when  flags [/pid_file] [sig_num]
+/var/log/all.log                        600  7     *    @T00  J
+/var/log/amd.log                        644  7     100  *     J
+/var/log/auth.log                       600  7     100  @0101T JC
+/var/log/console.log                    600  5     100  *     J
+/var/log/cron                           600  3     100  *     JC
+/var/log/daily.log                      640  7     *    @T00  JN
+/var/log/debug.log                      600  7     100  *     JC
+/var/log/kerberos.log                   600  7     100  *     J
+/var/log/lpd-errs                       644  7     100  *     JC
+/var/log/maillog                        640  7     *    @T00  JC
+/var/log/messages                       644  5     100  @0101T JC
+/var/log/monthly.log                    640  12    *    $M1D0 JN
+/var/log/pflog                          600  3     100  *     JB    /var/run/pflogd.pid
+/var/log/ppp.log        root:network    640  3     100  *     JC
+/var/log/devd.log                       644  3     100  *     JC
+/var/log/security                       600  10    100  *     JC
+/var/log/sendmail.st                    640  10    *    168   B
+/var/log/utx.log                        644  3     *    @01T05 B
+/var/log/weekly.log                     640  5     1    $W6D0 JN
+/var/log/xferlog                        600  7     100  *     JC</pre><p>Each line starts with the name of the log to be rotated,
+	optionally followed by an owner and group for both rotated and
+	newly created files.  The <code class="literal">mode</code> field sets
+	the permissions on the log file and <code class="literal">count</code>
+	denotes how many rotated log files should be kept.  The
+	<code class="literal">size</code> and <code class="literal">when</code> fields
+	tell <span class="application">newsyslog</span> when to rotate the
+	file.  A log file is rotated when either its size is larger
+	than the <code class="literal">size</code> field or when the time in the
+	<code class="literal">when</code> field has passed.  An asterisk
+	(<code class="literal">*</code>) means that this field is ignored.  The
+	<em class="replaceable"><code>flags</code></em> field gives further
+	instructions, such as how to compress the rotated file or to
+	create the log file if it is missing.  The last two fields are
+	optional and specify the name of the Process ID
+	(<acronym class="acronym">PID</acronym>) file of a process and a signal number
+	to send to that process when the file is rotated.</p><p>For more information on all fields, valid flags, and how
+	to specify the rotation time, refer to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=newsyslog.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">newsyslog.conf</span>(5)</span></a>.
+	Since <span class="application">newsyslog</span> is run from
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=cron&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">cron</span>(8)</span></a>, it cannot rotate files more often than it is
+	scheduled to run from <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=cron&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">cron</span>(8)</span></a>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="network-syslogd"></a>11.7.3. Configuring Remote Logging</h3></div><div><span class="authorgroup">Contributed by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Tom</span> <span class="surname">Rhodes</span></span>. </span></div></div></div><p>Monitoring the log files of multiple hosts can become
+	unwieldy as the number of systems increases.  Configuring
+	centralized logging can reduce some of the administrative
+	burden of log file administration.</p><p>In FreeBSD, centralized log file aggregation, merging, and
+	rotation can be configured using
+	<span class="application">syslogd</span> and
+	<span class="application">newsyslog</span>.  This section
+	demonstrates an example configuration, where host
+	<code class="systemitem">A</code>, named <code class="systemitem">logserv.example.com</code>, will
+	collect logging information for the local network.  Host
+	<code class="systemitem">B</code>, named <code class="systemitem">logclient.example.com</code>,
+	will be configured to pass logging information to the logging
+	server.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57318520"></a>11.7.3.1. Log Server Configuration</h4></div></div></div><p>A log server is a system that has been configured to
+	  accept logging information from other hosts.  Before
+	  configuring a log server, check the following:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>If there is a firewall between the logging server
+	      and any logging clients, ensure that the firewall
+	      ruleset allows <acronym class="acronym">UDP</acronym> port 514 for both
+	      the clients and the server.</p></li><li class="listitem"><p>The logging server and all client  machines must
+	      have forward and reverse entries in the local
+	      <acronym class="acronym">DNS</acronym>.  If the network does not have a
+	      <acronym class="acronym">DNS</acronym> server, create entries in each
+	      system's <code class="filename">/etc/hosts</code>.  Proper name
+	      resolution is required so that log entries are not
+	      rejected by the logging server.</p></li></ul></div><p>On the log server, edit
+	  <code class="filename">/etc/syslog.conf</code> to specify the name of
+	  the client to receive log entries from, the logging facility
+	  to be used, and the name of the log to store the host's log
+	  entries.  This example adds the hostname of
+	  <code class="systemitem">B</code>, logs all facilities, and stores
+	  the log entries in
+	  <code class="filename">/var/log/logclient.log</code>.</p><div class="example"><a id="idp57328632"></a><div class="example-title">Example 11.1. Sample Log Server Configuration</div><div class="example-contents"><pre class="programlisting">+logclient.example.com
+*.*     /var/log/logclient.log</pre></div></div><br class="example-break" /><p>When adding multiple log clients, add a similar two-line
+	  entry for each client.  More information about the available
+	  facilities may be found in <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=syslog.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">syslog.conf</span>(5)</span></a>.</p><p>Next, configure
+	  <code class="filename">/etc/rc.conf</code>:</p><pre class="programlisting">syslogd_enable="YES"
+syslogd_flags="-a logclient.example.com -v -v"</pre><p>The first entry starts
+	  <span class="application">syslogd</span> at system boot.  The
+	  second entry allows log entries from the specified client.
+	  The <code class="option">-v -v</code> increases the verbosity of logged
+	  messages.  This is useful for tweaking facilities as
+	  administrators are able to see what type of messages are
+	  being logged under each facility.</p><p>Multiple <code class="option">-a</code> options may be specified to
+	  allow logging from multiple clients.  <acronym class="acronym">IP</acronym>
+	  addresses and whole netblocks may also be specified.  Refer
+	  to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=syslogd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">syslogd</span>(8)</span></a> for a full list of possible
+	  options.</p><p>Finally, create the log file:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>touch /var/log/logclient.log</code></strong></pre><p>At this point, <span class="application">syslogd</span> should
+	  be restarted and verified:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service syslogd restart</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>pgrep syslog</code></strong></pre><p>If a <acronym class="acronym">PID</acronym> is returned, the server
+	  restarted successfully, and client configuration can begin.
+	  If the server did not restart, consult
+	  <code class="filename">/var/log/messages</code> for the error.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57340152"></a>11.7.3.2. Log Client Configuration</h4></div></div></div><p>A logging client sends log entries to a logging server
+	  on the network.  The client also keeps a local copy of its
+	  own logs.</p><p>Once a logging server has been configured, edit
+	  <code class="filename">/etc/rc.conf</code> on the logging
+	  client:</p><pre class="programlisting">syslogd_enable="YES"
+syslogd_flags="-s -v -v"</pre><p>The first entry enables
+	  <span class="application">syslogd</span> on boot up.  The second
+	  entry prevents logs from being accepted by this client from
+	  other hosts (<code class="option">-s</code>) and increases the
+	  verbosity of logged messages.</p><p>Next, define the logging server in the client's
+	  <code class="filename">/etc/syslog.conf</code>.  In this example, all
+	  logged facilities are sent to a remote system, denoted by
+	  the <code class="literal">@</code> symbol, with the specified
+	  hostname:</p><pre class="programlisting">*.*		@logserv.example.com</pre><p>After saving the edit, restart
+	  <span class="application">syslogd</span> for the changes to take
+	  effect:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service syslogd restart</code></strong></pre><p>To test that log messages are being sent across the
+	  network, use <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=logger&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">logger</span>(1)</span></a> on the client to send a message
+	  to <span class="application">syslogd</span>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>logger "<em class="replaceable"><code>Test message from logclient</code></em>"</code></strong></pre><p>This message should now exist both in
+	  <code class="filename">/var/log/messages</code> on the client and
+	  <code class="filename">/var/log/logclient.log</code> on the log
+	  server.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57354872"></a>11.7.3.3. Debugging Log Servers</h4></div></div></div><p>If no messages are being received on the log server, the
+	  cause is most likely a network connectivity issue, a
+	  hostname resolution issue, or a typo in a configuration
+	  file.  To isolate the cause, ensure that both the logging
+	  server and the logging client are able to
+	  <code class="command">ping</code> each other using the hostname
+	  specified in their <code class="filename">/etc/rc.conf</code>.  If
+	  this fails, check the network cabling, the firewall ruleset,
+	  and the hostname entries in the <acronym class="acronym">DNS</acronym>
+	  server or <code class="filename">/etc/hosts</code> on both the
+	  logging server and clients.  Repeat until the
+	  <code class="command">ping</code> is successful from both
+	  hosts.</p><p>If the <code class="command">ping</code> succeeds on both hosts
+	  but log messages are still not being received, temporarily
+	  increase logging verbosity to narrow down the configuration
+	  issue.  In the following example,
+	  <code class="filename">/var/log/logclient.log</code> on the logging
+	  server is empty and <code class="filename">/var/log/messages</code>
+	  on the logging client does not indicate a reason for the
+	  failure.  To increase debugging output, edit the
+	  <code class="literal">syslogd_flags</code> entry on the logging server
+	  and issue a restart:</p><pre class="programlisting">syslogd_flags="-d -a logclient.example.com -v -v"</pre><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service syslogd restart</code></strong></pre><p>Debugging data similar to the following will flash on
+	  the console immediately after the restart:</p><pre class="screen">logmsg: pri 56, flags 4, from logserv.example.com, msg syslogd: restart
+syslogd: restarted
+logmsg: pri 6, flags 4, from logserv.example.com, msg syslogd: kernel boot file is /boot/kernel/kernel
+Logging to FILE /var/log/messages
+syslogd: kernel boot file is /boot/kernel/kernel
+cvthname(192.168.1.10)
+validate: dgram from IP 192.168.1.10, port 514, name logclient.example.com;
+rejected in rule 0 due to name mismatch.</pre><p>In this example, the log messages are being rejected due
+	  to a typo which results in a hostname mismatch.  The
+	  client's hostname should be <code class="literal">logclient</code>,
+	  not <code class="literal">logclien</code>.  Fix the typo, issue a
+	  restart, and verify the results:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service syslogd restart</code></strong>
+logmsg: pri 56, flags 4, from logserv.example.com, msg syslogd: restart
+syslogd: restarted
+logmsg: pri 6, flags 4, from logserv.example.com, msg syslogd: kernel boot file is /boot/kernel/kernel
+syslogd: kernel boot file is /boot/kernel/kernel
+logmsg: pri 166, flags 17, from logserv.example.com,
+msg Dec 10 20:55:02 &lt;syslog.err&gt; logserv.example.com syslogd: exiting on signal 2
+cvthname(192.168.1.10)
+validate: dgram from IP 192.168.1.10, port 514, name logclient.example.com;
+accepted in rule 0.
+logmsg: pri 15, flags 0, from logclient.example.com, msg Dec 11 02:01:28 trhodes: Test message 2
+Logging to FILE /var/log/logclient.log
+Logging to FILE /var/log/messages</pre><p>At this point, the messages are being properly received
+	  and placed in the correct file.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57409656"></a>11.7.3.4. Security Considerations</h4></div></div></div><p>As with any network service, security requirements
+	  should be considered before implementing a logging server.
+	  Log files may contain sensitive data about services enabled
+	  on the local host, user accounts, and configuration data.
+	  Network data sent from the client to the server will not be
+	  encrypted or password protected.  If a need for encryption
+	  exists, consider using <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/security/stunnel/pkg-descr">security/stunnel</a>,
+	  which will transmit the logging data over an encrypted
+	  tunnel.</p><p>Local security is also an issue.  Log files are not
+	  encrypted during use or after log rotation.  Local users may
+	  access log files to gain additional insight into system
+	  configuration.  Setting proper permissions on log files is
+	  critical.  The built-in log rotator,
+	  <span class="application">newsyslog</span>, supports setting
+	  permissions on newly created and rotated log files.  Setting
+	  log files to mode <code class="literal">600</code> should prevent
+	  unwanted access by local users.  Refer to
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=newsyslog.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">newsyslog.conf</span>(5)</span></a> for additional information.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="configtuning-virtual-hosts.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="config-tuning.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="configtuning-configfiles.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">11.6. Virtual Hosts </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 11.8. Configuration Files</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>6.22. Using Lua</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Porter's Handbook" /><link rel="up" href="special.html" title="Chapter 6. Special Considerations" /><link rel="prev" href="using-wx.html" title="6.21. Using wxWidgets" /><link rel="next" href="using-iconv.html" title="6.23. Using iconv" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.22. Using <span class="application">Lua</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="using-wx.html">Prev</a> </td><th width="60%" align="center">Chapter 6. Special Considerations</th><td width="20%" align="right"> <a accesskey="n" href="using-iconv.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="using-lua"></a>6.22. Using <span class="application">Lua</span></h2></div></div></div><p>This section describes the status of the
+      <span class="application">Lua</span> libraries in the ports tree and
+      its integration with the ports system.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="lua-introduction"></a>6.22.1. Introduction</h3></div></div></div><p>There are many versions of the
+	<span class="application">Lua</span> libraries and corresponding
+	interpreters, which conflict between them (install files
+	under the same name).  In the ports tree this problem has
+	been solved by installing each version under a different
+	name using version number suffixes.</p><p>The obvious disadvantage of this is that each
+	application has to be modified to find the expected version.
+	But it can be solved by adding some additional flags to the
+	compiler and linker.</p><p>Applications that use <span class="application">Lua</span>
+	should normally build for just one version. However, loadable
+	modules for Lua are built in a separate flavor for each Lua
+	version that they support, and dependencies on such modules
+	should specify the flavor using the
+	<code class="literal">@${LUA_FLAVOR}</code> suffix on the port
+	origin.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="lua-version"></a>6.22.2. Version Selection</h3></div></div></div><p>A port using <span class="application">Lua</span> should
+	have a line of this form:</p><pre class="programlisting">USES=	lua</pre><p>If a specific version of Lua, or range of versions, is
+	needed, it can be specified as a parameter in the form
+	<code class="literal">XY</code> (which may be used multiple times),
+	<code class="literal">XY+</code>, <code class="literal">-XY</code>, or
+	<code class="literal">XY-ZA</code>.  The default version of
+	<span class="application">Lua</span> as set via
+	<code class="varname">DEFAULT_VERSIONS</code> will be used if it falls
+	in the requested range, otherwise the closest requested
+	version to the default will be used.  For example:</p><pre class="programlisting">USES=	lua:52-53</pre><p>Note that no attempt is made to adjust the version
+	selection based on the presence of any already-installed
+	<span class="application">Lua</span> version.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">The <code class="literal">XY+</code> form of version specification
+	  should not be used without careful consideration; the
+	  <span class="application">Lua</span> API changes to some extent in
+	  every version, and configuration tools like
+	  <span class="application">CMake</span> or
+	  <span class="application">Autoconf</span> will often fail to work
+	  on future versions of <span class="application">Lua</span> until
+	  updated to do so.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="lua-version-config"></a>6.22.3. Configuration and Compiler flags</h3></div></div></div><p>Software that uses <span class="application">Lua</span> may have
+	been written to auto-detect the <span class="application">Lua</span>
+	version in use.	 In general ports should override this
+	assumption, and force the use of the specific
+	<span class="application">Lua</span> version selected as described
+	above.	Depending on the sortware being ported, this might
+	require any or all of:
+      </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Using <code class="varname">LUA_VER</code> as part of a parameter
+	    to the software's configuration script via
+	    <code class="varname">CONFIGURE_ARGS</code> or
+	    <code class="varname">CONFIGURE_ENV</code> (or equivalent for other
+	    build systems);
+	  </p></li><li class="listitem"><p>Adding <code class="literal">-I${LUA_INCDIR}</code>,
+	    <code class="literal">-L${LUA_LIBDIR}</code>, and
+	    <code class="literal">-llua-${LUA_VER}</code> to <code class="varname">CFLAGS</code>,
+	    <code class="varname">LDFLAGS</code>, <code class="varname">LIBS</code> respectively
+	    as appropriate;
+	  </p></li><li class="listitem"><p>Patch the software's configuration or build files to select
+	    the correct version.
+	  </p></li></ul></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="lua-version-flavors"></a>6.22.4. Version Flavors</h3></div></div></div><p>A port which installs a <span class="application">Lua</span>
+	module (rather than an application that simply makes use of
+	<span class="application">Lua</span>) should build a separate
+	flavor for each supported <span class="application">Lua</span>
+	version.  This is done by adding the <code class="literal">module</code>
+	parameter:</p><pre class="programlisting">USES=	lua:module</pre><p>A version number or range of versions can be specified as
+	well; use a comma to separate parameters.</p><p>Since each flavor must have a different package name, the
+	variable <code class="varname">LUA_PKGNAMEPREFIX</code> is provided which
+	will be set to an appropriate value; the intended usage
+	is:</p><pre class="programlisting">PKGNAMEPREFIX=	${LUA_PKGNAMEPREFIX}</pre><p>Module ports should normally install files only to
+	<code class="varname">LUA_MODLIBDIR</code>,
+	<code class="varname">LUA_MODSHAREDIR</code>,
+	<code class="varname">LUA_DOCSDIR</code>, and
+	<code class="varname">LUA_EXAMPLESDIR</code>, all of which are set up
+	to refer to version-specific subdirectories.  Installing any
+	other files must be done with care to avoid conflicts between
+	versions.</p><p>A port (other than a <span class="application">Lua</span> module)
+	which wishes to build a separate package for each
+	<span class="application">Lua</span> version should use the
+	<code class="literal">flavors</code> parameter:</p><pre class="programlisting">USES=	lua:flavors</pre><p>This operates the same way as the <code class="literal">module</code>
+	parameter described above, but without the assumption that the
+	package should be documented as a <span class="application">Lua</span>
+	module (so <code class="varname">LUA_DOCSDIR</code> and
+	<code class="varname">LUA_EXAMPLESDIR</code> are not defined by
+	default).  However, the port may choose to define
+	<code class="varname">LUA_DOCSUBDIR</code> as a suitable subdirectory name
+	(usually the port's <code class="varname">PORTNAME</code> as long as this
+	does not conflict with the <code class="varname">PORTNAME</code> of any
+	module), in which case the framework will define both
+	<code class="varname">LUA_DOCSDIR</code> and
+	<code class="varname">LUA_EXAMPLESDIR</code>.
+      </p><p>As with module ports, a flavored port should avoid installing
+	files that would conflict between versions. Typically this is done
+	by adding <code class="varname">LUA_VER_STR</code> as a suffix to program
+	names (e.g. using
+	<a class="link" href="uses-uniquefiles.html" title="17.89. uniquefiles">USES=uniquefiles</a>), and
+	otherwise using either <code class="varname">LUA_VER</code> or
+	<code class="varname">LUA_VER_STR</code> as part of any other files or
+	subdirectories used outside of <code class="varname">LUA_MODLIBDIR</code>
+	and <code class="varname">LUA_MODSHAREDIR</code>.
+      </p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="lua-defined-variables"></a>6.22.5. Defined Variables</h3></div></div></div><p>These variables are available in the port.</p><div class="table"><a id="using-lua-variables-ports"></a><div class="table-title">Table 6.39. Variables Defined for Ports That Use
+	  <span class="application">Lua</span></div><div class="table-contents"><table class="table" summary="Variables Defined for Ports That Use&#10;&#9;  Lua" border="0"><colgroup><col /><col /></colgroup><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><code class="varname">LUA_VER</code></td><td>The <span class="application">Lua</span> version that
+		is going to be used (for example,
+		<code class="literal">5.1</code>)</td></tr><tr><td><code class="varname">LUA_VER_STR</code></td><td>The <span class="application">Lua</span> version
+		without the dots (for example,
+		<code class="literal">51</code>)</td></tr><tr><td><code class="varname">LUA_FLAVOR</code></td><td>The flavor name corresponding to the selected
+		<span class="application">Lua</span> version, to be used
+		for specifying dependencies</td></tr><tr><td><code class="varname">LUA_BASE</code></td><td>The prefix that should be used to locate
+		<span class="application">Lua</span> (and components) that
+		are already installed</td></tr><tr><td><code class="varname">LUA_PREFIX</code></td><td>The prefix where <span class="application">Lua</span>
+		(and components) are to be installed by this port</td></tr><tr><td><code class="varname">LUA_INCDIR</code></td><td>The directory where
+		<span class="application">Lua</span> header files are
+		installed</td></tr><tr><td><code class="varname">LUA_LIBDIR</code></td><td>The directory where
+		<span class="application">Lua</span> libraries are
+		installed</td></tr><tr><td><code class="varname">LUA_REFMODLIBDIR</code></td><td>The directory where
+		<span class="application">Lua</span> module libraries
+		(<code class="filename">.so</code>) that are already
+		installed are to be found</td></tr><tr><td><code class="varname">LUA_REFMODSHAREDIR</code></td><td>The directory where
+		<span class="application">Lua</span> modules
+		(<code class="filename">.lua</code>) that are already
+		installed are to be found</td></tr><tr><td><code class="varname">LUA_MODLIBDIR</code></td><td>The directory where
+		<span class="application">Lua</span> module libraries
+		(<code class="filename">.so</code>) are to be installed
+		by this port</td></tr><tr><td><code class="varname">LUA_MODSHAREDIR</code></td><td>The directory where
+		<span class="application">Lua</span> modules
+		(<code class="filename">.lua</code>) are to be installed
+		by this port</td></tr><tr><td><code class="varname">LUA_PKGNAMEPREFIX</code></td><td>The package name prefix used by
+		<span class="application">Lua</span> modules</td></tr><tr><td><code class="varname">LUA_CMD</code></td><td>The name of the <span class="application">Lua</span>
+		interpreter (e.g. <code class="literal">lua53</code>)</td></tr><tr><td><code class="varname">LUAC_CMD</code></td><td>The name of the <span class="application">Lua</span>
+		compiler (e.g. <code class="literal">luac53</code>)</td></tr></tbody></table></div></div><br class="table-break" /><p>These additional variables are available for ports that
+	specified the <code class="literal">module</code> parameter:</p><div class="table"><a id="using-lua-variables-modules"></a><div class="table-title">Table 6.40. Variables Defined for <span class="application">Lua</span>
+	  Module Ports</div><div class="table-contents"><table class="table" summary="Variables Defined for Lua&#10;&#9;  Module Ports" border="0"><colgroup><col /><col /></colgroup><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><code class="varname">LUA_DOCSDIR</code></td><td>the directory to which the module's
+		documentation should be installed.</td></tr><tr><td><code class="varname">LUA_EXAMPLESDIR</code></td><td>the directory to which the module's
+		example files should be installed.</td></tr></tbody></table></div></div><br class="table-break" /></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="lua-examples"></a>6.22.6. Examples</h3></div></div></div><div class="example"><a id="lua-app-Makefile"></a><div class="example-title">Example 6.29. Makefile for an application using
+	<span class="application">Lua</span></div><div class="example-contents"><p>This example shows how to reference a
+	 <span class="application">Lua</span> module required at run
+	 time.	Notice that the reference must specify a
+	 flavor.</p><pre class="programlisting">PORTNAME=	sample
+DISTVERSION=	1.2.3
+CATEGORIES=	whatever
+
+MAINTAINER=	john@doe.tld
+COMMENT=	Sample
+
+RUN_DEPENDS=	${LUA_REFMODLIBDIR}/lpeg.so:devel/lua-lpeg@${LUA_FLAVOR}
+
+USES=		lua
+
+.include &lt;bsd.port.mk&gt;</pre></div></div><br class="example-break" /><div class="example"><a id="lua-mod-Makefile"></a><div class="example-title">Example 6.30. Makefile for a simple <span class="application">Lua</span>
+	 module</div><div class="example-contents"><pre class="programlisting">PORTNAME=	sample
+DISTVERSION=	1.2.3
+CATEGORIES=	whatever
+PKGNAMEPREFIX=	${LUA_PKGNAMEPREFIX}
+
+MAINTAINER=	john@doe.tld
+COMMENT=	Sample
+
+USES=		lua:module
+
+DOCSDIR=	${LUA_DOCSDIR}
+
+.include &lt;bsd.port.mk&gt;</pre></div></div><br class="example-break" /></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="using-wx.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="special.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="using-iconv.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">6.21. Using <span class="application">wxWidgets</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 6.23. Using <code class="command">iconv</code></td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

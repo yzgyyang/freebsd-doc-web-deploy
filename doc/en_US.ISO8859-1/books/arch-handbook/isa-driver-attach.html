@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>10.9. xxx_isa_attach</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Architecture Handbook" /><link rel="up" href="isa-driver.html" title="Chapter 10. ISA Device Drivers" /><link rel="prev" href="isa-driver-probe.html" title="10.8. xxx_isa_probe" /><link rel="next" href="isa-driver-detach.html" title="10.10. xxx_isa_detach" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">10.9. xxx_isa_attach</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="isa-driver-probe.html">Prev</a> </td><th width="60%" align="center">Chapter 10. ISA Device Drivers</th><td width="20%" align="right"> <a accesskey="n" href="isa-driver-detach.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="isa-driver-attach"></a>10.9. xxx_isa_attach</h2></div></div></div><p>The attach routine actually connects the driver to the
+        system if the probe routine returned success and the system
+        had chosen to attach that driver.  If the probe routine
+        returned 0 then the attach routine may expect to receive the
+        device structure softc intact, as it was set by the probe
+        routine. Also if the probe routine returns 0 it may expect
+        that the attach routine for this device shall be called at
+        some point in the future. If the probe routine returns a
+        negative value then the driver may make none of these
+        assumptions.
+        </p><p>The attach routine returns 0 if it completed successfully or
+          error code otherwise.
+        </p><p>The attach routine starts just like the probe routine,
+          with getting some frequently used data into more accessible
+          variables.
+        </p><pre class="programlisting">          struct xxx_softc *sc = device_get_softc(dev);
+          int unit = device_get_unit(dev);
+          int error = 0;</pre><p>Then allocate and activate all the necessary
+          resources. Because normally the port range will be released
+          before returning from probe, it has to be allocated
+          again. We expect that the probe routine had properly set all
+          the resource ranges, as well as saved them in the structure
+          softc. If the probe routine had left some resource allocated
+          then it does not need to be allocated again (which would be
+          considered an error).
+        </p><pre class="programlisting">          sc-&gt;port0_rid = 0;
+          sc-&gt;port0_r = bus_alloc_resource(dev, SYS_RES_IOPORT,  &amp;sc-&gt;port0_rid,
+              /*start*/ 0, /*end*/ ~0, /*count*/ 0, RF_ACTIVE);
+
+          if(sc-&gt;port0_r == NULL)
+               return ENXIO;
+
+          /* on-board memory */
+          sc-&gt;mem0_rid = 0;
+          sc-&gt;mem0_r = bus_alloc_resource(dev, SYS_RES_MEMORY,  &amp;sc-&gt;mem0_rid,
+              /*start*/ 0, /*end*/ ~0, /*count*/ 0, RF_ACTIVE);
+
+          if(sc-&gt;mem0_r == NULL)
+                goto bad;
+
+          /* get its virtual address */
+          sc-&gt;mem0_v = rman_get_virtual(sc-&gt;mem0_r);</pre><p>The DMA request channel (DRQ) is allocated likewise. To
+          initialize it use functions of the
+          <code class="function">isa_dma*()</code> family. For example:
+        </p><p><code class="function">isa_dmacascade(sc-&gt;drq0);</code></p><p>The interrupt request line (IRQ) is a bit
+          special. Besides allocation the driver's interrupt handler
+          should be associated with it. Historically in the old ISA
+          drivers the argument passed by the system to the interrupt
+          handler was the device unit number. But in modern drivers
+          the convention suggests passing the pointer to structure
+          softc. The important reason is that when the structures
+          softc are allocated dynamically then getting the unit number
+          from softc is easy while getting softc from the unit number is
+          difficult. Also this convention makes the drivers for
+          different buses look more uniform and allows them to share
+          the code: each bus gets its own probe, attach, detach and
+          other bus-specific routines while the bulk of the driver
+          code may be shared among them.
+        </p><pre class="programlisting">
+          sc-&gt;intr_rid = 0;
+          sc-&gt;intr_r = bus_alloc_resource(dev, SYS_RES_MEMORY,  &amp;sc-&gt;intr_rid,
+                /*start*/ 0, /*end*/ ~0, /*count*/ 0, RF_ACTIVE);
+
+          if(sc-&gt;intr_r == NULL)
+              goto bad;
+
+          /*
+           * XXX_INTR_TYPE is supposed to be defined depending on the type of
+           * the driver, for example as INTR_TYPE_CAM for a CAM driver
+           */
+          error = bus_setup_intr(dev, sc-&gt;intr_r, XXX_INTR_TYPE,
+              (driver_intr_t *) xxx_intr, (void *) sc, &amp;sc-&gt;intr_cookie);
+          if(error)
+              goto bad;
+
+        </pre><p>If the device needs to make DMA to the main memory then
+          this memory should be allocated like described before:
+        </p><pre class="programlisting">          error=bus_dma_tag_create(NULL, /*alignment*/ 4,
+              /*boundary*/ 0, /*lowaddr*/ BUS_SPACE_MAXADDR_24BIT,
+              /*highaddr*/ BUS_SPACE_MAXADDR, /*filter*/ NULL, /*filterarg*/ NULL,
+              /*maxsize*/ BUS_SPACE_MAXSIZE_24BIT,
+              /*nsegments*/ BUS_SPACE_UNRESTRICTED,
+              /*maxsegsz*/ BUS_SPACE_MAXSIZE_24BIT, /*flags*/ 0,
+              &amp;sc-&gt;parent_tag);
+          if(error)
+              goto bad;
+
+          /* many things get inherited from the parent tag
+           * sc-&gt;data is supposed to point to the structure with the shared data,
+           * for example for a ring buffer it could be:
+           * struct {
+           *   u_short rd_pos;
+           *   u_short wr_pos;
+           *   char    bf[XXX_RING_BUFFER_SIZE]
+           * } *data;
+           */
+          error=bus_dma_tag_create(sc-&gt;parent_tag, 1,
+              0, BUS_SPACE_MAXADDR, 0, /*filter*/ NULL, /*filterarg*/ NULL,
+              /*maxsize*/ sizeof(* sc-&gt;data), /*nsegments*/ 1,
+              /*maxsegsz*/ sizeof(* sc-&gt;data), /*flags*/ 0,
+              &amp;sc-&gt;data_tag);
+          if(error)
+              goto bad;
+
+          error = bus_dmamem_alloc(sc-&gt;data_tag, &amp;sc-&gt;data, /* flags*/ 0,
+              &amp;sc-&gt;data_map);
+          if(error)
+               goto bad;
+
+          /* xxx_alloc_callback() just saves the physical address at
+           * the pointer passed as its argument, in this case &amp;sc-&gt;data_p.
+           * See details in the section on bus memory mapping.
+           * It can be implemented like:
+           *
+           * static void
+           * xxx_alloc_callback(void *arg, bus_dma_segment_t *seg,
+           *     int nseg, int error)
+           * {
+           *    *(bus_addr_t *)arg = seg[0].ds_addr;
+           * }
+           */
+          bus_dmamap_load(sc-&gt;data_tag, sc-&gt;data_map, (void *)sc-&gt;data,
+              sizeof (* sc-&gt;data), xxx_alloc_callback, (void *) &amp;sc-&gt;data_p,
+              /*flags*/0);</pre><p>After all the necessary resources are allocated the
+          device should be initialized. The initialization may include
+          testing that all the expected features are functional.</p><pre class="programlisting">          if(xxx_initialize(sc) &lt; 0)
+               goto bad;        </pre><p>The bus subsystem will automatically print on the
+          console the device description set by probe. But if the
+          driver wants to print some extra information about the
+          device it may do so, for example:</p><pre class="programlisting">
+        device_printf(dev, "has on-card FIFO buffer of %d bytes\n", sc-&gt;fifosize);
+        </pre><p>If the initialization routine experiences any problems
+          then printing messages about them before returning error is
+          also recommended.</p><p>The final step of the attach routine is attaching the
+          device to its functional subsystem in the kernel. The exact
+          way to do it depends on the type of the driver: a character
+          device, a block device, a network device, a CAM SCSI bus
+          device and so on.</p><p>If all went well then return success.</p><pre class="programlisting">          error = xxx_attach_subsystem(sc);
+          if(error)
+              goto bad;
+
+          return 0;        </pre><p>Finally, handle the troublesome situations. All the
+          resources should be deallocated before returning an
+          error. We make use of the fact that before the structure
+          softc is passed to us it gets zeroed out, so we can find out
+          if some resource was allocated: then its descriptor is
+          non-zero.</p><pre class="programlisting">          bad:
+
+          xxx_free_resources(sc);
+          if(error)
+              return error;
+          else /* exact error is unknown */
+              return ENXIO;</pre><p>That would be all for the attach routine.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="isa-driver-probe.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="isa-driver.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="isa-driver-detach.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">10.8. xxx_isa_probe </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 10.10. xxx_isa_detach</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

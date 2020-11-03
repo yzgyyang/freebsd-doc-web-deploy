@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>15.5. Available MAC Policies</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="mac.html" title="Chapter 15. Mandatory Access Control" /><link rel="prev" href="mac-planning.html" title="15.4. Planning the Security Configuration" /><link rel="next" href="mac-userlocked.html" title="15.6. User Lock Down" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">15.5. Available MAC Policies</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="mac-planning.html">Prev</a> </td><th width="60%" align="center">Chapter 15. Mandatory Access Control</th><td width="20%" align="right"> <a accesskey="n" href="mac-userlocked.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="mac-policies"></a>15.5. Available MAC Policies</h2></div></div></div><p>The default FreeBSD kernel
+      includes <code class="literal">options MAC</code>.  This means that every
+      module included with the <acronym class="acronym">MAC</acronym> framework can be
+      loaded with <code class="command">kldload</code> as a run-time kernel
+      module.  After testing the module, add the module name to
+      <code class="filename">/boot/loader.conf</code> so that it will load
+      during boot.  Each module also provides a kernel option for
+      those administrators who choose to compile their own custom
+      kernel.</p><p>FreeBSD includes a group of policies that will cover most
+      security requirements.  Each policy is summarized below.  The
+      last three policies support integer settings in place of the
+      three default labels.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mac-seeotheruids"></a>15.5.1. The MAC See Other UIDs Policy</h3></div></div></div><a id="idp61012600" class="indexterm"></a><p>Module name:
+	<code class="filename">mac_seeotheruids.ko</code></p><p>Kernel configuration line:
+	<code class="literal">options MAC_SEEOTHERUIDS</code></p><p>Boot option:
+	<code class="literal">mac_seeotheruids_load="YES"</code></p><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mac_seeotheruids&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mac_seeotheruids</span>(4)</span></a> module extends the
+	<code class="varname">security.bsd.see_other_uids</code> and
+	<code class="varname">security.bsd.see_other_gids</code>
+	<code class="command">sysctl</code> tunables.  This option does not
+	require any labels to be set before configuration and can
+	operate transparently with other modules.</p><p>After loading the module, the following
+	<code class="command">sysctl</code> tunables may be used to control its
+	features:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="varname">security.mac.seeotheruids.enabled</code>
+	    enables the module and implements the default settings
+	    which deny users the ability to view processes and sockets
+	    owned by other users.</p></li><li class="listitem"><p>
+	    <code class="varname">security.mac.seeotheruids.specificgid_enabled</code>
+	    allows specified groups to be exempt from this policy.  To
+	    exempt specific groups, use the
+	    <code class="varname">security.mac.seeotheruids.specificgid=<em class="replaceable"><code>XXX</code></em></code>
+	    <code class="command">sysctl</code> tunable, replacing
+	    <em class="replaceable"><code>XXX</code></em> with the numeric group ID
+	    to be exempted.</p></li><li class="listitem"><p>
+	    <code class="varname">security.mac.seeotheruids.primarygroup_enabled</code>
+	    is used to exempt specific primary groups from this
+	    policy.  When using this tunable,
+	    <code class="varname">security.mac.seeotheruids.specificgid_enabled</code>
+	    may not be set.</p></li></ul></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mac-bsdextended"></a>15.5.2. The MAC BSD Extended Policy</h3></div></div></div><a id="idp61045240" class="indexterm"></a><p>Module name:
+	<code class="filename">mac_bsdextended.ko</code></p><p>Kernel configuration line:
+	<code class="literal">options MAC_BSDEXTENDED</code></p><p>Boot option:
+	<code class="literal">mac_bsdextended_load="YES"</code></p><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mac_bsdextended&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mac_bsdextended</span>(4)</span></a> module enforces a file system
+	firewall.  It provides an extension to the standard file
+	system permissions model, permitting an administrator to
+	create a firewall-like ruleset to protect files, utilities,
+	and directories in the file system hierarchy.  When access to
+	a file system object is attempted, the list of rules is
+	iterated until either a matching rule is located or the end is
+	reached.  This behavior may be changed using
+	<code class="varname">security.mac.bsdextended.firstmatch_enabled</code>.
+	Similar to other firewall modules in FreeBSD, a file containing
+	the access control rules can be created and read by the system
+	at boot time using an <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rc.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rc.conf</span>(5)</span></a> variable.</p><p>The rule list may be entered using <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ugidfw&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ugidfw</span>(8)</span></a> which
+	has a syntax similar to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ipfw&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ipfw</span>(8)</span></a>.  More tools can be
+	written by using the functions in the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=libugidfw&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">libugidfw</span>(3)</span></a>
+	library.</p><p>After the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mac_bsdextended&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mac_bsdextended</span>(4)</span></a> module has been loaded,
+	the following command may be used to list the current rule
+	configuration:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ugidfw list</code></strong>
+0 slots, 0 rules</pre><p>By default, no rules are defined and everything is
+	completely accessible.  To create a rule which blocks all
+	access by users but leaves <code class="systemitem">root</code> unaffected:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ugidfw add subject not uid root new object not uid root mode n</code></strong></pre><p>While this rule is simple to implement, it is a very bad
+	idea as it blocks all users from issuing any commands.  A
+	more realistic example blocks <code class="systemitem">user1</code> all access, including
+	directory listings, to <code class="systemitem"><em class="replaceable"><code>user2</code></em></code>'s
+	home directory:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ugidfw set 2 subject uid <em class="replaceable"><code>user1</code></em> object uid <em class="replaceable"><code>user2</code></em> mode n</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>ugidfw set 3 subject uid <em class="replaceable"><code>user1</code></em> object gid <em class="replaceable"><code>user2</code></em> mode n</code></strong></pre><p>Instead of <code class="systemitem">user1</code>, <code class="option">not
+	  uid <em class="replaceable"><code>user2</code></em></code> could be used
+	in order to enforce the same access restrictions for all
+	users.  However, the <code class="systemitem">root</code> user is unaffected by
+	these rules.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Extreme caution should be taken when working with this
+	  module as incorrect use could block access to certain
+	  parts of the file system.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mac-ifoff"></a>15.5.3. The MAC Interface Silencing Policy</h3></div></div></div><a id="idp61065720" class="indexterm"></a><p>Module name: <code class="filename">mac_ifoff.ko</code></p><p>Kernel configuration line: <code class="literal">options
+	  MAC_IFOFF</code></p><p>Boot option:
+	<code class="literal">mac_ifoff_load="YES"</code></p><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mac_ifoff&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mac_ifoff</span>(4)</span></a> module is used to disable network
+	interfaces on the fly and to keep network interfaces from
+	being brought up during system boot.  It does not use labels
+	and does not depend on any other
+	<acronym class="acronym">MAC</acronym> modules.</p><p>Most of this module's control is performed through these
+	<code class="command">sysctl</code> tunables:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="varname">security.mac.ifoff.lo_enabled</code>
+	    enables or disables all traffic on the loopback,
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=lo&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">lo</span>(4)</span></a>, interface.</p></li><li class="listitem"><p><code class="varname">security.mac.ifoff.bpfrecv_enabled</code>
+	    enables or disables all traffic on the Berkeley Packet
+	    Filter interface, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=bpf&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">bpf</span>(4)</span></a>.</p></li><li class="listitem"><p><code class="varname">security.mac.ifoff.other_enabled</code>
+	    enables or disables traffic on all other
+	    interfaces.</p></li></ul></div><p>One of the most common uses of <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mac_ifoff&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mac_ifoff</span>(4)</span></a> is
+	network monitoring in an environment where network traffic
+	should not be permitted during the boot sequence.  Another
+	use would be to write a script which uses an application such
+	as <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/security/aide/pkg-descr">security/aide</a> to automatically block
+	network traffic if it finds new or altered files in protected
+	directories.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mac-portacl"></a>15.5.4. The MAC Port Access Control List Policy</h3></div></div></div><a id="idp61094520" class="indexterm"></a><p>Module name: <code class="filename">mac_portacl.ko</code></p><p>Kernel configuration line:
+	<code class="literal">MAC_PORTACL</code></p><p>Boot option:
+	<code class="literal">mac_portacl_load="YES"</code></p><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mac_portacl&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mac_portacl</span>(4)</span></a> module is used to limit binding to
+	local <acronym class="acronym">TCP</acronym> and <acronym class="acronym">UDP</acronym> ports,
+	making it possible to allow non-<code class="systemitem">root</code> users to bind to
+	specified privileged ports below 1024.</p><p>Once loaded, this module enables the
+	<acronym class="acronym">MAC</acronym> policy on all sockets.  The following
+	tunables are available:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="varname">security.mac.portacl.enabled</code>
+	    enables or disables the policy completely.</p></li><li class="listitem"><p><code class="varname">security.mac.portacl.port_high</code>
+	    sets the highest port number that <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mac_portacl&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mac_portacl</span>(4)</span></a>
+	    protects.</p></li><li class="listitem"><p><code class="varname">security.mac.portacl.suser_exempt</code>,
+	    when set to a non-zero value, exempts the <code class="systemitem">root</code> user from this
+	    policy.</p></li><li class="listitem"><p><code class="varname">security.mac.portacl.rules</code>
+	    specifies the policy as a text string of the form
+	    <code class="literal">rule[,rule,...]</code>, with as many rules as
+	    needed, and where each rule is of the form
+	    <code class="literal">idtype:id:protocol:port</code>.  The
+	    <em class="parameter"><code>idtype</code></em> is either
+	    <code class="literal">uid</code> or <code class="literal">gid</code>.  The
+	    <em class="parameter"><code>protocol</code></em> parameter can be
+	    <code class="literal">tcp</code> or <code class="literal">udp</code>.  The
+	    <em class="parameter"><code>port</code></em> parameter is the port number
+	    to allow the specified user or group to bind to.  Only
+	    numeric values can be used for the user ID, group ID,
+	    and port parameters.</p></li></ul></div><p>By default, ports below 1024 can only be used by
+	privileged processes which run as <code class="systemitem">root</code>.  For <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mac_portacl&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mac_portacl</span>(4)</span></a>
+	to allow non-privileged processes to bind to ports below 1024,
+	set the following tunables as
+	follows:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>sysctl security.mac.portacl.port_high=1023</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>sysctl net.inet.ip.portrange.reservedlow=0</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>sysctl net.inet.ip.portrange.reservedhigh=0</code></strong></pre><p>To prevent the <code class="systemitem">root</code> user from being affected
+	by this policy, set
+	<code class="varname">security.mac.portacl.suser_exempt</code> to a
+	non-zero value.</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>sysctl security.mac.portacl.suser_exempt=1</code></strong></pre><p>To allow the <code class="systemitem">www</code>
+	user with <acronym class="acronym">UID</acronym> 80 to bind to port 80
+	without ever needing <code class="systemitem">root</code> privilege:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>sysctl security.mac.portacl.rules=uid:80:tcp:80</code></strong></pre><p>This next example permits the user with the
+	<acronym class="acronym">UID</acronym> of 1001 to bind to
+	<acronym class="acronym">TCP</acronym> ports 110 (POP3) and 995
+	(POP3s):</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>sysctl security.mac.portacl.rules=uid:1001:tcp:110,uid:1001:tcp:995</code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mac-partition"></a>15.5.5. The MAC Partition Policy</h3></div></div></div><a id="idp61133816" class="indexterm"></a><p>Module name: <code class="filename">mac_partition.ko</code></p><p>Kernel configuration line:
+	<code class="literal">options MAC_PARTITION</code></p><p>Boot option:
+	<code class="literal">mac_partition_load="YES"</code></p><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mac_partition&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mac_partition</span>(4)</span></a> policy drops processes into
+	specific <span class="quote">&#8220;<span class="quote">partitions</span>&#8221;</span> based on their
+	<acronym class="acronym">MAC</acronym> label.  Most configuration for this
+	policy is done using <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=setpmac&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">setpmac</span>(8)</span></a>.  One
+	<code class="command">sysctl</code> tunable is available for this
+	policy:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="varname">security.mac.partition.enabled</code>
+	    enables the enforcement of <acronym class="acronym">MAC</acronym> process
+	    partitions.</p></li></ul></div><p>When this policy is enabled, users will only be permitted
+	to see their processes, and any others within their partition,
+	but will not be permitted to work with utilities outside the
+	scope of this partition.  For instance, a user in the
+	<code class="literal">insecure</code> class will not be permitted to
+	access <code class="command">top</code> as well as many other commands
+	that must spawn a process.</p><p>This example adds <code class="command">top</code> to the label set
+	on users in the <code class="literal">insecure</code> class.  All
+	processes spawned by users in the <code class="literal">insecure</code>
+	class will stay in the <code class="literal">partition/13</code>
+	label.</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>setpmac partition/13 top</code></strong></pre><p>This command displays the partition label and the process
+	list:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ps Zax</code></strong></pre><p>This command displays another user's process partition
+	label and that user's currently running processes:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ps -ZU trhodes</code></strong></pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Users can see processes in <code class="systemitem">root</code>'s label unless the
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mac_seeotheruids&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mac_seeotheruids</span>(4)</span></a> policy is loaded.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mac-mls"></a>15.5.6. The MAC Multi-Level Security Module</h3></div></div></div><a id="idp61167224" class="indexterm"></a><p>Module name: <code class="filename">mac_mls.ko</code></p><p>Kernel configuration line:
+	<code class="literal">options MAC_MLS</code></p><p>Boot option: <code class="literal">mac_mls_load="YES"</code></p><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mac_mls&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mac_mls</span>(4)</span></a> policy controls access between
+	subjects and objects in the system by enforcing a strict
+	information flow policy.</p><p>In <acronym class="acronym">MLS</acronym> environments, a
+	<span class="quote">&#8220;<span class="quote">clearance</span>&#8221;</span> level is set in the label of each
+	subject or object, along with compartments.  Since these
+	clearance levels can reach numbers greater than several
+	thousand, it would be a daunting task to thoroughly configure
+	every subject or object.  To ease this administrative
+	overhead, three labels are included in this policy:
+	<code class="literal">mls/low</code>, <code class="literal">mls/equal</code>, and
+	<code class="literal">mls/high</code>, where:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Anything labeled with <code class="literal">mls/low</code> will
+	    have a low clearance level and not be permitted to access
+	    information of a higher level.  This label also prevents
+	    objects of a higher clearance level from writing or
+	    passing information to a lower level.</p></li><li class="listitem"><p><code class="literal">mls/equal</code> should be placed on
+	    objects which should be exempt from the policy.</p></li><li class="listitem"><p><code class="literal">mls/high</code> is the highest level of
+	    clearance possible.  Objects assigned this label will hold
+	    dominance over all other objects in the system; however,
+	    they will not permit the leaking of information to objects
+	    of a lower class.</p></li></ul></div><p><acronym class="acronym">MLS</acronym> provides:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>A hierarchical security level with a set of
+	    non-hierarchical categories.</p></li><li class="listitem"><p>Fixed rules of <code class="literal">no read up, no write
+	      down</code>.  This means that a subject can have read
+	    access to objects on its own level or below, but not
+	    above.  Similarly, a subject can have write access to
+	    objects on its own level or above, but not beneath.</p></li><li class="listitem"><p>Secrecy, or the prevention of inappropriate disclosure
+	    of data.</p></li><li class="listitem"><p>A basis for the design of systems that concurrently
+	    handle data at multiple sensitivity levels without leaking
+	    information between secret and confidential.</p></li></ul></div><p>The following <code class="command">sysctl</code> tunables are
+	available:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="varname">security.mac.mls.enabled</code> is used to
+	    enable or disable the <acronym class="acronym">MLS</acronym>
+	    policy.</p></li><li class="listitem"><p><code class="varname">security.mac.mls.ptys_equal</code>
+	    labels all <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pty&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pty</span>(4)</span></a> devices as
+	    <code class="literal">mls/equal</code> during creation.</p></li><li class="listitem"><p><code class="varname">security.mac.mls.revocation_enabled</code>
+	    revokes access to objects after their label changes to a
+	    label of a lower grade.</p></li><li class="listitem"><p><code class="varname">security.mac.mls.max_compartments</code>
+	    sets the maximum number of compartment levels allowed on a
+	    system.</p></li></ul></div><p>To manipulate <acronym class="acronym">MLS</acronym> labels, use
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=setfmac&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">setfmac</span>(8)</span></a>.  To assign a label to an object:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>setfmac mls/5 test</code></strong></pre><p>To get the <acronym class="acronym">MLS</acronym> label for the file
+	<code class="filename">test</code>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>getfmac test</code></strong></pre><p>Another approach is to create a master policy file in
+	<code class="filename">/etc/</code> which specifies the
+	<acronym class="acronym">MLS</acronym> policy information and to feed that
+	file to <code class="command">setfmac</code>.</p><p>When using the <acronym class="acronym">MLS</acronym> policy module, an
+	administrator plans to control the flow of sensitive
+	information.  The default <code class="literal">block read up block write
+	  down</code> sets everything to a low state.  Everything
+	is accessible and an administrator slowly augments the
+	confidentiality of the information.</p><p>Beyond the three basic label options, an administrator
+	may group users and groups as required to block the
+	information flow between them.  It might be easier to look at
+	the information in clearance levels using descriptive words,
+	such as classifications of <code class="literal">Confidential</code>,
+	<code class="literal">Secret</code>, and <code class="literal">Top Secret</code>.
+	Some administrators instead create different groups based on
+	project levels.  Regardless of the classification method, a
+	well thought out plan must exist before implementing a
+	restrictive policy.</p><p>Some example situations for the <acronym class="acronym">MLS</acronym>
+	policy module include an e-commerce web server, a file server
+	holding critical company information, and financial
+	institution environments.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mac-biba"></a>15.5.7. The MAC Biba Module</h3></div></div></div><a id="idp61219192" class="indexterm"></a><p>Module name: <code class="filename">mac_biba.ko</code></p><p>Kernel configuration line: <code class="literal">options
+	  MAC_BIBA</code></p><p>Boot option: <code class="literal">mac_biba_load="YES"</code></p><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mac_biba&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mac_biba</span>(4)</span></a> module loads the
+	<acronym class="acronym">MAC</acronym> Biba policy.  This policy is similar to
+	the <acronym class="acronym">MLS</acronym> policy with the exception that the
+	rules for information flow are slightly reversed.  This is to
+	prevent the downward flow of sensitive information whereas the
+	<acronym class="acronym">MLS</acronym> policy prevents the upward flow of
+	sensitive information.</p><p>In Biba environments, an <span class="quote">&#8220;<span class="quote">integrity</span>&#8221;</span> label is
+	set on each subject or object.  These labels are made up of
+	hierarchical grades and non-hierarchical components.  As a
+	grade ascends, so does its integrity.</p><p>Supported labels are <code class="literal">biba/low</code>,
+	<code class="literal">biba/equal</code>, and
+	<code class="literal">biba/high</code>, where:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="literal">biba/low</code> is considered the lowest
+	    integrity an object or subject may have.  Setting this on
+	    objects or subjects blocks their write access to objects
+	    or subjects marked as <code class="literal">biba/high</code>, but
+	    will not prevent read access.</p></li><li class="listitem"><p><code class="literal">biba/equal</code> should only be placed on
+	    objects considered to be exempt from the policy.</p></li><li class="listitem"><p><code class="literal">biba/high</code> permits writing to
+	    objects set at a lower label, but does not permit reading
+	    that object.  It is recommended that this label be
+	    placed on objects that affect the integrity of the entire
+	    system.</p></li></ul></div><p>Biba provides:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Hierarchical integrity levels with a set of
+	    non-hierarchical integrity categories.</p></li><li class="listitem"><p>Fixed rules are <code class="literal">no write up, no read
+	      down</code>, the opposite of
+	    <acronym class="acronym">MLS</acronym>.  A subject can have write access
+	    to objects on its own level or below, but not above.
+	    Similarly, a subject can have read access to objects on
+	    its own level or above, but not below.</p></li><li class="listitem"><p>Integrity by preventing inappropriate modification of
+	    data.</p></li><li class="listitem"><p>Integrity levels instead of <acronym class="acronym">MLS</acronym>
+	    sensitivity levels.</p></li></ul></div><p>The following tunables can be used to manipulate the Biba
+	policy:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="varname">security.mac.biba.enabled</code> is used
+	    to enable or disable enforcement of the Biba policy on the
+	    target machine.</p></li><li class="listitem"><p><code class="varname">security.mac.biba.ptys_equal</code> is
+	    used to disable the Biba policy on <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pty&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pty</span>(4)</span></a>
+	    devices.</p></li><li class="listitem"><p><code class="varname">security.mac.biba.revocation_enabled</code>
+	    forces the revocation of access to objects if the label is
+	    changed to dominate the subject.</p></li></ul></div><p>To access the Biba policy setting on system objects, use
+	<code class="command">setfmac</code> and
+	<code class="command">getfmac</code>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>setfmac biba/low test</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>getfmac test</code></strong>
+test: biba/low</pre><p>Integrity, which is different from sensitivity, is used to
+	guarantee that information is not manipulated by untrusted
+	parties.  This includes information passed between subjects
+	and objects.  It ensures that users will only be able to
+	modify or access information they have been given explicit
+	access to.  The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mac_biba&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mac_biba</span>(4)</span></a> security policy module
+	permits an administrator to configure which files and programs
+	a user may see and invoke while assuring that the programs and
+	files are trusted by the system for that user.</p><p>During the initial planning phase, an administrator must
+	be prepared to partition users into grades, levels, and areas.
+	The system will default to a high label once this policy
+	module is enabled, and it is up to the administrator to
+	configure the different grades and levels for users.  Instead
+	of using clearance levels, a good planning method could
+	include topics.  For instance, only allow developers
+	modification access to the source code repository, source
+	code compiler, and other development utilities.  Other users
+	would be grouped into other categories such as testers,
+	designers, or end users and would only be permitted read
+	access.</p><p>A lower integrity subject is unable to write to a higher
+	integrity subject and a higher integrity subject cannot list
+	or read a lower integrity object.  Setting a label at the
+	lowest possible grade could make it inaccessible to subjects.
+	Some prospective environments for this security policy module
+	would include a constrained web server, a development and test
+	machine, and a source code repository.  A less useful
+	implementation would be a personal workstation, a machine used
+	as a router, or a network firewall.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mac-lomac"></a>15.5.8. The MAC Low-watermark Module</h3></div></div></div><a id="idp61266168" class="indexterm"></a><p>Module name: <code class="filename">mac_lomac.ko</code></p><p>Kernel configuration line: <code class="literal">options
+	  MAC_LOMAC</code></p><p>Boot option:
+	<code class="literal">mac_lomac_load="YES"</code></p><p>Unlike the <acronym class="acronym">MAC</acronym> Biba policy, the
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mac_lomac&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mac_lomac</span>(4)</span></a> policy permits access to lower integrity
+	objects only after decreasing the integrity level to not
+	disrupt any integrity rules.</p><p>The Low-watermark integrity policy works almost
+	identically to Biba, with the exception of using floating
+	labels to support subject demotion via an auxiliary grade
+	compartment.  This secondary compartment takes the form
+	<code class="literal">[auxgrade]</code>.  When assigning a policy with
+	an auxiliary grade, use the syntax
+	<code class="literal">lomac/10[2]</code>, where
+	<code class="literal">2</code> is the auxiliary grade.</p><p>This policy relies on the ubiquitous labeling of all
+	system objects with integrity labels, permitting subjects to
+	read from low integrity objects and then downgrading the label
+	on the subject to prevent future writes to high integrity
+	objects using <code class="literal">[auxgrade]</code>.  The policy may
+	provide greater compatibility and require less initial
+	configuration than Biba.</p><p>Like the Biba and <acronym class="acronym">MLS</acronym> policies,
+	<code class="command">setfmac</code> and <code class="command">setpmac</code>
+	are used to place labels on system objects:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>setfmac /usr/home/trhodes lomac/high[low]</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>getfmac /usr/home/trhodes lomac/high[low]</code></strong></pre><p>The auxiliary grade <code class="literal">low</code> is a feature
+	provided only by the <acronym class="acronym">MAC</acronym>
+	<acronym class="acronym">LOMAC</acronym> policy.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="mac-planning.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="mac.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="mac-userlocked.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">15.4. Planning the Security Configuration </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 15.6. User Lock Down</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

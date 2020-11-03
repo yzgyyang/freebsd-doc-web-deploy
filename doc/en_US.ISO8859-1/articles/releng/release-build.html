@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>3. Release Building</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Release Engineering" /><link rel="up" href="index.html" title="FreeBSD Release Engineering" /><link rel="prev" href="release-proc.html" title="2. Release Process" /><link rel="next" href="distribution.html" title="4. Distribution" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">3. Release Building</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="release-proc.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="distribution.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="release-build"></a>3. Release Building</h2></div></div></div><p>FreeBSD <span class="quote">&#8220;<span class="quote">releases</span>&#8221;</span> can be built by anyone with a
+    fast machine and access to a source repository.  (That should be
+    everyone, since we offer Subversion access!  See the <a class="link" href="../../../../doc/en_US.ISO8859-1/books/handbook/svn.html" target="_top">Subversion section in
+      the Handbook</a> for details.)  The <span class="emphasis"><em>only</em></span>
+    special requirement is that the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=md&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">md</span>(4)</span></a> device must be
+    available.  If the device is not loaded into your kernel, then the
+    kernel module should be automatically loaded when <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mdconfig&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mdconfig</span>(8)</span></a>
+    is executed during the boot media creation phase.  All of the
+    tools necessary to build a release are available from the
+    Subversion repository in <code class="filename">src/release</code>.  These
+    tools aim to provide a consistent way to build FreeBSD releases.  A
+    complete release can actually be built with only a single command,
+    including the creation of <acronym class="acronym">ISO</acronym> images suitable
+    for burning to CDROM or DVD, and an FTP install directory.
+    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=release&amp;sektion=7&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">release</span>(7)</span></a> fully documents the
+    <code class="command">src/release/generate-release.sh</code> script which is
+    used to build a release.  <code class="command">generate-release.sh</code>
+    is a wrapper around the Makefile target: <code class="command">make
+      release</code>.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47310328"></a>3.1. Building a Release</h3></div></div></div><p><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=release&amp;sektion=7&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">release</span>(7)</span></a> documents the exact commands required to
+      build a FreeBSD release.  The following sequences of commands can
+      build an 9.2.0 release:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/src/release</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>sh generate-release.sh release/9.2.0 /local3/release</code></strong></pre><p>After running these commands, all prepared release files are
+      available in <code class="filename">/local3/release/R</code>
+      directory.</p><p>The release <code class="filename">Makefile</code> can be broken down
+      into several distinct steps.</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Creation of a sanitized system environment in a separate
+	  directory hierarchy with <span class="quote">&#8220;<span class="quote"><code class="command">make
+	      installworld</code></span>&#8221;</span>.</p></li><li class="listitem"><p>Checkout from Subversion of a clean version of the
+	  system source, documentation, and ports into the release
+	  build hierarchy.</p></li><li class="listitem"><p>Population of <code class="filename">/etc</code> and
+	  <code class="filename">/dev</code> in the chrooted
+	  environment.</p></li><li class="listitem"><p>chroot into the release build hierarchy, to make it
+	  harder for the outside environment to taint this
+	  build.</p></li><li class="listitem"><p><code class="command">make world</code> in the chrooted
+	  environment.</p></li><li class="listitem"><p>Build of Kerberos-related binaries.</p></li><li class="listitem"><p>Build <code class="filename">GENERIC</code> kernel.</p></li><li class="listitem"><p>Creation of a staging directory tree where the binary
+	  distributions will be built and packaged.</p></li><li class="listitem"><p>Build and installation of the documentation toolchain
+	  needed to convert the documentation source (SGML) into HTML
+	  and text documents that will accompany the release.</p></li><li class="listitem"><p>Build and installation of the actual documentation (user
+	  manuals, tutorials, release notes, hardware compatibility
+	  lists, and so on.)</p></li><li class="listitem"><p>Package up distribution tarballs of the binaries and
+	  sources.</p></li><li class="listitem"><p>Create FTP installation hierarchy.</p></li><li class="listitem"><p><span class="emphasis"><em>(optionally)</em></span> Create ISO images for
+	  CDROM/DVD media.</p></li></ul></div><p>For more information about the release build infrastructure,
+      please see <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=release&amp;sektion=7&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">release</span>(7)</span></a>.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">It is important to remove any site-specific settings from
+	<code class="filename">/etc/make.conf</code>.  For example, it would be
+	unwise to distribute binaries that were built on a system with
+	<code class="varname">CPUTYPE</code> set to a specific
+	processor.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47363576"></a>3.2. Contributed Software (<span class="quote">&#8220;<span class="quote">ports</span>&#8221;</span>)</h3></div></div></div><p>The <a class="link" href="https://www.FreeBSD.org/ports" target="_top">FreeBSD
+	Ports collection</a> is a collection of over 24,000
+      third-party software packages available for FreeBSD.  The
+      Ports Management Team <code class="email">&lt;<a xmlns="" class="email" href="mailto:portmgr@FreeBSD.org">portmgr@FreeBSD.org</a>&gt;</code> is responsible for maintaining a consistent ports
+      tree that can be used to create the binary packages that
+      accompany official FreeBSD releases.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47368568"></a>3.3. Release ISOs</h3></div></div></div><p>Starting with FreeBSD 4.4, the FreeBSD Project decided to
+      release all four ISO images that were previously sold on the
+      <span class="emphasis"><em>BSDi/Wind River Systems/FreeBSD Mall</em></span>
+      <span class="quote">&#8220;<span class="quote">official</span>&#8221;</span> CDROM distributions.  Each of the four
+      discs must contain a <code class="filename">README.TXT</code> file that
+      explains the contents of the disc, a
+      <code class="filename">CDROM.INF</code> file that provides meta-data for
+      the disc so that <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=bsdinstall&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">bsdinstall</span>(8)</span></a> can validate and use the
+      contents, and a <code class="filename">filename.txt</code> file that
+      provides a manifest for the disc.  This
+      <span class="emphasis"><em>manifest</em></span> can be created with a simple
+      command:</p><pre class="screen">/stage/cdrom<code class="prompt">#</code> <strong class="userinput"><code>find . -type f | sed -e 's/^\.\///' | sort &gt; filename.txt</code></strong></pre><p>The specific requirements of each CD are outlined
+      below.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47394168"></a>3.3.1. Disc 1</h4></div></div></div><p>The first disc is almost completely created by
+	<code class="command">make release</code>.  The only changes that should
+	be made to the <code class="filename">disc1</code> directory are the
+	addition of a <code class="filename">tools</code> directory, and as
+	many popular third party software packages as will fit on the
+	disc.  The <code class="filename">tools</code> directory contains
+	software that allow users to create installation floppies from
+	other operating systems.  This disc should be made bootable so
+	that users of modern PCs do not need to create installation
+	floppy disks.</p><p>If a custom kernel of FreeBSD is to be included, then
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=bsdinstall&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">bsdinstall</span>(8)</span></a> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=release&amp;sektion=7&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">release</span>(7)</span></a> must be updated to
+	include installation instructions.  The relevant code is
+	contained in <code class="filename">src/release</code> and
+	<code class="filename">src/usr.sbin/bsdinstall</code>.  Specifically,
+	the file <code class="filename">src/release/Makefile</code>, and
+	<code class="filename">dist.c</code>, <code class="filename">dist.h</code>,
+	<code class="filename">menus.c</code>, <code class="filename">install.c</code>,
+	and <code class="filename">Makefile</code> will need to be updated
+	under <code class="filename">src/usr.sbin/bsdinstall</code>.
+	Optionally, you may choose to update
+	<code class="filename">bsdinstall.8</code>.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47413496"></a>3.3.2. Disc 2</h4></div></div></div><p>The second disc is also largely created by <code class="command">make
+	  release</code>.  This disc contains a <span class="quote">&#8220;<span class="quote">live
+	  filesystem</span>&#8221;</span> that can be used from <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=bsdinstall&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">bsdinstall</span>(8)</span></a>
+	to troubleshoot a FreeBSD installation.  This disc should be
+	bootable and should also contain a compressed copy of the CVS
+	repository in the <code class="filename">CVSROOT</code> directory and
+	commercial software demos in the <code class="filename">commerce</code>
+	directory.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47422456"></a>3.3.3. Multi-volume Support</h4></div></div></div><p><span class="application">Sysinstall</span> supports multiple
+	volume package installations.  This requires that each disc
+	have an <code class="filename">INDEX</code> file containing all of the
+	packages on all volumes of a set, along with an extra field
+	that indicates which volume that particular package is on.
+	Each volume in the set must also have the
+	<code class="literal">CD_VOLUME</code> variable set in the
+	<code class="filename">cdrom.inf</code> file so that bsdinstall can
+	tell which volume is which.  When a user attempts to install a
+	package that is not on the current disc, bsdinstall will
+	prompt the user to insert the appropriate one.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="release-proc.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="distribution.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2. Release Process </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 4. Distribution</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

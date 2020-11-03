@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>2.2. Minimum Hardware Requirements</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="bsdinstall.html" title="Chapter 2. Installing FreeBSD" /><link rel="prev" href="bsdinstall.html" title="Chapter 2. Installing FreeBSD" /><link rel="next" href="bsdinstall-pre.html" title="2.3. Pre-Installation Tasks" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">2.2. Minimum Hardware Requirements</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="bsdinstall.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Installing FreeBSD</th><td width="20%" align="right"> <a accesskey="n" href="bsdinstall-pre.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="bsdinstall-hardware"></a>2.2. Minimum Hardware Requirements</h2></div></div></div><p>The hardware requirements to install FreeBSD vary by
+      architecture.  Hardware architectures and devices supported by a
+      FreeBSD release are listed on the <a class="link" href="../../../../releases/index.html" target="_top">FreeBSD Release
+      Information</a> page.  The <a class="link" href="../../../../where.html" target="_top">FreeBSD download page</a>
+      also has recommendations for choosing the correct image for
+      different architectures.</p><p>A FreeBSD installation requires a minimum of 96 MB of
+      <acronym class="acronym">RAM</acronym> and 1.5 GB of free hard drive space.
+      However, such small amounts of memory and disk space are really
+      only suitable for custom applications like embedded appliances.
+      General-purpose desktop systems need more resources.
+      2-4 GB RAM and at least 8 GB hard drive space is a
+      good starting point.</p><p>These are the processor requirements for each
+      architecture:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">amd64</span></dt><dd><p>This is the most common desktop and laptop processor
+	    type, used in most modern systems.  <span class="trademark">Intel</span>® calls it
+	    <acronym class="acronym">Intel64</acronym>.  Other manufacturers sometimes
+	    call it <acronym class="acronym">x86-64</acronym>.</p><p>Examples of amd64 compatible processors
+	    include: <span class="trademark">AMD Athlon</span>&#8482;64, <span class="trademark">AMD Opteron</span>&#8482;,
+	    multi-core <span class="trademark">Intel</span>® <span class="trademark">Xeon</span>&#8482;, and
+	    <span class="trademark">Intel</span>® <span class="trademark">Core</span>&#8482; 2 and later processors.</p></dd><dt><span class="term">i386</span></dt><dd><p>Older desktops and laptops often use this 32-bit, x86
+	    architecture.</p><p>Almost all i386-compatible processors with a floating
+	    point unit are supported.  All <span class="trademark">Intel</span>® processors 486 or
+	    higher are supported.</p><p>FreeBSD will take advantage of Physical Address
+	    Extensions (<acronym class="acronym">PAE</acronym>) support on
+	    <acronym class="acronym">CPU</acronym>s with this feature.  A kernel with
+	    the <acronym class="acronym">PAE</acronym> feature enabled will detect
+	    memory above 4 GB and allow it to be used by the
+	    system.  However, using <acronym class="acronym">PAE</acronym> places
+	    constraints on device drivers and other features of
+	    FreeBSD.</p></dd><dt><span class="term">powerpc</span></dt><dd><p>All New World <acronym class="acronym">ROM</acronym> <span class="trademark">Apple</span>®
+	    <span class="trademark">Mac</span>® systems with built-in <acronym class="acronym">USB</acronym>
+	    are supported.  <acronym class="acronym">SMP</acronym> is supported on
+	    machines with multiple <acronym class="acronym">CPU</acronym>s.</p><p>A 32-bit kernel can only use the first 2 GB of
+	    <acronym class="acronym">RAM</acronym>.</p></dd><dt><span class="term">sparc64</span></dt><dd><p>Systems supported by FreeBSD/sparc64 are listed at
+	    the <a class="link" href="../../../../platforms/sparc.html" target="_top">FreeBSD/sparc64
+	      Project</a>.</p><p><acronym class="acronym">SMP</acronym> is supported on all systems
+	    with more than 1 processor.  A dedicated disk is required
+	    as it is not possible to share a disk with another
+	    operating system at this time.</p></dd></dl></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="bsdinstall.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="bsdinstall.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="bsdinstall-pre.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 2. Installing FreeBSD </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 2.3. Pre-Installation Tasks</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

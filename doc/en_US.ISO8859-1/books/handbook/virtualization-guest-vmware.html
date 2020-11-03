@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>21.4. FreeBSD as a Guest on VMware Fusion for Mac OS®</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="virtualization.html" title="Chapter 21. Virtualization" /><link rel="prev" href="virtualization-guest-virtualpc.html" title="21.3. FreeBSD as a Guest on Virtual PC for Windows®" /><link rel="next" href="virtualization-guest-virtualbox.html" title="21.5. FreeBSD as a Guest on VirtualBox&#8482;" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">21.4. FreeBSD as a Guest on <span class="application">VMware Fusion</span>
+      for <span class="trademark">Mac OS</span>®</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="virtualization-guest-virtualpc.html">Prev</a> </td><th width="60%" align="center">Chapter 21. Virtualization</th><td width="20%" align="right"> <a accesskey="n" href="virtualization-guest-virtualbox.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="virtualization-guest-vmware"></a>21.4. FreeBSD as a Guest on <span class="application">VMware Fusion</span>
+      for <span class="trademark">Mac OS</span>®</h2></div></div></div><p><span class="application">VMware Fusion</span> for <span class="trademark">Mac</span>® is a
+      commercial software product available for <span class="trademark">Intel</span>® based <span class="trademark">Apple</span>®
+      <span class="trademark">Mac</span>® computers running <span class="trademark">Mac OS</span>® 10.4.9 or higher.  FreeBSD is a
+      fully supported guest operating system.  Once
+      <span class="application">VMware Fusion</span> has been installed on
+      <span class="trademark">Mac OS</span>® X, the user can configure a virtual machine and then
+      install the desired guest operating system.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="virtualization-guest-vmware-install"></a>21.4.1. Installing FreeBSD on
+	<span class="application">VMware Fusion</span></h3></div></div></div><p>The first step is to start
+	<span class="application">VMware Fusion</span> which will load the
+	Virtual Machine Library.  Click <span class="guimenuitem">New</span>
+	to create the virtual machine:</p><div class="mediaobject"><img src="virtualization/vmware-freebsd01.png" /></div><p>This will load the New Virtual Machine Assistant.  Click
+	<span class="guimenuitem">Continue</span> to proceed:</p><div class="mediaobject"><img src="virtualization/vmware-freebsd02.png" /></div><p>Select <span class="guimenuitem">Other</span> as the
+	<span class="guimenuitem">Operating System</span> and either
+	<span class="guimenuitem">FreeBSD</span> or
+	<span class="guimenuitem">FreeBSD 64-bit</span>, as the
+	<span class="guimenu">Version</span> when prompted:</p><div class="mediaobject"><img src="virtualization/vmware-freebsd03.png" /></div><p>Choose the name of the virtual machine and the directory
+	where it should be saved:</p><div class="mediaobject"><img src="virtualization/vmware-freebsd04.png" /></div><p>Choose the size of the Virtual Hard Disk for the virtual
+	machine:</p><div class="mediaobject"><img src="virtualization/vmware-freebsd05.png" /></div><p>Choose the method to install the virtual machine, either
+	from an <acronym class="acronym">ISO</acronym> image or from a
+	<acronym class="acronym">CD</acronym>/<acronym class="acronym">DVD</acronym>:</p><div class="mediaobject"><img src="virtualization/vmware-freebsd06.png" /></div><p>Click <span class="guimenuitem">Finish</span> and the virtual
+	machine will boot:</p><div class="mediaobject"><img src="virtualization/vmware-freebsd07.png" /></div><p>Install FreeBSD as usual:</p><div class="mediaobject"><img src="virtualization/vmware-freebsd08.png" /></div><p>Once the install is complete, the settings of the virtual
+	machine can be modified, such as memory usage:</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">The System Hardware settings of the virtual machine
+	  cannot be modified while the virtual machine is
+	  running.</p></div><div class="mediaobject"><img src="virtualization/vmware-freebsd09.png" /></div><p>The number of CPUs the virtual machine will have access
+	to:</p><div class="mediaobject"><img src="virtualization/vmware-freebsd10.png" /></div><p>The status of the <acronym class="acronym">CD-ROM</acronym> device.
+	Normally the
+	<acronym class="acronym">CD</acronym>/<acronym class="acronym">DVD</acronym>/<acronym class="acronym">ISO</acronym>
+	is disconnected from the virtual machine when it is no longer
+	needed.</p><div class="mediaobject"><img src="virtualization/vmware-freebsd11.png" /></div><p>The last thing to change is how the virtual machine will
+	connect to the network.  To allow connections to the virtual
+	machine from other machines besides the host, choose
+	<span class="guimenuitem">Connect directly to the physical network
+	  (Bridged)</span>.  Otherwise,
+	<span class="guimenuitem">Share the host's internet connection
+	  (NAT)</span> is preferred so that the virtual machine
+	can have access to the Internet, but the network cannot access
+	the virtual machine.</p><div class="mediaobject"><img src="virtualization/vmware-freebsd12.png" /></div><p>After modifying the settings, boot the newly installed
+	FreeBSD virtual machine.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="virtualization-guest-vmware-configure"></a>21.4.2. Configuring FreeBSD on <span class="application">VMware
+	  Fusion</span></h3></div></div></div><p>After FreeBSD has been successfully installed on <span class="trademark">Mac OS</span>® X
+	with <span class="application">VMware Fusion</span>, there are a
+	number of configuration steps that can be taken to optimize
+	the system for virtualized operation.</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p class="title"><strong>Set Boot Loader Variables</strong></p><p>The most important step is to reduce the
+	    <code class="option">kern.hz</code> tunable to reduce the CPU
+	    utilization of FreeBSD under the
+	    <span class="application">VMware Fusion</span> environment.
+	    This is accomplished by adding the following line to
+	    <code class="filename">/boot/loader.conf</code>:</p><pre class="programlisting">kern.hz=100</pre><p>Without this setting, an idle FreeBSD
+	    <span class="application">VMware Fusion</span> guest will use
+	    roughly 15% of the CPU of a single processor <span class="trademark">iMac</span>®.
+	    After this change, the usage will be closer to 5%.</p></li><li class="step"><p class="title"><strong>Create a New Kernel Configuration File</strong></p><p>All of the FireWire, and USB device drivers can be
+	    removed from a custom kernel configuration file.
+	    <span class="application">VMware Fusion</span> provides a
+	    virtual network adapter used by the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=em&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">em</span>(4)</span></a> driver, so
+	    all network devices except for <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=em&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">em</span>(4)</span></a> can be removed
+	    from the kernel.</p></li><li class="step"><p class="title"><strong>Configure Networking</strong></p><p>The most basic networking setup uses DHCP to connect
+	    the virtual machine to the same local area network as the
+	    host <span class="trademark">Mac</span>®.  This can be accomplished by adding
+	    <code class="literal">ifconfig_em0="DHCP"</code> to
+	    <code class="filename">/etc/rc.conf</code>.  More advanced
+	    networking setups are described in
+	    <a class="xref" href="advanced-networking.html" title="Chapter 31. Advanced Networking">Chapter 31, <em>Advanced Networking</em></a>.</p></li></ol></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="virtualization-guest-virtualpc.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="virtualization.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="virtualization-guest-virtualbox.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">21.3. FreeBSD as a Guest on <span class="application">Virtual PC</span>
+      for <span class="trademark">Windows</span>® </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 21.5. FreeBSD as a Guest on <span class="trademark">VirtualBox</span>&#8482;</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

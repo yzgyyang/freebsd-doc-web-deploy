@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>Chapter 5. Hats</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="A project model for the FreeBSD Project" /><link rel="up" href="index.html" title="A project model for the FreeBSD Project" /><link rel="prev" href="model-summary.html" title="4.3. Model summary" /><link rel="next" href="official-hats.html" title="5.2. Official Hats" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 5. Hats</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="model-summary.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="official-hats.html">Next</a></td></tr></table><hr /></div><div class="chapter"><div xmlns="" class="titlepage"><div><div><h1 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="sect-hats"></a>Chapter 5. Hats</h1></div></div></div><div class="toc"><div class="toc-title">Table of Contents</div><dl class="toc"><dt><span class="section"><a href="sect-hats.html#general-hats">5.1. General Hats</a></span></dt><dt><span class="section"><a href="official-hats.html">5.2. Official Hats</a></span></dt><dt><span class="section"><a href="proc-depend-hats.html">5.3. Process dependent hats</a></span></dt></dl></div><p>
+                Many committers have a special area of responsibility. These
+                roles are called hats.
+                These hats can
+                be either project roles, such as public relations officer, or
+                maintainer for a certain area of the
+                code. Because this is a project where people give voluntarily of
+                their spare time, people with assigned hats are not always
+                available. They must therefore appoint a deputy that can perform
+                the hat's role in their absence. The other option is to have
+                the role held by a group.
+            </p><p>
+                Many of these hats are not formalised. Formalised hats have a
+                charter stating the exact purpose of the hat along with its
+                privileges and responsibilities. The writing of such charters is
+                a new part of the project, and has thus yet to be completed for
+                all hats. These hat descriptions are not such a formalisation,
+                rather a summary of the role with links to the charter where
+                available and contact addresses.
+
+            </p><div class="section"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="general-hats"></a>5.1. General Hats</h2></div></div></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="role-contributor"></a>5.1.1. Contributor</h3></div></div></div><p>
+                        A Contributor contributes to the FreeBSD project either as a
+                        developer, as an author, by sending problem reports, or in
+                        other ways contributing to the progress of the project. A
+                        contributor has no special privileges in the FreeBSD project.
+                        [<span class="citation"><a class="xref" href="bibliography.html#freebsd-contributors">FreeBSD, 2002F</a></span>]
+                    </p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="role-committer"></a>5.1.2. Committer</h3></div></div></div><p>
+                        A person who has the required privileges to add their code or documentation to the
+                        repository.
+                        
+
+                        A committer has made a commit within the past 12 months.
+                        [<span class="citation"><a class="xref" href="bibliography.html#freebsd-bylaws">FreeBSD, 2000A</a></span>]
+                        An active committer is a committer
+                        who has made an average of one commit per month during that time.
+                    </p><p>
+                        It is worth noting that there are no technical barriers to prevent
+                        someone, once having gained commit privileges to the main- or a sub-project, to make commits in
+                        parts of that project's source the committer did not specifically get
+                        permission to modify. However, when wanting to make
+                        modifications to parts a committer has not been involved in
+                        before, they should read the logs to see what has happened
+                        in this area before, and also read the MAINTAINERS file to see if
+                        the maintainer of this part has any special requests on how
+                        changes in the code should be made.
+                        
+                    </p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="role-core"></a>5.1.3. Core Team</h3></div></div></div><p>
+                        The core team is elected by the committers from the pool of committers
+                        and serves as the board of directors of the FreeBSD project. It
+                        promotes active contributors to committers, assigns people to
+                        well-defined hats, and is the final arbiter of decisions involving
+                        which way the project should be heading.
+
+                        As of July 1st, 2004, core consisted of 9 members.
+                        Elections are held every two years.
+                    </p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="role-maintainer"></a>5.1.4. Maintainership</h3></div></div></div><p>
+                        Maintainership means that that person is responsible for
+                        what is allowed to go into that area of the code and has the
+                        final say should disagreements over the code occur. This
+                        involves proactive work aimed at stimulating
+                        contributions and reactive work in reviewing commits.
+                    </p><p>
+                        With the FreeBSD
+                        source comes the MAINTAINERS file that contains a one-line
+                        summary of how each maintainer would like contributions to be
+                        made. Having this notice and contact information
+                        enables developers to focus on the development effort rather
+                        than being stuck in a slow correspondence should the maintainer
+                        be unavailable for some time.
+                    </p><p>
+                        If the maintainer is unavailable for an unreasonably long period
+                        of time, and other people do a significant amount of work,
+                        maintainership may be switched without the maintainer's approval.
+                        This is based on the stance that maintainership should be
+                        demonstrated, not declared.
+                    </p><p>
+                        Maintainership of a particular piece of code is a hat that
+                        is not held as a group.
+                    </p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="model-summary.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="official-hats.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">4.3. Model summary </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 5.2. Official Hats</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

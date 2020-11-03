@@ -16,6 +16,59 @@
     </image>
     <atom:link href="https://www.FreeBSD.org/news/press-rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Discussing Past, Present and Future of FreeBSD Project, itsfoss.com, Abhishek Prakash</title>
+      <description>FreeBSD is one of the most popular BSD distributions. It is used on desktop, servers and embedded devices for more than two decades. We talked to Deb Goodkin, executive director, FreeBSD Foundation and discussed the past, present and future of FreeBSD project.</description>
+      <link>https://www.FreeBSD.org/news/press.html#story202002:01</link>
+      <guid>https://www.FreeBSD.org/news/press.html#story202002:01</guid>
+      <pubDate>???, NaN Feb 2020 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>Supporting an open source operating system: a Q&amp;A
+	  with the FreeBSD Foundation, techradar.com, </title>
+      <description>When discussing alternative operating systems to Microsoft’s Windows or Apple’s macOS, Linux often comes to mind. However, while Linux is a recreation of UNIX, FreeBSD is more of a continuation. The free and open source operating system was initially developed by students at the University of California at Berkeley which is why the BSD in its name stands for Berkeley Software Distribution.</description>
+      <link>https://www.FreeBSD.org/news/press.html#story202002:02</link>
+      <guid>https://www.FreeBSD.org/news/press.html#story202002:02</guid>
+      <pubDate>???, NaN Feb 2020 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>Meet FreeBSD Project – A Journey of 26 Years and
+	  Beyond, pfind.com, William Chapman</title>
+      <description>When talking about operating systems or platforms to run the whole computing processes for various devices, you might have heard about FreeBSD quite often. However, today’s implementations of this operating system are apparently not too well-known, and many people don’t know the contributions of FreeBSD in today’s computing technology. Since this operating system is not generally available for the average users, FreeBSD remains to be something that many people nowadays are not well-acquainted with. Yet, it has been used in various hardware and online platforms today, and it has been actively used for more than 26 years now.</description>
+      <link>https://www.FreeBSD.org/news/press.html#story201908:01</link>
+      <guid>https://www.FreeBSD.org/news/press.html#story201908:01</guid>
+      <pubDate>???, NaN Aug 2019 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD Turns 26, LWN.net, Sean Kerner</title>
+      <description>The FreeBSD operating system is continuing to make progress, 26 years after it got its name. Among the areas where work is being done is on improved support for RISC-V, FUSE filesystem updates, C runtime changes, and security improvements. FreeBSD Day is celebrated on June 19, in recognition of the date in 1993 when the name FreeBSD was coined for a fork of the 386BSD project. The first official release of FreeBSD did not occur until November 1, 1993, however.</description>
+      <link>https://www.FreeBSD.org/news/press.html#story201906:01</link>
+      <guid>https://www.FreeBSD.org/news/press.html#story201906:01</guid>
+      <pubDate>???, NaN Jun 2019 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>8 Popular Products You Didn't Know Were Built with Open
+	  Source, DesignNews, Chris Wiltz</title>
+      <description>A popular streaming service, video games consoles, and mobile messaging all owe a debt to FreeBSD.</description>
+      <link>https://www.FreeBSD.org/news/press.html#story201906:02</link>
+      <guid>https://www.FreeBSD.org/news/press.html#story201906:02</guid>
+      <pubDate>???, NaN Jun 2019 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD Foundation Announces FreeBSD Day on June 19,
+	  2019, Brilliance Security Magazine, Editorial Staff</title>
+      <description>The FreeBSD Foundation, supporters of FreeBSD, one of the oldest and largest open source computer operating systems in the world and used by many top corporations, has announced that June 19, 2019 is FreeBSD Day. FreeBSD Day marks the date in 1993 that developers named the new open source operating system and celebrates the impact FreeBSD has had on open source computing.</description>
+      <link>https://www.FreeBSD.org/news/press.html#story201906:03</link>
+      <guid>https://www.FreeBSD.org/news/press.html#story201906:03</guid>
+      <pubDate>???, NaN Jun 2019 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD ZFS vs. ZoL Performance, Ubuntu ZFS On Linux Reference, Phoronix, Michael Larabel</title>
+      <description>Overall, the FreeBSD ZFS On Linux port is looking good so far and we are looking forward to it hopefully maturing in time for FreeBSD 13.0. Nice job to iX Systems and all of those involved, especially the ZFS On Linux project. Those wanting to help in testing can try the FreeBSD ZoL spins. Stay tuned for more benchmarks and on more diverse hardware as time allows and the FreeBSD ZoL support further matures, but so far at least the performance numbers are in good shape.</description>
+      <link>https://www.FreeBSD.org/news/press.html#story201904:01</link>
+      <guid>https://www.FreeBSD.org/news/press.html#story201904:01</guid>
+      <pubDate>???, NaN Apr 2019 00:00:00 PST</pubDate>
+    </item>
+    <item>
       <title>Why did we build our solution on top of FreeBSD?, Synergy SKY, Egil Hasting</title>
       <description>FreeBSD has given us the "it just works" experience, without sacrificing the full control. It feels and behaves mature and stable with great performance!</description>
       <link>https://www.FreeBSD.org/news/press.html#story201711:01</link>
@@ -35,60 +88,6 @@
       <link>https://www.FreeBSD.org/news/press.html#story201606:02</link>
       <guid>https://www.FreeBSD.org/news/press.html#story201606:02</guid>
       <pubDate>???, NaN Jun 2016 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>Cascadia Community Builder Award recognizes FreeBSD
-	  contributor Michael Dexter, Seattle GNU/Linux Conference, SeaGL Blog</title>
-      <description>The Cascadia Community Builder Award recognizes a person who has made an outstanding contribution to the free software movement in the Cascadia region. Michael Dexter was chosen because his work with the Portland Linux/Unix Group and the BSD community exemplified the type of unsung community-building work that is so critical to the growth of the free software movement.</description>
-      <link>https://www.FreeBSD.org/news/press.html#story201510:01</link>
-      <guid>https://www.FreeBSD.org/news/press.html#story201510:01</guid>
-      <pubDate>Mon, 26 Oct 2015 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>Enabling FreeBSD on AArch64, ARM Ltd. Blog, Andrew Wafaa</title>
-      <description>A summary of the activities around porting FreeBSD to ARM's new AArch64 (or ARM64) platform.</description>
-      <link>https://www.FreeBSD.org/news/press.html#story201507:01</link>
-      <guid>https://www.FreeBSD.org/news/press.html#story201507:01</guid>
-      <pubDate>Tue, 7 Jul 2015 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>Running FreeBSD on the server: a sysadmin
-	  speaks, iTWire, Sam Varghese</title>
-      <description>For years now, Linux has been all the rage. But in recent times, there have been murmurings among some veterans — long-time users — after the introduction of systemd, the init system that seems to overstep its boundaries.</description>
-      <link>https://www.FreeBSD.org/news/press.html#story201503:01</link>
-      <guid>https://www.FreeBSD.org/news/press.html#story201503:01</guid>
-      <pubDate>Mon, 23 Mar 2015 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>Presenting FreeBSD! How We Made It Happen, Digital Ocean Inc. Blog, Neal Shrader</title>
-      <description>FreeBSD virtual private servers with IPv6 support are now available on the DigitalOcean platform in: San Francisco, New York, London, Amsterdam, and Singapore. DigitalOcean is also seeking FreeBSD tutorials, for which they are offering $200 USD each.</description>
-      <link>https://www.FreeBSD.org/news/press.html#story201501:01</link>
-      <guid>https://www.FreeBSD.org/news/press.html#story201501:01</guid>
-      <pubDate>Wed, 14 Jan 2015 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>Get started with FreeBSD: A brief intro for Linux
-	  users, InfoWorld, Paul Venezia</title>
-      <description>A brief introduction to FreeBSD for curious Linux users. Covers the installation and updating process, building a basic firewall, installing binary packages, and finally installing and configuring a typical web stack with Apache, PHP, and MySQL.</description>
-      <link>https://www.FreeBSD.org/news/press.html#story201412:01</link>
-      <guid>https://www.FreeBSD.org/news/press.html#story201412:01</guid>
-      <pubDate>Mon, 15 Dec 2014 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>The FreeBSD Foundation Announces Generous Donation and
-	  Fundraising Milestone, The FreeBSD Foundation, The FreeBSD Foundation Board</title>
-      <description>The FreeBSD Foundation is pleased to announce the receipt of a record-breaking donation from Jan Koum, CEO and Co-Founder of WhatsApp.</description>
-      <link>https://www.FreeBSD.org/news/press.html#story201411:01</link>
-      <guid>https://www.FreeBSD.org/news/press.html#story201411:01</guid>
-      <pubDate>Tue, 18 Nov 2014 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>Cavium to Sponsor FreeBSD ARMv8 Based
-	  Implementation, PR Newswire, Cavium, Inc.</title>
-      <description>Cavium, Inc., a leading provider of semiconductor products that enable intelligent processing for enterprise, data center, cloud, wired and wireless networking announced today that it is collaborating with the FreeBSD Foundation to develop and deliver the first ARMv8 reference design and implementation of the FreeBSD Operating System based on the ThunderX workload optimized processor family for next generation Data Center and Cloud workloads.</description>
-      <link>https://www.FreeBSD.org/news/press.html#story201410:01</link>
-      <guid>https://www.FreeBSD.org/news/press.html#story201410:01</guid>
-      <pubDate>Wed, 1 Oct 2014 00:00:00 PST</pubDate>
     </item>
   </channel>
 </rss>

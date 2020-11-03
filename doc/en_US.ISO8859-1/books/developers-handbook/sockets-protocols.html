@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>7.3. Protocols</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Developers' Handbook" /><link rel="up" href="sockets.html" title="Chapter 7. Sockets" /><link rel="prev" href="sockets-diversity.html" title="7.2. Networking and Diversity" /><link rel="next" href="sockets-model.html" title="7.4. The Sockets Model" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">7.3. Protocols</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="sockets-diversity.html">Prev</a> </td><th width="60%" align="center">Chapter 7. Sockets</th><td width="20%" align="right"> <a accesskey="n" href="sockets-model.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="sockets-protocols"></a>7.3. Protocols</h2></div></div></div><p>While various programming languages tend to have complex
+      syntax and use a number of multi-letter reserved words (which
+      makes them easy for the human programmer to understand), the
+      languages of data communications tend to be very terse.  Instead
+      of multi-byte words, they often use individual
+      <span class="emphasis"><em>bits</em></span>.  There is a very convincing reason
+      for it: While data travels <span class="emphasis"><em>inside</em></span> your
+      computer at speeds approaching the speed of light, it often
+      travels considerably slower between two computers.</p><p>Because the languages used in data communications are so
+      terse, we usually refer to them as
+      <span class="emphasis"><em>protocols</em></span> rather than languages.</p><p>As data travels from one computer to another, it always uses
+      more than one protocol.  These protocols are
+      <span class="emphasis"><em>layered</em></span>.  The data can be compared to the
+      inside of an onion: You have to peel off several layers of
+      <span class="quote">&#8220;<span class="quote">skin</span>&#8221;</span> to get to the data.  This is best
+      illustrated with a picture:</p><div class="mediaobject"><img src="sockets/layers.png" alt="Protocol Layers" /></div><p>In this example, we are trying to get an image from a web
+      page we are connected to via an Ethernet.</p><p>The image consists of raw data, which is simply a sequence
+      of <acronym class="acronym">RGB</acronym> values that our software can process,
+      i.e., convert into an image and display on our monitor.</p><p>Alas, our software has no way of knowing how the raw data is
+      organized: Is it a sequence of <acronym class="acronym">RGB</acronym> values, or
+      a sequence of grayscale intensities, or perhaps of
+      <acronym class="acronym">CMYK</acronym> encoded colors? Is the data represented
+      by 8-bit quanta, or are they 16 bits in size, or perhaps 4 bits?
+      How many rows and columns does the image consist of? Should
+      certain pixels be transparent?</p><p>I think you get the picture...</p><p>To inform our software how to handle the raw data, it is
+      encoded as a <acronym class="acronym">PNG</acronym> file.  It could be a
+      <acronym class="acronym">GIF</acronym>, or a <acronym class="acronym">JPEG</acronym>, but it is
+      a <acronym class="acronym">PNG</acronym>.</p><p>And <acronym class="acronym">PNG</acronym> is a protocol.</p><p>At this point, I can hear some of you yelling,
+      <span class="emphasis"><em><span class="quote">&#8220;<span class="quote">No, it is not! It is a file
+	  format!</span>&#8221;</span></em></span></p><p>Well, of course it is a file format.  But from the
+      perspective of data communications, a file format is a protocol:
+      The file structure is a <span class="emphasis"><em>language</em></span>, a terse
+      one at that, communicating to our <span class="emphasis"><em>process</em></span>
+      how the data is organized.  Ergo, it is a
+      <span class="emphasis"><em>protocol</em></span>.</p><p>Alas, if all we received was the <acronym class="acronym">PNG</acronym>
+      file, our software would be facing a serious problem: How is it
+      supposed to know the data is representing an image, as opposed
+      to some text, or perhaps a sound, or what not? Secondly, how is
+      it supposed to know the image is in the <acronym class="acronym">PNG</acronym>
+      format as opposed to <acronym class="acronym">GIF</acronym>, or
+      <acronym class="acronym">JPEG</acronym>, or some other image format?</p><p>To obtain that information, we are using another protocol:
+      <acronym class="acronym">HTTP</acronym>.  This protocol can tell us exactly that
+      the data represents an image, and that it uses the
+      <acronym class="acronym">PNG</acronym> protocol.  It can also tell us some other
+      things, but let us stay focused on protocol layers here.</p><p>So, now we have some data wrapped in the
+      <acronym class="acronym">PNG</acronym> protocol, wrapped in the
+      <acronym class="acronym">HTTP</acronym> protocol.  How did we get it from the
+      server?</p><p>By using <acronym class="acronym">TCP/IP</acronym> over Ethernet, that is
+      how.  Indeed, that is three more protocols.  Instead of
+      continuing inside out, I am now going to talk about Ethernet,
+      simply because it is easier to explain the rest that way.</p><p>Ethernet is an interesting system of connecting computers in
+      a <span class="emphasis"><em>local area network</em></span>
+      (<acronym class="acronym">LAN</acronym>).  Each computer has a <span class="emphasis"><em>network
+	interface card</em></span> (<acronym class="acronym">NIC</acronym>), which has
+      a unique 48-bit <acronym class="acronym">ID</acronym> called its
+      <span class="emphasis"><em>address</em></span>.  No two Ethernet
+      <acronym class="acronym">NIC</acronym>s in the world have the same
+      address.</p><p>These <acronym class="acronym">NIC</acronym>s are all connected with each
+      other.  Whenever one computer wants to communicate with another
+      in the same Ethernet <acronym class="acronym">LAN</acronym>, it sends a message
+      over the network.  Every <acronym class="acronym">NIC</acronym> sees the
+      message.  But as part of the Ethernet
+      <span class="emphasis"><em>protocol</em></span>, the data contains the address of
+      the destination <acronym class="acronym">NIC</acronym> (among other things).
+      So, only one of all the network interface cards will pay
+      attention to it, the rest will ignore it.</p><p>But not all computers are connected to the same network.
+      Just because we have received the data over our Ethernet does
+      not mean it originated in our own local area network.  It could
+      have come to us from some other network (which may not even be
+      Ethernet based) connected with our own network via the
+      Internet.</p><p>All data is transferred over the Internet using
+      <acronym class="acronym">IP</acronym>, which stands for <span class="emphasis"><em>Internet
+	Protocol</em></span>.  Its basic role is to let us know where
+      in the world the data has arrived from, and where it is supposed
+      to go to.  It does not <span class="emphasis"><em>guarantee</em></span> we will
+      receive the data, only that we will know where it came from
+      <span class="emphasis"><em>if</em></span> we do receive it.</p><p>Even if we do receive the data, <acronym class="acronym">IP</acronym> does
+      not guarantee we will receive various chunks of data in the same
+      order the other computer has sent it to us.  So, we can receive
+      the center of our image before we receive the upper left corner
+      and after the lower right, for example.</p><p>It is <acronym class="acronym">TCP</acronym> (<span class="emphasis"><em>Transmission Control
+	Protocol</em></span>) that asks the sender to resend any lost
+      data and that places it all into the proper order.</p><p>All in all, it took <span class="emphasis"><em>five</em></span> different
+      protocols for one computer to communicate to another what an
+      image looks like.  We received the data wrapped into the
+      <acronym class="acronym">PNG</acronym> protocol, which was wrapped into the
+      <acronym class="acronym">HTTP</acronym> protocol, which was wrapped into the
+      <acronym class="acronym">TCP</acronym> protocol, which was wrapped into the
+      <acronym class="acronym">IP</acronym> protocol, which was wrapped into the
+      <acronym class="acronym">Ethernet</acronym> protocol.</p><p>Oh, and by the way, there probably were several other
+      protocols involved somewhere on the way.  For example, if our
+      <acronym class="acronym">LAN</acronym> was connected to the Internet through a
+      dial-up call, it used the <acronym class="acronym">PPP</acronym> protocol over
+      the modem which used one (or several) of the various modem
+      protocols, et cetera, et cetera, et cetera...</p><p>As a developer you should be asking by now,
+      <span class="emphasis"><em><span class="quote">&#8220;<span class="quote">How am I supposed to handle it
+	  all?</span>&#8221;</span></em></span></p><p>Luckily for you, you are <span class="emphasis"><em>not</em></span> supposed
+      to handle it all.  You <span class="emphasis"><em>are</em></span> supposed to
+      handle some of it, but not all of it.  Specifically, you need
+      not worry about the physical connection (in our case Ethernet
+      and possibly <acronym class="acronym">PPP</acronym>, etc).  Nor do you need to
+      handle the Internet Protocol, or the Transmission Control
+      Protocol.</p><p>In other words, you do not have to do anything to receive
+      the data from the other computer.  Well, you do have to
+      <span class="emphasis"><em>ask</em></span> for it, but that is almost as simple as
+      opening a file.</p><p>Once you have received the data, it is up to you to figure
+      out what to do with it.  In our case, you would need to
+      understand the <acronym class="acronym">HTTP</acronym> protocol and the
+      <acronym class="acronym">PNG</acronym> file structure.</p><p>To use an analogy, all the internetworking protocols become
+      a gray area: Not so much because we do not understand how it
+      works, but because we are no longer concerned about it.  The
+      sockets interface takes care of this gray area for us:</p><div class="mediaobject"><img src="sockets/slayers.png" alt="Sockets Covered Protocol Layers" /></div><p>We only need to understand any protocols that tell us how to
+      <span class="emphasis"><em>interpret the data</em></span>, not how to
+      <span class="emphasis"><em>receive</em></span> it from another process, nor how to
+      <span class="emphasis"><em>send</em></span> it to another process.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="sockets-diversity.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="sockets.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="sockets-model.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">7.2. Networking and Diversity </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 7.4. The Sockets Model</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>9. Preferred License for New Files</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Committer's Guide" /><link rel="up" href="index.html" title="Committer's Guide" /><link rel="prev" href="commit-log-message.html" title="8. Commit Log Messages" /><link rel="next" href="tracking.license.grants.html" title="10. Keeping Track of Licenses Granted to the FreeBSD Project" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">9. Preferred License for New Files</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="commit-log-message.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="tracking.license.grants.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="pref-license"></a>9. Preferred License for New Files</h2></div></div></div><p>The FreeBSD Project's full license policy can be found at <a class="link" href="../../../../internal/software-license.html" target="_top">https://www.FreeBSD.org/internal/software-license.html</a>.
+      The rest of this section is intended to help you get started.
+      As a rule, when in doubt, ask.  It is much easier to give advice
+      than to fix the source tree.</p><p>The FreeBSD Project suggests and uses this
+      text as the preferred license scheme:</p><pre class="programlisting">/*-
+ * SPDX-License-Identifier: BSD-2-Clause-FreeBSD
+ *
+ * Copyright (c) [year] [your name]
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ *
+ * [id for your version control system, if any]
+ */</pre><p>The FreeBSD project strongly discourages the so-called
+      "advertising clause" in new code.  Due to the large number of
+      contributors to the FreeBSD project, complying with this clause for
+      many commercial vendors has become difficult.  If you have code
+      in the tree with the advertising clause, please consider
+      removing it.  In fact, please consider using the above license
+      for your code.</p><p>The FreeBSD project discourages completely new licenses and
+      variations on the standard licenses.  New licenses require the
+      approval of the Core Team <code class="email">&lt;<a xmlns="" class="email" href="mailto:core@FreeBSD.org">core@FreeBSD.org</a>&gt;</code> to reside in the
+      main repository.  The more different licenses that are used in
+      the tree, the more problems that this causes to those wishing to
+      utilize this code, typically from unintended consequences from a
+      poorly worded license.</p><p>Project policy dictates that code under some non-BSD
+      licenses must be placed only in specific sections of the
+      repository, and in some cases, compilation must be conditional
+      or even disabled by default.  For example, the GENERIC kernel
+      must be compiled under only licenses identical to or
+      substantially similar to the BSD license.  GPL, APSL, CDDL, etc,
+      licensed software must not be compiled into GENERIC.</p><p>Developers are reminded that in open source, getting "open"
+      right is just as important as getting "source" right, as
+      improper handling of intellectual property has serious
+      consequences.  Any questions or concerns should immediately be
+      brought to the attention of the core team.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="commit-log-message.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="tracking.license.grants.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">8. Commit Log Messages </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 10. Keeping Track of Licenses Granted to the FreeBSD
+      Project</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

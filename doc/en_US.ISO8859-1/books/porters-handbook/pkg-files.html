@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>Chapter 9. pkg-*</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Porter's Handbook" /><link rel="up" href="index.html" title="FreeBSD Porter's Handbook" /><link rel="prev" href="plist-keywords.html" title="8.6. Expanding Package List with Keywords" /><link rel="next" href="pkg-install.html" title="9.2. pkg-install" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 9. <code class="filename">pkg-*</code></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="plist-keywords.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="pkg-install.html">Next</a></td></tr></table><hr /></div><div class="chapter"><div xmlns="" class="titlepage"><div><div><h1 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pkg-files"></a>Chapter 9. <code class="filename">pkg-*</code></h1></div></div></div><div class="toc"><div class="toc-title">Table of Contents</div><dl class="toc"><dt><span class="sect1"><a href="pkg-files.html#porting-message">9.1. <code class="filename">pkg-message</code></a></span></dt><dt><span class="sect1"><a href="pkg-install.html">9.2. <code class="filename">pkg-install</code></a></span></dt><dt><span class="sect1"><a href="pkg-deinstall.html">9.3. <code class="filename">pkg-deinstall</code></a></span></dt><dt><span class="sect1"><a href="pkg-names.html">9.4. Changing the Names of
+      <code class="filename">pkg-<em class="replaceable"><code>*</code></em></code></a></span></dt><dt><span class="sect1"><a href="using-sub-files.html">9.5. Making Use of <code class="varname">SUB_FILES</code> and
+      <code class="varname">SUB_LIST</code></a></span></dt></dl></div><p>There are some tricks we have not mentioned yet about the
+    <code class="filename">pkg-<em class="replaceable"><code>*</code></em></code> files that
+    come in handy sometimes.</p><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="porting-message"></a>9.1. <code class="filename">pkg-message</code></h2></div></div></div><p>To display a message when the package is installed, place
+      the message in <code class="filename">pkg-message</code>.  This
+      capability is often useful to display additional installation
+      steps to be taken after a <code class="command">pkg install</code> or
+      <code class="command">pkg upgrade</code>.</p><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><div xmlns="http://www.w3.org/1999/xhtml" class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="filename">pkg-message</code> must contain only
+	    information that is <span class="emphasis"><em>vital</em></span> to setup and
+	    operation on FreeBSD, and that is unique to the port in
+	    question.</p></li><li class="listitem"><p>Setup information should only be shown on initial install.
+	    Upgrade instructions should be shown only when upgrading from
+	    the relevant version.</p></li><li class="listitem"><p>Do not surround the messages with either whitespace or
+	    lines of symbols (like <code class="literal">----------</code>,
+	    <code class="literal">**********</code>, or
+	    <code class="literal">==========</code>).  Leave the formatting to
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pkg&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pkg</span>(8)</span></a>.</p></li><li class="listitem"><p>Committers have blanket approval to constrain existing
+	    messages to install or upgrade ranges using the
+	    <acronym class="acronym">UCL</acronym> format specifications.</p></li></ul></div></div><p>pkg-message supports two formats:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">raw</span></dt><dd><p>A regular plain text file.  Its message is only
+	    displayed on install.</p></dd><dt><span class="term"><acronym class="acronym">UCL</acronym></span></dt><dd><p>If the file starts with
+	    <span class="quote">&#8220;<span class="quote"><code class="literal">[</code></span>&#8221;</span> then it is considered
+	    to be a <acronym class="acronym">UCL</acronym> file.  The
+	    <acronym class="acronym">UCL</acronym> format is
+	    described on <a class="link" href="https://github.com/vstakhov/libucl" target="_top">libucl's
+	      GitHub page</a>.</p></dd></dl></div><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Do not add an entry for <code class="filename">pkg-message</code>
+	in <code class="filename">pkg-plist</code>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="porting-message-ucl"></a>9.1.1. <acronym class="acronym">UCL</acronym> in
+	<code class="filename">pkg-message</code></h3></div></div></div><p>The format is the following.  It should be an array of
+	objects.  The objects themselves can have these
+	keywords:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">message</code></span></dt><dd><p>The actual message to be displayed.  This keyword is
+	      mandatory.</p></dd><dt><span class="term"><code class="literal">type</code></span></dt><dd><p>When the message should be displayed.</p></dd><dt><span class="term"><code class="literal">maximum_version</code></span></dt><dd><p>Only if <code class="literal">type</code> is
+	      <code class="literal">upgrade</code>.  Display if upgrading from a
+	      version strictly lower than the version
+	      specified.</p></dd><dt><span class="term"><code class="literal">minimum_version</code></span></dt><dd><p>Only if <code class="literal">type</code> is
+	      <code class="literal">upgrade</code>.  Display if upgrading from a
+	      version stictly greater than the version
+	      specified.</p></dd></dl></div><p>The <code class="literal">maximum_version</code> and
+	<code class="literal">minimum_version</code> keywords can be
+	combined.</p><p>The <code class="literal">type</code> keyword can have three
+	values:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">install</code></span></dt><dd><p>The message should only be displayed when the
+	      package is installed.</p></dd><dt><span class="term"><code class="literal">remove</code></span></dt><dd><p>The message should only be displayed when the
+	      package is removed.</p></dd><dt><span class="term"><code class="literal">upgrade</code></span></dt><dd><p>the message should only be displayed during an
+	      upgrade of the package..</p></dd></dl></div><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">To preserve the compatibility with non
+	  <acronym class="acronym">UCL</acronym> <code class="filename">pkg-message</code>
+	  files, the first line of a <acronym class="acronym">UCL</acronym>
+	  <code class="filename">pkg-message</code> <span class="emphasis"><em>MUST
+	    be</em></span> a single
+	  <span class="quote">&#8220;<span class="quote"><code class="literal">[</code></span>&#8221;</span>, and the last line
+	  <span class="emphasis"><em>MUST be</em></span> a single
+	  <span class="quote">&#8220;<span class="quote"><code class="literal">]</code></span>&#8221;</span>.</p></div><div class="example"><a id="porting-message-ucl-short-ex"></a><div class="example-title">Example 9.1. <acronym class="acronym">UCL</acronym> Short Strings</div><div class="example-contents"><p>The message is delimited by double quotes
+	  <code class="literal">"</code>, this is used for simple single line
+	  strings:</p><pre class="programlisting">[
+{ type: install
+  message: "Simple message"
+}
+]</pre></div></div><br class="example-break" /><div class="example"><a id="porting-message-ucl-multiline-ex"></a><div class="example-title">Example 9.2. <acronym class="acronym">UCL</acronym> Multiline Strings</div><div class="example-contents"><p>Multiline strings use the standard here document
+	  notation.  The multiline delimiter <span class="emphasis"><em>must</em></span>
+	  start just after <code class="literal">&lt;&lt;</code> symbols without
+	  any whitespace and it <span class="emphasis"><em>must</em></span> consist of
+	  capital letters only.  To finish a multiline string, add the
+	  delimiter string on a line of its own without any
+	  whitespace.  The message from <a class="xref" href="pkg-files.html#porting-message-ucl-short-ex" title="Example 9.1. UCL Short Strings">Example 9.1, &#8220;<acronym class="acronym">UCL</acronym> Short Strings&#8221;</a> can be written
+	  as:</p><pre class="programlisting">[
+{ type: install
+  message: &lt;&lt;EOM
+Simple message
+EOM
+}
+]</pre></div></div><br class="example-break" /><div class="example"><a id="porting-message-ucl-ex2"></a><div class="example-title">Example 9.3. Display a Message on Install/Deinstall</div><div class="example-contents"><p>When a message only needs to be displayed on
+	  installation or uninstallation, set the type:</p><pre class="programlisting">[
+{
+  type: remove
+  message: "package being removed."
+}
+{ type: install, message: "package being installed."}
+]</pre></div></div><br class="example-break" /><div class="example"><a id="porting-message-ucl-ex3"></a><div class="example-title">Example 9.4. Display a Message on Upgrade</div><div class="example-contents"><p>When a port is upgraded, the message displayed can be
+	  even more tailored to the port's needs.</p><pre class="programlisting">[
+{
+  type: upgrade
+  message: "Package is being upgraded."
+}
+{
+  type: upgrade
+  maximum_version: "1.0"
+  message: "Upgrading from before 1.0 need to do this."
+}
+{
+  type: upgrade
+  minimum_version: "1.0"
+  message: "Upgrading from after 1.0 should do that."
+}
+{
+  type: upgrade
+  maximum_version: "3.0"
+  minimum_version: "1.0"
+  message: "Upgrading from &gt; 1.0 and &lt; 3.0 remove that file."
+}
+]</pre><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">When displaying a message on upgrade, it is important
+	    to limit when it is being shown to the user.  Most of the
+	    time it is by using <code class="literal">maximum_version</code> to
+	    limit its usage to upgrades from before a certain version
+	    when something specific needs to be done.</p></div></div></div><br class="example-break" /></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="plist-keywords.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="pkg-install.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">8.6. Expanding Package List with Keywords </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 9.2. <code class="filename">pkg-install</code></td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

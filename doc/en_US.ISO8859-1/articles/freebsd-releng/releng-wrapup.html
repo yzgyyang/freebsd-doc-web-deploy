@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>9. Wrapping up the Release Cycle</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Release Engineering" /><link rel="up" href="index.html" title="FreeBSD Release Engineering" /><link rel="prev" href="releng-mirrors.html" title="8. Publishing FreeBSD Installation Media to Project Mirrors" /><link rel="next" href="releng-eol.html" title="10. Release End-of-Life" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">9. Wrapping up the Release Cycle</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="releng-mirrors.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="releng-eol.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="releng-wrapup"></a>9. Wrapping up the Release Cycle</h2></div></div></div><p>This section describes general post-release tasks.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="releng-wrapup-en"></a>9.1. Post-Release Errata Notices</h3></div></div></div><p>As the release cycle approaches conclusion, it is common
+	to have several <acronym class="acronym">EN</acronym> (Errata Notice)
+	candidates to address issues that were discovered late in the
+	cycle.  Following the release, the FreeBSD Release Engineering Team and the
+	FreeBSD Security Team revisit changes that were not approved prior to
+	the final release, and depending on the scope of the change in
+	question, may issue an <acronym class="acronym">EN</acronym>.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">The actual process of issuing <acronym class="acronym">EN</acronym>s is
+	  handled by the FreeBSD Security Team.</p></div><p>To request an Errata Notice after a release cycle has
+	completed, a developer should fill out the <a class="link" href="https://www.freebsd.org/security/errata-template.txt" target="_top">Errata
+	  Notice template</a>, in particular the
+	<code class="literal">Background</code>, <code class="literal">Problem
+	  Description</code>, <code class="literal">Impact</code>, and if
+	applicable, <code class="literal">Workaround</code> sections.</p><p>The completed Errata Notice template should be emailed
+	together with either a patch against the <code class="literal">releng/</code>
+	branch or a list of revisions from the <code class="literal">stable/</code>
+	branch.</p><p>For Errata Notice requests immediately following the
+	release, the request should be emailed to both the FreeBSD Release Engineering Team and
+	the FreeBSD Security Team.  Once the <code class="literal">releng/</code> branch has been
+	handed over to the FreeBSD Security Team as described in <a class="xref" href="releng-wrapup.html#releng-wrapup-handoff" title="9.2. Handoff to the FreeBSD Security Team">Section 9.2, &#8220;Handoff to the FreeBSD Security Team&#8221;</a>, Errata Notice requests
+	should be sent to the FreeBSD Security Team.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="releng-wrapup-handoff"></a>9.2. Handoff to the FreeBSD Security Team</h3></div></div></div><p>Roughly two weeks following the release, the Release
+	Engineer updates <code class="filename">svnadmin/conf/approvers</code>
+	changing the approver column from <code class="literal">re</code> to
+	<code class="literal">(so|security-officer)</code> for the
+	<code class="literal">releng/<em class="replaceable"><code>12.0</code></em>/</code> branch.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="releng-mirrors.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="releng-eol.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">8. Publishing FreeBSD Installation Media to Project Mirrors </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 10. Release End-of-Life</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

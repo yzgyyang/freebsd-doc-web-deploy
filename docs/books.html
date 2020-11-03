@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">Search</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="//www.FreeBSD.org/cgi/man.cgi">Manual Pages</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">Presentations and Papers</a>
                   </li>
                   <li>
                     <a href="../doc/en_US.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
@@ -231,6 +233,9 @@
                   <a href="//www.FreeBSD.org/cgi/man.cgi">Manual Pages</a>
                 </li>
                 <li>
+                  <a href="https://papers.FreeBSD.org">Presentations and Papers</a>
+                </li>
+                <li>
                   <a href="../docs/books.html">Books and Articles Online</a>
                 </li>
                 <li>
@@ -269,6 +274,11 @@
       people to contribute new documentation and maintain existing
       documentation.</p>
 
+    <p>Papers, presentations, and videos about FreeBSD are archived
+      and catalogued on the
+      <a href="https://papers.freebsd.org/" shape="rect">FreeBSD Papers</a>
+      website.</p>
+
     <h3>Books</h3>
 
     <p><a href="../doc/en_US.ISO8859-1/books/dev-model/index.html" shape="rect">A project model for
@@ -301,13 +311,6 @@
       Handbook</a> (porters-handbook)<br clear="none" />
       Essential reading if you plan on providing a port of a third
       party piece of software.</p>
-
-    <p><a href="../doc/en_US.ISO8859-1/books/pmake/index.html" shape="rect">The PMake Tutorial</a>
-      (pmake)<br clear="none" />
-      A tutorial for the <em>make</em> utility.  This book is
-      essential reading for anyone who wants to understand all the
-      details of using <em>make</em> of reading and writing
-      makefiles.</p>
 
     <p><a href="../doc/en_US.ISO8859-1/books/design-44bsd/index.html" shape="rect">Chapter 2
 	of "The Design and Implementation of the 4.4BSD Operating
@@ -517,11 +520,6 @@
       </li>
 
       <li>
-	<p><a href="http://www.nber.org/sys-admin/amd.html" shape="rect">Getting started with
-	    AMD on FreeBSD</a></p>
-      </li>
-
-      <li>
 	<p><a href="http://software.intel.com/sites/default/files/profiling_debugging_freebsd_kernel_321772.pdf" shape="rect">Profiling
 	    and Debugging the FreeBSD Kernel</a></p>
       </li>
@@ -529,11 +527,6 @@
       <li>
 	<p><a href="http://software.intel.com/sites/default/files/debugging_buffer_overruns_322486.pdf" shape="rect">Debugging
 	    Buffer Overruns in the FreeBSD Kernel</a></p>
-      </li>
-
-      <li>
-	<p><a href="http://www.cfcl.com/rdm/split_DNS.html" shape="rect">Setting up
-	    Split DNS on FreeBSD 4.1</a></p>
       </li>
 
       <li>
@@ -549,7 +542,7 @@
         </div>
         <div id="footer">
           <span><a href="../search/index-site.html">Site Map</a> |
-  <a href="../copyright/">Legal Notices</a> | © 1995&#8211;2018 The FreeBSD Project.
+  <a href="../copyright/">Legal Notices</a> | © 1995&#8211;2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

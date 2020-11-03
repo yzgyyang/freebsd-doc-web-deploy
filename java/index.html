@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">Search</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="//www.FreeBSD.org/cgi/man.cgi">Manual Pages</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">Presentations and Papers</a>
                   </li>
                   <li>
                     <a href="../doc/en_US.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
@@ -254,48 +256,40 @@
   <p>There are two choices of Java Development Kits on FreeBSD:</p>
 
   <ul>
-
   <li>
     <h3>OpenJDK</h3>
 
     <p>The OpenJDK® project provides a native open-source
-      implementation of the Java® SE Platform and is available in
-      versions 7 and 8 for all supported FreeBSD releases on the i386
-      and amd64 platforms.</p>
-
-    <p>OpenJDK® 7 is frequently updated, and it is suggested to refer to a
-    <a href="https://svnweb.freebsd.org/ports/head/java/openjdk7/Makefile?view=log" shape="rect">revision log</a> for
-    detailed release history. Additionally, one may choose to review more information at
-    <a href="https://www.freshports.org/java/openjdk7" shape="rect">FreshPorts</a>.</p>
-
-    <p>To install OpenJDK® 7 package use the pkg(8) utility:</p>
-
-    <p>
-      <code>pkg install openjdk</code>
-      <br clear="none" />
-      or
-      <br clear="none" />
-      <code>cd /usr/ports/java/openjdk7
-      <br clear="none" />make install clean
-      </code>
+      implementation of the Java® SE Platform.  It is available for all
+      currently supported FreeBSD releases in the following combinations
+      of versions (by architecture):
     </p>
-
-    <p>OpenJDK® 8 is frequently updated, and it is suggested to refer to a
-    <a href="https://svnweb.freebsd.org/ports/head/java/openjdk8/Makefile?view=log" shape="rect">revision log</a> for
+    <p><b>aarch64</b>: <code>openjdk8</code>, <code>openjdk11</code>, <code>openjdk12</code>, <code>openjdk13</code></p>
+    <p><b>amd64</b>: <code>openjdk7</code>, <code>openjdk8</code>, <code>openjdk11</code>, <code>openjdk12</code>, <code>openjdk13</code></p>
+    <p><b>arm6</b>: <code>openjdk8</code></p>
+    <p><b>arm7</b>: <code>openjdk8</code></p>
+    <p><b>i386</b>: <code>openjdk7</code>, <code>openjdk8</code>, <code>openjdk11</code>, <code>openjdk12</code>, <code>openjdk13</code></p>
+    <p><b>powerpc</b>: <code>openjdk8</code></p>
+    <p><b>powerpc64</b>: <code>openjdk8</code>, <code>openjdk11</code>, <code>openjdk12</code>, <code>openjdk13</code></p>
+    <p>OpenJDK® is frequently updated, and it is suggested to refer to
+    <a href="https://svnweb.freebsd.org/ports/head/java/" shape="rect">revision logs</a> for
     detailed release history. Additionally, one may choose to review more information at
-    <a href="https://www.freshports.org/java/openjdk8" shape="rect">FreshPorts</a>.</p>
+    <a href="https://www.freshports.org/search.php?query=openjdk&amp;search=go&amp;num=10&amp;stype=name&amp;method=match&amp;deleted=excludedeleted&amp;start=1&amp;casesensitivity=caseinsensitive" shape="rect">FreshPorts</a>.</p>
 
-    <p>To install OpenJDK® 8 package use the pkg(8) utility:</p>
+    <p>To install OpenJDK® package use the <a href="../cgi/man.cgi?query=pkg" shape="rect"><tt>pkg</tt></a> utility or the ports system:</p>
 
-    <p>
-      <code>pkg install openjdk8</code>
-      <br clear="none" />
-      or
-      <br clear="none" />
-      <code>cd /usr/ports/java/openjdk8
-      <br clear="none" />make install clean
-      </code>
-    </p>
+    <p><code>pkg install openjdk[version]</code></p>
+    <p>or</p>
+    <p><code>cd /usr/ports/java/openjdk[version]
+    <br clear="none" />make install clean
+    </code></p>
+
+    <p>where [version] is one of 7, 8, 11, 12, or 13.  An example (<code>openjdk11</code>):</p>
+    <p><code>pkg install openjdk11</code></p>
+    <p>or</p>
+    <p><code>cd /usr/ports/java/openjdk11
+    <br clear="none" />make install clean
+    </code></p>
   </li>
 
   <li>
@@ -303,6 +297,8 @@
 
     <p>This port installs the Java Development Kit from Oracle which was built for Linux. It will run under FreeBSD using the Linux compatibility.</p>
 
+    <p><code>pkg install linux-oracle-jdk18</code></p>
+    <p>or</p>
     <p><code>cd /usr/ports/java/linux-oracle-jdk18
     <br clear="none" />make install clean
     </code></p>
@@ -321,6 +317,10 @@
   </ul>
 
   <h2>I want to help by...</h2>
+
+  <h3>... fixing bugs or adding new features</h3>
+
+  <p>The main repositories for the BSD port of OpenJDK are publically available on Github.  Pull requests are welcome.  You can find more information on this <a href="https://wiki.freebsd.org/Ports/openjdk_11" shape="rect">Wiki</a></p>
 
   <h3>... testing</h3>
 
@@ -345,7 +345,7 @@
         </div>
         <div id="footer">
           <span><a href="../search/index-site.html">Site Map</a> |
-  <a href="../copyright/">Legal Notices</a> | © 1995&#8211;2018 The FreeBSD Project.
+  <a href="../copyright/">Legal Notices</a> | © 1995&#8211;2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

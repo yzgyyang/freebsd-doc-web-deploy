@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">検索</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="../../cgi/man.cgi">マニュアルページ</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">プレゼンテーションと論文</a>
                   </li>
                   <li>
                     <a href="../../doc/en_US.ISO8859-1/books/fdp-primer">新しい貢献者のためのドキュメンテーションプロジェクト入門</a>
@@ -282,7 +284,7 @@
           <div id="contentwrap"><h1>サポートが終了したリリース</h1>
 
     <p>以下のリリースは、今後サポートされませんが、参考のために一覧にまとめています。</p>
-  
+
     <table class="tblbasic">
       <tr>
 	<th rowspan="1" colspan="1">ブランチ</th>
@@ -292,126 +294,126 @@
 	<th rowspan="1" colspan="1">保守終了予定日</th>
       </tr>
       <tr>
-        <td rowspan="1" colspan="1">stable/4</td>
+	<td rowspan="1" colspan="1">stable/4</td>
 	<td rowspan="1" colspan="1">なし</td>
 	<td rowspan="1" colspan="1">なし</td>
 	<td rowspan="1" colspan="1">なし</td>
 	<td rowspan="1" colspan="1">2007 年 1 月 31 日</td>
       </tr>
       <tr>
-        <td rowspan="1" colspan="1">releng/4.11</td>
+	<td rowspan="1" colspan="1">releng/4.11</td>
 	<td rowspan="1" colspan="1">4.11-RELEASE</td>
 	<td rowspan="1" colspan="1">Extended</td>
 	<td rowspan="1" colspan="1">2005 年 1 月 25 日</td>
 	<td rowspan="1" colspan="1">2007 年 1 月 31 日</td>
       </tr>
       <tr>
-        <td rowspan="1" colspan="1">stable/5</td>
+	<td rowspan="1" colspan="1">stable/5</td>
 	<td rowspan="1" colspan="1">なし</td>
 	<td rowspan="1" colspan="1">なし</td>
 	<td rowspan="1" colspan="1">なし</td>
 	<td rowspan="1" colspan="1">2008 年 5 月 31 日</td>
       </tr>
       <tr>
-        <td rowspan="1" colspan="1">releng/5.3</td>
+	<td rowspan="1" colspan="1">releng/5.3</td>
 	<td rowspan="1" colspan="1">5.3-RELEASE</td>
 	<td rowspan="1" colspan="1">Extended</td>
 	<td rowspan="1" colspan="1">2004 年 11 月 6 日</td>
 	<td rowspan="1" colspan="1">2006 年 10 月 31 日</td>
       </tr>
       <tr>
-        <td rowspan="1" colspan="1">releng/5.4</td>
+	<td rowspan="1" colspan="1">releng/5.4</td>
 	<td rowspan="1" colspan="1">5.4-RELEASE</td>
 	<td rowspan="1" colspan="1">Normal</td>
 	<td rowspan="1" colspan="1">2005 年 5 月 9 日</td>
 	<td rowspan="1" colspan="1">2006 年 10 月 31 日</td>
       </tr>
       <tr>
-        <td rowspan="1" colspan="1">releng/5.5</td>
+	<td rowspan="1" colspan="1">releng/5.5</td>
 	<td rowspan="1" colspan="1">5.5-RELEASE</td>
 	<td rowspan="1" colspan="1">Extended</td>
 	<td rowspan="1" colspan="1">2006 年 5 月 25 日</td>
 	<td rowspan="1" colspan="1">2008 年 5 月 31 日</td>
       </tr>
       <tr>
-        <td rowspan="1" colspan="1">stable/6</td>
+	<td rowspan="1" colspan="1">stable/6</td>
 	<td rowspan="1" colspan="1">なし</td>
 	<td rowspan="1" colspan="1">なし</td>
 	<td rowspan="1" colspan="1">なし</td>
 	<td rowspan="1" colspan="1">2010 年 11 月 30 日</td>
       </tr>
       <tr>
-        <td rowspan="1" colspan="1">releng/6.0</td>
+	<td rowspan="1" colspan="1">releng/6.0</td>
 	<td rowspan="1" colspan="1">6.0-RELEASE</td>
 	<td rowspan="1" colspan="1">Normal</td>
 	<td rowspan="1" colspan="1">2005 年 11 月 4 日</td>
 	<td rowspan="1" colspan="1">2007 年 1 月 31 日</td>
       </tr>
       <tr>
-        <td rowspan="1" colspan="1">releng/6.1</td>
+	<td rowspan="1" colspan="1">releng/6.1</td>
 	<td rowspan="1" colspan="1">6.1-RELEASE</td>
 	<td rowspan="1" colspan="1">Extended</td>
 	<td rowspan="1" colspan="1">2006 年 5 月 9 日</td>
 	<td rowspan="1" colspan="1">2008 年 5 月 31 日</td>
       </tr>
       <tr>
-        <td rowspan="1" colspan="1">releng/6.2</td>
+	<td rowspan="1" colspan="1">releng/6.2</td>
 	<td rowspan="1" colspan="1">6.2-RELEASE</td>
 	<td rowspan="1" colspan="1">Normal</td>
 	<td rowspan="1" colspan="1">2007 年 1 月 15 日</td>
 	<td rowspan="1" colspan="1">2008 年 5 月 31 日</td>
       </tr>
       <tr>
-        <td rowspan="1" colspan="1">releng/6.3</td>
+	<td rowspan="1" colspan="1">releng/6.3</td>
 	<td rowspan="1" colspan="1">6.3-RELEASE</td>
 	<td rowspan="1" colspan="1">Extended</td>
 	<td rowspan="1" colspan="1">2008 年 1 月 18 日</td>
 	<td rowspan="1" colspan="1">2010 年 1 月 31 日</td>
       </tr>
       <tr>
-        <td rowspan="1" colspan="1">releng/6.4</td>
+	<td rowspan="1" colspan="1">releng/6.4</td>
 	<td rowspan="1" colspan="1">6.4-RELEASE</td>
 	<td rowspan="1" colspan="1">Extended</td>
 	<td rowspan="1" colspan="1">2008 年 11 月 28 日</td>
 	<td rowspan="1" colspan="1">2010 年 11 月 30 日</td>
       </tr>
       <tr>
-        <td rowspan="1" colspan="1">stable/7</td>
+	<td rowspan="1" colspan="1">stable/7</td>
 	<td rowspan="1" colspan="1">なし</td>
 	<td rowspan="1" colspan="1">なし</td>
 	<td rowspan="1" colspan="1">なし</td>
 	<td rowspan="1" colspan="1">2013 年 2 月 28 日</td>
       </tr>
       <tr>
-        <td rowspan="1" colspan="1">releng/7.0</td>
+	<td rowspan="1" colspan="1">releng/7.0</td>
 	<td rowspan="1" colspan="1">7.0-RELEASE</td>
 	<td rowspan="1" colspan="1">Normal</td>
 	<td rowspan="1" colspan="1">2008 年 2 月 27 日</td>
 	<td rowspan="1" colspan="1">2009 年 4 月 30 日</td>
       </tr>
       <tr>
-        <td rowspan="1" colspan="1">releng/7.1</td>
+	<td rowspan="1" colspan="1">releng/7.1</td>
 	<td rowspan="1" colspan="1">7.1-RELEASE</td>
 	<td rowspan="1" colspan="1">Extended</td>
 	<td rowspan="1" colspan="1">2009 年 1 月 4 日</td>
 	<td rowspan="1" colspan="1">2011 年 2 月 28 日</td>
       </tr>
       <tr>
-        <td rowspan="1" colspan="1">releng/7.2</td>
+	<td rowspan="1" colspan="1">releng/7.2</td>
 	<td rowspan="1" colspan="1">7.2-RELEASE</td>
 	<td rowspan="1" colspan="1">Normal</td>
 	<td rowspan="1" colspan="1">2009 年 5 月 4 日</td>
 	<td rowspan="1" colspan="1">2010 年 6 月 30 日</td>
       </tr>
       <tr>
-        <td rowspan="1" colspan="1">releng/7.3</td>
+	<td rowspan="1" colspan="1">releng/7.3</td>
 	<td rowspan="1" colspan="1">7.3-RELEASE</td>
 	<td rowspan="1" colspan="1">Extended</td>
 	<td rowspan="1" colspan="1">2010 年 3 月 23 日</td>
 	<td rowspan="1" colspan="1">2012 年 3 月 31 日</td>
       </tr>
       <tr>
-        <td rowspan="1" colspan="1">releng/7.4</td>
+	<td rowspan="1" colspan="1">releng/7.4</td>
 	<td rowspan="1" colspan="1">7.4-RELEASE</td>
 	<td rowspan="1" colspan="1">Extended</td>
 	<td rowspan="1" colspan="1">2011 年 2 月 24 日</td>
@@ -425,21 +427,21 @@
 	<td rowspan="1" colspan="1">2015 年 8 月 1 日</td>
       </tr>
       <tr>
-        <td rowspan="1" colspan="1">releng/8.0</td>
+	<td rowspan="1" colspan="1">releng/8.0</td>
 	<td rowspan="1" colspan="1">8.0-RELEASE</td>
 	<td rowspan="1" colspan="1">Normal</td>
 	<td rowspan="1" colspan="1">2009 年 11 月 25 日</td>
 	<td rowspan="1" colspan="1">2010 年 11 月 30 日</td>
       </tr>
       <tr>
-        <td rowspan="1" colspan="1">releng/8.1</td>
+	<td rowspan="1" colspan="1">releng/8.1</td>
 	<td rowspan="1" colspan="1">8.1-RELEASE</td>
 	<td rowspan="1" colspan="1">Extended</td>
 	<td rowspan="1" colspan="1">2010 年 7 月 23 日</td>
 	<td rowspan="1" colspan="1">2012 年 7 月 31 日</td>
       </tr>
       <tr>
-        <td rowspan="1" colspan="1">releng/8.2</td>
+	<td rowspan="1" colspan="1">releng/8.2</td>
 	<td rowspan="1" colspan="1">8.2-RELEASE</td>
 	<td rowspan="1" colspan="1">Normal</td>
 	<td rowspan="1" colspan="1">2011 年 2 月 24 日</td>
@@ -467,7 +469,7 @@
 	<td rowspan="1" colspan="1">2016 年 12 月 31 日</td>
       </tr>
       <tr>
-        <td rowspan="1" colspan="1">releng/9.0</td>
+	<td rowspan="1" colspan="1">releng/9.0</td>
 	<td rowspan="1" colspan="1">9.0-RELEASE</td>
 	<td rowspan="1" colspan="1">Normal</td>
 	<td rowspan="1" colspan="1">2012 年 1 月 10 日</td>
@@ -495,11 +497,11 @@
 	<td rowspan="1" colspan="1">2016 年 12 月 31 日</td>
       </tr>
       <tr>
-        <td rowspan="1" colspan="1">releng/10.0</td>
-        <td rowspan="1" colspan="1">10.0-RELEASE</td>
-        <td rowspan="1" colspan="1">Normal</td>
-        <td rowspan="1" colspan="1">2014 年 1 月 20 日</td>
-        <td rowspan="1" colspan="1">2015 年 2 月 28 日</td>
+	<td rowspan="1" colspan="1">releng/10.0</td>
+	<td rowspan="1" colspan="1">10.0-RELEASE</td>
+	<td rowspan="1" colspan="1">Normal</td>
+	<td rowspan="1" colspan="1">2014 年 1 月 20 日</td>
+	<td rowspan="1" colspan="1">2015 年 2 月 28 日</td>
       </tr>
       <tr>
 	<td rowspan="1" colspan="1">releng/10.1</td>
@@ -543,6 +545,27 @@
 	<td rowspan="1" colspan="1">2017 年 7 月 26 日</td>
 	<td rowspan="1" colspan="1">2018 年 9 月 30 日</td>
       </tr>
+      <tr>
+	<td rowspan="1" colspan="1">releng/11.2</td>
+	<td rowspan="1" colspan="1">11.2-RELEASE</td>
+	<td rowspan="1" colspan="1">n/a</td>
+	<td rowspan="1" colspan="1">2018 年 6 月 28 日</td>
+	<td rowspan="1" colspan="1">2019 年 10 月 31 日</td>
+      </tr>
+      <tr>
+	<td rowspan="1" colspan="1">releng/11.3</td>
+	<td rowspan="1" colspan="1">11.3-RELEASE</td>
+	<td rowspan="1" colspan="1">n/a</td>
+	<td rowspan="1" colspan="1">2019 年 7 月 9 日</td>
+	<td rowspan="1" colspan="1">2020 年 9 月 30 日</td>
+      </tr>
+      <tr>
+	<td rowspan="1" colspan="1">releng/12.0</td>
+	<td rowspan="1" colspan="1">12.0-RELEASE</td>
+	<td rowspan="1" colspan="1">n/a</td>
+	<td rowspan="1" colspan="1">2018 年 12 月 11 日</td>
+	<td rowspan="1" colspan="1">2020 年 2 月 29 日</td>
+      </tr>
     </table>
 
   </div>
@@ -550,7 +573,7 @@
         </div>
         <div id="footer">
           <span><a href="../search/index-site.html">サイトマップ</a> |
-  <a href="../copyright/">知的財産権について</a> | (C) 1995〓2018 The FreeBSD Project.
+  <a href="../copyright/">知的財産権について</a> | (C) 1995〓2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

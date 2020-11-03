@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' site: www.FreeBSD.org site: docs.FreeBSD.org site: lists.FreeBSD.org site: wiki.FreeBSD.org site: forums.FreeBSD.org'">
                   <h2 class="blockhide">
                     <label for="words">Suche</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="//www.FreeBSD.org/cgi/man.cgi">Manualpages</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">Presentations and Papers</a>
                   </li>
                   <li>
                     <a href="../../doc/de_DE.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
@@ -272,23 +274,21 @@
     <p>Die FreeBSD/ppc-Portierung gilt nach wie vor als <a href="../../doc/en_US.ISO8859-1/articles/committers-guide/archs.html" shape="rect">
       Tier-2</a>-Plattform.
       Dies bedeutet, dass sie von Security Officer, Release Ingenieuren und
-      Toolchain-Betreuern noch nicht vollständig unterstützt
-      wird.</p>
+      Toolchain-Betreuern noch nicht vollständig unterstützt wird.
+      Unterstützung durch portmgr (für den Bau von Binärpaketen) ist
+      hingegen vorhanden.</p>
+      
+    <p>Die aktuellste Liste der unterstützten Hardware finden Sie im
+      <a href="https://wiki.freebsd.org/powerpc" shape="rect">FreeBSD Wiki</a>.</p>
 
     <hr noshade="noshade" />
 
     <h3><a name="news" shape="rect" id="news">Neuigkeiten</a></h3>
 
     <ul>
-      <li><strong>05. Januar 2011</strong>: Die Unterstützung für
-	die Sony Playstation 3 wurde in das SVN-Repository aufgenommen.</li>
-      <li><strong>13. Juli 2010</strong>:  Die powerpc64-Architektur wird
-	nun unterstützt.</li>
-      <li><strong>03. März 2008</strong>: Die Unterstützung für
-        die Freescale® PowerQUICC III MPC85XX-Familie von
-        Boards mit All-in-One-Chips wurde in den CVS-Baum committed.</li>
-      <li><strong>27. Februar 2008</strong>: FreeBSD 7.0 ist das erste
-        Release, das den FreeBSD/ppc-Port offiziell unterstützt.</li>
+      <li><strong>05. Mai 2019</strong>: FreeBSD wurde auf dem <a href="https://wiki.freebsd.org/powerpc/Raptor/Blackbird" shape="rect">Raptor
+        Blackbird</a>-Motherboard getestet und scheint dort ohne gröbere
+	Probleme zu laufen.</li>
     </ul>
 
     <hr noshade="noshade" />
@@ -304,13 +304,13 @@
 
     <h4><a name="1" shape="rect" id="1">Wie kann ich FreeBSD/ppc installieren?</a></h4>
 
-    <p>ISO-Images für die Installation von FreeBSD 11.2, die für
-      New-World Macs geeignet sind, stehen zum Download bereit.  Lesen
-      Sie für weitere Informationen bitte die <a href="../../releases/11.2R/announce.html" shape="rect">Release-Ankündigung</a>.</p>
+    <p>ISO-Images für die Installation von FreeBSD 12.0
+      stehen zum Download bereit.  Lesen
+      Sie für weitere Informationen bitte die <a href="../../releases/12.0R/announce.html" shape="rect">Release-Ankündigung</a>.</p>
 
     <h4><a name="3" shape="rect" id="3">Wie verwende ich Ports unter FreeBSD/ppc?</a></h4>
 
-    <p>Verwenden Sie portsnap.  Lesen Sie dazu bitte den Abschnitt
+    <p>Verwenden Sie am Besten portsnap.  Lesen Sie dazu bitte den Abschnitt
       <a href="../../doc/de_DE.ISO8859-1/books/handbook/ports-using.html" shape="rect">
       Benutzen der Ports-Sammlung</a> des Handbuchs.</p>
 
@@ -318,36 +318,34 @@
 
     <p>Der powerpc64-Port bietet Ihnen einen 64-Bit-Kernel sowie ein
       64-Bit-Userland und wird auf allen 64-Bit-Prozessoren unterstützt.
-      Besitzen Sie einen 32-Bit-Prozessor (G3, G4), müssen Sie die
+      Besitzen Sie einen 32-Bit-Prozessor (Apple G3/G4), müssen Sie die
       (32-Bit-)powerpc-Plattform installieren.  Bei einem 64-Bit-Prozessor,
-      der auch 32-Bit-Unterstützung bietet (G5), haben Sie die Wahl
+      der auch 32-Bit-Unterstützung bietet (Apple G5), haben Sie die Wahl
       zwischen 32 und 64 Bit.  Verwenden Sie hingegen einen reinen
-      64-Bit-Prozessor (Cell), so müssen Sie powerpc64 verwenden.  Bevor
+      64-Bit-Prozessor, so müssen Sie powerpc64 verwenden.  Bevor
       Sie sich zwischen 32 und 64 Bit entscheiden, sollten Sie bedenken, dass
       powerpc64 einige zusätzliche Funktionen (beispielsweise die
-      Unterstützung für mehr als 2 GB RAM oder ZFS) bietet.
-      Allerdings ist die Unterstützung dieser Plattform derzeit noch
-      etwas schlechter, da es sich um eine relativ neue und daher noch recht
-      wenig verbreitete Architektur handelt.  Wie die anderen 64-Bit-Plattformen
+      Unterstützung für mehr als 2 GB RAM und ZFS) bietet.
+      Wie andere 64-Bit-Plattformen
       bietet auch FreeBSD/powerpc64 die Möglichkeit, sowohl
       32-Bit- als auch 64-Bit-Programme auszuführen.</p>
 
     <h4><a name="5" shape="rect" id="5">An wen soll ich mich wenden?</a></h4>
 
-    <p>Dieses Projekt wird von <a href="mailto:grehan@FreeBSD.org" shape="rect">Peter Grehan</a> geleitet.
-      Möchten Sie Code beitragen, sollten Sie sich daher an ihn
-      wenden.  Möchten Sie hingegen etwas über den Projektstatus
-      erfahren, sollten Sie diese Seiten sowie die <a href="#list" shape="rect">
-      Mailingliste FreeBSD/ppc</a> regelmäßig lesen.</p>
+    <p>Dieses Projekt wird über die <a href="#list" shape="rect">FreeBSD/ppc Mailinliste</a> betreut.</p>
 
     <hr noshade="noshade" />
 
     <h3><a name="hardware" shape="rect" id="hardware">Unterstützte Hardware</a></h3>
 
+    <p>Die aktuellste Liste der unterstützten Hardware finden Sie im
+      <a href="https://wiki.freebsd.org/powerpc" shape="rect">FreeBSD Wiki</a>.</p>
+
     <p>Der FreeBSD/ppc-Port sollte auf jedem aktuellen Apple-Rechner (d.h.
       auf jedem Apple-Computer mit einem eingebauten USB-Port) sowie auf
-      der Sony Playststation 3 laufen.  An der Portierung auf die
-      IBM pSeries wird gearbeitet.  Für die folgenden Systeme
+      der Sony Playststation 3 laufen.</p>
+      
+    <p>Für die folgenden Systeme
       wurde eine erfolgreiche Installation sowie ein erfolgreicher Betrieb
       von FreeBSD berichtet:</p>
 
@@ -368,7 +366,7 @@
         <td rowspan="1" colspan="1">Apple</td>
         <td rowspan="1" colspan="1">iMac G3 DV Special Edition</td>
         <td rowspan="1" colspan="1"><a href="mailto:webmaster@machowto.com" shape="rect">David S. Besade</a>
-	  (<a href="http://people.freebsd.org/~flz/local/dmesg.ppc" shape="rect">dmesg</a>)</td>
+	  (<a href="https://people.freebsd.org/~flz/local/dmesg.ppc" shape="rect">dmesg</a>)</td>
         <td rowspan="1" colspan="1">None</td>
       </tr>
       <tr>
@@ -387,7 +385,7 @@
         <td rowspan="1" colspan="1">Apple</td>
         <td rowspan="1" colspan="1">Mac Mini G4 1.4 GHz</td>
         <td rowspan="1" colspan="1"><a href="mailto:arved@FreeBSD.org" shape="rect">Tilman Linneweh</a>
-          (<a href="http://people.freebsd.org/~arved/stuff/minimac" shape="rect">dmesg</a>)</td>
+          (<a href="https://people.freebsd.org/~arved/stuff/minimac" shape="rect">dmesg</a>)</td>
         <td rowspan="1" colspan="1">None</td>
       </tr>
       <tr>
@@ -440,7 +438,8 @@
     <h3><a name="issues" shape="rect" id="issues">Bekannte Probleme</a></h3>
 
     <ul>
-      <li>Es gibt einen bekannten Bug im Boot-Loader, der das Booten eines
+      <li>Es gibt einen bekannten Bug im Boot-Loader von
+        <q>New World</q>-Systemen von Apple, der das Booten eines
         alternativen Kernels verhindert.  Das Testen eines neuen Kernels
         ist daher etwas riskant.  Wenn Sie den Loader am Open Firmware-Prompt
         starten, geben Sie daher eine Partition an, die nicht existiert, von
@@ -460,7 +459,7 @@ OK load /boot/kernel/kernel.save</pre>
 
   <ul>
     <li><a href="http://www.freescale.com/files/product/doc/MPCFPE32B.pdf" shape="rect">
-      PowerPC chip documentation</a></li>
+      PowerPC 32-bit chip documentation</a></li>
 
     <li><a href="http://www.firmworks.com/QuickRef.html" shape="rect">
       Open Firmware Quick Reference</a></li>
@@ -485,19 +484,14 @@ OK load /boot/kernel/kernel.save</pre>
 
     <li><a href="https://developer.apple.com/legacy/library/technotes/tn/tn2001.html" shape="rect">
       "TN2001: Running Files from a Hard Drive in Open Firmware"</a></li>
-
-    <li><a href="http://sourceware.org/psim/" shape="rect">psim</a> - A PowerPC
-      simulator, available as a FreeBSD port at
-      <a href="http://www.freshports.org/?package=psim-freebsd" shape="rect">
-      emulators/psim-freebsd</a></li>
   </ul>
 
     <h3><a name="links" shape="rect" id="links">Verwandte Themen</a></h3>
 
     <ul>
-      <li><a href="http://wiki.freebsd.org/powerpc" shape="rect">Das FreeBSD/ppc
+      <li><a href="https://wiki.freebsd.org/powerpc" shape="rect">Das FreeBSD/ppc
         Wiki</a></li>
-      <li><a href="http://lists.freebsd.org/pipermail/freebsd-ppc/2005-January/000814.html" shape="rect">
+      <li><a href="https://lists.freebsd.org/pipermail/freebsd-ppc/2005-January/000814.html" shape="rect">
         Garance A. Drosehn beschreibt die Nutzung von FreeBSD auf dem Mac Mini</a></li>
       <li><a href="http://www.NetBSD.org/Ports/macppc/" shape="rect">NetBSD/macppc</a></li>
       <li><a href="http://www.OpenBSD.org/macppc.html" shape="rect">OpenBSD/macppc</a></li>
@@ -507,7 +501,7 @@ OK load /boot/kernel/kernel.save</pre>
           <br class="clearboth" />
         </div>
         <div id="footer">
-          <span><a href="../../search/index-site.html">Sitemap</a> | <a href="../../copyright/">Legal Notices</a> | © 1995&#8211;2018 The FreeBSD Project.  Alle Rechte vorbehalten.</span>
+          <span><a href="../../search/index-site.html">Sitemap</a> | <a href="../../copyright/">Legal Notices</a> | © 1995&#8211;2020 The FreeBSD Project.  Alle Rechte vorbehalten.</span>
           <br />
         </div>
       </div>

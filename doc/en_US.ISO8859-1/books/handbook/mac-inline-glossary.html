@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>15.2. Key Terms</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="mac.html" title="Chapter 15. Mandatory Access Control" /><link rel="prev" href="mac.html" title="Chapter 15. Mandatory Access Control" /><link rel="next" href="mac-understandlabel.html" title="15.3. Understanding MAC Labels" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">15.2. Key Terms</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="mac.html">Prev</a> </td><th width="60%" align="center">Chapter 15. Mandatory Access Control</th><td width="20%" align="right"> <a accesskey="n" href="mac-understandlabel.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="mac-inline-glossary"></a>15.2. Key Terms</h2></div></div></div><p>The following key terms are used when referring to the
+      <acronym class="acronym">MAC</acronym> framework:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><span class="emphasis"><em>compartment</em></span>: a set of programs and
+	  data to be partitioned or separated, where users are given
+	  explicit access to specific component of a system.  A
+	  compartment represents a grouping, such as a work group,
+	  department, project, or topic.  Compartments make it
+	  possible to implement a need-to-know-basis security
+	  policy.</p></li><li class="listitem"><p><span class="emphasis"><em>integrity</em></span>: the level of trust which
+	  can be placed on data.  As the integrity of the data is
+	  elevated, so does the ability to trust that data.</p></li><li class="listitem"><p><span class="emphasis"><em>level</em></span>: the increased or decreased
+	  setting of a security attribute.  As the level increases,
+	  its security is considered to elevate as well.</p></li><li class="listitem"><p><span class="emphasis"><em>label</em></span>: a security attribute which
+	  can be applied to files, directories, or other items in the
+	  system.  It could be considered a confidentiality stamp.
+	  When a label is placed on a file, it describes the security
+	  properties of that file and will only permit access by
+	  files, users, and resources with a similar security setting.
+	  The meaning and interpretation of label values depends on
+	  the policy configuration.  Some policies treat a label as
+	  representing the integrity or secrecy of an object while
+	  other policies might use labels to hold rules for
+	  access.</p></li><li class="listitem"><p><span class="emphasis"><em>multilabel</em></span>: this property is a file
+	  system option which can be set in single-user mode using
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=tunefs&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">tunefs</span>(8)</span></a>, during boot using <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=fstab&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">fstab</span>(5)</span></a>, or during
+	  the creation of a new file system.  This option permits
+	  an administrator to apply different <acronym class="acronym">MAC</acronym>
+	  labels on different objects.  This option only applies to
+	  security policy modules which support labeling.</p></li><li class="listitem"><p><span class="emphasis"><em>single label</em></span>: a policy where the
+	  entire file system uses one label to enforce access control
+	  over the flow of data.  Whenever <code class="option">multilabel</code>
+	  is not set, all files will conform to the same label
+	  setting.</p></li><li class="listitem"><p><span class="emphasis"><em>object</em></span>: an entity through which
+	  information flows under the direction of a
+	  <span class="emphasis"><em>subject</em></span>.  This includes directories,
+	  files, fields, screens, keyboards, memory, magnetic storage,
+	  printers or any other data storage or moving device.  An
+	  object is a data container or a system resource.  Access to
+	  an object effectively means access to its data.</p></li><li class="listitem"><p><span class="emphasis"><em>subject</em></span>: any active entity that
+	  causes information to flow between
+	  <span class="emphasis"><em>objects</em></span> such as a user, user process,
+	  or system process.  On FreeBSD, this is almost always a
+	  thread acting in a process on behalf of a user.</p></li><li class="listitem"><p><span class="emphasis"><em>policy</em></span>: a collection of rules
+	  which defines how objectives are to be achieved.  A policy
+	  usually documents how certain items are to be handled.  This
+	  chapter considers a policy to be a collection of rules which
+	  controls the flow of data and information and defines who
+	  has access to that data and information.</p></li><li class="listitem"><p><span class="emphasis"><em>high-watermark</em></span>: this type of
+	  policy permits the raising of security levels for the
+	  purpose of accessing higher level information.  In most
+	  cases, the original level is restored after the process is
+	  complete.  Currently, the FreeBSD <acronym class="acronym">MAC</acronym>
+	  framework does not include this type of policy.</p></li><li class="listitem"><p><span class="emphasis"><em>low-watermark</em></span>: this type of policy
+	  permits lowering security levels for the purpose of
+	  accessing information which is less secure.  In most cases,
+	  the original security level of the user is restored after
+	  the process is complete.  The only security policy module in
+	  FreeBSD to use this is <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mac_lomac&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mac_lomac</span>(4)</span></a>.</p></li><li class="listitem"><p><span class="emphasis"><em>sensitivity</em></span>: usually used when
+	  discussing Multilevel Security (<acronym class="acronym">MLS</acronym>).  A
+	  sensitivity level describes how important or secret the data
+	  should be.  As the sensitivity level increases, so does the
+	  importance of the secrecy, or confidentiality, of the
+	  data.</p></li></ul></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="mac.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="mac.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="mac-understandlabel.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 15. Mandatory Access Control </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 15.3. Understanding MAC Labels</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

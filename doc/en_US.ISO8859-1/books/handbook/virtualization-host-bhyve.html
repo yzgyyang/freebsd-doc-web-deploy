@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>21.7. FreeBSD as a Host with bhyve</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="virtualization.html" title="Chapter 21. Virtualization" /><link rel="prev" href="virtualization-host-virtualbox.html" title="21.6. FreeBSD as a Host with VirtualBox&#8482;" /><link rel="next" href="virtualization-host-xen.html" title="21.8. FreeBSD as a Xen&#8482;-Host" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">21.7. FreeBSD as a Host with
+      <span class="application">bhyve</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="virtualization-host-virtualbox.html">Prev</a> </td><th width="60%" align="center">Chapter 21. Virtualization</th><td width="20%" align="right"> <a accesskey="n" href="virtualization-host-xen.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="virtualization-host-bhyve"></a>21.7. FreeBSD as a Host with
+      <span class="application">bhyve</span></h2></div></div></div><p>The <span class="application">bhyve</span>
+      <acronym class="acronym">BSD</acronym>-licensed hypervisor became part of the
+      base system with FreeBSD 10.0-RELEASE.  This hypervisor supports a
+      number of guests, including FreeBSD, OpenBSD, and many <span class="trademark">Linux</span>®
+      distributions.  By default, <span class="application">bhyve</span>
+      provides access to serial console and does not emulate a
+      graphical console.  Virtualization offload features of newer
+      <acronym class="acronym">CPU</acronym>s are used to avoid the legacy methods of
+      translating instructions and manually managing memory
+      mappings.</p><p>The <span class="application">bhyve</span> design requires a
+      processor that supports <span class="trademark">Intel</span>® Extended Page Tables
+      (<acronym class="acronym">EPT</acronym>) or <span class="trademark">AMD</span>® Rapid Virtualization Indexing
+      (<acronym class="acronym">RVI</acronym>) or Nested Page Tables
+      (<acronym class="acronym">NPT</acronym>).  Hosting <span class="trademark">Linux</span>® guests or FreeBSD guests
+      with more than one <acronym class="acronym">vCPU</acronym> requires
+      <acronym class="acronym">VMX</acronym> unrestricted mode support
+      (<acronym class="acronym">UG</acronym>).  Most newer processors, specifically
+      the <span class="trademark">Intel</span>® <span class="trademark">Core</span>&#8482; i3/i5/i7 and <span class="trademark">Intel</span>® <span class="trademark">Xeon</span>&#8482;
+      E3/E5/E7, support these features.  <acronym class="acronym">UG</acronym> support
+      was introduced with Intel's Westmere micro-architecture.  For a
+      complete list of <span class="trademark">Intel</span>® processors that support
+      <acronym class="acronym">EPT</acronym>, refer to <a class="link" href="https://ark.intel.com/content/www/us/en/ark/search/featurefilter.html?productType=873&amp;0_ExtendedPageTables=True" target="_top">https://ark.intel.com/content/www/us/en/ark/search/featurefilter.html?productType=873&amp;0_ExtendedPageTables=True</a>.
+      <acronym class="acronym">RVI</acronym> is found on the third generation and
+      later of the <span class="trademark">AMD Opteron</span>&#8482; (Barcelona) processors.  The easiest
+      way to tell if a processor supports
+      <span class="application">bhyve</span> is to run
+      <code class="command">dmesg</code> or look in
+      <code class="filename">/var/run/dmesg.boot</code> for the
+      <code class="literal">POPCNT</code> processor feature flag on the
+      <code class="literal">Features2</code> line for <span class="trademark">AMD</span>® processors or
+      <code class="literal">EPT</code> and <code class="literal">UG</code> on the
+      <code class="literal">VT-x</code> line for <span class="trademark">Intel</span>® processors.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="virtualization-bhyve-prep"></a>21.7.1. Preparing the Host</h3></div></div></div><p>The first step to creating a virtual machine in
+	<span class="application">bhyve</span> is configuring the host
+	system.  First, load the <span class="application">bhyve</span>
+	kernel module:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>kldload vmm</code></strong></pre><p>Then, create a <code class="filename">tap</code> interface for the
+	network device in the virtual machine to attach to.  In order
+	for the network device to participate in the network, also
+	create a bridge interface containing the
+	<code class="filename">tap</code> interface and the physical interface
+	as members.  In this example, the physical interface is
+	<em class="replaceable"><code>igb0</code></em>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ifconfig <em class="replaceable"><code>tap0</code></em> create</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>sysctl net.link.tap.up_on_open=1</code></strong>
+net.link.tap.up_on_open: 0 -&gt; 1
+<code class="prompt">#</code> <strong class="userinput"><code>ifconfig <em class="replaceable"><code>bridge0</code></em> create</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>ifconfig <em class="replaceable"><code>bridge0</code></em> addm <em class="replaceable"><code>igb0</code></em> addm <em class="replaceable"><code>tap0</code></em></code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>ifconfig <em class="replaceable"><code>bridge0</code></em> up</code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="virtualization-bhyve-freebsd"></a>21.7.2. Creating a FreeBSD Guest</h3></div></div></div><p>Create a file to use as the virtual disk for the guest
+	machine.  Specify the size and name of the virtual
+	disk:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>truncate -s <em class="replaceable"><code>16G</code></em> <em class="replaceable"><code>guest.img</code></em></code></strong></pre><p>Download an installation image of FreeBSD to install:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>fetch <em class="replaceable"><code>ftp://ftp.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/10.3/FreeBSD-10.3-RELEASE-amd64-bootonly.iso</code></em></code></strong>
+FreeBSD-10.3-RELEASE-amd64-bootonly.iso       100% of  230 MB  570 kBps 06m17s</pre><p>FreeBSD comes with an example script for running a virtual
+	machine in <span class="application">bhyve</span>.  The script will
+	start the virtual machine and run it in a loop, so it will
+	automatically restart if it crashes.  The script takes a
+	number of options to control the configuration of the machine:
+	<code class="option">-c</code> controls the number of virtual CPUs,
+	<code class="option">-m</code> limits the amount of memory available to
+	the guest, <code class="option">-t</code> defines which
+	<code class="filename">tap</code> device to use, <code class="option">-d</code>
+	indicates which disk image to use, <code class="option">-i</code> tells
+	<span class="application">bhyve</span> to boot from the
+	<acronym class="acronym">CD</acronym> image instead of the disk, and
+	<code class="option">-I</code> defines which <acronym class="acronym">CD</acronym> image
+	to use.  The last parameter is the name of the virtual
+	machine, used to track the running machines.  This example
+	starts the virtual machine in installation mode:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>sh /usr/share/examples/bhyve/vmrun.sh -c <em class="replaceable"><code>1</code></em> -m <em class="replaceable"><code>1024M</code></em> -t <em class="replaceable"><code>tap0</code></em> -d <em class="replaceable"><code>guest.img</code></em> -i -I <em class="replaceable"><code>FreeBSD-10.3-RELEASE-amd64-bootonly.iso</code></em> <em class="replaceable"><code>guestname</code></em></code></strong></pre><p>The virtual machine will boot and start the installer.
+	After installing a system in the virtual machine, when the
+	system asks about dropping in to a shell at the end of the
+	installation, choose <span class="guibutton">Yes</span>.</p><p>Reboot the virtual machine.  While rebooting the virtual
+	machine causes <span class="application">bhyve</span> to exit, the
+	<code class="filename">vmrun.sh</code> script runs
+	<code class="command">bhyve</code> in a loop and will automatically
+	restart it.  When this happens, choose the reboot option from
+	the boot loader menu in order to escape the loop.  Now the
+	guest can be started from the virtual disk:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>sh /usr/share/examples/bhyve/vmrun.sh -c <em class="replaceable"><code>4</code></em> -m <em class="replaceable"><code>1024M</code></em> -t <em class="replaceable"><code>tap0</code></em> -d <em class="replaceable"><code>guest.img</code></em> <em class="replaceable"><code>guestname</code></em></code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="virtualization-bhyve-linux"></a>21.7.3. Creating a <span class="trademark">Linux</span>® Guest</h3></div></div></div><p>In order to boot operating systems other than FreeBSD, the
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/sysutils/grub2-bhyve/pkg-descr">sysutils/grub2-bhyve</a> port must be first
+	installed.</p><p>Next, create a file to use as the virtual disk for the
+	guest machine:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>truncate -s <em class="replaceable"><code>16G</code></em> <em class="replaceable"><code>linux.img</code></em></code></strong></pre><p>Starting a virtual machine with
+	<span class="application">bhyve</span> is a two step process.  First
+	a kernel must be loaded, then the guest can be started.  The
+	<span class="trademark">Linux</span>® kernel is loaded with
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/sysutils/grub2-bhyve/pkg-descr">sysutils/grub2-bhyve</a>.  Create a
+	<code class="filename">device.map</code> that
+	<span class="application">grub</span> will use to map the virtual
+	devices to the files on the host system:</p><pre class="programlisting">(hd0) ./linux.img
+(cd0) ./somelinux.iso</pre><p>Use <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/sysutils/grub2-bhyve/pkg-descr">sysutils/grub2-bhyve</a> to load the
+	<span class="trademark">Linux</span>® kernel from the <acronym class="acronym">ISO</acronym> image:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>grub-bhyve -m device.map -r cd0 -M <em class="replaceable"><code>1024M</code></em> <em class="replaceable"><code>linuxguest</code></em></code></strong></pre><p>This will start grub.  If the installation
+	<acronym class="acronym">CD</acronym> contains a
+	<code class="filename">grub.cfg</code>, a menu will be displayed.
+	If not, the <code class="literal">vmlinuz</code> and
+	<code class="literal">initrd</code> files must be located and loaded
+	manually:</p><pre class="screen">grub&gt; <strong class="userinput"><code>ls</code></strong>
+(hd0) (cd0) (cd0,msdos1) (host)
+grub&gt; <strong class="userinput"><code>ls (cd0)/isolinux</code></strong>
+boot.cat boot.msg grub.conf initrd.img isolinux.bin isolinux.cfg memtest
+splash.jpg TRANS.TBL vesamenu.c32 vmlinuz
+grub&gt; <strong class="userinput"><code>linux (cd0)/isolinux/vmlinuz</code></strong>
+grub&gt; <strong class="userinput"><code>initrd (cd0)/isolinux/initrd.img</code></strong>
+grub&gt; <strong class="userinput"><code>boot</code></strong></pre><p>Now that the <span class="trademark">Linux</span>® kernel is loaded, the guest can be
+	started:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>bhyve -A -H -P -s 0:0,hostbridge -s 1:0,lpc -s 2:0,virtio-net,<em class="replaceable"><code>tap0</code></em> -s 3:0,virtio-blk,<em class="replaceable"><code>./linux.img</code></em> \
+    -s 4:0,ahci-cd,<em class="replaceable"><code>./somelinux.iso</code></em> -l com1,stdio -c <em class="replaceable"><code>4</code></em> -m <em class="replaceable"><code>1024M</code></em> <em class="replaceable"><code>linuxguest</code></em></code></strong></pre><p>The system will boot and start the installer.  After
+	installing a system in the virtual machine, reboot the virtual
+	machine.  This will cause <span class="application">bhyve</span> to
+	exit.  The instance of the virtual machine needs to be
+	destroyed before it can be started again:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>bhyvectl --destroy --vm=<em class="replaceable"><code>linuxguest</code></em></code></strong></pre><p>Now the guest can be started directly from the virtual
+	disk.  Load the kernel:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>grub-bhyve -m device.map -r hd0,msdos1 -M <em class="replaceable"><code>1024M</code></em> <em class="replaceable"><code>linuxguest</code></em></code></strong>
+grub&gt; <strong class="userinput"><code>ls</code></strong>
+(hd0) (hd0,msdos2) (hd0,msdos1) (cd0) (cd0,msdos1) (host)
+(lvm/VolGroup-lv_swap) (lvm/VolGroup-lv_root)
+grub&gt; <strong class="userinput"><code>ls (hd0,msdos1)/</code></strong>
+lost+found/ grub/ efi/ System.map-2.6.32-431.el6.x86_64 config-2.6.32-431.el6.x
+86_64 symvers-2.6.32-431.el6.x86_64.gz vmlinuz-2.6.32-431.el6.x86_64
+initramfs-2.6.32-431.el6.x86_64.img
+grub&gt; <strong class="userinput"><code>linux (hd0,msdos1)/vmlinuz-2.6.32-431.el6.x86_64 root=/dev/mapper/VolGroup-lv_root</code></strong>
+grub&gt; <strong class="userinput"><code>initrd (hd0,msdos1)/initramfs-2.6.32-431.el6.x86_64.img</code></strong>
+grub&gt; <strong class="userinput"><code>boot</code></strong></pre><p>Boot the virtual machine:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>bhyve -A -H -P -s 0:0,hostbridge -s 1:0,lpc -s 2:0,virtio-net,<em class="replaceable"><code>tap0</code></em> \
+    -s 3:0,virtio-blk,<em class="replaceable"><code>./linux.img</code></em> -l com1,stdio -c <em class="replaceable"><code>4</code></em> -m <em class="replaceable"><code>1024M</code></em> <em class="replaceable"><code>linuxguest</code></em></code></strong></pre><p><span class="trademark">Linux</span>® will now boot in the virtual machine and
+	eventually present you with the login prompt.  Login and use
+	the virtual machine.  When you are finished, reboot the
+	virtual machine to exit <span class="application">bhyve</span>.
+	Destroy the virtual machine instance:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>bhyvectl --destroy --vm=<em class="replaceable"><code>linuxguest</code></em></code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="virtualization-bhyve-uefi"></a>21.7.4. Booting <span class="application">bhyve</span> Virtual Machines
+	with <acronym class="acronym">UEFI</acronym> Firmware</h3></div></div></div><p>In addition to <span class="application">bhyveload</span> and
+	<span class="application">grub-bhyve</span>, the
+	<span class="application">bhyve</span> hypervisor can also boot
+	virtual machines using the <acronym class="acronym">UEFI</acronym> userspace
+	firmware.  This option may support guest operating systems
+	that are not supported by the other loaders.</p><p>In order to make use of the <acronym class="acronym">UEFI</acronym>
+	support in <span class="application">bhyve</span>, first obtain the
+	<acronym class="acronym">UEFI</acronym> firmware images.  This can be done by
+	installing <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/sysutils/bhyve-firmware/pkg-descr">sysutils/bhyve-firmware</a> port or
+	package.</p><p>With the firmware in place, add the flags <code class="option">-l
+	  bootrom,<em class="replaceable"><code>/path/to/firmware</code></em></code>
+	to your <span class="application">bhyve</span> command line.  The
+	actual <span class="application">bhyve</span> command may look like
+	this:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>bhyve -AHP -s 0:0,hostbridge -s 1:0,lpc \
+-s 2:0,virtio-net,<em class="replaceable"><code>tap1</code></em> -s 3:0,virtio-blk,<em class="replaceable"><code>./disk.img</code></em> \
+-s 4:0,ahci-cd,<em class="replaceable"><code>./install.iso</code></em> -c <em class="replaceable"><code>4</code></em> -m <em class="replaceable"><code>1024M</code></em> \
+-l bootrom,<em class="replaceable"><code>/usr/local/share/uefi-firmware/BHYVE_UEFI.fd</code></em> \
+<em class="replaceable"><code>guest</code></em></code></strong></pre><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/sysutils/bhyve-firmware/pkg-descr">sysutils/bhyve-firmware</a> also contains a
+	<acronym class="acronym">CSM</acronym>-enabled firmware, to boot guests with
+	no <acronym class="acronym">UEFI</acronym> support in legacy
+	<acronym class="acronym">BIOS</acronym> mode:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>bhyve -AHP -s 0:0,hostbridge -s 1:0,lpc \
+-s 2:0,virtio-net,<em class="replaceable"><code>tap1</code></em> -s 3:0,virtio-blk,<em class="replaceable"><code>./disk.img</code></em> \
+-s 4:0,ahci-cd,<em class="replaceable"><code>./install.iso</code></em> -c <em class="replaceable"><code>4</code></em> -m <em class="replaceable"><code>1024M</code></em> \
+-l bootrom,<em class="replaceable"><code>/usr/local/share/uefi-firmware/BHYVE_UEFI_CSM.fd</code></em> \
+<em class="replaceable"><code>guest</code></em></code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="virtualization-bhyve-framebuffer"></a>21.7.5. Graphical <acronym class="acronym">UEFI</acronym> Framebuffer for
+	<span class="application">bhyve</span> Guests</h3></div></div></div><p>The <acronym class="acronym">UEFI</acronym> firmware support is
+	particularly useful with predominantly graphical guest
+	operating systems such as Microsoft <span class="trademark">Windows</span>®.</p><p>Support for the UEFI-GOP framebuffer may also be enabled
+	with the <code class="option">-s
+	  29,fbuf,tcp=<em class="replaceable"><code>0.0.0.0:5900</code></em></code>
+	flags.  The framebuffer resolution may be configured with
+	<code class="option">w=<em class="replaceable"><code>800</code></em></code> and
+	<code class="option">h=<em class="replaceable"><code>600</code></em></code>, and
+	<span class="application">bhyve</span> can be instructed to wait for
+	a <acronym class="acronym">VNC</acronym> connection before booting the guest
+	by adding <code class="option">wait</code>.  The framebuffer may be
+	accessed from the host or over the network via the
+	<acronym class="acronym">VNC</acronym> protocol.  Additionally, <code class="option">-s
+	  30,xhci,tablet</code> can be added to achieve precise mouse
+	cursor synchronization with the host.</p><p>The resulting <span class="application">bhyve</span> command
+	would look like this:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>bhyve -AHP -s 0:0,hostbridge -s 31:0,lpc \
+-s 2:0,virtio-net,<em class="replaceable"><code>tap1</code></em> -s 3:0,virtio-blk,<em class="replaceable"><code>./disk.img</code></em> \
+-s 4:0,ahci-cd,<em class="replaceable"><code>./install.iso</code></em> -c <em class="replaceable"><code>4</code></em> -m <em class="replaceable"><code>1024M</code></em> \
+-s 29,fbuf,tcp=<em class="replaceable"><code>0.0.0.0:5900</code></em>,w=<em class="replaceable"><code>800</code></em>,h=<em class="replaceable"><code>600</code></em>,wait \
+-s 30,xhci,tablet \
+-l bootrom,<em class="replaceable"><code>/usr/local/share/uefi-firmware/BHYVE_UEFI.fd</code></em> \
+<em class="replaceable"><code>guest</code></em></code></strong></pre><p>Note, in BIOS emulation mode, the framebuffer will cease
+	receiving updates once control is passed from firmware to
+	guest operating system.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="virtualization-bhyve-zfs"></a>21.7.6. Using <acronym class="acronym">ZFS</acronym> with
+	<span class="application">bhyve</span> Guests</h3></div></div></div><p>If <acronym class="acronym">ZFS</acronym> is available on the host
+	machine, using <acronym class="acronym">ZFS</acronym> volumes
+	instead of disk image files can provide significant
+	performance benefits for the guest <acronym class="acronym">VMs</acronym>.  A
+	<acronym class="acronym">ZFS</acronym> volume can be created by:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>zfs create -V<em class="replaceable"><code>16G</code></em> -o volmode=dev <em class="replaceable"><code>zroot/linuxdisk0</code></em></code></strong></pre><p>When starting the <acronym class="acronym">VM</acronym>, specify the
+	<acronym class="acronym">ZFS</acronym> volume as the disk drive:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>bhyve -A -H -P -s 0:0,hostbridge -s 1:0,lpc -s 2:0,virtio-net,<em class="replaceable"><code>tap0</code></em> -s3:0,virtio-blk,<em class="replaceable"><code>/dev/zvol/zroot/linuxdisk0</code></em> \
+    -l com1,<em class="replaceable"><code>stdio</code></em> -c <em class="replaceable"><code>4</code></em> -m <em class="replaceable"><code>1024M</code></em> <em class="replaceable"><code>linuxguest</code></em></code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="virtualization-bhyve-nmdm"></a>21.7.7. Virtual Machine Consoles</h3></div></div></div><p>It is advantageous to wrap the
+	<span class="application">bhyve</span> console in a session
+	management tool such as <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/sysutils/tmux/pkg-descr">sysutils/tmux</a> or
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/sysutils/screen/pkg-descr">sysutils/screen</a> in order to detach and
+	reattach to the console.  It is also possible to have the
+	console of <span class="application">bhyve</span> be a null modem
+	device that can be accessed with <code class="command">cu</code>.  To do
+	this, load the <code class="filename">nmdm</code> kernel module and
+	replace <code class="option">-l com1,stdio</code> with
+	<code class="option">-l com1,/dev/nmdm0A</code>.  The
+	<code class="filename">/dev/nmdm</code> devices are created
+	automatically as needed, where each is a pair, corresponding
+	to the two ends of the null modem cable
+	(<code class="filename">/dev/nmdm0A</code> and
+	<code class="filename">/dev/nmdm0B</code>).  See <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=nmdm&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">nmdm</span>(4)</span></a> for more
+	information.</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>kldload nmdm</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>bhyve -A -H -P -s 0:0,hostbridge -s 1:0,lpc -s 2:0,virtio-net,<em class="replaceable"><code>tap0</code></em> -s 3:0,virtio-blk,<em class="replaceable"><code>./linux.img</code></em> \
+    -l com1,<em class="replaceable"><code>/dev/nmdm0A</code></em> -c <em class="replaceable"><code>4</code></em> -m <em class="replaceable"><code>1024M</code></em> <em class="replaceable"><code>linuxguest</code></em></code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>cu -l <em class="replaceable"><code>/dev/nmdm0B</code></em></code></strong>
+Connected
+
+Ubuntu 13.10 handbook ttyS0
+
+handbook login:</pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="virtualization-bhyve-managing"></a>21.7.8. Managing Virtual Machines</h3></div></div></div><p>A device node is created in <code class="filename">/dev/vmm</code> for each virtual
+	machine.  This allows the administrator to easily see a list
+	of the running virtual machines:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ls -al /dev/vmm</code></strong>
+total 1
+dr-xr-xr-x   2 root  wheel    512 Mar 17 12:19 ./
+dr-xr-xr-x  14 root  wheel    512 Mar 17 06:38 ../
+crw-------   1 root  wheel  0x1a2 Mar 17 12:20 guestname
+crw-------   1 root  wheel  0x19f Mar 17 12:19 linuxguest
+crw-------   1 root  wheel  0x1a1 Mar 17 12:19 otherguest</pre><p>A specified virtual machine can be destroyed using
+	<code class="command">bhyvectl</code>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>bhyvectl --destroy --vm=<em class="replaceable"><code>guestname</code></em></code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="virtualization-bhyve-onboot"></a>21.7.9. Persistent Configuration</h3></div></div></div><p>In order to configure the system to start
+	<span class="application">bhyve</span> guests at boot time, the
+	following configurations must be made in the specified
+	files:</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p class="title"><strong><code class="filename">/etc/sysctl.conf</code></strong></p><pre class="programlisting">net.link.tap.up_on_open=1</pre></li><li class="step"><p class="title"><strong><code class="filename">/etc/rc.conf</code></strong></p><pre class="programlisting">cloned_interfaces="<em class="replaceable"><code>bridge0</code></em> <em class="replaceable"><code>tap0</code></em>"
+ifconfig_bridge0="addm <em class="replaceable"><code>igb0</code></em> addm <em class="replaceable"><code>tap0</code></em>"
+kld_list="nmdm vmm"</pre></li></ol></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="virtualization-host-virtualbox.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="virtualization.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="virtualization-host-xen.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">21.6. FreeBSD as a Host with <span class="trademark">VirtualBox</span>&#8482; </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 21.8. FreeBSD as a <span class="trademark">Xen</span>&#8482;-Host</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

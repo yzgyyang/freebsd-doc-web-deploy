@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>18.7. Labeling Disk Devices</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="geom.html" title="Chapter 18. GEOM: Modular Disk Transformation Framework" /><link rel="prev" href="geom-ggate.html" title="18.6. GEOM Gate Network" /><link rel="next" href="geom-gjournal.html" title="18.8. UFS Journaling Through GEOM" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">18.7. Labeling Disk Devices</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="geom-ggate.html">Prev</a> </td><th width="60%" align="center">Chapter 18. GEOM: Modular Disk Transformation Framework</th><td width="20%" align="right"> <a accesskey="n" href="geom-gjournal.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="geom-glabel"></a>18.7. Labeling Disk Devices</h2></div></div></div><a id="idp63813112" class="indexterm"></a><a id="idp63814008" class="indexterm"></a><p>During system initialization, the FreeBSD kernel creates
+      device nodes as devices are found.  This method of probing for
+      devices raises some issues.  For instance, what if a new disk
+      device is added via <acronym class="acronym">USB</acronym>?  It is likely that
+      a flash device may be handed the device name of
+      <code class="filename">da0</code> and the original
+      <code class="filename">da0</code> shifted to
+      <code class="filename">da1</code>.  This will cause issues mounting
+      file systems if they are listed in
+      <code class="filename">/etc/fstab</code> which may also prevent the
+      system from booting.</p><p>One solution is to chain <acronym class="acronym">SCSI</acronym> devices
+      in order so a new device added to the <acronym class="acronym">SCSI</acronym>
+      card will be issued unused device numbers.  But what about
+      <acronym class="acronym">USB</acronym> devices which may replace the primary
+      <acronym class="acronym">SCSI</acronym> disk?  This happens because
+      <acronym class="acronym">USB</acronym> devices are usually probed before the
+      <acronym class="acronym">SCSI</acronym> card.  One solution is to only insert
+      these devices after the system has been booted.  Another method
+      is to use only a single <acronym class="acronym">ATA</acronym> drive and never
+      list the <acronym class="acronym">SCSI</acronym> devices in
+      <code class="filename">/etc/fstab</code>.</p><p>A better solution is to use <code class="command">glabel</code> to
+      label the disk devices and use the labels in
+      <code class="filename">/etc/fstab</code>.  Because
+      <code class="command">glabel</code> stores the label in the last sector of
+      a given provider, the label will remain persistent across
+      reboots.  By using this label as a device, the file system may
+      always be mounted regardless of what device node it is accessed
+      through.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml"><code class="command">glabel</code> can create both transient and
+	permanent labels.  Only permanent labels are consistent across
+	reboots.  Refer to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=glabel&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">glabel</span>(8)</span></a> for more information on the
+	differences between labels.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp63824376"></a>18.7.1. Label Types and Examples</h3></div></div></div><p>Permanent labels can be a generic or a file system label.
+	Permanent file system labels can be created with
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=tunefs&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">tunefs</span>(8)</span></a> or <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=newfs&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">newfs</span>(8)</span></a>.  These types of labels are
+	created in a sub-directory of <code class="filename">/dev</code>, and
+	will be named according to the file system type.  For example,
+	<acronym class="acronym">UFS</acronym>2 file system labels will be created in
+	<code class="filename">/dev/ufs</code>.  Generic permanent labels can
+	be created with <code class="command">glabel label</code>.  These are
+	not file system specific and will be created in
+	<code class="filename">/dev/label</code>.</p><p>Temporary labels are destroyed at the next reboot.  These
+	labels are created in <code class="filename">/dev/label</code> and are
+	suited to experimentation.  A temporary label can be created
+	using <code class="command">glabel create</code>.</p><p>To create a permanent label for a
+	<acronym class="acronym">UFS</acronym>2 file system without destroying any
+	data, issue the following command:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>tunefs -L <em class="replaceable"><code>home</code></em> <em class="replaceable"><code>/dev/da3</code></em></code></strong></pre><p>A label should now exist in <code class="filename">/dev/ufs</code>
+	which may be added to <code class="filename">/etc/fstab</code>:</p><pre class="programlisting">/dev/ufs/home		/home            ufs     rw              2      2</pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">The file system must not be mounted while attempting
+	  to run <code class="command">tunefs</code>.</p></div><p>Now the file system may be mounted:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>mount /home</code></strong></pre><p>From this point on, so long as the
+	<code class="filename">geom_label.ko</code> kernel module is loaded at
+	boot with <code class="filename">/boot/loader.conf</code> or the
+	<code class="literal">GEOM_LABEL</code> kernel option is present,
+	the device node may change without any ill effect on the
+	system.</p><p>File systems may also be created with a default label
+	by using the <code class="option">-L</code> flag with
+	<code class="command">newfs</code>.  Refer to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=newfs&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">newfs</span>(8)</span></a> for
+	more information.</p><p>The following command can be used to destroy the
+	label:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>glabel destroy home</code></strong></pre><p>The following example shows how to label the partitions of
+	a boot disk.</p><div class="example"><a id="idp63845880"></a><div class="example-title">Example 18.1. Labeling Partitions on the Boot Disk</div><div class="example-contents"><p>By permanently labeling the partitions on the boot disk,
+	  the system should be able to continue to boot normally, even
+	  if the disk is moved to another controller or transferred to
+	  a different system.  For this example, it is assumed that a
+	  single <acronym class="acronym">ATA</acronym> disk is used, which is
+	  currently recognized by the system as
+	  <code class="filename">ad0</code>.  It is also assumed that the
+	  standard FreeBSD partition scheme is used, with
+	  <code class="filename">/</code>,
+	  <code class="filename">/var</code>,
+	  <code class="filename">/usr</code> and
+	  <code class="filename">/tmp</code>, as
+	  well as a swap partition.</p><p>Reboot the system, and at the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=loader&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">loader</span>(8)</span></a> prompt,
+	  press <span class="keycap"><strong>4</strong></span> to boot into single user mode.
+	  Then enter the following commands:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>glabel label rootfs /dev/ad0s1a</code></strong>
+GEOM_LABEL: Label for provider /dev/ad0s1a is label/rootfs
+<code class="prompt">#</code> <strong class="userinput"><code>glabel label var /dev/ad0s1d</code></strong>
+GEOM_LABEL: Label for provider /dev/ad0s1d is label/var
+<code class="prompt">#</code> <strong class="userinput"><code>glabel label usr /dev/ad0s1f</code></strong>
+GEOM_LABEL: Label for provider /dev/ad0s1f is label/usr
+<code class="prompt">#</code> <strong class="userinput"><code>glabel label tmp /dev/ad0s1e</code></strong>
+GEOM_LABEL: Label for provider /dev/ad0s1e is label/tmp
+<code class="prompt">#</code> <strong class="userinput"><code>glabel label swap /dev/ad0s1b</code></strong>
+GEOM_LABEL: Label for provider /dev/ad0s1b is label/swap
+<code class="prompt">#</code> <strong class="userinput"><code>exit</code></strong></pre><p>The system will continue with multi-user boot.  After
+	  the boot completes, edit <code class="filename">/etc/fstab</code> and
+	  replace the conventional device names, with their respective
+	  labels.  The final <code class="filename">/etc/fstab</code> will
+	  look like this:</p><pre class="programlisting"># Device                Mountpoint      FStype  Options         Dump    Pass#
+/dev/label/swap         none            swap    sw              0       0
+/dev/label/rootfs       /               ufs     rw              1       1
+/dev/label/tmp          /tmp            ufs     rw              2       2
+/dev/label/usr          /usr            ufs     rw              2       2
+/dev/label/var          /var            ufs     rw              2       2</pre><p>The system can now be rebooted.  If everything went
+	  well, it will come up normally and <code class="command">mount</code>
+	  will show:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>mount</code></strong>
+/dev/label/rootfs on / (ufs, local)
+devfs on /dev (devfs, local)
+/dev/label/tmp on /tmp (ufs, local, soft-updates)
+/dev/label/usr on /usr (ufs, local, soft-updates)
+/dev/label/var on /var (ufs, local, soft-updates)</pre></div></div><br class="example-break" /><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=glabel&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">glabel</span>(8)</span></a> class
+	supports a label type for <acronym class="acronym">UFS</acronym> file
+	systems, based on the unique file system id,
+	<code class="literal">ufsid</code>.  These labels may be found in
+	<code class="filename">/dev/ufsid</code> and are
+	created automatically during system startup.  It is possible
+	to use <code class="literal">ufsid</code> labels to mount partitions
+	using <code class="filename">/etc/fstab</code>.  Use <code class="command">glabel
+	  status</code> to receive a list of file systems and their
+	corresponding <code class="literal">ufsid</code> labels:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>glabel status</code></strong>
+                  Name  Status  Components
+ufsid/486b6fc38d330916     N/A  ad4s1d
+ufsid/486b6fc16926168e     N/A  ad4s1f</pre><p>In the above example, <code class="filename">ad4s1d</code>
+	represents <code class="filename">/var</code>,
+	while <code class="filename">ad4s1f</code> represents
+	<code class="filename">/usr</code>.
+	Using the <code class="literal">ufsid</code> values shown, these
+	partitions may now be mounted with the following entries in
+	<code class="filename">/etc/fstab</code>:</p><pre class="programlisting">/dev/ufsid/486b6fc38d330916        /var        ufs        rw        2      2
+/dev/ufsid/486b6fc16926168e        /usr        ufs        rw        2      2</pre><p>Any partitions with <code class="literal">ufsid</code> labels can be
+	mounted in this way, eliminating the need to manually create
+	permanent labels, while still enjoying the benefits of device
+	name independent mounting.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="geom-ggate.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="geom.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="geom-gjournal.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">18.6. <acronym class="acronym">GEOM</acronym> Gate Network </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 18.8. UFS Journaling Through <acronym class="acronym">GEOM</acronym></td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

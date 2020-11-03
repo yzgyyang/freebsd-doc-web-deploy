@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>30.6. Blacklistd</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="firewalls.html" title="Chapter 30. Firewalls" /><link rel="prev" href="firewalls-ipf.html" title="30.5. IPFILTER (IPF)" /><link rel="next" href="advanced-networking.html" title="Chapter 31. Advanced Networking" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">30.6. Blacklistd</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="firewalls-ipf.html">Prev</a> </td><th width="60%" align="center">Chapter 30. Firewalls</th><td width="20%" align="right"> <a accesskey="n" href="advanced-networking.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="firewalls-blacklistd"></a>30.6. Blacklistd</h2></div></div></div><p>Blacklistd is a daemon listening to sockets to receive
+      notifications from other daemons about connection attempts
+      that failed or were successful.  It is most widely used in
+      blocking too many connection attempts on open ports.  A
+      prime example is <span class="application">SSH</span> running on
+      the internet getting a lot of requests from bots or scripts
+      trying to guess passwords and gain access.  Using
+      <span class="application">blacklistd</span>, the daemon can notify
+      the firewall to create a filter rule to block excessive
+      connection attempts from a single source after a number of
+      tries.  Blacklistd was first developed on
+      NetBSD and appeared there in version 7.  FreeBSD 11
+      imported blacklistd from NetBSD.</p><p>This chapter describes how to set up blacklistd,
+      configure it, and provides examples on how to use it.
+      Readers should be familiar with basic firewall concepts like
+      rules.  For details, refer to the firewall chapter.  PF is
+      used in the examples, but other firewalls available on
+      FreeBSD should be able to work with blacklistd, too.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp72711288"></a>30.6.1. Enabling Blacklistd</h3></div></div></div><p>The main configuration for blacklistd is stored in
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=blacklistd.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">blacklistd.conf</span>(5)</span></a>.  Various command line options are
+	also available to change blacklistd's run-time behavior.
+	Persistent configuration across reboots should be stored
+	in <code class="filename">/etc/blacklistd.conf</code>.  To enable
+	the daemon during system boot, add a
+	<code class="literal">blacklistd_enable</code> line to
+	<code class="filename">/etc/rc.conf</code> like this:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>sysrc blacklistd_enable=yes</code></strong></pre><p>To start the service manually, run this command:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service blacklistd start</code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp72720632"></a>30.6.2. Creating a Blacklistd Ruleset</h3></div></div></div><p>Rules for blacklistd are configured in
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=blacklistd.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">blacklistd.conf</span>(5)</span></a> with one entry per line.  Each
+	rule contains a tuple separated by spaces or tabs.  Rules
+	either belong to a <code class="literal">local</code> or a
+	<code class="literal">remote</code>, which applies to the machine
+	where blacklistd is running or an outside source,
+	respectively.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp72723192"></a>30.6.2.1. Local Rules</h4></div></div></div><p>An example blacklistd.conf entry for a local rule
+	  looks like this:</p><pre class="programlisting">[local]
+ssh             stream  *       *               *       3       24h</pre><p>All rules that follow the <code class="literal">[local]</code>
+	  section are treated as local rules (which is the
+	  default), applying to the local machine.  When a
+	  <code class="literal">[remote]</code> section is encountered, all
+	  rules that follow it are handled as remote machine
+	  rules.</p><p>Seven fields define a rule separated by either tabs
+	  or spaces.  The first four fields identify the traffic
+	  that should be blacklisted.  The three fields that
+	  follow define backlistd's behavior.  Wildcards are
+	  denoted as asterisks (<code class="literal">*</code>), matching
+	  anything in this field.  The first field defines the
+	  location.  In local rules, these are the network ports.
+	  The syntax for the location field is as follows:</p><pre class="programlisting">[<em class="replaceable"><code>address</code></em>|<em class="replaceable"><code>interface</code></em>][/<em class="replaceable"><code>mask</code></em>][:<em class="replaceable"><code>port</code></em>]</pre><p>Adressses can be specified as IPv4 in numeric format
+	    or IPv6 in square brackets.  An interface name like
+	    <code class="literal"><em class="replaceable"><code>em0</code></em></code> can also
+	    be used.</p><p>The socket type is defined by the second field.  TCP
+	    sockets are of type <code class="literal">stream</code>, whereas UDP
+	    is denoted as <code class="literal">dgram</code>.  The example above
+	    uses TCP, since SSH is using that protocol.</p><p>A protocol can be used in the third field of a
+	    blacklistd rule.  The following protocols can be used:
+	    <code class="literal">tcp</code>, <code class="literal">udp</code>,
+	    <code class="literal">tcp6</code>, <code class="literal">udp6</code>, or
+	    numeric.  A wildcard, like in the example, is typically
+	    used to match all protocols unless there is a reason to
+	    distinguish traffic by a certain protocol.</p><p>In the fourth field, the effective user or owner of
+	    the daemon process that is reporting the event is defined.
+	    The username or <acronym class="acronym">UID</acronym> can be used here,
+	    as well as a wildcard (see example rule above).</p><p>The packet filter rule name is declared by the fifth
+	    field, which starts the behavior part of the rule.  By
+	    default, blacklistd puts all blocks under a pf anchor
+	    called <code class="literal">blacklistd</code> in
+	    <code class="filename">pf.conf</code> like this:</p><pre class="programlisting">anchor "blacklistd/*" in on $ext_if
+block in
+pass out</pre><p>For separate blacklists, an anchor name can be used in
+	    this field.  In other cases, the wildcard will suffice.
+	    When a name starts with a hyphen (<code class="literal">-</code>) it
+	    means that an anchor with the default rule name prepended
+	    should be used.  A modified example from the above using
+	    the hyphen would look like this:</p><pre class="programlisting">ssh             stream  *       *               -ssh       3       24h</pre><p>With such a rule, any new blacklist rules are added to
+	    an anchor called <code class="literal">blacklistd-ssh</code>.</p><p>To block whole subnets for a single rule violation, a
+	    <code class="literal">/</code> in the rule name can be used.  This
+	    causes the remaining portion of the name to be interpreted
+	    as the mask to be applied to the address specified in
+	    the rule.  For example, this rule would block every
+	    address adjoining <code class="literal">/24</code>.</p><pre class="programlisting">22              stream  tcp       *               */24    3       24h</pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">It is important to specify the proper
+	      protocol here.  IPv4 and IPv6 treat /24 differently,
+	      that is the reason why <code class="literal">*</code> cannot be
+	      used in the third field for this rule.</p></div><p>This rule defines that if any one host in that network
+	    is misbehaving, everything else on that network will be
+	    blocked, too.</p><p>The sixth field, called <code class="literal">nfail</code>, sets
+	    the number of login failures required to blacklist the
+	    remote IP in question.  When a wildcard is used at this
+	    position, it means that blocks will never happen.  In the
+	    example rule above, a limit of three is defined meaning
+	    that after three attempts to log into
+	    <span class="application">SSH</span> on one connection, the IP
+	    is blocked.</p><p>The last field in a blacklistd rule definition
+	    specifies how long a host is blacklisted.  The default
+	    unit is seconds, but suffixes like <code class="literal">m</code>,
+	    <code class="literal">h</code>, and <code class="literal">d</code> can also be
+	    specified for minutes, hours, and days,
+	    respectively.</p><p>The example rule in its entirety means that after
+	    three times authenticating to
+	    <span class="application">SSH</span> will result in a new PF
+	    block rule for that host.  Rule matches are performed by
+	    first checking local rules one after another, from most
+	    specific to least specific.  When a match occurs, the
+	    <code class="literal">remote</code> rules are applied and the name,
+	    <code class="literal">nfail</code>, and disable fields are changed
+	    by the <code class="literal">remote</code> rule that matched.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp72756984"></a>30.6.2.2. Remote Rules</h4></div></div></div><p>Remote rules are used to specify how blacklistd
+	    changes its behavior depending on the remote host
+	    currently being evaluated.  Each field in a remote rule
+	    is the same as in a local rule.  The only difference is
+	    in the way blacklistd is using them.  To explain it,
+	    this example rule is used:</p><pre class="programlisting">[remote]
+203.0.113.128/25 *      *       *               =/25    =       48h</pre><p>The address field can be an IP address (either v4 or
+	    v6), a port or both.  This allows setting special rules
+	    for a specific remote address range like in this example.
+	    The fields for type, protocol and owner are identically
+	    interpreted as in the local rule.</p><p>The name fields is different though: the equal sign
+	    (<code class="literal">=</code>) in a remote rule tells blacklistd
+	    to use the value from the matching local rule.  It means
+	    that the firewall rule entry is taken and the
+	    <code class="systemitem">/25</code> prefix (a
+	    netmask of <code class="systemitem">255.255.255.128</code>) is added.
+	    When a connection from that address range is blacklisted,
+	    the entire subnet is affected.  A PF anchor name can also
+	    be used here, in which case blacklistd will add rules for
+	    this address block to the anchor of that name.  The
+	    default table is used when a wildcard is specified.</p><p>A custom number of failures in the
+	    <code class="literal">nfail</code> column can be defined for an
+	    address.  This is useful for exceptions to a specific
+	    rule, to maybe allow someone a less strict application
+	    of rules or a bit more leniency in login tries.
+	    Blocking is disabled when an asterisk is used in this
+	    sixth field.</p><p>Remote rules allow a stricter enforcement of limits
+	    on attempts to log in compared to attempts coming from a
+	    local network like an office.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp72761976"></a>30.6.3. Blacklistd Client Configuration</h3></div></div></div><p>There are a few software packages in FreeBSD that can
+	  utilize blacklistd's functionality.  The two most
+	  prominent ones are <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ftpd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ftpd</span>(8)</span></a> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sshd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sshd</span>(8)</span></a> to block
+	  excessive connection attempts.  To activate blacklistd in
+	  the SSH daemon, add the following line to
+	  <code class="filename">/etc/ssh/sshd_config</code>:</p><pre class="programlisting">UseBlacklist yes</pre><p>Restart sshd afterwards to make these changes take
+	  effect.</p><p>Blacklisting for <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ftpd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ftpd</span>(8)</span></a> is enabled using
+	  <code class="literal">-B</code>, either in
+	  <code class="filename">/etc/inetd.conf</code> or as a
+	  flag in <code class="filename">/etc/rc.conf</code> like
+	  this:</p><pre class="programlisting">ftpd_flags="-B"</pre><p>That is all that is needed to make these programs
+	  talk to blacklistd.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp72773112"></a>30.6.4. Blacklistd Management</h3></div></div></div><p>Blacklistd provides the user with a management utility
+	  called <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=blacklistctl&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">blacklistctl</span>(8)</span></a>.  It displays blocked
+	  addresses and networks that are blacklisted by the rules
+	  defined in <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=blacklistd.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">blacklistd.conf</span>(5)</span></a>.  To see the
+	  list of currently blocked hosts, use
+	  <code class="command">dump</code> combined with <code class="option">-b</code>
+	  like this.</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>blacklistctl dump -b</code></strong>
+      address/ma:port id      nfail   last access
+213.0.123.128/25:22   OK      6/3     2019/06/08 14:30:19</pre><p>This example shows that there were 6 out of three
+	  permitted attempts on port 22 coming from the address
+	  range <code class="systemitem">213.0.123.128/25</code>.  There
+	  are more attempts listed than are allowed because SSH
+	  allows a client to try multiple logins on a single TCP
+	  connection.  A connection that is currently going on is
+	  not stopped by blacklistd.  The last connection attempt is
+	  listed in the <code class="literal">last access</code> column of the
+	  output.</p><p>To see the remaining time that this host will be on
+	  the blacklist, add <code class="option">-r</code> to the previous
+	  command.</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>blacklistctl dump -br</code></strong>
+      address/ma:port id      nfail   remaining time
+213.0.123.128/25:22   OK      6/3     36s</pre><p>In this example, there are 36s seconds left until this
+	  host will not be blocked any more.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp72785272"></a>30.6.5. Removing Hosts from the Block List</h3></div></div></div><p>Sometimes it is necessary to remove a host from the
+	  block list before the remaining time expires.
+	  Unfortunately, there is no functionality in blacklistd to
+	  do that.  However, it is possible to remove the address
+	  from the PF table using pfctl.  For each blocked port,
+	  there is a child anchor inside the blacklistd anchor
+	  defined in <code class="filename">/etc/pf.conf</code>.  For
+	  example, if there is a child anchor for blocking port 22
+	  it is called <code class="literal">blacklistd/22</code>.  There is a
+	  table inside that child anchor that contains the blocked
+	  addresses.  This table is called port followed by the port
+	  number.  In this example, it would be called
+	  <code class="literal">port22</code>.  With that information at hand,
+	  it is now possible to use <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pfctl&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pfctl</span>(8)</span></a> to display all
+	  addresses listed like this:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pfctl -a <em class="replaceable"><code>blacklistd/22</code></em> -t <em class="replaceable"><code>port22</code></em> -T show</code></strong>
+...
+213.0.123.128/25
+...</pre><p>After identifying the address to be unblocked from the
+	  list, the following command removes it from the list:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pfctl -a <em class="replaceable"><code>blacklistd/22</code></em> -t <em class="replaceable"><code>port22</code></em> -T delete <em class="replaceable"><code>213.0.123.128/25</code></em></code></strong></pre><p>The address is now removed from PF, but will still
+	  show up in the blacklistctl list, since it does not know
+	  about any changes made in PF.  The entry in blacklistd's
+	  database will eventually expire and be removed from its
+	  output eventually.  The entry will be added again if the
+	  host is matching one of the block rules in blacklistd
+	  again.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="firewalls-ipf.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="firewalls.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="advanced-networking.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">30.5. IPFILTER (IPF) </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 31. Advanced Networking</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

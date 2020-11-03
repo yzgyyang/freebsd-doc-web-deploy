@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>9. Other</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="For People New to Both FreeBSD and UNIX®" /><link rel="up" href="index.html" title="For People New to Both FreeBSD and UNIX®" /><link rel="prev" href="your-working-environment.html" title="8. Your Working Environment" /><link rel="next" href="comments-welcome.html" title="10. Comments Welcome" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">9. Other</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="your-working-environment.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="comments-welcome.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="other"></a>9. Other</h2></div></div></div><p>As <code class="systemitem">root</code>, you can
+      unmount the CDROM with <code class="command">/sbin/umount /cdrom</code>,
+      take it out of the drive, insert another one, and mount it with
+      <code class="command">/sbin/mount_cd9660 /dev/cd0a /cdrom</code> assuming
+      <span class="hardware">cd0a</span> is the device name for your CDROM
+      drive.  The most recent versions of FreeBSD let you mount the
+      CDROM with just <code class="command">/sbin/mount /cdrom</code>.</p><p>Using the live filesystem&#8212;the second of FreeBSD's
+      CDROM disks&#8212;is useful if you have got limited space.  What
+      is on the live filesystem varies from release to release.  You
+      might try playing games from the CDROM.  This involves using
+      <code class="command">lndir</code>, which gets installed with the X Window
+      System, to tell the program(s) where to find the necessary
+      files, because they are in <code class="filename">/cdrom</code> instead
+      of in <code class="filename">/usr</code> and its subdirectories, which is
+      where they are expected to be.  Read <code class="command">man
+	lndir</code>.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="your-working-environment.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="comments-welcome.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">8. Your Working Environment </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 10. Comments Welcome</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

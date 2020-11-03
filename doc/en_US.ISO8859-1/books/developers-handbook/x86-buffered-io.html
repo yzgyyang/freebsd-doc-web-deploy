@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>11.8. Buffered Input and Output</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Developers' Handbook" /><link rel="up" href="x86.html" title="Chapter 11. x86 Assembly Language Programming" /><link rel="prev" href="x86-unix-filters.html" title="11.7. Writing UNIX® Filters" /><link rel="next" href="x86-command-line.html" title="11.9. Command Line Arguments" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">11.8. Buffered Input and Output</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="x86-unix-filters.html">Prev</a> </td><th width="60%" align="center">Chapter 11. x86 Assembly Language Programming</th><td width="20%" align="right"> <a accesskey="n" href="x86-command-line.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="x86-buffered-io"></a>11.8. Buffered Input and Output</h2></div></div></div><p>We can improve the efficiency of our code by buffering our
+	input and output.  We create an input buffer and read a whole
+	sequence of bytes at one time.  Then we fetch them one by one
+	from the buffer.</p><p>We also create an output buffer.  We store our output in
+	it until it is full.  At that time we ask the kernel to write
+	the contents of the buffer to
+	<code class="filename">stdout</code>.</p><p>The program ends when there is no more input.  But we
+	still need to ask the kernel to write the contents of our
+	output buffer to <code class="filename">stdout</code> one last time,
+	otherwise some of our output would make it to the output
+	buffer, but never be sent out.  Do not forget that, or you
+	will be wondering why some of your output is missing.</p><pre class="programlisting">%include	'system.inc'
+
+%define	BUFSIZE	2048
+
+section	.data
+hex	db	'0123456789ABCDEF'
+
+section .bss
+ibuffer	resb	BUFSIZE
+obuffer	resb	BUFSIZE
+
+section	.text
+global	_start
+_start:
+	sub	eax, eax
+	sub	ebx, ebx
+	sub	ecx, ecx
+	mov	edi, obuffer
+
+.loop:
+	; read a byte from stdin
+	call	getchar
+
+	; convert it to hex
+	mov	dl, al
+	shr	al, 4
+	mov	al, [hex+eax]
+	call	putchar
+
+	mov	al, dl
+	and	al, 0Fh
+	mov	al, [hex+eax]
+	call	putchar
+
+	mov	al, ' '
+	cmp	dl, 0Ah
+	jne	.put
+	mov	al, dl
+
+.put:
+	call	putchar
+	jmp	short .loop
+
+align 4
+getchar:
+	or	ebx, ebx
+	jne	.fetch
+
+	call	read
+
+.fetch:
+	lodsb
+	dec	ebx
+	ret
+
+read:
+	push	dword BUFSIZE
+	mov	esi, ibuffer
+	push	esi
+	push	dword stdin
+	sys.read
+	add	esp, byte 12
+	mov	ebx, eax
+	or	eax, eax
+	je	.done
+	sub	eax, eax
+	ret
+
+align 4
+.done:
+	call	write		; flush output buffer
+	push	dword 0
+	sys.exit
+
+align 4
+putchar:
+	stosb
+	inc	ecx
+	cmp	ecx, BUFSIZE
+	je	write
+	ret
+
+align 4
+write:
+	sub	edi, ecx	; start of buffer
+	push	ecx
+	push	edi
+	push	dword stdout
+	sys.write
+	add	esp, byte 12
+	sub	eax, eax
+	sub	ecx, ecx	; buffer is empty now
+	ret</pre><p>We now have a third section in the source code, named
+	<code class="varname">.bss</code>.  This section is not included in our
+	executable file, and, therefore, cannot be initialized.  We
+	use <code class="function">resb</code> instead of
+	<code class="function">db</code>.  It simply reserves
+	the requested size of uninitialized memory for our use.</p><p>We take advantage of the fact that the system does not
+	modify the registers: We use registers for what, otherwise,
+	would have to be global variables stored in the
+	<code class="varname">.data</code> section.  This is also why the
+	<span class="trademark">UNIX</span>® convention of passing parameters to system calls on the
+	stack is superior to the Microsoft convention of passing them
+	in the registers: We can keep the registers for our own
+	use.</p><p>We use <code class="varname">EDI</code> and
+	<code class="varname">ESI</code> as pointers to the next
+	byte to be read from or written to.  We use <code class="varname">EBX</code> and <code class="varname">ECX</code> to keep count of the number of
+	bytes in the two buffers, so we know when to dump the output
+	to, or read more input from, the system.</p><p>Let us see how it works now:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>nasm -f elf hex.asm</code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>ld -s -o hex hex.o</code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>./hex</code></strong>
+<strong class="userinput"><code>Hello, World!</code></strong>
+<strong class="userinput"><code>Here I come!</code></strong>
+48 65 6C 6C 6F 2C 20 57 6F 72 6C 64 21 0A
+48 65 72 65 20 49 20 63 6F 6D 65 21 0A
+<strong class="userinput"><code>^D</code></strong> <code class="prompt">%</code></pre><p>Not what you expected? The program did not print the
+	output until we pressed <strong class="userinput"><code>^D</code></strong>.  That is
+	easy to fix by inserting three lines of code to write the
+	output every time we have converted a new line to
+	<code class="constant">0A</code>.  I have marked the three lines with
+	&gt; (do not copy the &gt; in your
+	<code class="filename">hex.asm</code>).</p><pre class="programlisting">%include	'system.inc'
+
+%define	BUFSIZE	2048
+
+section	.data
+hex	db	'0123456789ABCDEF'
+
+section .bss
+ibuffer	resb	BUFSIZE
+obuffer	resb	BUFSIZE
+
+section	.text
+global	_start
+_start:
+	sub	eax, eax
+	sub	ebx, ebx
+	sub	ecx, ecx
+	mov	edi, obuffer
+
+.loop:
+	; read a byte from stdin
+	call	getchar
+
+	; convert it to hex
+	mov	dl, al
+	shr	al, 4
+	mov	al, [hex+eax]
+	call	putchar
+
+	mov	al, dl
+	and	al, 0Fh
+	mov	al, [hex+eax]
+	call	putchar
+
+	mov	al, ' '
+	cmp	dl, 0Ah
+	jne	.put
+	mov	al, dl
+
+.put:
+	call	putchar
+&gt;	cmp	al, 0Ah
+&gt;	jne	.loop
+&gt;	call	write
+	jmp	short .loop
+
+align 4
+getchar:
+	or	ebx, ebx
+	jne	.fetch
+
+	call	read
+
+.fetch:
+	lodsb
+	dec	ebx
+	ret
+
+read:
+	push	dword BUFSIZE
+	mov	esi, ibuffer
+	push	esi
+	push	dword stdin
+	sys.read
+	add	esp, byte 12
+	mov	ebx, eax
+	or	eax, eax
+	je	.done
+	sub	eax, eax
+	ret
+
+align 4
+.done:
+	call	write		; flush output buffer
+	push	dword 0
+	sys.exit
+
+align 4
+putchar:
+	stosb
+	inc	ecx
+	cmp	ecx, BUFSIZE
+	je	write
+	ret
+
+align 4
+write:
+	sub	edi, ecx	; start of buffer
+	push	ecx
+	push	edi
+	push	dword stdout
+	sys.write
+	add	esp, byte 12
+	sub	eax, eax
+	sub	ecx, ecx	; buffer is empty now
+	ret</pre><p>Now, let us see how it works:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>nasm -f elf hex.asm</code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>ld -s -o hex hex.o</code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>./hex</code></strong>
+<strong class="userinput"><code>Hello, World!</code></strong>
+48 65 6C 6C 6F 2C 20 57 6F 72 6C 64 21 0A
+<strong class="userinput"><code>Here I come!</code></strong>
+48 65 72 65 20 49 20 63 6F 6D 65 21 0A
+<strong class="userinput"><code>^D</code></strong> <code class="prompt">%</code></pre><p>Not bad for a 644-byte executable, is it!</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">This approach to buffered input/output still
+	  contains a hidden danger.  I will discuss&#8212;and
+	  fix&#8212;it later, when I talk about the <a class="link" href="x86-one-pointed-mind.html#x86-buffered-dark-side" title="11.12.1.1. The Dark Side of Buffering">dark side of
+	    buffering</a>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-ungetc"></a>11.8.1. How to Unread a Character</h3></div></div></div><div xmlns="" class="warning"><h3 class="admontitle">Warning: </h3><p xmlns="http://www.w3.org/1999/xhtml">This may be a somewhat advanced topic, mostly of
+	    interest to programmers familiar with the theory of
+	    compilers.  If you wish, you may <a class="link" href="x86-command-line.html" title="11.9. Command Line Arguments">skip to the next
+	      section</a>, and perhaps read this later.</p></div><p>While our sample program does not require it, more
+	  sophisticated filters often need to look ahead.  In other
+	  words, they may need to see what the next character is (or
+	  even several characters).  If the next character is of a
+	  certain value, it is part of the token currently being
+	  processed.  Otherwise, it is not.</p><p>For example, you may be parsing the input stream for a
+	  textual string (e.g., when implementing a language
+	  compiler): If a character is followed by another character,
+	  or perhaps a digit, it is part of the token you are
+	  processing.  If it is followed by white space, or some other
+	  value, then it is not part of the current token.</p><p>This presents an interesting problem: How to return the
+	  next character back to the input stream, so it can be read
+	  again later?</p><p>One possible solution is to store it in a character
+	  variable, then set a flag.  We can modify
+	  <code class="function">getchar</code> to check the flag, and if it is
+	  set, fetch the byte from that variable instead of the input
+	  buffer, and reset the flag.  But, of course, that slows us
+	  down.</p><p>The C language has an <code class="function">ungetc()</code>
+	  function, just for that purpose.  Is there a quick way to
+	  implement it in our code?  I would like you to scroll back
+	  up and take a look at the <code class="function">getchar</code>
+	  procedure and see if you can find a nice and fast solution
+	  before reading the next paragraph.  Then come back here and
+	  see my own solution.</p><p>The key to returning a character back to the stream is
+	  in how we are getting the characters to start with:</p><p>First we check if the buffer is empty by testing the
+	  value of <code class="varname">EBX</code>.  If it is
+	  zero, we call the <code class="function">read</code>
+	  procedure.</p><p>If we do have a character available, we use <code class="function">lodsb</code>, then decrease the value of
+	  <code class="varname">EBX</code>.  The <code class="function">lodsb</code> instruction is effectively
+	  identical to:</p><pre class="programlisting">mov	al, [esi]
+	inc	esi</pre><p>The byte we have fetched remains in the buffer until the
+	next time <code class="function">read</code> is called.  We do not know
+	when that happens, but we do know it will not happen until the
+	next call to <code class="function">getchar</code>.  Hence, to "return"
+	the last-read byte back to the stream, all we have to do is
+	decrease the value of <code class="varname">ESI</code>
+	and increase the value of <code class="varname">EBX</code>:</p><pre class="programlisting">ungetc:
+	dec	esi
+	inc	ebx
+	ret</pre><p>But, be careful! We are perfectly safe doing this if our
+	look-ahead is at most one character at a time.  If we are
+	examining more than one upcoming character and call
+	<code class="function">ungetc</code> several times in a row, it will
+	work most of the time, but not all the time (and will be tough
+	to debug).  Why?</p><p>Because as long as <code class="function">getchar</code> does not
+	have to call <code class="function">read</code>, all of the pre-read
+	bytes are still in the buffer, and our
+	<code class="function">ungetc</code> works without a glitch.  But the
+	moment <code class="function">getchar</code> calls
+	<code class="function">read</code>, the contents of the buffer
+	change.</p><p>We can always rely on <code class="function">ungetc</code> working
+	properly on the last character we have read with
+	<code class="function">getchar</code>, but not on anything we have read
+	before that.</p><p>If your program reads more than one byte ahead, you have
+	at least two choices:</p><p>If possible, modify the program so it only reads one byte
+	ahead.  This is the simplest solution.</p><p>If that option is not available, first of all determine
+	the maximum number of characters your program needs to return
+	to the input stream at one time.  Increase that number
+	slightly, just to be sure, preferably to a multiple of
+	16&#8212;so it aligns nicely.  Then modify the
+	<code class="varname">.bss</code> section of your code, and create a
+	small "spare" buffer right before your input buffer, something
+	like this:</p><pre class="programlisting">section	.bss
+	resb	16	; or whatever the value you came up with
+ibuffer	resb	BUFSIZE
+obuffer	resb	BUFSIZE</pre><p>You also need to modify your <code class="function">ungetc</code>
+	to pass the value of the byte to unget in <code class="varname">AL</code>:</p><pre class="programlisting">ungetc:
+	dec	esi
+	inc	ebx
+	mov	[esi], al
+	ret</pre><p>With this modification, you can call
+	<code class="function">ungetc</code> up to 17 times in a row safely
+	(the first call will still be within the buffer, the remaining
+	16 may be either within the buffer or within the
+	"spare").</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="x86-unix-filters.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="x86.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="x86-command-line.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">11.7. Writing <span class="trademark">UNIX</span>® Filters </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 11.9. Command Line Arguments</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

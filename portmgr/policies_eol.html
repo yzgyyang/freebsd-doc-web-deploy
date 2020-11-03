@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">Search</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="//www.FreeBSD.org/cgi/man.cgi">Manual Pages</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">Presentations and Papers</a>
                   </li>
                   <li>
                     <a href="../doc/en_US.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
@@ -310,45 +312,9 @@
     <th rowspan="1" colspan="1">Estimated EoL</th>
   </tr>
   <tr>
-    <td rowspan="1" colspan="1">stable/10</td>
-    <td rowspan="1" colspan="1">n/a</td>
-    <td rowspan="1" colspan="1">releng/10.3</td>
-    <td rowspan="1" colspan="1">
-      <ul>
-	<li>FreeBSD:10:amd64</li>
-	<li>FreeBSD:10:i386</li>
-      </ul>
-    </td>
-    <td rowspan="1" colspan="1">October 31, 2018</td>
-  </tr>
-  <tr>
-    <td rowspan="1" colspan="1">releng/10.3</td>
-    <td rowspan="1" colspan="1">10.3-RELEASE</td>
-    <td rowspan="1" colspan="1">releng/10.3</td>
-    <td rowspan="1" colspan="1">
-      <ul>
-	<li>FreeBSD:10:amd64</li>
-	<li>FreeBSD:10:i386</li>
-      </ul>
-    </td>
-    <td rowspan="1" colspan="1">April 30, 2018</td>
-  </tr>
-  <tr>
-    <td rowspan="1" colspan="1">releng/10.4</td>
-    <td rowspan="1" colspan="1">10.4-RELEASE</td>
-    <td rowspan="1" colspan="1">releng/10.3</td>
-    <td rowspan="1" colspan="1">
-      <ul>
-	<li>FreeBSD:10:amd64</li>
-	<li>FreeBSD:10:i386</li>
-      </ul>
-    </td>
-    <td rowspan="1" colspan="1">October 31, 2018</td>
-  </tr>
-  <tr>
     <td rowspan="1" colspan="1">stable/11</td>
     <td rowspan="1" colspan="1">n/a</td>
-    <td rowspan="1" colspan="1">releng/11.0</td>
+    <td rowspan="1" colspan="1">releng/11.2</td>
     <td rowspan="1" colspan="1">
       <ul>
 	<li>FreeBSD:11:aarch64</li>
@@ -362,9 +328,9 @@
     <td rowspan="1" colspan="1">September 30, 2021</td>
   </tr>
   <tr>
-    <td rowspan="1" colspan="1">releng/11.0</td>
-    <td rowspan="1" colspan="1">11.0-RELEASE</td>
-    <td rowspan="1" colspan="1">releng/11.0</td>
+    <td rowspan="1" colspan="1">releng/11.2</td>
+    <td rowspan="1" colspan="1">11.2-RELEASE</td>
+    <td rowspan="1" colspan="1">releng/11.2</td>
     <td rowspan="1" colspan="1">
       <ul>
 	<li>FreeBSD:11:aarch64</li>
@@ -375,23 +341,43 @@
 	<li>FreeBSD:11:mips64</li>
       </ul>
     </td>
-    <td rowspan="1" colspan="1">11.1-RELEASE + 3 months</td>
+    <td rowspan="1" colspan="1">11.3-RELEASE + 3 months</td>
   </tr>
   <tr>
-    <td rowspan="1" colspan="1">releng/11.1</td>
-    <td rowspan="1" colspan="1">11.1-RELEASE</td>
-    <td rowspan="1" colspan="1">releng/11.0</td>
+    <td rowspan="1" colspan="1">stable/12</td>
+    <td rowspan="1" colspan="1">n/a</td>
+    <td rowspan="1" colspan="1">releng/12.0</td>
     <td rowspan="1" colspan="1">
       <ul>
-	<li>FreeBSD:11:aarch64</li>
-	<li>FreeBSD:11:amd64</li>
-	<li>FreeBSD:11:armv6</li>
-	<li>FreeBSD:11:i386</li>
-	<li>FreeBSD:11:mips</li>
-	<li>FreeBSD:11:mips64</li>
+	<li>FreeBSD:12:aarch64</li>
+	<li>FreeBSD:12:amd64</li>
+	<li>FreeBSD:12:armv6</li>
+	<li>FreeBSD:12:armv7</li>
+	<li>FreeBSD:12:i386</li>
+	<li>FreeBSD:12:mips</li>
+	<li>FreeBSD:12:mips64</li>
+	<li>FreeBSD:12:powerpc64</li>
       </ul>
     </td>
-    <td rowspan="1" colspan="1">11.2-RELEASE + 3 months</td>
+    <td rowspan="1" colspan="1">June 30, 2024</td>
+  </tr>
+  <tr>
+    <td rowspan="1" colspan="1">releng/12.0</td>
+    <td rowspan="1" colspan="1">12.0-RELEASE</td>
+    <td rowspan="1" colspan="1">releng/12.0</td>
+    <td rowspan="1" colspan="1">
+      <ul>
+	<li>FreeBSD:12:aarch64</li>
+	<li>FreeBSD:12:amd64</li>
+	<li>FreeBSD:12:armv6</li>
+	<li>FreeBSD:12:armv7</li>
+	<li>FreeBSD:12:i386</li>
+	<li>FreeBSD:12:mips</li>
+	<li>FreeBSD:12:mips64</li>
+	<li>FreeBSD:12:powerpc64</li>
+      </ul>
+    </td>
+    <td rowspan="1" colspan="1">12.1-RELEASE + 3 months</td>
   </tr>
   <tr>
     <td rowspan="1" colspan="1">HEAD</td>
@@ -399,13 +385,14 @@
     <td rowspan="1" colspan="1">HEAD</td>
     <td rowspan="1" colspan="1">
       <ul>
-	<li>FreeBSD:12:aarch64</li>
-	<li>FreeBSD:12:amd64</li>
-	<li>FreeBSD:12:armv6</li>
-	<li>FreeBSD:12:i386</li>
-	<li>FreeBSD:12:mips</li>
-	<li>FreeBSD:12:mips64</li>
-	<li>FreeBSD:12:powerpc64</li>
+	<li>FreeBSD:13:aarch64</li>
+	<li>FreeBSD:13:amd64</li>
+	<li>FreeBSD:13:armv6</li>
+	<li>FreeBSD:12:armv7</li>
+	<li>FreeBSD:13:i386</li>
+	<li>FreeBSD:13:mips</li>
+	<li>FreeBSD:13:mips64</li>
+	<li>FreeBSD:13:powerpc64</li>
       </ul>
     </td>
     <td rowspan="1" colspan="1">Best Effort</td>
@@ -421,7 +408,7 @@
         </div>
         <div id="footer">
           <span><a href="../search/index-site.html">Site Map</a> |
-  <a href="../copyright/">Legal Notices</a> | © 1995&#8211;2018 The FreeBSD Project.
+  <a href="../copyright/">Legal Notices</a> | © 1995&#8211;2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

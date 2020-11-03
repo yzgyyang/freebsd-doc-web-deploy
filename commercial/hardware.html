@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">Search</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="//www.FreeBSD.org/cgi/man.cgi">Manual Pages</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">Presentations and Papers</a>
                   </li>
                   <li>
                     <a href="../doc/en_US.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
@@ -337,20 +339,15 @@
 
       <p>Our product line configurations are illustrated on our <a href="http://www.acnodes.com" shape="rect">website</a>.  However, most of the
 	commercial and industrial computers are custom built to your
-	exact requirements.  <a href="http://www.acnodes.com/zebpage_contactus.htm" shape="rect">Contact</a>
-	us via e-mail or telephone to discover how we can provide you
-	with the equipment you need for your specific needs.</p>
-    </dd>
+	exact requirements.</p></dd>
               <dt>
                 <a name="ActiveWire" href="http://www.ActiveWireInc.com/" id="ActiveWire">ActiveWire Inc.</a>
               </dt>
               <dd>
       ActiveWire Inc. provides an extremely flexible, USB-based I/O board
       that connects to buttons, switches, and LEDs, providing a simple API
-      to read and write to the I/O pins on the board. The USB port is
-      supported in <a href=".." shape="rect">FreeBSD 4.0</a>
-      or later.  An additional EZ USB chip firmware downloader is
-      available in the Ports Collection.
+      to read and write to the I/O pins on the board.  An additional EZ
+      USB chip firmware downloader is available in the Ports Collection.
     </dd>
               <dt>
                 <a name="ASA" href="http://www.asacomputers.com/" id="ASA">ASA Computers</a>
@@ -362,10 +359,8 @@
       systems. Multiple-OS experience and knowledge are our strengths. We
       resell a variety of communication and networking products, including
       3COM, Cisco, Cyclades, DIGI, Livingston, and U.S. Robotics. Please
-      take a look at the pre-configured systems on our web page. Contact us
-      at <a href="mailto:unix@asacomputers.com" shape="rect">unix@asacomputers.com</a>
-      to configure them your own way or if you have questions or comments.
-    </dd>
+      take a look at the pre-configured systems on our web
+      page.</dd>
               <dt>
                 <a name="aspensystems" href="http://www.aspsys.com/" id="aspensystems">Aspen Systems</a>
               </dt>
@@ -392,6 +387,14 @@
       systems.
     </dd>
               <dt>
+                <a name="bargainhardware" href="https://www.bargainhardware.co.uk" id="bargainhardware">Bargain Hardware</a>
+              </dt>
+              <dd>Bargain Hardware supply a huge variety of refurbished
+      desktops and laptops, all of which are offered with FreeBSD OS
+      installation as an option on the website configurator.  Server
+      and Workstation installation is also available by request of our
+      sales team.</dd>
+              <dt>
                 <a name="catpipe" href="http://www.catpipe.net/" id="catpipe">catpipe Systems</a>
               </dt>
               <dd>
@@ -400,61 +403,20 @@
       FreeBSD.
     </dd>
               <dt>
-                <a name="ChassisPlans" href="http://www.chassis-plans.com" id="ChassisPlans">Chassis Plans Rackmount Systems</a>
+                <a name="CoreSystems" href="https://core-systems.com" id="CoreSystems">Core Systems</a>
               </dt>
-              <dd>
-      <p>Chassis Plans is a recognized leader in manufacturing fully configured
-	turn-key industrial <a href="http://www.chassis-plans.com" shape="rect">rackmount systems</a> that support
-	FreeBSD for the industrial, rugged, and military markets.  We manufacture
-	1U to 6U ATX and <a href="http://www.chassis-plans.com/single_board_computers.html" shape="rect">Single Board Computer systems</a>
-	tailored exactly to customer application requirements.  We also
-	manufacture a full line of industrial <a href="http://www.chassis-plans.com/rackmount_keyboards.html" shape="rect">rackmount LCD keyboard drawers</a>
-	and <a href="http://www.chassis-plans.com/rackmount_keyboards.html" shape="rect">panel mount LCD monitors.</a></p>
-
-      <p>Chassis Plans specializes in long-life product support offering
-	unmatched in-house custom chassis design, long-life industrial
-	motherboards and SBC's with strict revision control and material
-	obsolescence management for trouble free program deployment.  Key
-	military customers include companies such as L3, Lockheed, and Northrop
-	Grumman.  Notable commercial customers include Siemens, Nikon, and
-	General Electric. Chassis Plans' Systems are Engineered to
-	Perform!&#8482;</p>
-
-      <p>Our knowledgable sales engineers can be reached at 858-571-4330
-	(California, United States) or at <a href="mailto:saleseng@chassisplans.com" shape="rect">saleseng@chassis-plans.com</a>.</p>
-    </dd>
-              <dt>
-                <a name="ColoMachine" href="http://www.colomachine.com/" id="ColoMachine">ColoMachine</a>
-              </dt>
-              <dd>
-      ColoMachine offers high quality sub-$500 1U rackmount servers
-      optimized for the FreeBSD operating system.
-    </dd>
-              <dt>
-                <a name="CoreSystems" href="http://www.coresystemsusa.com/" id="CoreSystems">Core Systems</a>
-              </dt>
-              <dd>
-      Core Systems is the market leader in <a href="http://www.coresystemsusa.com/industrial-computers.php" shape="rect">rackmount
-      computers</a> and <a href="http://www.coresystemsusa.com/industrial-lcd-displays.php" shape="rect">rackmount
-      LCD displays</a> and supports multiple versions of FreeBSD.  We
-      manufacture a complete line of <a href="http://www.coresystemsusa.com/rackmount-industrial-computer-chassis.php" shape="rect">
-      industrial computer chassis</a>, <a href="http://www.coresystemsusa.com/industrial-single-board-computer.php" shape="rect">
-      single board computer</a> and <a href="http://www.coresystemsusa.com/passive-backplanes.php" shape="rect">passive
-      backplane</a> <a href="http://www.coresystemsusa.com/atx-eatx-systems.php" shape="rect">rackmount
-      systems</a>.  We design and manufacture all of our 1U and 4U
-      rack mounted systems in-house to maintain strict revision control over
-      our entire product line.  Our systems engineering design and
-      development staff is second to none in the rackmount industry.
-      Please visit our <a href="http://www.coresystemsusa.com/" shape="rect">website</a>
-      for further information.
-    </dd>
+              <dd>Core Systems is a global leader in Rugged Computers
+      and Rugged Displays for military and industrial needs based out
+      of California.  We build rugged products that are deployed in
+      ground vehicles, aircraft, and maritime installations
+      worldwide.</dd>
               <dt>
                 <a name="CoyotePointSystems" href="http://www.coyotepoint.com/" id="CoyotePointSystems">Coyote Point Systems</a>
               </dt>
               <dd>
-      Coyote Point Systems offers the <a href="http://www.coyotepoint.com/products.htm" shape="rect">Equalizer</a> Load
-      Balancing Appliance. Equalizer distributes client UDP/TCP requests to
-      multiple server machines and includes load balancing, server failure
+      Coyote Point Systems offers the Equalizer Load Balancing Appliance.
+      Equalizer distributes client UDP/TCP requests to multiple server
+      machines and includes load balancing, server failure
       detection/correction, and an easy-to-use administrative interface.
       Capable of handling over 20,000 HTTP GET operations per minute,
       Equalizer enhances the Scalability, Availability and Manageability of
@@ -463,7 +425,14 @@
       FreeBSD kernel.
     </dd>
               <dt>
-                <a name="DAVICOM" href="http://www.davicom.com.tw/" id="DAVICOM">DAVICOM Semiconductor, Inc.</a>
+                <a name="CPTechnologies" href="https://cp-techusa.com/" id="CPTechnologies">CP Technologies</a>
+              </dt>
+              <dd>CP Technologies designs, fabricates and integrates
+      standard and custom high-performance computing platforms, data
+      links, and LCD displays for military, industrial, and commercial
+      markets.</dd>
+              <dt>
+                <a name="DAVICOM" href="http://www.davicom.com.tw/index.php?lang_id=en" id="DAVICOM">DAVICOM Semiconductor, Inc.</a>
               </dt>
               <dd>
       DAVICOM Semiconductor, Inc. designs, develops, and markets
@@ -478,9 +447,7 @@
       (10M/100M PCI Fast Ethernet PHY chip, included into DM9102 single
       chip), DM9131 (3.3 volts Low Power10M/100M PCI Fast Ethernet PHY
       chip, included into DM9102A single chip) and DM9801 (1M8 Home PNA PHY
-      chip). </p> <p> Please visit <a href="http://www.davicom.com.tw" shape="rect">our
-      web site</a> for more information about our company. </p>
-    </dd>
+      chip).</p></dd>
               <dt>
                 <a name="EmergingTechnologies" href="http://www.etinc.com/" id="EmergingTechnologies">Emerging Technologies</a>
               </dt>
@@ -521,53 +488,6 @@
       eRacks at <a href="mailto:info@eracks.com" shape="rect">info@eracks.com</a>.
     </dd>
               <dt>
-                <a name="EssenzConsulting" href="http://www.essenz.com" id="EssenzConsulting">Essenz Consulting</a>
-              </dt>
-              <dd>
-      Essenz Consulting is a leading provider of high-performance rackmount
-      server equipment. All of our <a href="http://www.essenz.com/servers/index.html" shape="rect">servers</a> feature
-      dual processor capability, dual onboard networking, high-capacity
-      memory support, and integrated video. From 1U Hot-Swap SCSI systems
-      to 2U Hot-Swap 64-bit SCSI RAID with 2x300W Hot-Swap Power Supply,
-      all Essenz Servers can be custom configured with immediate online
-      pricing. For more information, visit us <a href="http://www.essenz.com" shape="rect">online</a> or call our 24/7 Sales and
-      Support department at 1-800-248-1736.
-    </dd>
-              <dt>
-                <a name="FreedomTechnologies" href="http://www.freedomtc.com" id="FreedomTechnologies">Freedom Technologies</a>
-              </dt>
-              <dd>
-      Freedom Technologies offers you a wide range of Premium Quality Servers
-      in Rackmount and Tower configurations and, High-Performance Raid Systems.
-      All our Servers will run FreeBSD out of the box (i386 and AMD/64).  We
-      offer several <a href="http://www.freedomtc.com/nebs3.php" shape="rect">NEBS Level-3 1U and 2U</a>
-      Rackmount Servers with standard A.C. power or with -48 Volt D.C. Power.
-      We offer several <a href="http://www.freedomtc.com/short_depth_servers.php" shape="rect">short depth 1U
-	and 2U Rackmount Servers</a>.  You will find a good selection of
-      External Direct and Network Attached <a href="http://www.freedomtc.com/raid.php" shape="rect">RAID Enclosure Systems</a>
-      from 8-Bay to 24-Bay.  Our focus is providing you with premium quality,
-      trouble free Servers and RAID Storage Systems at best possible prices.
-      <a href="http://www.freedomtc.com/" shape="rect">Visit us online</a> and get pricing
-      instantly or call us toll-free 1.877.963.1900.
-    </dd>
-              <dt>
-                <a name="Gallantry" href="http://www.gallantry.com/" id="Gallantry">Gallantry Technologies, Inc.</a>
-              </dt>
-              <dd>
-      Gallantry Technologies Inc. offers a business broadband gateway for
-      small- to medium-sized businesses. Our products are focused on
-      offering an easy-to-use product that provides multiple services
-      routing, firewall, e-mail, web server, DHCP, NAT, FTP, DNS, and print
-      server. All these features can be accessed via an easy-to-use web
-      interface. The GallantWEB-100 is an affordable and easy-to-use
-      business broadband gateway that is ideal for connecting small and
-      medium offices to the Internet via any broadband connection including
-      xDSL, Cable, Frame Relay/T1, or ISDN. The GallantWEB-200 is the
-      industry's first business broadband gateway to include a built-in
-      SDSL router. This innovative one-box solution makes it easy for DSL
-      service providers to deploy and manage.
-    </dd>
-              <dt>
                 <a name="GenstorSystems" href="http://www.genstor.com/" id="GenstorSystems">Genstor Systems, Inc.</a>
               </dt>
               <dd>
@@ -582,18 +502,6 @@
       or call us at (877)25-SERVERS and test our capabilities.
     </dd>
               <dt>
-                <a name="GND" href="http://www.gnd.com/" id="GND">GND Distribution, Ltd.</a>
-              </dt>
-              <dd>
-      GND Distribution, Ltd., a London, UK-based company, specializes in
-      bespoke computer systems for FreeBSD and Linux. All GND computer
-      systems are built to order, using only top-quality components. Our
-      build quality is second to none. Systems are supplied configured and
-      optimized to our customer's requirements. We also supply a large
-      range of system components, including ASUSTeK mainboards, which are
-      popular within the FreeBSD and Linux communities.
-    </dd>
-              <dt>
                 <a name="Highpoint" href="http://www.highpoint-tech.com/" id="Highpoint">HighPoint Technologies</a>
               </dt>
               <dd>
@@ -603,17 +511,6 @@
       in providing SATA RAID solutions, including an Enterprise Series,
       Value Line Series and Upgrade Series of RAID controllers.  Their
       motto is "One Size Does Not Fit All".
-    </dd>
-              <dt>
-                <a name="INetU" href="http://www.inetu.net/" id="INetU">INetU Dedicated Managed Hosting</a>
-              </dt>
-              <dd>
-      INetU Dedicated Managed Hosting are one of the top rated hosting
-      firms focused on dedicated managed hosting, INetU provides managed
-      dedicated FreeBSD servers, along with firewalls, load balancing,
-      advanced monitoring and data backup services. They offer more free
-      tech support than most other hosts and have a lucrative partner
-      program for consultants and developers.
     </dd>
               <dt>
                 <a name="IronSystems" href="http://www.ironsystems.com/" id="IronSystems">Iron Systems</a>
@@ -634,20 +531,6 @@
       approach. Give us an opportunity to serve you! Please send us email
       at <a href="mailto:info@ironsystems.com" shape="rect">info@ironsystems.com</a> or
       call 1-800-921-IRON.
-    </dd>
-              <dt>
-                <a name="ItautecPhilco" href="http://www.itautec.com.br/" id="ItautecPhilco">Itautec Philco</a>
-              </dt>
-              <dd>
-      Itautec Philco is one of Brazil's leading IT products manufacturers
-      and one the leaders in the Brazilian Market and significant market
-      share in Portugal, Uruguay and Argentina. Products such as the
-      Infoway and the InfoServer are fully compatible with FreeBSD, Linux,
-      and other Operating Systems. Itautec Philco also manufactures Banking
-      and Retail Automation products, as well as Consumer Electronics
-      products. We provide complete solutions for our customers, from
-      Infrastructure (such as LAN) to software applications, to Web
-      development and hosting services, to call-center services.
     </dd>
               <dt>
                 <a name="iXsystems" href="http://www.iXsystems.com/" id="iXsystems">iXsystems</a>
@@ -673,23 +556,6 @@
       information, contact <a href="mailto:info@kvm-switches-online.com" shape="rect">
 	info@kvm-switches-online.com</a> or visit <a href="http://www.kvm-switches-online.com" shape="rect">
 	www.kvm-switches-online.com</a>.
-    </dd>
-              <dt>
-                <a name="KYTEX" href="http://www.kytex.bg/" id="KYTEX">KYTEX Computers Ltd</a>
-              </dt>
-              <dd>
-      KYTEX Computers Ltd offers K-SERVER family of pre-installed xBSD and
-      Linux Internet appliances. K-SERVER product line include small
-      footprint all-in-one solutions for small to middle networks and
-      rackmount servers for ISP/ASP and corporate networks. All-in-one
-      solutions provides Internet access via dial-up, leased lines, xDSL,
-      wireless technology and offer filesharing for Windows and MacOS
-      workstations across the network at no additional cost, users WEB-,
-      Mail-, Firewall-, DNS-server applications started and partially
-      configured for easy integration in any existing networks. K-SERVER
-      setup and management is very simple - just start any browser on your
-      workstation and follow the setup instructions and menus. If you have
-      any questions or proposals, please e-mail us.
     </dd>
               <dt>
                 <a name="MOXA" href="http://www.moxa.com/" id="MOXA">MOXA</a>
@@ -824,6 +690,21 @@
         www.server-rack-online.com</a>
     </dd>
               <dt>
+                <a name="serveru" href="https://www.serveru.us/en/" id="serveru">ServerU Inc.</a>
+              </dt>
+              <dd>We make Server hardware for open source flavors
+      of Unix-like systems. ServerU is a joint effort of FreeBSD
+      specialist company with more than 15 years expertise, and
+      ServerU itself, a US company based on Miami, FL. We focus
+      on designing and making rack-mount 1U networking appliances
+      completely supported by open source Unix-like systems. We
+      make hardware supported and certified for FreeBSD, OpenBSD
+      and Linux. We also focus on ProApps, pfSense, Vyatta (VyOS),
+      Endian and other systems, as well as Juniper, Brocade and
+      other networking products accelerated by Netmap and DPDK
+      technologies. Se offer FreeBSD consulting, support and
+      services on US east cost and Caribbean.</dd>
+              <dt>
                 <a name="StoreAnyWhere" href="http://StoreAnyWhere.com/" id="StoreAnyWhere">StoreAnyWhere.com</a>
               </dt>
               <dd>
@@ -850,13 +731,20 @@
               <dt>
                 <a name="Synetic" href="http://www.synetic.net/" id="Synetic">Synetic, Inc.</a>
               </dt>
-              <dd>
-      Synetic Inc. is a Canadian and North American distributor for
-      IDE-to-IDE, SCSI-to-IDE and SCSI-to-SCSI RAID controllers, supporting
-      the FreeBSD platform. Our products can be found at <a href="http://www.synetic.net/prodman.htm" shape="rect">www.synetic.net/prodman.htm</a>
-      or <a href="http://www.synetic.net/prodspec.htm" shape="rect">
-      www.synetic.net/prodspec.htm</a>
-    </dd>
+              <dd>Synetic Inc. is a Canadian and North American
+      distributor for IDE-to-IDE, SCSI-to-IDE and SCSI-to-SCSI
+      RAID controllers, supporting the FreeBSD
+      platform.</dd>
+              <dt>
+                <a name="thinkpenguin" href="https://www.thinkpenguin.com" id="thinkpenguin">ThinkPenguin</a>
+              </dt>
+              <dd>ThinkPenguin specializes in supporting free software
+      operating systems via one of the largest hardware catalogs in
+      the world.  We stock a wide array of computers, peripherals, and
+      accessories.  What sets us apart is our devotion to improving
+      hardware support for free software operating systems and
+      ensuring that hardware can be properly and natively supported
+      by the FreeBSD community.</dd>
               <dt>
                 <a name="Zantech" href="http://www.zantech.com.au/" id="Zantech">Zantech KVM Australia</a>
               </dt>
@@ -865,22 +753,13 @@
       compatible KVM switches, KVM over IP products and serial console
       terminal servers.
     </dd>
-              <dt>
-                <a name="Znyx" href="http://www.znyx.com/" id="Znyx">Znyx</a>
-              </dt>
-              <dd>
-      Znyx Corporation specializes in high-availability, high-performance,
-      single and multi-channel Fast Ethernet adapters for PCI, CompactPCI,
-      and PCI Mezzanine Connector (PMC). FreeBSD, Linux, QNX, NetWare,
-      OS/2, and SCO Unixware are supported on virtually all products.
-    </dd>
             </dl>
           </div>
           <br class="clearboth" />
         </div>
         <div id="footer">
           <span><a href="../search/index-site.html">Site Map</a> |
-  <a href="../copyright/">Legal Notices</a> | © 1995&#8211;2018 The FreeBSD Project.
+  <a href="../copyright/">Legal Notices</a> | © 1995&#8211;2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>11.2. Starting Services</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="config-tuning.html" title="Chapter 11. Configuration and Tuning" /><link rel="prev" href="config-tuning.html" title="Chapter 11. Configuration and Tuning" /><link rel="next" href="configtuning-cron.html" title="11.3. Configuring cron(8)" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">11.2. Starting Services</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="config-tuning.html">Prev</a> </td><th width="60%" align="center">Chapter 11. Configuration and Tuning</th><td width="20%" align="right"> <a accesskey="n" href="configtuning-cron.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="configtuning-starting-services"></a>11.2. Starting Services</h2></div><div><span class="authorgroup">Contributed by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Tom</span> <span class="surname">Rhodes</span></span>. </span></div></div></div><a id="idp56968056" class="indexterm"></a><p>Many users install third party software on FreeBSD from the
+      Ports Collection and require the installed services to be
+      started upon system initialization.  Services, such as
+      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/mail/postfix/pkg-descr">mail/postfix</a> or
+      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/www/apache22/pkg-descr">www/apache22</a> are just two of the many
+      software packages which may be started during system
+      initialization.  This section explains the procedures available
+      for starting third party software.</p><p>In FreeBSD, most included services, such as <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=cron&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">cron</span>(8)</span></a>, are
+      started through the system startup scripts.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp56975224"></a>11.2.1. Extended Application Configuration</h3></div></div></div><p>Now that FreeBSD includes <code class="filename">rc.d</code>,
+	configuration of application startup is easier and provides
+	more features.  Using the key words discussed in
+	<a class="xref" href="configtuning-rcd.html" title="11.4. Managing Services in FreeBSD">Section 11.4, &#8220;Managing Services in FreeBSD&#8221;</a>, applications can be set to
+	start after certain other services and extra flags can be
+	passed through <code class="filename">/etc/rc.conf</code> in place of
+	hard coded flags in the startup script.  A basic script may
+	look similar to the following:</p><pre class="programlisting">#!/bin/sh
+#
+# PROVIDE: utility
+# REQUIRE: DAEMON
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name=utility
+rcvar=utility_enable
+
+command="/usr/local/sbin/utility"
+
+load_rc_config $name
+
+#
+# DO NOT CHANGE THESE DEFAULT VALUES HERE
+# SET THEM IN THE /etc/rc.conf FILE
+#
+utility_enable=${utility_enable-"NO"}
+pidfile=${utility_pidfile-"/var/run/utility.pid"}
+
+run_rc_command "$1"</pre><p>This script will ensure that the provided
+	<code class="literal">utility</code> will be started after the
+	<code class="literal">DAEMON</code> pseudo-service.  It also provides a
+	method for setting and tracking the process ID
+	(<acronym class="acronym">PID</acronym>).</p><p>This application could then have the following line placed
+	in <code class="filename">/etc/rc.conf</code>:</p><pre class="programlisting">utility_enable="YES"</pre><p>This method allows for easier manipulation of command
+	line arguments, inclusion of the default functions provided
+	in <code class="filename">/etc/rc.subr</code>, compatibility with
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rcorder&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rcorder</span>(8)</span></a>, and provides for easier configuration via
+	<code class="filename">rc.conf</code>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57007352"></a>11.2.2. Using Services to Start Services</h3></div></div></div><p>Other services can be started using <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=inetd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">inetd</span>(8)</span></a>.
+	Working with <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=inetd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">inetd</span>(8)</span></a> and its configuration is
+	described in depth in
+	<a class="xref" href="network-inetd.html" title="29.2. The inetd Super-Server">Section 29.2, &#8220;The <span class="application">inetd</span>
+      Super-Server&#8221;</a>.</p><p>In some cases, it may make more sense to use
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=cron&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">cron</span>(8)</span></a> to start system services.  This approach
+	has a number of advantages as <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=cron&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">cron</span>(8)</span></a> runs these
+	processes as the owner of the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=crontab&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">crontab</span>(5)</span></a>.  This allows
+	regular users to start and maintain their own
+	applications.</p><p>The <code class="literal">@reboot</code> feature of <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=cron&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">cron</span>(8)</span></a>,
+	may be used in place of the time specification.  This causes
+	the job to run when <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=cron&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">cron</span>(8)</span></a> is started, normally during
+	system initialization.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="config-tuning.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="config-tuning.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="configtuning-cron.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 11. Configuration and Tuning </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 11.3. Configuring cron(8)</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

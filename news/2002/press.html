@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">Search</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="//www.FreeBSD.org/cgi/man.cgi">Manual Pages</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">Presentations and Papers</a>
                   </li>
                   <li>
                     <a href="../../doc/en_US.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
@@ -257,14 +259,6 @@
            security.</p>
             </li>
           </ul>
-          <h1>June 2002</h1>
-          <ul>
-            <li>
-              <a name="story20026:0" id="story20026:0"></a>
-              <p><a href="http://kerneltrap.org/node.php?id=278"><b>Interview with Jordan Hubbard</b></a><br /><a href="http://kerneltrap.org/">Kerneltrap</a>, Jeremy Andrews<br />Kerneltrap speaks with Jordan Hubbard, one of the creators
-          of FreeBSD, and currently manager of Apple's Darwin project.</p>
-            </li>
-          </ul>
           <h1>May 2002</h1>
           <ul>
             <li>
@@ -360,46 +354,41 @@
           <h1>January 2002</h1>
           <ul>
             <li>
-              <a name="story20021:7" id="story20021:7"></a>
+              <a name="story20021:6" id="story20021:6"></a>
               <p><a href="http://www.onlamp.com/pub/a/bsd/2002/01/31/Big_Scary_Daemons.html"><b>How to Become a FreeBSD Committer</b></a><br /><a href="http://www.onlamp.com/">OnLamp.com</a>, Michael Lucas<br />Michael documents the process of becoming a FreeBSD committer.</p>
             </li>
             <li>
-              <a name="story20021:6" id="story20021:6"></a>
+              <a name="story20021:5" id="story20021:5"></a>
               <p><a href="http://www.osnews.com/story.php?news_id=580"><b>FreeBSD Week: Migrating from Linux to FreeBSD</b></a><br /><a href="http://www.osnews.com/">OS News</a>, Nathan Mace<br />A guide for users migrating from Linux to FreeBSD.</p>
             </li>
             <li>
-              <a name="story20021:5" id="story20021:5"></a>
+              <a name="story20021:4" id="story20021:4"></a>
               <p><a href="http://www.osnews.com/story.php?news_id=572"><b>FreeBSD Week: Interview with Robert Watson</b></a><br /><a href="http://www.osnews.com/">OS News</a>, Eugenia Loli-Queru<br />An interview with Robert Watson, member of FreeBSD's core
           and security on the upcoming FreeBSD 4.5 and FreeBSD 5.0
           releases.</p>
             </li>
             <li>
-              <a name="story20021:4" id="story20021:4"></a>
+              <a name="story20021:3" id="story20021:3"></a>
               <p><a href="http://biz.yahoo.com/bw/020123/232287_1.html"><b>American Megatrends Inc. Releases Latest Version of StorTrends NAS Software</b></a><br /><a href="http://biz.yahoo.com/">Yahoo! Finance</a>, AMI Press Release<br /><a href="http://www.ami.com/">American Megatrends</a> Inc. announced the release of
           StoreTrends(tm) NAS software version 1.1, which is based on
           FreeBSD.</p>
             </li>
             <li>
-              <a name="story20021:3" id="story20021:3"></a>
+              <a name="story20021:2" id="story20021:2"></a>
               <p><a href="http://www.onlamp.com/pub/a/bsd/2002/01/17/Big_Scary_Daemons.html"><b>Contributing to BSD</b></a><br /><a href="http://www.onlamp.com/">OnLamp.com</a>, Michael Lucas<br />Michael Lucas shows what it takes for non-coders to contribute to
 	  BSD.</p>
             </li>
             <li>
-              <a name="story20021:2" id="story20021:2"></a>
+              <a name="story20021:1" id="story20021:1"></a>
               <p><a href="http://draenor.org/securebsd/secure.txt"><b>A basic guide to securing FreeBSD 4.x-STABLE</b></a><br /><a href="http://draenor.org/">draenor.org</a>, Marc Silver<br />This article is for system administrators. It explains
 	  how to configure and maintain a FreeBSD system for high
 	  security.</p>
             </li>
             <li>
-              <a name="story20021:1" id="story20021:1"></a>
+              <a name="story20021:0" id="story20021:0"></a>
               <p><a href="http://dailynews.yahoo.com/h/cn/20020114/tc/freebsd_to_change_hands_1.html"><b>FreeBSD to change hands</b></a><br /><a href="http://dailynews.yahoo.com/">Yahoo News</a>, Stephen Shankland CNET<br /><a href="http://www.windriver.com/">Wind River Systems</a>
           announces the transfer of its FreeBSD assets to the
           <a href="http://www.freebsdmall.com/">FreeBSD Mall</a>.</p>
-            </li>
-            <li>
-              <a name="story20021:0" id="story20021:0"></a>
-              <p><a href="http://kerneltrap.com/article.php?sid=459"><b>Kerneltrap Interview with Matt Dillon</b></a><br /><a href="http://kerneltrap.com/">Kerneltrap</a>, Jeremy Andrews<br />Kerneltrap interviews Matt Dillon, one of FreeBSD's key
-          developers.</p>
             </li>
           </ul>
           <p>Other press publications:
@@ -419,7 +408,7 @@
         </div>
         <div id="footer">
           <span><a href="../../search/index-site.html">Site Map</a> |
-  <a href="../../copyright/">Legal Notices</a> | © 1995&#8211;2018 The FreeBSD Project.
+  <a href="../../copyright/">Legal Notices</a> | © 1995&#8211;2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

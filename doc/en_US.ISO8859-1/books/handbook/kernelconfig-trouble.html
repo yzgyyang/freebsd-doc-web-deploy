@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>8.6. If Something Goes Wrong</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="kernelconfig.html" title="Chapter 8. Configuring the FreeBSD Kernel" /><link rel="prev" href="kernelconfig-building.html" title="8.5. Building and Installing a Custom Kernel" /><link rel="next" href="printing.html" title="Chapter 9. Printing" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">8.6. If Something Goes Wrong</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="kernelconfig-building.html">Prev</a> </td><th width="60%" align="center">Chapter 8. Configuring the FreeBSD Kernel</th><td width="20%" align="right"> <a accesskey="n" href="printing.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="kernelconfig-trouble"></a>8.6. If Something Goes Wrong</h2></div></div></div><p>There are four categories of trouble that can occur when
+      building a custom kernel:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="command">config</code> fails</span></dt><dd><p>If <code class="command">config</code> fails, it will print the
+	    line number that is incorrect.  As an example, for the
+	    following message, make sure that line 17 is typed
+	    correctly by comparing it to <code class="filename">GENERIC</code>
+	    or <code class="filename">NOTES</code>:</p><pre class="screen">config: line 17: syntax error</pre></dd><dt><span class="term"><code class="command">make</code> fails</span></dt><dd><p>If <code class="command">make</code> fails, it is usually due to
+	    an error in the kernel configuration file which is not
+	    severe enough for <code class="command">config</code> to catch.
+	    Review the configuration, and if the problem is not
+	    apparent, send an email to the <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo/freebsd-questions" target="_top">FreeBSD general questions mailing list</a> which
+	    contains the kernel configuration file.</p></dd><dt><a id="kernelconfig-noboot"></a><span class="term">The kernel does not boot</span></dt><dd><p>If the new kernel does not boot or fails to recognize
+	    devices, do not panic!  Fortunately, FreeBSD has an excellent
+	    mechanism for recovering from incompatible kernels.
+	    Simply choose the kernel to boot from at the FreeBSD boot
+	    loader.  This can be accessed when the system boot menu
+	    appears by selecting the <span class="quote">&#8220;<span class="quote">Escape to a loader
+	      prompt</span>&#8221;</span> option.  At the prompt, type
+	    <code class="command">boot
+	      <em class="replaceable"><code>kernel.old</code></em></code>, or the
+	    name of any other kernel that is known to boot
+	    properly.</p><p>After booting with a good kernel, check over the
+	    configuration file and try to build it again.  One helpful
+	    resource is <code class="filename">/var/log/messages</code> which
+	    records the kernel messages from every successful boot.
+	    Also, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=dmesg&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">dmesg</span>(8)</span></a> will print the kernel messages from
+	    the current boot.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">When troubleshooting a kernel, make sure to keep
+	      a copy of <code class="filename">GENERIC</code>, or some other
+	      kernel that is known to work, as a different name that
+	      will not get erased on the next build.  This is
+	      important because every time a new kernel is installed,
+	      <code class="filename">kernel.old</code> is overwritten with the
+	      last installed kernel, which may or may not be bootable.
+	      As soon as possible, move the working kernel by renaming
+	      the directory containing the good kernel:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="screen"><code class="prompt">#</code> <strong class="userinput"><code>mv /boot/kernel <em class="replaceable"><code>/boot/kernel.bad</code></em></code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>mv /boot/<em class="replaceable"><code>kernel.good</code></em> /boot/kernel</code></strong></pre></div></dd><dt><span class="term">The kernel works, but <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ps&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ps</span>(1)</span></a> does not</span></dt><dd><p>If the kernel version differs from the one that the
+	    system utilities have been built with, for example, a
+	    kernel built from -CURRENT sources is installed on a
+	    -RELEASE system, many system status commands like
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ps&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ps</span>(1)</span></a> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=vmstat&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">vmstat</span>(8)</span></a> will not work.  To fix this,
+	    <a class="link" href="makeworld.html" title="23.5. Updating FreeBSD from Source">recompile and install a
+	      world</a> built with the same version of the source
+	    tree as the kernel.  It is never a good idea to use a
+	    different version of the kernel than the rest of the
+	    operating system.</p></dd></dl></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="kernelconfig-building.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="kernelconfig.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="printing.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">8.5. Building and Installing a Custom Kernel </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 9. Printing</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

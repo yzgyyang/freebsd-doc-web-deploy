@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>Chapter 2. Design Overview of 4.4BSD</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="The Design and Implementation of the 4.4BSD Operating System" /><link rel="up" href="index.html" title="The Design and Implementation of the 4.4BSD Operating System" /><link rel="prev" href="index.html" title="The Design and Implementation of the 4.4BSD Operating System" /><link rel="next" href="overview-kernel-organization.html" title="2.2. Kernel Organization" /><link rel="copyright" href="legalnotice.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 2. Design Overview of 4.4BSD</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="index.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="overview-kernel-organization.html">Next</a></td></tr></table><hr /></div><div class="chapter"><div xmlns="" class="titlepage"><div><div><h1 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="overview"></a>Chapter 2. Design Overview of 4.4BSD</h1></div></div></div><div class="toc"><div class="toc-title">Table of Contents</div><dl class="toc"><dt><span class="sect1"><a href="overview.html#overview-facilities">2.1. 4.4BSD Facilities and the Kernel</a></span></dt><dt><span class="sect1"><a href="overview-kernel-organization.html">2.2. Kernel Organization</a></span></dt><dt><span class="sect1"><a href="overview-kernel-service.html">2.3. Kernel Services</a></span></dt><dt><span class="sect1"><a href="overview-process-management.html">2.4. Process Management</a></span></dt><dt><span class="sect1"><a href="overview-memory-management.html">2.5. Memory Management</a></span></dt><dt><span class="sect1"><a href="overview-io-system.html">2.6. I/O System</a></span></dt><dt><span class="sect1"><a href="overview-filesystem.html">2.7. Filesystems</a></span></dt><dt><span class="sect1"><a href="overview-filestore.html">2.8. Filestores</a></span></dt><dt><span class="sect1"><a href="overview-nfs.html">2.9. Network Filesystem</a></span></dt><dt><span class="sect1"><a href="overview-terminal.html">2.10. Terminals</a></span></dt><dt><span class="sect1"><a href="overview-ipc.html">2.11. Interprocess Communication</a></span></dt><dt><span class="sect1"><a href="overview-network-communication.html">2.12. Network Communication</a></span></dt><dt><span class="sect1"><a href="overview-network-implementation.html">2.13. Network Implementation</a></span></dt><dt><span class="sect1"><a href="overview-operation.html">2.14. System Operation</a></span></dt><dt><span class="bibliography"><a href="overview.html#references">References</a></span></dt></dl></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="overview-facilities"></a>2.1. 4.4BSD Facilities and the Kernel</h2></div></div></div><p>The 4.4BSD kernel provides four basic facilities:
+	processes,
+	a filesystem,
+	communications, and
+	system startup.
+	This section outlines where each of these four basic services
+	is described in this book.</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>Processes constitute a thread of control in an address space.
+	    Mechanisms for creating, terminating, and otherwise
+	    controlling processes are described in
+	    Chapter 4.
+	    The system multiplexes separate virtual-address spaces
+	    for each process;
+	    this memory management is discussed in
+	    Chapter 5.</p></li><li class="listitem"><p>The user interface to the filesystem and devices is similar;
+	    common aspects are discussed in
+	    Chapter 6.
+	    The filesystem is a set of named files, organized in a tree-structured
+	    hierarchy of directories, and of operations to manipulate them,
+	    as presented in
+	    Chapter 7.
+	    Files reside on physical media such as disks.
+	    4.4BSD supports several organizations of data on the disk,
+	    as set forth in
+	    Chapter 8.
+	    Access to files on remote machines is the subject of
+	    Chapter 9.
+	    Terminals are used to access the system; their operation is
+	    the subject of
+	    Chapter 10.</p></li><li class="listitem"><p>Communication mechanisms provided by traditional UNIX systems include
+	    simplex reliable byte streams between related processes (see pipes,
+	    Section 11.1),
+	    and notification of exceptional events (see signals,
+	    Section 4.7).
+	    4.4BSD also has a general interprocess-communication facility.
+	    This facility, described in
+	    Chapter 11,
+	    uses access mechanisms distinct from those of the filesystem,
+	    but, once a connection is set up, a process can access it
+	    as though it were a pipe.
+	    There is a general networking framework,
+	    discussed in
+	    Chapter 12,
+	    that is normally used as a layer underlying the
+	    IPC
+	    facility.
+	    Chapter 13
+	    describes a particular networking implementation in detail.</p></li><li class="listitem"><p>Any real operating system has operational issues, such as how to
+	    start it running.
+	    Startup and operational issues are described in
+	    Chapter 14.</p></li></ol></div><p>Sections 2.3 through 2.14 present introductory
+	material related to Chapters 3 through 14.
+	We shall define terms, mention basic system calls,
+	and explore historical developments.
+	Finally, we shall give the reasons for many major design decisions.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp46945912"></a>2.1.1. The Kernel</h3></div></div></div><p>The
+	  <span class="emphasis"><em>kernel</em></span>
+	  is the part of the system that runs in protected mode and mediates
+	  access by all user programs to the underlying hardware (e.g.,
+	  CPU,
+	  disks, terminals, network links)
+	  and software constructs
+	  (e.g., filesystem, network protocols).
+	  The kernel provides the basic system facilities;
+	  it creates and manages processes,
+	  and provides functions to access the filesystem
+	  and communication facilities.
+	  These functions, called
+	  <span class="emphasis"><em>system calls</em></span>
+	  appear to user processes as library subroutines.
+	  These system calls are the only interface
+	  that processes have to these facilities.
+	  Details of the system-call mechanism are given in
+	  Chapter 3,
+	  as are descriptions of several kernel mechanisms that do not execute
+	  as the direct result of a process doing a system call.</p><p>A
+	  <span class="emphasis"><em>kernel</em></span>
+	  in traditional operating-system terminology,
+	  is a small nucleus of software that
+	  provides only the minimal facilities necessary for implementing
+	  additional operating-system services.
+	  In contemporary research operating systems -- such as
+	  Chorus
+	  <a class="xref" href="overview.html#biblio-rozier">[<abbr class="abbrev">Rozier et al, 1988</abbr>]</a>,
+	  Mach
+	  <a class="xref" href="overview.html#biblio-accetta">[<abbr class="abbrev">Accetta et al, 1986</abbr>]</a>,
+	  Tunis
+	  <a class="xref" href="overview.html#biblio-ewens">[<abbr class="abbrev">Ewens et al, 1985</abbr>]</a>,
+	  and the
+	  V Kernel
+	  <a class="xref" href="overview.html#biblio-cheriton">[<abbr class="abbrev">Cheriton, 1988</abbr>]</a> --
+	  this division of functionality is more than just a logical one.
+	  Services such as filesystems and networking protocols are
+	  implemented as client application processes of the nucleus or kernel.</p><p>The
+	  4.4BSD kernel is not partitioned into multiple processes.
+	  This basic design decision was made in the earliest versions of UNIX.
+	  The first two implementations by
+	  Ken Thompson had no memory mapping,
+	  and thus made no hardware-enforced distinction
+	  between user and kernel space
+	  <a class="xref" href="overview.html#biblio-ritchie">[<abbr class="abbrev">Ritchie, 1988</abbr>]</a>.
+	  A message-passing system could have been implemented as readily
+	  as the actually implemented model of kernel and user processes.
+	  The monolithic kernel was chosen for simplicity and performance.
+	  And the early kernels were small;
+	  the inclusion of facilities such as networking
+	  into the kernel has increased its size.
+	  The current trend in operating-systems research
+	  is to reduce the kernel size by placing
+	  such services in user space.</p><p>Users ordinarily interact with the system through a command-language
+	  interpreter, called a
+	  <span class="emphasis"><em>shell</em></span>,
+	  and perhaps through additional user application programs.
+	  Such programs and the shell are implemented with processes.
+	  Details of such programs are beyond the scope of this book,
+	  which instead concentrates almost exclusively on the kernel.</p><p>Sections 2.3 and 2.4
+	  describe the services provided by the 4.4BSD kernel,
+	  and give an overview of the latter's design.
+	  Later chapters describe the detailed design and implementation of these
+	  services as they appear in 4.4BSD.</p></div></div><div class="bibliography"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="references"></a>References</h2></div></div></div><div class="biblioentry"><a id="biblio-accetta"></a><p>[<abbr class="abbrev">Accetta et al, 1986</abbr>] <span class="biblioset">&#8220;Mach: A New Kernel Foundation for UNIX Development"&#8221;. <span class="authorgroup"><span class="firstname">M. </span> <span class="surname">Accetta</span>, <span class="firstname">R.</span> <span class="surname">Baron</span>, <span class="firstname">W.</span> <span class="surname">Bolosky</span>, <span class="firstname">D.</span> <span class="surname">Golub</span>, <span class="firstname">R.</span> <span class="surname">Rashid</span>, <span class="firstname">A.</span> <span class="surname">Tevanian</span>, and <span class="firstname">M.</span> <span class="surname">Young</span>. </span><span class="pagenums">93-113. </span></span><span class="biblioset"><em>USENIX Association Conference Proceedings</em>. <span class="publishername">USENIX Association. </span><span class="pubdate">June 1986. </span></span></p></div><div class="biblioentry"><a id="biblio-cheriton"></a><p>[<abbr class="abbrev">Cheriton, 1988</abbr>] <span class="biblioset">&#8220;The V Distributed System&#8221;. <span class="author"><span class="firstname">D. R.</span> <span class="surname">Cheriton</span>. </span><span class="pagenums">314-333. </span></span><span class="biblioset"><em>Comm ACM, 31, 3</em>. <span class="pubdate">March 1988. </span></span></p></div><div class="biblioentry"><a id="biblio-ewens"></a><p>[<abbr class="abbrev">Ewens et al, 1985</abbr>] <span class="biblioset">&#8220;Tunis: A Distributed Multiprocessor Operating System&#8221;. <span class="authorgroup"><span class="firstname">P.</span> <span class="surname">Ewens</span>, <span class="firstname">D. R.</span> <span class="surname">Blythe</span>, <span class="firstname">M.</span> <span class="surname">Funkenhauser</span>, and <span class="firstname">R. C.</span> <span class="surname">Holt</span>. </span><span class="pagenums">247-254. </span></span><span class="biblioset"><em>USENIX Assocation Conference Proceedings</em>. <span class="publishername">USENIX Association. </span><span class="pubdate">June 1985. </span></span></p></div><div class="biblioentry"><a id="biblio-gingell"></a><p>[<abbr class="abbrev">Gingell et al, 1987</abbr>] <span class="biblioset">&#8220;Virtual Memory Architecture in SunOS&#8221;. <span class="authorgroup"><span class="firstname">R.</span> <span class="surname">Gingell</span>, <span class="firstname">J.</span> <span class="surname">Moran</span>, and <span class="firstname">W.</span> <span class="surname">Shannon</span>. </span><span class="pagenums">81-94. </span></span><span class="biblioset"><em>USENIX Association Conference Proceedings</em>. <span class="publishername">USENIX Association. </span><span class="pubdate">June 1987. </span></span></p></div><div class="biblioentry"><a id="biblio-kernighan"></a><p>[<abbr class="abbrev">Kernighan &amp; Pike, 1984</abbr>] <span class="citetitle"><em class="citetitle">The UNIX Programming Environment</em>. </span><span class="authorgroup"><span class="firstname">B. W.</span> <span class="surname">Kernighan</span> and <span class="firstname">R.</span> <span class="surname">Pike</span>. </span><span class="publisher"><span class="publishername">Prentice-Hall. </span><span class="address">
+	  <span class="city">Englewood Cliffs</span>
+	  <span class="state">NJ</span>
+	. </span></span><span class="pubdate">1984. </span></p></div><div class="biblioentry"><a id="biblio-macklem"></a><p>[<abbr class="abbrev">Macklem, 1994</abbr>] <span class="biblioset"><em>The 4.4BSD NFS Implementation</em>. <span class="author"><span class="firstname">R.</span> <span class="surname">Macklem</span>. </span><span class="pagenums">6:1-14. </span></span><span class="biblioset"><em>4.4BSD System Manager's Manual</em>. <span class="publisher"><span class="publishername">O'Reilly &amp; Associates, Inc.. </span><span class="address">
+	    <span class="city">Sebastopol</span>
+	    <span class="state">CA</span>
+	  . </span></span><span class="pubdate">1994. </span></span></p></div><div class="biblioentry"><a id="biblio-mckusick-2"></a><p>[<abbr class="abbrev">McKusick &amp; Karels, 1988</abbr>] <span class="biblioset">&#8220;Design of a General Purpose Memory Allocator for the 4.3BSD
+	  UNIX Kernel&#8221;. <span class="authorgroup"><span class="firstname">M. K.</span> <span class="surname">McKusick</span> and <span class="firstname">M. J.</span> <span class="surname">Karels</span>. </span><span class="pagenums">295-304. </span></span><span class="biblioset"><em>USENIX Assocation Conference Proceedings</em>. <span class="publishername">USENIX Assocation. </span><span class="pubdate">June 1998. </span></span></p></div><div class="biblioentry"><a id="biblio-mckusick-1"></a><p>[<abbr class="abbrev">McKusick et al, 1994</abbr>] <span class="biblioset"><em>Berkeley Software Architecture Manual, 4.4BSD Edition</em>. <span class="authorgroup"><span class="firstname">M. K.</span> <span class="surname">McKusick</span>, <span class="firstname">M. J.</span> <span class="surname">Karels</span>, <span class="firstname">S. J.</span> <span class="surname">Leffler</span>, <span class="firstname">W. N.</span> <span class="surname">Joy</span>, and <span class="firstname">R. S.</span> <span class="surname">Faber</span>. </span><span class="pagenums">5:1-42. </span></span><span class="biblioset"><em>4.4BSD Programmer's Supplementary Documents</em>. <span class="publisher"><span class="publishername">O'Reilly &amp; Associates, Inc.. </span><span class="address">
+	    <span class="city">Sebastopol</span>
+	    <span class="state">CA</span>
+	  . </span></span><span class="pubdate">1994. </span></span></p></div><div class="biblioentry"><a id="biblio-ritchie"></a><p>[<abbr class="abbrev">Ritchie, 1988</abbr>] <span class="citetitle"><em class="citetitle">Early Kernel Design</em>. </span><span class="subtitle">private communication. </span><span class="author"><span class="firstname">D. M.</span> <span class="surname">Ritchie</span>. </span><span class="pubdate">March 1988. </span></p></div><div class="biblioentry"><a id="biblio-rosenblum"></a><p>[<abbr class="abbrev">Rosenblum &amp; Ousterhout, 1992</abbr>] <span class="biblioset">&#8220;The Design and Implementation of a Log-Structured File
+	  System&#8221;. <span class="authorgroup"><span class="firstname">M.</span> <span class="surname">Rosenblum</span> and <span class="firstname">K.</span> <span class="surname">Ousterhout</span>. </span><span class="pagenums">26-52. </span></span><span class="biblioset"><em>ACM Transactions on Computer Systems, 10, 1</em>. <span class="publishername">Association for Computing Machinery. </span><span class="pubdate">February 1992. </span></span></p></div><div class="biblioentry"><a id="biblio-rozier"></a><p>[<abbr class="abbrev">Rozier et al, 1988</abbr>] <span class="biblioset">&#8220;Chorus Distributed Operating Systems&#8221;. <span class="authorgroup"><span class="firstname">M.</span> <span class="surname">Rozier</span>, <span class="firstname">V.</span> <span class="surname">Abrossimov</span>, <span class="firstname">F.</span> <span class="surname">Armand</span>, <span class="firstname">I.</span> <span class="surname">Boule</span>, <span class="firstname">M.</span> <span class="surname">Gien</span>, <span class="firstname">M.</span> <span class="surname">Guillemont</span>, <span class="firstname">F.</span> <span class="surname">Herrmann</span>, <span class="firstname">C.</span> <span class="surname">Kaiser</span>, <span class="firstname">S.</span> <span class="surname">Langlois</span>, <span class="firstname">P.</span> <span class="surname">Leonard</span>, and <span class="firstname">W.</span> <span class="surname">Neuhauser</span>. </span><span class="pagenums">305-370. </span></span><span class="biblioset"><em>USENIX Computing Systems, 1, 4</em>. <span class="pubdate">Fall 1988. </span></span></p></div><div class="biblioentry"><a id="biblio-tevanian"></a><p>[<abbr class="abbrev">Tevanian, 1987</abbr>] <span class="citetitle"><em class="citetitle">Architecture-Independent Virtual Memory Management for Parallel
+	and Distributed Environments: The Mach Approach</em>. </span><span class="subtitle">Technical Report CMU-CS-88-106,. </span><span class="author"><span class="firstname">A.</span> <span class="surname">Tevanian</span>. </span><span class="publisher"><span class="publishername">Department of Computer Science, Carnegie-Mellon
+	  University. </span><span class="address">
+	  <span class="city">Pittsburgh</span>
+	  <span class="state">PA</span>
+	. </span></span><span class="pubdate">December 1987. </span></p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="index.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="overview-kernel-organization.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">The Design and Implementation of the 4.4BSD Operating System </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 2.2. Kernel Organization</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

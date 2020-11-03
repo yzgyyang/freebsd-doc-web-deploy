@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>2.10. Terminals</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="The Design and Implementation of the 4.4BSD Operating System" /><link rel="up" href="overview.html" title="Chapter 2. Design Overview of 4.4BSD" /><link rel="prev" href="overview-nfs.html" title="2.9. Network Filesystem" /><link rel="next" href="overview-ipc.html" title="2.11. Interprocess Communication" /><link rel="copyright" href="legalnotice.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">2.10. Terminals</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="overview-nfs.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Design Overview of 4.4BSD</th><td width="20%" align="right"> <a accesskey="n" href="overview-ipc.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="overview-terminal"></a>2.10. Terminals</h2></div></div></div><p>Terminals support the standard system I/O operations, as well
+	as a collection of terminal-specific operations to control input-character
+	editing and output delays.
+	At the lowest level are the terminal device drivers that control
+	the hardware terminal ports.
+	Terminal input is handled according to the underlying communication
+	characteristics, such as baud rate,
+	and according to a set of software-controllable
+	parameters, such as parity checking.</p><p>Layered above the terminal device drivers are line disciplines
+	that provide various degrees of character processing.
+	The default line discipline is selected when a port is being
+	used for an interactive login.
+	The line discipline is run in
+	<span class="emphasis"><em>canonical mode</em></span>;
+	input is processed to provide standard line-oriented editing functions,
+	and input is presented to a process on a line-by-line basis.</p><p>Screen editors and programs that communicate with other computers
+	generally run in
+	<span class="emphasis"><em>noncanonical mode</em></span>
+	(also commonly referred to as
+	<span class="emphasis"><em>raw mode</em></span>
+	or
+	<span class="emphasis"><em>character-at-a-time mode</em></span>).
+	In this mode, input is passed through to the reading process immediately
+	and without interpretation.
+	All special-character input processing is disabled,
+	no erase or other line editing processing is done,
+	and all characters are passed to the program
+	that is reading from the terminal.</p><p>It is possible to configure the terminal in thousands
+	of combinations between these two extremes.
+	For example,
+	a screen editor that wanted to receive user interrupts asynchronously
+	might enable the special characters that
+	generate signals and enable output flow control,
+	but otherwise run in noncanonical mode;
+	all other characters would be passed through to the process uninterpreted.</p><p>On output, the terminal handler provides simple formatting services,
+	including</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Converting the line-feed character
+	    to the two-character carriage-return-line-feed sequence</p></li><li class="listitem"><p>Inserting delays after certain standard control characters</p></li><li class="listitem"><p>Expanding tabs</p></li><li class="listitem"><p>Displaying echoed nongraphic
+	    ASCII
+	    characters as a two-character sequence of the
+	    form ``^C''
+	    (i.e., the
+	    ASCII
+	    caret character followed by the
+	    ASCII
+	    character that is the character's value offset from the
+	    ASCII
+	    ``@'' character).</p></li></ul></div><p>Each of these formatting services can be disabled individually by
+	a process through control requests.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="overview-nfs.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="overview.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="overview-ipc.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2.9. Network Filesystem </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 2.11. Interprocess Communication</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

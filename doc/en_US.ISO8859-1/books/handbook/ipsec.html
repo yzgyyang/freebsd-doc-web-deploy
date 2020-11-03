@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>13.7. VPN over IPsec</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="security.html" title="Chapter 13. Security" /><link rel="prev" href="openssl.html" title="13.6. OpenSSL" /><link rel="next" href="openssh.html" title="13.8. OpenSSH" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">13.7. <acronym class="acronym">VPN</acronym> over
+	<acronym class="acronym">IPsec</acronym></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="openssl.html">Prev</a> </td><th width="60%" align="center">Chapter 13. Security</th><td width="20%" align="right"> <a accesskey="n" href="openssh.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="ipsec"></a>13.7. <acronym class="acronym">VPN</acronym> over
+	<acronym class="acronym">IPsec</acronym></h2></div><div><span class="authorgroup">Written by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Nik</span> <span class="surname">Clayton</span></span>. </span></div><div><span class="authorgroup">Written by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Hiten M.</span> <span class="surname">Pandya</span></span>. </span></div></div></div><a id="idp59354360" class="indexterm"></a><p>Internet Protocol Security (<acronym class="acronym">IPsec</acronym>) is a
+      set of protocols which sit on top of the Internet Protocol
+      (<acronym class="acronym">IP</acronym>) layer.  It allows two or more hosts to
+      communicate in a secure manner by authenticating and encrypting
+      each <acronym class="acronym">IP</acronym> packet of a communication session.
+      The FreeBSD <acronym class="acronym">IPsec</acronym> network stack is based on the
+      <a class="link" href="http://www.kame.net/" target="_top">http://www.kame.net/</a>
+      implementation and supports both <acronym class="acronym">IPv4</acronym> and
+      <acronym class="acronym">IPv6</acronym> sessions.</p><a id="idp59358584" class="indexterm"></a><a id="idp59359864" class="indexterm"></a><p><acronym class="acronym">IPsec</acronym> is comprised of the following
+      sub-protocols:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><span class="emphasis"><em>Encapsulated Security Payload
+	    (<acronym class="acronym">ESP</acronym>)</em></span>: this protocol
+	  protects the <acronym class="acronym">IP</acronym> packet data from third
+	  party interference by encrypting the contents using
+	  symmetric cryptography algorithms such as Blowfish and
+	  <acronym class="acronym">3DES</acronym>.</p></li><li class="listitem"><p><span class="emphasis"><em>Authentication Header
+	    (<acronym class="acronym">AH</acronym>)</em></span>: this protocol
+	  protects the <acronym class="acronym">IP</acronym> packet header from third
+	  party interference and spoofing by computing a cryptographic
+	  checksum and hashing the <acronym class="acronym">IP </acronym> packet
+	  header fields with a secure hashing function.  This is then
+	  followed by an additional header that contains the hash, to
+	  allow the information in the packet to be
+	  authenticated.</p></li><li class="listitem"><p><span class="emphasis"><em>IP Payload Compression Protocol
+	    (<acronym class="acronym">IPComp</acronym></em></span>): this protocol
+	  tries to increase communication performance by compressing
+	  the <acronym class="acronym">IP </acronym> payload in order to reduce the
+	  amount of data sent.</p></li></ul></div><p>These protocols can either be used together or separately,
+      depending on the environment.</p><a id="idp59368696" class="indexterm"></a><a id="idp59369592" class="indexterm"></a><p><acronym class="acronym">IPsec</acronym> supports two modes of operation.
+      The first mode, <em class="firstterm">Transport Mode</em>, protects
+      communications between two hosts.  The second mode,
+      <em class="firstterm">Tunnel Mode</em>, is used to build virtual
+      tunnels, commonly known as Virtual Private Networks
+      (<acronym class="acronym">VPN</acronym>s).  Consult <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ipsec&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ipsec</span>(4)</span></a> for detailed
+      information on the <acronym class="acronym">IPsec</acronym> subsystem in
+      FreeBSD.</p><p><acronym class="acronym">IPsec</acronym> support is enabled by default on
+      FreeBSD 11 and later.  For previous versions of FreeBSD, add
+      these options to a custom kernel configuration file and rebuild
+      the kernel using the instructions in <a class="xref" href="kernelconfig.html" title="Chapter 8. Configuring the FreeBSD Kernel">Chapter 8, <em>Configuring the FreeBSD Kernel</em></a>:</p><a id="idp59374712" class="indexterm"></a><pre class="screen">options   IPSEC        #IP security
+device    crypto</pre><a id="idp59376248" class="indexterm"></a><p>If <acronym class="acronym">IPsec</acronym> debugging support is desired,
+      the following kernel option should also be added:</p><pre class="screen">options   IPSEC_DEBUG  #debug for IP security</pre><p>This rest of this chapter demonstrates the process of
+      setting up an <acronym class="acronym">IPsec</acronym> <acronym class="acronym">VPN</acronym>
+      between a home network and a corporate network.  In the example
+      scenario:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Both sites are connected to the Internet through a
+	  gateway that is running FreeBSD.</p></li><li class="listitem"><p>The gateway on each network has at least one external
+	  <acronym class="acronym">IP</acronym> address.  In this example, the
+	  corporate <acronym class="acronym">LAN</acronym>'s external
+	  <acronym class="acronym">IP</acronym> address is <code class="systemitem">172.16.5.4</code> and the home
+	  <acronym class="acronym">LAN</acronym>'s external <acronym class="acronym">IP</acronym>
+	  address is <code class="systemitem">192.168.1.12</code>.</p></li><li class="listitem"><p>The internal addresses of the two networks can be either
+	  public or private <acronym class="acronym">IP</acronym> addresses.  However,
+	  the address space must not collide.  For example, both
+	  networks cannot use <code class="systemitem">192.168.1.x</code>.  In this
+	  example, the corporate <acronym class="acronym">LAN</acronym>'s internal
+	  <acronym class="acronym">IP</acronym> address is <code class="systemitem">10.246.38.1</code> and the home
+	  <acronym class="acronym">LAN</acronym>'s internal <acronym class="acronym">IP</acronym>
+	  address is <code class="systemitem">10.0.0.5</code>.</p></li></ul></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp59392888"></a>13.7.1. Configuring a <acronym class="acronym">VPN</acronym> on FreeBSD</h3></div><div><span class="authorgroup">Written by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Tom</span> <span class="surname">Rhodes</span></span>. </span></div></div></div><p>To begin, <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/security/ipsec-tools/pkg-descr">security/ipsec-tools</a> must be
+	installed from the Ports Collection.  This software provides a
+	number of applications which support the configuration.</p><p>The next requirement is to create two <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=gif&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">gif</span>(4)</span></a>
+	pseudo-devices which will be used to tunnel packets and allow
+	both networks to communicate properly.  As <code class="systemitem">root</code>, run the following
+	commands, replacing <em class="replaceable"><code>internal</code></em> and
+	<em class="replaceable"><code>external</code></em> with the real IP
+	addresses of the internal and external interfaces of the two
+	gateways:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ifconfig gif0 create</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>ifconfig gif0 <em class="replaceable"><code>internal1 internal2</code></em></code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>ifconfig gif0 tunnel <em class="replaceable"><code>external1 external2</code></em></code></strong></pre><p>Verify the setup on each gateway, using
+	<code class="command">ifconfig</code>.  Here is the output from Gateway
+	1:</p><pre class="programlisting">gif0: flags=8051 mtu 1280
+tunnel inet 172.16.5.4 --&gt; 192.168.1.12
+inet6 fe80::2e0:81ff:fe02:5881%gif0 prefixlen 64 scopeid 0x6
+inet 10.246.38.1 --&gt; 10.0.0.5 netmask 0xffffff00</pre><p>Here is the output from Gateway 2:</p><pre class="programlisting">gif0: flags=8051 mtu 1280
+tunnel inet 192.168.1.12 --&gt; 172.16.5.4
+inet 10.0.0.5 --&gt; 10.246.38.1 netmask 0xffffff00
+inet6 fe80::250:bfff:fe3a:c1f%gif0 prefixlen 64 scopeid 0x4</pre><p>Once complete, both internal <acronym class="acronym">IP</acronym>
+	addresses should be reachable using <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ping&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ping</span>(8)</span></a>:</p><pre class="screen">priv-net<code class="prompt">#</code> <strong class="userinput"><code>ping 10.0.0.5</code></strong>
+PING 10.0.0.5 (10.0.0.5): 56 data bytes
+64 bytes from 10.0.0.5: icmp_seq=0 ttl=64 time=42.786 ms
+64 bytes from 10.0.0.5: icmp_seq=1 ttl=64 time=19.255 ms
+64 bytes from 10.0.0.5: icmp_seq=2 ttl=64 time=20.440 ms
+64 bytes from 10.0.0.5: icmp_seq=3 ttl=64 time=21.036 ms
+--- 10.0.0.5 ping statistics ---
+4 packets transmitted, 4 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 19.255/25.879/42.786/9.782 ms</pre><pre class="screen">corp-net<code class="prompt">#</code> <strong class="userinput"><code>ping 10.246.38.1</code></strong>
+PING 10.246.38.1 (10.246.38.1): 56 data bytes
+64 bytes from 10.246.38.1: icmp_seq=0 ttl=64 time=28.106 ms
+64 bytes from 10.246.38.1: icmp_seq=1 ttl=64 time=42.917 ms
+64 bytes from 10.246.38.1: icmp_seq=2 ttl=64 time=127.525 ms
+64 bytes from 10.246.38.1: icmp_seq=3 ttl=64 time=119.896 ms
+64 bytes from 10.246.38.1: icmp_seq=4 ttl=64 time=154.524 ms
+--- 10.246.38.1 ping statistics ---
+5 packets transmitted, 5 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 28.106/94.594/154.524/49.814 ms</pre><p>As expected, both sides have the ability to send and
+	receive <acronym class="acronym">ICMP</acronym> packets from the privately
+	configured addresses.  Next, both gateways must be told how to
+	route packets in order to correctly send traffic from either
+	network.  The following commands will achieve this
+	goal:</p><pre class="screen">corp-net<code class="prompt">#</code> <strong class="userinput"><code>route add <em class="replaceable"><code>10.0.0.0 10.0.0.5 255.255.255.0</code></em></code></strong>
+corp-net<code class="prompt">#</code> <strong class="userinput"><code>route add net <em class="replaceable"><code>10.0.0.0: gateway 10.0.0.5</code></em></code></strong></pre><pre class="screen">priv-net<code class="prompt">#</code> <strong class="userinput"><code>route add <em class="replaceable"><code>10.246.38.0 10.246.38.1 255.255.255.0</code></em></code></strong>
+priv-net<code class="prompt">#</code> <strong class="userinput"><code>route add host <em class="replaceable"><code>10.246.38.0: gateway 10.246.38.1</code></em></code></strong></pre><p>At this point, internal machines should be reachable from
+	each gateway as well as from machines behind the gateways.
+	Again, use <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ping&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ping</span>(8)</span></a> to confirm:</p><pre class="screen">corp-net<code class="prompt">#</code> <strong class="userinput"><code>ping 10.0.0.8</code></strong>
+PING 10.0.0.8 (10.0.0.8): 56 data bytes
+64 bytes from 10.0.0.8: icmp_seq=0 ttl=63 time=92.391 ms
+64 bytes from 10.0.0.8: icmp_seq=1 ttl=63 time=21.870 ms
+64 bytes from 10.0.0.8: icmp_seq=2 ttl=63 time=198.022 ms
+64 bytes from 10.0.0.8: icmp_seq=3 ttl=63 time=22.241 ms
+64 bytes from 10.0.0.8: icmp_seq=4 ttl=63 time=174.705 ms
+--- 10.0.0.8 ping statistics ---
+5 packets transmitted, 5 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 21.870/101.846/198.022/74.001 ms</pre><pre class="screen">priv-net<code class="prompt">#</code> <strong class="userinput"><code>ping 10.246.38.107</code></strong>
+PING 10.246.38.1 (10.246.38.107): 56 data bytes
+64 bytes from 10.246.38.107: icmp_seq=0 ttl=64 time=53.491 ms
+64 bytes from 10.246.38.107: icmp_seq=1 ttl=64 time=23.395 ms
+64 bytes from 10.246.38.107: icmp_seq=2 ttl=64 time=23.865 ms
+64 bytes from 10.246.38.107: icmp_seq=3 ttl=64 time=21.145 ms
+64 bytes from 10.246.38.107: icmp_seq=4 ttl=64 time=36.708 ms
+--- 10.246.38.107 ping statistics ---
+5 packets transmitted, 5 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 21.145/31.721/53.491/12.179 ms</pre><p>Setting up the tunnels is the easy part.  Configuring a
+	secure link is a more in depth process.  The following
+	configuration uses pre-shared (<acronym class="acronym">PSK</acronym>)
+	<acronym class="acronym">RSA</acronym> keys.  Other than the
+	<acronym class="acronym">IP</acronym> addresses, the
+	<code class="filename">/usr/local/etc/racoon/racoon.conf</code> on both
+	gateways will be identical and look similar to:</p><pre class="programlisting">path    pre_shared_key  "/usr/local/etc/racoon/psk.txt"; #location of pre-shared key file
+log     debug;	#log verbosity setting: set to 'notify' when testing and debugging is complete
+
+padding	# options are not to be changed
+{
+        maximum_length  20;
+        randomize       off;
+        strict_check    off;
+        exclusive_tail  off;
+}
+
+timer	# timing options. change as needed
+{
+        counter         5;
+        interval        20 sec;
+        persend         1;
+#       natt_keepalive  15 sec;
+        phase1          30 sec;
+        phase2          15 sec;
+}
+
+listen	# address [port] that racoon will listen on
+{
+        isakmp          172.16.5.4 [500];
+        isakmp_natt     172.16.5.4 [4500];
+}
+
+remote  192.168.1.12 [500]
+{
+        exchange_mode   main,aggressive;
+        doi             ipsec_doi;
+        situation       identity_only;
+        my_identifier   address 172.16.5.4;
+        peers_identifier        address 192.168.1.12;
+        lifetime        time 8 hour;
+        passive         off;
+        proposal_check  obey;
+#       nat_traversal   off;
+        generate_policy off;
+
+                        proposal {
+                                encryption_algorithm    blowfish;
+                                hash_algorithm          md5;
+                                authentication_method   pre_shared_key;
+                                lifetime time           30 sec;
+                                dh_group                1;
+                        }
+}
+
+sainfo  (address 10.246.38.0/24 any address 10.0.0.0/24 any)	# address $network/$netmask $type address $network/$netmask $type ( $type being any or esp)
+{								# $network must be the two internal networks you are joining.
+        pfs_group       1;
+        lifetime        time    36000 sec;
+        encryption_algorithm    blowfish,3des;
+        authentication_algorithm        hmac_md5,hmac_sha1;
+        compression_algorithm   deflate;
+}</pre><p>For descriptions of each available option, refer to the
+	manual page for <code class="filename">racoon.conf</code>.</p><p>The Security Policy Database (<acronym class="acronym">SPD</acronym>)
+	needs to be configured so that FreeBSD and
+	<span class="application">racoon</span> are able to encrypt and
+	decrypt network traffic between the hosts.</p><p>This can be achieved with a shell script, similar to the
+	following, on the corporate gateway.  This file will be used
+	during system initialization and should be saved as
+	<code class="filename">/usr/local/etc/racoon/setkey.conf</code>.</p><pre class="programlisting">flush;
+spdflush;
+# To the home network
+spdadd 10.246.38.0/24 10.0.0.0/24 any -P out ipsec esp/tunnel/172.16.5.4-192.168.1.12/use;
+spdadd 10.0.0.0/24 10.246.38.0/24 any -P in ipsec esp/tunnel/192.168.1.12-172.16.5.4/use;</pre><p>Once in place, <span class="application">racoon</span> may be
+	started on both gateways using the following command:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>/usr/local/sbin/racoon -F -f /usr/local/etc/racoon/racoon.conf -l /var/log/racoon.log</code></strong></pre><p>The output should be similar to the following:</p><pre class="screen">corp-net<code class="prompt">#</code> <strong class="userinput"><code>/usr/local/sbin/racoon -F -f /usr/local/etc/racoon/racoon.conf</code></strong>
+Foreground mode.
+2006-01-30 01:35:47: INFO: begin Identity Protection mode.
+2006-01-30 01:35:48: INFO: received Vendor ID: KAME/racoon
+2006-01-30 01:35:55: INFO: received Vendor ID: KAME/racoon
+2006-01-30 01:36:04: INFO: ISAKMP-SA established 172.16.5.4[500]-192.168.1.12[500] spi:623b9b3bd2492452:7deab82d54ff704a
+2006-01-30 01:36:05: INFO: initiate new phase 2 negotiation: 172.16.5.4[0]192.168.1.12[0]
+2006-01-30 01:36:09: INFO: IPsec-SA established: ESP/Tunnel 192.168.1.12[0]-&gt;172.16.5.4[0] spi=28496098(0x1b2d0e2)
+2006-01-30 01:36:09: INFO: IPsec-SA established: ESP/Tunnel 172.16.5.4[0]-&gt;192.168.1.12[0] spi=47784998(0x2d92426)
+2006-01-30 01:36:13: INFO: respond new phase 2 negotiation: 172.16.5.4[0]192.168.1.12[0]
+2006-01-30 01:36:18: INFO: IPsec-SA established: ESP/Tunnel 192.168.1.12[0]-&gt;172.16.5.4[0] spi=124397467(0x76a279b)
+2006-01-30 01:36:18: INFO: IPsec-SA established: ESP/Tunnel 172.16.5.4[0]-&gt;192.168.1.12[0] spi=175852902(0xa7b4d66)</pre><p>To ensure the tunnel is working properly, switch to
+	another console and use <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=tcpdump&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">tcpdump</span>(1)</span></a> to view network
+	traffic using the following command.  Replace
+	<code class="literal">em0</code> with the network interface card as
+	required:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>tcpdump -i em0 host <em class="replaceable"><code>172.16.5.4 and dst 192.168.1.12</code></em></code></strong></pre><p>Data similar to the following should appear on the
+	console.  If not, there is an issue and debugging the
+	returned data will be required.</p><pre class="programlisting">01:47:32.021683 IP corporatenetwork.com &gt; 192.168.1.12.privatenetwork.com: ESP(spi=0x02acbf9f,seq=0xa)
+01:47:33.022442 IP corporatenetwork.com &gt; 192.168.1.12.privatenetwork.com: ESP(spi=0x02acbf9f,seq=0xb)
+01:47:34.024218 IP corporatenetwork.com &gt; 192.168.1.12.privatenetwork.com: ESP(spi=0x02acbf9f,seq=0xc)</pre><p>At this point, both networks should be available and seem
+	to be part of the same network.  Most likely both networks are
+	protected by a firewall.  To allow traffic to flow between
+	them, rules need to be added to pass packets.  For the
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ipfw&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ipfw</span>(8)</span></a> firewall, add the following lines to the firewall
+	configuration file:</p><pre class="programlisting">ipfw add 00201 allow log esp from any to any
+ipfw add 00202 allow log ah from any to any
+ipfw add 00203 allow log ipencap from any to any
+ipfw add 00204 allow log udp from any 500 to any</pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">The rule numbers may need to be altered depending on the
+	  current host configuration.</p></div><p>For users of <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pf&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pf</span>(4)</span></a> or <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ipf&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ipf</span>(8)</span></a>, the following
+	rules should do the trick:</p><pre class="programlisting">pass in quick proto esp from any to any
+pass in quick proto ah from any to any
+pass in quick proto ipencap from any to any
+pass in quick proto udp from any port = 500 to any port = 500
+pass in quick on gif0 from any to any
+pass out quick proto esp from any to any
+pass out quick proto ah from any to any
+pass out quick proto ipencap from any to any
+pass out quick proto udp from any port = 500 to any port = 500
+pass out quick on gif0 from any to any</pre><p>Finally, to allow the machine to start support for the
+	<acronym class="acronym">VPN</acronym> during system initialization, add the
+	following lines to <code class="filename">/etc/rc.conf</code>:</p><pre class="programlisting">ipsec_enable="YES"
+ipsec_program="/usr/local/sbin/setkey"
+ipsec_file="/usr/local/etc/racoon/setkey.conf" # allows setting up spd policies on boot
+racoon_enable="yes"</pre></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="openssl.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="security.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="openssh.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">13.6. OpenSSL </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 13.8. OpenSSH</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

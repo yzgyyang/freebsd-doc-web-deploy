@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>2.5. Make</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Developers' Handbook" /><link rel="up" href="tools.html" title="Chapter 2. Programming Tools" /><link rel="prev" href="tools-compiling.html" title="2.4. Compiling with cc" /><link rel="next" href="debugging.html" title="2.6. Debugging" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">2.5. Make</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="tools-compiling.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Programming Tools</th><td width="20%" align="right"> <a accesskey="n" href="debugging.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="tools-make"></a>2.5. Make</h2></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47772280"></a>2.5.1. What is <code class="command">make</code>?</h3></div></div></div><p>When you are working on a simple program with only one or
+	two source files, typing in</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>cc file1.c file2.c</code></strong></pre><p>is not too bad, but it quickly becomes very tedious when
+	there are several files&#8212;and it can take a while to
+	compile, too.</p><p>One way to get around this is to use object files and only
+	recompile the source file if the source code has changed.  So
+	we could have something like:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>cc file1.o file2.o</code></strong> &#8230; <strong class="userinput"><code>file37.c</code></strong> &#8230;</pre><p>if we had changed <code class="filename">file37.c</code>, but not
+	any of the others, since the last time we compiled.  This may
+	speed up the compilation quite a bit, but does not solve the
+	typing problem.</p><p>Or we could write a shell script to solve the typing
+	problem, but it would have to re-compile everything, making it
+	very inefficient on a large project.</p><p>What happens if we have hundreds of source files lying
+	about? What if we are working in a team with other people who
+	forget to tell us when they have changed one of their source
+	files that we use?</p><p>Perhaps we could put the two solutions together and write
+	something like a shell script that would contain some kind of
+	magic rule saying when a source file needs compiling.  Now all
+	we need now is a program that can understand these rules, as
+	it is a bit too complicated for the shell.</p><p>This program is called <code class="command">make</code>.  It reads
+	in a file, called a <em class="firstterm">makefile</em>, that
+	tells it how different files depend on each other, and works
+	out which files need to be re-compiled and which ones do not.
+	For example, a rule could say something like <span class="quote">&#8220;<span class="quote">if
+	  <code class="filename">fromboz.o</code> is older than
+	  <code class="filename">fromboz.c</code>, that means someone must have
+	  changed <code class="filename">fromboz.c</code>, so it needs to be
+	  re-compiled.</span>&#8221;</span> The makefile also has rules telling
+	make <span class="emphasis"><em>how</em></span> to re-compile the source file,
+	making it a much more powerful tool.</p><p>Makefiles are typically kept in the same directory as the
+	source they apply to, and can be called
+	<code class="filename">makefile</code>, <code class="filename">Makefile</code>
+	or <code class="filename">MAKEFILE</code>.  Most programmers use the
+	name <code class="filename">Makefile</code>, as this puts it near the
+	top of a directory listing, where it can easily be
+	seen.<a href="#ftn.idp47802872" class="footnote" id="idp47802872"><sup class="footnote">[5]</sup></a></p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47818488"></a>2.5.2. Example of Using <code class="command">make</code></h3></div></div></div><p>Here is a very simple make file:</p><pre class="programlisting">foo: foo.c
+	cc -o foo foo.c</pre><p>It consists of two lines, a dependency line and a creation
+	line.</p><p>The dependency line here consists of the name of the
+	program (known as the <em class="firstterm">target</em>), followed
+	by a colon, then whitespace, then the name of the source file.
+	When <code class="command">make</code> reads this line, it looks to see
+	if <code class="filename">foo</code> exists; if it exists, it compares
+	the time <code class="filename">foo</code> was last modified to the
+	time <code class="filename">foo.c</code> was last modified.  If
+	<code class="filename">foo</code> does not exist, or is older than
+	<code class="filename">foo.c</code>, it then looks at the creation line
+	to find out what to do.  In other words, this is the rule for
+	working out when <code class="filename">foo.c</code> needs to be
+	re-compiled.</p><p>The creation line starts with a <span class="token">tab</span> (press
+	<span class="keycap"><strong>tab</strong></span>) and then the command you would type to
+	create <code class="filename">foo</code> if you were doing it at a
+	command prompt.  If <code class="filename">foo</code> is out of date,
+	or does not exist, <code class="command">make</code> then executes this
+	command to create it.  In other words, this is the rule which
+	tells make how to re-compile
+	<code class="filename">foo.c</code>.</p><p>So, when you type <strong class="userinput"><code>make</code></strong>, it will
+	make sure that <code class="filename">foo</code> is up to date with
+	respect to your latest changes to <code class="filename">foo.c</code>.
+	This principle can be extended to
+	<code class="filename">Makefile</code>s with hundreds of
+	targets&#8212;in fact, on FreeBSD, it is possible to compile
+	the entire operating system just by typing <strong class="userinput"><code>make
+	  world</code></strong> in the appropriate directory!</p><p>Another useful property of makefiles is that the targets
+	do not have to be programs.  For instance, we could have a
+	make file that looks like this:</p><pre class="programlisting">foo: foo.c
+	cc -o foo foo.c
+
+install:
+	cp foo /home/me</pre><p>We can tell make which target we want to make by
+	typing:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>make <em class="replaceable"><code>target</code></em></code></strong></pre><p><code class="command">make</code> will then only look at that target
+	and ignore any others.  For example, if we type
+	<strong class="userinput"><code>make foo</code></strong> with the makefile above, make
+	will ignore the <code class="buildtarget">install</code>
+	target.</p><p>If we just type <strong class="userinput"><code>make</code></strong> on its own,
+	make will always look at the first target and then stop
+	without looking at any others.  So if we typed
+	<strong class="userinput"><code>make</code></strong> here, it will just go to the
+	<code class="buildtarget">foo</code> target, re-compile
+	<code class="filename">foo</code> if necessary, and then stop without
+	going on to the <code class="buildtarget">install</code>
+	target.</p><p>Notice that the <code class="buildtarget">install</code> target
+	does not actually depend on anything! This means that the
+	command on the following line is always executed when we try
+	to make that target by typing <strong class="userinput"><code>make
+	  install</code></strong>.  In this case, it will copy
+	<code class="filename">foo</code> into the user's home directory.  This
+	is often used by application makefiles, so that the
+	application can be installed in the correct directory when it
+	has been correctly compiled.</p><p>This is a slightly confusing subject to try to explain.
+	If you do not quite understand how <code class="command">make</code>
+	works, the best thing to do is to write a simple program like
+	<span class="quote">&#8220;<span class="quote">hello world</span>&#8221;</span> and a make file like the one above
+	and experiment.  Then progress to using more than one source
+	file, or having the source file include a header file.
+	<code class="command">touch</code> is very useful here&#8212;it changes
+	the date on a file without you having to edit it.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47879288"></a>2.5.3. Make and include-files</h3></div></div></div><p>C code often starts with a list of files to include, for
+	example stdio.h.  Some of these files are system-include
+	files, some of them are from the project you are now working
+	on:</p><pre class="programlisting">#include &lt;stdio.h&gt;
+#include "foo.h"
+
+int main(....</pre><p>To make sure that this file is recompiled the moment
+	<code class="filename">foo.h</code> is changed, you have to add it in
+	your <code class="filename">Makefile</code>:</p><pre class="programlisting">foo: foo.c foo.h</pre><p>The moment your project is getting bigger and you have
+	more and more own include-files to maintain, it will be a pain
+	to keep track of all include files and the files which are
+	depending on it.  If you change an include-file but forget to
+	recompile all the files which are depending on it, the results
+	will be devastating.  <code class="command">clang</code> has an option
+	to analyze your files and to produce a list of include-files
+	and their dependencies: <code class="option">-MM</code>.</p><p>If you add this to your Makefile:</p><pre class="programlisting">depend:
+	cc -E -MM *.c &gt; .depend</pre><p>and run <strong class="userinput"><code>make depend</code></strong>, the file
+	<code class="filename">.depend</code> will appear with a list of
+	object-files, C-files and the include-files:</p><pre class="programlisting">foo.o: foo.c foo.h</pre><p>If you change <code class="filename">foo.h</code>, next time you
+	run <code class="command">make</code> all files depending on
+	<code class="filename">foo.h</code> will be recompiled.</p><p>Do not forget to run <code class="command">make depend</code> each
+	time you add an include-file to one of your files.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47915384"></a>2.5.4. FreeBSD Makefiles</h3></div></div></div><p>Makefiles can be rather complicated to write.
+	Fortunately, BSD-based systems like FreeBSD come with some
+	very powerful ones as part of the system.  One very good
+	example of this is the FreeBSD ports system.  Here is the
+	essential part of a typical ports
+	<code class="filename">Makefile</code>:</p><pre class="programlisting">MASTER_SITES=   ftp://freefall.cdrom.com/pub/FreeBSD/LOCAL_PORTS/
+DISTFILES=      scheme-microcode+dist-7.3-freebsd.tgz
+
+.include &lt;bsd.port.mk&gt;</pre><p>Now, if we go to the directory for this port and type
+	<strong class="userinput"><code>make</code></strong>, the following happens:</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p>A check is made to see if the source code for this
+	    port is already on the system.</p></li><li class="step"><p>If it is not, an FTP connection to the URL in
+	    <span class="symbol">MASTER_SITES</span> is set up to download the
+	    source.</p></li><li class="step"><p>The checksum for the source is calculated and compared
+	    it with one for a known, good, copy of the source.  This
+	    is to make sure that the source was not corrupted while in
+	    transit.</p></li><li class="step"><p>Any changes required to make the source work on
+	    FreeBSD are applied&#8212;this is known as
+	    <em class="firstterm">patching</em>.</p></li><li class="step"><p>Any special configuration needed for the source is
+	    done.  (Many <span class="trademark">UNIX</span>® program distributions try to work out
+	    which version of <span class="trademark">UNIX</span>® they are being compiled on and
+	    which optional <span class="trademark">UNIX</span>® features are present&#8212;this is
+	    where they are given the information in the FreeBSD ports
+	    scenario).</p></li><li class="step"><p>The source code for the program is compiled.  In
+	    effect, we change to the directory where the source was
+	    unpacked and do <code class="command">make</code>&#8212;the
+	    program's own make file has the necessary information to
+	    build the program.</p></li><li class="step"><p>We now have a compiled version of the program.  If we
+	    wish, we can test it now; when we feel confident about the
+	    program, we can type <strong class="userinput"><code>make install</code></strong>.
+	    This will cause the program and any supporting files it
+	    needs to be copied into the correct location; an entry is
+	    also made into a <span class="database">package database</span>, so
+	    that the port can easily be uninstalled later if we change
+	    our mind about it.</p></li></ol></div><p>Now I think you will agree that is rather impressive for a
+	four line script!</p><p>The secret lies in the last line, which tells
+	<code class="command">make</code> to look in the system makefile called
+	<code class="filename">bsd.port.mk</code>.  It is easy to overlook this
+	line, but this is where all the clever stuff comes
+	from&#8212;someone has written a makefile that tells
+	<code class="command">make</code> to do all the things above (plus a
+	couple of other things I did not mention, including handling
+	any errors that may occur) and anyone can get access to that
+	just by putting a single line in their own make file!</p><p>If you want to have a look at these system makefiles, they
+	are in <code class="filename">/usr/share/mk</code>, but it is probably
+	best to wait until you have had a bit of practice with
+	makefiles, as they are very complicated (and if you do look at
+	them, make sure you have a flask of strong coffee
+	handy!)</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47968248"></a>2.5.5. More Advanced Uses of <code class="command">make</code></h3></div></div></div><p><code class="command">Make</code> is a very powerful tool, and can
+	do much more than the simple example above shows.
+	Unfortunately, there are several different versions of
+	<code class="command">make</code>, and they all differ considerably.
+	The best way to learn what they can do is probably to read the
+	documentation&#8212;hopefully this introduction will have
+	given you a base from which you can do this.</p><p>The version of make that comes with FreeBSD is the
+	<span class="application">Berkeley make</span>; there is a tutorial
+	for it in <code class="filename">/usr/share/doc/psd/12.make</code>.  To
+	view it, do</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>zmore paper.ascii.gz</code></strong></pre><p>in that directory.</p><p>Many applications in the ports use <span class="application">GNU
+	  make</span>, which has a very good set of
+	<span class="quote">&#8220;<span class="quote">info</span>&#8221;</span> pages.  If you have installed any of these
+	ports, <span class="application">GNU make</span> will automatically
+	have been installed as <code class="command">gmake</code>.  It is also
+	available as a port and package in its own right.</p><p>To view the info pages for <span class="application">GNU
+	  make</span>, you will have to edit
+	<code class="filename">dir</code> in the
+	<code class="filename">/usr/local/info</code> directory to add an entry
+	for it.  This involves adding a line like</p><pre class="programlisting"> * Make: (make).                 The GNU Make utility.</pre><p>to the file.  Once you have done this, you can type
+	<strong class="userinput"><code>info</code></strong> and then select
+	<span class="guimenuitem">make</span> from the menu (or in
+	<span class="application">Emacs</span>, do <strong class="userinput"><code>C-h
+	  i</code></strong>).</p></div><div class="footnotes"><br /><hr class="footnote-hr" /><div id="ftn.idp47802872" class="footnote"><p><a href="#idp47802872" class="para"><sup class="para">[5] </sup></a>They do not use the
+	    <code class="filename">MAKEFILE</code> form as block capitals are
+	    often used for documentation files like
+	    <code class="filename">README</code>.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="tools-compiling.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="tools.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="debugging.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2.4. Compiling with <code class="command">cc</code> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 2.6. Debugging</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

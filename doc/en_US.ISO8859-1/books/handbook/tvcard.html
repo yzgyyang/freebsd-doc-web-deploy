@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>7.5. TV Cards</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="multimedia.html" title="Chapter 7. Multimedia" /><link rel="prev" href="video-playback.html" title="7.4. Video Playback" /><link rel="next" href="mythtv.html" title="7.6. MythTV" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">7.5. TV Cards</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="video-playback.html">Prev</a> </td><th width="60%" align="center">Chapter 7. Multimedia</th><td width="20%" align="right"> <a accesskey="n" href="mythtv.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="tvcard"></a>7.5. TV Cards</h2></div><div><span class="authorgroup">Original contribution by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Josef</span> <span class="surname">El-Rayes</span></span>. </span></div><div><span class="authorgroup">Enhanced and adapted by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Marc</span> <span class="surname">Fonvieille</span></span>. </span></div></div></div><a id="idp55603576" class="indexterm"></a><p>TV cards can be used to watch broadcast or cable TV on a
+      computer.  Most cards accept composite video via an
+      <acronym class="acronym">RCA</acronym> or S-video input and some cards include a
+      <acronym class="acronym">FM</acronym> radio tuner.</p><p>FreeBSD provides support for PCI-based TV cards using a
+      Brooktree Bt848/849/878/879 video capture chip with the
+      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=bktr&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">bktr</span>(4)</span></a> driver.  This driver supports most Pinnacle PCTV
+      video cards.  Before purchasing a TV card, consult <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=bktr&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">bktr</span>(4)</span></a>
+      for a list of supported tuners.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp55607672"></a>7.5.1. Loading the Driver</h3></div></div></div><p>In order to use the card, the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=bktr&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">bktr</span>(4)</span></a> driver must be
+	loaded.  To automate this at boot time, add the following line
+	to <code class="filename">/boot/loader.conf</code>:</p><pre class="programlisting">bktr_load="YES"</pre><p>Alternatively, one can statically compile support for
+	the TV card into a custom kernel.  In that case, add the
+	following lines to the custom kernel configuration
+	file:</p><pre class="programlisting">device	 bktr
+device	iicbus
+device	iicbb
+device	smbus</pre><p>These additional devices are necessary as the card
+	components are interconnected via an I2C bus.  Then, build and
+	install a new kernel.</p><p>To test that the tuner is correctly detected, reboot the
+	system.  The TV card should appear in the boot messages, as
+	seen in this example:</p><pre class="programlisting">bktr0: &lt;BrookTree 848A&gt; mem 0xd7000000-0xd7000fff irq 10 at device 10.0 on pci0
+iicbb0: &lt;I2C bit-banging driver&gt; on bti2c0
+iicbus0: &lt;Philips I2C bus&gt; on iicbb0 master-only
+iicbus1: &lt;Philips I2C bus&gt; on iicbb0 master-only
+smbus0: &lt;System Management Bus&gt; on bti2c0
+bktr0: Pinnacle/Miro TV, Philips SECAM tuner.</pre><p>The messages will differ according to the hardware.  If
+	necessary, it is possible to override some of the detected
+	parameters using <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sysctl&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sysctl</span>(8)</span></a> or custom kernel configuration
+	options.  For example, to force the tuner to a Philips SECAM
+	tuner, add the following line to a custom kernel configuration
+	file:</p><pre class="programlisting">options OVERRIDE_TUNER=6</pre><p>or, use <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sysctl&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sysctl</span>(8)</span></a>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>sysctl hw.bt848.tuner=6</code></strong></pre><p>Refer to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=bktr&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">bktr</span>(4)</span></a> for a description of the available
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sysctl&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sysctl</span>(8)</span></a> parameters and kernel options.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp55634168"></a>7.5.2. Useful Applications</h3></div></div></div><p>To use the TV card, install one of the following
+	applications:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/multimedia/fxtv/pkg-descr">multimedia/fxtv</a>
+	    provides TV-in-a-window and image/audio/video capture
+	    capabilities.</p></li><li class="listitem"><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/multimedia/xawtv/pkg-descr">multimedia/xawtv</a>
+	    is another TV application with similar features.</p></li><li class="listitem"><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/audio/xmradio/pkg-descr">audio/xmradio</a>
+	    provides an application for using the FM radio tuner of a
+	    TV card.</p></li></ul></div><p>More applications are available in the FreeBSD Ports
+	Collection.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp55639160"></a>7.5.3. Troubleshooting</h3></div></div></div><p>If any problems are encountered with the TV card, check
+	that the video capture chip and the tuner are supported by
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=bktr&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">bktr</span>(4)</span></a> and that the right configuration options were
+	used.  For more support or to ask questions about supported TV
+	cards, refer to the <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo/freebsd-multimedia" target="_top">freebsd-multimedia</a> mailing list.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="video-playback.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="multimedia.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="mythtv.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">7.4. Video Playback </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 7.6. MythTV</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

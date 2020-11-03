@@ -1,6 +1,6 @@
 #!/usr/bin/perl -T
 #
-# Copyright (c) 1996-2018 Wolfram Schneider <wosch@FreeBSD.org>
+# Copyright (c) 1996-2020 Wolfram Schneider <wosch@FreeBSD.org>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -48,12 +48,13 @@ use constant HAS_FREEBSD_CGI_STYLE => eval { require "./cgi-style.pl"; };
 
 package main;
 
-alarm(10);
-
 $debug        = 2;
 $www{'title'} = 'FreeBSD Manual Pages';
 $www{'home'}  = 'https://www.FreeBSD.org';
 $www{'head'}  = $www{'title'};
+
+# set to zero if your front-end cache has low memory
+my $download_streaming_caching = 0;
 
 #$command{'man'} = '/usr/bin/man';    # 8Bit clean man
 $command{'man'} = '/usr/local/www/bin/man.wrapper';    # set CPU limits
@@ -103,6 +104,10 @@ $sectionpath = {
     'HP-UX 10.10' => { 'path' => '1:1m:2:3:4:5:7:9' },
     'HP-UX 10.01' => { 'path' => '1:1m:2:3:4:5:7:9' },
     'HP-UX 9.07'  => { 'path' => '1:1m:2:3:4:5:7:9' },
+    'HP-UX 8.07'  => { 'path' => '1:1m:2:3:4:5:7:9' },
+
+    'IRIX 6.5.30' => { 'path' => '1:1m:2:3:3c:3dm:3n:3x:4:5:7:9' },
+
     'SunOS 5.10'  => {
         'path' =>
 '1:1m:1s:1as:2:3:3c:3malloc:3nsl:3socket:3ldap:3nisdb:3rac:3resolv:3rpc:3slp:3proc:3rt:3c_db:3elf:3kvm:3kstat:3m:3mp:3mvec:3pam:3aio:3bsm:3tsol:3contract:3cpc:3sec:3secdb:3smartcard:3cfgadm:3crypt:3devid:3devinfo:3door:3lib:3libucb:3head:3nvpair:3rsm:7:7d:7fs:7i:7ipp:7m:7p:9:9e:9f:9p:9s:4:5:4b:3gen:3exacct:3sysevent:3uuid:3wsreg:3dmi:3snmp:3tnf:3volmgt:3mail:3layout:3ext:3picl:3picltree:3pool:3project:3perl:3lgrp:3sasl:3scf:3dat:3hbaapi:3tecla:1b:1c:1f:3ucb:3xnet:3curses:3plot:3xcurses:3gss:6:3tiff:3fontconfig:3mlib:l:n',
@@ -161,12 +166,16 @@ $sectionpath = {
     'OpenBSD 6.1' => { 'path' => '1:2:3:3p:4:5:6:7:8:9', },
     'OpenBSD 6.2' => { 'path' => '1:2:3:3p:4:5:6:7:8:9', },
     'OpenBSD 6.3' => { 'path' => '1:2:3:3p:4:5:6:7:8:9', },
+    'OpenBSD 6.4' => { 'path' => '1:2:3:3p:4:5:6:7:8:9', },
+    'OpenBSD 6.5' => { 'path' => '1:2:3:3p:4:5:6:7:8:9', },
+    'OpenBSD 6.6' => { 'path' => '1:2:3:3p:4:5:6:7:8:9', },
+    'OpenBSD 6.7' => { 'path' => '1:2:3:3p:4:5:6:7:8:9', },
 
-    'CentOS Linux/i386 3.9' => { 'path' => '1:2:3:3p:4:5:6:7:8:9:n', },
-    'CentOS Linux/i386 4.8' => { 'path' => '1:1p:2:3:3p:4:5:6:7:8:9:n:0p', },
-    'CentOS Linux/i386 5.3' => { 'path' => '0p:1:1p:1x:2:2x:3:3p:3x:4:4x:5:5x:6:6x:7:7x:8:8x:9:9x:l:n' },
-    'CentOS Linux/i386 5.4' => { 'path' => '0p:1:1p:1x:2:2x:3:3p:3x:4:4x:5:5x:6:6x:7:7x:8:8x:9:9x:l:n' },
-    'CentOS Linux/i386 5.5' => { 'path' => '0p:1:1p:1x:2:2x:3:3p:3x:4:4x:5:5x:6:6x:7:7x:8:8x:9:9x:l:n' },
+    'CentOS 3.9' => { 'path' => '1:2:3:3p:4:5:6:7:8:9:n', },
+    'CentOS 4.8' => { 'path' => '1:1p:2:3:3p:4:5:6:7:8:9:n:0p', },
+    'CentOS 5.3' => { 'path' => '0p:1:1p:1x:2:2x:3:3p:3x:4:4x:5:5x:6:6x:7:7x:8:8x:9:9x:l:n' },
+    'CentOS 5.4' => { 'path' => '0p:1:1p:1x:2:2x:3:3p:3x:4:4x:5:5x:6:6x:7:7x:8:8x:9:9x:l:n' },
+    'CentOS 5.5' => { 'path' => '0p:1:1p:1x:2:2x:3:3p:3x:4:4x:5:5x:6:6x:7:7x:8:8x:9:9x:l:n' },
     'CentOS 5.6' => { 'path' => '0p:1:1p:1x:2:2x:3:3p:3x:4:4x:5:5x:6:6x:7:7x:8:8x:9:9x:l:n' },
     'CentOS 5.7' => { 'path' => '0p:1:1p:1x:2:2x:3:3p:3x:4:4x:5:5x:6:6x:7:7x:8:8x:9:9x:l:n' },
     'CentOS 5.8' => { 'path' => '0p:1:1p:1x:2:2x:3:3p:3x:4:4x:5:5x:6:6x:7:7x:8:8x:9:9x:l:n' },
@@ -183,31 +192,31 @@ $sectionpath = {
     'CentOS 7.0' => { 'path' => '0p:1:1p:1x:2:2x:3:3p:3t:3x:4:4x:5:5x:6:6x:7:7x:8:8x:9:9x:n' },
     'CentOS 7.1' => { 'path' => '0p:1:1p:2:3:3p:3t:4:5:6:7:8:9:n' },
 
-    'SuSE Linux/i386 4.3'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
-    'SuSE Linux/i386 5.0'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
-    'SuSE Linux/i386 5.2'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
-    'SuSE Linux/i386 5.3'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
-    'SuSE Linux/i386 6.0'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
-    'SuSE Linux/i386 6.1'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
-    'SuSE Linux/i386 6.3'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
-    'SuSE Linux/i386 6.4'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
-    'SuSE Linux/i386 7.0'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
-    'SuSE Linux/i386 7.1'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
-    'SuSE Linux/i386 7.2'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
-    'SuSE Linux/i386 7.3'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
-    'SuSE Linux/i386 8.0'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
-    'SuSE Linux/i386 8.1'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
-    'SuSE Linux/i386 8.2'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
-    'SuSE Linux/i386 9.2'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
-    'SuSE Linux/i386 9.3'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
-    'SuSE Linux/i386 10.0' => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
-    'SuSE Linux/i386 10.1' => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
-    'SuSE Linux/i386 10.2' => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
-    'SuSE Linux/i386 10.3' => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
-    'SuSE Linux/i386 11.0' => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
-    'SuSE Linux/i386 11.1' => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
-    'SuSE Linux/i386 11.2' => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
-    'SuSE Linux/i386 11.3' => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
+    'SuSE 4.3'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
+    'SuSE 5.0'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
+    'SuSE 5.2'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
+    'SuSE 5.3'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
+    'SuSE 6.0'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
+    'SuSE 6.1'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
+    'SuSE 6.3'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
+    'SuSE 6.4'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
+    'SuSE 7.0'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
+    'SuSE 7.1'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
+    'SuSE 7.2'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
+    'SuSE 7.3'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
+    'SuSE 8.0'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
+    'SuSE 8.1'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
+    'SuSE 8.2'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
+    'SuSE 9.2'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
+    'SuSE 9.3'  => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
+    'SuSE 10.0' => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
+    'SuSE 10.1' => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
+    'SuSE 10.2' => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
+    'SuSE 10.3' => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
+    'SuSE 11.0' => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
+    'SuSE 11.1' => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
+    'SuSE 11.2' => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
+    'SuSE 11.3' => { 'path' => '0p:1:1p:2:3:3p:4:5:6:7:8:9:n:s', },
 };
 
 foreach my $os ( keys %$sectionpath ) {
@@ -229,10 +238,18 @@ foreach my $os ( keys %$sectionpath ) {
 
 $manLocalDir    = '/usr/local/www/bsddoc/man';
 # this should be the latest "release and ports"
-$manPathDefault = 'FreeBSD 11.2-RELEASE and Ports';
+$manPathDefault = 'FreeBSD 12.1-RELEASE and Ports';
 
 %manPath = (
     # supported releases / stable / current 
+    'FreeBSD 12.1-RELEASE and Ports',
+"$manLocalDir/FreeBSD-12.1-RELEASE/man:$manLocalDir/FreeBSD-12.1-RELEASE/openssl/man:$manLocalDir/FreeBSD-ports-12.1-RELEASE/man:$manLocalDir/FreeBSD-ports-12.1-RELEASE/misc",
+    'FreeBSD 12.0-RELEASE and Ports',
+"$manLocalDir/FreeBSD-12.0-RELEASE/man:$manLocalDir/FreeBSD-12.0-RELEASE/openssl/man:$manLocalDir/FreeBSD-ports-12.0-RELEASE/man:$manLocalDir/FreeBSD-ports-12.0-RELEASE/misc",
+    'FreeBSD 11.4-RELEASE and Ports',
+"$manLocalDir/FreeBSD-11.4-RELEASE/man:$manLocalDir/FreeBSD-11.4-RELEASE/openssl/man:$manLocalDir/FreeBSD-ports-11.4-RELEASE/man:$manLocalDir/FreeBSD-ports-11.4-RELEASE/misc",
+    'FreeBSD 11.3-RELEASE and Ports',
+"$manLocalDir/FreeBSD-11.3-RELEASE/man:$manLocalDir/FreeBSD-11.3-RELEASE/openssl/man:$manLocalDir/FreeBSD-ports-11.3-RELEASE/man:$manLocalDir/FreeBSD-ports-11.3-RELEASE/misc",
     'FreeBSD 11.2-RELEASE and Ports',
 "$manLocalDir/FreeBSD-11.2-RELEASE/man:$manLocalDir/FreeBSD-11.2-RELEASE/openssl/man:$manLocalDir/FreeBSD-ports-11.2-RELEASE/man:$manLocalDir/FreeBSD-ports-11.2-RELEASE/misc",
     'FreeBSD 11.1-RELEASE and Ports',
@@ -273,11 +290,22 @@ $manPathDefault = 'FreeBSD 11.2-RELEASE and Ports';
     'FreeBSD 6.4-RELEASE and Ports',
 "$manLocalDir/FreeBSD-6.4-RELEASE/man:$manLocalDir/FreeBSD-6.4-RELEASE/openssl/man:$manLocalDir/FreeBSD-ports-6.2-RELEASE",
 
-    'FreeBSD 12-current',
-"$manLocalDir/FreeBSD-12-current/man:$manLocalDir/FreeBSD-12-current/openssl/man",
+    'FreeBSD 13-current',
+"$manLocalDir/FreeBSD-13-current/man:$manLocalDir/FreeBSD-13-current/openssl/man",
 
-    'FreeBSD 11.2-stable',
-"$manLocalDir/FreeBSD-11.2-stable/man:$manLocalDir/FreeBSD-11.2-stable/openssl/man",
+    'FreeBSD 12.1-stable',
+"$manLocalDir/FreeBSD-12.1-stable/man:$manLocalDir/FreeBSD-12.1-stable/openssl/man",
+    'FreeBSD 12.1-RELEASE',
+"$manLocalDir/FreeBSD-12.1-RELEASE/man:$manLocalDir/FreeBSD-12.1-RELEASE/openssl/man",
+    'FreeBSD 12.0-RELEASE',
+"$manLocalDir/FreeBSD-12.0-RELEASE/man:$manLocalDir/FreeBSD-12.0-RELEASE/openssl/man",
+
+    'FreeBSD 11.4-stable',
+"$manLocalDir/FreeBSD-11.4-stable/man:$manLocalDir/FreeBSD-11.4-stable/openssl/man",
+    'FreeBSD 11.4-RELEASE',
+"$manLocalDir/FreeBSD-11.4-RELEASE/man:$manLocalDir/FreeBSD-11.4-RELEASE/openssl/man",
+    'FreeBSD 11.3-RELEASE',
+"$manLocalDir/FreeBSD-11.3-RELEASE/man:$manLocalDir/FreeBSD-11.3-RELEASE/openssl/man",
     'FreeBSD 11.2-RELEASE',
 "$manLocalDir/FreeBSD-11.2-RELEASE/man:$manLocalDir/FreeBSD-11.2-RELEASE/openssl/man",
     'FreeBSD 11.1-RELEASE',
@@ -368,6 +396,10 @@ $manPathDefault = 'FreeBSD 11.2-RELEASE and Ports';
     'FreeBSD Ports 11.0', "$manLocalDir/FreeBSD-ports-11.0-RELEASE/man:$manLocalDir/FreeBSD-ports-11.0-RELEASE/misc",
     'FreeBSD Ports 11.1', "$manLocalDir/FreeBSD-ports-11.1-RELEASE/man:$manLocalDir/FreeBSD-ports-11.1-RELEASE/misc",
     'FreeBSD Ports 11.2', "$manLocalDir/FreeBSD-ports-11.2-RELEASE/man:$manLocalDir/FreeBSD-ports-11.2-RELEASE/misc",
+    'FreeBSD Ports 11.3', "$manLocalDir/FreeBSD-ports-11.3-RELEASE/man:$manLocalDir/FreeBSD-ports-11.3-RELEASE/misc",
+    'FreeBSD Ports 11.4', "$manLocalDir/FreeBSD-ports-11.4-RELEASE/man:$manLocalDir/FreeBSD-ports-11.4-RELEASE/misc",
+    'FreeBSD Ports 12.0', "$manLocalDir/FreeBSD-ports-12.0-RELEASE/man:$manLocalDir/FreeBSD-ports-12.0-RELEASE/misc",
+    'FreeBSD Ports 12.1', "$manLocalDir/FreeBSD-ports-12.1-RELEASE/man:$manLocalDir/FreeBSD-ports-12.1-RELEASE/misc",
 
 
     # FreeBSD Releases + Ports
@@ -532,6 +564,10 @@ $manPathDefault = 'FreeBSD 11.2-RELEASE and Ports';
     'OpenBSD 6.1', "$manLocalDir/OpenBSD-6.1",
     'OpenBSD 6.2', "$manLocalDir/OpenBSD-6.2",
     'OpenBSD 6.3', "$manLocalDir/OpenBSD-6.3",
+    'OpenBSD 6.4', "$manLocalDir/OpenBSD-6.4",
+    'OpenBSD 6.5', "$manLocalDir/OpenBSD-6.5",
+    'OpenBSD 6.6', "$manLocalDir/OpenBSD-6.6",
+    'OpenBSD 6.7', "$manLocalDir/OpenBSD-6.7",
 
     #'NetBSD 0.9',            "$manLocalDir/NetBSD-0.9",
     'NetBSD 1.0',   "$manLocalDir/NetBSD-1.0",
@@ -567,6 +603,9 @@ $manPathDefault = 'FreeBSD 11.2-RELEASE and Ports';
     'NetBSD 7.0',   "$manLocalDir/NetBSD-7.0",
     'NetBSD 7.1',   "$manLocalDir/NetBSD-7.1",
     'NetBSD 8.0',   "$manLocalDir/NetBSD-8.0",
+    'NetBSD 8.1',   "$manLocalDir/NetBSD-8.1",
+    'NetBSD 8.2',   "$manLocalDir/NetBSD-8.2",
+    'NetBSD 9.0',   "$manLocalDir/NetBSD-9.0",
 
     '2.8 BSD',      "$manLocalDir/2.8BSD",
     '2.9.1 BSD',    "$manLocalDir/2.9.1BSD",
@@ -579,22 +618,22 @@ $manPathDefault = 'FreeBSD 11.2-RELEASE and Ports';
     '4.4BSD Lite2', "$manLocalDir/4.4BSD-Lite2",
 
     'Linux Slackware 3.1',    "$manLocalDir/Slackware-3.1",
-    'Red Hat Linux/i386 4.2', "$manLocalDir/RedHat-4.2",
-    'Red Hat Linux/i386 5.0', "$manLocalDir/RedHat-5.0",
-    'Red Hat Linux/i386 5.2', "$manLocalDir/RedHat-5.2-i386",
-    'Red Hat Linux/i386 6.1', "$manLocalDir/RedHat-6.1-i386",
-    'Red Hat Linux/i386 6.2', "$manLocalDir/RedHat-6.2-i386",
-    'Red Hat Linux/i386 7.0', "$manLocalDir/RedHat-7.0-i386",
-    'Red Hat Linux/i386 7.1', "$manLocalDir/RedHat-7.1-i386",
-    'Red Hat Linux/i386 7.2', "$manLocalDir/RedHat-7.2-i386",
-    'Red Hat Linux/i386 7.3', "$manLocalDir/RedHat-7.3-i386",
-    'Red Hat Linux/i386 8.0', "$manLocalDir/RedHat-8.0-i386",
-    'Red Hat Linux/i386 9',   "$manLocalDir/RedHat-9-i386",
+    'Red Hat 4.2', "$manLocalDir/RedHat-4.2",
+    'Red Hat 5.0', "$manLocalDir/RedHat-5.0",
+    'Red Hat 5.2', "$manLocalDir/RedHat-5.2-i386",
+    'Red Hat 6.1', "$manLocalDir/RedHat-6.1-i386",
+    'Red Hat 6.2', "$manLocalDir/RedHat-6.2-i386",
+    'Red Hat 7.0', "$manLocalDir/RedHat-7.0-i386",
+    'Red Hat 7.1', "$manLocalDir/RedHat-7.1-i386",
+    'Red Hat 7.2', "$manLocalDir/RedHat-7.2-i386",
+    'Red Hat 7.3', "$manLocalDir/RedHat-7.3-i386",
+    'Red Hat 8.0', "$manLocalDir/RedHat-8.0-i386",
+    'Red Hat 9',   "$manLocalDir/RedHat-9-i386",
 
-    'CentOS Linux/i386 3.9', "$manLocalDir/CentOS-3.9",
-    'CentOS Linux/i386 4.8', "$manLocalDir/CentOS-4.8",
-    'CentOS Linux/i386 5.4', "$manLocalDir/CentOS-5.4",
-    'CentOS Linux/i386 5.5', "$manLocalDir/CentOS-5.5",
+    'CentOS 3.9', "$manLocalDir/CentOS-3.9",
+    'CentOS 4.8', "$manLocalDir/CentOS-4.8",
+    'CentOS 5.4', "$manLocalDir/CentOS-5.4",
+    'CentOS 5.5', "$manLocalDir/CentOS-5.5",
     'CentOS 5.6', "$manLocalDir/CentOS-5.6",
     'CentOS 5.7', "$manLocalDir/CentOS-5.7",
     'CentOS 5.8', "$manLocalDir/CentOS-5.8",
@@ -611,33 +650,33 @@ $manPathDefault = 'FreeBSD 11.2-RELEASE and Ports';
     'CentOS 7.0', "$manLocalDir/CentOS-7.0",
     'CentOS 7.1', "$manLocalDir/CentOS-7.1",
 
-    'SuSE Linux/i386 4.3',  "$manLocalDir/SuSE-4.3-i386",
-    'SuSE Linux/i386 5.0',  "$manLocalDir/SuSE-5.0-i386",
-    'SuSE Linux/i386 5.2',  "$manLocalDir/SuSE-5.2-i386",
-    'SuSE Linux/i386 5.3',  "$manLocalDir/SuSE-5.3-i386",
-    'SuSE Linux/i386 6.0',  "$manLocalDir/SuSE-6.0-i386",
-    'SuSE Linux/i386 6.1',  "$manLocalDir/SuSE-6.1-i386",
-    'SuSE Linux/i386 6.3',  "$manLocalDir/SuSE-6.3-i386",
-    'SuSE Linux/i386 6.4',  "$manLocalDir/SuSE-6.4-i386",
-    'SuSE Linux/i386 7.0',  "$manLocalDir/SuSE-7.0-i386",
-    'SuSE Linux/i386 7.1',  "$manLocalDir/SuSE-7.1-i386",
-    'SuSE Linux/i386 7.2',  "$manLocalDir/SuSE-7.2-i386",
-    'SuSE Linux/i386 7.3',  "$manLocalDir/SuSE-7.3-i386",
-    'SuSE Linux/i386 8.0',  "$manLocalDir/SuSE-8.0-i386",
-    'SuSE Linux/i386 8.1',  "$manLocalDir/SuSE-8.1-i386",
-    'SuSE Linux/i386 8.2',  "$manLocalDir/SuSE-8.2-i386",
-    'SuSE Linux/i386 9.2',  "$manLocalDir/SuSE-9.2-i386",
-    'SuSE Linux/i386 9.3',  "$manLocalDir/SuSE-9.3-i386",
-    'SuSE Linux/i386 10.0', "$manLocalDir/SuSE-10.0",
-    'SuSE Linux/i386 10.1', "$manLocalDir/SuSE-10.1",
-    'SuSE Linux/i386 10.2', "$manLocalDir/SuSE-10.2",
-    'SuSE Linux/i386 10.3', "$manLocalDir/SuSE-10.3",
-    'SuSE Linux/i386 11.0', "$manLocalDir/SuSE-11.0",
-    'SuSE Linux/i386 11.1', "$manLocalDir/SuSE-11.1",
-    'SuSE Linux/i386 11.2', "$manLocalDir/SuSE-11.2",
-    'SuSE Linux/i386 11.3', "$manLocalDir/SuSE-11.3",
+    'SuSE 4.3',  "$manLocalDir/SuSE-4.3-i386",
+    'SuSE 5.0',  "$manLocalDir/SuSE-5.0-i386",
+    'SuSE 5.2',  "$manLocalDir/SuSE-5.2-i386",
+    'SuSE 5.3',  "$manLocalDir/SuSE-5.3-i386",
+    'SuSE 6.0',  "$manLocalDir/SuSE-6.0-i386",
+    'SuSE 6.1',  "$manLocalDir/SuSE-6.1-i386",
+    'SuSE 6.3',  "$manLocalDir/SuSE-6.3-i386",
+    'SuSE 6.4',  "$manLocalDir/SuSE-6.4-i386",
+    'SuSE 7.0',  "$manLocalDir/SuSE-7.0-i386",
+    'SuSE 7.1',  "$manLocalDir/SuSE-7.1-i386",
+    'SuSE 7.2',  "$manLocalDir/SuSE-7.2-i386",
+    'SuSE 7.3',  "$manLocalDir/SuSE-7.3-i386",
+    'SuSE 8.0',  "$manLocalDir/SuSE-8.0-i386",
+    'SuSE 8.1',  "$manLocalDir/SuSE-8.1-i386",
+    'SuSE 8.2',  "$manLocalDir/SuSE-8.2-i386",
+    'SuSE 9.2',  "$manLocalDir/SuSE-9.2-i386",
+    'SuSE 9.3',  "$manLocalDir/SuSE-9.3-i386",
+    'SuSE 10.0', "$manLocalDir/SuSE-10.0",
+    'SuSE 10.1', "$manLocalDir/SuSE-10.1",
+    'SuSE 10.2', "$manLocalDir/SuSE-10.2",
+    'SuSE 10.3', "$manLocalDir/SuSE-10.3",
+    'SuSE 11.0', "$manLocalDir/SuSE-11.0",
+    'SuSE 11.1', "$manLocalDir/SuSE-11.1",
+    'SuSE 11.2', "$manLocalDir/SuSE-11.2",
+    'SuSE 11.3', "$manLocalDir/SuSE-11.3",
 
-    'SuSE Linux/i386 ES 10 SP1', "$manLocalDir/SLES-10-SP1-i386",
+    'SuSE ES 10 SP1', "$manLocalDir/SLES-10-SP1-i386",
 
     'Debian 2.2.7', "$manLocalDir/Debian-2.2r7/man:$manLocalDir/Debian-2.2r7/misc",
     'Debian 3.1.8', "$manLocalDir/Debian-31r8/man:$manLocalDir/Debian-31r8/misc",
@@ -655,6 +694,9 @@ $manPathDefault = 'FreeBSD 11.2-RELEASE and Ports';
     'HP-UX 10.10', "$manLocalDir/HP-UX-10.10",
     'HP-UX 10.01', "$manLocalDir/HP-UX-10.01",
     'HP-UX 9.07',  "$manLocalDir/HP-UX-9.07",
+    'HP-UX 8.07',  "$manLocalDir/HP-UX-8.07",
+
+    'IRIX 6.5.30',  "$manLocalDir/IRIX-6.5.30/catman/a_man:$manLocalDir/IRIX-6.5.30/catman/p_man:$manLocalDir/IRIX-6.5.30/catman/u_man:$manLocalDir/IRIX-6.5.30/dt",
 
     'SunOS 5.10',  "$manLocalDir/SunOS-5.10",
     'SunOS 5.9',   "$manLocalDir/SunOS-5.9",
@@ -663,6 +705,12 @@ $manPathDefault = 'FreeBSD 11.2-RELEASE and Ports';
     'SunOS 5.6',   "$manLocalDir/SunOS-5.6",
     'SunOS 5.5.1', "$manLocalDir/SunOS-5.5.1",
     'SunOS 4.1.3', "$manLocalDir/SunOS-4.1.3",
+
+    # full name: Sun UNIX 4.2* Software Release 0.4 (*Berkeley Beta Release)
+    # 1/2'' Boot Tape 700-0586-01
+    # alias SunOS 0.4, apparently released in April 1983 based on 4.2BSD beta
+    'Sun UNIX 0.4', "$manLocalDir/Sun-UNIX-0.4",
+
 
     #'XFree86 3.2',      "$manLocalDir/XFree86-3.2",
     'XFree86 2.1',      "$manLocalDir/XFree86-2.1",
@@ -679,6 +727,7 @@ $manPathDefault = 'FreeBSD 11.2-RELEASE and Ports';
     'XFree86 4.5.0',    "$manLocalDir/XFree86-4.5.0",
     'XFree86 4.6.0',    "$manLocalDir/XFree86-4.6.0",
     'XFree86 4.7.0',    "$manLocalDir/XFree86-4.7.0",
+    'XFree86 4.8.0',    "$manLocalDir/XFree86-4.8.0",
 
     'X11R6.7.0', "$manLocalDir/X11R6.7.0",
     'X11R6.8.2', "$manLocalDir/X11R6.8.2",
@@ -688,9 +737,12 @@ $manPathDefault = 'FreeBSD 11.2-RELEASE and Ports';
     'X11R7.4',   "$manLocalDir/X11R7.4",
 
     'ULTRIX 4.2',      "$manLocalDir/ULTRIX-4.2",
+    'Ultrix-32 2.0/VAX', "$manLocalDir/Ultrix-32-2.0-VAX",
+    'OSF1 V1.0/mips', "$manLocalDir/OSF1-V1.0-mips/os",
     'OSF1 V4.0/alpha', "$manLocalDir/OSF1-V4.0-alpha",
     'OSF1 V5.1/alpha', "$manLocalDir/OSF1-V5.1-alpha",
 
+    'Inferno 4th Edition',         "$manLocalDir/Inferno",
     'Plan 9',                      "$manLocalDir/plan9",
     'Minix 2.0',                   "$manLocalDir/Minix-2.0",
     'Unix Seventh Edition',        "$manLocalDir/v7man",
@@ -710,6 +762,10 @@ $manPathDefault = 'FreeBSD 11.2-RELEASE and Ports';
     'Rhapsody DR1',  "$manLocalDir/Rhapsody-DR1",
     'Rhapsody DR2',  "$manLocalDir/Rhapsody-DR2",
     'MACH 2.5/i386', "$manLocalDir/MACH-2.5-i386",
+);
+
+my @no_html_output = (
+    'IRIX 6.5.30'
 );
 
 my @no_pdf_output = (
@@ -751,17 +807,20 @@ my @no_pdf_output = (
     'OpenBSD 4.7',
     'OpenBSD 4.8',
     'OpenBSD 4.9',
+    'IRIX 6.5.30',
 );
 
 my %no_pdf_output = map { $_ => 1 } @no_pdf_output;
+my %no_html_output = map { $_ => 1 } @no_html_output;
 
 my %valid_arch = map { $_ => 1 }
   qw/aarch64 acorn26 acorn32 algor alpha amd64 amiga arc arm arm26 arm32 arm64 armish atari aviion bebox cats cesfic cobalt dreamcast evbarm evbmips evbppc evbsh3 evbsh5 hp300 hp700 hpcarm hpcmips hpcsh hppa hppa64 i386 ibmnws landisk loongson luna68k luna88k mac68k macppc mipsco mmeye mvme68k mvme88k mvmeppc netwinder news68k newsmips next68k ofppc palm pc532 pegasos playstation2 pmax pmppc powerpc prep sandpoint sbmips sgi sgimips shark socppc sparc sparc64 sun2 sun3 sun3x tahoe vax walnut wgrisc x68k zaurus/;
 
-my $default_arch = 'amd64';
+my $default_arch = '';
 my %arch_names = ('default' => 'All Architectures');
 
 my %arch = ( 
+'FreeBSD 11.3-RELEASE' => { 'default' => 'i386', 'arch' => [qw/amd64 arm i386 powerpc sparc64 aarch64/] } ,
 'FreeBSD 11.2-RELEASE' => { 'default' => 'i386', 'arch' => [qw/amd64 arm i386 powerpc sparc64 aarch64/] } ,
 'FreeBSD 11.1-RELEASE' => { 'default' => 'i386', 'arch' => [qw/amd64 arm i386 powerpc sparc64 aarch64/] } ,
 'FreeBSD 11.0-RELEASE' => { 'default' => 'i386', 'arch' => [qw/amd64 arm i386 powerpc sparc64 aarch64/] } ,
@@ -783,6 +842,9 @@ my %arch = (
 'NetBSD 7.0' => { 'arch' => [qw/acorn26 acorn32 algor alpha amd64 amiga arc atari bebox cats cesfic cobalt dreamcast emips evbarm evbmips evbppc evbsh3 hp300 hp700 hpcarm hpcmips hpcsh i386 ibmnws luna68k mac68k macppc mipsco mmeye mvme68k mvmeppc netwinder news68k newsmips next68k ofppc pmax prep sandpoint sbmips sgimips shark sparc sparc64 sun2 sun3 vax x68k x86/] } ,
 'NetBSD 7.1' => { 'arch' => [qw/acorn26 acorn32 algor alpha amd64 amiga arc atari bebox cats cesfic cobalt dreamcast emips evbarm evbmips evbppc evbsh3 hp300 hpcarm hpcmips hpcsh hppa i386 ibmnws luna68k mac68k macppc mipsco mmeye mvme68k mvmeppc netwinder news68k newsmips next68k ofppc playstation2 pmax prep sandpoint sbmips sgimips shark sparc sparc64 sun2 sun3 vax x68k x86/] } ,
 'NetBSD 8.0' => { 'arch' => [qw/acorn26 acorn32 algor alpha amd64 amiga arc atari bebox cats cesfic cobalt dreamcast emips evbarm evbmips evbppc evbsh3 hp300 hpcarm hpcmips hpcsh hppa i386 ibmnws luna68k mac68k macppc mipsco mmeye mvme68k mvmeppc netwinder news68k newsmips next68k ofppc playstation2 pmax prep sandpoint sbmips sgimips shark sparc sparc64 sun2 sun3 vax x68k x86/] } ,
+'NetBSD 8.1' => { 'arch' => [qw/acorn26 acorn32 algor alpha amd64 amiga arc atari bebox cats cesfic cobalt dreamcast emips evbarm evbmips evbppc evbsh3 hp300 hpcarm hpcmips hpcsh hppa i386 ibmnws luna68k mac68k macppc mipsco mmeye mvme68k mvmeppc netwinder news68k newsmips next68k ofppc playstation2 pmax prep sandpoint sbmips sgimips shark sparc sparc64 sun2 sun3 vax x68k x86/] } ,
+'NetBSD 8.2' => { 'arch' => [qw/acorn26 acorn32 algor alpha amd64 amiga arc atari bebox cats cesfic cobalt dreamcast emips evbarm evbmips evbppc evbsh3 hp300 hpcarm hpcmips hpcsh hppa i386 ibmnws luna68k mac68k macppc mipsco mmeye mvme68k mvmeppc netwinder news68k newsmips next68k ofppc playstation2 pmax prep sandpoint sbmips sgimips shark sparc sparc64 sun2 sun3 vax x68k x86/] } ,
+'NetBSD 9.0' => { 'arch' => [qw/acorn26 acorn32 algor alpha amd64 amiga arc atari bebox cats cesfic cobalt dreamcast emips evbarm evbmips evbppc evbsh3 hp300 hpcarm hpcmips hpcsh hppa i386 ibmnws luna68k mac68k macppc mipsco mmeye mvme68k mvmeppc netwinder news68k newsmips next68k ofppc playstation2 pmax prep sandpoint sbmips sgimips shark sparc sparc64 sun2 sun3 vax x68k x86/] } ,
 'OpenBSD 4.7' => { 'arch' => [qw/alpha amd64 armish aviion hp300 hppa hppa64 i386 landisk loongson luna88k mac68k macppc mvme68k mvme88k mvmeppc palm sgi socppc sparc sparc64 vax zaurus/] }, 
 'OpenBSD 4.8' => { 'arch' => [qw/alpha amd64 armish aviion hp300 hppa hppa64 i386 landisk loongson luna88k mac68k macppc mvme68k mvme88k mvmeppc palm sgi socppc sparc sparc64 vax zaurus/] }, 
 'OpenBSD 4.9' => { 'arch' => [qw/alpha amd64 armish aviion hp300 hppa hppa64 i386 landisk loongson luna88k mac68k macppc mvme68k mvme88k mvmeppc palm sgi socppc sparc sparc64 vax zaurus/] }, 
@@ -800,6 +862,10 @@ my %arch = (
 'OpenBSD 6.1' => { 'arch' => [qw/alpha amd64 armv7 hppa i386 landisk loongson luna88k macppc octeon sgi socppc sparc64/] }, 
 'OpenBSD 6.2' => { 'arch' => [qw/alpha amd64 armv7 hppa i386 landisk loongson luna88k macppc octeon sgi socppc sparc64/] }, 
 'OpenBSD 6.3' => { 'arch' => [qw/alpha amd64 armv7 hppa i386 landisk loongson luna88k macppc octeon sgi socppc sparc64/] }, 
+'OpenBSD 6.4' => { 'arch' => [qw/alpha amd64 armv7 hppa i386 landisk loongson luna88k macppc octeon sgi socppc sparc64/] }, 
+'OpenBSD 6.5' => { 'arch' => [qw/alpha amd64 armv7 hppa i386 landisk loongson luna88k macppc octeon sgi socppc sparc64/] }, 
+'OpenBSD 6.6' => { 'arch' => [qw/alpha amd64 armv7 hppa i386 landisk loongson luna88k macppc octeon sgi socppc sparc64/] }, 
+'OpenBSD 6.7' => { 'arch' => [qw/alpha amd64 armv7 hppa i386 landisk loongson luna88k macppc octeon sgi socppc sparc64/] }, 
 );
 
 # delete not existing releases
@@ -820,20 +886,21 @@ while ( ( $key, $val ) = each %manPath ) {
 
 # keywords must be in lower cases.
 %manPathAliases = (
-    'freebsd',         'FreeBSD 11.2-RELEASE',
-    'freebsd-release', 'FreeBSD 11.2-RELEASE',
+    'freebsd',         'FreeBSD 12.1-RELEASE',
+    'freebsd-release', 'FreeBSD 12.1-RELEASE',
 
-    'freebsd-stable', 'FreeBSD 11.2-stable',
-    'freebsd-stable11', 'FreeBSD 11.2-stable',
+    'freebsd-stable', 'FreeBSD 12.1-stable',
+    'freebsd-stable12', 'FreeBSD 12.1-stable',
+    'freebsd-stable11', 'FreeBSD 11.3-stable',
     'freebsd-stable10', 'FreeBSD 10.4-stable',
 
-    'freebsd-current',       'FreeBSD 12-current',
-    'freebsd-release-ports', 'FreeBSD 11.2-RELEASE and Ports',
-    'freebsd-ports', 'FreeBSD Ports 11.2',
+    'freebsd-current',       'FreeBSD 13-current',
+    'freebsd-release-ports', 'FreeBSD 12.1-RELEASE and Ports',
+    'freebsd-ports', 'FreeBSD Ports 12.1',
 
     'slackware',  'Linux Slackware 3.1',
-    'redhat',     'Red Hat Linux/i386 9',
-    'suse',       'SuSE Linux/i386 11.3',
+    'redhat',     'Red Hat 9',
+    'suse',       'SuSE 11.3',
     'debian',     'Debian 7.7.0',
     'centos',     'CentOS 7.1',
     'linux',      'Debian 7.7.0',
@@ -841,14 +908,15 @@ while ( ( $key, $val ) = each %manPath ) {
     'opendarwin', 'OpenDarwin 7.2.1',
     'macosx',     'Darwin 8.0.1/ppc',
 
-    'netbsd',        'NetBSD 8.0',
-    'openbsd',       'OpenBSD 6.3',
+    'netbsd',        'NetBSD 9.0',
+    'openbsd',       'OpenBSD 6.7',
     'v7',            'Unix Seventh Edition',
     'v7man',         'Unix Seventh Edition',
     'x11',           'X11R7.4',
-    'xfree86',       'XFree86 4.7.0',
+    'xfree86',       'XFree86 4.8.0',
     'ultrix',        'ULTRIX 4.2',
     'hpux',          'HP-UX 11.22',
+    'irix',          'IRIX 6.5.30',
     'solaris',       'SunOS 5.10',
     'sunos5',        'SunOS 5.10',
     'sunos4',        'SunOS 4.1.3',
@@ -876,23 +944,51 @@ while ( ( $key, $val ) = each %manPath ) {
 #
 sub sort_versions {
 
+    # a release has at least 2 numbers seperated by a dot:
     # FreeBSD 11.1-RELEASE ports
-    my @a = ( lc($a) =~ m,^(\D+)([\d\.]+)(\D*)$, );
-    my @b = ( lc($b) =~ m,^(\D+)([\d\.]+)(\D*)$, );
+    # X11R7.4
+    my @a = ( lc($a) =~ m,^(.*?)(\d+\.[\d\.]+)(.*)$, );
+    my @b = ( lc($b) =~ m,^(.*?)(\d+\.[\d\.]+)(.*)$, );
 
     if (@a and @b) {
-	return $a[0] cmp $b[0] || (-1 *  ($a[1] <=> $b[1])) || $a[2] cmp $a[2] || $a cmp $b;
+	return $a[0] cmp $b[0]   || # FreeBDS <=> IRIX
+	  &version($a[1], $b[1]) || # 6.5.30 <=> 6.5.31  
+	  $a[2] cmp $a[2] ||        # RELEASE <=> ports 
+	  $a cmp $b;		    # rest
+    } else {
+    	# for the rest: basic string compare
+    	return $a cmp $b;
+    }
+}
+
+sub version {
+    return &version_compare(@_) * -1;
+}
+
+# compare two versions, e.g.: 5.1.1 <> 5.2.2
+sub version_compare {
+    my $a = shift;
+    my $b = shift;
+
+    my @a = split( '\.', $a );
+    my @b = split( '\.', $b );
+
+    my $max = @a >= @b ? @a : @b;
+
+    for ( my $i = 0 ; $i < $max ; $i++ ) {
+
+        # 5.1 <=> 5.1.1
+        return -1 if !defined $a[$i];
+
+        # 5.1.1 <=> 5.1
+        return +1 if !defined $b[$i];
+
+        if ( ( $a[$i] <=> $b[$i] ) != 0 ) {
+            return $a[$i] <=> $b[$i];
+        }
     }
 
-    # 2.9.1 BSD
-    @a = ( lc($a) =~ m,^(\d\.+)(.*)$, );
-    @b = ( lc($b) =~ m,^(\d\.+)(.*)$, );
-    if (@a and @b) {
-	return (-1 * ( $a[0] <=> $b[0])) || $a[1] <=> $b[1] || $a cmp $b;
-    }
-
-    # rest
-    return $a cmp $b;
+    return 0;
 }
 
 # FreeBSD manual pages first before any other manual pages
@@ -1125,11 +1221,18 @@ sub get_the_sources {
 # download a manual directory as gzip'd tar archive
 sub download {
 
+    # 2019-05-31: allanjude: Disable downloading as it is being abused.
+    print qq{Status: 418 No Downloads For You\n\n};
+    exit(0);
+
     $| = 1;
     my $filename = $manpath;
     $filename =~ s/\s+/_/;
     $filename = &encode_url($filename);
     $filename .= '.tgz';
+
+    # bypass caching proxies which cannot handle streaming of large data very well
+    print qq{Cache-Control: no-cache, no-store, private, max-age=0\n} if $download_streaming_caching == 0;
 
     print qq{Content-type: application/x-tgz\n}
       . qq{Content-disposition: attachment; filename="$filename"\n} . "\n";
@@ -1387,6 +1490,10 @@ sub man {
     &proc( *MAN, $command{'man'}, @manargs, "--", $name )
       || &mydie("$0: open of $command{'man'} command failed: $!\n");
     if ( eof(MAN) ) {
+        if ( $format eq "ascii" ) {
+            print "Sorry, no data found for '$html_name'\n";
+	    return;
+        }
 
         # print "X $command{'man'} @manargs -- x $name x\n";
         print qq{</pre>\n};
@@ -1778,10 +1885,12 @@ ETX
 
     # pickup a default machine type
     else {
-	exists $arch{$l}->{'default'} ? $arch{$l}->{'default'} : 'default';
-	}
+        #exists $arch{$l}->{'default'} ? $arch{$l}->{'default'} : 'default';
+    }
 
     foreach (@arch) {
+	next if $_ eq "";
+
         my $selected = $_ eq $a ? ' selected="selected"' : "";
         my $arch_name = exists $arch_names{$_} ? $arch_names{$_} : $_;
         print qq{<option $selected value="$_">$arch_name</option>\n};
@@ -1795,7 +1904,8 @@ ETX
 <select name="format">
 ETX
 
-    my @format = ('html');
+    my @format = ();
+    push( @format, ( 'html' ) ) if !$no_html_output{$manpath};
     push( @format, ( 'pdf' ) ) if !$no_pdf_output{$manpath};
     push( @format, ( 'ascii' ) );
 
@@ -1843,7 +1953,7 @@ sub faq {
       '$FreeBSD$';
     return qq{\
 <pre>
-Copyright (c) 1996-2018 <a href="$mailtoURL">Wolfram Schneider</a>
+Copyright (c) 1996-2020 <a href="$mailtoURL">Wolfram Schneider</a>
 Copyright (c) 1993-1995 Berkeley Software Design, Inc.
 
 This data is part of a licensed program from BERKELEY SOFTWARE
@@ -1864,7 +1974,7 @@ Copyright (c) for man pages by OS vendors.
 <a href="http://www.minix3.org">Minix</a>,
 <a href="https://www.netbsd.org">NetBSD</a>,
 <a href="https://www.openbsd.org">OpenBSD</a>,
-<a href="http://plan9.bell-labs.com/plan9/">Plan 9</a>,
+<a href="https://9p.io/plan9/">Plan 9</a>,
 <a href="https://www.redhat.com">Red Hat</a>,
 <a href="https://www.slackware.com">Slackware Linux</a>,
 <a href="https://www.sun.com">SunOS</a>,

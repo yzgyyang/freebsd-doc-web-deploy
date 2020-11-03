@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>24.2. Implementation Differences</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="dtrace.html" title="Chapter 24. DTrace" /><link rel="prev" href="dtrace.html" title="Chapter 24. DTrace" /><link rel="next" href="dtrace-enable.html" title="24.3. Enabling DTrace Support" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">24.2. Implementation Differences</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="dtrace.html">Prev</a> </td><th width="60%" align="center">Chapter 24. DTrace</th><td width="20%" align="right"> <a accesskey="n" href="dtrace-enable.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="dtrace-implementation"></a>24.2. Implementation Differences</h2></div></div></div><p>While the DTrace in FreeBSD is similar to that found in
+      <span class="trademark">Solaris</span>&#8482;, differences do exist.  The primary difference is that
+      in FreeBSD, DTrace is implemented as a set of kernel modules and
+      DTrace can not be used until the modules are loaded.  To load
+      all of the necessary modules:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>kldload dtraceall</code></strong></pre><p>Beginning with FreeBSD 10.0-RELEASE, the modules are
+      automatically loaded when <code class="command">dtrace</code> is
+      run.</p><p>FreeBSD uses the <code class="literal">DDB_CTF</code> kernel option to
+      enable support for loading <acronym class="acronym">CTF</acronym> data from
+      kernel modules and the kernel itself.  <acronym class="acronym">CTF</acronym> is
+      the <span class="trademark">Solaris</span>&#8482; Compact C Type Format which encapsulates a reduced
+      form of debugging information similar to
+      <acronym class="acronym">DWARF</acronym> and the venerable stabs.
+      <acronym class="acronym">CTF</acronym> data is added to binaries by the
+      <code class="command">ctfconvert</code> and <code class="command">ctfmerge</code>
+      build tools.  The <code class="command">ctfconvert</code> utility parses
+      <acronym class="acronym">DWARF</acronym> <acronym class="acronym">ELF</acronym> debug sections
+      created by the compiler and <code class="command">ctfmerge</code> merges
+      <acronym class="acronym">CTF</acronym> <acronym class="acronym">ELF</acronym> sections from
+      objects into either executables or shared libraries.</p><p>Some different providers exist for FreeBSD than for <span class="trademark">Solaris</span>&#8482;.
+      Most notable is the <code class="literal">dtmalloc</code> provider, which
+      allows tracing <code class="function">malloc()</code> by type in the FreeBSD
+      kernel.  Some of the providers found in <span class="trademark">Solaris</span>&#8482;, such as
+      <code class="literal">cpc</code> and <code class="literal">mib</code>, are not
+      present in FreeBSD.  These may appear in future versions of FreeBSD.
+      Moreover, some of the providers available in both operating
+      systems are not compatible, in the sense that their probes have
+      different argument types.  Thus, <acronym class="acronym">D</acronym> scripts
+      written on <span class="trademark">Solaris</span>&#8482; may or may not work unmodified on FreeBSD, and
+      vice versa.</p><p>Due to security differences, only <code class="systemitem">root</code> may use DTrace on FreeBSD.
+      <span class="trademark">Solaris</span>&#8482; has a few low level security checks which do not yet
+      exist in FreeBSD.  As such, the
+      <code class="filename">/dev/dtrace/dtrace</code> is strictly limited to
+      <code class="systemitem">root</code>.</p><p>DTrace falls under the Common Development and Distribution
+      License (<acronym class="acronym">CDDL</acronym>) license.  To view this license
+      on FreeBSD, see
+      <code class="filename">/usr/src/cddl/contrib/opensolaris/OPENSOLARIS.LICENSE</code>
+      or view it online at <code class="uri"><a class="uri" href="http://opensource.org/licenses/CDDL-1.0" target="_top">http://opensource.org/licenses/CDDL-1.0</a></code>.
+      While a FreeBSD kernel with DTrace support is
+      <acronym class="acronym">BSD</acronym> licensed, the <acronym class="acronym">CDDL</acronym> is
+      used when the modules are distributed in binary form or the
+      binaries are loaded.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="dtrace.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="dtrace.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="dtrace-enable.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 24. DTrace </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 24.3. Enabling DTrace Support</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

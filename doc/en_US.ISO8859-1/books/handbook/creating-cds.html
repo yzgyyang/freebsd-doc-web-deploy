@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>17.5. Creating and Using CD Media</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="disks.html" title="Chapter 17. Storage" /><link rel="prev" href="usb-disks.html" title="17.4. USB Storage Devices" /><link rel="next" href="creating-dvds.html" title="17.6. Creating and Using DVD Media" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">17.5. Creating and Using <acronym class="acronym">CD</acronym> Media</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="usb-disks.html">Prev</a> </td><th width="60%" align="center">Chapter 17. Storage</th><td width="20%" align="right"> <a accesskey="n" href="creating-dvds.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="creating-cds"></a>17.5. Creating and Using <acronym class="acronym">CD</acronym> Media</h2></div><div><span class="authorgroup">Contributed by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Mike</span> <span class="surname">Meyer</span></span>. </span></div></div></div><a id="idp61966072" class="indexterm"></a><p>Compact Disc (<acronym class="acronym">CD</acronym>) media provide a number
+      of features that differentiate them from conventional disks.
+      They are designed so that they can be read continuously without
+      delays to move the head between tracks.  While
+      <acronym class="acronym">CD</acronym> media do have tracks, these refer to a
+      section of data to be read continuously, and not a physical
+      property of the disk.  The <acronym class="acronym">ISO</acronym> 9660 file
+      system was designed to deal with these differences.</p><a id="idp61973112" class="indexterm"></a><a id="idp61973880" class="indexterm"></a><a id="idp61975032" class="indexterm"></a><p>The FreeBSD Ports Collection provides several utilities for
+      burning and duplicating audio and data <acronym class="acronym">CD</acronym>s.
+      This chapter demonstrates the use of several command line
+      utilities.  For <acronym class="acronym">CD</acronym> burning software with a
+      graphical utility, consider installing the
+      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/sysutils/xcdroast/pkg-descr">sysutils/xcdroast</a> or
+      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/sysutils/k3b/pkg-descr">sysutils/k3b</a> packages or ports.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="atapicam"></a>17.5.1. Supported Devices</h3></div><div><span class="authorgroup">Contributed by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Marc</span> <span class="surname">Fonvieille</span></span>. </span></div></div></div><a id="idp61981944" class="indexterm"></a><p>The <code class="filename">GENERIC</code> kernel provides support
+	for <acronym class="acronym">SCSI</acronym>,  <acronym class="acronym">USB</acronym>, and
+	<acronym class="acronym">ATAPI</acronym> <acronym class="acronym">CD</acronym> readers and
+	burners.  If a custom kernel is used, the options that need to
+	be present in the kernel configuration file vary by the type
+	of device.</p><p>For a <acronym class="acronym">SCSI</acronym> burner, make sure these
+	options are present:</p><pre class="programlisting">device scbus	# SCSI bus (required for ATA/SCSI)
+device da	# Direct Access (disks)
+device pass	# Passthrough device (direct ATA/SCSI access)
+device cd	# needed for CD and DVD burners</pre><p>For a <acronym class="acronym">USB</acronym> burner, make sure these
+	options are present:</p><pre class="programlisting">device scbus	# SCSI bus (required for ATA/SCSI)
+device da	# Direct Access (disks)
+device pass	# Passthrough device (direct ATA/SCSI access)
+device cd	# needed for CD and DVD burners
+device uhci	# provides USB 1.x support
+device ohci	# provides USB 1.x support
+device ehci	# provides USB 2.0 support
+device xhci	# provides USB 3.0 support
+device usb	# USB Bus (required)
+device umass	# Disks/Mass storage - Requires scbus and da</pre><p>For an <acronym class="acronym">ATAPI</acronym> burner, make sure these
+	options are present:</p><pre class="programlisting">device ata	# Legacy ATA/SATA controllers
+device scbus	# SCSI bus (required for ATA/SCSI)
+device pass	# Passthrough device (direct ATA/SCSI access)
+device cd	# needed for CD and DVD burners</pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">On FreeBSD versions prior to 10.x, this line is also
+	  needed in the kernel configuration file if the burner is an
+	  <acronym class="acronym">ATAPI</acronym> device:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="programlisting">device atapicam</pre><p xmlns="http://www.w3.org/1999/xhtml">Alternately, this driver can be loaded at boot time by
+	  adding the following line to
+	  <code class="filename">/boot/loader.conf</code>:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="programlisting">atapicam_load="YES"</pre><p xmlns="http://www.w3.org/1999/xhtml">This will require a reboot of the system as this driver
+	  can only be loaded at boot time.</p></div><p>To verify that FreeBSD recognizes the device, run
+	<code class="command">dmesg</code> and look for an entry for the device.
+	On systems prior to 10.x, the device name in the first line of
+	the output will be <code class="filename">acd0</code> instead of
+	<code class="filename">cd0</code>.</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>dmesg | grep cd</code></strong>
+cd0 at ahcich1 bus 0 scbus1 target 0 lun 0
+cd0: &lt;HL-DT-ST DVDRAM GU70N LT20&gt; Removable CD-ROM SCSI-0 device
+cd0: Serial Number M3OD3S34152
+cd0: 150.000MB/s transfers (SATA 1.x, UDMA6, ATAPI 12bytes, PIO 8192bytes)
+cd0: Attempt to query device size failed: NOT READY, Medium not present - tray closed</pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="cdrecord"></a>17.5.2. Burning a <acronym class="acronym">CD</acronym></h3></div></div></div><p>In FreeBSD, <code class="command">cdrecord</code> can be used to burn
+	<acronym class="acronym">CD</acronym>s.  This command is installed with the
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/sysutils/cdrtools/pkg-descr">sysutils/cdrtools</a> package or port.</p><p>While <code class="command">cdrecord</code> has many options, basic
+	usage is simple.  Specify the name of the
+	<acronym class="acronym">ISO</acronym> file to burn and, if the system has
+	multiple burner devices, specify the name of the device to
+	use:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cdrecord <em class="replaceable"><code>dev=device</code></em> <em class="replaceable"><code>imagefile.iso</code></em></code></strong></pre><p>To determine the device name of the burner, use
+	<code class="option">-scanbus</code> which might produce results like
+	this:</p><a id="idp62025720" class="indexterm"></a><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cdrecord -scanbus</code></strong>
+ProDVD-ProBD-Clone 3.00 (amd64-unknown-freebsd10.0) Copyright (C) 1995-2010 Jörg Schilling
+Using libscg version 'schily-0.9'
+scsibus0:
+        0,0,0     0) 'SEAGATE ' 'ST39236LW       ' '0004' Disk
+        0,1,0     1) 'SEAGATE ' 'ST39173W        ' '5958' Disk
+        0,2,0     2) *
+        0,3,0     3) 'iomega  ' 'jaz 1GB         ' 'J.86' Removable Disk
+        0,4,0     4) 'NEC     ' 'CD-ROM DRIVE:466' '1.26' Removable CD-ROM
+        0,5,0     5) *
+        0,6,0     6) *
+        0,7,0     7) *
+scsibus1:
+        1,0,0   100) *
+        1,1,0   101) *
+        1,2,0   102) *
+        1,3,0   103) *
+        1,4,0   104) *
+        1,5,0   105) 'YAMAHA  ' 'CRW4260         ' '1.0q' Removable CD-ROM
+        1,6,0   106) 'ARTEC   ' 'AM12S           ' '1.06' Scanner
+        1,7,0   107) *</pre><p>Locate the entry for the <acronym class="acronym">CD</acronym> burner and
+	use the three numbers separated by commas as the value for
+	<code class="option">dev</code>.  In this case, the Yamaha burner device
+	is <code class="literal">1,5,0</code>, so the appropriate input to
+	specify that device is <code class="option">dev=1,5,0</code>.  Refer to
+	the manual page for <code class="command">cdrecord</code> for other ways
+	to specify this value and for information on writing audio
+	tracks and controlling the write speed.</p><p>Alternately, run the following command to get the device
+	address of the burner:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>camcontrol devlist</code></strong>
+&lt;MATSHITA CDRW/DVD UJDA740 1.00&gt;   at scbus1 target 0 lun 0 (cd0,pass0)</pre><p>Use the numeric values for <code class="literal">scbus</code>,
+	<code class="literal">target</code>, and <code class="literal">lun</code>.  For
+	this example, <code class="literal">1,0,0</code> is the device name to
+	use.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mkisofs"></a>17.5.3. Writing Data to an <acronym class="acronym">ISO</acronym> File
+	System</h3></div></div></div><p>In order to produce a data <acronym class="acronym">CD</acronym>, the data
+	files that are going to make up the tracks on the
+	<acronym class="acronym">CD</acronym> must be prepared before they can be
+	burned to the <acronym class="acronym">CD</acronym>.  In FreeBSD,
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/sysutils/cdrtools/pkg-descr">sysutils/cdrtools</a> installs
+	<code class="command">mkisofs</code>, which can be used to produce an
+	<acronym class="acronym">ISO</acronym> 9660 file system that is an image of a
+	directory tree within a <span class="trademark">UNIX</span>® file system.  The simplest
+	usage is to specify the name of the <acronym class="acronym">ISO</acronym>
+	file to create and the path to the files to place into the
+	<acronym class="acronym">ISO</acronym> 9660 file system:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>mkisofs -o <em class="replaceable"><code>imagefile.iso</code></em> <em class="replaceable"><code>/path/to/tree</code></em></code></strong></pre><a id="idp62081656" class="indexterm"></a><p>This command maps the file names in the specified path to
+	names that fit the limitations of the standard
+	<acronym class="acronym">ISO</acronym> 9660 file system, and will exclude
+	files that do not meet the standard for <acronym class="acronym">ISO</acronym>
+	file systems.</p><a id="idp62083960" class="indexterm"></a><p>A number of options are available to overcome the
+	restrictions imposed by the standard.  In particular,
+	<code class="option">-R</code> enables the Rock Ridge extensions common
+	to <span class="trademark">UNIX</span>® systems and <code class="option">-J</code> enables Joliet
+	extensions used by <span class="trademark">Microsoft</span>® systems.</p><p>For <acronym class="acronym">CD</acronym>s that are going to be used only
+	on FreeBSD systems, <code class="option">-U</code> can be used to disable
+	all filename restrictions.  When used with
+	<code class="option">-R</code>, it produces a file system image that is
+	identical to the specified FreeBSD tree, even if it violates the
+	<acronym class="acronym">ISO</acronym> 9660 standard.</p><a id="idp61749240" class="indexterm"></a><p>The last option of general use is <code class="option">-b</code>.
+	This is used to specify the location of a boot image for use
+	in producing an <span class="quote">&#8220;<span class="quote">El Torito</span>&#8221;</span> bootable
+	<acronym class="acronym">CD</acronym>.  This option takes an argument which is
+	the path to a boot image from the top of the tree being
+	written to the <acronym class="acronym">CD</acronym>.  By default,
+	<code class="command">mkisofs</code> creates an <acronym class="acronym">ISO</acronym>
+	image in <span class="quote">&#8220;<span class="quote">floppy disk emulation</span>&#8221;</span> mode, and thus
+	expects the boot image to be exactly 1200, 1440 or
+	2880 KB in size.  Some boot loaders, like the one used by
+	the FreeBSD distribution media, do not use emulation mode.  In
+	this case, <code class="option">-no-emul-boot</code> should be used.  So,
+	if <code class="filename">/tmp/myboot</code> holds a bootable FreeBSD
+	system with the boot image in
+	<code class="filename">/tmp/myboot/boot/cdboot</code>, this command
+	would produce
+	<code class="filename">/tmp/bootable.iso</code>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>mkisofs -R -no-emul-boot -b boot/cdboot -o /tmp/bootable.iso /tmp/myboot</code></strong></pre><p>The resulting <acronym class="acronym">ISO</acronym> image can be mounted
+	as a memory disk with:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>mdconfig -a -t vnode -f /tmp/bootable.iso -u 0</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>mount -t cd9660 /dev/md0 /mnt</code></strong></pre><p>One can then verify that <code class="filename">/mnt</code> and
+	<code class="filename">/tmp/myboot</code> are identical.</p><p>There are many other options available for
+	<code class="command">mkisofs</code> to fine-tune its behavior.  Refer
+	to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mkisofs&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mkisofs</span>(8)</span></a> for details.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">It is possible to copy a data <acronym class="acronym">CD</acronym> to
+	  an image file that is functionally equivalent to the image
+	  file created with <code class="command">mkisofs</code>.  To do so, use
+	  <code class="filename">dd</code> with the device name as the input
+	  file and the name of the <acronym class="acronym">ISO</acronym> to create as
+	  the output file:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="screen"><code class="prompt">#</code> <strong class="userinput"><code>dd if=/dev/<em class="replaceable"><code>cd0</code></em> of=<em class="replaceable"><code>file.iso</code></em> bs=2048</code></strong></pre><p xmlns="http://www.w3.org/1999/xhtml">The resulting image file can be burned to
+	  <acronym class="acronym">CD</acronym> as described in <a class="xref" href="creating-cds.html#cdrecord" title="17.5.2. Burning a CD">Section 17.5.2, &#8220;Burning a <acronym class="acronym">CD</acronym>&#8221;</a>.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mounting-cd"></a>17.5.4. Using Data <acronym class="acronym">CD</acronym>s</h3></div></div></div><p>Once an <acronym class="acronym">ISO</acronym> has been burned to a
+	<acronym class="acronym">CD</acronym>, it can be mounted by specifying the
+	file system type, the name of the device containing the
+	<acronym class="acronym">CD</acronym>, and an existing mount point:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>mount -t cd9660 <em class="replaceable"><code>/dev/cd0</code></em> <em class="replaceable"><code>/mnt</code></em></code></strong></pre><p>Since <code class="command">mount</code> assumes that a file system
+	is of type <code class="literal">ufs</code>, a <span class="errorname">Incorrect
+	  super block</span> error will occur if <code class="literal">-t
+	  cd9660</code> is not included when mounting a data
+	<acronym class="acronym">CD</acronym>.</p><p>While any data <acronym class="acronym">CD</acronym> can be mounted this
+	way, disks with certain <acronym class="acronym">ISO</acronym> 9660 extensions
+	might behave oddly.  For example, Joliet disks store all
+	filenames in two-byte Unicode characters.  If some non-English
+	characters show up as question marks, specify the local
+	charset with <code class="option">-C</code>.  For more information, refer
+	to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mount_cd9660&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mount_cd9660</span>(8)</span></a>.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">In order to do this character conversion with the help
+	  of <code class="option">-C</code>, the kernel requires the
+	  <code class="filename">cd9660_iconv.ko</code> module to be loaded.
+	  This can be done either by adding this line to
+	  <code class="filename">loader.conf</code>:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="programlisting">cd9660_iconv_load="YES"</pre><p xmlns="http://www.w3.org/1999/xhtml">and then rebooting the machine, or by directly loading
+	  the module with <code class="command">kldload</code>.</p></div><p>Occasionally, <span class="errorname">Device not configured</span>
+	will be displayed when trying to mount a data
+	<acronym class="acronym">CD</acronym>.  This usually means that the
+	<acronym class="acronym">CD</acronym> drive has not detected a disk in
+	the tray, or that the drive is not visible on the bus.  It
+	can take a couple of seconds for a <acronym class="acronym">CD</acronym>
+	drive to detect media, so be
+	patient.</p><p>Sometimes, a <acronym class="acronym">SCSI</acronym>
+	<acronym class="acronym">CD</acronym> drive may be missed because it did not
+	have enough time to answer the bus reset.  To resolve this,
+	a custom kernel can be created which increases the default
+	<acronym class="acronym">SCSI</acronym> delay.  Add the following option to
+	the custom kernel configuration file and rebuild the kernel
+	using the instructions in <a class="xref" href="kernelconfig-building.html" title="8.5. Building and Installing a Custom Kernel">Section 8.5, &#8220;Building and Installing a Custom Kernel&#8221;</a>:</p><pre class="programlisting">options SCSI_DELAY=15000</pre><p>This tells the <acronym class="acronym">SCSI</acronym> bus to pause 15
+	seconds during boot, to give the <acronym class="acronym">CD</acronym>
+	drive every possible chance to answer the bus reset.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">It is possible to burn a file directly to
+	  <acronym class="acronym">CD</acronym>, without creating an
+	  <acronym class="acronym">ISO</acronym> 9660 file system.  This is known as
+	  burning a raw data <acronym class="acronym">CD</acronym> and some people do
+	  this for backup purposes.</p><p xmlns="http://www.w3.org/1999/xhtml">This type of disk can not be mounted as a normal data
+	  <acronym class="acronym">CD</acronym>.  In order to retrieve the data burned
+	  to such a <acronym class="acronym">CD</acronym>, the data must be read from
+	  the raw device node.  For example, this command will extract
+	  a compressed tar file located on the second
+	  <acronym class="acronym">CD</acronym> device into the current working
+	  directory:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="screen"><code class="prompt">#</code> <strong class="userinput"><code>tar xzvf /dev/<em class="replaceable"><code>cd1</code></em></code></strong></pre><p xmlns="http://www.w3.org/1999/xhtml">  In order to mount a data <acronym class="acronym">CD</acronym>, the
+	  data must be written using
+	  <code class="command">mkisofs</code>.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="duplicating-audiocds"></a>17.5.5. Duplicating Audio <acronym class="acronym">CD</acronym>s</h3></div></div></div><p>To duplicate an audio <acronym class="acronym">CD</acronym>, extract the
+	audio data from the <acronym class="acronym">CD</acronym> to a series of
+	files, then write these files to a blank
+	<acronym class="acronym">CD</acronym>.</p><p><a class="xref" href="creating-cds.html#using-cdrecord" title="Procedure 17.1. Duplicating an Audio CD">Procedure 17.1, &#8220;Duplicating an Audio <acronym class="acronym">CD</acronym>&#8221;</a> describes how to
+	duplicate and burn an audio <acronym class="acronym">CD</acronym>.  If the
+	FreeBSD version is less than 10.0 and the device is
+	<acronym class="acronym">ATAPI</acronym>, the <code class="option">atapicam</code> module
+	must be first loaded using the instructions in <a class="xref" href="creating-cds.html#atapicam" title="17.5.1. Supported Devices">Section 17.5.1, &#8220;Supported Devices&#8221;</a>.</p><div class="procedure"><a id="using-cdrecord"></a><div class="procedure-title">Procedure 17.1. Duplicating an Audio <acronym class="acronym">CD</acronym></div><ol class="procedure" type="1"><li class="step"><p>The <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/sysutils/cdrtools/pkg-descr">sysutils/cdrtools</a> package or
+	    port installs <code class="command">cdda2wav</code>.  This command
+	    can be used to extract all of the audio tracks, with each
+	    track written to a separate <acronym class="acronym">WAV</acronym> file in
+	    the current working directory:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>cdda2wav -vall -B -Owav</code></strong></pre><p>A device name does not need to be specified if there
+	    is only one <acronym class="acronym">CD</acronym> device on the system.
+	    Refer to the <code class="command">cdda2wav</code> manual page for
+	    instructions on how to specify a device and to learn more
+	    about the other options available for this command.</p></li><li class="step"><p>Use <code class="command">cdrecord</code> to write the
+	    <code class="filename">.wav</code> files:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>cdrecord -v dev=<em class="replaceable"><code>2,0</code></em> -dao -useinfo  *.wav</code></strong></pre><p>Make sure that <em class="replaceable"><code>2,0</code></em> is set
+	    appropriately, as described in <a class="xref" href="creating-cds.html#cdrecord" title="17.5.2. Burning a CD">Section 17.5.2, &#8220;Burning a <acronym class="acronym">CD</acronym>&#8221;</a>.</p></li></ol></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="usb-disks.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="disks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="creating-dvds.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">17.4. <acronym class="acronym">USB</acronym> Storage Devices </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 17.6. Creating and Using <acronym class="acronym">DVD</acronym> Media</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

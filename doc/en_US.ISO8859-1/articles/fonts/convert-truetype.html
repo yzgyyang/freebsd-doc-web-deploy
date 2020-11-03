@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>8. Converting TrueType Fonts to a groff/PostScript Format For groff</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Fonts and FreeBSD" /><link rel="up" href="index.html" title="Fonts and FreeBSD" /><link rel="prev" href="type1-fonts-groff.html" title="7. Using Type 1 Fonts with Groff" /><link rel="next" href="truetype-for-other-programs.html" title="9. Can TrueType Fonts be Used with Other Programs?" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">8. Converting TrueType Fonts to a groff/PostScript Format For
+      groff</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="type1-fonts-groff.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="truetype-for-other-programs.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="convert-truetype"></a>8. Converting TrueType Fonts to a groff/PostScript Format For
+      groff</h2></div></div></div><p>This potentially requires a bit of work, simply because it
+      depends on some utilities that are not installed as part of the
+      base system.  They are:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="command">ttf2pf</code></span></dt><dd><p>TrueType to PostScript conversion utilities.  This
+	    allows conversion of a TrueType font to an ascii font
+	    metric (<code class="filename">.afm</code>) file.</p><p>Currently available at <code class="uri"><a class="uri" href="http://sunsite.icm.edu.pl/pub/GUST/contrib/BachoTeX98/ttf2pf/" target="_top">http://sunsite.icm.edu.pl/pub/GUST/contrib/BachoTeX98/ttf2pf/</a></code>.
+	    Note: These files are PostScript programs and must be
+	    downloaded to disk by holding down <span class="keycap"><strong>Shift</strong></span>
+	    when clicking on the link.  Otherwise, your browser may
+	    try to launch <span class="application">ghostview</span> to view
+	    them.</p><p>The files of interest are:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="filename">GS_TTF.PS</code></p></li><li class="listitem"><p><code class="filename">PF2AFM.PS</code></p></li><li class="listitem"><p><code class="filename">ttf2pf.ps</code></p></li></ul></div><p>The funny upper/lower case is due to their being
+	    intended also for DOS shells.
+	    <code class="filename">ttf2pf.ps</code> makes use of the others as
+	    upper case, so any renaming must be consistent with this.
+	    (Actually, <code class="filename">GS_TTF.PS</code> and
+	    <code class="filename">PFS2AFM.PS</code> are supposedly part of the
+	    <span class="application">Ghostscript</span> distribution, but
+	    it is just as easy to use these as an isolated utility.
+	    FreeBSD does not seem to include the latter.) You also may
+	    want to have these installed to
+	    <code class="filename">/usr/local/share/groff_font/devps</code>(?).</p></dd><dt><span class="term"><code class="command">afmtodit</code></span></dt><dd><p>Creates font files for use with
+	    <span class="application">groff</span> from ascii font metrics
+	    file.  This usually resides in the directory,
+	    <code class="filename">/usr/src/contrib/groff/afmtodit</code>, and
+	    requires some work to get going.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">If you are paranoid about working in the
+	      <code class="filename">/usr/src</code> tree, simply copy the
+	      contents of the above directory to a work
+	      location.</p></div><p>In the work area, you will need to make the utility.
+	    Just type:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>make -f Makefile.sub afmtodit</code></strong></pre><p>You may also need to copy
+	    <code class="filename">/usr/contrib/groff/devps/generate/textmap</code>
+	    to
+	    <code class="filename">/usr/share/groff_font/devps/generate</code>
+	    if it does not already exist.</p></dd></dl></div><p>Once all these utilities are in place, you are ready to
+      commence:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>Create <code class="filename">.afm</code> by typing:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>gs -dNODISPLAY -q -- ttf2pf.ps <em class="replaceable"><code>TTF_name</code></em> <em class="replaceable"><code>PS_font_name</code></em> <em class="replaceable"><code>AFM_name</code></em></code></strong></pre><p>Where, <em class="replaceable"><code>TTF_name</code></em> is your
+	  TrueType font file, <em class="replaceable"><code>PS_font_name</code></em>
+	  is the file name for <code class="filename">.pfa</code>,
+	  <em class="replaceable"><code>AFM_name</code></em> is the name you wish for
+	  <code class="filename">.afm</code>.  If you do not specify
+	  output file names for the <code class="filename">.pfa</code> or
+	  <code class="filename">.afm</code> files, then default names will be
+	  generated from the TrueType font file name.</p><p>This also produces a <code class="filename">.pfa</code>, the
+	  ascii PostScript font metrics file
+	  (<code class="filename">.pfb</code> is for the binary form).  This
+	  will not be needed, but could (I think) be useful for a
+	  fontserver.</p><p>For example, to convert the 30f9 Barcode font using the
+	  default file names, use the following command:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>gs -dNODISPLAY -- ttf2pf.ps 3of9.ttf</code></strong>
+Aladdin Ghostscript 5.10 (1997-11-23)
+Copyright (C) 1997 Aladdin Enterprises, Menlo Park, CA.  All rights reserved.
+This software comes with NO WARRANTY: see the file PUBLIC for details.
+Converting 3of9.ttf to 3of9.pfa and 3of9.afm.</pre><p>If you want the converted fonts to be stored in
+	  <code class="filename">A.pfa</code> and <code class="filename">B.afm</code>,
+	  then use this command:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>gs -dNODISPLAY -- ttf2pf.ps 3of9.ttf A B</code></strong>
+Aladdin Ghostscript 5.10 (1997-11-23)
+Copyright (C) 1997 Aladdin Enterprises, Menlo Park, CA.  All rights reserved.
+This software comes with NO WARRANTY: see the file PUBLIC for details.
+Converting 3of9.ttf to A.pfa and B.afm.</pre></li><li class="listitem"><p>Create the <span class="application">groff</span> PostScript
+	  file:</p><p>Change directories to
+	  <code class="filename">/usr/share/groff_font/devps</code> so as to
+	  make the following command easier to execute.  You will
+	  probably need root privileges for this.  (Or, if you are
+	  paranoid about working there, make sure you reference the
+	  files <code class="filename">DESC</code>,
+	  <code class="filename">text.enc</code> and
+	  <code class="filename">generate/textmap</code> as being in this
+	  directory.)</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>afmtodit -d DESC -e text.enc file.afm generate/textmap <em class="replaceable"><code>PS_font_name</code></em></code></strong></pre><p>Where, <code class="filename">file.afm</code> is the
+	  <em class="replaceable"><code>AFM_name</code></em> created by
+	  <code class="command">ttf2pf.ps</code> above, and
+	  <em class="replaceable"><code>PS_font_name</code></em> is the font name
+	  used from that command, as well as the name that
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=groff&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">groff</span>(1)</span></a> will use for references to this font.  For
+	  example, assuming you used the first
+	  <code class="command">tiff2pf.ps</code> above, then the 3of9
+	  Barcode font can be created using the command:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>afmtodit -d DESC -e text.enc 3of9.afm generate/textmap 3of9</code></strong></pre><p>Ensure that the resulting
+	  <em class="replaceable"><code>PS_font_name</code></em> file (e.g.,
+	  <code class="filename">3of9</code> in the example above) is located
+	  in the directory
+	  <code class="filename">/usr/share/groff_font/devps</code> by copying
+	  or moving it there.</p><p>Note that if <code class="filename">ttf2pf.ps</code> assigns a
+	  font name using the one it finds in the TrueType font file
+	  and you want to use a different name, you must edit the
+	  <code class="filename">.afm</code> prior to running
+	  <code class="command">afmtodit</code>.  This name must also match the
+	  one used in the Fontmap file if you wish to pipe
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=groff&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">groff</span>(1)</span></a> into <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=gs&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">gs</span>(1)</span></a>.</p></li></ol></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="type1-fonts-groff.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="truetype-for-other-programs.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">7. Using Type 1 Fonts with Groff </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 9. Can TrueType Fonts be Used with Other Programs?</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

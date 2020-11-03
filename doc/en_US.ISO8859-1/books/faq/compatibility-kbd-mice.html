@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>4.4. Keyboards and Mice</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Frequently Asked Questions for FreeBSD 11.X and 12.X" /><link rel="up" href="hardware.html" title="Chapter 4. Hardware Compatibility" /><link rel="prev" href="compatibility-peripherals.html" title="4.3. Peripherals" /><link rel="next" href="compatibility-other.html" title="4.5. Other Hardware" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">4.4. Keyboards and Mice</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="compatibility-peripherals.html">Prev</a> </td><th width="60%" align="center">Chapter 4. Hardware Compatibility</th><td width="20%" align="right"> <a accesskey="n" href="compatibility-other.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="compatibility-kbd-mice"></a>4.4. Keyboards and Mice</h2></div></div></div><div class="qandaset"><a id="idp47933944"></a><dl><dt>4.4.1. <a href="compatibility-kbd-mice.html#idp47934584">Is it possible to use a mouse outside the
+	      X Window system?</a></dt><dt>4.4.2. <a href="compatibility-kbd-mice.html#idp47976056">How do I cut and paste text with a mouse in the text
+	      console?</a></dt><dt>4.4.3. <a href="compatibility-kbd-mice.html#idp47988344">My mouse has a fancy wheel and buttons.  Can I use
+	      them in FreeBSD?</a></dt><dt>4.4.4. <a href="compatibility-kbd-mice.html#idp48010872">How do I use my delete key in sh
+	      and csh?</a></dt></dl><table border="0" style="width: 100%;"><colgroup><col align="left" width="1%" /><col /></colgroup><tbody><tr class="question"><td align="left" valign="top"><a id="idp47934584"></a><a id="moused"></a><p><strong>4.4.1.</strong></p></td><td align="left" valign="top"><p>Is it possible to use a mouse outside the
+	      X Window system?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>The default console driver,
+	      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=vt&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">vt</span>(4)</span></a>, provides the ability to use a mouse
+	      pointer in text consoles to cut &amp; paste text.  Run
+	      the mouse daemon, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=moused&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">moused</span>(8)</span></a>, and turn on the mouse
+	      pointer in the virtual console:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>moused -p /dev/xxxx -t yyyy</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>vidcontrol -m on</code></strong></pre><p>Where <em class="replaceable"><code>xxxx</code></em> is the mouse
+	      device name and <em class="replaceable"><code>yyyy</code></em> is a
+	      protocol type for the mouse.  The mouse daemon can
+	      automatically determine the protocol type of most mice,
+	      except old serial mice.  Specify the
+	      <code class="literal">auto</code> protocol to invoke automatic
+	      detection.  If automatic detection does not work, see
+	      the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=moused&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">moused</span>(8)</span></a> manual page for a list of supported
+	      protocol types.</p><p>For a PS/2 mouse, add
+	      <code class="literal">moused_enable="YES"</code> to
+	      <code class="filename">/etc/rc.conf</code> to start the mouse
+	      daemon at boot time.  Additionally, to
+	      use the mouse daemon on all virtual terminals instead of
+	      just the console, add <code class="literal">allscreens_flags="-m
+		on"</code> to
+	      <code class="filename">/etc/rc.conf</code>.</p><p>When the mouse daemon is running, access to the
+	      mouse must be coordinated between the mouse daemon and
+	      other programs such as X Windows.  Refer to the
+	      <acronym class="acronym">FAQ</acronym>
+	      <a class="link" href="x.html#x-and-moused" title="11.4.">Why does my mouse not work
+		with X?</a> for more details on this issue.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp47976056"></a><a id="text-mode-cut-paste"></a><p><strong>4.4.2.</strong></p></td><td align="left" valign="top"><p>How do I cut and paste text with a mouse in the text
+	      console?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>It is not possible to remove data using the mouse.
+	      However, it is possible to copy and paste.  Once the
+	      mouse daemon is running as described in the <a class="link" href="compatibility-kbd-mice.html#moused" title="4.4.1.">previous question</a>, hold down
+	      button 1 (left button) and move the mouse to select a
+	      region of text.  Then, press button 2 (middle button) to
+	      paste it at the text cursor.  Pressing button 3 (right
+	      button) will <span class="quote">&#8220;<span class="quote">extend</span>&#8221;</span> the selected region
+	      of text.</p><p>If the mouse does not have a middle button, it is
+	      possible to emulate one or remap buttons using mouse
+	      daemon options.  See the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=moused&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">moused</span>(8)</span></a> manual page for
+	      details.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp47988344"></a><a id="mouse-wheel-buttons"></a><p><strong>4.4.3.</strong></p></td><td align="left" valign="top"><p>My mouse has a fancy wheel and buttons.  Can I use
+	      them in FreeBSD?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>The answer is, unfortunately, <span class="quote">&#8220;<span class="quote">It
+		depends</span>&#8221;</span>.  These mice with additional features
+	      require specialized driver in most cases.  Unless the
+	      mouse device driver or the user program has specific
+	      support for the mouse, it will act just like a standard
+	      two, or three button mouse.</p><p>For the possible usage of wheels in the X Window
+	      environment, refer to <a class="link" href="x.html#x-and-wheel" title="11.5.">that section</a>.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp48010872"></a><a id="keyboard-delete-key"></a><p><strong>4.4.4.</strong></p></td><td align="left" valign="top"><p>How do I use my delete key in <code class="command">sh</code>
+	      and <code class="command">csh</code>?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>For the <span class="application">Bourne Shell</span>, add
+	      the following lines to <code class="filename">~/.shrc</code>.
+	      See <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sh&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sh</span>(1)</span></a> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=editrc&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">editrc</span>(5)</span></a>.</p><pre class="programlisting">bind ^[[3~ ed-delete-next-char # for xterm</pre><p>For the <span class="application">C Shell</span>, add the
+	      following lines to <code class="filename">~/.cshrc</code>.
+	      See <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=csh&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">csh</span>(1)</span></a>.</p><pre class="programlisting">bindkey ^[[3~ delete-char # for xterm</pre></td></tr></tbody></table></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="compatibility-peripherals.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="hardware.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="compatibility-other.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">4.3. Peripherals </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 4.5. Other Hardware</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

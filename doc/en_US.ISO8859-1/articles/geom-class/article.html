@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>Writing a GEOM Class</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><meta name="description" content="This text documents some starting points in developing GEOM classes, and kernel modules in general. It is assumed that the reader is familiar with C userland programming." /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div xml:lang="en" class="article" lang="en"><div xmlns="" class="titlepage"><div><div><h1 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp44127864"></a>Writing a GEOM Class</h1></div><div><div xmlns="http://www.w3.org/1999/xhtml" class="authorgroup"><div class="author"><h3 class="author"><span class="firstname">Ivan</span> <span class="surname">Voras</span></h3><div class="affiliation"><div class="address"><p><br />
+	    <code class="email">&lt;<a xmlns="" class="email" href="mailto:ivoras@FreeBSD.org">ivoras@FreeBSD.org</a>&gt;</code><br />
+	  </p></div></div></div></div></div><div>Revision: <a href="https://svnweb.freebsd.org/changeset/doc/eec027ee41"><span class="svnref">eec027ee41</span></a></div><div><div xmlns="http://www.w3.org/1999/xhtml" class="legalnotice"><a id="trademarks"></a><p>FreeBSD is a registered trademark of
+  the FreeBSD Foundation.</p><p>Intel, Celeron, Centrino, Core, EtherExpress, i386,
+  i486, Itanium, Pentium, and Xeon are trademarks or registered
+  trademarks of Intel Corporation or its subsidiaries in the United
+  States and other countries.</p><p>Many of the designations used by
+  manufacturers and sellers to distinguish their products are claimed
+  as trademarks.  Where those designations appear in this document,
+  and the FreeBSD Project was aware of the trademark claim, the
+  designations have been followed by the <span class="quote">&#8220;<span class="quote">&#8482;</span>&#8221;</span> or the
+  <span class="quote">&#8220;<span class="quote">®</span>&#8221;</span> symbol.</p></div></div><div>Last modified on 2020-06-23 13:48:26 +0000 by emaste.</div><div><div xmlns="http://www.w3.org/1999/xhtml" class="abstract"><div class="abstract-title">Abstract</div><p>This text documents some starting points in developing
+	GEOM classes, and kernel modules in general.  It is assumed
+	that the reader is familiar with C userland
+	programming.</p></div></div></div><div class="docformatnavi">
+      [
+      <a href="index.html">Split HTML</a>
+      /
+      
+	  Single HTML
+	
+      ]
+    </div><hr /></div><div class="toc"><div class="toc-title">Table of Contents</div><dl class="toc"><dt><span class="sect1"><a href="#intro">1. Introduction</a></span></dt><dt><span class="sect1"><a href="#prelim">2. Preliminaries</a></span></dt><dt><span class="sect1"><a href="#kernelprog">3. On FreeBSD Kernel Programming</a></span></dt><dt><span class="sect1"><a href="#geom">4. On GEOM Programming</a></span></dt></dl></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="intro"></a>1. Introduction</h2></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="intro-docs"></a>1.1. Documentation</h3></div></div></div><p>Documentation on kernel programming is scarce &#8212; it
+	is one of few areas where there is nearly nothing in the way
+	of friendly tutorials, and the phrase <span class="quote">&#8220;<span class="quote">use the
+	  source!</span>&#8221;</span> really holds true.  However, there are some
+	bits and pieces (some of them seriously outdated) floating
+	around that should be studied before beginning to code:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>The <a class="link" href="../../../../doc/en_US.ISO8859-1/books/developers-handbook/index.html" target="_top">FreeBSD
+	      Developer's Handbook</a> &#8212; part of the
+	    documentation project, it does not contain anything
+	    specific to kernel programming, but rather some general
+	    useful information.</p></li><li class="listitem"><p>The <a class="link" href="../../../../doc/en_US.ISO8859-1/books/arch-handbook/index.html" target="_top">FreeBSD
+	      Architecture Handbook</a> &#8212; also from the
+	    documentation project, contains descriptions of several
+	    low-level facilities and procedures.  The most important
+	    chapter is 13, <a class="link" href="../../../../doc/en_US.ISO8859-1/books/arch-handbook/driverbasics.html" target="_top">Writing
+	      FreeBSD device drivers</a>.</p></li><li class="listitem"><p>The Blueprints section of <a class="link" href="http://www.freebsddiary.org" target="_top">FreeBSD
+	      Diary</a> web site &#8212; contains several
+	    interesting articles on kernel
+	    facilities.</p></li><li class="listitem"><p>The man pages in section 9 &#8212; for important
+	    documentation on kernel functions.</p></li><li class="listitem"><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=geom&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">geom</span>(4)</span></a> man page and <a class="link" href="http://phk.freebsd.dk/pubs/" target="_top">PHK's GEOM
+	      slides</a> &#8212; for general introduction of the
+	    GEOM subsystem.</p></li><li class="listitem"><p>Man pages <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=g_bio&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">g_bio</span>(9)</span></a>, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=g_event&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">g_event</span>(9)</span></a>,
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=g_data&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">g_data</span>(9)</span></a>, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=g_geom&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">g_geom</span>(9)</span></a>, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=g_provider&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">g_provider</span>(9)</span></a>
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=g_consumer&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">g_consumer</span>(9)</span></a>, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=g_access&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">g_access</span>(9)</span></a> &amp; others linked
+	    from those, for documentation on specific
+	    functionalities.</p></li><li class="listitem"><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=style&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">style</span>(9)</span></a> man page &#8212; for documentation
+	    on the coding-style conventions which must be followed for
+	    any code which is to be committed to the FreeBSD
+	    tree.</p></li></ul></div></div></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="prelim"></a>2. Preliminaries</h2></div></div></div><p>The best way to do kernel development is to have (at least)
+      two separate computers.  One of these would contain the
+      development environment and sources, and the other would be used
+      to test the newly written code by network-booting and
+      network-mounting filesystems from the first one.  This way if
+      the new code contains bugs and crashes the machine, it will not
+      mess up the sources (and other <span class="quote">&#8220;<span class="quote">live</span>&#8221;</span> data).  The
+      second system does not even require a proper display.  Instead,
+      it could be connected with a serial cable or KVM to the first
+      one.</p><p>But, since not everybody has two or more computers handy,
+      there are a few things that can be done to prepare an otherwise
+      <span class="quote">&#8220;<span class="quote">live</span>&#8221;</span> system for developing kernel code.  This
+      setup is also applicable for developing in a <a class="link" href="http://www.vmware.com/" target="_top">VMWare</a> or <a class="link" href="http://www.qemu.org/" target="_top">QEmu</a> virtual machine
+      (the next best thing after a dedicated development
+      machine).</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="prelim-system"></a>2.1. Modifying a System for Development</h3></div></div></div><p>For any kernel programming a kernel with
+	<code class="option">INVARIANTS</code> enabled is a must-have.  So enter
+	these in your kernel configuration file:</p><pre class="programlisting">options INVARIANT_SUPPORT
+options INVARIANTS</pre><p>For more debugging you should also include WITNESS
+	support, which will alert you of mistakes in locking:</p><pre class="programlisting">options WITNESS_SUPPORT
+options WITNESS</pre><p>For debugging crash dumps, a kernel with debug symbols is
+	needed:</p><pre class="programlisting">  makeoptions    DEBUG=-g</pre><p>With the usual way of installing the kernel (<code class="command">make
+	  installkernel</code>) the debug kernel will not be
+	automatically installed.  It is called
+	<code class="filename">kernel.debug</code> and located in
+	<code class="filename">/usr/obj/usr/src/sys/KERNELNAME/</code>.  For
+	convenience it should be copied to
+	<code class="filename">/boot/kernel/</code>.</p><p>Another convenience is enabling the kernel debugger so you
+	can examine a kernel panic when it happens.  For this, enter
+	the following lines in your kernel configuration file:</p><pre class="programlisting">options KDB
+options DDB
+options KDB_TRACE</pre><p>For this to work you might need to set a sysctl (if it is
+	not on by default):</p><pre class="programlisting">  debug.debugger_on_panic=1</pre><p>Kernel panics will happen, so care should be taken with
+	the filesystem cache.  In particular, having softupdates might
+	mean the latest file version could be lost if a panic occurs
+	before it is committed to storage.  Disabling softupdates
+	yields a great performance hit, and still does not guarantee
+	data consistency.  Mounting filesystem with the
+	<span class="quote">&#8220;<span class="quote">sync</span>&#8221;</span> option is needed for that.  For a
+	compromise, the softupdates cache delays can be shortened.
+	There are three sysctl's that are useful for this (best to be
+	set in <code class="filename">/etc/sysctl.conf</code>):</p><pre class="programlisting">kern.filedelay=5
+kern.dirdelay=4
+kern.metadelay=3</pre><p>The numbers represent seconds.</p><p>For debugging kernel panics, kernel core dumps are
+	required.  Since a kernel panic might make filesystems
+	unusable, this crash dump is first written to a raw partition.
+	Usually, this is the swap partition.  This partition must be
+	at least as large as the physical RAM in the machine.  On the
+	next boot, the dump is copied to a regular file.  This happens
+	after filesystems are checked and mounted, and before swap is
+	enabled.  This is controlled with two
+	<code class="filename">/etc/rc.conf</code> variables:</p><pre class="programlisting">dumpdev="/dev/ad0s4b"
+dumpdir="/usr/core </pre><p>The <code class="varname">dumpdev</code> variable specifies the swap
+	partition and <code class="varname">dumpdir</code> tells the system
+	where in the filesystem to relocate the core dump on
+	reboot.</p><p>Writing kernel core dumps is slow and takes a long time so
+	if you have lots of memory (&gt;256M) and lots of panics it
+	could be frustrating to sit and wait while it is done (twice
+	&#8212; first to write it to swap, then to relocate it to
+	filesystem).  It is convenient then to limit the amount of RAM
+	the system will use via a
+	<code class="filename">/boot/loader.conf</code> tunable:</p><pre class="programlisting">  hw.physmem="256M"</pre><p>If the panics are frequent and filesystems large (or you
+	simply do not trust softupdates+background fsck) it is
+	advisable to turn background fsck off via
+	<code class="filename">/etc/rc.conf</code> variable:</p><pre class="programlisting">  background_fsck="NO"</pre><p>This way, the filesystems will always get checked when
+	needed.  Note that with background fsck, a new panic could
+	happen while it is checking the disks.  Again, the safest way
+	is not to have many local filesystems by using another
+	computer as an NFS server.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="prelim-starting"></a>2.2. Starting the Project</h3></div></div></div><p>For the purpose of creating a new GEOM class, an empty
+	subdirectory has to be created under an arbitrary
+	user-accessible directory.  You do not have to create the
+	module directory under <code class="filename">/usr/src</code>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="prelim-makefile"></a>2.3. The Makefile</h3></div></div></div><p>It is good practice to create
+	<code class="filename">Makefile</code>s for every nontrivial coding
+	project, which of course includes kernel modules.</p><p>Creating the <code class="filename">Makefile</code> is simple
+	thanks to an extensive set of helper routines provided by the
+	system.  In short, here is how a minimal
+	<code class="filename">Makefile</code> looks for a kernel
+	module:</p><pre class="programlisting">SRCS=g_journal.c
+KMOD=geom_journal
+
+.include &lt;bsd.kmod.mk&gt;</pre><p>This <code class="filename">Makefile</code> (with changed
+	filenames) will do for any kernel module, and a GEOM class can
+	reside in just one kernel module.  If more than one file is
+	required, list it in the <code class="envar">SRCS</code> variable,
+	separated with whitespace from other filenames.</p></div></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="kernelprog"></a>3. On FreeBSD Kernel Programming</h2></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="kernelprog-memalloc"></a>3.1. Memory Allocation</h3></div></div></div><p>See <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=malloc&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">malloc</span>(9)</span></a>.  Basic memory allocation is only
+	slightly different than its userland equivalent.  Most
+	notably, <code class="function">malloc</code>() and
+	<code class="function">free</code>() accept additional parameters as is
+	described in the man page.</p><p>A <span class="quote">&#8220;<span class="quote">malloc type</span>&#8221;</span> must be declared in the
+	declaration section of a source file, like this:</p><pre class="programlisting">  static MALLOC_DEFINE(M_GJOURNAL, "gjournal data", "GEOM_JOURNAL Data");</pre><p>To use this macro, <code class="filename">sys/param.h</code>,
+	<code class="filename">sys/kernel.h</code> and
+	<code class="filename">sys/malloc.h</code> headers must be
+	included.</p><p>There is another mechanism for allocating memory, the UMA
+	(Universal Memory Allocator).  See <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=uma&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">uma</span>(9)</span></a> for details,
+	but it is a special type of allocator mainly used for speedy
+	allocation of lists comprised of same-sized items (for
+	example, dynamic arrays of structs).</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="kernelprog-lists"></a>3.2. Lists and Queues</h3></div></div></div><p>See <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=queue&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">queue</span>(3)</span></a>.  There are a LOT of cases when a list
+	of things needs to be maintained.  Fortunately, this data
+	structure is implemented (in several ways) by C macros
+	included in the system.  The most used list type is TAILQ
+	because it is the most flexible.  It is also the one with
+	largest memory requirements (its elements are doubly-linked)
+	and also the slowest (although the speed variation is on the
+	order of several CPU instructions more, so it should not be
+	taken seriously).</p><p>If data retrieval speed is very important, see
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=tree&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">tree</span>(3)</span></a> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=hashinit&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">hashinit</span>(9)</span></a>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="kernelprog-bios"></a>3.3. BIOs</h3></div></div></div><p>Structure <code class="varname">bio</code> is
+	used for any and all Input/Output operations concerning GEOM.
+	It basically contains information about what device
+	('provider') should satisfy the request, request type, offset,
+	length, pointer to a buffer, and a bunch of
+	<span class="quote">&#8220;<span class="quote">user-specific</span>&#8221;</span> flags and fields that can help
+	implement various hacks.</p><p>The important thing here is that <code class="varname">bio</code>s are handled
+	asynchronously.  That means that, in most parts of the code,
+	there is no analogue to userland's <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=read&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">read</span>(2)</span></a> and
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=write&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">write</span>(2)</span></a> calls that do not return until a request is
+	done.  Rather, a developer-supplied function is called as a
+	notification when the request gets completed (or results in
+	error).</p><p>The asynchronous programming model (also called
+	<span class="quote">&#8220;<span class="quote">event-driven</span>&#8221;</span>) is somewhat harder than the much
+	more used imperative one used in userland (at least it takes a
+	while to get used to it).  In some cases the helper routines
+	<code class="function">g_write_data</code>() and
+	<code class="function">g_read_data</code>() can be used, but
+	<span class="emphasis"><em>not always</em></span>.  In particular, they cannot
+	be used when a mutex is held; for example, the GEOM topology
+	mutex or the internal mutex held during the
+	<code class="function">.start</code>() and <code class="function">.stop</code>()
+	functions.</p></div></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="geom"></a>4. On GEOM Programming</h2></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="geom-ggate"></a>4.1. Ggate</h3></div></div></div><p>If maximum performance is not needed, a much simpler way
+	of making a data transformation is to implement it in userland
+	via the ggate (GEOM gate) facility.  Unfortunately, there is
+	no easy way to convert between, or even share code between the
+	two approaches.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="geom-class"></a>4.2. GEOM Class</h3></div></div></div><p>GEOM classes are transformations on the data.  These
+	transformations can be combined in a tree-like fashion.
+	Instances of GEOM classes are called
+	<span class="emphasis"><em>geoms</em></span>.</p><p>Each GEOM class has several <span class="quote">&#8220;<span class="quote">class methods</span>&#8221;</span>
+	that get called when there is no geom instance available (or
+	they are simply not bound to a single instance):</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="function">.init</code> is called when GEOM becomes
+	    aware of a GEOM class (when the kernel module gets
+	    loaded.)</p></li><li class="listitem"><p><code class="function">.fini</code> gets called when GEOM
+	    abandons the class (when the module gets
+	    unloaded)</p></li><li class="listitem"><p><code class="function">.taste</code> is called next, once for
+	    each provider the system has available.  If applicable,
+	    this function will usually create and start a geom
+	    instance.</p></li><li class="listitem"><p><code class="function">.destroy_geom</code> is called when the
+	    geom should be disbanded</p></li><li class="listitem"><p><code class="function">.ctlconf</code> is called when user
+	    requests reconfiguration of existing
+	    geom</p></li></ul></div><p>Also defined are the GEOM event functions, which will get
+	copied to the geom instance.</p><p>Field <code class="function">.geom</code> in the <code class="varname">g_class</code> structure is a LIST of
+	geoms instantiated from the class.</p><p>These functions are called from the g_event kernel
+	thread.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="geom-softc"></a>4.3. Softc</h3></div></div></div><p>The name <span class="quote">&#8220;<span class="quote">softc</span>&#8221;</span> is a legacy term for
+	<span class="quote">&#8220;<span class="quote">driver private data</span>&#8221;</span>.  The name most probably
+	comes from the archaic term <span class="quote">&#8220;<span class="quote">software control
+	  block</span>&#8221;</span>.  In GEOM, it is a structure (more precise:
+	pointer to a structure) that can be attached to a geom
+	instance to hold whatever data is private to the geom
+	instance.  Most GEOM classes have the following
+	members:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="varname">struct g_provider *provider</code> : The
+	    <span class="quote">&#8220;<span class="quote">provider</span>&#8221;</span> this geom
+	    instantiates</p></li><li class="listitem"><p><code class="varname">uint16_t n_disks</code> : Number of
+	    consumer this geom consumes</p></li><li class="listitem"><p><code class="varname">struct g_consumer **disks</code> : Array
+	    of <code class="varname">struct g_consumer*</code>.  (It is not
+	    possible to use just single indirection because struct
+	    g_consumer* are created on our behalf by
+	    GEOM).</p></li></ul></div><p>The <code class="varname">softc</code> structure
+	contains all the state of geom instance.  Every geom instance
+	has its own softc.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="geom-metadata"></a>4.4. Metadata</h3></div></div></div><p>Format of metadata is more-or-less class-dependent, but
+	MUST start with:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>16 byte buffer for null-terminated signature (usually
+	    the class name)</p></li><li class="listitem"><p>uint32 version ID</p></li></ul></div><p>It is assumed that geom classes know how to handle
+	metadata with version ID's lower than theirs.</p><p>Metadata is located in the last sector of the provider
+	(and thus must fit in it).</p><p>(All this is implementation-dependent but all existing
+	code works like that, and it is supported by
+	libraries.)</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="geom-creating"></a>4.5. Labeling/creating a GEOM</h3></div></div></div><p>The sequence of events is:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>user calls <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=geom&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">geom</span>(8)</span></a> utility (or one of its
+	    hardlinked friends)</p></li><li class="listitem"><p>the utility figures out which geom class it is
+	    supposed to handle and searches for
+	    <code class="filename">geom_<em class="replaceable"><code>CLASSNAME</code></em>.so</code>
+	    library (usually in
+	    <code class="filename">/lib/geom</code>).</p></li><li class="listitem"><p>it <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=dlopen&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">dlopen</span>(3)</span></a>-s the library, extracts the
+	    definitions of command-line parameters and helper
+	    functions.</p></li></ul></div><p>In the case of creating/labeling a new geom, this is what
+	happens:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=geom&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">geom</span>(8)</span></a> looks in the command-line argument for
+	    the command (usually <code class="option">label</code>), and calls a
+	    helper function.</p></li><li class="listitem"><p>The helper function checks parameters and gathers
+	    metadata, which it proceeds to write to all concerned
+	    providers.</p></li><li class="listitem"><p>This <span class="quote">&#8220;<span class="quote">spoils</span>&#8221;</span> existing geoms (if any) and
+	    initializes a new round of <span class="quote">&#8220;<span class="quote">tasting</span>&#8221;</span> of the
+	    providers.  The intended geom class recognizes the
+	    metadata and brings the geom up.</p></li></ul></div><p>(The above sequence of events is implementation-dependent
+	but all existing code works like that, and it is supported by
+	libraries.)</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="geom-command"></a>4.6. GEOM Command Structure</h3></div></div></div><p>The helper <code class="filename">geom_CLASSNAME.so</code> library
+	exports <code class="varname">class_commands</code>
+	structure, which is an array of <code class="varname">struct g_command</code> elements.
+	Commands are of uniform format and look like:</p><pre class="programlisting">  verb [-options] geomname [other]</pre><p>Common verbs are:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>label &#8212; to write metadata to devices so they can
+	    be recognized at tasting and brought up in
+	    geoms</p></li><li class="listitem"><p>destroy &#8212; to destroy metadata, so the geoms get
+	    destroyed</p></li></ul></div><p>Common options are:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="literal">-v</code> : be verbose</p></li><li class="listitem"><p><code class="literal">-f</code> : force</p></li></ul></div><p>Many actions, such as labeling and destroying metadata can
+	be performed in userland.  For this, <code class="varname">struct g_command</code> provides field
+	<code class="varname">gc_func</code> that can be set to a function (in
+	the same <code class="filename">.so</code>) that will be called to
+	process a verb.  If <code class="varname">gc_func</code> is NULL, the
+	command will be passed to kernel module, to
+	<code class="function">.ctlreq</code> function of the geom
+	class.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="geom-geoms"></a>4.7. Geoms</h3></div></div></div><p>Geoms are instances of GEOM classes.  They have internal
+	data (a softc structure) and some functions with which they
+	respond to external events.</p><p>The event functions are:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="function">.access</code> : calculates permissions
+	    (read/write/exclusive)</p></li><li class="listitem"><p><code class="function">.dumpconf</code> : returns XML-formatted
+	    information about the geom</p></li><li class="listitem"><p><code class="function">.orphan</code> : called when some
+	    underlying provider gets disconnected</p></li><li class="listitem"><p><code class="function">.spoiled</code> : called when some
+	    underlying provider gets written to</p></li><li class="listitem"><p><code class="function">.start</code> : handles I/O</p></li></ul></div><p>These functions are called from the
+	<code class="function">g_down</code> kernel thread and there can be no
+	sleeping in this context, (see definition of sleeping
+	elsewhere) which limits what can be done quite a bit, but
+	forces the handling to be fast.</p><p>Of these, the most important function for doing actual
+	useful work is the <code class="function">.start</code>() function,
+	which is called when a BIO request arrives for a provider
+	managed by a instance of geom class.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="geom-threads"></a>4.8. GEOM Threads</h3></div></div></div><p>There are three kernel threads created and run by the GEOM
+	framework:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="literal">g_down</code> : Handles requests coming
+	    from high-level entities (such as a userland request) on
+	    the way to physical devices</p></li><li class="listitem"><p><code class="literal">g_up</code> : Handles responses from
+	    device drivers to requests made by higher-level
+	    entities</p></li><li class="listitem"><p><code class="literal">g_event</code> : Handles all other cases:
+	    creation of geom instances, access counting,
+	    <span class="quote">&#8220;<span class="quote">spoil</span>&#8221;</span> events, etc.</p></li></ul></div><p>When a user process issues <span class="quote">&#8220;<span class="quote">read data X at offset Y
+	  of a file</span>&#8221;</span> request, this is what happens:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>The filesystem converts the request into a struct bio
+	    instance and passes it to the GEOM subsystem.  It knows
+	    what geom instance should handle it because filesystems
+	    are hosted directly on a geom instance.</p></li><li class="listitem"><p>The request ends up as a call to the
+	    <code class="function">.start</code>() function made on the g_down
+	    thread and reaches the top-level geom
+	    instance.</p></li><li class="listitem"><p>This top-level geom instance (for example the
+	    partition slicer) determines that the request should be
+	    routed to a lower-level instance (for example the disk
+	    driver).  It makes a copy of the bio request (bio requests
+	    <span class="emphasis"><em>ALWAYS</em></span> need to be copied between
+	    instances, with <code class="function">g_clone_bio</code>()!),
+	    modifies the data offset and target provider fields and
+	    executes the copy with
+	    <code class="function">g_io_request</code>()</p></li><li class="listitem"><p>The disk driver gets the bio request also as a call to
+	    <code class="function">.start</code>() on the
+	    <code class="literal">g_down</code> thread.  It talks to hardware,
+	    gets the data back, and calls
+	    <code class="function">g_io_deliver</code>() on the
+	    bio.</p></li><li class="listitem"><p>Now, the notification of bio completion <span class="quote">&#8220;<span class="quote">bubbles
+	      up</span>&#8221;</span> in the <code class="literal">g_up</code> thread.  First
+	    the partition slicer gets <code class="function">.done</code>()
+	    called in the <code class="literal">g_up</code> thread, it uses
+	    information stored in the bio to free the cloned <code class="varname">bio</code> structure (with
+	    <code class="function">g_destroy_bio</code>()) and calls
+	    <code class="function">g_io_deliver</code>() on the original
+	    request.</p></li><li class="listitem"><p>The filesystem gets the data and transfers it to
+	    userland.</p></li></ul></div><p>See <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=g_bio&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">g_bio</span>(9)</span></a> man page for information how the data is
+	passed back and forth in the <code class="varname">bio</code> structure (note in
+	particular the <code class="varname">bio_parent</code> and
+	<code class="varname">bio_children</code> fields and how they are
+	handled).</p><p>One important feature is: <span class="emphasis"><em>THERE CAN BE NO
+	  SLEEPING IN G_UP AND G_DOWN THREADS</em></span>.  This means
+	that none of the following things can be done in those threads
+	(the list is of course not complete, but only
+	informative):</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Calls to <code class="function">msleep</code>() and
+	    <code class="function">tsleep</code>(),
+	    obviously.</p></li><li class="listitem"><p>Calls to <code class="function">g_write_data</code>() and
+	    <code class="function">g_read_data</code>(), because these sleep
+	    between passing the data to consumers and
+	    returning.</p></li><li class="listitem"><p>Waiting for I/O.</p></li><li class="listitem"><p>Calls to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=malloc&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">malloc</span>(9)</span></a> and
+	    <code class="function">uma_zalloc</code>() with
+	    <code class="varname">M_WAITOK</code> flag set</p></li><li class="listitem"><p>sx and other sleepable locks</p></li></ul></div><p>This restriction is here to stop GEOM code clogging the
+	I/O request path, since sleeping is usually not time-bound and
+	there can be no guarantees on how long will it take (there are
+	some other, more technical reasons also).  It also means that
+	there is not much that can be done in those threads; for
+	example, almost any complex thing requires memory allocation.
+	Fortunately, there is a way out: creating additional kernel
+	threads.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="geom-kernelthreads"></a>4.9. Kernel Threads for Use in GEOM Code</h3></div></div></div><p>Kernel threads are created with <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=kthread_create&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">kthread_create</span>(9)</span></a>
+	function, and they are sort of similar to userland threads in
+	behavior, only they cannot return to caller to signify
+	termination, but must call <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=kthread_exit&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">kthread_exit</span>(9)</span></a>.</p><p>In GEOM code, the usual use of threads is to offload
+	processing of requests from <code class="literal">g_down</code> thread
+	(the <code class="function">.start</code>() function).  These threads
+	look like <span class="quote">&#8220;<span class="quote">event handlers</span>&#8221;</span>: they have a linked
+	list of event associated with them (on which events can be
+	posted by various functions in various threads so it must be
+	protected by a mutex), take the events from the list one by
+	one and process them in a big <code class="literal">switch</code>()
+	statement.</p><p>The main benefit of using a thread to handle I/O requests
+	is that it can sleep when needed.  Now, this sounds good, but
+	should be carefully thought out.  Sleeping is well and very
+	convenient but can very effectively destroy performance of the
+	geom transformation.  Extremely performance-sensitive classes
+	probably should do all the work in
+	<code class="function">.start</code>() function call, taking great care
+	to handle out-of-memory and similar errors.</p><p>The other benefit of having a event-handler thread like
+	that is to serialize all the requests and responses coming
+	from different geom threads into one thread.  This is also
+	very convenient but can be slow.  In most cases, handling of
+	<code class="function">.done</code>() requests can be left to the
+	<code class="literal">g_up</code> thread.</p><p>Mutexes in FreeBSD kernel (see <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mutex&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mutex</span>(9)</span></a>) have one
+	distinction from their more common userland cousins &#8212;
+	the code cannot sleep while holding a mutex).  If the code
+	needs to sleep a lot, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sx&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sx</span>(9)</span></a> locks may be more
+	appropriate.  On the other hand, if you do almost everything
+	in a single thread, you may get away with no mutexes at
+	all.</p></div></div></div></body></html>

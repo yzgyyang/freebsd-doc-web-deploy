@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>2.3. Introduction to Programming</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Developers' Handbook" /><link rel="up" href="tools.html" title="Chapter 2. Programming Tools" /><link rel="prev" href="tools-intro.html" title="2.2. Introduction" /><link rel="next" href="tools-compiling.html" title="2.4. Compiling with cc" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">2.3. Introduction to Programming</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="tools-intro.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Programming Tools</th><td width="20%" align="right"> <a accesskey="n" href="tools-compiling.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="tools-programming"></a>2.3. Introduction to Programming</h2></div></div></div><p>A program is a set of instructions that tell the computer to
+      do various things; sometimes the instruction it has to perform
+      depends on what happened when it performed a previous
+      instruction.  This section gives an overview of the two main
+      ways in which you can give these instructions, or
+      <span class="quote">&#8220;<span class="quote">commands</span>&#8221;</span> as they are usually called.  One way
+      uses an <em class="firstterm">interpreter</em>, the other a
+      <em class="firstterm">compiler</em>.  As human languages are too
+      difficult for a computer to understand in an unambiguous way,
+      commands are usually written in one or other languages specially
+      designed for the purpose.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47176568"></a>2.3.1. Interpreters</h3></div></div></div><p>With an interpreter, the language comes as an environment,
+	where you type in commands at a prompt and the environment
+	executes them for you.  For more complicated programs, you can
+	type the commands into a file and get the interpreter to load
+	the file and execute the commands in it.  If anything goes
+	wrong, many interpreters will drop you into a debugger to help
+	you track down the problem.</p><p>The advantage of this is that you can see the results of
+	your commands immediately, and mistakes can be corrected
+	readily.  The biggest disadvantage comes when you want to
+	share your programs with someone.  They must have the same
+	interpreter, or you must have some way of giving it to them,
+	and they need to understand how to use it.  Also users may not
+	appreciate being thrown into a debugger if they press the
+	wrong key! From a performance point of view, interpreters can
+	use up a lot of memory, and generally do not generate code as
+	efficiently as compilers.</p><p>In my opinion, interpreted languages are the best way to
+	start if you have not done any programming before.  This kind
+	of environment is typically found with languages like Lisp,
+	Smalltalk, Perl and Basic.  It could also be argued that the
+	<span class="trademark">UNIX</span>® shell (<code class="command">sh</code>, <code class="command">csh</code>)
+	is itself an interpreter, and many people do in fact write
+	shell <span class="quote">&#8220;<span class="quote">scripts</span>&#8221;</span> to help with various
+	<span class="quote">&#8220;<span class="quote">housekeeping</span>&#8221;</span> tasks on their machine.  Indeed,
+	part of the original <span class="trademark">UNIX</span>® philosophy was to provide lots of
+	small utility programs that could be linked together in shell
+	scripts to perform useful tasks.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47188088"></a>2.3.2. Interpreters Available with FreeBSD</h3></div></div></div><p>Here is a list of interpreters that are available from the
+	FreeBSD Ports Collection, with a brief discussion of some of the
+	more popular interpreted languages.</p><p>Instructions on how to get and install applications from
+	the Ports Collection can be found in the <a class="link" href="../../../../doc/en_US.ISO8859-1/books/handbook/ports-using.html" target="_top">Ports
+	  section</a> of the handbook.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><acronym class="acronym">BASIC</acronym></span></dt><dd><p>Short for Beginner's All-purpose Symbolic
+	      Instruction Code.  Developed in the 1950s for teaching
+	      University students to program and provided with every
+	      self-respecting personal computer in the 1980s,
+	      <acronym class="acronym">BASIC</acronym> has been the first programming
+	      language for many programmers.  It is also the
+	      foundation for Visual Basic.</p><p>The Bywater Basic Interpreter can be found in the
+	      Ports Collection as <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/lang/bwbasic/pkg-descr">lang/bwbasic</a> and
+	      the Phil Cockroft's Basic Interpreter (formerly Rabbit
+	      Basic) is available as
+	      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/lang/pbasic/pkg-descr">lang/pbasic</a>.</p></dd><dt><span class="term">Lisp</span></dt><dd><p>A language that was developed in the late 1950s as
+	      an alternative to the <span class="quote">&#8220;<span class="quote">number-crunching</span>&#8221;</span>
+	      languages that were popular at the time.  Instead of
+	      being based on numbers, Lisp is based on lists; in fact,
+	      the name is short for <span class="quote">&#8220;<span class="quote">List Processing</span>&#8221;</span>.
+	      It is very popular in <acronym class="acronym">AI</acronym> (Artificial
+	      Intelligence) circles.</p><p>Lisp is an extremely powerful and sophisticated
+	      language, but can be rather large and unwieldy.</p><p>Various implementations of Lisp that can run on
+	      <span class="trademark">UNIX</span>® systems are available in the Ports Collection for
+	      FreeBSD.  GNU Common Lisp can be found as
+	      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/lang/gcl/pkg-descr">lang/gcl</a>.  CLISP by Bruno Haible and
+	      Michael Stoll is available as
+	      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/lang/clisp/pkg-descr">lang/clisp</a>.  For CMUCL, which
+	      includes a highly-optimizing compiler too, or simpler
+	      Lisp implementations like SLisp, which implements most
+	      of the Common Lisp constructs in a few hundred lines of
+	      C code, <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/lang/cmucl/pkg-descr">lang/cmucl</a> and
+	      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/lang/slisp/pkg-descr">lang/slisp</a> are available
+	      respectively.</p></dd><dt><span class="term">Perl</span></dt><dd><p>Very popular with system administrators for writing
+	      scripts; also often used on World Wide Web servers for
+	      writing <acronym class="acronym">CGI</acronym> scripts.</p><p>Perl is available in the Ports Collection as
+	      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/lang/perl5.24/pkg-descr">lang/perl5.24</a> for all
+	      FreeBSD releases.</p></dd><dt><span class="term">Scheme</span></dt><dd><p>A dialect of Lisp that is rather more compact and
+	      cleaner than Common Lisp.  Popular in Universities as it
+	      is simple enough to teach to undergraduates as a first
+	      language, while it has a high enough level of
+	      abstraction to be used in research work.</p><p>Scheme is available from the Ports Collection as
+	      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/lang/elk/pkg-descr">lang/elk</a> for the
+		Elk Scheme Interpreter.  The MIT Scheme Interpreter
+		can be found in
+		<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/lang/mit-scheme/pkg-descr">lang/mit-scheme</a>
+		and the SCM Scheme Interpreter in
+		<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/lang/scm/pkg-descr">lang/scm</a>.</p></dd><dt><span class="term">Icon</span></dt><dd><p>Icon is a high-level language with extensive
+	      facilities for processing strings and structures.
+	      The version of Icon for FreeBSD can be found in the
+	      Ports Collection as
+	      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/lang/icon/pkg-descr">lang/icon</a>.</p></dd><dt><span class="term">Logo</span></dt><dd><p>Logo is a language that is easy to learn, and has
+	      been used as an introductory programming language in
+	      various courses.  It is an excellent tool to work with
+	      when teaching programming to smaller age groups, as it
+	      makes creation of elaborate geometric shapes an easy
+	      task.</p><p>The latest version of Logo for FreeBSD is available
+	      from the Ports Collection in
+	      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/lang/logo/pkg-descr">lang/logo</a>.</p></dd><dt><span class="term">Python</span></dt><dd><p>Python is an Object-Oriented, interpreted language.
+	      Its advocates argue that it is one of the best languages
+	      to start programming with, since it is relatively easy
+	      to start with, but is not limited in comparison to other
+	      popular interpreted languages that are used for the
+	      development of large, complex applications (Perl and Tcl
+	      are two other languages that are popular for such
+	      tasks).</p><p>The latest version of Python is available from the
+	      Ports Collection in
+	      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/lang/python/pkg-descr">lang/python</a>.</p></dd><dt><span class="term">Ruby</span></dt><dd><p>Ruby is an interpreter, pure object-oriented
+	      programming language.  It has become widely popular
+	      because of its easy to understand syntax, flexibility
+	      when writing code, and the ability to easily develop and
+	      maintain large, complex programs.</p><p>Ruby is available from the Ports Collection as
+	      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/lang/ruby25/pkg-descr">lang/ruby25</a>.</p></dd><dt><span class="term">Tcl and Tk</span></dt><dd><p>Tcl is an embeddable, interpreted language, that has
+	      become widely used and became popular mostly because of
+	      its portability to many platforms.  It can be used both
+	      for quickly writing small, prototype applications, or
+	      (when combined with Tk, a GUI toolkit) fully-fledged,
+	      featureful programs.</p><p>Various versions of Tcl are available as ports for
+	      FreeBSD.  The latest version, Tcl 8.5, can be found in
+	      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/lang/tcl87/pkg-descr">lang/tcl87</a>.</p></dd></dl></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47287672"></a>2.3.3. Compilers</h3></div></div></div><p>Compilers are rather different.  First of all, you write
+	your code in a file (or files) using an editor.  You then run
+	the compiler and see if it accepts your program.  If it did
+	not compile, grit your teeth and go back to the editor; if it
+	did compile and gave you a program, you can run it either at a
+	shell command prompt or in a debugger to see if it works
+	properly.<a href="#ftn.idp47289848" class="footnote" id="idp47289848"><sup class="footnote">[1]</sup></a></p><p>Obviously, this is not quite as direct as using an
+	interpreter.  However it allows you to do a lot of things
+	which are very difficult or even impossible with an
+	interpreter, such as writing code which interacts closely with
+	the operating system&#8212;or even writing your own operating
+	system! It is also useful if you need to write very efficient
+	code, as the compiler can take its time and optimize the code,
+	which would not be acceptable in an interpreter.  Moreover,
+	distributing a program written for a compiler is usually more
+	straightforward than one written for an interpreter&#8212;you
+	can just give them a copy of the executable, assuming they
+	have the same operating system as you.</p><p>As the edit-compile-run-debug cycle is rather tedious when
+	using separate programs, many commercial compiler makers have
+	produced Integrated Development Environments
+	(<acronym class="acronym">IDE</acronym>s for short).  FreeBSD does not include
+	an IDE in the base system, but
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/devel/kdevelop/pkg-descr">devel/kdevelop</a> is available in the Ports
+	Collection and many use <span class="application">Emacs</span> for
+	this purpose.  Using <span class="application">Emacs</span> as an
+	IDE is discussed in <a class="xref" href="emacs.html" title="2.7. Using Emacs as a Development Environment">Section 2.7, &#8220;Using Emacs as a Development Environment&#8221;</a>.</p></div><div class="footnotes"><br /><hr class="footnote-hr" /><div id="ftn.idp47289848" class="footnote"><p><a href="#idp47289848" class="para"><sup class="para">[1] </sup></a>If you run it in the shell, you may
+	    get a core dump.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="tools-intro.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="tools.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="tools-compiling.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2.2. Introduction </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 2.4. Compiling with <code class="command">cc</code></td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

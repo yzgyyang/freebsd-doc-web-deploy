@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>11.10. UNIX® Environment</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Developers' Handbook" /><link rel="up" href="x86.html" title="Chapter 11. x86 Assembly Language Programming" /><link rel="prev" href="x86-command-line.html" title="11.9. Command Line Arguments" /><link rel="next" href="x86-files.html" title="11.11. Working with Files" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">11.10. <span class="trademark">UNIX</span>® Environment</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="x86-command-line.html">Prev</a> </td><th width="60%" align="center">Chapter 11. x86 Assembly Language Programming</th><td width="20%" align="right"> <a accesskey="n" href="x86-files.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="x86-environment"></a>11.10. <span class="trademark">UNIX</span>® Environment</h2></div></div></div><p>An important <span class="trademark">UNIX</span>® concept is the environment, which is
+	defined by <span class="emphasis"><em>environment variables</em></span>.  Some
+	are set by the system, others by you, yet others by the
+	<span class="application">shell</span>, or any program that loads
+	another program.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-find-environment"></a>11.10.1. How to Find Environment Variables</h3></div></div></div><p>I said earlier that when a program starts executing, the
+	  stack contains <code class="varname">argc</code> followed by the
+	  NULL-terminated <code class="varname">argv</code> array, followed by
+	  something else.  The "something else" is the
+	  <span class="emphasis"><em>environment</em></span>, or, to be more precise, a
+	  NULL-terminated array of pointers to <span class="emphasis"><em>environment
+	    variables</em></span>.  This is often referred to as
+	  <code class="varname">env</code>.</p><p>The structure of <code class="varname">env</code> is the same as
+	  that of <code class="varname">argv</code>, a list of memory addresses
+	  followed by a NULL (<code class="constant">0</code>).  In this case,
+	  there is no <code class="varname">"envc"</code>&#8212;we figure out
+	  where the array ends by searching for the final NULL.</p><p>The variables usually come in the
+	  <code class="varname">name=value</code> format, but sometimes the
+	  <code class="varname">=value</code> part may be missing.  We need to
+	  account for that possibility.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-webvar"></a>11.10.2. webvars</h3></div></div></div><p>I could just show you some code that prints the
+	  environment the same way the <span class="trademark">UNIX</span>®
+	  <span class="application">env</span> command does.  But I thought
+	  it would be more interesting to write a simple assembly
+	  language CGI utility.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-cgi"></a>11.10.2.1. CGI: a Quick Overview</h4></div></div></div><p>I have a <a class="link" href="http://www.whizkidtech.redprince.net/cgi-bin/tutorial" target="_top">detailed
+	      <acronym class="acronym">CGI</acronym> tutorial</a> on my web site,
+	    but here is a very quick overview of
+	    <acronym class="acronym">CGI</acronym>:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>The web server communicates with the
+		<acronym class="acronym">CGI</acronym> program by setting
+		<span class="emphasis"><em>environment variables</em></span>.</p></li><li class="listitem"><p>The <acronym class="acronym">CGI</acronym> program sends its
+		output to <code class="filename">stdout</code>.  The web server
+		reads it from there.</p></li><li class="listitem"><p>It must start with an <acronym class="acronym">HTTP</acronym>
+		header followed by two blank lines.</p></li><li class="listitem"><p>It then prints the <acronym class="acronym">HTML</acronym> code,
+		or whatever other type of data it is producing.</p></li></ul></div><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">While certain <span class="emphasis"><em>environment
+		variables</em></span> use standard names, others vary,
+	      depending on the web server.  That makes
+	      <span class="application">webvars</span> quite a useful
+	      diagnostic tool.</p></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-webvars-the-code"></a>11.10.2.2. The Code</h4></div></div></div><p>Our <span class="application">webvars</span> program, then,
+	    must send out the <acronym class="acronym">HTTP</acronym> header followed
+	    by some <acronym class="acronym">HTML</acronym> mark-up.  It then must
+	    read the <span class="emphasis"><em>environment variables</em></span> one by
+	    one and send them out as part of the
+	    <acronym class="acronym">HTML</acronym> page.</p><p>The code follows.  I placed comments and explanations
+	    right inside the code:</p><pre class="programlisting">;;;;;;; webvars.asm ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;
+; Copyright (c) 2000 G. Adam Stanislav
+; All rights reserved.
+;
+; Redistribution and use in source and binary forms, with or without
+; modification, are permitted provided that the following conditions
+; are met:
+; 1. Redistributions of source code must retain the above copyright
+;    notice, this list of conditions and the following disclaimer.
+; 2. Redistributions in binary form must reproduce the above copyright
+;    notice, this list of conditions and the following disclaimer in the
+;    documentation and/or other materials provided with the distribution.
+;
+; THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+; ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+; IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+; ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+; FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+; DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+; OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+; HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+; OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+; SUCH DAMAGE.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;
+; Version 1.0
+;
+; Started:	 8-Dec-2000
+; Updated:	 8-Dec-2000
+;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+%include	'system.inc'
+
+section	.data
+http	db	'Content-type: text/html', 0Ah, 0Ah
+	db	'&lt;?xml version="1.0" encoding="utf-8"?&gt;', 0Ah
+	db	'&lt;!DOCTYPE html PUBLIC "-//W3C/DTD XHTML Strict//EN" '
+	db	'"DTD/xhtml1-strict.dtd"&gt;', 0Ah
+	db	'&lt;html xmlns="http://www.w3.org/1999/xhtml" '
+	db	'xml.lang="en" lang="en"&gt;', 0Ah
+	db	'&lt;head&gt;', 0Ah
+	db	'&lt;title&gt;Web Environment&lt;/title&gt;', 0Ah
+	db	'&lt;meta name="author" content="G. Adam Stanislav" /&gt;', 0Ah
+	db	'&lt;/head&gt;', 0Ah, 0Ah
+	db	'&lt;body bgcolor="#ffffff" text="#000000" link="#0000ff" '
+	db	'vlink="#840084" alink="#0000ff"&gt;', 0Ah
+	db	'&lt;div class="webvars"&gt;', 0Ah
+	db	'&lt;h1&gt;Web Environment&lt;/h1&gt;', 0Ah
+	db	'&lt;p&gt;The following &lt;b&gt;environment variables&lt;/b&gt; are defined '
+	db	'on this web server:&lt;/p&gt;', 0Ah, 0Ah
+	db	'&lt;table align="center" width="80" border="0" cellpadding="10" '
+	db	'cellspacing="0" class="webvars"&gt;', 0Ah
+httplen	equ	$-http
+left	db	'&lt;tr&gt;', 0Ah
+	db	'&lt;td class="name"&gt;&lt;tt&gt;'
+leftlen	equ	$-left
+middle	db	'&lt;/tt&gt;&lt;/td&gt;', 0Ah
+	db	'&lt;td class="value"&gt;&lt;tt&gt;&lt;b&gt;'
+midlen	equ	$-middle
+undef	db	'&lt;i&gt;(undefined)&lt;/i&gt;'
+undeflen	equ	$-undef
+right	db	'&lt;/b&gt;&lt;/tt&gt;&lt;/td&gt;', 0Ah
+	db	'&lt;/tr&gt;', 0Ah
+rightlen	equ	$-right
+wrap	db	'&lt;/table&gt;', 0Ah
+	db	'&lt;/div&gt;', 0Ah
+	db	'&lt;/body&gt;', 0Ah
+	db	'&lt;/html&gt;', 0Ah, 0Ah
+wraplen	equ	$-wrap
+
+section	.text
+global	_start
+_start:
+	; First, send out all the http and xhtml stuff that is
+	; needed before we start showing the environment
+	push	dword httplen
+	push	dword http
+	push	dword stdout
+	sys.write
+
+	; Now find how far on the stack the environment pointers
+	; are. We have 12 bytes we have pushed before "argc"
+	mov	eax, [esp+12]
+
+	; We need to remove the following from the stack:
+	;
+	;	The 12 bytes we pushed for sys.write
+	;	The  4 bytes of argc
+	;	The EAX*4 bytes of argv
+	;	The  4 bytes of the NULL after argv
+	;
+	; Total:
+	;	20 + eax * 4
+	;
+	; Because stack grows down, we need to ADD that many bytes
+	; to ESP.
+	lea	esp, [esp+20+eax*4]
+	cld		; This should already be the case, but let's be sure.
+
+	; Loop through the environment, printing it out
+.loop:
+	pop	edi
+	or	edi, edi	; Done yet?
+	je	near .wrap
+
+	; Print the left part of HTML
+	push	dword leftlen
+	push	dword left
+	push	dword stdout
+	sys.write
+
+	; It may be tempting to search for the '=' in the env string next.
+	; But it is possible there is no '=', so we search for the
+	; terminating NUL first.
+	mov	esi, edi	; Save start of string
+	sub	ecx, ecx
+	not	ecx		; ECX = FFFFFFFF
+	sub	eax, eax
+repne	scasb
+	not	ecx		; ECX = string length + 1
+	mov	ebx, ecx	; Save it in EBX
+
+	; Now is the time to find '='
+	mov	edi, esi	; Start of string
+	mov	al, '='
+repne	scasb
+	not	ecx
+	add	ecx, ebx	; Length of name
+
+	push	ecx
+	push	esi
+	push	dword stdout
+	sys.write
+
+	; Print the middle part of HTML table code
+	push	dword midlen
+	push	dword middle
+	push	dword stdout
+	sys.write
+
+	; Find the length of the value
+	not	ecx
+	lea	ebx, [ebx+ecx-1]
+
+	; Print "undefined" if 0
+	or	ebx, ebx
+	jne	.value
+
+	mov	ebx, undeflen
+	mov	edi, undef
+
+.value:
+	push	ebx
+	push	edi
+	push	dword stdout
+	sys.write
+
+	; Print the right part of the table row
+	push	dword rightlen
+	push	dword right
+	push	dword stdout
+	sys.write
+
+	; Get rid of the 60 bytes we have pushed
+	add	esp, byte 60
+
+	; Get the next variable
+	jmp	.loop
+
+.wrap:
+	; Print the rest of HTML
+	push	dword wraplen
+	push	dword wrap
+	push	dword stdout
+	sys.write
+
+	; Return success
+	push	dword 0
+	sys.exit</pre><p>This code produces a 1,396-byte executable.  Most of it is
+	data, i.e., the <acronym class="acronym">HTML</acronym> mark-up we need to
+	send out.</p><p>Assemble and link it as usual:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>nasm -f elf webvars.asm</code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>ld -s -o webvars webvars.o</code></strong></pre><p>To use it, you need to upload <code class="filename">webvars</code>
+	to your web server.  Depending on how your web server is set
+	up, you may have to store it in a special
+	<code class="filename">cgi-bin</code> directory, or perhaps rename it
+	with a <code class="filename">.cgi</code> extension.</p><p>Then you need to use your browser to view its output.  To
+	see its output on my web server, please go to <a class="link" href="http://www.int80h.org/webvars/" target="_top"><code class="filename">http://www.int80h.org/webvars/</code></a>.
+	If curious about the additional environment variables present
+	in a password protected web directory, go to <a class="link" href="http://www.int80h.org/private/" target="_top"><code class="filename">http://www.int80h.org/private/</code></a>,
+	using the name <strong class="userinput"><code>asm</code></strong> and password
+	<strong class="userinput"><code>programmer</code></strong>.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="x86-command-line.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="x86.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="x86-files.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">11.9. Command Line Arguments </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 11.11. Working with Files</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

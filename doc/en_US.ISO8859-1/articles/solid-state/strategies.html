@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>5. System Strategies for Small and Read Only Environments</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD and Solid State Devices" /><link rel="up" href="index.html" title="FreeBSD and Solid State Devices" /><link rel="prev" href="ar01s04.html" title="4. Building a File System from Scratch" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5. System Strategies for Small and Read Only
+      Environments</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ar01s04.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> </td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="strategies"></a>5. System Strategies for Small and Read Only
+      Environments</h2></div></div></div><p>In <a class="xref" href="ro-fs.html" title="3. The rc Subsystem and Read-Only Filesystems">Section 3, &#8220;The <code class="literal">rc</code> Subsystem and Read-Only
+      Filesystems&#8221;</a>, it was pointed out that the
+      <code class="filename">/var</code> filesystem constructed by
+      <code class="filename">/etc/rc.d/var</code> and the presence of a
+      read-only root filesystem causes problems with many common
+      software packages used with FreeBSD.  In this article, suggestions
+      for successfully running cron, syslog, ports installations, and
+      the Apache web server will be provided.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47059448"></a>5.1. Cron</h3></div></div></div><p>Upon boot, <code class="filename">/var</code> gets populated by
+	<code class="filename">/etc/rc.d/var</code> using the list from
+	<code class="filename">/etc/mtree/BSD.var.dist</code>, so the
+	<code class="filename">cron</code>, <code class="filename">cron/tabs</code>,
+	<code class="filename">at</code>, and a few other standard directories
+	get created.</p><p>However, this does not solve the problem of maintaining
+	cron tabs across reboots.  When the system reboots, the
+	<code class="filename">/var</code> filesystem that is in memory will
+	disappear and any cron tabs you may have had in it will also
+	disappear.  Therefore, one solution would be to create cron
+	tabs for the users that need them, mount your
+	<code class="filename">/</code> filesystem as read-write and copy those
+	cron tabs to somewhere safe, like
+	<code class="filename">/etc/tabs</code>, then add a line to the end of
+	<code class="filename">/etc/rc.initdiskless</code> that copies those
+	crontabs into <code class="filename">/var/cron/tabs</code> after that
+	directory has been created during system initialization.  You
+	may also need to add a line that changes modes and permissions
+	on the directories you create and the files you copy with
+	<code class="filename">/etc/rc.initdiskless</code>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47073656"></a>5.2. Syslog</h3></div></div></div><p><code class="filename">syslog.conf</code> specifies the locations
+	of certain log files that exist in
+	<code class="filename">/var/log</code>.  These files are not created by
+	<code class="filename">/etc/rc.d/var</code> upon system initialization.
+	Therefore, somewhere in <code class="filename">/etc/rc.d/var</code>,
+	after the section that creates the directories in
+	<code class="filename">/var</code>, you will need to add something like
+	this:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>touch /var/log/security /var/log/maillog /var/log/cron /var/log/messages</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>chmod 0644 /var/log/*</code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47097592"></a>5.3. Ports Installation</h3></div></div></div><p>Before discussing the changes necessary to successfully
+	use the ports tree, a reminder is necessary regarding the
+	read-only nature of your filesystems on the flash media.
+	Since they are read-only, you will need to temporarily mount
+	them read-write using the mount syntax shown in <a class="xref" href="ro-fs.html" title="3. The rc Subsystem and Read-Only Filesystems">Section 3, &#8220;The <code class="literal">rc</code> Subsystem and Read-Only
+      Filesystems&#8221;</a>.  You should always remount those
+	filesystems read-only when you are done with any maintenance -
+	unnecessary writes to the flash media could considerably
+	shorten its lifespan.</p><p>To make it possible to enter a ports directory and
+	successfully run <code class="command">make</code>
+	<code class="buildtarget">install</code>, we must create a packages
+	directory on a non-memory filesystem that will keep track of
+	our packages across reboots.  Because it is necessary to mount
+	your filesystems as read-write for the installation of a
+	package anyway, it is sensible to assume that an area on the
+	flash media can also be used for package information to be
+	written to.</p><p>First, create a package database directory.  This is
+	normally in <code class="filename">/var/db/pkg</code>, but we cannot
+	place it there as it will disappear every time the system is
+	booted.</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>mkdir /etc/pkg</code></strong></pre><p>Now, add a line to <code class="filename">/etc/rc.d/var</code> that
+	links the <code class="filename">/etc/pkg</code> directory to
+	<code class="filename">/var/db/pkg</code>.  An example:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ln -s /etc/pkg /var/db/pkg</code></strong></pre><p>Now, any time that you mount your filesystems as
+	read-write and install a package, the <code class="command">make</code>
+	<code class="buildtarget">install</code> will work, and package
+	information will be written successfully to
+	<code class="filename">/etc/pkg</code> (because the filesystem will, at
+	that time, be mounted read-write) which will always be
+	available to the operating system as
+	<code class="filename">/var/db/pkg</code>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47123064"></a>5.4. Apache Web Server</h3></div></div></div><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">The steps in this section are only necessary if Apache
+	  is set up to write its pid or log information outside of
+	  <code class="filename">/var</code>.  By default, Apache keeps its pid
+	  file in <code class="filename">/var/run/httpd.pid</code> and its log
+	  files in <code class="filename">/var/log</code>.</p></div><p>It is now assumed that Apache keeps its log files in a
+	directory
+	<code class="filename"><em class="replaceable"><code>apache_log_dir</code></em></code>
+	outside of <code class="filename">/var</code>.  When this directory
+	lives on a read-only filesystem, Apache will not be able to
+	save any log files, and may have problems working.  If so, it
+	is necessary to add a new directory to the list of directories
+	in <code class="filename">/etc/rc.d/var</code> to create in
+	<code class="filename">/var</code>, and to link
+	<code class="filename"><em class="replaceable"><code>apache_log_dir</code></em></code>
+	to <code class="filename">/var/log/apache</code>.  It is also necessary
+	to set permissions and ownership on this new directory.</p><p>First, add the directory <code class="literal">log/apache</code> to
+	the list of directories to be created in
+	<code class="filename">/etc/rc.d/var</code>.</p><p>Second, add these commands to
+	<code class="filename">/etc/rc.d/var</code> after the directory
+	creation section:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>chmod 0774 /var/log/apache</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>chown nobody:nobody /var/log/apache</code></strong></pre><p>Finally, remove the existing
+	<code class="filename"><em class="replaceable"><code>apache_log_dir</code></em></code>
+	directory, and replace it with a link:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>rm -rf <em class="replaceable"><code>apache_log_dir</code></em></code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>ln -s /var/log/apache <em class="replaceable"><code>apache_log_dir</code></em></code></strong></pre></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ar01s04.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> </td></tr><tr><td width="40%" align="left" valign="top">4. Building a File System from Scratch </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> </td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

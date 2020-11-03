@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>8.2. Basic Tools and Locking Fundamentals</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Architecture Handbook" /><link rel="up" href="smp.html" title="Chapter 8. SMPng Design Document" /><link rel="prev" href="smp.html" title="Chapter 8. SMPng Design Document" /><link rel="next" href="smp-design.html" title="8.3. General Architecture and Design" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">8.2. Basic Tools and Locking Fundamentals</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="smp.html">Prev</a> </td><th width="60%" align="center">Chapter 8. SMPng Design Document</th><td width="20%" align="right"> <a accesskey="n" href="smp-design.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="smp-lock-fundamentals"></a>8.2. Basic Tools and Locking Fundamentals</h2></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp55751288"></a>8.2.1. Atomic Instructions and Memory Barriers</h3></div></div></div><a id="idp55751928" class="indexterm"></a><a id="idp55752440" class="indexterm"></a><p>There are several existing treatments of memory barriers
+	and atomic instructions, so this section will not include a
+	lot of detail.  To put it simply, one can not go around reading
+	variables without a lock if a lock is used to protect writes
+	to that variable.  This becomes obvious when you consider that
+	memory barriers simply determine relative order of memory
+	operations; they do not make any guarantee about timing of
+	memory operations.  That is, a memory barrier does not force
+	the contents of a CPU's local cache or store buffer to flush.
+	Instead, the memory barrier at lock release simply ensures
+	that all writes to the protected data will be visible to other
+	CPU's or devices if the write to release the lock is visible.
+	The CPU is free to keep that data in its cache or store buffer
+	as long as it wants. However, if another CPU performs an
+	atomic instruction on the same datum, the first CPU must
+	guarantee that the updated value is made visible to the second
+	CPU along with any other operations that memory barriers may
+	require.</p><p>For example, assuming a simple model where data is
+	considered visible when it is in main memory (or a global
+	cache), when an atomic instruction is triggered on one CPU,
+	other CPU's store buffers and caches must flush any writes to
+	that same cache line along with any pending operations behind
+	a memory barrier.</p><p>This requires one to take special care when using an item
+	protected by atomic instructions.  For example, in the sleep
+	mutex implementation, we have to use an
+	<code class="function">atomic_cmpset</code> rather than an
+	<code class="function">atomic_set</code> to turn on the
+	<code class="constant">MTX_CONTESTED</code> bit.  The reason is that we
+	read the value of <code class="varname">mtx_lock</code> into a
+	variable and then make a decision based on that read.
+	However, the value we read may be stale, or it may change
+	while we are making our decision.  Thus, when the
+	<code class="function">atomic_set</code> executed, it may end up
+	setting the bit on another value than the one we made the
+	decision on. Thus, we have to use an
+	<code class="function">atomic_cmpset</code> to set the value only if
+	the value we made the decision on is up-to-date and
+	valid.</p><p>Finally, atomic instructions only allow one item to be
+	updated or read.  If one needs to atomically update several
+	items, then a lock must be used instead.  For example, if two
+	counters must be read and have values that are consistent
+	relative to each other, then those counters must be protected
+	by a lock rather than by separate atomic instructions.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp55773560"></a>8.2.2. Read Locks Versus Write Locks</h3></div></div></div><a id="idp55798776" class="indexterm"></a><a id="idp55799288" class="indexterm"></a><p>Read locks do not need to be as strong as write locks.
+	Both types of locks need to ensure that the data they are
+	accessing is not stale.  However, only write access requires
+	exclusive access.  Multiple threads can safely read a value.
+	Using different types of locks for reads and writes can be
+	implemented in a number of ways.</p><p>First, sx locks can be used in this manner by using an
+	exclusive lock when writing and a shared lock when reading.
+	This method is quite straightforward.</p><p>A second method is a bit more obscure.  You can protect a
+	datum with multiple locks.  Then for reading that data you
+	simply need to have a read lock of one of the locks.  However,
+	to write to the data, you need to have a write lock of all of
+	the locks.  This can make writing rather expensive but can be
+	useful when data is accessed in various ways.  For example,
+	the parent process pointer is protected by both the
+	<code class="varname">proctree_lock</code> sx lock and the per-process
+	mutex.  Sometimes the proc lock is easier as we are just
+	checking to see who a parent of a process is that we already
+	have locked.  However, other places such as
+	<code class="function">inferior</code> need to walk the tree of
+	processes via parent pointers and locking each process would
+	be prohibitive as well as a pain to guarantee that the
+	condition you are checking remains valid for both the check
+	and the actions taken as a result of the check.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp55801848"></a>8.2.3. Locking Conditions and Results</h3></div></div></div><p>If you need a lock to check the state of a variable so
+	that you can take an action based on the state you read, you
+	can not just hold the lock while reading the variable and then
+	drop the lock before you act on the value you read.  Once you
+	drop the lock, the variable can change rendering your decision
+	invalid. Thus, you must hold the lock both while reading the
+	variable and while performing the action as a result of the
+	test.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="smp.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="smp.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="smp-design.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 8. SMPng Design Document </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 8.3. General Architecture and Design</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>Chapter 9. ZFS</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Frequently Asked Questions for FreeBSD 11.X and 12.X" /><link rel="up" href="index.html" title="Frequently Asked Questions for FreeBSD 11.X and 12.X" /><link rel="prev" href="disks.html" title="Chapter 8. Disks, File Systems, and Boot Loaders" /><link rel="next" href="admin.html" title="Chapter 10. System Administration" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 9. ZFS</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="disks.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="admin.html">Next</a></td></tr></table><hr /></div><div class="chapter"><div xmlns="" class="titlepage"><div><div><h1 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="all-about-zfs"></a>Chapter 9. ZFS</h1></div></div></div><div class="qandaset"><a id="idp51343992"></a><dl><dt>9.1. <a href="all-about-zfs.html#idp51344248">What is the minimum amount of RAM one should have to
+	    run ZFS?</a></dt><dt>9.2. <a href="all-about-zfs.html#idp51346296">What is the ZIL and when does it get used?</a></dt><dt>9.3. <a href="all-about-zfs.html#idp51350264">Do I need a SSD for ZIL?</a></dt><dt>9.4. <a href="all-about-zfs.html#idp51352312">What is the L2ARC?</a></dt><dt>9.5. <a href="all-about-zfs.html#idp51367800">Is enabling deduplication advisable?</a></dt><dt>9.6. <a href="all-about-zfs.html#idp51370744">I cannot delete or create files on my ZFS pool.  How
+	    can I fix this?</a></dt><dt>9.7. <a href="all-about-zfs.html#idp51420024">Does ZFS support TRIM for Solid State Drives?</a></dt></dl><table border="0" style="width: 100%;"><colgroup><col align="left" width="1%" /><col /></colgroup><tbody><tr class="question"><td align="left" valign="top"><a id="idp51344248"></a><a id="how-much-ram-for-zfs"></a><p><strong>9.1.</strong></p></td><td align="left" valign="top"><p>What is the minimum amount of RAM one should have to
+	    run ZFS?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>A minimum of 4GB of RAM is required for comfortable
+	    usage, but individual workloads can vary widely.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51346296"></a><a id="what-is-zil"></a><p><strong>9.2.</strong></p></td><td align="left" valign="top"><p>What is the ZIL and when does it get used?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>The <acronym class="acronym">ZIL</acronym> (<acronym class="acronym">ZFS</acronym>
+	    intent log) is a write log used to implement posix write
+	    commitment semantics across crashes.  Normally writes are
+	    bundled up into transaction groups and written to disk
+	    when filled (<span class="quote">&#8220;<span class="quote">Transaction Group Commit</span>&#8221;</span>).
+	    However syscalls like <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=fsync&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">fsync</span>(2)</span></a> require a commitment
+	    that the data is written to stable storage before
+	    returning.  The ZIL is needed for writes that have been
+	    acknowledged as written but which are not yet on disk as
+	    part of a transaction.  The transaction groups are
+	    timestamped.  In the event of a crash the last valid
+	    timestamp is found and missing data is merged in from the
+	    ZIL.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51350264"></a><a id="need-ssd-for-zil"></a><p><strong>9.3.</strong></p></td><td align="left" valign="top"><p>Do I need a SSD for ZIL?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>By default, ZFS stores the ZIL in the pool with all
+	    the data.  If an application has a heavy write load,
+	    storing the ZIL in a separate device that has very fast
+	    synchronous, sequential write performance can improve
+	    overall system performance.  For other workloads, a SSD
+	    is unlikely to make much of an improvement.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51352312"></a><a id="what-is-l2arc"></a><p><strong>9.4.</strong></p></td><td align="left" valign="top"><p>What is the L2ARC?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>The <acronym class="acronym">L2ARC</acronym> is a read cache stored on
+	    a fast device such as an <acronym class="acronym">SSD</acronym>.  This
+	    cache is not persistent across reboots.  Note that RAM is
+	    used as the first layer of cache and the L2ARC is only
+	    needed if there is insufficient RAM.</p><p>L2ARC needs space in the ARC to index it.  So,
+	    perversely, a working set that fits perfectly in the ARC
+	    will not fit perfectly any more if a L2ARC is used because
+	    part of the ARC is holding the L2ARC index, pushing part
+	    of the working set into the L2ARC which is slower than
+	    RAM.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51367800"></a><a id="should-enable-dedup"></a><p><strong>9.5.</strong></p></td><td align="left" valign="top"><p>Is enabling deduplication advisable?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>Generally speaking, no.</p><p>Deduplication takes up a significant amount of RAM and
+	    may slow down read and write disk access times.  Unless
+	    one is storing data that is very heavily duplicated, such
+	    as virtual machine images or user backups, it is possible
+	    that deduplication will do more harm than good.  Another
+	    consideration is the inability to revert deduplication
+	    status.  If data is written when deduplication is enabled,
+	    disabling dedup will not cause those blocks which were
+	    deduplicated to be replicated until they are next
+	    modified.</p><p>Deduplication can also lead to some unexpected
+	    situations.  In particular, deleting files may become much
+	    slower.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51370744"></a><a id="zpool-fully-full"></a><p><strong>9.6.</strong></p></td><td align="left" valign="top"><p>I cannot delete or create files on my ZFS pool.  How
+	    can I fix this?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>This could happen because the pool is 100% full.  ZFS
+	    requires space on the disk to write transaction metadata.
+	    To restore the pool to a usable state, truncate the file
+	    to delete:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>truncate -s 0 unimportant-file</code></strong></pre><p>File truncation works because a new transaction is not
+	    started, new spare blocks are created instead.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">On systems with additional ZFS dataset tuning, such
+	      as deduplication, the space may not be immediately
+	      available</p></div></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51420024"></a><a id="zfs-ssd-trim"></a><p><strong>9.7.</strong></p></td><td align="left" valign="top"><p>Does ZFS support TRIM for Solid State Drives?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>ZFS TRIM support was added to FreeBSD 10-CURRENT
+	    with revision r<a xmlns="" href="https://svnweb.freebsd.org/changeset/base/240868"><span class="svnref">240868</span></a>.  ZFS TRIM
+	    support was added to all FreeBSD-STABLE branches in
+	    r<a xmlns="" href="https://svnweb.freebsd.org/changeset/base/252162"><span class="svnref">252162</span></a> and
+	    r<a xmlns="" href="https://svnweb.freebsd.org/changeset/base/251419"><span class="svnref">251419</span></a>, respectively.</p><p>ZFS TRIM is enabled by default, and can be turned off
+	    by adding this line to
+	    <code class="filename">/etc/sysctl.conf</code>:</p><pre class="programlisting">vfs.zfs.trim.enabled=0</pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">ZFS TRIM support was added to GELI as of
+	      r<a xmlns="" href="https://svnweb.freebsd.org/changeset/base/286444"><span class="svnref">286444</span></a>.  Please see
+	      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=geli&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">geli</span>(8)</span></a> and the <code class="option">-T</code> switch.</p></div></td></tr></tbody></table></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="disks.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="admin.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 8. Disks, File Systems, and Boot Loaders </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 10. System Administration</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

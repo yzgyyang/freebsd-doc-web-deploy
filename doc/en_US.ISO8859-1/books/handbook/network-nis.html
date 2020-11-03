@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>29.4. Network Information System (NIS)</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="network-servers.html" title="Chapter 29. Network Servers" /><link rel="prev" href="network-nfs.html" title="29.3. Network File System (NFS)" /><link rel="next" href="network-ldap.html" title="29.5. Lightweight Directory Access Protocol (LDAP)" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">29.4. Network Information System
+      (<acronym class="acronym">NIS</acronym>)</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="network-nfs.html">Prev</a> </td><th width="60%" align="center">Chapter 29. Network Servers</th><td width="20%" align="right"> <a accesskey="n" href="network-ldap.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="network-nis"></a>29.4. Network Information System
+      (<acronym class="acronym">NIS</acronym>)</h2></div></div></div><a id="idp69864824" class="indexterm"></a><a id="idp69865336" class="indexterm"></a><a id="idp69865848" class="indexterm"></a><a id="idp69866360" class="indexterm"></a><a id="idp69866872" class="indexterm"></a><a id="idp69867384" class="indexterm"></a><a id="idp69867896" class="indexterm"></a><a id="idp69868408" class="indexterm"></a><p>Network Information System (<acronym class="acronym">NIS</acronym>) is
+      designed to centralize administration of <span class="trademark">UNIX</span>®-like systems
+      such as <span class="trademark">Solaris</span>&#8482;, HP-UX, <span class="trademark">AIX</span>®, Linux, NetBSD, OpenBSD, and
+      FreeBSD.  <acronym class="acronym">NIS</acronym> was originally known as Yellow
+      Pages but the name was changed due to trademark issues.   This
+      is the reason why <acronym class="acronym">NIS</acronym> commands begin with
+      <code class="literal">yp</code>.</p><a id="idp69873016" class="indexterm"></a><p><acronym class="acronym">NIS</acronym> is a Remote Procedure Call
+      (<acronym class="acronym">RPC</acronym>)-based client/server system that allows
+      a group of machines within an <acronym class="acronym">NIS</acronym> domain to
+      share a common set of configuration files.  This permits a
+      system administrator to set up <acronym class="acronym">NIS</acronym> client
+      systems with only minimal configuration data and to add, remove,
+      or modify configuration data from a single location.</p><p>FreeBSD uses version 2 of the <acronym class="acronym">NIS</acronym>
+      protocol.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp69880952"></a>29.4.1. <acronym class="acronym">NIS</acronym> Terms and Processes</h3></div></div></div><p>Table 28.1 summarizes the terms and important processes
+	used by <acronym class="acronym">NIS</acronym>:</p><a id="idp69882616" class="indexterm"></a><a id="idp69883512" class="indexterm"></a><div class="table"><a id="idp69884408"></a><div class="table-title">Table 29.1. <acronym class="acronym">NIS</acronym> Terminology</div><div class="table-contents"><table class="table" summary="NIS Terminology" width="100%" border="0"><colgroup><col /><col /></colgroup><thead><tr><th>Term</th><th>Description</th></tr></thead><tbody><tr><td><acronym class="acronym">NIS</acronym> domain name</td><td><acronym class="acronym">NIS</acronym> servers and clients share
+		an <acronym class="acronym">NIS</acronym> domain name.  Typically,
+		this name does not have anything to do with
+		<acronym class="acronym">DNS</acronym>.</td></tr><tr><td><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rpcbind&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rpcbind</span>(8)</span></a></td><td>This service enables <acronym class="acronym">RPC</acronym> and
+		must be running in order to run an
+		<acronym class="acronym">NIS</acronym> server or act as an
+		<acronym class="acronym">NIS</acronym> client.</td></tr><tr><td><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ypbind&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ypbind</span>(8)</span></a></td><td>This service binds an <acronym class="acronym">NIS</acronym>
+		client to its <acronym class="acronym">NIS</acronym> server.  It will
+		take the <acronym class="acronym">NIS</acronym> domain name and use
+		<acronym class="acronym">RPC</acronym> to connect to the server.  It
+		is the core of client/server communication in an
+		<acronym class="acronym">NIS</acronym> environment.  If this service
+		is not running on a client machine, it will not be
+		able to access the <acronym class="acronym">NIS</acronym>
+		server.</td></tr><tr><td><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ypserv&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ypserv</span>(8)</span></a></td><td>This is the process for the
+		<acronym class="acronym">NIS</acronym> server.  If this service stops
+		running, the server will no longer be able to respond
+		to <acronym class="acronym">NIS</acronym> requests so hopefully, there
+		is a slave server to take over.  Some non-FreeBSD clients
+		will not try to reconnect using a slave server and the
+		<span class="application">ypbind</span> process may need to
+		be restarted on these
+		clients.</td></tr><tr><td><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rpc.yppasswdd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rpc.yppasswdd</span>(8)</span></a></td><td>This process only runs on
+		<acronym class="acronym">NIS</acronym> master servers.  This daemon
+		allows <acronym class="acronym">NIS</acronym> clients to change their
+		<acronym class="acronym">NIS</acronym> passwords.  If this daemon is
+		not running, users will have to login to the
+		<acronym class="acronym">NIS</acronym> master server and change their
+		passwords there.</td></tr></tbody></table></div></div><br class="table-break" /></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp69908600"></a>29.4.2. Machine Types</h3></div></div></div><a id="idp69909240" class="indexterm"></a><a id="idp69910264" class="indexterm"></a><a id="idp69911288" class="indexterm"></a><p>There are three types of hosts in an
+	<acronym class="acronym">NIS</acronym> environment:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><acronym class="acronym">NIS</acronym> master server</p><p>This server acts as a central repository for host
+	    configuration information and maintains the
+	    authoritative copy of the files used by all of the
+	    <acronym class="acronym">NIS</acronym> clients.  The
+	    <code class="filename">passwd</code>, <code class="filename">group</code>,
+	    and other various files used by <acronym class="acronym">NIS</acronym>
+	    clients are stored on the master server.  While it is
+	    possible for one machine to be an <acronym class="acronym">NIS</acronym>
+	    master server for more than one <acronym class="acronym">NIS</acronym>
+	    domain, this type of configuration will not be covered in
+	    this chapter as it assumes a relatively small-scale
+	    <acronym class="acronym">NIS</acronym> environment.</p></li><li class="listitem"><p><acronym class="acronym">NIS</acronym> slave servers</p><p><acronym class="acronym">NIS</acronym> slave servers maintain copies
+	    of the <acronym class="acronym">NIS</acronym> master's data files in
+	    order to provide redundancy.  Slave servers also help to
+	    balance the load of the master server as
+	    <acronym class="acronym">NIS</acronym> clients always attach to the
+	    <acronym class="acronym">NIS</acronym> server which responds
+	    first.</p></li><li class="listitem"><p><acronym class="acronym">NIS</acronym> clients</p><p><acronym class="acronym">NIS</acronym> clients authenticate
+	    against the <acronym class="acronym">NIS</acronym> server during log
+	    on.</p></li></ul></div><p>Information in many files can be shared using
+	<acronym class="acronym">NIS</acronym>.  The
+	<code class="filename">master.passwd</code>,
+	<code class="filename">group</code>, and <code class="filename">hosts</code>
+	files are commonly shared via <acronym class="acronym">NIS</acronym>.
+	Whenever a process on a client needs information that would
+	normally be found in these files locally, it makes a query to
+	the <acronym class="acronym">NIS</acronym> server that it is bound to
+	instead.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp69945848"></a>29.4.3. Planning Considerations</h3></div></div></div><p>This section describes a sample <acronym class="acronym">NIS</acronym>
+	environment which consists of 15 FreeBSD machines with no
+	centralized point of administration.  Each machine has its own
+	<code class="filename">/etc/passwd</code> and
+	<code class="filename">/etc/master.passwd</code>.  These files are kept
+	in sync with each other only through manual intervention.
+	Currently, when a user is added to the lab, the process must
+	be repeated on all 15 machines.</p><p>The configuration of the lab will be as follows:</p><div class="informaltable"><table class="informaltable" width="100%" border="0"><colgroup><col /><col /><col /></colgroup><thead><tr><th>Machine name</th><th><acronym class="acronym">IP</acronym> address</th><th>Machine role</th></tr></thead><tbody><tr><td><code class="systemitem">ellington</code></td><td><code class="systemitem">10.0.0.2</code></td><td><acronym class="acronym">NIS</acronym> master</td></tr><tr><td><code class="systemitem">coltrane</code></td><td><code class="systemitem">10.0.0.3</code></td><td><acronym class="acronym">NIS</acronym> slave</td></tr><tr><td><code class="systemitem">basie</code></td><td><code class="systemitem">10.0.0.4</code></td><td>Faculty workstation</td></tr><tr><td><code class="systemitem">bird</code></td><td><code class="systemitem">10.0.0.5</code></td><td>Client machine</td></tr><tr><td><code class="systemitem">cli[1-11]</code></td><td>
+		<code class="systemitem">10.0.0.[6-17]</code></td><td>Other client machines</td></tr></tbody></table></div><p>If this is the first time an <acronym class="acronym">NIS</acronym>
+	scheme is being developed, it should be thoroughly planned
+	ahead of time.  Regardless of network size, several decisions
+	need to be made as part of the planning process.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp69963256"></a>29.4.3.1. Choosing a <acronym class="acronym">NIS</acronym> Domain Name</h4></div></div></div><a id="idp69964280" class="indexterm"></a><p>When a client broadcasts its requests for info, it
+	  includes the name of the <acronym class="acronym">NIS</acronym> domain that
+	  it is part of.  This is how multiple servers on one network
+	  can tell which server should answer which request.  Think of
+	  the <acronym class="acronym">NIS</acronym> domain name as the name for a
+	  group of hosts.</p><p>Some organizations choose to use their Internet domain
+	  name for their <acronym class="acronym">NIS</acronym> domain name.  This is
+	  not recommended as it can cause confusion when trying to
+	  debug network problems.  The <acronym class="acronym">NIS</acronym> domain
+	  name should be unique within the network and it is helpful
+	  if it describes the group of machines it represents.  For
+	  example, the Art department at Acme Inc. might be in the
+	  <span class="quote">&#8220;<span class="quote">acme-art</span>&#8221;</span> <acronym class="acronym">NIS</acronym> domain.  This
+	  example will use the domain name
+	  <code class="literal">test-domain</code>.</p><p>However, some non-FreeBSD operating systems require the
+	  <acronym class="acronym">NIS</acronym> domain name to be the same as the
+	  Internet domain name.  If one or more machines on the
+	  network have this restriction, the Internet domain name
+	  <span class="emphasis"><em>must</em></span> be used as the
+	  <acronym class="acronym">NIS</acronym> domain name.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp69970680"></a>29.4.3.2. Physical Server Requirements</h4></div></div></div><p>There are several things to keep in mind when choosing a
+	  machine to use as a <acronym class="acronym">NIS</acronym> server.  Since
+	  <acronym class="acronym">NIS</acronym> clients depend upon the availability
+	  of the server, choose a machine that is not rebooted
+	  frequently.  The <acronym class="acronym">NIS</acronym> server should
+	  ideally be a stand alone machine whose sole purpose is to be
+	  an <acronym class="acronym">NIS</acronym> server.  If the network is not
+	  heavily used, it is acceptable to put the
+	  <acronym class="acronym">NIS</acronym> server on a machine running other
+	  services.  However, if the <acronym class="acronym">NIS</acronym> server
+	  becomes unavailable, it will adversely affect all
+	  <acronym class="acronym">NIS</acronym> clients.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp69978872"></a>29.4.4. Configuring the <acronym class="acronym">NIS</acronym> Master
+	Server</h3></div></div></div><p>The canonical copies of all <acronym class="acronym">NIS</acronym> files
+	are stored on the master server.  The databases used to store
+	the information are called <acronym class="acronym">NIS</acronym> maps.  In
+	FreeBSD, these maps are stored in
+	<code class="filename">/var/yp/[domainname]</code> where
+	<code class="filename">[domainname]</code> is the name of the
+	<acronym class="acronym">NIS</acronym> domain.  Since multiple domains are
+	supported, it is possible to have several directories, one for
+	each domain.  Each domain will have its own independent set of
+	maps.</p><p><acronym class="acronym">NIS</acronym> master and slave servers handle all
+	<acronym class="acronym">NIS</acronym> requests through <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ypserv&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ypserv</span>(8)</span></a>.  This
+	daemon is responsible for receiving incoming requests from
+	<acronym class="acronym">NIS</acronym> clients, translating the requested
+	domain and map name to a path to the corresponding database
+	file, and transmitting data from the database back to the
+	client.</p><a id="idp69984376" class="indexterm"></a><p>Setting up a master <acronym class="acronym">NIS</acronym> server can be
+	relatively straight forward, depending on environmental needs.
+	Since FreeBSD provides built-in <acronym class="acronym">NIS</acronym> support,
+	it only needs to be enabled by adding the following lines to
+	<code class="filename">/etc/rc.conf</code>:</p><pre class="programlisting">nisdomainname="<em class="replaceable"><code>test-domain</code></em>"	<a id="network-nis-co-domainname"></a><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span>
+nis_server_enable="YES"		<a id="network-nis-co-server"></a><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span>
+nis_yppasswdd_enable="YES"	<a id="network-nis-co-yppasswdd"></a><span><img src="./imagelib/callouts/3.png" alt="3" border="0" /></span></pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#network-nis-co-domainname"><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span></a> </p></td><td valign="top" align="left"><p>This line sets the <acronym class="acronym">NIS</acronym> domain name
+	    to <code class="literal">test-domain</code>.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#network-nis-co-server"><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span></a> </p></td><td valign="top" align="left"><p>This automates the start up of the
+	    <acronym class="acronym">NIS</acronym> server processes when the system
+	    boots.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#network-nis-co-yppasswdd"><span><img src="./imagelib/callouts/3.png" alt="3" border="0" /></span></a> </p></td><td valign="top" align="left"><p>This enables the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rpc.yppasswdd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rpc.yppasswdd</span>(8)</span></a> daemon so that
+	    users can change their <acronym class="acronym">NIS</acronym> password
+	    from a client machine.</p></td></tr></table></div><p>Care must be taken in a multi-server domain where the
+	server machines are also <acronym class="acronym">NIS</acronym> clients.  It
+	is generally a good idea to force the servers to bind to
+	themselves rather than allowing them to broadcast bind
+	requests and possibly become bound to each other.  Strange
+	failure modes can result if one server goes down and others
+	are dependent upon it.  Eventually, all the clients will time
+	out and attempt to bind to other servers, but the delay
+	involved can be considerable and the failure mode is still
+	present since the servers might bind to each other all over
+	again.</p><p>A server that is also a client can be forced to bind to a
+	particular server by adding these additional lines to
+	<code class="filename">/etc/rc.conf</code>:</p><pre class="programlisting">nis_client_enable="YES"				<a id="network-nis-co-client"></a><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span>
+nis_client_flags="-S <em class="replaceable"><code>test-domain</code></em>,<em class="replaceable"><code>server</code></em>"	<a id="network-nis-co-clientflags"></a><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span></pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#network-nis-co-client"><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span></a> </p></td><td valign="top" align="left"><p>This enables running client stuff as well.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#network-nis-co-clientflags"><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span></a> </p></td><td valign="top" align="left"><p>This line sets the <acronym class="acronym">NIS</acronym> domain name
+	    to <code class="literal">test-domain</code> and bind to itself.</p></td></tr></table></div><p>After saving the edits, type
+	<code class="command">/etc/netstart</code> to restart the network and
+	apply the values defined in <code class="filename">/etc/rc.conf</code>.
+	Before initializing the <acronym class="acronym">NIS</acronym> maps, start
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ypserv&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ypserv</span>(8)</span></a>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service ypserv start</code></strong></pre><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp70024312"></a>29.4.4.1. Initializing the <acronym class="acronym">NIS</acronym> Maps</h4></div></div></div><a id="idp70025336" class="indexterm"></a><p><acronym class="acronym">NIS</acronym> maps are generated from the
+	  configuration files in <code class="filename">/etc</code> on the
+	  <acronym class="acronym">NIS</acronym> master, with one exception:
+	  <code class="filename">/etc/master.passwd</code>.  This is to prevent
+	  the propagation of passwords to all the servers in the
+	  <acronym class="acronym">NIS</acronym> domain.  Therefore, before the
+	  <acronym class="acronym">NIS</acronym> maps are initialized, configure the
+	  primary password files:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cp /etc/master.passwd /var/yp/master.passwd</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>cd /var/yp</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>vi master.passwd</code></strong></pre><p>It is advisable to remove all entries for system
+	  accounts as well as any user accounts that do not need to be
+	  propagated to the <acronym class="acronym">NIS</acronym> clients, such as
+	  the <code class="systemitem">root</code> and any
+	  other administrative accounts.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Ensure that the
+	    <code class="filename">/var/yp/master.passwd</code> is neither
+	    group or world readable by setting its permissions to
+	    <code class="literal">600</code>.</p></div><p>After completing this task, initialize the
+	  <acronym class="acronym">NIS</acronym> maps.  FreeBSD includes the
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ypinit&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ypinit</span>(8)</span></a> script to do this.  When generating maps
+	  for the master server, include <code class="option">-m</code> and
+	  specify the <acronym class="acronym">NIS</acronym> domain name:</p><pre class="screen">ellington<code class="prompt">#</code> <strong class="userinput"><code>ypinit -m test-domain</code></strong>
+Server Type: MASTER Domain: test-domain
+Creating an YP server will require that you answer a few questions.
+Questions will all be asked at the beginning of the procedure.
+Do you want this procedure to quit on non-fatal errors? [y/n: n] <strong class="userinput"><code>n</code></strong>
+Ok, please remember to go back and redo manually whatever fails.
+If not, something might not work.
+At this point, we have to construct a list of this domains YP servers.
+rod.darktech.org is already known as master server.
+Please continue to add any slave servers, one per line. When you are
+done with the list, type a &lt;control D&gt;.
+master server   :  ellington
+next host to add:  <strong class="userinput"><code>coltrane</code></strong>
+next host to add:  <strong class="userinput"><code>^D</code></strong>
+The current list of NIS servers looks like this:
+ellington
+coltrane
+Is this correct?  [y/n: y] <strong class="userinput"><code>y</code></strong>
+
+[..output from map generation..]
+
+NIS Map update completed.
+ellington has been setup as an YP master server without any errors.</pre><p>This will create <code class="filename">/var/yp/Makefile</code>
+	  from <code class="filename">/var/yp/Makefile.dist</code>.  By
+	  default, this file assumes that the environment has a
+	  single <acronym class="acronym">NIS</acronym> server with only FreeBSD clients.
+	  Since <code class="literal">test-domain</code> has a slave server,
+	  edit this line in <code class="filename">/var/yp/Makefile</code> so
+	  that it begins with a  comment
+	  (<code class="literal">#</code>):</p><pre class="programlisting">NOPUSH = "True"</pre></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp70050680"></a>29.4.4.2. Adding New Users</h4></div></div></div><p>Every time a new user is created, the user account must
+	  be added to the master <acronym class="acronym">NIS</acronym> server and the
+	  <acronym class="acronym">NIS</acronym> maps rebuilt.  Until this occurs, the
+	  new user will not be able to login anywhere except on the
+	  <acronym class="acronym">NIS</acronym> master.  For example, to add the new
+	  user <code class="systemitem">jsmith</code> to the
+	  <code class="literal">test-domain</code> domain, run these commands on
+	  the master server:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pw useradd jsmith</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>cd /var/yp</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make test-domain</code></strong></pre><p>The user could also be added using <code class="command">adduser
+	    jsmith</code> instead of <code class="command">pw useradd
+	    smith</code>.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp70073976"></a>29.4.5. Setting up a <acronym class="acronym">NIS</acronym> Slave Server</h3></div></div></div><a id="idp70075000" class="indexterm"></a><p>To set up an <acronym class="acronym">NIS</acronym> slave server, log on
+	to the slave server and edit <code class="filename">/etc/rc.conf</code>
+	as for the master server.  Do not generate any
+	<acronym class="acronym">NIS</acronym> maps, as these already exist on the
+	master server.  When running <code class="command">ypinit</code> on the
+	slave server, use <code class="option">-s</code> (for slave) instead of
+	<code class="option">-m</code> (for master).  This option requires the
+	name of the <acronym class="acronym">NIS</acronym> master in addition to the
+	domain name, as  seen in this example:</p><pre class="screen">coltrane<code class="prompt">#</code> <strong class="userinput"><code>ypinit -s ellington test-domain</code></strong>
+
+Server Type: SLAVE Domain: test-domain Master: ellington
+
+Creating an YP server will require that you answer a few questions.
+Questions will all be asked at the beginning of the procedure.
+
+Do you want this procedure to quit on non-fatal errors? [y/n: n]  <strong class="userinput"><code>n</code></strong>
+
+Ok, please remember to go back and redo manually whatever fails.
+If not, something might not work.
+There will be no further questions. The remainder of the procedure
+should take a few minutes, to copy the databases from ellington.
+Transferring netgroup...
+ypxfr: Exiting: Map successfully transferred
+Transferring netgroup.byuser...
+ypxfr: Exiting: Map successfully transferred
+Transferring netgroup.byhost...
+ypxfr: Exiting: Map successfully transferred
+Transferring master.passwd.byuid...
+ypxfr: Exiting: Map successfully transferred
+Transferring passwd.byuid...
+ypxfr: Exiting: Map successfully transferred
+Transferring passwd.byname...
+ypxfr: Exiting: Map successfully transferred
+Transferring group.bygid...
+ypxfr: Exiting: Map successfully transferred
+Transferring group.byname...
+ypxfr: Exiting: Map successfully transferred
+Transferring services.byname...
+ypxfr: Exiting: Map successfully transferred
+Transferring rpc.bynumber...
+ypxfr: Exiting: Map successfully transferred
+Transferring rpc.byname...
+ypxfr: Exiting: Map successfully transferred
+Transferring protocols.byname...
+ypxfr: Exiting: Map successfully transferred
+Transferring master.passwd.byname...
+ypxfr: Exiting: Map successfully transferred
+Transferring networks.byname...
+ypxfr: Exiting: Map successfully transferred
+Transferring networks.byaddr...
+ypxfr: Exiting: Map successfully transferred
+Transferring netid.byname...
+ypxfr: Exiting: Map successfully transferred
+Transferring hosts.byaddr...
+ypxfr: Exiting: Map successfully transferred
+Transferring protocols.bynumber...
+ypxfr: Exiting: Map successfully transferred
+Transferring ypservers...
+ypxfr: Exiting: Map successfully transferred
+Transferring hosts.byname...
+ypxfr: Exiting: Map successfully transferred
+
+coltrane has been setup as an YP slave server without any errors.
+Remember to update map ypservers on ellington.</pre><p>This will generate a directory on the slave server called
+	<code class="filename">/var/yp/test-domain</code> which contains copies
+	of the <acronym class="acronym">NIS</acronym> master server's maps.  Adding
+	these <code class="filename">/etc/crontab</code> entries on each slave
+	server will force the slaves to sync their maps with the maps
+	on the master server:</p><pre class="programlisting">20      *       *       *       *       root   /usr/libexec/ypxfr passwd.byname
+21      *       *       *       *       root   /usr/libexec/ypxfr passwd.byuid</pre><p>These entries are not mandatory because the master server
+	automatically attempts to push any map changes to its slaves.
+	However, since clients may depend upon the slave server to
+	provide correct password information, it is recommended to
+	force frequent password map updates.  This is especially
+	important on busy networks where map updates might not always
+	complete.</p><p>To finish the configuration, run
+	<code class="command">/etc/netstart</code> on the slave server in order
+	to start the <acronym class="acronym">NIS</acronym> services.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp70088440"></a>29.4.6. Setting Up an <acronym class="acronym">NIS</acronym> Client</h3></div></div></div><p>An <acronym class="acronym">NIS</acronym> client binds to an
+	<acronym class="acronym">NIS</acronym> server using <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ypbind&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ypbind</span>(8)</span></a>.  This
+	daemon broadcasts RPC requests on the local network.  These
+	requests specify the domain name configured on the client.  If
+	an <acronym class="acronym">NIS</acronym> server in the same domain receives
+	one of the broadcasts, it will respond to
+	<span class="application">ypbind</span>, which will record the
+	server's address.  If there are several servers available,
+	the client will use the address of the first server to respond
+	and will direct all of its <acronym class="acronym">NIS</acronym> requests to
+	that server.  The client will automatically
+	<span class="application">ping</span> the server on a regular basis
+	to make sure it is still available.  If it fails to receive a
+	reply within a reasonable amount of time,
+	<span class="application">ypbind</span> will mark the domain as
+	unbound and begin broadcasting again in the hopes of locating
+	another server.</p><a id="idp70105592" class="indexterm"></a><p>To configure a FreeBSD machine to be an
+	<acronym class="acronym">NIS</acronym> client:</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p>Edit <code class="filename">/etc/rc.conf</code> and add the
+	    following lines in order to set the
+	    <acronym class="acronym">NIS</acronym> domain name and start
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ypbind&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ypbind</span>(8)</span></a> during network startup:</p><pre class="programlisting">nisdomainname="test-domain"
+nis_client_enable="YES"</pre></li><li class="step"><p>To import all possible password entries from the
+	    <acronym class="acronym">NIS</acronym> server, use
+	    <code class="command">vipw</code> to remove all user accounts
+	    except one from <code class="filename">/etc/master.passwd</code>.
+	    When removing the accounts, keep in mind that at least one
+	    local account should remain and this account should be a
+	    member of <code class="systemitem">wheel</code>.  If there is a
+	    problem with <acronym class="acronym">NIS</acronym>, this local account
+	    can be used to log in remotely, become the superuser, and
+	    fix the problem.  Before saving the edits, add the
+	    following line to the end of the file:</p><pre class="programlisting">+:::::::::</pre><p>This line configures the client to provide anyone with
+	    a valid account in the <acronym class="acronym">NIS</acronym> server's
+	    password maps an account on the client.  There are many
+	    ways to configure the <acronym class="acronym">NIS</acronym> client by
+	    modifying this line.  One method is described in <a class="xref" href="network-nis.html#network-netgroups" title="29.4.8. Using Netgroups">Section 29.4.8, &#8220;Using Netgroups&#8221;</a>.  For more detailed
+	    reading, refer to the book
+	    <code class="literal">Managing NFS and NIS</code>, published by
+	    O'Reilly Media.</p></li><li class="step"><p>To import all possible group entries from the
+	    <acronym class="acronym">NIS</acronym> server, add this line to
+	    <code class="filename">/etc/group</code>:</p><pre class="programlisting">+:*::</pre></li></ol></div><p>To start the <acronym class="acronym">NIS</acronym> client immediately,
+	execute the following commands as the superuser:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>/etc/netstart</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>service ypbind start</code></strong></pre><p>After completing these steps, running
+	<code class="command">ypcat passwd</code> on the client should show
+	the server's <code class="filename">passwd</code> map.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp70125304"></a>29.4.7. <acronym class="acronym">NIS</acronym> Security</h3></div></div></div><p>Since <acronym class="acronym">RPC</acronym> is a broadcast-based service,
+	any system running <span class="application">ypbind</span> within
+	the same domain can retrieve the contents of the
+	<acronym class="acronym">NIS</acronym> maps.  To prevent unauthorized
+	transactions, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ypserv&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ypserv</span>(8)</span></a> supports a feature called
+	<span class="quote">&#8220;<span class="quote">securenets</span>&#8221;</span> which can be used to restrict access
+	to a given set of hosts.  By default, this information is
+	stored in <code class="filename">/var/yp/securenets</code>, unless
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ypserv&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ypserv</span>(8)</span></a> is started with <code class="option">-p</code> and an
+	alternate path.  This file contains entries that consist of a
+	network specification and a network mask separated by white
+	space.  Lines starting with <code class="literal">#</code> are
+	considered to be comments.  A sample
+	<code class="filename">securenets</code> might look like this:</p><pre class="programlisting"># allow connections from local host -- mandatory
+127.0.0.1     255.255.255.255
+# allow connections from any host
+# on the 192.168.128.0 network
+192.168.128.0 255.255.255.0
+# allow connections from any host
+# between 10.0.0.0 to 10.0.15.255
+# this includes the machines in the testlab
+10.0.0.0      255.255.240.0</pre><p>If <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ypserv&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ypserv</span>(8)</span></a> receives a request from an address that
+	matches one of these rules, it will process the request
+	normally.  If the address fails to match a rule, the request
+	will be ignored and a warning message will be logged.  If the
+	<code class="filename">securenets</code> does not exist,
+	<code class="command">ypserv</code> will allow connections from any
+	host.</p><p><a class="xref" href="tcpwrappers.html" title="13.4. TCP Wrapper">Section 13.4, &#8220;TCP Wrapper&#8221;</a> is an alternate mechanism
+	for providing access control instead of
+	<code class="filename">securenets</code>.  While either access control
+	mechanism adds some security, they are both vulnerable to
+	<span class="quote">&#8220;<span class="quote"><acronym class="acronym">IP</acronym> spoofing</span>&#8221;</span> attacks.  All
+	<acronym class="acronym">NIS</acronym>-related traffic should be blocked at
+	the firewall.</p><p>Servers using <code class="filename">securenets</code>
+	may fail to serve legitimate <acronym class="acronym">NIS</acronym> clients
+	with archaic TCP/IP implementations.  Some of these
+	implementations set all host bits to zero when doing
+	broadcasts or fail to observe the subnet mask when
+	calculating the broadcast address.  While some of these
+	problems can be fixed by changing the client configuration,
+	other problems may force the retirement of these client
+	systems or the abandonment of
+	<code class="filename">securenets</code>.</p><a id="idp70141176" class="indexterm"></a><p>The use of <span class="application">TCP Wrapper</span>
+	increases the latency of the <acronym class="acronym">NIS</acronym> server.
+	The additional delay may be long enough to cause timeouts in
+	client programs, especially in busy networks with slow
+	<acronym class="acronym">NIS</acronym> servers.  If one or more clients suffer
+	from latency, convert those clients into
+	<acronym class="acronym">NIS</acronym> slave servers and force them to bind to
+	themselves.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp70143608"></a>29.4.7.1. Barring Some Users</h4></div></div></div><p>In this example, the <code class="systemitem">basie</code>
+	  system is a faculty workstation within the
+	  <acronym class="acronym">NIS</acronym> domain.  The
+	  <code class="filename">passwd</code> map on the master
+	  <acronym class="acronym">NIS</acronym> server contains accounts for both
+	  faculty and students.  This section demonstrates how to
+	  allow faculty logins on this system while refusing student
+	  logins.</p><p>To prevent specified users from logging on to a system,
+	  even if they are present in the <acronym class="acronym">NIS</acronym>
+	  database, use <code class="command">vipw</code> to add
+	  <code class="literal">-<em class="replaceable"><code>username</code></em></code> with
+	  the correct number of colons towards the end of
+	  <code class="filename">/etc/master.passwd</code> on the client,
+	  where <em class="replaceable"><code>username</code></em> is the username of
+	  a user to bar from logging in.  The line with the blocked
+	  user must be before the <code class="literal">+</code> line that
+	  allows <acronym class="acronym">NIS</acronym> users.  In this example,
+	  <code class="systemitem">bill</code> is barred
+	  from logging on to <code class="systemitem">basie</code>:</p><pre class="screen">basie<code class="prompt">#</code> <strong class="userinput"><code>cat /etc/master.passwd</code></strong>
+root:[password]:0:0::0:0:The super-user:/root:/bin/csh
+toor:[password]:0:0::0:0:The other super-user:/root:/bin/sh
+daemon:*:1:1::0:0:Owner of many system processes:/root:/usr/sbin/nologin
+operator:*:2:5::0:0:System &amp;:/:/usr/sbin/nologin
+bin:*:3:7::0:0:Binaries Commands and Source,,,:/:/usr/sbin/nologin
+tty:*:4:65533::0:0:Tty Sandbox:/:/usr/sbin/nologin
+kmem:*:5:65533::0:0:KMem Sandbox:/:/usr/sbin/nologin
+games:*:7:13::0:0:Games pseudo-user:/usr/games:/usr/sbin/nologin
+news:*:8:8::0:0:News Subsystem:/:/usr/sbin/nologin
+man:*:9:9::0:0:Mister Man Pages:/usr/share/man:/usr/sbin/nologin
+bind:*:53:53::0:0:Bind Sandbox:/:/usr/sbin/nologin
+uucp:*:66:66::0:0:UUCP pseudo-user:/var/spool/uucppublic:/usr/libexec/uucp/uucico
+xten:*:67:67::0:0:X-10 daemon:/usr/local/xten:/usr/sbin/nologin
+pop:*:68:6::0:0:Post Office Owner:/nonexistent:/usr/sbin/nologin
+nobody:*:65534:65534::0:0:Unprivileged user:/nonexistent:/usr/sbin/nologin
+-bill:::::::::
++:::::::::
+
+basie<code class="prompt">#</code></pre></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="network-netgroups"></a>29.4.8. Using Netgroups</h3></div></div></div><a id="idp70177656" class="indexterm"></a><p>Barring specified users from logging on to individual
+	systems becomes unscaleable on larger networks and quickly
+	loses the main benefit of <acronym class="acronym">NIS</acronym>:
+	<span class="emphasis"><em>centralized</em></span> administration.</p><p>Netgroups were developed to handle large, complex networks
+	with hundreds of users and machines.  Their use is comparable
+	to <span class="trademark">UNIX</span>® groups, where the main difference is the lack of a
+	numeric ID and the ability to define a netgroup by including
+	both user accounts and other netgroups.</p><p>To expand on the example used in this chapter, the
+	<acronym class="acronym">NIS</acronym> domain will be extended to add the
+	users and systems shown in Tables 28.2 and 28.3:</p><div class="table"><a id="idp70185208"></a><div class="table-title">Table 29.2. Additional Users</div><div class="table-contents"><table class="table" summary="Additional Users" width="100%" border="0"><colgroup><col /><col /></colgroup><thead><tr><th>User Name(s)</th><th>Description</th></tr></thead><tbody><tr><td><code class="systemitem">alpha</code>,
+		<code class="systemitem">beta</code></td><td>IT department employees</td></tr><tr><td><code class="systemitem">charlie</code>, <code class="systemitem">delta</code></td><td>IT department apprentices</td></tr><tr><td><code class="systemitem">echo</code>,
+		<code class="systemitem">foxtrott</code>,
+		<code class="systemitem">golf</code>,
+		...</td><td>employees</td></tr><tr><td><code class="systemitem">able</code>,
+		<code class="systemitem">baker</code>,
+		...</td><td>interns</td></tr></tbody></table></div></div><br class="table-break" /><div class="table"><a id="idp70197112"></a><div class="table-title">Table 29.3. Additional Systems</div><div class="table-contents"><table class="table" summary="Additional Systems" width="100%" border="0"><colgroup><col /><col /></colgroup><thead><tr><th>Machine Name(s)</th><th>Description</th></tr></thead><tbody><tr><td><code class="systemitem">war</code>,
+		<code class="systemitem">death</code>,
+		<code class="systemitem">famine</code>,
+		<code class="systemitem">pollution</code></td><td>Only IT employees are allowed to log onto these
+		servers.</td></tr><tr><td><code class="systemitem">pride</code>,
+		<code class="systemitem">greed</code>,
+		<code class="systemitem">envy</code>,
+		<code class="systemitem">wrath</code>,
+		<code class="systemitem">lust</code>,
+		<code class="systemitem">sloth</code></td><td>All members of the IT department are allowed to
+		login onto these servers.</td></tr><tr><td><code class="systemitem">one</code>,
+		<code class="systemitem">two</code>,
+		<code class="systemitem">three</code>,
+		<code class="systemitem">four</code>,
+		...</td><td>Ordinary workstations used by
+		employees.</td></tr><tr><td><code class="systemitem">trashcan</code></td><td>A very old machine without any critical data.
+		Even interns are allowed to use this system.</td></tr></tbody></table></div></div><br class="table-break" /><p>When using netgroups to configure this scenario, each user
+	is assigned to one or more netgroups and logins are then
+	allowed or forbidden for all members of the netgroup.  When
+	adding a new machine, login restrictions must be defined for
+	all netgroups.  When a new user is added, the account must be
+	added to one or more netgroups.  If the
+	<acronym class="acronym">NIS</acronym> setup is planned carefully, only one
+	central configuration file needs modification to grant or deny
+	access to machines.</p><p>The first step is the initialization of the
+	<acronym class="acronym">NIS</acronym> <code class="literal">netgroup</code> map.  In
+	FreeBSD, this map is not created by default.  On the
+	<acronym class="acronym">NIS</acronym> master server, use an editor to create
+	a map named <code class="filename">/var/yp/netgroup</code>.</p><p>This example creates four netgroups to represent IT
+	employees, IT apprentices, employees, and interns:</p><pre class="programlisting">IT_EMP  (,alpha,test-domain)    (,beta,test-domain)
+IT_APP  (,charlie,test-domain)  (,delta,test-domain)
+USERS   (,echo,test-domain)     (,foxtrott,test-domain) \
+        (,golf,test-domain)
+INTERNS (,able,test-domain)     (,baker,test-domain)</pre><p>Each entry configures a netgroup.  The first column in an
+	entry is the name of the netgroup.  Each set of brackets
+	represents  either a group of one or more users or the name of
+	another netgroup.  When specifying a user, the three
+	comma-delimited fields inside each group represent:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>The name of the host(s) where the other fields
+	    representing the user are valid.  If a hostname is not
+	    specified, the entry is valid on all hosts.</p></li><li class="listitem"><p>The name of the account that belongs to this
+	    netgroup.</p></li><li class="listitem"><p>The <acronym class="acronym">NIS</acronym> domain for the account.
+	    Accounts may be imported from other <acronym class="acronym">NIS</acronym>
+	    domains into a netgroup.</p></li></ol></div><p>If a group contains multiple users, separate each user
+	with  whitespace.  Additionally, each field may contain
+	wildcards.  See <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=netgroup&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">netgroup</span>(5)</span></a> for details.</p><a id="idp70235512" class="indexterm"></a><p>Netgroup names longer than 8 characters should not be
+	used.  The names are case sensitive and using capital letters
+	for netgroup names is an easy way to distinguish between user,
+	machine and netgroup names.</p><p>Some non-FreeBSD <acronym class="acronym">NIS</acronym> clients cannot
+	handle netgroups containing more than 15 entries.  This
+	limit may be circumvented by creating several sub-netgroups
+	with 15 users or fewer and a real netgroup consisting of the
+	sub-netgroups, as seen in this example:</p><pre class="programlisting">BIGGRP1  (,joe1,domain)  (,joe2,domain)  (,joe3,domain) [...]
+BIGGRP2  (,joe16,domain)  (,joe17,domain) [...]
+BIGGRP3  (,joe31,domain)  (,joe32,domain)
+BIGGROUP  BIGGRP1 BIGGRP2 BIGGRP3</pre><p>Repeat this process if more than 225 (15 times 15) users
+	exist within a single netgroup.</p><p>To activate and distribute the new
+	<acronym class="acronym">NIS</acronym> map:</p><pre class="screen">ellington<code class="prompt">#</code> <strong class="userinput"><code>cd /var/yp</code></strong>
+ellington<code class="prompt">#</code> <strong class="userinput"><code>make</code></strong></pre><p>This will generate the three <acronym class="acronym">NIS</acronym> maps
+	<code class="filename">netgroup</code>,
+	<code class="filename">netgroup.byhost</code> and
+	<code class="filename">netgroup.byuser</code>.  Use the map key option
+	of <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ypcat&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ypcat</span>(1)</span></a> to check if the new <acronym class="acronym">NIS</acronym>
+	maps are available:</p><pre class="screen">ellington<code class="prompt">%</code> <strong class="userinput"><code>ypcat -k netgroup</code></strong>
+ellington<code class="prompt">%</code> <strong class="userinput"><code>ypcat -k netgroup.byhost</code></strong>
+ellington<code class="prompt">%</code> <strong class="userinput"><code>ypcat -k netgroup.byuser</code></strong></pre><p>The output of the first command should resemble the
+	contents of <code class="filename">/var/yp/netgroup</code>.  The second
+	command only produces output if host-specific netgroups were
+	created.  The third command is used to get the list of
+	netgroups for a user.</p><p>To configure a client, use <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=vipw&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">vipw</span>(8)</span></a> to specify the
+	name  of the netgroup.  For example, on the server named
+	<code class="systemitem">war</code>,  replace this line:</p><pre class="programlisting">+:::::::::</pre><p>with</p><pre class="programlisting">+@IT_EMP:::::::::</pre><p>This specifies that only the users defined in the netgroup
+	<code class="literal">IT_EMP</code> will be imported into this system's
+	password database and only those users are allowed to login to
+	this system.</p><p>This configuration also applies to the
+	<code class="literal">~</code> function of the shell and all routines
+	which convert between user names and numerical user IDs.  In
+	other words,
+	<code class="command">cd ~<em class="replaceable"><code>user</code></em></code> will
+	not work, <code class="command">ls -l</code> will show the numerical ID
+	instead of the username, and <code class="command">find . -user joe
+	  -print</code> will fail with the message
+	<span class="errorname">No such user</span>.  To fix this, import all
+	user entries without allowing them to login into the servers.
+	This can be achieved by adding an extra line:</p><pre class="programlisting">+:::::::::/usr/sbin/nologin</pre><p>This line configures the client to import all entries but
+	to replace the shell in those entries with
+	<code class="filename">/usr/sbin/nologin</code>.</p><p>Make sure that extra line is placed
+	<span class="emphasis"><em>after</em></span>
+	<code class="literal">+@IT_EMP:::::::::</code>.  Otherwise, all user
+	accounts imported from <acronym class="acronym">NIS</acronym> will have
+	<code class="filename">/usr/sbin/nologin</code> as their login
+	shell and no one will be able to login to the system.</p><p>To configure the less important servers, replace the old
+	<code class="literal">+:::::::::</code> on the servers with these
+	lines:</p><pre class="programlisting">+@IT_EMP:::::::::
++@IT_APP:::::::::
++:::::::::/usr/sbin/nologin</pre><p>The corresponding lines for the workstations
+	would be:</p><pre class="programlisting">+@IT_EMP:::::::::
++@USERS:::::::::
++:::::::::/usr/sbin/nologin</pre><p>NIS supports the creation of netgroups from other
+	netgroups which can be useful if the policy regarding user
+	access changes.  One possibility is the creation of role-based
+	netgroups.  For example, one might create a netgroup called
+	<code class="literal">BIGSRV</code> to define the login restrictions for
+	the important servers, another netgroup called
+	<code class="literal">SMALLSRV</code> for the less important servers,
+	and a third netgroup called <code class="literal">USERBOX</code> for the
+	workstations.  Each of these netgroups contains the netgroups
+	that are allowed to login onto these machines.  The new
+	entries for the <acronym class="acronym">NIS</acronym>
+	<code class="literal">netgroup</code> map would look like this:</p><pre class="programlisting">BIGSRV    IT_EMP  IT_APP
+SMALLSRV  IT_EMP  IT_APP  ITINTERN
+USERBOX   IT_EMP  ITINTERN USERS</pre><p>This method of defining login restrictions works
+	reasonably well when it is possible to define groups of
+	machines with identical restrictions.  Unfortunately, this is
+	the exception and not the rule.  Most of the time, the ability
+	to define login restrictions on a per-machine basis is
+	required.</p><p>Machine-specific netgroup definitions are another
+	possibility to deal with the policy changes.  In this
+	scenario, the <code class="filename">/etc/master.passwd</code> of each
+	system contains two lines starting with <span class="quote">&#8220;<span class="quote">+</span>&#8221;</span>.
+	The first line adds a netgroup with the accounts allowed to
+	login onto this machine and the second line adds all other
+	accounts with <code class="filename">/usr/sbin/nologin</code> as shell.
+	It is recommended to use the <span class="quote">&#8220;<span class="quote">ALL-CAPS</span>&#8221;</span> version
+	of the hostname as the name of the netgroup:</p><pre class="programlisting">+@<em class="replaceable"><code>BOXNAME</code></em>:::::::::
++:::::::::/usr/sbin/nologin</pre><p>Once this task is completed on all the machines, there is
+	no longer a need to modify the local versions of
+	<code class="filename">/etc/master.passwd</code> ever again.  All
+	further changes can be handled by modifying the
+	<acronym class="acronym">NIS</acronym> map.  Here is an example of a possible
+	<code class="literal">netgroup</code> map for this scenario:</p><pre class="programlisting"># Define groups of users first
+IT_EMP    (,alpha,test-domain)    (,beta,test-domain)
+IT_APP    (,charlie,test-domain)  (,delta,test-domain)
+DEPT1     (,echo,test-domain)     (,foxtrott,test-domain)
+DEPT2     (,golf,test-domain)     (,hotel,test-domain)
+DEPT3     (,india,test-domain)    (,juliet,test-domain)
+ITINTERN  (,kilo,test-domain)     (,lima,test-domain)
+D_INTERNS (,able,test-domain)     (,baker,test-domain)
+#
+# Now, define some groups based on roles
+USERS     DEPT1   DEPT2     DEPT3
+BIGSRV    IT_EMP  IT_APP
+SMALLSRV  IT_EMP  IT_APP    ITINTERN
+USERBOX   IT_EMP  ITINTERN  USERS
+#
+# And a groups for a special tasks
+# Allow echo and golf to access our anti-virus-machine
+SECURITY  IT_EMP  (,echo,test-domain)  (,golf,test-domain)
+#
+# machine-based netgroups
+# Our main servers
+WAR       BIGSRV
+FAMINE    BIGSRV
+# User india needs access to this server
+POLLUTION  BIGSRV  (,india,test-domain)
+#
+# This one is really important and needs more access restrictions
+DEATH     IT_EMP
+#
+# The anti-virus-machine mentioned above
+ONE       SECURITY
+#
+# Restrict a machine to a single user
+TWO       (,hotel,test-domain)
+# [...more groups to follow]</pre><p>It may not always be advisable
+	to use machine-based netgroups.  When deploying a couple of
+	dozen or hundreds of systems,
+	role-based netgroups instead of machine-based netgroups may be
+	used to keep the size of the <acronym class="acronym">NIS</acronym> map within
+	reasonable limits.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp70279416"></a>29.4.9. Password Formats</h3></div></div></div><a id="idp70280056" class="indexterm"></a><p><acronym class="acronym">NIS</acronym> requires that all hosts within an
+	<acronym class="acronym">NIS</acronym> domain use the same format for
+	encrypting passwords.  If users have trouble authenticating on
+	an <acronym class="acronym">NIS</acronym> client, it may be due to a differing
+	password format.  In a heterogeneous network, the format must
+	be supported by all operating systems, where
+	<acronym class="acronym">DES</acronym> is the lowest common standard.</p><p>To check which format a server or client is using, look
+	at this section of
+	<code class="filename">/etc/login.conf</code>:</p><pre class="programlisting">default:\
+	:passwd_format=des:\
+	:copyright=/etc/COPYRIGHT:\
+	[Further entries elided]</pre><p>In this example, the system is using the
+	<acronym class="acronym">DES</acronym> format.  Other possible values are
+	<code class="literal">blf</code> for Blowfish and <code class="literal">md5</code>
+	for MD5 encrypted passwords.</p><p>If the format on a host needs to be edited to match the
+	one  being used in the <acronym class="acronym">NIS</acronym> domain, the
+	login capability database must be rebuilt after saving the
+	change:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cap_mkdb /etc/login.conf</code></strong></pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">The format of passwords for existing user accounts will
+	  not be updated until each user changes their password
+	  <span class="emphasis"><em>after</em></span> the login capability database is
+	  rebuilt.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="network-nfs.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="network-servers.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="network-ldap.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">29.3. Network File System (NFS) </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 29.5. Lightweight Directory Access Protocol
+	(<acronym class="acronym">LDAP</acronym>)</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

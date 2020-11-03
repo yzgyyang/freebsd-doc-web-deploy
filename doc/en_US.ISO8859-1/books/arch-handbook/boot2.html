@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>1.7. boot2 Stage</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Architecture Handbook" /><link rel="up" href="boot.html" title="Chapter 1. Bootstrapping and Kernel Initialization" /><link rel="prev" href="btx-server.html" title="1.6. The BTX Server" /><link rel="next" href="boot-loader.html" title="1.8. loader Stage" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.7. <span class="application">boot2</span> Stage</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="btx-server.html">Prev</a> </td><th width="60%" align="center">Chapter 1. Bootstrapping and Kernel Initialization</th><td width="20%" align="right"> <a accesskey="n" href="boot-loader.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="boot2"></a>1.7. <span class="application">boot2</span> Stage</h2></div></div></div><p><code class="literal">boot2</code> defines an important structure,
+      <code class="literal">struct bootinfo</code>.  This structure is
+      initialized by <code class="literal">boot2</code> and passed to the
+      loader, and then further to the kernel.  Some nodes of this
+      structures are set by <code class="literal">boot2</code>, the rest by the
+      loader.  This structure, among other information, contains the
+      kernel filename, <acronym class="acronym">BIOS</acronym> harddisk geometry,
+      <acronym class="acronym">BIOS</acronym> drive number for boot device, physical
+      memory available, <code class="literal">envp</code> pointer etc.  The
+      definition for it is:</p><pre class="programlisting"><code class="filename">/usr/include/machine/bootinfo.h:</code>
+struct bootinfo {
+	u_int32_t	bi_version;
+	u_int32_t	bi_kernelname;		/* represents a char * */
+	u_int32_t	bi_nfs_diskless;	/* struct nfs_diskless * */
+				/* End of fields that are always present. */
+#define	bi_endcommon	bi_n_bios_used
+	u_int32_t	bi_n_bios_used;
+	u_int32_t	bi_bios_geom[N_BIOS_GEOM];
+	u_int32_t	bi_size;
+	u_int8_t	bi_memsizes_valid;
+	u_int8_t	bi_bios_dev;		/* bootdev BIOS unit number */
+	u_int8_t	bi_pad[2];
+	u_int32_t	bi_basemem;
+	u_int32_t	bi_extmem;
+	u_int32_t	bi_symtab;		/* struct symtab * */
+	u_int32_t	bi_esymtab;		/* struct symtab * */
+				/* Items below only from advanced bootloader */
+	u_int32_t	bi_kernend;		/* end of kernel space */
+	u_int32_t	bi_envp;		/* environment */
+	u_int32_t	bi_modulep;		/* preloaded modules */
+};</pre><p><code class="literal">boot2</code> enters into an infinite loop
+      waiting for user input, then calls <code class="function">load()</code>.
+      If the user does not press anything, the loop breaks by a
+      timeout, so <code class="function">load()</code> will load the default
+      file (<code class="filename">/boot/loader</code>).  Functions
+      <code class="function">ino_t lookup(char *filename)</code> and
+      <code class="function">int xfsread(ino_t inode, void *buf, size_t
+      nbyte)</code> are used to read the content of a file into
+      memory.  <code class="filename">/boot/loader</code> is an
+      <acronym class="acronym">ELF</acronym> binary, but where the
+      <acronym class="acronym">ELF</acronym> header is prepended with
+      <code class="filename">a.out</code>'s <code class="literal">struct
+      exec</code> structure.  <code class="function">load()</code> scans the
+      loader's ELF header, loading the content of
+      <code class="filename">/boot/loader</code> into memory, and passing the
+      execution to the loader's entry:</p><pre class="programlisting"><code class="filename">sys/boot/i386/boot2/boot2.c:</code>
+    __exec((caddr_t)addr, RB_BOOTINFO | (opts &amp; RBX_MASK),
+	   MAKEBOOTDEV(dev_maj[dsk.type], 0, dsk.slice, dsk.unit, dsk.part),
+	   0, 0, 0, VTOP(&amp;bootinfo));</pre></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="btx-server.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="boot.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="boot-loader.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">1.6. The <acronym class="acronym">BTX</acronym> Server </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 1.8. <span class="application">loader</span> Stage</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

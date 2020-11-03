@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>7.2. Using FLAVORS</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Porter's Handbook" /><link rel="up" href="flavors.html" title="Chapter 7. Flavors" /><link rel="prev" href="flavors.html" title="Chapter 7. Flavors" /><link rel="next" href="flavors-auto-php.html" title="7.3. USES=php and Flavors" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">7.2. Using FLAVORS</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="flavors.html">Prev</a> </td><th width="60%" align="center">Chapter 7. Flavors</th><td width="20%" align="right"> <a accesskey="n" href="flavors-auto-php.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="flavors-using"></a>7.2. Using FLAVORS</h2></div></div></div><p>To declare a port having multiple flavors, add
+      <code class="varname">FLAVORS</code> to its <code class="filename">Makefile</code>.
+      The first flavor in <code class="varname">FLAVORS</code> is the default
+      flavor.</p><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">It can help simplify the logic of the
+	<code class="filename">Makefile</code> to also define
+	<code class="varname">FLAVOR</code> as:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="programlisting">FLAVOR?=	${FLAVORS:[1]}</pre></div><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">To distinguish flavors from options, which are always
+	uppercase letters, flavor names can <span class="emphasis"><em>only</em></span>
+	contain lowercase letters, numbers, and the underscore
+	<code class="literal">_</code>.</p></div><div class="example"><a id="flavors-using-ex1"></a><div class="example-title">Example 7.1. Basic Flavors Usage</div><div class="example-contents"><p>If a port has a <span class="quote">&#8220;<span class="quote">lite</span>&#8221;</span> slave port, the slave
+	port can be removed, and the port can be converted to flavors
+	with:</p><pre class="programlisting">FLAVORS=	default lite
+lite_PKGNAMESUFFIX=	-lite
+[...]
+.if ${FLAVOR:U} != lite
+[enable non lite features]
+.endif</pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">The first flavor is the default one, and is called,
+	  here, <code class="literal">default</code>.  It is not an obligation,
+	  and if possible, use a more specific flavor name, like in
+	  <a class="xref" href="flavors-using.html#flavors-using-ex2" title="Example 7.2. Another Basic Flavors Usage">Example 7.2, &#8220;Another Basic Flavors Usage&#8221;</a>.</p></div></div></div><br class="example-break" /><div class="example"><a id="flavors-using-ex2"></a><div class="example-title">Example 7.2. Another Basic Flavors Usage</div><div class="example-contents"><p>If a port has a <code class="literal">-nox11</code> slave port, the
+	slave port can be removed, and the port can be converted to
+	flavors with:</p><pre class="programlisting">FLAVORS=	x11 nox11
+FLAVOR?=	${FLAVORS:[1]}
+nox11_PKGNAMESUFFIX=	-nox11
+[...]
+.if ${FLAVOR} == x11
+[enable x11 features]
+.endif</pre></div></div><br class="example-break" /><div class="example"><a id="flavors-using-ex3"></a><div class="example-title">Example 7.3. More Complex Flavors Usage</div><div class="example-contents"><p>Here is a slightly edited excerpt of what is present in
+	  <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/devel/libpeas/pkg-descr">devel/libpeas</a>, a port that
+	  uses the <a class="link" href="flavors-auto-python.html" title="7.4. USES=python and Flavors"><span class="application">Python</span>
+	    flavors</a>.  With the default
+	  <span class="application">Python</span> 2 and 3 versions being 2.7
+	  and 3.6, it will automatically get <code class="literal">FLAVORS=py27
+	    py36</code></p><pre class="programlisting">USES=		gnome python
+USE_PYTHON=	flavors <a id="flavors-using-ex2-use"></a><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span>
+
+.if ${FLAVOR:Upy27:Mpy2*} <a id="flavors-using-ex2-if"></a><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span>
+USE_GNOME=	pygobject3 <a id="flavors-using-ex2-pygobject3"></a><span><img src="./imagelib/callouts/3.png" alt="3" border="0" /></span>
+
+CONFIGURE_ARGS+=	--enable-python2 --disable-python3
+
+BUILD_WRKSRC=	${WRKSRC}/loaders/python <a id="flavors-using-ex2-build2"></a><span><img src="./imagelib/callouts/4.png" alt="4" border="0" /></span>
+INSTALL_WRKSRC=	${WRKSRC}/loaders/python <a id="flavors-using-ex2-install2"></a><span><img src="./imagelib/callouts/5.png" alt="5" border="0" /></span>
+.else # py3*
+USE_GNOME+=	py3gobject3 <a id="flavors-using-ex2-py3gobject3"></a><span><img src="./imagelib/callouts/6.png" alt="6" border="0" /></span>
+
+CONFIGURE_ARGS+=	--disable-python2 --enable-python3 \
+			ac_cv_path_PYTHON3_CONFIG=${LOCALBASE}/bin/python${PYTHON_VER}-config <a id="flavors-using-ex2-ac_cv"></a><span><img src="./imagelib/callouts/7.png" alt="7" border="0" /></span>
+
+BUILD_WRKSRC=	${WRKSRC}/loaders/python3 <a id="flavors-using-ex2-build3"></a><span><img src="./imagelib/callouts/8.png" alt="8" border="0" /></span>
+INSTALL_WRKSRC=	${WRKSRC}/loaders/python3 <a id="flavors-using-ex2-install3"></a><span><img src="./imagelib/callouts/9.png" alt="9" border="0" /></span>
+.endif
+
+py34_PLIST=	${.CURDIR}/pkg-plist-py3 <a id="flavors-using-ex2-plist34"></a><span><img src="./imagelib/callouts/10.png" alt="10" border="0" /></span>
+py35_PLIST=	${.CURDIR}/pkg-plist-py3 <a id="flavors-using-ex2-plist35"></a><span><img src="./imagelib/callouts/11.png" alt="11" border="0" /></span>
+py36_PLIST=	${.CURDIR}/pkg-plist-py3 <a id="flavors-using-ex2-plist36"></a><span><img src="./imagelib/callouts/12.png" alt="12" border="0" /></span></pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#flavors-using-ex2-use"><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span></a> </p></td><td valign="top" align="left"><p>This port does not use
+	    <code class="literal">USE_PYTHON=distutils</code> but needs
+	    <span class="application">Python</span> flavors anyway.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#flavors-using-ex2-if"><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span></a> </p></td><td valign="top" align="left"><p>To guard against <code class="varname">FLAVOR</code> being
+	    empty, which would cause a <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=make&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">make</span>(1)</span></a> error, use
+	    <code class="literal">${FLAVOR:U}</code> in string comparisons
+	    instead of <code class="literal">${FLAVOR}</code>.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#flavors-using-ex2-pygobject3"><span><img src="./imagelib/callouts/3.png" alt="3" border="0" /></span></a> <a href="#flavors-using-ex2-py3gobject3"><span><img src="./imagelib/callouts/6.png" alt="6" border="0" /></span></a> </p></td><td valign="top" align="left"><p>The <span class="application">Gnome</span>
+	    <span class="application">Python</span> gobject3 bindings have
+	    two different names, one for
+	    <span class="application">Python</span> 2, pygobject3 and one
+	    for <span class="application">Python</span> 3,
+	    py3gobject3.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#flavors-using-ex2-build2"><span><img src="./imagelib/callouts/4.png" alt="4" border="0" /></span></a> <a href="#flavors-using-ex2-install2"><span><img src="./imagelib/callouts/5.png" alt="5" border="0" /></span></a> <a href="#flavors-using-ex2-build3"><span><img src="./imagelib/callouts/8.png" alt="8" border="0" /></span></a> <a href="#flavors-using-ex2-install3"><span><img src="./imagelib/callouts/9.png" alt="9" border="0" /></span></a> </p></td><td valign="top" align="left"><p>The <code class="command">configure</code> script has to run in
+	    <code class="filename">${WRKSRC}</code>, but we are only interested
+	    in building and installing the Python 2 or Python 3 parts
+	    of the software, so set the build and install base
+	    directories appropriately.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#flavors-using-ex2-ac_cv"><span><img src="./imagelib/callouts/7.png" alt="7" border="0" /></span></a> </p></td><td valign="top" align="left"><p>Hint about the correct
+	    <span class="application">Python</span> 3 config script
+	    path name.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#flavors-using-ex2-plist34"><span><img src="./imagelib/callouts/10.png" alt="10" border="0" /></span></a> <a href="#flavors-using-ex2-plist35"><span><img src="./imagelib/callouts/11.png" alt="11" border="0" /></span></a> <a href="#flavors-using-ex2-plist36"><span><img src="./imagelib/callouts/12.png" alt="12" border="0" /></span></a> </p></td><td valign="top" align="left"><p>The packing list is different when the built with
+	    <span class="application">Python</span> 3.  As there are three
+	    possible <span class="application">Python</span> 3 versions, set
+	    <code class="varname">PLIST</code> for all three using the <a class="link" href="flavors-using.html#flavors-using-helpers" title="7.2.1. Flavors Helpers">helper</a>.</p></td></tr></table></div></div></div><br class="example-break" /><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="flavors-using-helpers"></a>7.2.1. Flavors Helpers</h3></div></div></div><p>To make the <code class="filename">Makefile</code> easier to write,
+	a few flavors helpers exist.</p><p>This list of helpers will set their variable:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="varname"><em class="replaceable"><code>flavor</code></em>_PKGNAMEPREFIX</code></p></li><li class="listitem"><p><code class="varname"><em class="replaceable"><code>flavor</code></em>_PKGNAMESUFFIX</code></p></li><li class="listitem"><p><code class="varname"><em class="replaceable"><code>flavor</code></em>_PLIST</code></p></li><li class="listitem"><p><code class="varname"><em class="replaceable"><code>flavor</code></em>_DESCR</code></p></li></ul></div><p>This list of helpers will append to their variable:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="varname"><em class="replaceable"><code>flavor</code></em>_CONFLICTS</code></p></li><li class="listitem"><p><code class="varname"><em class="replaceable"><code>flavor</code></em>_CONFLICTS_BUILD</code></p></li><li class="listitem"><p><code class="varname"><em class="replaceable"><code>flavor</code></em>_CONFLICTS_INSTALL</code></p></li><li class="listitem"><p><code class="varname"><em class="replaceable"><code>flavor</code></em>_PKG_DEPENDS</code></p></li><li class="listitem"><p><code class="varname"><em class="replaceable"><code>flavor</code></em>_EXTRACT_DEPENDS</code></p></li><li class="listitem"><p><code class="varname"><em class="replaceable"><code>flavor</code></em>_PATCH_DEPENDS</code></p></li><li class="listitem"><p><code class="varname"><em class="replaceable"><code>flavor</code></em>_FETCH_DEPENDS</code></p></li><li class="listitem"><p><code class="varname"><em class="replaceable"><code>flavor</code></em>_BUILD_DEPENDS</code></p></li><li class="listitem"><p><code class="varname"><em class="replaceable"><code>flavor</code></em>_LIB_DEPENDS</code></p></li><li class="listitem"><p><code class="varname"><em class="replaceable"><code>flavor</code></em>_RUN_DEPENDS</code></p></li><li class="listitem"><p><code class="varname"><em class="replaceable"><code>flavor</code></em>_TEST_DEPENDS</code></p></li></ul></div><div class="example"><a id="flavors-helpers-ex1"></a><div class="example-title">Example 7.4. Flavor Specific <code class="varname">PKGNAME</code></div><div class="example-contents"><p>As all packages must have a different package name,
+	  flavors must change theirs, using
+	  <code class="varname"><em class="replaceable"><code>flavor</code></em>_PKGNAMEPREFIX</code>
+	  and
+	  <code class="varname"><em class="replaceable"><code>flavor</code></em>_PKGNAMESUFFIX</code>
+	  makes this easy:</p><pre class="programlisting">FLAVORS=	normal lite
+lite_PKGNAMESUFFIX=	-lite</pre></div></div><br class="example-break" /></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="flavors.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="flavors.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="flavors-auto-php.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 7. Flavors </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 7.3. <code class="literal">USES=php</code> and Flavors</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

@@ -1,0 +1,105 @@
+                 FreeBSD 12.1-RELEASE Installation Instructions
+
+  The FreeBSD Project
+
+   Copyright (c) 2019 The FreeBSD Documentation Project
+
+   FreeBSD is a registered trademark of the FreeBSD Foundation.
+
+   Intel, Celeron, Centrino, Core, EtherExpress, i386, i486, Itanium,
+   Pentium, and Xeon are trademarks or registered trademarks of Intel
+   Corporation or its subsidiaries in the United States and other countries.
+
+   SPARC, SPARC64, and UltraSPARC are trademarks of SPARC International, Inc
+   in the United States and other countries. SPARC International, Inc owns
+   all of the SPARC trademarks and under licensing agreements allows the
+   proper use of these trademarks by its members.
+
+   Many of the designations used by manufacturers and sellers to distinguish
+   their products are claimed as trademarks. Where those designations appear
+   in this document, and the FreeBSD Project was aware of the trademark
+   claim, the designations have been followed by the "(TM)" or the "(R)"
+   symbol.
+
+   Last modified on 2020-11-03 01:10:13 +0800 by Guangyuan Yang.
+   Abstract
+
+   This article gives some brief instructions on installing FreeBSD
+   12.1-RELEASE and upgrading the systems running earlier releases.
+
+     ----------------------------------------------------------------------
+
+   Table of Contents
+
+   1. Installing FreeBSD
+
+   2. Upgrading FreeBSD
+
+1. Installing FreeBSD
+
+   The Installing FreeBSD chapter of the FreeBSD Handbook provides more
+   in-depth information about the installation program itself, including a
+   guided walk-through with screenshots.
+
+2. Upgrading FreeBSD
+
+   If you are upgrading from a previous release of FreeBSD, please read
+   upgrading section in the Release Notes for notable incompatibilities
+   carefully.
+
+  2.1. Upgrading from Source
+
+   The procedure for doing a source code based update is described in
+   Updating FreeBSD from Source.
+
+   For SVN use the releng/12.1 branch which will be where any upcoming
+   Security Advisories or Errata Notices will be applied.
+
+  2.2. Upgrading Using "FreeBSD Update"
+
+   The freebsd-update(8) utility supports binary upgrades of i386 and amd64
+   systems running earlier FreeBSD releases. Systems running 11.3-RELEASE or
+   12.0-RELEASE can upgrade as follows:
+
+ # freebsd-update fetch
+ # freebsd-update install
+
+   Now the freebsd-update(8) utility can fetch bits belonging to
+   12.1-RELEASE. During this process freebsd-update(8) will ask for help in
+   merging configuration files.
+
+ # freebsd-update upgrade -r 12.1-RELEASE
+
+ # freebsd-update install
+
+   The system must now be rebooted with the newly installed kernel before the
+   non-kernel components are updated.
+
+ # shutdown -r now
+
+   After rebooting, freebsd-update(8) needs to be run again to install the
+   new userland components:
+
+ # freebsd-update install
+
+   At this point, users of systems being upgraded from earlier FreeBSD
+   releases will be prompted by freebsd-update(8) to rebuild all third-party
+   applications (e.g., ports installed from the ports tree) due to updates in
+   system libraries.
+
+   After updating installed third-party applications (and again, only if
+   freebsd-update(8) printed a message indicating that this was necessary),
+   run freebsd-update(8) again so that it can delete the old (no longer used)
+   system libraries:
+
+ # freebsd-update install
+
+   Finally, reboot into 12.1-RELEASE
+
+ # shutdown -r now
+
+   After rebooting, it is recommended to regenerate the pkg binary tool to
+   prevent future issues when installing some applications using the pkg
+   tool.
+
+ # pkg-static install -f pkg

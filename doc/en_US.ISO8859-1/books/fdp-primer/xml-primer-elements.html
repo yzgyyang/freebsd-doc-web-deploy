@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>7.2. Elements, Tags, and Attributes</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Documentation Project Primer for New Contributors" /><link rel="up" href="xml-primer.html" title="Chapter 7. XML Primer" /><link rel="prev" href="xml-primer.html" title="Chapter 7. XML Primer" /><link rel="next" href="xml-primer-doctype-declaration.html" title="7.3. The DOCTYPE Declaration" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">7.2. Elements, Tags, and Attributes</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="xml-primer.html">Prev</a> </td><th width="60%" align="center">Chapter 7. XML Primer</th><td width="20%" align="right"> <a accesskey="n" href="xml-primer-doctype-declaration.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="xml-primer-elements"></a>7.2. Elements, Tags, and Attributes</h2></div></div></div><p>All the vocabularies written in <acronym class="acronym">XML</acronym> share
+      certain characteristics.  This is hardly surprising, as the
+      philosophy behind <acronym class="acronym">XML</acronym> will inevitably show
+      through.  One of the most obvious manifestations of this
+      philosophy is that of <span class="emphasis"><em>content</em></span> and
+      <span class="emphasis"><em>elements</em></span>.</p><p>Documentation, whether it is a single web page, or a lengthy
+      book, is considered to consist of content.  This content is then
+      divided and further subdivided into elements.  The purpose of
+      adding markup is to name and identify the boundaries of these
+      elements for further processing.</p><p>For example, consider a typical book.  At the very top
+      level, the book is itself an element.  This <span class="quote">&#8220;<span class="quote">book</span>&#8221;</span>
+      element obviously contains chapters, which can be considered to
+      be elements in their own right.  Each chapter will contain more
+      elements, such as paragraphs, quotations, and footnotes.  Each
+      paragraph might contain further elements, identifying content
+      that was direct speech, or the name of a character in the
+      story.</p><p>It may be helpful to think of this as
+      <span class="quote">&#8220;<span class="quote">chunking</span>&#8221;</span> content.  At the very top level is one
+      chunk, the book.  Look a little deeper, and there are more
+      chunks, the individual chapters.  These are chunked further into
+      paragraphs, footnotes, character names, and so on.</p><p>Notice how this differentiation between different elements
+      of the content can be made without resorting to any
+      <acronym class="acronym">XML</acronym> terms.  It really is surprisingly
+      straightforward.  This could be done with a highlighter pen and
+      a printout of the book, using different colors to indicate
+      different chunks of content.</p><p>Of course, we do not have an electronic highlighter pen, so
+      we need some other way of indicating which element each piece of
+      content belongs to.  In languages written in
+      <acronym class="acronym">XML</acronym> (<acronym class="acronym">XHTML</acronym>, DocBook, et
+      al) this is done by means of <span class="emphasis"><em>tags</em></span>.</p><p>A tag is used to identify where a particular element starts,
+      and where the element ends.  <span class="emphasis"><em>The tag is not part of
+      the element itself</em></span>.  Because each grammar was
+      normally written to mark up specific types of information, each
+      one will recognize different elements, and will therefore have
+      different names for the tags.</p><p>For an element called
+      <em class="replaceable"><code>element-name</code></em> the start tag will
+      normally look like <code class="sgmltag-starttag">&lt;<em class="replaceable"><code>element-name</code></em>&gt;</code>.
+      The corresponding closing tag for this element is <code class="sgmltag-endtag">&lt;/<em class="replaceable"><code>element-name</code></em>&gt;</code>.</p><div class="example"><a id="idp48346104"></a><div class="example-title">Example 7.1. Using an Element (Start and End Tags)</div><div class="example-contents"><p><acronym class="acronym">XHTML</acronym> has an element for indicating
+	that the content enclosed by the element is a paragraph,
+	called <code class="sgmltag-element">p</code>.</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;p&gt;</code>This is a paragraph.  It starts with the start tag for
+  the 'p' element, and it will end with the end tag for the 'p'
+  element.<code class="sgmltag-endtag">&lt;/p&gt;</code>
+
+<code class="sgmltag-starttag">&lt;p&gt;</code>This is another paragraph.  But this one is much shorter.<code class="sgmltag-endtag">&lt;/p&gt;</code></pre></div></div><br class="example-break" /><p>Some elements have no content.  For example, in
+      <acronym class="acronym">XHTML</acronym>, a horizontal line can be included in
+      the document.  For these <span class="quote">&#8220;<span class="quote">empty</span>&#8221;</span> elements,
+      <acronym class="acronym">XML</acronym> introduced a shorthand form that is
+      completely equivalent to the two-tag version:</p><div class="example"><a id="idp48370808"></a><div class="example-title">Example 7.2. Using an Element Without Content</div><div class="example-contents"><p><acronym class="acronym">XHTML</acronym> has an element for indicating a
+	horizontal rule, called <code class="sgmltag-element">hr</code>.  This element
+	does not wrap content, so it looks like this:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;p&gt;</code>One paragraph.<code class="sgmltag-endtag">&lt;/p&gt;</code>
+<code class="sgmltag-starttag">&lt;hr&gt;</code><code class="sgmltag-endtag">&lt;/hr&gt;</code>
+
+<code class="sgmltag-starttag">&lt;p&gt;</code>This is another paragraph.  A horizontal rule separates this
+  from the previous paragraph.<code class="sgmltag-endtag">&lt;/p&gt;</code></pre><p>The shorthand version consists of a single tag:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;p&gt;</code>One paragraph.<code class="sgmltag-endtag">&lt;/p&gt;</code>
+<code class="sgmltag-emptytag">&lt;hr/&gt;</code>
+
+<code class="sgmltag-starttag">&lt;p&gt;</code>This is another paragraph.  A horizontal rule separates this
+  from the previous paragraph.<code class="sgmltag-endtag">&lt;/p&gt;</code></pre></div></div><br class="example-break" /><p>As shown above, elements can contain other elements.  In the
+      book example earlier, the book element contained all the chapter
+      elements, which in turn contained all the paragraph elements,
+      and so on.</p><div class="example"><a id="idp51033336"></a><div class="example-title">Example 7.3. Elements Within Elements; <code class="sgmltag-element">em</code></div><div class="example-contents"><pre class="programlisting"><code class="sgmltag-starttag">&lt;p&gt;</code>This is a simple <code class="sgmltag-starttag">&lt;em&gt;</code>paragraph<code class="sgmltag-endtag">&lt;/em&gt;</code> where some
+  of the <code class="sgmltag-starttag">&lt;em&gt;</code>words<code class="sgmltag-endtag">&lt;/em&gt;</code> have been <code class="sgmltag-starttag">&lt;em&gt;</code>emphasized<code class="sgmltag-endtag">&lt;/em&gt;</code>.<code class="sgmltag-endtag">&lt;/p&gt;</code></pre></div></div><br class="example-break" /><p>The grammar consists of rules that describe which elements
+      can contain other elements, and exactly what they can
+      contain.</p><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">People often confuse the terms tags and elements, and use
+	the terms as if they were interchangeable.  They are
+	not.</p><p xmlns="http://www.w3.org/1999/xhtml">An element is a conceptual part of your document.  An
+	element has a defined start and end.  The tags mark where the
+	element starts and ends.</p><p xmlns="http://www.w3.org/1999/xhtml">When this document (or anyone else knowledgeable about
+	<acronym class="acronym">XML</acronym>) refers to
+	<span class="quote">&#8220;<span class="quote">the <code class="sgmltag-starttag">&lt;p&gt;</code> tag</span>&#8221;</span>
+	they mean the literal text consisting of the three characters
+	<code class="literal">&lt;</code>, <code class="literal">p</code>, and
+	<code class="literal">&gt;</code>.  But the phrase
+	<span class="quote">&#8220;<span class="quote">the <code class="sgmltag-element">p</code> element</span>&#8221;</span> refers to the
+	whole element.</p><p xmlns="http://www.w3.org/1999/xhtml">This distinction <span class="emphasis"><em>is</em></span> very subtle.  But
+	keep it in mind.</p></div><p>Elements can have attributes.  An attribute has a name and a
+      value, and is used for adding extra information to the element.
+      This might be information that indicates how the content should
+      be rendered, or might be something that uniquely identifies that
+      occurrence of the element, or it might be something else.</p><p>An element's attributes are written
+      <span class="emphasis"><em>inside</em></span> the start tag for that element, and
+      take the form
+      <code class="literal"><em class="replaceable"><code>attribute-name</code></em>="<em class="replaceable"><code>attribute-value</code></em>"</code>.</p><p>In <acronym class="acronym">XHTML</acronym>, the <code class="sgmltag-element">p</code>
+      element has an attribute called
+      <code class="sgmltag-attribute">align</code>, which suggests an
+      alignment (justification) for the paragraph to the program
+      displaying the <acronym class="acronym">XHTML</acronym>.</p><p>The <code class="sgmltag-attribute">align</code> attribute can
+      take one of four defined values, <code class="literal">left</code>,
+      <code class="literal">center</code>, <code class="literal">right</code> and
+      <code class="literal">justify</code>.  If the attribute is not specified
+      then the default is <code class="literal">left</code>.</p><div class="example"><a id="idp51072120"></a><div class="example-title">Example 7.4. Using an Element with an Attribute</div><div class="example-contents"><pre class="programlisting"><code class="sgmltag-starttag">&lt;p align="left"&gt;</code>The inclusion of the align attribute
+  on this paragraph was superfluous, since the default is left.<code class="sgmltag-endtag">&lt;/p&gt;</code>
+
+<code class="sgmltag-starttag">&lt;p align="center"&gt;</code>This may appear in the center.<code class="sgmltag-endtag">&lt;/p&gt;</code></pre></div></div><br class="example-break" /><p>Some attributes only take specific values, such as
+      <code class="literal">left</code> or <code class="literal">justify</code>.  Others
+      allow any value.</p><div class="example"><a id="idp51076216"></a><div class="example-title">Example 7.5. Single Quotes Around Attributes</div><div class="example-contents"><pre class="programlisting"><code class="sgmltag-starttag">&lt;p align='right'&gt;</code>I am on the right!<code class="sgmltag-endtag">&lt;/p&gt;</code></pre></div></div><br class="example-break" /><p>Attribute values in <acronym class="acronym">XML</acronym> must be enclosed
+      in either single or double quotes.  Double quotes are
+      traditional.  Single quotes are useful when the attribute value
+      contains double quotes.</p><p>Information about attributes, elements, and tags is stored
+      in catalog files.  The Documentation Project uses standard
+      DocBook catalogs and includes additional catalogs for
+      FreeBSD-specific features.  Paths to the catalog files are defined
+      in an environment variable so they can be found by the document
+      build tools.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="xml-primer-elements-to-do"></a>7.2.1. To Do&#8230;</h3></div></div></div><p>Before running the examples in this document, install
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/textproc/docproj/pkg-descr">textproc/docproj</a> from the FreeBSD Ports
+	Collection.  This is a <span class="emphasis"><em>meta-port</em></span> that
+	downloads and installs the standard programs and supporting
+	files needed by the Documentation Project.  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=csh&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">csh</span>(1)</span></a> users
+	must use <code class="command">rehash</code> for the shell to recognize
+	new programs after they have been installed, or log out and
+	then log back in again.</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p>Create <code class="filename">example.xml</code>, and enter
+	    this text:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;</code>
+
+<code class="sgmltag-starttag">&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;</code>
+  <code class="sgmltag-starttag">&lt;head&gt;</code>
+    <code class="sgmltag-starttag">&lt;title&gt;</code>An Example XHTML File<code class="sgmltag-endtag">&lt;/title&gt;</code>
+  <code class="sgmltag-endtag">&lt;/head&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;body&gt;</code>
+    <code class="sgmltag-starttag">&lt;p&gt;</code>This is a paragraph containing some text.<code class="sgmltag-endtag">&lt;/p&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;p&gt;</code>This paragraph contains some more text.<code class="sgmltag-endtag">&lt;/p&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;p align="right"&gt;</code>This paragraph might be right-justified.<code class="sgmltag-endtag">&lt;/p&gt;</code>
+  <code class="sgmltag-endtag">&lt;/body&gt;</code>
+<code class="sgmltag-endtag">&lt;/html&gt;</code></pre></li><li class="step"><p>Try to validate this file using an
+	    <acronym class="acronym">XML</acronym> parser.</p><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/textproc/docproj/pkg-descr">textproc/docproj</a>
+	    includes the <code class="command">xmllint</code>
+	    <a class="link" href="xml-primer.html#xml-primer-validating">validating
+	      parser</a>.</p><p>Use <code class="command">xmllint</code> to validate the
+	    document:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>xmllint --valid --noout example.xml</code></strong></pre><p><code class="command">xmllint</code> returns without displaying
+	    any output, showing that the document validated
+	    successfully.</p></li><li class="step"><p>See what happens when required elements are omitted.
+	    Delete the line with the
+	    <code class="sgmltag-starttag">&lt;title&gt;</code> and
+	    <code class="sgmltag-endtag">&lt;/title&gt;</code> tags, and re-run
+	    the validation.</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>xmllint --valid --noout example.xml</code></strong>
+example.xml:5: element head: validity error : Element head content does not follow the DTD, expecting ((script | style | meta | link | object | isindex)* , ((title , (script | style | meta | link | object | isindex)* , (base , (script | style | meta | link | object | isindex)*)?) | (base , (script | style | meta | link | object | isindex)* , title , (script | style | meta | link | object | isindex)*))), got ()</pre><p>This shows that the validation error comes from the
+	    <em class="replaceable"><code>fifth</code></em> line of the
+	    <em class="replaceable"><code>example.xml</code></em> file and that the
+	    content of the <code class="sgmltag-starttag">&lt;head&gt;</code> is
+	    the part which does not follow the rules of the
+	    <acronym class="acronym">XHTML</acronym> grammar.</p><p>Then <code class="command">xmllint</code> shows the line where
+	    the error was found and marks the exact character position
+	    with a <code class="literal">^</code> sign.</p></li><li class="step"><p>Replace the <code class="sgmltag-element">title</code> element.</p></li></ol></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="xml-primer.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="xml-primer.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="xml-primer-doctype-declaration.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 7. XML Primer </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 7.3. The DOCTYPE Declaration</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

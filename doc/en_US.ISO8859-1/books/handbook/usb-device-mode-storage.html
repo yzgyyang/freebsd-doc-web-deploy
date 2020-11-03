@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>25.4. USB Virtual Storage Device</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="usb-device-mode.html" title="Chapter 25. USB Device Mode / USB OTG" /><link rel="prev" href="usb-device-mode-network.html" title="25.3. USB Device Mode Network Interfaces" /><link rel="next" href="network-communication.html" title="Part IV. Network Communication" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">25.4. <acronym class="acronym">USB</acronym> Virtual Storage Device</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="usb-device-mode-network.html">Prev</a> </td><th width="60%" align="center">Chapter 25. USB Device Mode / USB OTG</th><td width="20%" align="right"> <a accesskey="n" href="network-communication.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="usb-device-mode-storage"></a>25.4. <acronym class="acronym">USB</acronym> Virtual Storage Device</h2></div></div></div><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=cfumass&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">cfumass</span>(4)</span></a> driver is a <acronym class="acronym">USB</acronym>
+	device mode driver first available in FreeBSD 12.0.</p></div><p>Mass Storage target is provided by templates 0 and 10.
+      Both <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=usb_template&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">usb_template</span>(4)</span></a> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=cfumass&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">cfumass</span>(4)</span></a> kernel modules
+      must be loaded.  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=cfumass&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">cfumass</span>(4)</span></a> interfaces to the CTL
+      subsystem, the same one that is used for
+      <acronym class="acronym">iSCSI</acronym> or Fibre Channel targets.
+      On the host side, <acronym class="acronym">USB</acronym> Mass Storage
+      initiators can only access a single <acronym class="acronym">LUN</acronym>,
+      <acronym class="acronym">LUN</acronym> 0.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp66996088"></a>25.4.1. Configuring USB Mass Storage Target Using the cfumass
+	Startup Script</h3></div></div></div><p>The simplest way to set up a read-only USB storage target
+	is to use the <code class="filename">cfumass</code> rc script.  To
+	configure it this way, copy the files to be presented to the
+	USB host machine into the <code class="literal">/var/cfumass</code>
+	directory, and add this line to
+	<code class="filename">/etc/rc.conf</code>:</p><pre class="programlisting">cfumass_enable="YES"</pre><p>To configure the target without restarting,
+	run this command:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service cfumass start</code></strong></pre><p>Differently from serial and network functionality, the
+	template should not be set to 0 or 10 in
+	<code class="filename">/boot/loader.conf</code>.  This is because the
+	LUN must be set up before setting the template.  The cfumass
+	startup script sets the correct template number automatically
+	when started.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp67430904"></a>25.4.2. Configuring USB Mass Storage Using Other Means</h3></div></div></div><p>The rest of this chapter provides detailed description of
+	setting the target without using the cfumass rc file.  This is
+	necessary if eg one wants to provide a writeable LUN.</p><p><acronym class="acronym">USB</acronym> Mass Storage does not require the
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ctld&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ctld</span>(8)</span></a> daemon to be running, although it can be used if
+	desired.  This is different from <acronym class="acronym">iSCSI</acronym>.
+	Thus, there are two ways to configure the target:
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ctladm&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ctladm</span>(8)</span></a>, or <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ctld&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ctld</span>(8)</span></a>.  Both require the
+	<code class="filename">cfumass.ko</code> kernel module to be loaded.
+	The module can be loaded manually:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>kldload cfumass</code></strong></pre><p>If <code class="filename">cfumass.ko</code> has not been built into
+	the kernel, <code class="filename">/boot/loader.conf</code> can be set
+	to load the module at boot:</p><pre class="programlisting">cfumass_load="YES"</pre><p>A <acronym class="acronym">LUN</acronym> can be created without the
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ctld&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ctld</span>(8)</span></a> daemon:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ctladm create -b block -o file=/data/target0</code></strong></pre><p>This presents the contents of the image file
+	<code class="filename">/data/target0</code> as a <acronym class="acronym">LUN</acronym>
+	to the <acronym class="acronym">USB</acronym> host.  The file must exist
+	before executing the command.  To configure the
+	<acronym class="acronym">LUN</acronym> at system startup, add the command to
+	<code class="filename">/etc/rc.local</code>.</p><p><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ctld&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ctld</span>(8)</span></a> can also be used to manage
+	<acronym class="acronym">LUN</acronym>s.  Create
+	<code class="filename">/etc/ctl.conf</code>, add a line to
+	<code class="filename">/etc/rc.conf</code> to make sure <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ctld&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ctld</span>(8)</span></a> is
+	automatically started at boot, and then start the
+	daemon.</p><p>This is an example of a simple
+	<code class="filename">/etc/ctl.conf</code> configuration file.  Refer
+	to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ctl.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ctl.conf</span>(5)</span></a> for a more complete description of the
+	options.</p><pre class="programlisting">target naa.50015178f369f092 {
+	lun 0 {
+		path /data/target0
+		size 4G
+	}
+}</pre><p>The example creates a single target with a single
+	<acronym class="acronym">LUN</acronym>.  The
+	<code class="literal">naa.50015178f369f092</code> is a device identifier
+	composed of 32 random hexadecimal digits.  The
+	<code class="literal">path</code> line defines the full path to a file
+	or zvol backing the <acronym class="acronym">LUN</acronym>.  That file must
+	exist before starting <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ctld&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ctld</span>(8)</span></a>.  The second line is
+	optional and specifies the size of the
+	<acronym class="acronym">LUN</acronym>.</p><p>To make sure the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ctld&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ctld</span>(8)</span></a> daemon is started at
+	boot, add this line to
+	<code class="filename">/etc/rc.conf</code>:</p><pre class="programlisting">ctld_enable="YES"</pre><p>To start <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ctld&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ctld</span>(8)</span></a> now, run this command:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service ctld start</code></strong></pre><p>As the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ctld&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ctld</span>(8)</span></a> daemon is started, it reads
+	<code class="filename">/etc/ctl.conf</code>.  If this file is edited
+	after the daemon starts, reload the changes so they take
+	effect immediately:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service ctld reload</code></strong></pre></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="usb-device-mode-network.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="usb-device-mode.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="network-communication.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">25.3. <acronym class="acronym">USB</acronym> Device Mode Network
+      Interfaces </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Part IV. Network Communication</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

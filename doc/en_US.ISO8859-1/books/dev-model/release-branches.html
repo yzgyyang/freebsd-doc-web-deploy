@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>4.2. Release branches</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="A project model for the FreeBSD Project" /><link rel="up" href="methodology-model.html" title="Chapter 4. Methodology model" /><link rel="prev" href="methodology-model.html" title="Chapter 4. Methodology model" /><link rel="next" href="model-summary.html" title="4.3. Model summary" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">4.2. Release branches</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="methodology-model.html">Prev</a> </td><th width="60%" align="center">Chapter 4. Methodology model</th><td width="20%" align="right"> <a accesskey="n" href="model-summary.html">Next</a></td></tr></table><hr /></div><div class="section"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="release-branches"></a>4.2. Release branches</h2></div></div></div><p>
+                    The releases of FreeBSD are best illustrated by a tree with many
+                    branches where each major branch represents a major
+                    version. Minor versions are represented by branches of the
+                    major branches.
+                </p><p>
+                    In the following release tree, arrows that follow one-another
+                    in a particular direction
+                    represent a branch. Boxes with full lines and diamonds represent official
+                    releases. Boxes with dotted lines represent the development
+                    branch at that time. Security branches are represented by ovals.
+                    Diamonds differ from boxes in that they
+                    represent a fork, meaning a place where a branch splits into two
+                    branches where one of the branches becomes a sub-branch.
+                    For example,
+                    at 4.0-RELEASE the 4.0-CURRENT branch split into 4-STABLE and
+                    5.0-CURRENT. At 4.5-RELEASE, the branch forked off a security
+                    branch called RELENG_4_5.
+                </p><p>
+                    </p><div class="figure"><a id="idp47235064"></a><div class="figure-title">Figure 4.1. The FreeBSD release tree</div><div class="figure-contents"><div class="mediaobject"><img src="branches.png" alt="Refer to table below for a screen-reader friendly version." /></div></div></div><p><br class="figure-break" />
+                </p><p>
+                    </p><div class="informaltable"><table class="informaltable" width="100%" border="1"><colgroup><col /><col /><col /></colgroup><thead><tr><th>Major release</th><th>Forked from</th><th>Following minor releases</th></tr></thead><tbody><tr><td>&#8230;</td><td> </td><td> </td></tr><tr><td>3.0 Current (development branch)</td><td> </td><td>Releng 3 branches: 3.0 Release to
+                                        3.5 Release, leading to 3.5.1 Release
+                                        and the subsequent 3 Stable branch
+                                    </td></tr><tr><td>4.0 Current (development branch)</td><td>3.1 Release</td><td>Releng 4 branches: 4.1 Release to
+                                        4.6 Release (and 4.6.2 Release), then
+                                        4.7 Release to 4.11 Release (all
+                                        starting at 4.3 Release also leading to
+                                        a Releng_4_n branch), and the
+                                        subsequent 4 Release branch
+                                    </td></tr><tr><td>5.0 Current (development branch)</td><td>4.0 Release</td><td>Releng 5 branches: 5.0 Release to
+                                        5.4 Release (all except 5.0 and 5.3
+                                        also leading to a Releng_5_n branch),
+                                        and the subsequent 5 Release branch
+                                   </td></tr><tr><td>6.0 Current (development branch)</td><td>5.3 Release</td><td class="auto-generated"> </td></tr><tr><td>&#8230;</td><td> </td><td> </td></tr></tbody></table></div><p>
+                </p><p>
+                    The latest -CURRENT version
+                    is always referred to as -CURRENT, while the latest -STABLE
+                    release is always referred to as -STABLE. In this figure,
+                    -STABLE refers to 4-STABLE while -CURRENT refers to
+                    5.0-CURRENT following 5.0-RELEASE.
+                    [<span class="citation"><a class="xref" href="bibliography.html#freebsd-releng">FreeBSD, 2002E</a></span>]
+                </p><p>
+                    A <span class="quote">&#8220;<span class="quote">major release</span>&#8221;</span> is always made from the -CURRENT branch.
+                    However, the -CURRENT branch does not need to fork at that point in time,
+                    but can focus on stabilising. An example of this is that following
+                    3.0-RELEASE, 3.1-RELEASE was also a continuation of the
+                    -CURRENT-branch, and -CURRENT did not become a true development
+                    branch until this version was released and the 3-STABLE branch
+                    was forked. When
+                    -CURRENT returns to becoming a development branch, it can only be
+                    followed by a major release. 5-STABLE is predicted to be forked
+                    off 5.0-CURRENT at around 5.3-RELEASE. It is not until
+                    5-STABLE is forked that the development branch will be branded 6.0-CURRENT.
+                </p><p>
+                    A <span class="quote">&#8220;<span class="quote">minor release</span>&#8221;</span> is made from the -CURRENT branch
+                    following a major release, or from the -STABLE branch.
+                </p><p>
+                    Following and including, 4.3-RELEASE<a href="#ftn.idp47290616" class="footnote" id="idp47290616"><sup class="footnote">[6]</sup></a>, when a minor release has been made, it becomes a <span class="quote">&#8220;<span class="quote">security
+                    branch</span>&#8221;</span>. This is meant for organisations that do not want
+                    to follow the -STABLE branch and the potential new/changed features it
+                    offers, but instead require an absolutely stable environment, only
+                    updating to implement security updates.
+                    <a href="#ftn.idp47293688" class="footnote" id="idp47293688"><sup class="footnote">[7]</sup></a>
+                </p><p>
+                    Each update to a security branch
+                    is called a <span class="quote">&#8220;<span class="quote">patchlevel</span>&#8221;</span>. For every security
+                    enhancement that is done, the patchlevel number is increased,
+                    making it easy for people tracking the branch to see what
+                    security enhancements they have implemented. In cases where there
+                    have been especially serious security flaws, an entire new release
+                    can be made from a security branch. An example of this is
+                    4.6.2-RELEASE.
+                </p><div class="footnotes"><br /><hr class="footnote-hr" /><div id="ftn.idp47290616" class="footnote"><p><a href="#idp47290616" class="para"><sup class="para">[6] </sup></a>
+                            The first release this actually happened for was 4.5-RELEASE,
+                            but security branches were at the same time created for
+                            4.3-RELEASE and 4.4-RELEASE.
+                        </p></div><div id="ftn.idp47293688" class="footnote"><p><a href="#idp47293688" class="para"><sup class="para">[7] </sup></a>
+                            There is a terminology
+                            overlap with respect to the word "stable", which leads to some
+                            confusion. The -STABLE branch is still a
+                            development branch, whose goal is to be
+                            useful for most people.
+                            If it is never acceptable for a system to get changes that
+                            are not announced at the time it is deployed,
+                            that system should run a security branch.
+                        </p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="methodology-model.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="methodology-model.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="model-summary.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 4. Methodology model </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 4.3. Model summary</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

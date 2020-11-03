@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>11.10. Tuning Disks</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="config-tuning.html" title="Chapter 11. Configuration and Tuning" /><link rel="prev" href="configtuning-sysctl.html" title="11.9. Tuning with sysctl(8)" /><link rel="next" href="configtuning-kernel-limits.html" title="11.11. Tuning Kernel Limits" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">11.10. Tuning Disks</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="configtuning-sysctl.html">Prev</a> </td><th width="60%" align="center">Chapter 11. Configuration and Tuning</th><td width="20%" align="right"> <a accesskey="n" href="configtuning-kernel-limits.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="configtuning-disk"></a>11.10. Tuning Disks</h2></div></div></div><p>The following section will discuss various tuning
+      mechanisms and options which may be applied to disk
+      devices.  In many cases, disks with mechanical parts,
+      such as <acronym class="acronym">SCSI</acronym> drives, will be the
+      bottleneck driving down the overall system performance.  While
+      a solution is to install a drive without mechanical parts,
+      such as a solid state drive, mechanical drives are not
+      going away anytime in the near future.  When tuning disks,
+      it is advisable to utilize the features of the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=iostat&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">iostat</span>(8)</span></a>
+      command to test various changes to the system.  This
+      command will allow the user to obtain valuable information
+      on system <acronym class="acronym">IO</acronym>.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57545592"></a>11.10.1. Sysctl Variables</h3></div></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57546232"></a>11.10.1.1. <code class="varname">vfs.vmiodirenable</code></h4></div></div></div><a id="idp57547000" class="indexterm"></a><p>The <code class="varname">vfs.vmiodirenable</code> <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sysctl&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sysctl</span>(8)</span></a>
+	  variable
+	  may be set to either <code class="literal">0</code> (off) or
+	  <code class="literal">1</code> (on).  It is set to
+	  <code class="literal">1</code> by default.  This variable controls
+	  how directories are cached by the system.  Most directories
+	  are small, using just a single fragment (typically 1 K)
+	  in the file system and typically 512 bytes in the
+	  buffer cache.  With this variable turned off, the buffer
+	  cache will only cache a fixed number of directories, even
+	  if the system has a huge amount of memory.  When turned on,
+	  this <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sysctl&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sysctl</span>(8)</span></a> allows the buffer cache to use the
+	  <acronym class="acronym">VM</acronym> page cache to cache the directories,
+	  making all the memory available for caching directories.
+	  However, the minimum in-core memory used to cache a
+	  directory is the physical page size (typically 4 K)
+	  rather than 512  bytes.  Keeping this option enabled
+	  is recommended if the system is running any services which
+	  manipulate large numbers of files.  Such services can
+	  include web caches, large mail systems, and news systems.
+	  Keeping this option on will generally not reduce
+	  performance, even with the wasted memory, but one should
+	  experiment to find out.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57568248"></a>11.10.1.2. <code class="varname">vfs.write_behind</code></h4></div></div></div><a id="idp57569016" class="indexterm"></a><p>The <code class="varname">vfs.write_behind</code> <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sysctl&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sysctl</span>(8)</span></a>
+	  variable
+	  defaults to <code class="literal">1</code> (on).  This tells the file
+	  system to issue media writes as full clusters are collected,
+	  which typically occurs when writing large sequential files.
+	  This avoids saturating the buffer cache with dirty buffers
+	  when it would not benefit I/O performance.  However, this
+	  may stall processes and under certain circumstances should
+	  be turned off.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57571960"></a>11.10.1.3. <code class="varname">vfs.hirunningspace</code></h4></div></div></div><a id="idp57220472" class="indexterm"></a><p>The <code class="varname">vfs.hirunningspace</code> <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sysctl&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sysctl</span>(8)</span></a>
+	  variable determines how much outstanding write I/O may be
+	  queued to disk controllers system-wide at any given
+	  instance.  The default is usually sufficient, but on
+	  machines with many disks, try bumping it up to four or five
+	  <span class="emphasis"><em>megabytes</em></span>.  Setting too high a value
+	  which exceeds the buffer cache's write threshold can lead
+	  to bad clustering performance.  Do not set this value
+	  arbitrarily high as higher write values may add latency to
+	  reads occurring at the same time.</p><p>There are various other buffer cache and
+	  <acronym class="acronym">VM</acronym> page cache related <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sysctl&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sysctl</span>(8)</span></a>
+	  values.  Modifying these values is not recommended as the
+	  <acronym class="acronym">VM</acronym> system does a good job of
+	  automatically tuning itself.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57225336"></a>11.10.1.4. <code class="varname">vm.swap_idle_enabled</code></h4></div></div></div><a id="idp57226104" class="indexterm"></a><p>The <code class="varname">vm.swap_idle_enabled</code>
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sysctl&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sysctl</span>(8)</span></a> variable is useful in large multi-user
+	  systems with many active login users and lots of idle
+	  processes.  Such systems tend to generate continuous
+	  pressure on free memory reserves.  Turning this feature on
+	  and tweaking the swapout hysteresis (in idle seconds) via
+	  <code class="varname">vm.swap_idle_threshold1</code> and
+	  <code class="varname">vm.swap_idle_threshold2</code> depresses the
+	  priority of memory pages associated with idle processes more
+	  quickly then the normal pageout algorithm.  This gives a
+	  helping hand to the pageout daemon.  Only turn this option
+	  on if needed, because the tradeoff is essentially pre-page
+	  memory sooner rather than later which eats more swap and
+	  disk bandwidth.  In a small system this option will have a
+	  determinable effect, but in a large system that is already
+	  doing moderate paging, this option allows the
+	  <acronym class="acronym">VM</acronym> system to stage whole processes into
+	  and out of memory easily.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57229816"></a>11.10.1.5. <code class="varname">hw.ata.wc</code></h4></div></div></div><a id="idp57230584" class="indexterm"></a><p>Turning off <acronym class="acronym">IDE</acronym> write caching reduces
+	  write bandwidth to <acronym class="acronym">IDE</acronym> disks, but may
+	  sometimes be necessary due to data consistency issues
+	  introduced by hard drive vendors.  The problem is that
+	  some <acronym class="acronym">IDE</acronym> drives lie about when a write
+	  completes.  With <acronym class="acronym">IDE</acronym> write caching
+	  turned on, <acronym class="acronym">IDE</acronym> hard drives write data
+	  to disk out of order and will sometimes delay writing some
+	  blocks indefinitely when under heavy disk load.  A crash or
+	  power failure may cause serious file system corruption.
+	  Check the default on the system by observing the
+	  <code class="varname">hw.ata.wc</code> <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sysctl&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sysctl</span>(8)</span></a> variable.  If
+	  <acronym class="acronym">IDE</acronym> write caching is turned off, one can
+	  set this read-only variable to
+	  <code class="literal">1</code> in
+	  <code class="filename">/boot/loader.conf</code> in order to enable
+	  it at boot time.</p><p>For more information, refer to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ata&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ata</span>(4)</span></a>.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57241464"></a>11.10.1.6. <code class="literal">SCSI_DELAY</code>
+	  (<code class="varname">kern.cam.scsi_delay</code>)</h4></div></div></div><a id="idp57242744" class="indexterm"></a><a id="idp57243640" class="indexterm"></a><p>The <code class="literal">SCSI_DELAY</code> kernel configuration
+	  option may be used to reduce system boot times.  The
+	  defaults are fairly high and can be responsible for
+	  <code class="literal">15</code> seconds of delay in the boot process.
+	  Reducing it to <code class="literal">5</code> seconds usually works
+	  with modern drives.  The
+	  <code class="varname">kern.cam.scsi_delay</code> boot time tunable
+	  should be used.  The tunable and kernel configuration
+	  option accept values in terms of
+	  <span class="emphasis"><em>milliseconds</em></span> and
+	  <span class="emphasis"><em>not</em></span>
+	  <span class="emphasis"><em>seconds</em></span>.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="soft-updates"></a>11.10.2. Soft Updates</h3></div></div></div><a id="idp57580920" class="indexterm"></a><a id="idp57581432" class="indexterm"></a><p>To fine-tune a file system, use <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=tunefs&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">tunefs</span>(8)</span></a>.  This
+	program has many different options.  To toggle Soft Updates
+	on and off, use:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>tunefs -n enable /filesystem</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>tunefs -n disable /filesystem</code></strong></pre><p>A file system cannot be modified with <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=tunefs&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">tunefs</span>(8)</span></a> while
+	it is mounted.  A good time to enable Soft Updates is before
+	any partitions have been mounted, in single-user mode.</p><p>Soft Updates is recommended for <acronym class="acronym">UFS</acronym>
+	file systems as it drastically improves meta-data performance,
+	mainly file creation and deletion, through the use of a memory
+	cache.  There are two downsides to Soft Updates to be aware
+	of.  First, Soft Updates guarantee file system consistency
+	in the case of a crash, but could easily be several seconds
+	or even a minute behind updating the physical disk.  If the
+	system crashes, unwritten data may be lost.  Secondly, Soft
+	Updates delay the freeing of file system blocks.  If the
+	root file system is almost full, performing a major update,
+	such as <code class="command">make installworld</code>, can cause the
+	file system to run out of space and the update to fail.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57587704"></a>11.10.2.1. More Details About Soft Updates</h4></div></div></div><a id="idp57588344" class="indexterm"></a><p>Meta-data updates are updates to non-content data like
+	  inodes or directories.  There are two traditional approaches
+	  to writing a file system's meta-data back to disk.</p><p>Historically, the default behavior was to write out
+	  meta-data updates synchronously.  If a directory changed,
+	  the system waited until the change was actually written to
+	  disk.  The file data buffers (file contents) were passed
+	  through the buffer cache and backed up to disk later on
+	  asynchronously.  The advantage of this implementation is
+	  that it operates safely.  If there is a failure during an
+	  update, meta-data is always in a consistent state.  A
+	  file is either created completely or not at all.  If the
+	  data blocks of a file did not find their way out of the
+	  buffer cache onto the disk by the time of the crash,
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=fsck&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">fsck</span>(8)</span></a> recognizes this and repairs the file system
+	  by setting the file length to <code class="literal">0</code>.
+	  Additionally, the implementation is clear and simple.  The
+	  disadvantage is that meta-data changes are slow.  For
+	  example, <code class="command">rm -r</code> touches all the files in a
+	  directory sequentially, but each directory change will be
+	  written synchronously to the disk.  This includes updates to
+	  the directory itself, to the inode table, and possibly to
+	  indirect blocks allocated by the file.  Similar
+	  considerations apply for unrolling large hierarchies using
+	  <code class="command">tar -x</code>.</p><p>The second approach is to use asynchronous meta-data
+	  updates.  This is the default for a <acronym class="acronym">UFS</acronym>
+	  file system mounted with <code class="command">mount -o async</code>.
+	  Since all meta-data updates are also passed through the
+	  buffer cache, they will be intermixed with the updates of
+	  the file content data.  The advantage of this
+	  implementation is there is no need to wait until each
+	  meta-data update has been written to disk, so all operations
+	  which cause huge amounts of meta-data updates work much
+	  faster than in the synchronous case.  This implementation
+	  is still clear and simple, so there is a low risk for bugs
+	  creeping into the code.  The disadvantage is that there is
+	  no guarantee for a consistent state of the file system.
+	  If there is a failure during an operation that updated
+	  large amounts of meta-data, like a power failure or someone
+	  pressing the reset button, the file system will be left
+	  in an unpredictable state.  There is no opportunity to
+	  examine the state of the file system when the system comes
+	  up again as the data blocks of a file could already have
+	  been written to the disk while the updates of the inode
+	  table or the associated directory were not.  It is
+	  impossible to implement a <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=fsck&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">fsck</span>(8)</span></a> which is able to
+	  clean up the resulting chaos because the necessary
+	  information is not available on the disk.  If the file
+	  system has been damaged beyond repair, the only choice
+	  is to reformat it and restore from backup.</p><p>The usual solution for this problem is to implement
+	  <span class="emphasis"><em>dirty region logging</em></span>, which is also
+	  referred to as <span class="emphasis"><em>journaling</em></span>.
+	  Meta-data updates are still written synchronously, but only
+	  into a small region of the disk.  Later on, they are moved
+	  to their proper location.  Because the logging area is a
+	  small, contiguous region on the disk, there are no long
+	  distances for the disk heads to move, even during heavy
+	  operations, so these operations are quicker than synchronous
+	  updates.  Additionally, the complexity of the implementation
+	  is limited, so the risk of bugs being present is low.  A
+	  disadvantage is that all meta-data is written twice, once
+	  into the logging region and once to the proper location, so
+	  performance <span class="quote">&#8220;<span class="quote">pessimization</span>&#8221;</span> might result.  On
+	  the other hand, in case of a crash, all pending meta-data
+	  operations can be either quickly rolled back or completed
+	  from the logging area after the system comes up again,
+	  resulting in a fast file system startup.</p><p>Kirk McKusick, the developer of Berkeley
+	  <acronym class="acronym">FFS</acronym>, solved this problem with Soft
+	  Updates.  All pending meta-data updates are kept in memory
+	  and written out to disk in a sorted sequence
+	  (<span class="quote">&#8220;<span class="quote">ordered meta-data updates</span>&#8221;</span>).  This has the
+	  effect that, in case of heavy meta-data operations, later
+	  updates to an item <span class="quote">&#8220;<span class="quote">catch</span>&#8221;</span> the earlier ones
+	  which are still in memory and have not already been written
+	  to disk.  All operations are generally performed in memory
+	  before the update is written to disk and the data blocks are
+	  sorted according to their position so that they will not be
+	  on the disk ahead of their meta-data.  If the system
+	  crashes, an implicit <span class="quote">&#8220;<span class="quote">log rewind</span>&#8221;</span> causes all
+	  operations which were not written to the disk appear as if
+	  they never happened.  A consistent file system state is
+	  maintained that appears to be the one of 30 to 60 seconds
+	  earlier.  The algorithm used guarantees that all resources
+	  in use are marked as such in their blocks and inodes.
+	  After a crash, the only resource allocation error that
+	  occurs is that resources are marked as <span class="quote">&#8220;<span class="quote">used</span>&#8221;</span>
+	  which are actually <span class="quote">&#8220;<span class="quote">free</span>&#8221;</span>.  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=fsck&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">fsck</span>(8)</span></a>
+	  recognizes this situation, and frees the resources that
+	  are no longer used.  It is safe to ignore the dirty state
+	  of the file system after a crash by forcibly mounting it
+	  with <code class="command">mount -f</code>.  In order to free
+	  resources that may be unused, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=fsck&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">fsck</span>(8)</span></a> needs to be run
+	  at a later time.  This is the idea behind the
+	  <span class="emphasis"><em>background <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=fsck&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">fsck</span>(8)</span></a></em></span>: at system
+	  startup time, only a <span class="emphasis"><em>snapshot</em></span> of the
+	  file system is recorded and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=fsck&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">fsck</span>(8)</span></a> is run afterwards.
+	  All file systems can then be mounted
+	  <span class="quote">&#8220;<span class="quote">dirty</span>&#8221;</span>, so the system startup proceeds in
+	  multi-user mode.  Then, background <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=fsck&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">fsck</span>(8)</span></a> is
+	  scheduled for all file systems where this is required, to
+	  free resources that may be unused.  File systems that do
+	  not use Soft Updates still need the usual foreground
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=fsck&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">fsck</span>(8)</span></a>.</p><p>The advantage is that meta-data operations are nearly
+	  as fast as asynchronous updates and are faster than
+	  <span class="emphasis"><em>logging</em></span>, which has to write the
+	  meta-data twice.  The disadvantages are the complexity of
+	  the code, a higher memory consumption, and some
+	  idiosyncrasies.  After a crash, the state of the file
+	  system appears to be somewhat <span class="quote">&#8220;<span class="quote">older</span>&#8221;</span>.  In
+	  situations where the standard synchronous approach would
+	  have caused some zero-length files to remain after the
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=fsck&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">fsck</span>(8)</span></a>, these files do not exist at all with Soft
+	  Updates because neither the meta-data nor the file contents
+	  have been written to disk.  Disk space is not released until
+	  the updates have been written to disk, which may take place
+	  some time after running <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rm&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rm</span>(1)</span></a>.  This may cause problems
+	  when installing large amounts of data on a file system
+	  that does not have enough free space to hold all the files
+	  twice.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="configtuning-sysctl.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="config-tuning.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="configtuning-kernel-limits.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">11.9. Tuning with sysctl(8) </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 11.11. Tuning Kernel Limits</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

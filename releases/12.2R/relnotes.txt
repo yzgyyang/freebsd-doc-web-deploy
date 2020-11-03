@@ -1,0 +1,361 @@
+                       FreeBSD 12.2-RELEASE Release Notes
+
+  The FreeBSD Project
+
+   Copyright (c) 2020 The FreeBSD Documentation Project
+
+   FreeBSD is a registered trademark of the FreeBSD Foundation.
+
+   IBM, AIX, OS/2, PowerPC, PS/2, S/390, and ThinkPad are trademarks of
+   International Business Machines Corporation in the United States, other
+   countries, or both.
+
+   IEEE, POSIX, and 802 are registered trademarks of Institute of Electrical
+   and Electronics Engineers, Inc. in the United States.
+
+   Intel, Celeron, Centrino, Core, EtherExpress, i386, i486, Itanium,
+   Pentium, and Xeon are trademarks or registered trademarks of Intel
+   Corporation or its subsidiaries in the United States and other countries.
+
+   SPARC, SPARC64, and UltraSPARC are trademarks of SPARC International, Inc
+   in the United States and other countries. SPARC International, Inc owns
+   all of the SPARC trademarks and under licensing agreements allows the
+   proper use of these trademarks by its members.
+
+   Many of the designations used by manufacturers and sellers to distinguish
+   their products are claimed as trademarks. Where those designations appear
+   in this document, and the FreeBSD Project was aware of the trademark
+   claim, the designations have been followed by the "(TM)" or the "(R)"
+   symbol.
+
+   Last modified on 2020-11-03 01:10:13 +0800 by Guangyuan Yang.
+   Abstract
+
+   The release notes for FreeBSD 12.2-RELEASE contain a summary of the
+   changes made to the FreeBSD base system on the 12-STABLE development line.
+   This document lists applicable security advisories that were issued since
+   the last release, as well as significant changes to the FreeBSD kernel and
+   userland. Some brief remarks on upgrading are also presented.
+
+     ----------------------------------------------------------------------
+
+   Table of Contents
+
+   1. Introduction
+
+   2. Upgrading from Previous Releases of FreeBSD
+
+   3. Security and Errata
+
+                3.1. Security Advisories
+
+                3.2. Errata Notices
+
+   4. Userland
+
+                4.1. Userland Configuration Changes
+
+                4.2. Userland Application Changes
+
+                4.3. Contributed Software
+
+                4.4. Deprecated Applications
+
+                4.5. Runtime Libraries and API
+
+   5. Kernel
+
+                5.1. General Kernel Changes
+
+   6. Devices and Drivers
+
+                6.1. Device Drivers
+
+   7. Storage
+
+                7.1. General Storage
+
+   8. Boot Loader Changes
+
+                8.1. Boot Loader Changes
+
+   9. Networking
+
+                9.1. General Network
+
+   10. Ports Collection and Package Infrastructure
+
+                10.1. Packaging Changes
+
+   11. General Notes Regarding Future FreeBSD Releases
+
+                11.1. Default CPUTYPE Change
+
+1. Introduction
+
+   This document contains the release notes for FreeBSD 12.2-RELEASE. It
+   describes recently added, changed, or deleted features of FreeBSD. It also
+   provides some notes on upgrading from previous versions of FreeBSD.
+
+   The release distribution to which these release notes apply represents the
+   latest point along the 12-STABLE development branch since 12-STABLE was
+   created. Information regarding pre-built, binary release distributions
+   along this branch can be found at https://www.FreeBSD.org/releases/.
+
+   The release distribution to which these release notes apply represents a
+   point along the 12-STABLE development branch between 12.1-RELEASE and the
+   future 12.3-RELEASE. Information regarding pre-built, binary release
+   distributions along this branch can be found at
+   https://www.FreeBSD.org/releases/.
+
+   This distribution of FreeBSD 12.2-RELEASE is a release distribution. It
+   can be found at https://www.FreeBSD.org/releases/ or any of its mirrors.
+   More information on obtaining this (or other) release distributions of
+   FreeBSD can be found in the "Obtaining FreeBSD" appendix to the FreeBSD
+   Handbook.
+
+   All users are encouraged to consult the release errata before installing
+   FreeBSD. The errata document is updated with "late-breaking" information
+   discovered late in the release cycle or after the release. Typically, it
+   contains information on known bugs, security advisories, and corrections
+   to documentation. An up-to-date copy of the errata for FreeBSD
+   12.2-RELEASE can be found on the FreeBSD Web site.
+
+   This document describes the most user-visible new or changed features in
+   FreeBSD since 12.1-RELEASE. In general, changes described here are unique
+   to the 12-STABLE branch unless specifically marked as MERGED features.
+
+   Typical release note items document recent security advisories issued
+   after 12.1-RELEASE, new drivers or hardware support, new commands or
+   options, major bug fixes, or contributed software upgrades. They may also
+   list changes to major ports/packages or release engineering practices.
+   Clearly the release notes cannot list every single change made to FreeBSD
+   between releases; this document focuses primarily on security advisories,
+   user-visible changes, and major architectural improvements.
+
+2. Upgrading from Previous Releases of FreeBSD
+
+   [amd64,i386] Binary upgrades between RELEASE versions (and snapshots of
+   the various security branches) are supported using the freebsd-update(8)
+   utility. The binary upgrade procedure will update unmodified userland
+   utilities, as well as unmodified GENERIC kernels distributed as a part of
+   an official FreeBSD release. The freebsd-update(8) utility requires that
+   the host being upgraded have Internet connectivity.
+
+   Source-based upgrades (those based on recompiling the FreeBSD base system
+   from source code) from previous versions are supported, according to the
+   instructions in /usr/src/UPDATING.
+
+  Important:
+
+   Upgrading FreeBSD should only be attempted after backing up all data and
+   configuration files.
+
+3. Security and Errata
+
+   This section lists the various Security Advisories and Errata Notices
+   since 12.1-RELEASE.
+
+  3.1. Security Advisories
+
+             Advisory                    Date                  Topic          
+   No advisories.                                                             
+
+  3.2. Errata Notices
+
+              Errata                     Date                  Topic          
+   No notices.                                                                
+
+4. Userland
+
+   This section covers changes and additions to userland applications,
+   contributed software, and system utilities.
+
+  4.1. Userland Configuration Changes
+
+    
+
+  4.2. Userland Application Changes
+
+   The dd(1) utility has been updated to include new operands: [r355520]
+
+     * conv=fsync
+
+     * conf=fdatasync
+
+     * oflag=fsync
+
+     * oflag=sync
+
+     * iflag=fullblock
+
+   See dd(1) for usage details.
+
+  4.3. Contributed Software
+
+   The tcsh(1) utility has been updated to version 6.21.00. [r354191]
+   (Sponsored by DARPA, AFRL)
+
+   The less(1) utility has been updated to version v551. [r355503]
+
+   The libbsdxml(3) library has been updated to version 2.2.9. [r355603]
+
+   The resolvconf(8) utility has been updated to version 3.9.2. [r355745]
+
+   The pcap(3) library has been updated to version 1.9.1. [r356340]
+
+   The tcpdump(1) utility has been updated to version 4.9.3. [r356340]
+
+   The mtree(8) utility has been updated to address an issue with -f not
+   considering type changes, fix username logic with -c when getlogin(2)
+   fails, and to fix -O not descending when a hash collision occurs.
+   [r356532]
+
+   The Elf Tool Chain has been updated to upstream revision r3769. [r358779]
+   (Sponsored by The FreeBSD Foundation)
+
+   The xz(1) utility has been updated to version 5.2.5. [r359635]
+
+   OpenSSL has been updated to version 1.1.1g. [r360278]
+
+   OpenSSH has been updated to version 7.9p1. [r360313] (Sponsored by
+   The FreeBSD Foundation)
+
+   The timezone database files have been updated to version 2020a. [r360361]
+
+   The unbound(8) utility has been updated to version 1.10.1. [r361435]
+
+   The libarchive(3) library has been updated to version 3.4.3. [r362132]
+
+   The private apr library has been updated to version 1.7.0. [r362180]
+
+   The svn{,lite} utility has been updated to version 1.14.0 LTS. [r362180]
+
+   The ntpd(8) suite of utilities have been updated to version 4.2.8p15.
+   [r362716]
+
+   The file(1) utility has been updated to version 5.39. [r362842]
+
+   The bc(1) utility has been updated to version 3.1.1. [r362987]
+
+   The private sqlite3 utility has been updated to version 3.32.3. [r363179]
+
+   The BSD make(1) utility has been updated to version 20200719. [r363352]
+
+   The Sendmail utility has been updated to version 8.16.1. [r363465]
+
+   The nc(1) utility has been updated to include a new --sctp flag. [r363474]
+
+   The clang, llvm, lld, lldb, compiler-rt utilities and libc++ have been
+   updated to version 10.0.1. [r363494]
+
+  4.4. Deprecated Applications
+
+   The amd(8) utility has been marked as deprecated, and targeted for removal
+   in FreeBSD 13.0. [r355075]
+
+  4.5. Runtime Libraries and API
+
+    
+
+5. Kernel
+
+   This section covers changes to kernel configurations, system tuning, and
+   system control parameters that are not otherwise categorized.
+
+  5.1. General Kernel Changes
+
+   The read(2) system call has been changed to disable read() calls on
+   directories by default. A new sysctl(8) has been added,
+   security.bsd.allow_read_dir, which when set to 1 will restore the previous
+   behavior. [r363017]
+
+6. Devices and Drivers
+
+   This section covers changes and additions to devices and device drivers
+   since 12.1-RELEASE.
+
+  6.1. Device Drivers
+
+    
+
+7. Storage
+
+   This section covers changes and additions to file systems and other
+   storage subsystems, both local and networked.
+
+  7.1. General Storage
+
+    
+
+8. Boot Loader Changes
+
+   This section covers the boot loader, boot menu, and other boot-related
+   changes.
+
+  8.1. Boot Loader Changes
+
+    
+
+9. Networking
+
+   This section describes changes that affect networking in FreeBSD.
+
+  9.1. General Network
+
+    
+
+10. Ports Collection and Package Infrastructure
+
+   This section covers changes to the FreeBSD Ports Collection, package
+   infrastructure, and package maintenance and installation tools.
+
+  10.1. Packaging Changes
+
+    
+
+11. General Notes Regarding Future FreeBSD Releases
+
+  11.1. Default CPUTYPE Change
+
+   Starting with FreeBSD-13.0, the default CPUTYPE for the i386 architecture
+   will change from 486 to 686.
+
+   This means that, by default, binaries produced will require a 686-class
+   CPU, including but not limited to binaries provided by the FreeBSD Release
+   Engineering team. FreeBSD 13.0 will continue to support older CPUs,
+   however users needing this functionality will need to build their own
+   releases for official support.
+
+   As the primary use for i486 and i586 CPUs is generally in the embedded
+   market, the general end-user impact is expected to be minimal, as new
+   hardware with these CPU types has long faded, and much of the deployed
+   base of such systems is nearing retirement age, statistically.
+
+   There were several factors taken into account for this change. For
+   example, i486 does not have 64-bit atomics, and while they can be emulated
+   in the kernel, they cannot be emulated in the userland. Additionally, the
+   32-bit amd64 libraries have been i686 since their inception.
+
+   As the majority of 32-bit testing is done by developers using the lib32
+   libraries on 64-bit hardware with the COMPAT_FREEBSD32 option in the
+   kernel, this change ensures better coverage and user experience. This also
+   aligns with what the majority of Linux(R) distributions have been doing
+   for quite some time.
+
+   This is expected to be the final bump of the default CPUTYPE in i386.
+
+  Important:
+
+   This change does not affect the FreeBSD 12.x or 11.x series of releases.
+
+     This file, and other release-related documents, can be downloaded from
+                       https://www.FreeBSD.org/releases/.
+
+     For questions about FreeBSD, read the documentation before contacting
+                            <questions@FreeBSD.org>.
+
+  All users of FreeBSD 12-STABLE should subscribe to the <stable@FreeBSD.org>
+                                 mailing list.
+
+       For questions about this documentation, e-mail <doc@FreeBSD.org>.

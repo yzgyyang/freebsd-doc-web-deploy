@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>11.11. Working with Files</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Developers' Handbook" /><link rel="up" href="x86.html" title="Chapter 11. x86 Assembly Language Programming" /><link rel="prev" href="x86-environment.html" title="11.10. UNIX® Environment" /><link rel="next" href="x86-one-pointed-mind.html" title="11.12. One-Pointed Mind" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">11.11. Working with Files</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="x86-environment.html">Prev</a> </td><th width="60%" align="center">Chapter 11. x86 Assembly Language Programming</th><td width="20%" align="right"> <a accesskey="n" href="x86-one-pointed-mind.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="x86-files"></a>11.11. Working with Files</h2></div></div></div><p>We have already done some basic file work: We know how to
+      open and close them, how to read and write them using buffers.
+      But <span class="trademark">UNIX</span>® offers much more functionality when it comes to
+      files.  We will examine some of it in this section, and end up
+      with a nice file conversion utility.</p><p>Indeed, let us start at the end, that is, with the file
+      conversion utility.  It always makes programming easier when we
+      know from the start what the end product is supposed to
+      do.</p><p>One of the first programs I wrote for <span class="trademark">UNIX</span>® was <a class="link" href="ftp://ftp.int80h.org/unix/tuc/" target="_top"><span class="application">tuc</span></a>,
+      a text-to-<span class="trademark">UNIX</span>® file converter.  It converts a text file from
+      other operating systems to a <span class="trademark">UNIX</span>® text file.  In other words,
+      it changes from different kind of line endings to the newline
+      convention of <span class="trademark">UNIX</span>®.  It saves the output in a different file.
+      Optionally, it converts a <span class="trademark">UNIX</span>® text file to a
+      <acronym class="acronym">DOS</acronym> text file.</p><p>I have used <span class="application">tuc</span> extensively, but
+      always only to convert from some other <acronym class="acronym">OS</acronym> to
+      <span class="trademark">UNIX</span>®, never the other way.  I have always wished it would just
+      overwrite the file instead of me having to send the output to a
+      different file.  Most of the time, I end up using it like
+      this:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>tuc <em class="replaceable"><code>myfile tempfile</code></em></code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>mv <em class="replaceable"><code>tempfile myfile</code></em></code></strong></pre><p>It would be nice to have a <span class="application">ftuc</span>,
+      i.e., <span class="emphasis"><em>fast tuc</em></span>, and use it like
+      this:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>ftuc <em class="replaceable"><code>myfile</code></em></code></strong></pre><p>In this chapter, then, we will write
+      <span class="application">ftuc</span> in assembly language (the
+      original <span class="application">tuc</span> is in C), and study
+      various file-oriented kernel services in the process.</p><p>At first sight, such a file conversion is very simple: All
+      you have to do is strip the carriage returns, right?</p><p>If you answered yes, think again: That approach will work
+      most of the time (at least with <acronym class="acronym">MS DOS</acronym> text
+      files), but will fail occasionally.</p><p>The problem is that not all non <span class="trademark">UNIX</span>® text files end their
+      line with the carriage return / line feed sequence.  Some use
+      carriage returns without line feeds.  Others combine several
+      blank lines into a single carriage return followed by several
+      line feeds.  And so on.</p><p>A text file converter, then, must be able to handle any
+      possible line endings:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>carriage return / line feed</p></li><li class="listitem"><p>carriage return</p></li><li class="listitem"><p>line feed / carriage return</p></li><li class="listitem"><p>line feed</p></li></ul></div><p>It should also handle files that use some kind of a
+      combination of the above (e.g., carriage return followed by
+      several line feeds).</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-finite-state-machine"></a>11.11.1. Finite State Machine</h3></div></div></div><p>The problem is easily solved by the use of a technique
+	called <span class="emphasis"><em>finite state machine</em></span>, originally
+	developed by the designers of digital electronic circuits.  A
+	<span class="emphasis"><em>finite state machine</em></span> is a digital circuit
+	whose output is dependent not only on its input but on its
+	previous input, i.e., on its state.  The microprocessor is an
+	example of a <span class="emphasis"><em>finite state machine</em></span>: Our
+	assembly language code is assembled to machine language in
+	which some assembly language code produces a single byte of
+	machine language, while others produce several bytes.  As the
+	microprocessor fetches the bytes from the memory one by one,
+	some of them simply change its state rather than produce some
+	output.  When all the bytes of the op code are fetched, the
+	microprocessor produces some output, or changes the value of
+	a register, etc.</p><p>Because of that, all software is essentially a sequence of
+	state instructions for the microprocessor.  Nevertheless, the
+	concept of <span class="emphasis"><em>finite state machine</em></span> is useful
+	in software design as well.</p><p>Our text file converter can be designer as a
+	<span class="emphasis"><em>finite state machine</em></span> with three possible
+	states.  We could call them states 0-2, but it will make our
+	life easier if we give them symbolic names:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><span class="symbol">ordinary</span></p></li><li class="listitem"><p><span class="symbol">cr</span></p></li><li class="listitem"><p><span class="symbol">lf</span></p></li></ul></div><p>Our program will start in the <span class="symbol">ordinary</span>
+	state.  During this state, the program action depends on its
+	input as follows:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>If the input is anything other than a carriage return
+	    or line feed, the input is simply passed on to the output.
+	    The state remains unchanged.</p></li><li class="listitem"><p>If the input is a carriage return, the state is
+	    changed to <span class="symbol">cr</span>.  The input is then
+	    discarded, i.e., no output is made.</p></li><li class="listitem"><p>If the input is a line feed, the state is changed to
+	    <span class="symbol">lf</span>.  The input is then discarded.</p></li></ul></div><p>Whenever we are in the <span class="symbol">cr</span> state, it is
+	because the last input was a carriage return, which was
+	unprocessed.  What our software does in this state again
+	depends on the current input:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>If the input is anything other than a carriage return
+	    or line feed, output a line feed, then output the input,
+	    then change the state to <span class="symbol">ordinary</span>.</p></li><li class="listitem"><p>If the input is a carriage return, we have received
+	    two (or more) carriage returns in a row.  We discard the
+	    input, we output a line feed, and leave the state
+	    unchanged.</p></li><li class="listitem"><p>If the input is a line feed, we output the line feed
+	    and change the state to <span class="symbol">ordinary</span>.  Note
+	    that this is not the same as the first case above &#8211;
+	    if we tried to combine them, we would be outputting two
+	    line feeds instead of one.</p></li></ul></div><p>Finally, we are in the <span class="symbol">lf</span> state after we
+	have received a line feed that was not preceded by a
+	carriage return.  This will happen when our file already is in
+	<span class="trademark">UNIX</span>® format, or whenever several lines in a row are
+	expressed by a single carriage return followed by several line
+	feeds, or when line ends with a line feed / carriage return
+	sequence.  Here is how we need to handle our input in this
+	state:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>If the input is anything other than a carriage return
+	    or line feed, we output a line feed, then output the
+	    input, then change the state to <span class="symbol">ordinary</span>.
+	    This is exactly the same action as in the
+	    <span class="symbol">cr</span> state upon receiving the same kind of
+	    input.</p></li><li class="listitem"><p>If the input is a carriage return, we discard the
+	    input, we output a line feed, then change the state to
+	    <span class="symbol">ordinary</span>.</p></li><li class="listitem"><p>If the input is a line feed, we output the line feed,
+	    and leave the state unchanged.</p></li></ul></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-final-state"></a>11.11.1.1. The Final State</h4></div></div></div><p>The above <span class="emphasis"><em>finite state machine</em></span>
+	  works for the entire file, but leaves the possibility that
+	  the final line end will be ignored.  That will happen
+	  whenever the file ends with a single carriage return or a
+	  single line feed.  I did not think of it when I wrote
+	  <span class="application">tuc</span>, just to discover that
+	  occasionally it strips the last line ending.</p><p>This problem is easily fixed by checking the state after
+	  the entire file was processed.  If the state is not
+	  <span class="symbol">ordinary</span>, we simply need to output one last
+	  line feed.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Now that we have expressed our algorithm as a
+	    <span class="emphasis"><em>finite state machine</em></span>, we could easily
+	    design a dedicated digital electronic circuit (a "chip")
+	    to do the conversion for us.  Of course, doing so would be
+	    considerably more expensive than writing an assembly
+	    language program.</p></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-tuc-counter"></a>11.11.1.2. The Output Counter</h4></div></div></div><p>Because our file conversion program may be combining two
+	  characters into one, we need to use an output counter.  We
+	  initialize it to <code class="constant">0</code>, and increase it
+	  every time we send a character to the output.  At the end of
+	  the program, the counter will tell us what size we need to
+	  set the file to.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-software-fsm"></a>11.11.2. Implementing FSM in Software</h3></div></div></div><p>The hardest part of working with a <span class="emphasis"><em>finite state
+	  machine</em></span> is analyzing the problem and expressing
+	it as a <span class="emphasis"><em>finite state machine</em></span>.  That
+	accomplished, the software almost writes itself.</p><p>In a high-level language, such as C, there are several
+	main approaches.  One is to use a <code class="function">switch</code> statement which chooses
+	what function should be run.  For example,</p><pre class="programlisting">switch (state) {
+	default:
+	case REGULAR:
+		regular(inputchar);
+		break;
+	case CR:
+		cr(inputchar);
+		break;
+	case LF:
+		lf(inputchar);
+		break;
+	}</pre><p>Another approach is by using an array of function
+	pointers, something like this:</p><pre class="programlisting">(output[state])(inputchar);</pre><p>Yet another is to have <code class="varname">state</code> be a
+	function pointer, set to point at the appropriate
+	function:</p><pre class="programlisting">(*state)(inputchar);</pre><p>This is the approach we will use in our program because it
+	is very easy to do in assembly language, and very fast, too.
+	We will simply keep the address of the right procedure in
+	<code class="varname">EBX</code>, and then just
+	issue:</p><pre class="programlisting">call	ebx</pre><p>This is possibly faster than hardcoding the address in the
+	code because the microprocessor does not have to fetch the
+	address from the memory&#8212;it is already stored in one of
+	its registers.  I said <span class="emphasis"><em>possibly</em></span> because
+	with the caching modern microprocessors do, either way may be
+	equally fast.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="memory-mapped-files"></a>11.11.3. Memory Mapped Files</h3></div></div></div><p>Because our program works on a single file, we cannot use
+	the approach that worked for us before, i.e., to read from an
+	input file and to write to an output file.</p><p><span class="trademark">UNIX</span>® allows us to map a file, or a section of a file,
+	into memory.  To do that, we first need to open the file with
+	the appropriate read/write flags.  Then we use the <code class="function">mmap</code> system call to map it into
+	the memory.  One nice thing about <code class="function">mmap</code> is that it automatically
+	works with virtual memory: We can map more of the file into
+	the memory than we have physical memory available, yet still
+	access it through regular memory op codes, such as <code class="function">mov</code>, <code class="function">lods</code>, and <code class="function">stos</code>.  Whatever changes we make to
+	the memory image of the file will be written to the file by
+	the system.  We do not even have to keep the file open: As
+	long as it stays mapped, we can read from it and write to
+	it.</p><p>The 32-bit Intel microprocessors can access up to four
+	gigabytes of memory &#8211; physical or virtual.  The FreeBSD
+	system allows us to use up to a half of it for file
+	mapping.</p><p>For simplicity sake, in this tutorial we will only convert
+	files that can be mapped into the memory in their entirety.
+	There are probably not too many text files that exceed two
+	gigabytes in size.  If our program encounters one, it will
+	simply display a message suggesting we use the original
+	<span class="application">tuc</span> instead.</p><p>If you examine your copy of
+	<code class="filename">syscalls.master</code>, you will find two
+	separate syscalls named <code class="function">mmap</code>.  This is because of
+	evolution of <span class="trademark">UNIX</span>®: There was the traditional
+	<acronym class="acronym">BSD</acronym>
+	<code class="function">mmap</code>, syscall 71.  That one was
+	superseded by the <acronym class="acronym"><span class="trademark">POSIX</span>®</acronym> <code class="function">mmap</code>, syscall 197.  The FreeBSD
+	system supports both because older programs were written by
+	using the original <acronym class="acronym">BSD</acronym> version.  But new
+	software uses the <acronym class="acronym"><span class="trademark">POSIX</span>®</acronym> version, which is
+	what we will use.</p><p>The <code class="filename">syscalls.master</code> lists the
+	<acronym class="acronym"><span class="trademark">POSIX</span>®</acronym> version like this:</p><pre class="programlisting">197	STD	BSD	{ caddr_t mmap(caddr_t addr, size_t len, int prot, \
+			    int flags, int fd, long pad, off_t pos); }</pre><p>This differs slightly from what
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mmap&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mmap</span>(2)</span></a>
+	says.  That is because
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mmap&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mmap</span>(2)</span></a>
+	describes the C version.</p><p>The difference is in the <code class="varname">long pad</code>
+	argument, which is not present in the C version.  However, the
+	FreeBSD syscalls add a 32-bit pad after <code class="function">push</code>ing a 64-bit argument.  In this
+	case, <code class="varname">off_t</code> is a 64-bit value.</p><p>When we are finished working with a memory-mapped file, we
+	unmap it with the <code class="function">munmap</code> syscall:</p><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">For an in-depth treatment of <code class="function">mmap</code>, see W. Richard Stevens'
+	  <a class="link" href="http://www.int80h.org/cgi-bin/isbn?isbn=0130810819" target="_top">Unix
+	    Network Programming, Volume 2, Chapter 12</a>.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-file-size"></a>11.11.4. Determining File Size</h3></div></div></div><p>Because we need to tell <code class="function">mmap</code> how many bytes of the file to
+	map into the memory, and because we want to map the entire
+	file, we need to determine the size of the file.</p><p>We can use the <code class="function">fstat</code>
+	syscall to get all the information about an open file that the
+	system can give us.  That includes the file size.</p><p>Again, <code class="filename">syscalls.master</code> lists two
+	versions of <code class="function">fstat</code>, a
+	traditional one (syscall 62), and a <acronym class="acronym"><span class="trademark">POSIX</span>®</acronym>
+	one (syscall 189).  Naturally, we will use the
+	<acronym class="acronym"><span class="trademark">POSIX</span>®</acronym> version:</p><pre class="programlisting">189	STD	POSIX	{ int fstat(int fd, struct stat *sb); }</pre><p>This is a very straightforward call: We pass to it the
+	address of a <code class="varname">stat</code>
+	structure and the descriptor of an open file.  It will fill
+	out the contents of the <code class="varname">stat</code> structure.</p><p>I do, however, have to say that I tried to declare the
+	<code class="varname">stat</code> structure in the
+	<code class="varname">.bss</code> section, and <code class="function">fstat</code> did not like it: It set the
+	carry flag indicating an error.  After I changed the code to
+	allocate the structure on the stack, everything was working
+	fine.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-ftruncate"></a>11.11.5. Changing the File Size</h3></div></div></div><p>Because our program may combine carriage return / line
+	feed sequences into straight line feeds, our output may be
+	smaller than our input.  However, since we are placing our
+	output into the same file we read the input from, we may have
+	to change the size of the file.</p><p>The <code class="function">ftruncate</code> system
+	call allows us to do just that.  Despite its somewhat
+	misleading name, the <code class="function">ftruncate</code> system call can be used
+	to both truncate the file (make it smaller) and to grow
+	it.</p><p>And yes, we will find two versions of <code class="function">ftruncate</code> in
+	<code class="filename">syscalls.master</code>, an older one (130), and
+	a newer one (201).  We will use the newer one:</p><pre class="programlisting">201	STD	BSD	{ int ftruncate(int fd, int pad, off_t length); }</pre><p>Please note that this one contains a <code class="varname">int
+	  pad</code> again.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-ftuc"></a>11.11.6. ftuc</h3></div></div></div><p>We now know everything we need to write
+	<span class="application">ftuc</span>.  We start by adding some new
+	lines in <code class="filename">system.inc</code>.  First, we define
+	some constants and structures, somewhere at or near the
+	beginning of the file:</p><pre class="programlisting">;;;;;;; open flags
+%define	O_RDONLY	0
+%define	O_WRONLY	1
+%define	O_RDWR	2
+
+;;;;;;; mmap flags
+%define	PROT_NONE	0
+%define	PROT_READ	1
+%define	PROT_WRITE	2
+%define	PROT_EXEC	4
+;;
+%define	MAP_SHARED	0001h
+%define	MAP_PRIVATE	0002h
+
+;;;;;;; stat structure
+struc	stat
+st_dev		resd	1	; = 0
+st_ino		resd	1	; = 4
+st_mode		resw	1	; = 8, size is 16 bits
+st_nlink	resw	1	; = 10, ditto
+st_uid		resd	1	; = 12
+st_gid		resd	1	; = 16
+st_rdev		resd	1	; = 20
+st_atime	resd	1	; = 24
+st_atimensec	resd	1	; = 28
+st_mtime	resd	1	; = 32
+st_mtimensec	resd	1	; = 36
+st_ctime	resd	1	; = 40
+st_ctimensec	resd	1	; = 44
+st_size		resd	2	; = 48, size is 64 bits
+st_blocks	resd	2	; = 56, ditto
+st_blksize	resd	1	; = 64
+st_flags	resd	1	; = 68
+st_gen		resd	1	; = 72
+st_lspare	resd	1	; = 76
+st_qspare	resd	4	; = 80
+endstruc</pre><p>We define the new syscalls:</p><pre class="programlisting">%define	SYS_mmap	197
+%define	SYS_munmap	73
+%define	SYS_fstat	189
+%define	SYS_ftruncate	201</pre><p>We add the macros for their use:</p><pre class="programlisting">%macro	sys.mmap	0
+	system	SYS_mmap
+%endmacro
+
+%macro	sys.munmap	0
+	system	SYS_munmap
+%endmacro
+
+%macro	sys.ftruncate	0
+	system	SYS_ftruncate
+%endmacro
+
+%macro	sys.fstat	0
+	system	SYS_fstat
+%endmacro</pre><p>And here is our code:</p><pre class="programlisting">;;;;;;; Fast Text-to-Unix Conversion (ftuc.asm) ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; Started:	21-Dec-2000
+;; Updated:	22-Dec-2000
+;;
+;; Copyright 2000 G. Adam Stanislav.
+;; All rights reserved.
+;;
+;;;;;;; v.1 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+%include	'system.inc'
+
+section	.data
+	db	'Copyright 2000 G. Adam Stanislav.', 0Ah
+	db	'All rights reserved.', 0Ah
+usg	db	'Usage: ftuc filename', 0Ah
+usglen	equ	$-usg
+co	db	"ftuc: Can't open file.", 0Ah
+colen	equ	$-co
+fae	db	'ftuc: File access error.', 0Ah
+faelen	equ	$-fae
+ftl	db	'ftuc: File too long, use regular tuc instead.', 0Ah
+ftllen	equ	$-ftl
+mae	db	'ftuc: Memory allocation error.', 0Ah
+maelen	equ	$-mae
+
+section	.text
+
+align 4
+memerr:
+	push	dword maelen
+	push	dword mae
+	jmp	short error
+
+align 4
+toolong:
+	push	dword ftllen
+	push	dword ftl
+	jmp	short error
+
+align 4
+facerr:
+	push	dword faelen
+	push	dword fae
+	jmp	short error
+
+align 4
+cantopen:
+	push	dword colen
+	push	dword co
+	jmp	short error
+
+align 4
+usage:
+	push	dword usglen
+	push	dword usg
+
+error:
+	push	dword stderr
+	sys.write
+
+	push	dword 1
+	sys.exit
+
+align 4
+global	_start
+_start:
+	pop	eax		; argc
+	pop	eax		; program name
+	pop	ecx		; file to convert
+	jecxz	usage
+
+	pop	eax
+	or	eax, eax	; Too many arguments?
+	jne	usage
+
+	; Open the file
+	push	dword O_RDWR
+	push	ecx
+	sys.open
+	jc	cantopen
+
+	mov	ebp, eax	; Save fd
+
+	sub	esp, byte stat_size
+	mov	ebx, esp
+
+	; Find file size
+	push	ebx
+	push	ebp		; fd
+	sys.fstat
+	jc	facerr
+
+	mov	edx, [ebx + st_size + 4]
+
+	; File is too long if EDX != 0 ...
+	or	edx, edx
+	jne	near toolong
+	mov	ecx, [ebx + st_size]
+	; ... or if it is above 2 GB
+	or	ecx, ecx
+	js	near toolong
+
+	; Do nothing if the file is 0 bytes in size
+	jecxz	.quit
+
+	; Map the entire file in memory
+	push	edx
+	push	edx		; starting at offset 0
+	push	edx		; pad
+	push	ebp		; fd
+	push	dword MAP_SHARED
+	push	dword PROT_READ | PROT_WRITE
+	push	ecx		; entire file size
+	push	edx		; let system decide on the address
+	sys.mmap
+	jc	near memerr
+
+	mov	edi, eax
+	mov	esi, eax
+	push	ecx		; for SYS_munmap
+	push	edi
+
+	; Use EBX for state machine
+	mov	ebx, ordinary
+	mov	ah, 0Ah
+	cld
+
+.loop:
+	lodsb
+	call	ebx
+	loop	.loop
+
+	cmp	ebx, ordinary
+	je	.filesize
+
+	; Output final lf
+	mov	al, ah
+	stosb
+	inc	edx
+
+.filesize:
+	; truncate file to new size
+	push	dword 0		; high dword
+	push	edx		; low dword
+	push	eax		; pad
+	push	ebp
+	sys.ftruncate
+
+	; close it (ebp still pushed)
+	sys.close
+
+	add	esp, byte 16
+	sys.munmap
+
+.quit:
+	push	dword 0
+	sys.exit
+
+align 4
+ordinary:
+	cmp	al, 0Dh
+	je	.cr
+
+	cmp	al, ah
+	je	.lf
+
+	stosb
+	inc	edx
+	ret
+
+align 4
+.cr:
+	mov	ebx, cr
+	ret
+
+align 4
+.lf:
+	mov	ebx, lf
+	ret
+
+align 4
+cr:
+	cmp	al, 0Dh
+	je	.cr
+
+	cmp	al, ah
+	je	.lf
+
+	xchg	al, ah
+	stosb
+	inc	edx
+
+	xchg	al, ah
+	; fall through
+
+.lf:
+	stosb
+	inc	edx
+	mov	ebx, ordinary
+	ret
+
+align 4
+.cr:
+	mov	al, ah
+	stosb
+	inc	edx
+	ret
+
+align 4
+lf:
+	cmp	al, ah
+	je	.lf
+
+	cmp	al, 0Dh
+	je	.cr
+
+	xchg	al, ah
+	stosb
+	inc	edx
+
+	xchg	al, ah
+	stosb
+	inc	edx
+	mov	ebx, ordinary
+	ret
+
+align 4
+.cr:
+	mov	ebx, ordinary
+	mov	al, ah
+	; fall through
+
+.lf:
+	stosb
+	inc	edx
+	ret</pre><div xmlns="" class="warning"><h3 class="admontitle">Warning: </h3><p xmlns="http://www.w3.org/1999/xhtml">Do not use this program on files stored on a disk
+	  formatted by <acronym class="acronym"><span class="trademark">MS-DOS</span>®</acronym> or <span class="trademark">Windows</span>®.
+	  There seems to be a subtle bug in the FreeBSD code when
+	  using <code class="function">mmap</code> on these
+	  drives mounted under FreeBSD: If the file is over a certain
+	  size, <code class="function">mmap</code> will just
+	  fill the memory with zeros, and then copy them to the file
+	  overwriting its contents.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="x86-environment.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="x86.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="x86-one-pointed-mind.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">11.10. <span class="trademark">UNIX</span>® Environment </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 11.12. One-Pointed Mind</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>5.3. Categorization</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Porter's Handbook" /><link rel="up" href="makefiles.html" title="Chapter 5. Configuring the Makefile" /><link rel="prev" href="makefile-naming.html" title="5.2. Naming" /><link rel="next" href="makefile-distfiles.html" title="5.4. The Distribution Files" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5.3. Categorization</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="makefile-naming.html">Prev</a> </td><th width="60%" align="center">Chapter 5. Configuring the Makefile</th><td width="20%" align="right"> <a accesskey="n" href="makefile-distfiles.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="makefile-categories"></a>5.3. Categorization</h2></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="makefile-categories-definition"></a>5.3.1. <code class="varname">CATEGORIES</code></h3></div></div></div><p>When a package is created, it is put under
+	<code class="filename">/usr/ports/packages/All</code> and links are
+	made from one or more subdirectories of
+	<code class="filename">/usr/ports/packages</code>.  The names of these
+	subdirectories are specified by the variable
+	<code class="varname">CATEGORIES</code>.  It is intended to make life
+	easier for the user when he is wading through the pile of
+	packages on the FTP site or the CDROM.  Please take a look at
+	the <a class="link" href="makefile-categories.html#porting-categories" title="5.3.2. Current List of Categories">current list of
+	  categories</a> and pick the ones that are suitable for
+	the port.</p><p>This list also determines where in the ports tree the port
+	is imported.  If there is more than one category here,
+	the port files must be put in the subdirectory
+	with the name of the first category.  See
+	<a class="link" href="makefile-categories.html#choosing-categories" title="5.3.3. Choosing the Right Category">below</a> for more
+	discussion about how to pick the right categories.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="porting-categories"></a>5.3.2. Current List of Categories</h3></div></div></div><p>Here is the current list of port categories.  Those marked
+	with an asterisk (<code class="literal">*</code>) are
+	<span class="emphasis"><em>virtual</em></span> categories&#8212;those that do
+	not have a corresponding subdirectory in the ports tree.  They
+	are only used as secondary categories, and only for search
+	purposes.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">For non-virtual categories, there is a one-line
+	  description in <code class="varname">COMMENT</code> in that
+	  subdirectory's <code class="filename">Makefile</code>.</p></div><div class="informaltable"><table class="informaltable" width="100%" border="0"><colgroup><col /><col /><col /></colgroup><thead><tr><th>Category</th><th>Description</th><th>Notes</th></tr></thead><tbody><tr><td><code class="filename">accessibility</code></td><td>Ports to help disabled users.</td><td> </td></tr><tr><td><code class="filename">afterstep</code>
+		<code class="literal">*</code></td><td>Ports to support the <a class="link" href="http://www.afterstep.org" target="_top">AfterStep</a>
+		window manager.</td><td> </td></tr><tr><td><code class="filename">arabic</code></td><td>Arabic language support.</td><td> </td></tr><tr><td><code class="filename">archivers</code></td><td>Archiving tools.</td><td> </td></tr><tr><td><code class="filename">astro</code></td><td>Astronomical ports.</td><td> </td></tr><tr><td><code class="filename">audio</code></td><td>Sound support.</td><td> </td></tr><tr><td><code class="filename">benchmarks</code></td><td>Benchmarking utilities.</td><td> </td></tr><tr><td><code class="filename">biology</code></td><td>Biology-related software.</td><td> </td></tr><tr><td><code class="filename">cad</code></td><td>Computer aided design tools.</td><td> </td></tr><tr><td><code class="filename">chinese</code></td><td>Chinese language support.</td><td> </td></tr><tr><td><code class="filename">comms</code></td><td>Communication software.</td><td>Mostly software to talk to the serial
+		port.</td></tr><tr><td><code class="filename">converters</code></td><td>Character code converters.</td><td> </td></tr><tr><td><code class="filename">databases</code></td><td>Databases.</td><td> </td></tr><tr><td><code class="filename">deskutils</code></td><td>Things that used to be on the desktop before
+		computers were invented.</td><td> </td></tr><tr><td><code class="filename">devel</code></td><td>Development utilities.</td><td>Do not put libraries here just because they are
+		libraries.  They should <span class="emphasis"><em>not</em></span> be
+		in this category unless they truly do not belong
+		anywhere else.</td></tr><tr><td><code class="filename">dns</code></td><td>DNS-related software.</td><td> </td></tr><tr><td><code class="filename">docs</code>
+		<code class="literal">*</code></td><td>Meta-ports for FreeBSD documentation.</td><td> </td></tr><tr><td><code class="filename">editors</code></td><td>General editors.</td><td>Specialized editors go in the section for those
+		tools.  For example, a mathematical-formula editor
+		will go in <code class="filename">math</code>, and have
+		<code class="filename">editors</code> as a second
+		category.</td></tr><tr><td><code class="filename">elisp</code>
+		<code class="literal">*</code></td><td>Emacs-lisp ports.</td><td> </td></tr><tr><td><code class="filename">emulators</code></td><td>Emulators for other operating systems.</td><td>Terminal emulators do <span class="emphasis"><em>not</em></span>
+		belong here.  X-based ones go to
+		<code class="filename">x11</code> and text-based ones to
+		either <code class="filename">comms</code> or
+		<code class="filename">misc</code>, depending on the exact
+		functionality.</td></tr><tr><td><code class="filename">enlightenment</code>
+		<code class="literal">*</code></td><td>Ports related to the Enlightenment
+		window manager.</td><td> </td></tr><tr><td><code class="filename">finance</code></td><td>Monetary, financial and related
+		applications.</td><td> </td></tr><tr><td><code class="filename">french</code></td><td>French language support.</td><td> </td></tr><tr><td><code class="filename">ftp</code></td><td><acronym class="acronym">FTP</acronym> client and server
+		utilities.</td><td>If the port speaks both <acronym class="acronym">FTP</acronym>
+		and <acronym class="acronym">HTTP</acronym>, put it
+		in <code class="filename">ftp</code> with a secondary
+		category of <code class="filename">www</code>.</td></tr><tr><td><code class="filename">games</code></td><td>Games.</td><td> </td></tr><tr><td><code class="filename">geography</code>
+		<code class="literal">*</code></td><td>Geography-related software.</td><td> </td></tr><tr><td><code class="filename">german</code></td><td>German language support.</td><td> </td></tr><tr><td><code class="filename">gnome</code>
+		<code class="literal">*</code></td><td>Ports from the
+		<a class="link" href="http://www.gnome.org" target="_top">GNOME</a>
+		Project.</td><td> </td></tr><tr><td><code class="filename">gnustep</code>
+		<code class="literal">*</code></td><td>Software related to the GNUstep desktop
+		environment.</td><td> </td></tr><tr><td><code class="filename">graphics</code></td><td>Graphics utilities.</td><td> </td></tr><tr><td><code class="filename">hamradio</code>
+		<code class="literal">*</code></td><td>Software for amateur radio.</td><td> </td></tr><tr><td><code class="filename">haskell</code>
+		<code class="literal">*</code></td><td>Software related to the Haskell
+		language.</td><td> </td></tr><tr><td><code class="filename">hebrew</code></td><td>Hebrew language support.</td><td> </td></tr><tr><td><code class="filename">hungarian</code></td><td>Hungarian language support.</td><td> </td></tr><tr><td><code class="filename">irc</code></td><td>Internet Relay Chat utilities.</td><td> </td></tr><tr><td><code class="filename">japanese</code></td><td>Japanese language support.</td><td> </td></tr><tr><td><code class="filename">java</code></td><td>Software related to the Java&#8482;
+		language.</td><td>The <code class="filename">java</code> category must not
+		be the only one for a port.  Save for ports directly
+		related to the Java language, porters are also
+		encouraged not to use <code class="filename">java</code> as the
+		main category of a port.</td></tr><tr><td><code class="filename">kde</code>
+		<code class="literal">*</code></td><td>Ports from the
+		<a class="link" href="http://www.kde.org" target="_top">KDE</a>
+		Project (generic).</td><td> </td></tr><tr><td><code class="filename">kde-applications</code>
+		<code class="literal">*</code></td><td>Applications from the
+		<a class="link" href="http://www.kde.org" target="_top">KDE</a>
+		Project.</td><td> </td></tr><tr><td><code class="filename">kde-frameworks</code>
+		<code class="literal">*</code></td><td>Add-on libraries from the
+		<a class="link" href="http://www.kde.org" target="_top">KDE</a>
+		Project for programming with Qt.</td><td> </td></tr><tr><td><code class="filename">kde-plasma</code>
+		<code class="literal">*</code></td><td>Desktop from the
+		<a class="link" href="http://www.kde.org" target="_top">KDE</a>
+		Project.</td><td> </td></tr><tr><td><code class="filename">kld</code>
+		<code class="literal">*</code></td><td>Kernel loadable modules.</td><td> </td></tr><tr><td><code class="filename">korean</code></td><td>Korean language support.</td><td> </td></tr><tr><td><code class="filename">lang</code></td><td>Programming languages.</td><td> </td></tr><tr><td><code class="filename">linux</code>
+		<code class="literal">*</code></td><td>Linux applications and support
+		utilities.</td><td> </td></tr><tr><td><code class="filename">lisp</code>
+		<code class="literal">*</code></td><td>Software related to the Lisp language.</td><td> </td></tr><tr><td><code class="filename">mail</code></td><td>Mail software.</td><td> </td></tr><tr><td><code class="filename">mate</code>
+		<code class="literal">*</code></td><td>Ports related to the MATE desktop environment,
+	        a fork of GNOME 2.</td><td> </td></tr><tr><td><code class="filename">math</code></td><td>Numerical computation software and other
+		utilities for mathematics.</td><td> </td></tr><tr><td><code class="filename">mbone</code>
+		<code class="literal">*</code></td><td>MBone applications.</td><td> </td></tr><tr><td><code class="filename">misc</code></td><td>Miscellaneous utilities</td><td>Things that do not belong anywhere
+		else.  If at all possible, try to find a better
+		category for the port than <code class="literal">misc</code>,
+		as ports tend to be overlooked in here.</td></tr><tr><td><code class="filename">multimedia</code></td><td>Multimedia software.</td><td> </td></tr><tr><td><code class="filename">net</code></td><td>Miscellaneous networking software.</td><td> </td></tr><tr><td><code class="filename">net-im</code></td><td>Instant messaging software.</td><td> </td></tr><tr><td><code class="filename">net-mgmt</code></td><td>Networking management software.</td><td> </td></tr><tr><td><code class="filename">net-p2p</code></td><td>Peer to peer network applications.</td><td> </td></tr><tr><td><code class="filename">net-vpn</code>
+	      	<code class="literal">*</code></td><td>Virtual Private Network applications.</td><td> </td></tr><tr><td><code class="filename">news</code></td><td>USENET news software.</td><td> </td></tr><tr><td><code class="filename">parallel</code>
+		<code class="literal">*</code></td><td>Applications dealing with parallelism in
+		computing.</td><td> </td></tr><tr><td><code class="filename">pear</code>
+		<code class="literal">*</code></td><td>Ports related to the Pear PHP
+		framework.</td><td> </td></tr><tr><td><code class="filename">perl5</code>
+		<code class="literal">*</code></td><td>Ports that require
+		<span class="application">Perl</span> version 5 to
+		run.</td><td> </td></tr><tr><td><code class="filename">plan9</code>
+		<code class="literal">*</code></td><td>Various programs from <a class="link" href="http://www.cs.bell-labs.com/plan9dist/" target="_top">Plan9</a>.</td><td> </td></tr><tr><td><code class="filename">polish</code></td><td>Polish language support.</td><td> </td></tr><tr><td><code class="filename">ports-mgmt</code></td><td>Ports for managing, installing and developing
+		FreeBSD ports and packages.</td><td class="auto-generated"> </td></tr><tr><td><code class="filename">portuguese</code></td><td>Portuguese language support.</td><td> </td></tr><tr><td><code class="filename">print</code></td><td>Printing software.</td><td>Desktop publishing tools
+		(previewers, etc.) belong here too.</td></tr><tr><td><code class="filename">python</code>
+		<code class="literal">*</code></td><td>Software related to the <a class="link" href="http://www.python.org/" target="_top">Python</a>
+		language.</td><td> </td></tr><tr><td><code class="filename">ruby</code>
+		<code class="literal">*</code></td><td>Software related to the <a class="link" href="http://www.ruby-lang.org/" target="_top">Ruby</a>
+		language.</td><td> </td></tr><tr><td><code class="filename">rubygems</code>
+		<code class="literal">*</code></td><td>Ports of <a class="link" href="http://www.rubygems.org/" target="_top">RubyGems</a>
+		packages.</td><td> </td></tr><tr><td><code class="filename">russian</code></td><td>Russian language support.</td><td> </td></tr><tr><td><code class="filename">scheme</code>
+		<code class="literal">*</code></td><td>Software related to the Scheme
+		language.</td><td> </td></tr><tr><td><code class="filename">science</code></td><td>Scientific ports that do not fit into other
+		categories such as <code class="filename">astro</code>,
+		<code class="filename">biology</code> and
+		<code class="filename">math</code>.</td><td> </td></tr><tr><td><code class="filename">security</code></td><td>Security utilities.</td><td> </td></tr><tr><td><code class="filename">shells</code></td><td>Command line shells.</td><td> </td></tr><tr><td><code class="filename">spanish</code>
+		<code class="literal">*</code></td><td>Spanish language support.</td><td> </td></tr><tr><td><code class="filename">sysutils</code></td><td>System utilities.</td><td> </td></tr><tr><td><code class="filename">tcl</code>
+		<code class="literal">*</code></td><td>Ports that use Tcl to run.</td><td> </td></tr><tr><td><code class="filename">textproc</code></td><td>Text processing utilities.</td><td>It does not include desktop publishing tools,
+		which go to <code class="filename">print</code>.</td></tr><tr><td><code class="filename">tk</code>
+		<code class="literal">*</code></td><td>Ports that use Tk to run.</td><td> </td></tr><tr><td><code class="filename">ukrainian</code></td><td>Ukrainian language support.</td><td> </td></tr><tr><td><code class="filename">vietnamese</code></td><td>Vietnamese language support.</td><td> </td></tr><tr><td><code class="filename">wayland</code>
+		<code class="literal">*</code></td><td>Ports to support the Wayland display
+		server.</td><td> </td></tr><tr><td><code class="filename">windowmaker</code>
+		<code class="literal">*</code></td><td>Ports to support the WindowMaker window
+		manager.</td><td> </td></tr><tr><td><code class="filename">www</code></td><td>Software related to the World Wide Web.</td><td>HTML language
+		support belongs here too.</td></tr><tr><td><code class="filename">x11</code></td><td>The X Window System and friends.</td><td>This category is only for software that directly
+		supports the window system.  Do not put regular X
+		applications here.  Most of them go into other
+		<code class="filename">x11-*</code> categories (see
+		below).</td></tr><tr><td><code class="filename">x11-clocks</code></td><td>X11 clocks.</td><td> </td></tr><tr><td><code class="filename">x11-drivers</code></td><td>X11 drivers.</td><td> </td></tr><tr><td><code class="filename">x11-fm</code></td><td>X11 file managers.</td><td> </td></tr><tr><td><code class="filename">x11-fonts</code></td><td>X11 fonts and font utilities.</td><td> </td></tr><tr><td><code class="filename">x11-servers</code></td><td>X11 servers.</td><td> </td></tr><tr><td><code class="filename">x11-themes</code></td><td>X11 themes.</td><td> </td></tr><tr><td><code class="filename">x11-toolkits</code></td><td>X11 toolkits.</td><td> </td></tr><tr><td><code class="filename">x11-wm</code></td><td>X11 window managers.</td><td> </td></tr><tr><td><code class="filename">xfce</code>
+		<code class="literal">*</code></td><td>Ports related to the
+		<a class="link" href="http://www.xfce.org/" target="_top">Xfce</a>
+		desktop environment.</td><td> </td></tr><tr><td><code class="filename">zope</code>
+		<code class="literal">*</code></td><td><a class="link" href="http://www.zope.org/" target="_top">Zope</a>
+		support.</td><td> </td></tr></tbody></table></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="choosing-categories"></a>5.3.3. Choosing the Right Category</h3></div></div></div><p>As many of the categories overlap, choosing which of the
+	categories will be the primary category of the port can be
+	tedious.  There are several rules that govern this issue.
+	Here is the list of priorities, in decreasing order of
+	precedence:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>The first category must be a physical category (see
+	    <a class="link" href="makefile-categories.html#porting-categories" title="5.3.2. Current List of Categories">above</a>).  This is
+	    necessary to make the packaging work.  Virtual categories
+	    and physical categories may be intermixed after
+	    that.</p></li><li class="listitem"><p>Language specific categories always come first.  For
+	    example, if the port installs Japanese X11 fonts, then
+	    the <code class="varname">CATEGORIES</code> line would read
+	    <code class="filename">japanese x11-fonts</code>.</p></li><li class="listitem"><p>Specific categories are listed before less-specific
+	    ones.  For instance, an HTML editor is listed as
+	    <code class="filename">www editors</code>, not the other way
+	    around.  Also, do not list
+	    <code class="filename">net</code> when the port belongs to any of
+	    <code class="filename">irc</code>, <code class="filename">mail</code>,
+	    <code class="filename">news</code>, <code class="filename">security</code>,
+	    or <code class="filename">www</code>, as <code class="filename">net</code>
+	    is included implicitly.</p></li><li class="listitem"><p><code class="filename">x11</code> is used as a secondary
+	    category only when the primary category is a natural
+	    language.  In particular, do not put
+	    <code class="filename">x11</code> in the category line for X
+	    applications.</p></li><li class="listitem"><p><span class="application">Emacs</span> modes are
+	    placed in the same ports category as the application
+	    supported by the mode, not in
+	    <code class="filename">editors</code>.  For example, an
+	    <span class="application">Emacs</span> mode to edit source files
+	    of some programming language goes into
+	    <code class="filename">lang</code>.</p></li><li class="listitem"><p>Ports installing loadable kernel modules also
+	    have the virtual category <code class="filename">kld</code> in
+	    their <code class="varname">CATEGORIES</code> line.  This is one of
+	    the things handled automatically by adding
+	    <code class="literal">USES=kmod</code>.</p></li><li class="listitem"><p><code class="filename">misc</code> does not appear with any
+	    other non-virtual category.  If there is
+	    <code class="literal">misc</code> with something else in
+	    <code class="varname">CATEGORIES</code>, that means
+	    <code class="literal">misc</code> can safely be deleted and the port
+	    placed only in the other subdirectory.</p></li><li class="listitem"><p>If the port truly does not belong anywhere else,
+	    put it in <code class="filename">misc</code>.</p></li></ul></div><p>If the category is not clearly defined, please put a
+	comment to that effect in the <a class="link" href="https://bugs.freebsd.org/submit/" target="_top">port
+	  submission</a> in the bug database so
+	we can discuss it before we import it.  As a committer,
+	send a note to the <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo/freebsd-ports" target="_top">FreeBSD ports mailing list</a> so we can discuss it
+	first.  Too often, new ports are imported to the wrong
+	category only to be moved right away.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="proposing-categories"></a>5.3.4. Proposing a New Category</h3></div></div></div><p>As the Ports Collection has grown over time, various new
+	categories have been introduced.  New categories can either be
+	<span class="emphasis"><em>virtual</em></span> categories&#8212;those that do
+	not have a corresponding subdirectory in the ports tree&#8212;
+	or <span class="emphasis"><em>physical</em></span> categories&#8212;those that
+	do.  This section discusses the issues involved in creating a
+	new physical category.  Read it thouroughly before proposing a
+	new one.</p><p>Our existing practice has been to avoid creating a new
+	physical category unless either a large number of ports would
+	logically belong to it, or the ports that would belong to it
+	are a logically distinct group that is of limited general
+	interest (for instance, categories related to spoken human
+	languages), or preferably both.</p><p>The rationale for this is that such a change creates a
+	<a class="link" href="../../../../doc/en_US.ISO8859-1/articles/committers-guide/#ports" target="_top">fair
+	  amount of work</a> for both the committers and also for
+	all users who track changes to the Ports Collection.  In
+	addition, proposed category changes just naturally seem to
+	attract controversy.  (Perhaps this is because there is no
+	clear consensus on when a category is <span class="quote">&#8220;<span class="quote">too big</span>&#8221;</span>,
+	nor whether categories should lend themselves to browsing (and
+	thus what number of categories would be an ideal number), and
+	so forth.)</p><p>Here is the procedure:</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p>Propose the new category on <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo/freebsd-ports" target="_top">FreeBSD ports mailing list</a>.  Include
+	    a detailed rationale for the new category,
+	    including why the existing categories are not
+	    sufficient, and the list of existing ports proposed to
+	    move.  (If there are new ports pending in
+	    <span class="application">Bugzilla</span> that would fit this
+	    category, list them too.)  If you are the maintainer
+	    and/or submitter, respectively, mention that as it may
+	    help the case.</p></li><li class="step"><p>Participate in the discussion.</p></li><li class="step"><p>If it seems that there is support for the idea, file
+	    a PR which includes both the rationale and the list of
+	    existing ports that need to be moved.  Ideally, this PR
+	    would also include these patches:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="filename">Makefile</code>s for the new ports
+		once they are repocopied</p></li><li class="listitem"><p><code class="filename">Makefile</code> for the new
+		category</p></li><li class="listitem"><p><code class="filename">Makefile</code> for the old ports'
+		categories</p></li><li class="listitem"><p><code class="filename">Makefile</code>s for ports that
+		depend on the old ports</p></li><li class="listitem"><p>(for extra credit, include the other files
+		that have to change, as per the procedure in the
+		Committer's Guide.)</p></li></ul></div></li><li class="step"><p>Since it affects the ports infrastructure and involves
+	    moving and patching many ports but also possibly running
+	    regression tests on the build cluster, assign the PR to
+	    the Ports Management Team <code class="email">&lt;<a xmlns="" class="email" href="mailto:portmgr@FreeBSD.org">portmgr@FreeBSD.org</a>&gt;</code>.</p></li><li class="step"><p>If that PR is approved, a committer will need to
+	    follow the rest of the procedure that is <a class="link" href="../../../../doc/en_US.ISO8859-1/articles/committers-guide/article.html#PORTS" target="_top">outlined
+	      in the Committer's Guide</a>.</p></li></ol></div><p>Proposing a new virtual category is similar to the
+	above but much less involved, since no ports will actually
+	have to move.  In this case, the only patches to include in
+	the PR would be those to add the new category to
+	<code class="varname">CATEGORIES</code> of the affected ports.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="proposing-reorg"></a>5.3.5. Proposing Reorganizing All the Categories</h3></div></div></div><p>Occasionally someone proposes reorganizing the
+	categories with either a 2-level structure, or some other kind
+	of keyword structure.  To date, nothing has come of any of
+	these proposals because, while they are very easy to make, the
+	effort involved to retrofit the entire existing ports
+	collection with any kind of reorganization is daunting to say
+	the very least.  Please read the history of these proposals in
+	the mailing list archives before posting this idea.
+	Furthermore, be prepared to be challenged to offer
+	a working prototype.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="makefile-naming.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="makefiles.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="makefile-distfiles.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">5.2. Naming </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 5.4. The Distribution Files</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

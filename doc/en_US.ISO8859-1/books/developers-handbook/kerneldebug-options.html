@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>10.8. Glossary of Kernel Options for Debugging</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Developers' Handbook" /><link rel="up" href="kerneldebug.html" title="Chapter 10. Kernel Debugging" /><link rel="prev" href="kerneldebug-dcons.html" title="10.7. Kernel debugging with Dcons" /><link rel="next" href="architectures.html" title="Part IV. Architectures" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">10.8. Glossary of Kernel Options for Debugging</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="kerneldebug-dcons.html">Prev</a> </td><th width="60%" align="center">Chapter 10. Kernel Debugging</th><td width="20%" align="right"> <a accesskey="n" href="architectures.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="kerneldebug-options"></a>10.8. Glossary of Kernel Options for Debugging</h2></div></div></div><p>This section provides a brief glossary of compile-time kernel
+      options used for debugging:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="literal">options KDB</code>: compiles in the kernel
+	  debugger framework.  Required for <code class="literal">options DDB</code>
+	  and <code class="literal">options GDB</code>.  Little or no performance
+	  overhead.  By default, the debugger will be entered on panic
+	  instead of an automatic reboot.</p></li><li class="listitem"><p><code class="literal">options KDB_UNATTENDED</code>: change the default
+	  value of the <code class="literal">debug.debugger_on_panic</code> sysctl to
+	  0, which controls whether the debugger is entered on panic.  When
+	  <code class="literal">options KDB</code> is not compiled into the kernel, the
+	  behavior is to automatically reboot on panic; when it is compiled
+	  into the kernel, the default behavior is to drop into the debugger
+	  unless <code class="literal">options KDB_UNATTENDED</code> is compiled in.
+	  If you want to leave the kernel debugger compiled into the kernel
+	  but want the system to come back up unless you're on-hand to use
+	  the debugger for diagnostics, use this option.</p></li><li class="listitem"><p><code class="literal">options KDB_TRACE</code>: change the default value
+	  of the <code class="literal">debug.trace_on_panic</code> sysctl to 1, which
+	  controls whether the debugger automatically prints a stack trace
+	  on panic.  Especially if running with <code class="literal">options
+	  KDB_UNATTENDED</code>, this can be helpful to gather basic
+	  debugging information on the serial or firewire console while
+	  still rebooting to recover.</p></li><li class="listitem"><p><code class="literal">options DDB</code>: compile in support for the
+	  console debugger, DDB.  This interactive debugger runs on whatever
+	  the active low-level console of the system is, which includes the
+	  video console, serial console, or firewire console.  It provides
+	  basic integrated debugging facilities, such as stack tracing,
+	  process and thread listing, dumping of lock state, VM state, file
+	  system state, and kernel memory management.  DDB does not require
+	  software running on a second machine or being able to generate a
+	  core dump or full debugging kernel symbols, and provides detailed
+	  diagnostics of the kernel at run-time.  Many bugs can be fully
+	  diagnosed using only DDB output.  This option depends on
+	  <code class="literal">options KDB</code>.</p></li><li class="listitem"><p><code class="literal">options GDB</code>: compile in support for the
+	  remote debugger, GDB, which can operate over serial cable or
+	  firewire.  When the debugger is entered, GDB may be attached to
+	  inspect structure contents, generate stack traces, etc.  Some
+	  kernel state is more awkward to access than in DDB, which is able
+	  to generate useful summaries of kernel state automatically, such
+	  as automatically walking lock debugging or kernel memory
+	  management structures, and a second machine running the debugger
+	  is required.  On the other hand, GDB combines information from
+	  the kernel source and full debugging symbols, and is aware of full
+	  data structure definitions, local variables, and is scriptable.
+	  This option is not required to run GDB on a kernel core dump.
+	  This option depends on <code class="literal">options KDB</code>.
+	  </p></li><li class="listitem"><p><code class="literal">options BREAK_TO_DEBUGGER</code>, <code class="literal">options
+	  ALT_BREAK_TO_DEBUGGER</code>: allow a break signal or
+	  alternative signal on the console to enter the debugger.  If the
+	  system hangs without a panic, this is a useful way to reach the
+	  debugger.  Due to the current kernel locking, a break signal
+	  generated on a serial console is significantly more reliable at
+	  getting into the debugger, and is generally recommended.  This
+	  option has little or no performance impact.</p></li><li class="listitem"><p><code class="literal">options INVARIANTS</code>: compile into the kernel
+	  a large number of run-time assertion checks and tests, which
+	  constantly test the integrity of kernel data structures and the
+	  invariants of kernel algorithms.  These tests can be expensive, so
+	  are not compiled in by default, but help provide useful "fail stop"
+	  behavior, in which certain classes of undesired behavior enter the
+	  debugger before kernel data corruption occurs, making them easier
+	  to debug.  Tests include memory scrubbing and use-after-free
+	  testing, which is one of the more significant sources of overhead.
+	  This option depends on <code class="literal">options INVARIANT_SUPPORT</code>.
+	  </p></li><li class="listitem"><p><code class="literal">options INVARIANT_SUPPORT</code>: many of the tests
+	  present in <code class="literal">options INVARIANTS</code> require modified
+	  data structures or additional kernel symbols to be defined.</p></li><li class="listitem"><p><code class="literal">options WITNESS</code>: this option enables run-time
+	  lock order tracking and verification, and is an invaluable tool for
+	  deadlock diagnosis.  WITNESS maintains a graph of acquired lock
+	  orders by lock type, and checks the graph at each acquire for
+	  cycles (implicit or explicit).  If a cycle is detected, a warning
+	  and stack trace are generated to the console, indicating that a
+	  potential deadlock might have occurred.  WITNESS is required in
+	  order to use the <code class="command">show locks</code>, <code class="command">show
+	  witness</code> and <code class="command">show alllocks</code> DDB
+	  commands.  This debug option has significant performance overhead,
+	  which may be somewhat mitigated through the use of <code class="literal">options
+	  WITNESS_SKIPSPIN</code>.  Detailed documentation may be found in
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=witness&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">witness</span>(4)</span></a>.</p></li><li class="listitem"><p><code class="literal">options WITNESS_SKIPSPIN</code>: disable run-time
+	  checking of spinlock lock order with WITNESS.  As spin locks are
+	  acquired most frequently in the scheduler, and scheduler events
+	  occur often, this option can significantly speed up systems
+	  running with WITNESS.  This option depends on <code class="literal">options
+	  WITNESS</code>.</p></li><li class="listitem"><p><code class="literal">options WITNESS_KDB</code>: change the default
+	  value of the <code class="literal">debug.witness.kdb</code> sysctl to 1,
+	  which causes WITNESS to enter the debugger when a lock order
+	  violation is detected, rather than simply printing a warning.  This
+	  option depends on <code class="literal">options WITNESS</code>.</p></li><li class="listitem"><p><code class="literal">options SOCKBUF_DEBUG</code>: perform extensive
+	  run-time consistency checking on socket buffers, which can be
+	  useful for debugging both socket bugs and race conditions in
+	  protocols and device drivers that interact with sockets.  This
+	  option significantly impacts network performance, and may change
+	  the timing in device driver races.</p></li><li class="listitem"><p><code class="literal">options DEBUG_VFS_LOCKS</code>: track lock
+	  acquisition points for lockmgr/vnode locks, expanding the amount
+	  of information displayed by <code class="command">show lockedvnods</code>
+	  in DDB.  This option has a measurable performance impact.</p></li><li class="listitem"><p><code class="literal">options DEBUG_MEMGUARD</code>: a replacement for
+	  the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=malloc&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">malloc</span>(9)</span></a> kernel memory allocator that uses the VM system
+	  to detect reads or writes from allocated memory after free.
+	  Details may be found in <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=memguard&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">memguard</span>(9)</span></a>.  This option has a
+	  significant performance impact, but can be very helpful in
+	  debugging kernel memory corruption bugs.</p></li><li class="listitem"><p><code class="literal">options DIAGNOSTIC</code>: enable additional, more
+	  expensive diagnostic tests along the lines of <code class="literal">options
+	  INVARIANTS</code>.</p></li></ul></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="kerneldebug-dcons.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="kerneldebug.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="architectures.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">10.7. Kernel debugging with Dcons </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Part IV. Architectures</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

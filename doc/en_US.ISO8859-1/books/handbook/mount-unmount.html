@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>3.7. Mounting and Unmounting File Systems</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="basics.html" title="Chapter 3. FreeBSD Basics" /><link rel="prev" href="disk-organization.html" title="3.6. Disk Organization" /><link rel="next" href="basics-processes.html" title="3.8. Processes and Daemons" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">3.7. Mounting and Unmounting File Systems</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="disk-organization.html">Prev</a> </td><th width="60%" align="center">Chapter 3. FreeBSD Basics</th><td width="20%" align="right"> <a accesskey="n" href="basics-processes.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="mount-unmount"></a>3.7. Mounting and Unmounting File Systems</h2></div></div></div><p>The file system is best visualized as a tree, rooted, as it
+      were, at <code class="filename">/</code>.
+      <code class="filename">/dev</code>,
+      <code class="filename">/usr</code>, and the other
+      directories in the root directory are branches, which may have
+      their own branches, such as
+      <code class="filename">/usr/local</code>, and so
+      on.</p><a id="idp52868728" class="indexterm"></a><p>There are various reasons to house some of these
+      directories on separate file systems.
+      <code class="filename">/var</code> contains the
+      directories <code class="filename">log/</code>,
+      <code class="filename">spool/</code>, and various types
+      of temporary files, and as such, may get filled up.  Filling up
+      the root file system is not a good idea, so splitting
+      <code class="filename">/var</code> from
+      <code class="filename">/</code> is often
+      favorable.</p><p>Another common reason to contain certain directory trees on
+      other file systems is if they are to be housed on separate
+      physical disks, or are separate virtual disks, such as Network
+      File System mounts, described in <a class="xref" href="network-nfs.html" title="29.3. Network File System (NFS)">Section 29.3, &#8220;Network File System (NFS)&#8221;</a>,
+      or CDROM drives.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="disks-fstab"></a>3.7.1. The <code class="filename">fstab</code> File</h3></div></div></div><a id="idp52873720" class="indexterm"></a><p>During the boot process (<a class="xref" href="boot.html" title="Chapter 12. The FreeBSD Booting Process">Chapter 12, <em>The FreeBSD Booting Process</em></a>), file
+	systems listed in <code class="filename">/etc/fstab</code> are
+	automatically mounted except for the entries containing
+	<code class="option">noauto</code>.  This file contains entries in the
+	following format:</p><pre class="programlisting"><em class="replaceable"><code>device</code></em>       <em class="replaceable"><code>/mount-point</code></em> <em class="replaceable"><code>fstype</code></em>     <em class="replaceable"><code>options</code></em>      <em class="replaceable"><code>dumpfreq</code></em>     <em class="replaceable"><code>passno</code></em></pre><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">device</code></span></dt><dd><p>An existing device name as explained in
+	      <a class="xref" href="disk-organization.html#disks-naming" title="Table 3.3. Disk Device Names">Table 3.3, &#8220;Disk Device Names&#8221;</a>.</p></dd><dt><span class="term"><code class="literal">mount-point</code></span></dt><dd><p>An existing directory on which to mount the file
+	      system.</p></dd><dt><span class="term"><code class="literal">fstype</code></span></dt><dd><p>The file system type to pass to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mount&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mount</span>(8)</span></a>.  The
+	      default FreeBSD file system is
+	      <code class="literal">ufs</code>.</p></dd><dt><span class="term"><code class="literal">options</code></span></dt><dd><p>Either <code class="option">rw</code> for read-write file
+	      systems, or <code class="option">ro</code> for read-only file
+	      systems, followed by any other options that may be
+	      needed.  A common option is <code class="option">noauto</code> for
+	      file systems not normally mounted during the boot
+	      sequence.  Other options are listed in
+	      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mount&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mount</span>(8)</span></a>.</p></dd><dt><span class="term"><code class="literal">dumpfreq</code></span></dt><dd><p>Used by <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=dump&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">dump</span>(8)</span></a> to determine which file systems
+	      require dumping.  If the field is missing, a value of
+	      zero is assumed.</p></dd><dt><span class="term"><code class="literal">passno</code></span></dt><dd><p>Determines the order in which file systems should be
+	      checked.  File systems that should be skipped should
+	      have their <code class="literal">passno</code> set to zero.  The
+	      root file system needs to be checked before everything
+	      else and should have its <code class="literal">passno</code> set
+	      to one.  The other file systems should be set to
+	      values greater than one.  If more than one file system
+	      has the same <code class="literal">passno</code>, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=fsck&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">fsck</span>(8)</span></a>
+	      will attempt to check file systems in parallel if
+	      possible.</p></dd></dl></div><p>Refer to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=fstab&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">fstab</span>(5)</span></a> for more information on the format
+	of <code class="filename">/etc/fstab</code> and its options.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="disks-mount"></a>3.7.2. Using <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mount&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mount</span>(8)</span></a></h3></div></div></div><a id="idp52911224" class="indexterm"></a><p>File systems are mounted using <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mount&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mount</span>(8)</span></a>.  The most
+	basic syntax is as follows:</p><div class="informalexample"><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>mount <em class="replaceable"><code>device</code></em> <em class="replaceable"><code>mountpoint</code></em></code></strong></pre></div><p>This command provides many options which are described in
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mount&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mount</span>(8)</span></a>, The most commonly used options include:</p><div class="variablelist"><div class="variablelist-title">Mount Options</div><dl class="variablelist"><dt><span class="term"><code class="option">-a</code></span></dt><dd><p>Mount all the file systems listed in
+	      <code class="filename">/etc/fstab</code>, except those marked as
+	      <span class="quote">&#8220;<span class="quote">noauto</span>&#8221;</span>, excluded by the
+	      <code class="option">-t</code> flag, or those that are already
+	      mounted.</p></dd><dt><span class="term"><code class="option">-d</code></span></dt><dd><p>Do everything except for the actual mount system
+	      call.  This option is useful in conjunction with the
+	      <code class="option">-v</code> flag to determine what <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mount&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mount</span>(8)</span></a>
+	      is actually trying to do.</p></dd><dt><span class="term"><code class="option">-f</code></span></dt><dd><p>Force the mount of an unclean file system
+	      (dangerous), or the revocation of write access when
+	      downgrading a file system's mount status from read-write
+	      to read-only.</p></dd><dt><span class="term"><code class="option">-r</code></span></dt><dd><p>Mount the file system read-only.  This is identical
+	      to using <code class="option">-o ro</code>.</p></dd><dt><span class="term"><code class="option">-t</code>
+	    <em class="replaceable"><code>fstype</code></em></span></dt><dd><p>Mount the specified file system type or mount only
+	      file systems of the given type, if <code class="option">-a</code>
+	      is included.  <span class="quote">&#8220;<span class="quote">ufs</span>&#8221;</span> is the default file
+	      system type.</p></dd><dt><span class="term"><code class="option">-u</code></span></dt><dd><p>Update mount options on the file system.</p></dd><dt><span class="term"><code class="option">-v</code></span></dt><dd><p>Be verbose.</p></dd><dt><span class="term"><code class="option">-w</code></span></dt><dd><p>Mount the file system read-write.</p></dd></dl></div><p>The following options can be passed to <code class="option">-o</code>
+	as a comma-separated list:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">nosuid</span></dt><dd><p>Do not interpret setuid or setgid flags on the
+	      file system.  This is also a useful security
+	      option.</p></dd></dl></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="disks-umount"></a>3.7.3. Using <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=umount&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">umount</span>(8)</span></a></h3></div></div></div><a id="idp52959480" class="indexterm"></a><p>To unmount a file system use <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=umount&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">umount</span>(8)</span></a>.  This command
+	takes one parameter which can be a mountpoint, device name,
+	<code class="option">-a</code> or <code class="option">-A</code>.</p><p>All forms take <code class="option">-f</code> to force unmounting,
+	and <code class="option">-v</code> for verbosity.  Be warned that
+	<code class="option">-f</code> is not generally a good idea as it might
+	crash the computer or damage data on the file system.</p><p>To unmount all mounted file systems, or just the file
+	system types listed after <code class="option">-t</code>, use
+	<code class="option">-a</code> or <code class="option">-A</code>.  Note that
+	<code class="option">-A</code> does not attempt to unmount the root file
+	system.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="disk-organization.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="basics.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="basics-processes.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">3.6. Disk Organization </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 3.8. Processes and Daemons</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

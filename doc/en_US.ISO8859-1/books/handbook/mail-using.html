@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>28.2. Mail Components</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="mail.html" title="Chapter 28. Electronic Mail" /><link rel="prev" href="mail.html" title="Chapter 28. Electronic Mail" /><link rel="next" href="sendmail.html" title="28.3. Sendmail Configuration Files" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">28.2. Mail Components</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="mail.html">Prev</a> </td><th width="60%" align="center">Chapter 28. Electronic Mail</th><td width="20%" align="right"> <a accesskey="n" href="sendmail.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="mail-using"></a>28.2. Mail Components</h2></div></div></div><a id="idp68824568" class="indexterm"></a><a id="idp68825080" class="indexterm"></a><a id="idp68825592" class="indexterm"></a><a id="idp68826104" class="indexterm"></a><a id="idp68827384" class="indexterm"></a><a id="idp68849144" class="indexterm"></a><a id="idp68850424" class="indexterm"></a><a id="idp68851704" class="indexterm"></a><a id="idp68852856" class="indexterm"></a><a id="idp68853368" class="indexterm"></a><p>There are five major parts involved in an email exchange:
+      the Mail User Agent (<acronym class="acronym">MUA</acronym>), the Mail Transfer
+      Agent (<acronym class="acronym">MTA</acronym>), a mail host, a remote or local
+      mailbox, and <acronym class="acronym">DNS</acronym>.  This section provides an
+      overview of these components.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">Mail User Agent (<acronym class="acronym">MUA</acronym>)</span></dt><dd><p>The Mail User Agent (<acronym class="acronym">MUA</acronym>) is an
+	    application which is used to compose, send, and receive
+	    emails.  This application can be a command line program,
+	    such as the built-in <code class="command">mail</code> utility or a
+	    third-party application from the Ports Collection, such as
+	    <span class="application">mutt</span>,
+	    <span class="application">alpine</span>, or
+	    <span class="application">elm</span>.  Dozens of graphical
+	    programs are also available in the Ports Collection,
+	    including <span class="application">Claws Mail</span>,
+	    <span class="application">Evolution</span>, and
+	    <span class="application">Thunderbird</span>.  Some
+	    organizations provide a web mail program which can be
+	    accessed through a web browser.  More information about
+	    installing and using a <acronym class="acronym">MUA</acronym> on FreeBSD can
+	    be found in <a class="xref" href="mail-agents.html" title="28.10. Mail User Agents">Section 28.10, &#8220;Mail User Agents&#8221;</a>.</p></dd><dt><span class="term">Mail Transfer Agent (<acronym class="acronym">MTA</acronym>)</span></dt><dd><p>The Mail Transfer Agent (<acronym class="acronym">MTA</acronym>) is
+	    responsible for receiving incoming mail and delivering
+	    outgoing mail.  FreeBSD ships with
+	    <span class="application">Sendmail</span> as the default
+	    <acronym class="acronym">MTA</acronym>, but it also supports numerous
+	    other mail server daemons, including
+	    <span class="application">Exim</span>,
+	    <span class="application">Postfix</span>, and
+	    <span class="application">qmail</span>.
+	    <span class="application">Sendmail</span> configuration is
+	    described in <a class="xref" href="sendmail.html" title="28.3. Sendmail Configuration Files">Section 28.3, &#8220;<span class="application">Sendmail</span> Configuration
+	Files&#8221;</a>.  If another
+	    <acronym class="acronym">MTA</acronym> is installed using the Ports
+	    Collection, refer to its post-installation message for
+	    FreeBSD-specific configuration details and the application's
+	    website for more general configuration
+	    instructions.</p></dd><dt><span class="term">Mail Host and Mailboxes</span></dt><dd><p>The mail host is a server that is responsible for
+	    delivering and receiving mail for a host or a network.
+	    The mail host collects all mail sent to the domain and
+	    stores it either in the default <code class="filename">mbox</code>
+	    or the alternative Maildir format, depending on the
+	    configuration.  Once mail has been stored, it may either
+	    be read locally using a <acronym class="acronym">MUA</acronym> or remotely
+	    accessed and collected using protocols such as
+	    <acronym class="acronym">POP</acronym> or <acronym class="acronym">IMAP</acronym>.  If
+	    mail is read locally, a <acronym class="acronym">POP</acronym> or
+	    <acronym class="acronym">IMAP</acronym> server does not need to be
+	    installed.</p><p>To access mailboxes remotely, a <acronym class="acronym">POP</acronym>
+	    or <acronym class="acronym">IMAP</acronym> server is required as these
+	    protocols allow users to connect to their mailboxes from
+	    remote locations.  <acronym class="acronym">IMAP</acronym> offers several
+	    advantages over <acronym class="acronym">POP</acronym>.  These include the
+	    ability to store a copy of messages on a remote server
+	    after they are downloaded and concurrent updates.
+	    <acronym class="acronym">IMAP</acronym> can be useful over low-speed links
+	    as it allows users to fetch the structure of messages
+	    without downloading them.  It can also perform tasks such
+	    as searching on the server in order to minimize data
+	    transfer between clients and servers.</p><p>Several <acronym class="acronym">POP</acronym> and
+	    <acronym class="acronym">IMAP</acronym> servers are available in the Ports
+	    Collection.  These include
+	    <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/mail/qpopper/pkg-descr">mail/qpopper</a>,
+	    <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/mail/imap-uw/pkg-descr">mail/imap-uw</a>,
+	    <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/mail/courier-imap/pkg-descr">mail/courier-imap</a>, and
+	    <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/mail/dovecot2/pkg-descr">mail/dovecot2</a>.</p><div xmlns="" class="warning"><h3 class="admontitle">Warning: </h3><p xmlns="http://www.w3.org/1999/xhtml">It should be noted that both <acronym class="acronym">POP</acronym>
+	      and <acronym class="acronym">IMAP</acronym> transmit information,
+	      including username and password credentials, in
+	      clear-text.  To secure the transmission of information
+	      across these protocols, consider tunneling sessions over
+	      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ssh&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ssh</span>(1)</span></a> (<a class="xref" href="openssh.html#security-ssh-tunneling" title="13.8.1.2. SSH Tunneling">Section 13.8.1.2, &#8220;<acronym class="acronym">SSH</acronym> Tunneling&#8221;</a>)
+	      or using <acronym class="acronym">SSL</acronym> (<a class="xref" href="openssl.html" title="13.6. OpenSSL">Section 13.6, &#8220;OpenSSL&#8221;</a>).</p></div></dd><dt><span class="term">Domain Name System (<acronym class="acronym">DNS</acronym>)</span></dt><dd><p>The Domain Name System (<acronym class="acronym">DNS</acronym>) and
+	    its daemon <code class="command">named</code> play a large role in
+	    the delivery of email.  In order to deliver mail from one
+	    site to another, the <acronym class="acronym">MTA</acronym> will look up
+	    the remote site in <acronym class="acronym">DNS</acronym> to determine
+	    which host will receive mail for the destination.  This
+	    process also occurs when mail is sent from a remote host
+	    to the <acronym class="acronym">MTA</acronym>.</p><p>In addition to mapping hostnames to
+	    <acronym class="acronym">IP</acronym> addresses, <acronym class="acronym">DNS</acronym> is
+	    responsible for storing information specific to mail
+	    delivery, known as Mail eXchanger
+	    <acronym class="acronym">MX</acronym> records.  The <acronym class="acronym">MX</acronym>
+	    record specifies which hosts will receive mail for a
+	    particular domain.</p><p>To view the <acronym class="acronym">MX</acronym> records for a
+	    domain, specify the type of record.   Refer to
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=host&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">host</span>(1)</span></a>, for more details about this command:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>host -t mx FreeBSD.org</code></strong>
+FreeBSD.org mail is handled by 10 mx1.FreeBSD.org</pre><p>Refer to <a class="xref" href="network-dns.html" title="29.7. Domain Name System (DNS)">Section 29.7, &#8220;Domain Name System (<acronym class="acronym">DNS</acronym>)&#8221;</a> for more
+	    information about <acronym class="acronym">DNS</acronym> and its
+	    configuration.</p></dd></dl></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="mail.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="mail.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="sendmail.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 28. Electronic Mail </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 28.3. <span class="application">Sendmail</span> Configuration
+	Files</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

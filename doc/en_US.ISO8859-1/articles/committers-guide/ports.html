@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>20. Ports Specific FAQ</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Committer's Guide" /><link rel="up" href="index.html" title="Committer's Guide" /><link rel="prev" href="archs.html" title="19. Support for Multiple Architectures" /><link rel="next" href="non-committers.html" title="21. Issues Specific to Developers Who Are Not Committers" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">20. Ports Specific FAQ</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="archs.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="non-committers.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="ports"></a>20. Ports Specific FAQ</h2></div></div></div><div class="qandaset"><a id="idp51731320"></a><dl><dt>20.1.  <a href="ports.html#ports-qa-adding">Adding a New Port</a></dt><dd><dl><dt>20.1.1. <a href="ports.html#ports-qa-add-new">How do I add a new port?</a></dt><dt>20.1.2. <a href="ports.html#ports-qa-add-new-extra">Any other things I need to know when I add a new
+	      port?</a></dt></dl></dd><dt>20.2.  <a href="ports.html#ports-qa-removing">Removing an Existing Port</a></dt><dd><dl><dt>20.2.1. <a href="ports.html#ports-qa-remove-one">How do I remove an existing port?</a></dt></dl></dd><dt>20.3.  <a href="ports.html#ports-qa-re-adding">Re-adding a Deleted Port</a></dt><dd><dl><dt>20.3.1. <a href="ports.html#ports-qa-resurrect">How do I re-add a deleted port?</a></dt></dl></dd><dt>20.4.  <a href="ports.html#ports-qa-repocopies">Repository Copies</a></dt><dd><dl><dt>20.4.1. <a href="ports.html#ports-qa-repocopy-when">When do we need a repository copy?</a></dt><dt>20.4.2. <a href="ports.html#ports-qa-repocopy-how">What do I need to do?</a></dt></dl></dd><dt>20.5.  <a href="ports.html#ports-qa-freeze">Ports Freeze</a></dt><dd><dl><dt>20.5.1. <a href="ports.html#ports-qa-freeze-what">What is a &#8220;ports freeze&#8221;?</a></dt></dl></dd><dt>20.6.  <a href="ports.html#ports-qa-quarterly">Quarterly Branches</a></dt><dd><dl><dt>20.6.1. <a href="ports.html#ports-qa-misc-request-mfh">What is the procedure to request authorization for
+	      merging a commit to the quarterly branch?</a></dt><dt>20.6.2. <a href="ports.html#ports-qa-blanket">Are there any changes that can be merged without
+	      asking for approval?</a></dt><dt>20.6.3. <a href="ports.html#ports-qa-misc-commit-mfh">What is the procedure for merging commits to the
+	      quarterly branch?</a></dt></dl></dd><dt>20.7.  <a href="ports.html#ports-qa-new-category">Creating a New Category</a></dt><dd><dl><dt>20.7.1. <a href="ports.html#ports-qa-new-category-how">What is the procedure for creating a new
+	      category?</a></dt><dt>20.7.2. <a href="ports.html#ports-qa-new-category-physical">What do I need to do to implement a new physical
+	      category?</a></dt><dt>20.7.3. <a href="ports.html#ports-qa-new-category-virtual">What do I need to do to implement a new virtual
+	      category?</a></dt></dl></dd><dt>20.8.  <a href="ports.html#ports-qa-misc-questions">Miscellaneous Questions</a></dt><dd><dl><dt>20.8.1. <a href="ports.html#ports-qa-misc-blanket-approval">Are there changes that can be committed without
+	      asking the maintainer for approval?</a></dt><dt>20.8.2. <a href="ports.html#ports-qa-misc-correctly-building">How do I know if my port is building correctly or
+	      not?</a></dt><dt>20.8.3. <a href="ports.html#ports-qa-misc-INDEX">I added a new port.  Do I need to add it to the
+	      INDEX?</a></dt><dt>20.8.4. <a href="ports.html#ports-qa-misc-no-touch">Are there any other files I am not allowed to
+	      touch?</a></dt><dt>20.8.5. <a href="ports.html#ports-qa-misc-updated-distfile">What is the proper procedure for updating the
+	      checksum for a port distfile when the file changes
+	      without a version change?</a></dt><dt>20.8.6. <a href="ports.html#ports-exp-run">How can an experimental test build of the ports tree
+	      (exp-run) be requested?</a></dt></dl></dd></dl><table border="0" style="width: 100%;"><colgroup><col align="left" width="1%" /><col /></colgroup><tbody><tr class="qandadiv"><td align="left" valign="top" colspan="2"><h4 class="title"><a id="ports-qa-adding"></a>20.1. Adding a New Port</h4></td></tr><tr class="toc"><td align="left" valign="top" colspan="2"><dl><dt>20.1.1. <a href="ports.html#ports-qa-add-new">How do I add a new port?</a></dt><dt>20.1.2. <a href="ports.html#ports-qa-add-new-extra">Any other things I need to know when I add a new
+	      port?</a></dt></dl></td></tr><tr class="question"><td align="left" valign="top"><a id="ports-qa-add-new"></a><a id="idp51732728"></a><p><strong>20.1.1.</strong></p></td><td align="left" valign="top"><p>How do I add a new port?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>First, please read the section about repository
+	      copies.</p><p>The easiest way to add a new port is the
+	      <code class="command">addport</code> script located in the
+	      <code class="filename">ports/Tools/scripts</code> directory.  It
+	      adds a port from the directory specified, determining
+	      the category automatically from the port
+	      <code class="filename">Makefile</code>.  It also adds an entry to
+	      the port's category <code class="filename">Makefile</code>.  It
+	      was written by Michael Haro <code class="email">&lt;<a xmlns="" class="email" href="mailto:mharo@FreeBSD.org">mharo@FreeBSD.org</a>&gt;</code>, Will Andrews <code class="email">&lt;<a xmlns="" class="email" href="mailto:will@FreeBSD.org">will@FreeBSD.org</a>&gt;</code>, and
+	      Renato Botelho <code class="email">&lt;<a xmlns="" class="email" href="mailto:garga@FreeBSD.org">garga@FreeBSD.org</a>&gt;</code>.  When sending questions about this
+	      script to the <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo/freebsd-ports" target="_top">FreeBSD ports mailing list</a>, please also CC Chris Rees <code class="email">&lt;<a xmlns="" class="email" href="mailto:crees@FreeBSD.org">crees@FreeBSD.org</a>&gt;</code>,
+	      the current maintainer.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="ports-qa-add-new-extra"></a><a id="idp51742840"></a><p><strong>20.1.2.</strong></p></td><td align="left" valign="top"><p>Any other things I need to know when I add a new
+	      port?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>Check the port, preferably to make sure it compiles
+	      and packages correctly.  This is the recommended
+	      sequence:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>make install</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make package</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make deinstall</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>pkg add <em class="replaceable"><code>package you built above</code></em></code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make deinstall</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make reinstall</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make package</code></strong></pre><p>The <a class="link" href="../../../../doc/en_US.ISO8859-1/books/porters-handbook/index.html" target="_top">Porters
+		Handbook</a> contains more detailed
+	      instructions.</p><p>Use <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=portlint&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">portlint</span>(1)</span></a> to check the syntax of the
+	      port.  You do not necessarily have to eliminate all
+	      warnings but make sure you have fixed the simple
+	      ones.</p><p>If the port came from a submitter who has not
+	      contributed to the Project before, add that person's
+	      name to the <a class="link" href="../../../../doc/en_US.ISO8859-1/articles/contributors/contrib-additional.html" target="_top">Additional
+		Contributors</a> section of the FreeBSD
+	      Contributors List.</p><p>Close the PR if the port came in as a PR.  To close
+	      a PR, change the state to <code class="literal">Issue
+		Resolved</code> and the resolution as
+	      <code class="literal">Fixed</code>.</p></td></tr><tr class="qandadiv"><td align="left" valign="top" colspan="2"><h4 class="title"><a id="ports-qa-removing"></a>20.2. Removing an Existing Port</h4></td></tr><tr class="toc"><td align="left" valign="top" colspan="2"><dl><dt>20.2.1. <a href="ports.html#ports-qa-remove-one">How do I remove an existing port?</a></dt></dl></td></tr><tr class="question"><td align="left" valign="top"><a id="ports-qa-remove-one"></a><a id="idp51768312"></a><p><strong>20.2.1.</strong></p></td><td align="left" valign="top"><p>How do I remove an existing port?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>First, please read the section about repository
+	      copies.  Before you remove the port, you have to verify
+	      there are no other ports depending on it.</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Make sure there is no dependency on the port
+		  in the ports collection:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem"><p>The port's PKGNAME appears in exactly
+		      one line in a recent INDEX file.</p></li><li class="listitem"><p>No other ports contains any reference
+		      to the port's directory or PKGNAME in their
+		      Makefiles</p><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">When using <span class="application">Git</span>,
+			consider using <code class="command">git grep</code>, it
+			is much faster than <code class="command">grep
+			  -r</code>.</p></div></li></ul></div></li><li class="listitem"><p>Then, remove the port:</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p>Remove the port's files and directory with
+		      <code class="command">svn remove</code>.</p></li><li class="step"><p>Remove the <code class="varname">SUBDIR</code> listing
+		      of the port in the parent directory
+		      <code class="filename">Makefile</code>.</p></li><li class="step"><p>Add an entry to
+		      <code class="filename">ports/MOVED</code>.</p></li><li class="step"><p>Search for entries in
+		      <code class="filename">ports/security/vuxml/vuln.xml</code>
+		      and adjust them accordingly.  In particular,
+		      check for previous packages with the new name
+		      which version could include the new port.</p></li><li class="step"><p>Remove the port from
+		      <code class="filename">ports/LEGAL</code> if it is
+		      there.</p></li></ol></div></li></ul></div><p>Alternatively, you can use the
+	      <code class="command">rmport</code> script, from
+	      <code class="filename">ports/Tools/scripts</code>.  This script
+	      was written by Vasil Dimov <code class="email">&lt;<a xmlns="" class="email" href="mailto:vd@FreeBSD.org">vd@FreeBSD.org</a>&gt;</code>.  When sending questions
+	      about this script to the <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo/freebsd-ports" target="_top">FreeBSD ports mailing list</a>, please also CC
+	      Chris Rees <code class="email">&lt;<a xmlns="" class="email" href="mailto:crees@FreeBSD.org">crees@FreeBSD.org</a>&gt;</code>, the current maintainer.</p></td></tr><tr class="qandadiv"><td align="left" valign="top" colspan="2"><h4 class="title"><a id="ports-qa-re-adding"></a>20.3. Re-adding a Deleted Port</h4></td></tr><tr class="toc"><td align="left" valign="top" colspan="2"><dl><dt>20.3.1. <a href="ports.html#ports-qa-resurrect">How do I re-add a deleted port?</a></dt></dl></td></tr><tr class="question"><td align="left" valign="top"><a id="ports-qa-resurrect"></a><a id="idp51802360"></a><p><strong>20.3.1.</strong></p></td><td align="left" valign="top"><p>How do I re-add a deleted port?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>This is essentially the reverse of deleting a
+	      port.</p><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">Do not use <code class="command">svn add</code> to add the
+		port.  Follow these steps.  If they are unclear, or
+		are not working, ask for help, do not just
+		<code class="command">svn add</code> the port.</p></div><div class="procedure"><ol class="procedure" type="1"><li class="step"><p>Figure out when the port was removed.  Use this
+		  <a class="link" href="https://people.FreeBSD.org/~crees/removed_ports/index.xml" target="_top">list</a>,
+		  or look for the port on <a class="link" href="http://www.freshports.org/" target="_top">freshports</a>,
+		  and then copy the last living revision of the
+		  port:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>cd /usr/ports/<em class="replaceable"><code>category</code></em></code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>svn cp 'svn+ssh://repo.freebsd.org/ports/head/<em class="replaceable"><code>category</code></em>/<em class="replaceable"><code>portname</code></em>/@<em class="replaceable"><code>XXXXXX</code></em>' <em class="replaceable"><code>portname</code></em></code></strong></pre><p>Pick the revision that is just before the
+		  removal.  For example, if the revision where it was
+		  removed is <code class="literal">269874</code>, use
+		  <code class="literal">269873</code>.</p><p>It is also possible to specify a date.  In that
+		  case, pick a date that is before the removal but
+		  after the last commit to the port.</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>cd /usr/ports/<em class="replaceable"><code>category</code></em></code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>svn cp 'svn+ssh://repo.freebsd.org/ports/head/<em class="replaceable"><code>category</code></em>/<em class="replaceable"><code>portname</code></em>/@{<em class="replaceable"><code>YYYY-MM-DD</code></em>}' <em class="replaceable"><code>portname</code></em></code></strong></pre></li><li class="step"><p>Make the changes necessary to get the port
+		  working again.  If it was deleted because the
+		  distfiles are no longer available, either
+		  volunteer to host the distfiles, or find someone
+		  else to do so.</p></li><li class="step"><p>If some files have been added, or were removed
+		  during the resurrection process, use <code class="command">svn
+		    add</code> or <code class="command">svn remove</code> to
+		  make sure all the files in the port will be
+		  committed.</p></li><li class="step"><p>Restore the <code class="varname">SUBDIR</code> listing of
+		  the port in the parent directory
+		  <code class="filename">Makefile</code>, keeping the entries
+		  sorted.</p></li><li class="step"><p>Delete the port entry from
+		  <code class="filename">ports/MOVED</code>.</p></li><li class="step"><p>If the port had an entry in
+		  <code class="filename">ports/LEGAL</code>, restore it.</p></li><li class="step"><p><code class="command">svn commit</code> these changes,
+		  preferably in one step.</p></li></ol></div><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">The <code class="command">addport</code> script mentioned in
+		<a class="xref" href="ports.html#ports-qa-adding" title="Adding a New Port">Q &amp; A 20.1, &#8220;Adding a New Port&#8221;</a> now detects when the
+		port to add has previously existed, and attempts to
+		handle all except the <code class="filename">ports/LEGAL</code>
+		step automatically.</p></div></td></tr><tr class="qandadiv"><td align="left" valign="top" colspan="2"><h4 class="title"><a id="ports-qa-repocopies"></a>20.4. Repository Copies</h4></td></tr><tr class="toc"><td align="left" valign="top" colspan="2"><dl><dt>20.4.1. <a href="ports.html#ports-qa-repocopy-when">When do we need a repository copy?</a></dt><dt>20.4.2. <a href="ports.html#ports-qa-repocopy-how">What do I need to do?</a></dt></dl></td></tr><tr class="question"><td align="left" valign="top"><a id="ports-qa-repocopy-when"></a><a id="idp51822456"></a><p><strong>20.4.1.</strong></p></td><td align="left" valign="top"><p>When do we need a repository copy?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>When you want to add a port that is related to any
+	      port that is already in the tree in a separate
+	      directory, you have to do a repository copy.  Here
+	      <em class="wordasword">related</em> means it is a different
+	      version or a slightly modified version.  Examples are
+	      <code class="filename">print/ghostscript*</code> (different
+	      versions) and <code class="filename">x11-wm/windowmaker*</code>
+	      (English-only and internationalized version).</p><p>Another example is when a port is moved from one
+	      subdirectory to another, or when the name of a directory
+	      must be changed because the authors renamed their
+	      software even though it is a descendant of a port
+	      already in a tree.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="ports-qa-repocopy-how"></a><a id="idp51830136"></a><p><strong>20.4.2.</strong></p></td><td align="left" valign="top"><p>What do I need to do?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>With Subversion, a repo copy can be done by any
+	      committer:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Doing a repo copy:</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p>Verify that the target directory does
+		      not exist.</p></li><li class="step"><p>Use <code class="command">svn up</code> to make
+		      certain the original files, directories, and
+		      checkout information is current.</p></li><li class="step"><p>Use <code class="command">svn move</code> or
+		      <code class="command">svn copy</code> to do the repo
+		      copy.</p></li><li class="step"><p>Upgrade the copied port to the new version.
+		      Remember to add or change the
+		      <code class="varname">PKGNAMEPREFIX</code> or
+		      <code class="varname">PKGNAMESUFFIX</code> so there are no
+		      duplicate ports with the same name.  In some
+		      rare cases it may be necessary to change the
+		      <code class="varname">PORTNAME</code> instead of adding
+		      <code class="varname">PKGNAMEPREFIX</code> or
+		      <code class="varname">PKGNAMESUFFIX</code>, but this is
+		      only done when it is really needed &#8212; for
+		      example, using an existing port as the base for
+		      a very similar program with a different name, or
+		      upgrading a port to a new upstream version which
+		      actually changes the distribution name, like the
+		      transition from
+		      <code class="filename">textproc/libxml</code> to
+		      <code class="filename">textproc/libxml2</code>.  In most
+		      cases, adding or changing
+		      <code class="varname">PKGNAMEPREFIX</code> or
+		      <code class="varname">PKGNAMESUFFIX</code>
+		      suffices.</p></li><li class="step"><p>Add the new subdirectory to the
+		      <code class="varname">SUBDIR</code> listing in the parent
+		      directory <code class="filename">Makefile</code>.  You
+		      can run <code class="command">make checksubdirs</code> in
+		      the parent directory to check this.</p></li><li class="step"><p>If the port changed categories, modify the
+		      <code class="varname">CATEGORIES</code> line of the port's
+		      <code class="filename">Makefile</code> accordingly</p></li><li class="step"><p>Add an entry to
+		      <code class="filename">ports/MOVED</code>, if you remove
+		      the original port.</p></li><li class="step"><p>Commit all changes on one commit.</p></li></ol></div></li><li class="listitem"><p>When removing a port:</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p>Perform a thorough check of the ports
+		      collection for any dependencies on the old port
+		      location/name, and update them.  Running
+		      <code class="command">grep</code> on
+		      <code class="filename">INDEX</code> is not enough because
+		      some ports have dependencies enabled by
+		      compile-time options.  A full
+		      <code class="command">grep -r</code> of the ports
+		      collection is recommended.</p></li><li class="step"><p>Remove the old port and the
+		      old <code class="varname">SUBDIR</code> entry.</p></li><li class="step"><p>Add an entry to
+		      <code class="filename">ports/MOVED</code>.</p></li></ol></div></li><li class="listitem"><p>After repo moves (<span class="quote">&#8220;<span class="quote">rename</span>&#8221;</span>
+		  operations where a port is copied and the old
+		  location is removed):</p><div class="procedure"><ul class="procedure"><li class="step"><p>Follow the same steps that are outlined in
+		      the previous two entries, to activate the new
+		      location of the port and remove the old
+		      one.</p></li></ul></div></li></ul></div></td></tr><tr class="qandadiv"><td align="left" valign="top" colspan="2"><h4 class="title"><a id="ports-qa-freeze"></a>20.5. Ports Freeze</h4></td></tr><tr class="toc"><td align="left" valign="top" colspan="2"><dl><dt>20.5.1. <a href="ports.html#ports-qa-freeze-what">What is a &#8220;ports freeze&#8221;?</a></dt></dl></td></tr><tr class="question"><td align="left" valign="top"><a id="ports-qa-freeze-what"></a><a id="idp50663544"></a><p><strong>20.5.1.</strong></p></td><td align="left" valign="top"><p>What is a <span class="quote">&#8220;<span class="quote">ports freeze</span>&#8221;</span>?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>A <span class="quote">&#8220;<span class="quote">ports freeze</span>&#8221;</span> was a restricted state
+	      the ports tree was put in before a release.  It was used
+	      to ensure a higher quality for the packages shipped with
+	      a release.  It usually lasted a couple of weeks.  During
+	      that time, build problems were fixed, and the release
+	      packages were built.  This practice is no longer used,
+	      as the packages for the releases are built from the
+	      current stable, quarterly branch.</p><p>For more information on how to merge commits to the
+	      quarterly branch, see <a class="xref" href="ports.html#ports-qa-misc-request-mfh" title="20.6.1.">Q: 20.6.1</a>.</p></td></tr><tr class="qandadiv"><td align="left" valign="top" colspan="2"><h4 class="title"><a id="ports-qa-quarterly"></a>20.6. Quarterly Branches</h4></td></tr><tr class="toc"><td align="left" valign="top" colspan="2"><dl><dt>20.6.1. <a href="ports.html#ports-qa-misc-request-mfh">What is the procedure to request authorization for
+	      merging a commit to the quarterly branch?</a></dt><dt>20.6.2. <a href="ports.html#ports-qa-blanket">Are there any changes that can be merged without
+	      asking for approval?</a></dt><dt>20.6.3. <a href="ports.html#ports-qa-misc-commit-mfh">What is the procedure for merging commits to the
+	      quarterly branch?</a></dt></dl></td></tr><tr class="question"><td align="left" valign="top"><a id="ports-qa-misc-request-mfh"></a><a id="idp50672120"></a><p><strong>20.6.1.</strong></p></td><td align="left" valign="top"><p>What is the procedure to request authorization for
+	      merging a commit to the quarterly branch?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>When doing the commit, add the branch name to the
+	      <code class="literal">MFH:</code> line, for example:</p><pre class="programlisting">MFH:	<em class="replaceable"><code>2014Q1</code></em></pre><p>It will automatically notify the Ports Security Team <code class="email">&lt;<a xmlns="" class="email" href="mailto:ports-secteam@FreeBSD.org">ports-secteam@FreeBSD.org</a>&gt;</code>
+	      and the Ports Management Team <code class="email">&lt;<a xmlns="" class="email" href="mailto:portmgr@FreeBSD.org">portmgr@FreeBSD.org</a>&gt;</code>.  They will then decide if the
+	      commit can be merged and answer with the
+	      procedure.</p><p>If the commit has already been made, send an email
+	      to the Ports Security Team <code class="email">&lt;<a xmlns="" class="email" href="mailto:ports-secteam@FreeBSD.org">ports-secteam@FreeBSD.org</a>&gt;</code> and the Ports Management Team <code class="email">&lt;<a xmlns="" class="email" href="mailto:portmgr@FreeBSD.org">portmgr@FreeBSD.org</a>&gt;</code> with the
+	      revision number and a small description of why the
+	      commit needs to be merged.</p><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">If the MFH is covered by a blanket approval,
+		please explain why with a couple of words on the
+		<code class="literal">MFH</code> line, so that the reviewing
+		team can skip this commit and save time.  For
+		example:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="programlisting">MFH:  <em class="replaceable"><code>2014Q1 (runtime fix)</code></em>
+MFH:  <em class="replaceable"><code>2014Q1 (browser blanket)</code></em></pre><p xmlns="http://www.w3.org/1999/xhtml">The list of blanket approvals is available in
+		<a class="xref" href="ports.html#ports-qa-blanket" title="20.6.2.">Q: 20.6.2</a>.</p></div></td></tr><tr class="question"><td align="left" valign="top"><a id="ports-qa-blanket"></a><a id="idp51901048"></a><p><strong>20.6.2.</strong></p></td><td align="left" valign="top"><p>Are there any changes that can be merged without
+	      asking for approval?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>The following blanket approvals for merging to the
+	      quarterly branches are in effect:</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">This blanket approval also applies to direct
+		commits for ports that have been removed from
+		<code class="literal">head</code>.</p></div><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">These fixes <span class="emphasis"><em>must</em></span> be
+		tested on the quarterly branch.</p></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Fixes that do not result in a change in contents
+		  of the resulting package.  For example:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem"><p><code class="filename">pkg-descr</code>:
+		      <code class="literal">WWW:</code> URL updates (existing
+		      404, moved or incorrect)</p></li></ul></div></li><li class="listitem"><p>Build, runtime or packaging fixes, if the
+		  quarterly branch version is currently broken.</p></li><li class="listitem"><p>Missing dependencies (detected, linked against
+		  but not registered via
+		  <code class="varname"><em class="replaceable"><code>*</code></em>_DEPENDS</code>).</p></li><li class="listitem"><p>Fixing <a class="link" href="../../../../doc/en_US.ISO8859-1/books/porters-handbook/uses-shebangfix.html" target="_top">shebangs</a>,
+		  stripping installed libraries and binaries, and
+		  plist fixes.</p></li><li class="listitem"><p>Backport of security and reliability fixes which
+		  only result in <code class="varname">PORTREVISION</code> bumps
+		  and no changes to enabled features.  for example,
+		  adding a patch fixing a buffer overflow.</p></li><li class="listitem"><p>Minor version changes that do nothing but fix
+		  security or crash-related issues.</p></li><li class="listitem"><p>Adding/fixing
+		  <code class="varname">CONFLICTS</code>.</p></li><li class="listitem"><p>Web Browsers, browser plugins, and their
+		  required dependencies.</p></li></ul></div><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">Commits that are not covered by these blanket
+		approvals always require explicit approval of either
+		Ports Security Team <code class="email">&lt;<a xmlns="" class="email" href="mailto:ports-secteam@FreeBSD.org">ports-secteam@FreeBSD.org</a>&gt;</code> or Ports Management Team <code class="email">&lt;<a xmlns="" class="email" href="mailto:portmgr@FreeBSD.org">portmgr@FreeBSD.org</a>&gt;</code>.</p></div></td></tr><tr class="question"><td align="left" valign="top"><a id="ports-qa-misc-commit-mfh"></a><a id="idp51921400"></a><p><strong>20.6.3.</strong></p></td><td align="left" valign="top"><p>What is the procedure for merging commits to the
+	      quarterly branch?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>A script is provided to automate merging a specific
+	      commit: <code class="filename">ports/Tools/scripts/mfh</code>.
+	      It is used as follows:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>/usr/ports/Tools/scripts/mfh 380362</code></strong>
+ U   2015Q1
+Checked out revision 380443.
+A    2015Q1/security
+Updating '2015Q1/security/rubygem-sshkit':
+A    2015Q1/security/rubygem-sshkit
+A    2015Q1/security/rubygem-sshkit/Makefile
+A    2015Q1/security/rubygem-sshkit/distinfo
+A    2015Q1/security/rubygem-sshkit/pkg-descr
+Updated to revision 380443.
+--- Merging r380362 into '2015Q1':
+U    2015Q1/security/rubygem-sshkit/Makefile
+U    2015Q1/security/rubygem-sshkit/distinfo
+--- Recording mergeinfo for merge of r380362 into '2015Q1':
+ U   2015Q1
+--- Recording mergeinfo for merge of r380362 into '2015Q1/security':
+ G   2015Q1/security
+--- Eliding mergeinfo from '2015Q1/security':
+ U   2015Q1/security
+--- Recording mergeinfo for merge of r380362 into '2015Q1/security/rubygem-sshkit':
+ G   2015Q1/security/rubygem-sshkit
+--- Eliding mergeinfo from '2015Q1/security/rubygem-sshkit':
+ U   2015Q1/security/rubygem-sshkit
+ M      2015Q1
+M       2015Q1/security/rubygem-sshkit/Makefile
+M       2015Q1/security/rubygem-sshkit/distinfo
+Index: 2015Q1/security/rubygem-sshkit/Makefile
+===================================================================
+--- 2015Q1/security/rubygem-sshkit/Makefile     (revision 380443)
++++ 2015Q1/security/rubygem-sshkit/Makefile     (working copy)
+@@ -2,7 +2,7 @@
+ # $FreeBSD$
+
+ PORTNAME=      sshkit
+-PORTVERSION=   1.6.1
++PORTVERSION=   1.7.0
+ CATEGORIES=    security rubygems
+ MASTER_SITES=  RG
+
+Index: 2015Q1/security/rubygem-sshkit/distinfo
+===================================================================
+--- 2015Q1/security/rubygem-sshkit/distinfo     (revision 380443)
++++ 2015Q1/security/rubygem-sshkit/distinfo     (working copy)
+@@ -1,2 +1,2 @@
+-SHA256 (rubygem/sshkit-1.6.1.gem) = 8ca67e46bb4ea50fdb0553cda77552f3e41b17a5aa919877d93875dfa22c03a7
+-SIZE (rubygem/sshkit-1.6.1.gem) = 135680
++SHA256 (rubygem/sshkit-1.7.0.gem) = 90effd1813363bae7355f4a45ebc8335a8ca74acc8d0933ba6ee6d40f281a2cf
++SIZE (rubygem/sshkit-1.7.0.gem) = 136192
+Index: 2015Q1
+===================================================================
+--- 2015Q1      (revision 380443)
++++ 2015Q1      (working copy)
+
+Property changes on: 2015Q1
+___________________________________________________________________
+Modified: svn:mergeinfo
+   Merged /head:r380362
+Do you want to commit? (no = start a shell) [y/n]</pre><p>At that point, the script will either open a shell
+	      for you to fix things, or open your text editor with the
+	      commit message all prepared and then commit the
+	      merge.</p><p>The script assumes that you can connect to
+	      <code class="literal">repo.FreeBSD.org</code> with
+	      <span class="application">SSH</span> directly, so if your
+	      local login name is different than your FreeBSD cluster
+	      account, you need a few lines in your
+	      <code class="filename">~/.ssh/config</code>:</p><pre class="programlisting">Host *.freebsd.org
+    User <em class="replaceable"><code>freebsd-login</code></em></pre><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">The script is also able to merge more than one
+		revision at a time.  If there have been other updates
+		to the port since the branch was created that have not
+		been merged because they were not security related.
+		Add the different revisions <span class="emphasis"><em>in the order
+		  they were committed</em></span> on the
+		<code class="command">mfh</code> line.  The new commit log
+		message will contain the combined log messages from
+		all the original commits.  These messages
+		<span class="emphasis"><em>must</em></span> be edited to show what is
+		actually being done with the new commit.</p><pre xmlns="http://www.w3.org/1999/xhtml" class="screen"><code class="prompt">%</code> <strong class="userinput"><code>/usr/ports/Tools/scripts/mfh r407208 r407713 r407722 r408567 r408943 r410728</code></strong></pre></div><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">The mfh script can also take an optional first
+		argument, the branch where the merge is being done.
+		Only the latest quarterly branch is supported, so
+		specifying the branch is discouraged.  To be safe, the
+		script will give a warning if the quarterly branch is
+		not the latest:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="screen"><code class="prompt">%</code> <strong class="userinput"><code>/usr/ports/Tools/scripts/mfh 2016Q1 r407208 r407713</code></strong>
+/!\ The latest branch is 2016Q2, do you really want to commit to 2016Q1? [y/n]</pre></div></td></tr><tr class="qandadiv"><td align="left" valign="top" colspan="2"><h4 class="title"><a id="ports-qa-new-category"></a>20.7. Creating a New Category</h4></td></tr><tr class="toc"><td align="left" valign="top" colspan="2"><dl><dt>20.7.1. <a href="ports.html#ports-qa-new-category-how">What is the procedure for creating a new
+	      category?</a></dt><dt>20.7.2. <a href="ports.html#ports-qa-new-category-physical">What do I need to do to implement a new physical
+	      category?</a></dt><dt>20.7.3. <a href="ports.html#ports-qa-new-category-virtual">What do I need to do to implement a new virtual
+	      category?</a></dt></dl></td></tr><tr class="question"><td align="left" valign="top"><a id="ports-qa-new-category-how"></a><a id="idp51949432"></a><p><strong>20.7.1.</strong></p></td><td align="left" valign="top"><p>What is the procedure for creating a new
+	      category?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>Please see <a class="link" href="../../../../doc/en_US.ISO8859-1/books/porters-handbook/makefile-categories.html#proposing-categories" target="_top">
+		Proposing a New Category</a> in the Porter's
+	      Handbook.  Once that procedure has been followed and the
+	      PR has been assigned to the Ports Management Team <code class="email">&lt;<a xmlns="" class="email" href="mailto:portmgr@FreeBSD.org">portmgr@FreeBSD.org</a>&gt;</code>, it is their
+	      decision whether or not to approve it.  If they do, it
+	      is their responsibility to:</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p>Perform any needed moves.  (This only applies
+		  to physical categories.)</p></li><li class="step"><p>Update the <code class="varname">VALID_CATEGORIES</code>
+		  definition in
+		  <code class="filename">ports/Mk/bsd.port.mk</code>.</p></li><li class="step"><p>Assign the PR back to you.</p></li></ol></div></td></tr><tr class="question"><td align="left" valign="top"><a id="ports-qa-new-category-physical"></a><a id="idp51955832"></a><p><strong>20.7.2.</strong></p></td><td align="left" valign="top"><p>What do I need to do to implement a new physical
+	      category?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><div class="procedure"><ol class="procedure" type="1"><li class="step"><p>Upgrade each moved port's
+		  <code class="filename">Makefile</code>.  Do not connect the
+		  new category to the build yet.</p><p>To do this, you will need to:</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p>Change the port's
+		      <code class="varname">CATEGORIES</code> (this was the
+		      point of the exercise, remember?)  The new
+		      category is listed
+		      <span class="emphasis"><em>first</em></span>.  This will help to
+		      ensure that the <code class="varname">PKGORIGIN</code> is
+		      correct.</p></li><li class="step"><p>Run a <code class="command">make describe</code>.
+		      Since the top-level
+		      <code class="command">make index</code> that you will be
+		      running in a few steps is an iteration of
+		      <code class="command">make describe</code> over the entire
+		      ports hierarchy, catching any errors here will
+		      save you having to re-run that step later
+		      on.</p></li><li class="step"><p>If you want to be really thorough, now
+		      might be a good time to run
+		      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=portlint&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">portlint</span>(1)</span></a>.</p></li></ol></div></li><li class="step"><p>Check that the <code class="varname">PKGORIGIN</code>s are
+		  correct.  The ports system uses each port's
+		  <code class="varname">CATEGORIES</code> entry to create its
+		  <code class="varname">PKGORIGIN</code>, which is used to
+		  connect installed packages to the port directory
+		  they were built from.  If this entry is wrong,
+		  common port tools like <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pkg_version&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pkg_version</span>(1)</span></a> and
+		  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=portupgrade&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">portupgrade</span>(1)</span></a> fail.</p><p>To do this, use the
+		  <code class="filename">chkorigin.sh</code> tool:
+		  <code class="command">env
+		  PORTSDIR=<em class="replaceable"><code>/path/to/ports</code></em>
+		  sh -e
+		  <em class="replaceable"><code>/path/to/ports</code></em>/Tools/scripts/chkorigin.sh</code>.
+		  This will check <span class="emphasis"><em>every</em></span> port in
+		  the ports tree, even those not connected to the
+		  build, so you can run it directly after the move
+		  operation.  Hint: do not forget to look at the
+		  <code class="varname">PKGORIGIN</code>s of any slave ports of
+		  the ports you just moved!</p></li><li class="step"><p>On your own local system, test the proposed
+		  changes: first, comment out the
+		  <code class="varname">SUBDIR</code> entries in the old ports'
+		  categories' <code class="filename">Makefile</code>s; then
+		  enable building the new category in
+		  <code class="filename">ports/Makefile</code>.  Run
+		  <code class="command">make checksubdirs</code> in the affected
+		  category directories to check the
+		  <code class="varname">SUBDIR</code> entries.  Next, in the
+		  <code class="filename">ports/</code>
+		  directory, run <code class="command">make index</code>.  This
+		  can take over 40 minutes on even modern systems;
+		  however, it is a necessary step to prevent problems
+		  for other people.</p></li><li class="step"><p>Once this is done, you can commit the updated
+		  <code class="filename">ports/Makefile</code> to connect the
+		  new category to the build and also commit the
+		  <code class="filename">Makefile</code> changes for the old
+		  category or categories.</p></li><li class="step"><p>Add appropriate entries to
+		  <code class="filename">ports/MOVED</code>.</p></li><li class="step"><p>Update the documentation by modifying:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>the <a class="link" href="../../../../doc/en_US.ISO8859-1/books/porters-handbook/makefile-categories.html#PORTING-CATEGORIES" target="_top">list
+			of categories</a> in the Porter's
+		      Handbook</p></li><li class="listitem"><p><code class="filename">doc/en_US.ISO8859-1/htdocs/ports</code>.
+		      Note that these are now displayed by sub-groups,
+		      as specified in
+		      <code class="filename">doc/en_US.ISO8859-1/htdocs/ports/categories.descriptions</code>.</p></li></ul></div><p>(Note: these are in the docs, not the ports,
+		  repository).  If you are not a docs committer, you
+		  will need to submit a PR for this.</p></li><li class="step"><p>Only once all the above have been done, and no
+		  one is any longer reporting problems with the new
+		  ports, should the old ports be deleted from their
+		  previous locations in the repository.</p></li></ol></div><p>It is not necessary to manually update the
+	      <a class="link" href="../../../../ports/index.html" target="_top">ports web
+		pages</a> to reflect the new category.  This is
+	      done automatically via the change to
+	      <code class="filename">en_US.ISO8859-1/htdocs/ports/categories</code>
+	      and the automated rebuild of
+	      <code class="filename">INDEX</code>.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="ports-qa-new-category-virtual"></a><a id="idp52000760"></a><p><strong>20.7.3.</strong></p></td><td align="left" valign="top"><p>What do I need to do to implement a new virtual
+	      category?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>This is much simpler than a physical category.  Only
+	      a few modifications are needed:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>the <a class="link" href="../../../../doc/en_US.ISO8859-1/books/porters-handbook/makefile-categories.html#PORTING-CATEGORIES" target="_top">list
+		    of categories</a> in the Porter's
+		  Handbook</p></li><li class="listitem"><p><code class="filename">en_US.ISO8859-1/htdocs/ports/categories</code></p></li></ul></div></td></tr><tr class="qandadiv"><td align="left" valign="top" colspan="2"><h4 class="title"><a id="ports-qa-misc-questions"></a>20.8. Miscellaneous Questions</h4></td></tr><tr class="toc"><td align="left" valign="top" colspan="2"><dl><dt>20.8.1. <a href="ports.html#ports-qa-misc-blanket-approval">Are there changes that can be committed without
+	      asking the maintainer for approval?</a></dt><dt>20.8.2. <a href="ports.html#ports-qa-misc-correctly-building">How do I know if my port is building correctly or
+	      not?</a></dt><dt>20.8.3. <a href="ports.html#ports-qa-misc-INDEX">I added a new port.  Do I need to add it to the
+	      INDEX?</a></dt><dt>20.8.4. <a href="ports.html#ports-qa-misc-no-touch">Are there any other files I am not allowed to
+	      touch?</a></dt><dt>20.8.5. <a href="ports.html#ports-qa-misc-updated-distfile">What is the proper procedure for updating the
+	      checksum for a port distfile when the file changes
+	      without a version change?</a></dt><dt>20.8.6. <a href="ports.html#ports-exp-run">How can an experimental test build of the ports tree
+	      (exp-run) be requested?</a></dt></dl></td></tr><tr class="question"><td align="left" valign="top"><a id="ports-qa-misc-blanket-approval"></a><a id="idp52006264"></a><p><strong>20.8.1.</strong></p></td><td align="left" valign="top"><p>Are there changes that can be committed without
+	      asking the maintainer for approval?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>Blanket approval for most ports applies to these
+	      types of fixes:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Most infrastructure changes to a port (that is,
+		  modernizing, but not changing the functionality).
+		  For example, the blanket covers converting to new
+		  <code class="varname">USES</code> macros, enabling verbose
+		  builds, and switching to new ports system
+		  syntaxes.</p></li><li class="listitem"><p>Trivial and <span class="emphasis"><em>tested</em></span> build
+		  and runtime fixes.</p></li></ul></div><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">Exceptions to this are anything maintained by the
+		Ports Management Team <code class="email">&lt;<a xmlns="" class="email" href="mailto:portmgr@FreeBSD.org">portmgr@FreeBSD.org</a>&gt;</code>, or the Security Officer Team <code class="email">&lt;<a xmlns="" class="email" href="mailto:security-officer@FreeBSD.org">security-officer@FreeBSD.org</a>&gt;</code>.  No
+		unauthorized commits may ever be made to ports
+		maintained by those groups.</p></div></td></tr><tr class="question"><td align="left" valign="top"><a id="ports-qa-misc-correctly-building"></a><a id="idp52016632"></a><p><strong>20.8.2.</strong></p></td><td align="left" valign="top"><p>How do I know if my port is building correctly or
+	      not?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>The packages are built multiple times each week.  If
+	      a port fails, the maintainer will receive an email from
+	      <code class="literal">pkg-fallout@FreeBSD.org</code>.</p><p>Reports for all the package builds (official,
+	      experimental, and non-regression) are aggregated at
+	      <a class="link" href="https://pkg-status.freebsd.org/" target="_top">pkg-status.FreeBSD.org</a>.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="ports-qa-misc-INDEX"></a><a id="idp52020216"></a><p><strong>20.8.3.</strong></p></td><td align="left" valign="top"><p>I added a new port.  Do I need to add it to the
+	      <code class="filename">INDEX</code>?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>No.  The file can either be generated by running
+	      <code class="command">make index</code>, or a pre-generated
+	      version can be downloaded with
+	      <code class="command">make fetchindex</code>.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="ports-qa-misc-no-touch"></a><a id="idp52023416"></a><p><strong>20.8.4.</strong></p></td><td align="left" valign="top"><p>Are there any other files I am not allowed to
+	      touch?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>Any file directly under <code class="filename">ports/</code>,
+	      or any file under a subdirectory that starts with an
+	      uppercase letter (<code class="filename">Mk/</code>,
+	      <code class="filename">Tools/</code>, etc.).  In particular, the
+	      Ports Management Team <code class="email">&lt;<a xmlns="" class="email" href="mailto:portmgr@FreeBSD.org">portmgr@FreeBSD.org</a>&gt;</code> is very protective of
+	      <code class="filename">ports/Mk/bsd.port*.mk</code> so do not
+	      commit changes to those files unless you want to face
+	      their wrath.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="ports-qa-misc-updated-distfile"></a><a id="idp52027384"></a><p><strong>20.8.5.</strong></p></td><td align="left" valign="top"><p>What is the proper procedure for updating the
+	      checksum for a port distfile when the file changes
+	      without a version change?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>When the checksum for a distribution file is updated
+	      due to the author updating the file without changing the
+	      port revision, the commit message includes a
+	      summary of the relevant diffs between the original and
+	      new distfile to ensure that the distfile has not been
+	      corrupted or maliciously altered.  If the current
+	      version of the port has been in the ports tree for a
+	      while, a copy of the old distfile will usually be
+	      available on the ftp servers; otherwise the author or
+	      maintainer should be contacted to find out why the
+	      distfile has changed.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="ports-exp-run"></a><a id="idp52029432"></a><p><strong>20.8.6.</strong></p></td><td align="left" valign="top"><p>How can an experimental test build of the ports tree
+	      (<span class="emphasis"><em>exp-run</em></span>) be requested?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>An exp-run must be completed before patches with a
+	      significant ports impact are committed.  The patch can
+	      be against the ports tree or the base system.</p><p>Full package builds will be done with the patches
+	      provided by the submitter, and the submitter is required
+	      to fix detected problems (<span class="emphasis"><em>fallout</em></span>)
+	      before commit.</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p>Go to the <a class="link" href="https://bugs.freebsd.org/submit" target="_top">Bugzilla
+		    new <acronym class="acronym">PR</acronym> page</a>.</p></li><li class="step"><p>Select the product your patch is about.</p></li><li class="step"><p>Fill in the bug report as normal.  Remember to
+		  attach the patch.</p></li><li class="step"><p>If at the top it says <span class="quote">&#8220;<span class="quote">Show Advanced
+		    Fields</span>&#8221;</span> click on it.  It will now say
+		  <span class="quote">&#8220;<span class="quote">Hide Advanced Fields</span>&#8221;</span>.  Many new
+		  fields will be available.  If it already says
+		  <span class="quote">&#8220;<span class="quote">Hide Advanced Fields</span>&#8221;</span>, no need to do
+		  anything.</p></li><li class="step"><p>In the <span class="quote">&#8220;<span class="quote">Flags</span>&#8221;</span> section, set the
+		  <span class="quote">&#8220;<span class="quote">exp-run</span>&#8221;</span> one to <code class="literal">?</code>.
+		  As for all other fields, hovering the mouse over any
+		  field shows more details.</p></li><li class="step"><p>Submit.  Wait for the build to run.</p></li><li class="step"><p>Ports Management Team <code class="email">&lt;<a xmlns="" class="email" href="mailto:portmgr@FreeBSD.org">portmgr@FreeBSD.org</a>&gt;</code> will reply with a possible
+		  fallout.</p></li><li class="step"><p>Depending on the fallout:</p><ul class="stepalternatives">
+		  <li class="step"><p>If there is no fallout, the procedure stops
+		      here, and the change can be committed, pending
+		      any other approval required.</p></li>
+
+		  <li class="step"><ol type="a" class="substeps"><li class="step"><p>If there is fallout, it
+			  <span class="emphasis"><em>must</em></span> be fixed, either
+			  by fixing the ports directly in the ports
+			  tree, or adding to the submitted
+			  patch.</p></li><li class="step"><p>When this is done, go back to step 6
+			  saying the fallout was fixed and wait for
+			  the exp-run to be run again.  Repeat as long
+			  as there are broken ports.</p></li></ol></li>
+		</ul></li></ol></div></td></tr></tbody></table></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="archs.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="non-committers.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">19. Support for Multiple Architectures </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 21. Issues Specific to Developers Who Are Not
+      Committers</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

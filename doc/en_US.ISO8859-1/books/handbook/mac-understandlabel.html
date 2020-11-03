@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>15.3. Understanding MAC Labels</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="mac.html" title="Chapter 15. Mandatory Access Control" /><link rel="prev" href="mac-inline-glossary.html" title="15.2. Key Terms" /><link rel="next" href="mac-planning.html" title="15.4. Planning the Security Configuration" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">15.3. Understanding MAC Labels</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="mac-inline-glossary.html">Prev</a> </td><th width="60%" align="center">Chapter 15. Mandatory Access Control</th><td width="20%" align="right"> <a accesskey="n" href="mac-planning.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="mac-understandlabel"></a>15.3. Understanding MAC Labels</h2></div></div></div><p>A <acronym class="acronym">MAC</acronym> label is a security attribute
+      which may be applied to subjects and objects throughout the
+      system.  When setting a label, the administrator must
+      understand its implications in order to prevent unexpected or
+      undesired behavior of the system.  The attributes available on
+      an object depend on the loaded policy module, as policy modules
+      interpret their attributes in different ways.</p><p>The security label on an object is used as a part of a
+      security access control decision by a policy.  With some
+      policies, the label contains all of the information necessary
+      to make a decision.  In other policies, the labels may be
+      processed as part of a larger rule set.</p><p>There are two types of label policies: single label and
+      multi label.  By default, the system will use single label.  The
+      administrator should be aware of the pros and cons of each in
+      order to implement policies which meet the requirements of the
+      system's security model.</p><p>A single label security policy only permits one label to be
+      used for every subject or object.  Since a single label policy
+      enforces one set of access permissions across the entire system,
+      it provides lower administration overhead, but decreases the
+      flexibility of policies which support labeling.  However, in
+      many environments, a single label policy may be all that is
+      required.</p><p>A single label policy is somewhat similar to
+      <acronym class="acronym">DAC</acronym> as <code class="systemitem">root</code> configures the policies so
+      that users are placed in the appropriate categories and access
+      levels.  A notable difference is that many policy modules can
+      also restrict <code class="systemitem">root</code>.
+      Basic control over objects will then be released to the group,
+      but <code class="systemitem">root</code> may revoke or
+      modify the settings at any time.</p><p>When appropriate, a multi label policy can be set on a
+      <acronym class="acronym">UFS</acronym> file system by passing
+      <code class="option">multilabel</code> to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=tunefs&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">tunefs</span>(8)</span></a>.  A multi label
+      policy permits each subject or object to have its own
+      independent <acronym class="acronym">MAC</acronym> label.  The decision to use a
+      multi label or single label policy is only required for policies
+      which implement the labeling feature, such as
+      <code class="literal">biba</code>, <code class="literal">lomac</code>, and
+      <code class="literal">mls</code>.  Some policies, such as
+      <code class="literal">seeotheruids</code>, <code class="literal">portacl</code> and
+      <code class="literal">partition</code>, do not use labels at all.</p><p>Using a multi label policy on a partition and establishing a
+      multi label security model can increase administrative overhead
+      as everything in that file system has a label.  This includes
+      directories, files, and even device nodes.</p><p>The following command will set <code class="option">multilabel</code>
+      on the specified <acronym class="acronym">UFS</acronym> file system.  This may
+      only be done in single-user mode and is not a requirement for
+      the swap file system:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>tunefs -l enable /</code></strong></pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Some users have experienced problems with setting the
+	<code class="option">multilabel</code> flag on the root partition.  If
+	this is the case, please review <a class="xref" href="mac-troubleshoot.html" title="15.8. Troubleshooting the MAC Framework">Section 15.8, &#8220;Troubleshooting the MAC Framework&#8221;</a>.</p></div><p>Since the multi label policy is set on a per-file system
+      basis, a multi label policy may not be needed if the file system
+      layout is well designed.  Consider an example security
+      <acronym class="acronym">MAC</acronym> model for a FreeBSD web server.  This
+      machine uses the single label, <code class="literal">biba/high</code>, for
+      everything in the default file systems.  If the web server needs
+      to run at <code class="literal">biba/low</code> to prevent write up
+      capabilities, it could be installed to a separate
+      <acronym class="acronym">UFS</acronym> <code class="filename">/usr/local</code> file
+      system set at <code class="literal">biba/low</code>.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp60891768"></a>15.3.1. Label Configuration</h3></div></div></div><p>Virtually all aspects of label policy module configuration
+	will be performed using the base system utilities.  These
+	commands provide a simple interface for object or subject
+	configuration or the manipulation and verification of
+	the configuration.</p><p>All configuration may be done using
+	<code class="command">setfmac</code>, which is used to set
+	<acronym class="acronym">MAC</acronym> labels on system objects, and
+	<code class="command">setpmac</code>, which is used to set the labels on
+	system subjects.  For example, to set the
+	<code class="literal">biba</code> <acronym class="acronym">MAC</acronym> label to
+	<code class="literal">high</code> on <code class="filename">test</code>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>setfmac biba/high test</code></strong></pre><p>If the configuration is successful, the prompt will be
+	returned without error.  A common error is
+	<span class="errorname">Permission denied</span> which usually occurs
+	when the label is being set or modified on a restricted
+	object.  Other conditions may produce different failures.  For
+	instance, the file may not be owned by the user attempting to
+	relabel the object, the object may not exist, or the object
+	may be read-only.  A mandatory policy will not allow the
+	process to relabel the file, maybe because of a property of
+	the file, a property of the process, or a property of the
+	proposed new label value.  For example, if a user running at
+	low integrity tries to change the label of a high integrity
+	file, or a user running at low integrity tries to change the
+	label of a low integrity file to a high integrity label, these
+	operations will fail.</p><p>The system administrator may use
+	<code class="command">setpmac</code> to override the policy module's
+	settings by assigning a different label to the invoked
+	process:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>setfmac biba/high test</code></strong>
+<span class="errorname">Permission denied</span>
+<code class="prompt">#</code> <strong class="userinput"><code>setpmac biba/low setfmac biba/high test</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>getfmac test</code></strong>
+test: biba/high</pre><p>For currently running processes, such as
+	<span class="application">sendmail</span>,
+	<code class="command">getpmac</code> is usually used instead.  This
+	command takes a process ID (<acronym class="acronym">PID</acronym>) in place
+	of a command name.  If users attempt to manipulate a file not
+	in their access, subject to the rules of the loaded policy
+	modules, the <span class="errorname">Operation not permitted</span>
+	error will be displayed.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp60903288"></a>15.3.2. Predefined Labels</h3></div></div></div><p>A few FreeBSD policy modules which support the labeling
+	feature offer three predefined labels: <code class="literal">low</code>,
+	<code class="literal">equal</code>, and <code class="literal">high</code>,
+	where:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="literal">low</code> is considered the lowest label
+	    setting an object or subject may have.  Setting this on
+	    objects or subjects blocks their access to objects or
+	    subjects marked high.</p></li><li class="listitem"><p><code class="literal">equal</code> sets the subject or object to
+	    be disabled or unaffected and should only be placed on
+	    objects considered to be exempt from the policy.</p></li><li class="listitem"><p><code class="literal">high</code> grants an object or subject
+	    the highest setting available in the Biba and
+	    <acronym class="acronym">MLS</acronym> policy modules.</p></li></ul></div><p>Such policy modules include <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mac_biba&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mac_biba</span>(4)</span></a>,
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mac_mls&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mac_mls</span>(4)</span></a> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mac_lomac&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mac_lomac</span>(4)</span></a>.  Each of the predefined
+	labels establishes a different information flow directive.
+	Refer to the manual page of the module to determine the traits
+	of the generic label configurations.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp60912120"></a>15.3.3. Numeric Labels</h3></div></div></div><p>The Biba and <acronym class="acronym">MLS</acronym> policy modules support
+	a numeric label which may be set to indicate the precise level
+	of hierarchical control.  This numeric level is used to
+	partition or sort information into different groups of
+	classification, only permitting access to that group or a
+	higher group level.  For example:</p><pre class="programlisting">biba/10:2+3+6(5:2+3-20:2+3+4+5+6)</pre><p>may be interpreted as <span class="quote">&#8220;<span class="quote">Biba Policy Label/Grade
+	  10:Compartments 2, 3 and 6: (grade 5 ...</span>&#8221;</span>)</p><p>In this example, the first grade would be considered the
+	effective grade with effective compartments, the second grade
+	is the low grade, and the last one is the high grade.  In most
+	configurations, such fine-grained settings are not needed as
+	they are considered to be advanced configurations.</p><p>System objects only have a current grade and compartment.
+	System subjects reflect the range of available rights in the
+	system, and network interfaces, where they are used for access
+	control.</p><p>The grade and compartments in a subject and object pair
+	are used to construct a relationship known as
+	<em class="firstterm">dominance</em>, in which a subject dominates
+	an object, the object dominates the subject, neither dominates
+	the other, or both dominate each other.  The <span class="quote">&#8220;<span class="quote">both
+	  dominate</span>&#8221;</span> case occurs when the two labels are equal.
+	Due to the information flow nature of Biba, a user has rights
+	to a set of compartments that might correspond to projects,
+	but objects also have a set of compartments.  Users may have
+	to subset their rights using <code class="command">su</code> or
+	<code class="command">setpmac</code> in order to access objects in a
+	compartment from which they are not restricted.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp60933880"></a>15.3.4. User Labels</h3></div></div></div><p>Users are required to have labels so that their files and
+	processes properly interact with the security policy defined
+	on the system.  This is configured in
+	<code class="filename">/etc/login.conf</code> using login classes.
+	Every policy module that uses labels will implement the user
+	class setting.</p><p>To set the user class default label which will be enforced
+	by <acronym class="acronym">MAC</acronym>, add a <code class="option">label</code> entry.
+	An example <code class="option">label</code> entry containing every
+	policy module is displayed below.  Note that in a real
+	configuration, the administrator would never enable every
+	policy module.  It is recommended that the rest of this
+	chapter be reviewed before any configuration is
+	implemented.</p><pre class="programlisting">default:\
+	:copyright=/etc/COPYRIGHT:\
+	:welcome=/etc/motd:\
+	:setenv=MAIL=/var/mail/$,BLOCKSIZE=K:\
+	:path=~/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:\
+	:manpath=/usr/share/man /usr/local/man:\
+	:nologin=/usr/sbin/nologin:\
+	:cputime=1h30m:\
+	:datasize=8M:\
+	:vmemoryuse=100M:\
+	:stacksize=2M:\
+	:memorylocked=4M:\
+	:memoryuse=8M:\
+	:filesize=8M:\
+	:coredumpsize=8M:\
+	:openfiles=24:\
+	:maxproc=32:\
+	:priority=0:\
+	:requirehome:\
+	:passwordtime=91d:\
+	:umask=022:\
+	:ignoretime@:\
+	:label=partition/13,mls/5,biba/10(5-15),lomac/10[2]:</pre><p>While users can not modify the default value, they may
+	change their label after they login, subject to the
+	constraints of the policy.  The example above tells the Biba
+	policy that a process's minimum integrity is
+	<code class="literal">5</code>, its maximum is <code class="literal">15</code>,
+	and the default effective label is <code class="literal">10</code>.  The
+	process will run at <code class="literal">10</code> until it chooses to
+	change label, perhaps due to the user using
+	<code class="command">setpmac</code>, which will be constrained by Biba
+	to the configured range.</p><p>After any change to <code class="filename">login.conf</code>, the
+	login class capability database must be rebuilt using
+	<code class="command">cap_mkdb</code>.</p><p>Many sites have a large number of users requiring
+	several different user classes.  In depth planning is
+	required as this can become difficult to manage.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp60969848"></a>15.3.5. Network Interface Labels</h3></div></div></div><p>Labels may be set on network interfaces to help control
+	the flow of data across the network.  Policies using network
+	interface labels function in the same way that policies
+	function with respect to objects.  Users at high settings in
+	Biba, for example, will not be permitted to access network
+	interfaces with a label of <code class="literal">low</code>.</p><p>When setting the <acronym class="acronym">MAC</acronym> label on network
+	interfaces, <code class="option">maclabel</code> may be passed to
+	<code class="command">ifconfig</code>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ifconfig bge0 maclabel biba/equal</code></strong></pre><p>This example will set the <acronym class="acronym">MAC</acronym> label of
+	<code class="literal">biba/equal</code> on the <code class="literal">bge0</code>
+	interface.  When using a setting similar to
+	<code class="literal">biba/high(low-high)</code>, the entire label
+	should be quoted to prevent an error from being
+	returned.</p><p>Each policy module which supports labeling has a tunable
+	which may be used to disable the <acronym class="acronym">MAC</acronym> label
+	on network interfaces.  Setting the label to
+	<code class="option">equal</code> will have a similar effect.  Review
+	the output of <code class="command">sysctl</code>, the policy manual
+	pages, and the information in the rest of this chapter for
+	more information on those tunables.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="mac-inline-glossary.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="mac.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="mac-planning.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">15.2. Key Terms </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 15.4. Planning the Security Configuration</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

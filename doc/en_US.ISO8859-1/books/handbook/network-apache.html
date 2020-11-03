@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>29.8. Apache HTTP Server</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="network-servers.html" title="Chapter 29. Network Servers" /><link rel="prev" href="network-dns.html" title="29.7. Domain Name System (DNS)" /><link rel="next" href="network-ftp.html" title="29.9. File Transfer Protocol (FTP)" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">29.8. Apache HTTP Server</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="network-dns.html">Prev</a> </td><th width="60%" align="center">Chapter 29. Network Servers</th><td width="20%" align="right"> <a accesskey="n" href="network-ftp.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="network-apache"></a>29.8. Apache HTTP Server</h2></div><div><span class="authorgroup">Contributed by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Murray</span> <span class="surname">Stokely</span></span>. </span></div></div></div><a id="idp70756856" class="indexterm"></a><a id="idp70757752" class="indexterm"></a><p>The open source
+      <span class="application">Apache HTTP Server</span> is the most widely
+      used web server.  FreeBSD does not install this web server by
+      default, but it can be installed from the
+      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/www/apache24/pkg-descr">www/apache24</a> package or port.</p><p>This section summarizes how to configure and start version
+      2.<em class="replaceable"><code>x</code></em> of the <span class="application">Apache HTTP
+	Server</span> on FreeBSD.  For more detailed information
+      about <span class="application">Apache</span> 2.X and its
+      configuration directives, refer to <a class="link" href="http://httpd.apache.org/" target="_top">httpd.apache.org</a>.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp70761464"></a>29.8.1. Configuring and Starting Apache</h3></div></div></div><a id="idp70762104" class="indexterm"></a><p>In FreeBSD, the main <span class="application">Apache HTTP
+	  Server</span> configuration file is installed as
+	<code class="filename">/usr/local/etc/apache2<em class="replaceable"><code>x</code></em>/httpd.conf</code>,
+	where <em class="replaceable"><code>x</code></em> represents the version
+	number.  This <acronym class="acronym">ASCII</acronym> text file begins
+	comment lines with a <code class="literal">#</code>.  The most
+	frequently modified directives are:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">ServerRoot "/usr/local"</code></span></dt><dd><p>Specifies the default directory hierarchy for the
+	      <span class="application">Apache</span> installation.
+	      Binaries are stored in the <code class="filename">bin</code> and
+	      <code class="filename">sbin</code> subdirectories of the server
+	      root and configuration files are stored in the <code class="filename">etc/apache2<em class="replaceable"><code>x</code></em></code>
+	      subdirectory.</p></dd><dt><span class="term"><code class="literal">ServerAdmin you@example.com</code></span></dt><dd><p>Change this to the email address to receive problems
+	      with the server.  This address also appears on some
+	      server-generated pages, such as error documents.</p></dd><dt><span class="term"><code class="literal">ServerName
+	      www.example.com:80</code></span></dt><dd><p>Allows an administrator to set a hostname which is
+	      sent back to clients for the server.  For example,
+	      <code class="systemitem">www</code> can be used instead of the
+	      actual hostname.  If the system does not have a
+	      registered <acronym class="acronym">DNS</acronym> name, enter its
+	      <acronym class="acronym">IP</acronym> address instead.  If the server
+	      will listen on an alternate report, change
+	      <code class="literal">80</code> to the alternate port
+	      number.</p></dd><dt><span class="term"><code class="literal">DocumentRoot
+	    "/usr/local/www/apache2<em class="replaceable"><code>x</code></em>/data"</code></span></dt><dd><p>The directory where documents will be served from.
+	      By default, all requests are taken from this directory,
+	      but symbolic links and aliases may be used to point to
+	      other locations.</p></dd></dl></div><p>It is always a good idea to make a backup copy of the
+	default <span class="application">Apache</span> configuration file
+	before making changes.  When the configuration of
+	<span class="application">Apache</span> is complete, save the file
+	and verify the configuration using
+	<code class="command">apachectl</code>.  Running <code class="command">apachectl
+	  configtest</code> should return <code class="literal">Syntax
+	  OK</code>.</p><a id="idp70795256" class="indexterm"></a><p>To launch <span class="application">Apache</span> at system
+	startup, add the following line to
+	<code class="filename">/etc/rc.conf</code>:</p><pre class="programlisting">apache<em class="replaceable"><code>24</code></em>_enable="YES"</pre><p>If <span class="application">Apache</span> should be started
+	with non-default options, the following line may be added to
+	<code class="filename">/etc/rc.conf</code> to specify the needed
+	flags:</p><pre class="programlisting">apache<em class="replaceable"><code>24</code></em>_flags=""</pre><p>If <span class="application">apachectl</span> does not report
+	configuration errors, start <code class="command">httpd</code>
+	now:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service apache<em class="replaceable"><code>24</code></em> start</code></strong></pre><p>The <code class="command">httpd</code> service can be tested by
+	entering
+	<code class="literal">http://<em class="replaceable"><code>localhost</code></em></code>
+	in a web browser, replacing
+	<em class="replaceable"><code>localhost</code></em> with the fully-qualified
+	domain name of the machine running <code class="command">httpd</code>.
+	The default web page that is displayed is
+	<code class="filename">/usr/local/www/apache<em class="replaceable"><code>24</code></em>/data/index.html</code>.</p><p>The <span class="application">Apache</span> configuration can be
+	tested for errors after making subsequent configuration
+	changes while <code class="command">httpd</code> is running using the
+	following command:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service apache<em class="replaceable"><code>24</code></em> configtest</code></strong></pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">It is important to note that
+	  <code class="literal">configtest</code> is not an <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rc&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rc</span>(8)</span></a> standard,
+	  and should not be expected to work for all startup
+	  scripts.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp70813944"></a>29.8.2. Virtual Hosting</h3></div></div></div><p>Virtual hosting allows multiple websites to run on one
+	<span class="application">Apache</span> server.  The virtual hosts
+	can be <em class="firstterm">IP-based</em> or
+	<em class="firstterm">name-based</em>.
+	<acronym class="acronym">IP</acronym>-based virtual hosting uses a different
+	<acronym class="acronym">IP</acronym> address for each website.  Name-based
+	virtual hosting uses the clients HTTP/1.1 headers to figure
+	out the hostname, which allows the websites to share the same
+	<acronym class="acronym">IP</acronym> address.</p><p>To setup <span class="application">Apache</span> to use
+	name-based virtual hosting, add a
+	<code class="literal">VirtualHost</code> block for each website.  For
+	example, for the webserver named <code class="systemitem">www.domain.tld</code> with a
+	virtual domain of <code class="systemitem">www.someotherdomain.tld</code>,
+	add the following entries to
+	<code class="filename">httpd.conf</code>:</p><pre class="programlisting">&lt;VirtualHost *&gt;
+    ServerName <em class="replaceable"><code>www.domain.tld</code></em>
+    DocumentRoot <em class="replaceable"><code>/www/domain.tld</code></em>
+&lt;/VirtualHost&gt;
+
+&lt;VirtualHost *&gt;
+    ServerName <em class="replaceable"><code>www.someotherdomain.tld</code></em>
+    DocumentRoot <em class="replaceable"><code>/www/someotherdomain.tld</code></em>
+&lt;/VirtualHost&gt;</pre><p>For each virtual host, replace the values for
+	<code class="literal">ServerName</code> and
+	<code class="literal">DocumentRoot</code> with the values to be
+	used.</p><p>For more information about setting up virtual hosts,
+	consult the official <span class="application">Apache</span>
+	documentation at: <code class="uri"><a class="uri" href="http://httpd.apache.org/docs/vhosts/" target="_top">http://httpd.apache.org/docs/vhosts/</a></code>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp70828408"></a>29.8.3. Apache Modules</h3></div></div></div><a id="idp70829048" class="indexterm"></a><p><span class="application">Apache</span> uses modules to augment
+	the functionality provided by the basic server.  Refer to <code class="uri"><a class="uri" href="http://httpd.apache.org/docs/current/mod/" target="_top">http://httpd.apache.org/docs/current/mod/</a></code>
+	for a complete listing of and the configuration details for
+	the available modules.</p><p>In FreeBSD, some modules can be compiled with the
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/www/apache24/pkg-descr">www/apache24</a> port.  Type <code class="command">make
+	  config</code> within
+	<code class="filename">/usr/ports/www/apache24</code> to see which
+	modules are available and which are enabled by default.  If
+	the module is not compiled with the port, the FreeBSD Ports
+	Collection provides an easy way to install many modules.  This
+	section describes three of the most commonly used
+	modules.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp70836728"></a>29.8.3.1. SSL support</h4></div></div></div><a id="idp70837368" class="indexterm"></a><a id="idp70838520" class="indexterm"></a><a id="idp70839032" class="indexterm"></a><p>At one in point in time, support for <acronym class="acronym">SSL</acronym>
+	  inside of Apache required a secondary module called
+	  <code class="filename">mod_ssl</code>. This is no longer the case and
+	  the default install of Apache comes with <acronym class="acronym">SSL</acronym>
+	  built into the web server. An example of how to enable
+	  support for <acronym class="acronym">SSL</acronym> websites is available
+	  in the installed file, <code class="filename">httpd-ssl.conf</code>
+	  inside of the
+	  <code class="filename">/usr/local/etc/apache24/extra</code>
+	  directory. Inside this directory is also a sample file called
+	  named <code class="filename">ssl.conf-sample</code>. It is recommended
+	  that both files be evaluated to properly set up secure websites
+	  in the Apache web server.</p><p>After the configuration of <acronym class="acronym">SSL</acronym> is
+	  complete, the following line must be uncommented in the main
+	  <code class="filename">http.conf</code> to activate the changes on the
+	  next restart or reload of Apache:</p><pre class="programlisting">#Include etc/apache24/extra/httpd-ssl.conf</pre><div xmlns="" class="warning"><h3 class="admontitle">Warning: </h3><p xmlns="http://www.w3.org/1999/xhtml"><acronym class="acronym">SSL</acronym> version two and version three have
+	    known vulnerability issues. It is highly recommended TLS version 
+	    1.2 and 1.3 be enabled in place of the older SSL options.
+	    This can be accomplished by setting the following options in the
+	    <code class="filename">ssl.conf</code>:</p></div><pre class="programlisting">SSLProtocol all -SSLv3 -SSLv2 +TLSv1.2 +TLSv1.3
+SSLProxyProtocol all -SSLv2 -SSLv3 -TLSv1 -TLSv1.1</pre><p>To complete the configuration of <acronym class="acronym">SSL</acronym>
+	  in the web server, uncomment the following line to ensure that
+	  the configuration will be pulled into Apache during restart or
+	  reload:</p><pre class="programlisting"># Secure (SSL/TLS) connections
+Include etc/apache24/extra/httpd-ssl.conf</pre><p>The following lines must also be uncommented in the
+	  <code class="filename">httpd.conf</code> to fully support
+	  <acronym class="acronym">SSL</acronym> in Apache:</p><pre class="programlisting">LoadModule authn_socache_module libexec/apache24/mod_authn_socache.so
+LoadModule socache_shmcb_module libexec/apache24/mod_socache_shmcb.so
+LoadModule ssl_module libexec/apache24/mod_ssl.so</pre><p>The next step is to work with a certificate authority
+	  to have the appropriate certificates installed on the
+	  system. This will set up a chain of trust for the site
+	  and prevent any warnings of self-signed certificates.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp70853496"></a>29.8.3.2. <code class="filename">mod_perl</code></h4></div></div></div><a id="idp70854264" class="indexterm"></a><p>The
+	  <code class="filename">mod_perl</code> module makes it possible to
+	  write <span class="application">Apache</span> modules in
+	  <span class="application">Perl</span>.  In addition, the
+	  persistent interpreter embedded in the server avoids the
+	  overhead of starting an external interpreter and the penalty
+	  of <span class="application">Perl</span> start-up time.</p><p>The <code class="filename">mod_perl</code> can be installed using
+	  the <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/www/mod_perl2/pkg-descr">www/mod_perl2</a> package or port.
+	  Documentation for using this module can be found at <code class="uri"><a class="uri" href="http://perl.apache.org/docs/2.0/index.html" target="_top">http://perl.apache.org/docs/2.0/index.html</a></code>.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp70519160"></a>29.8.3.3. <code class="filename">mod_php</code></h4></div><div><span class="authorgroup">Written by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Tom</span> <span class="surname">Rhodes</span></span>. </span></div></div></div><a id="idp70522616" class="indexterm"></a><p><em class="firstterm">PHP: Hypertext Preprocessor</em>
+	  (<acronym class="acronym">PHP</acronym>) is a general-purpose scripting
+	  language that is especially suited for web development.
+	  Capable of being embedded into <acronym class="acronym">HTML</acronym>, its
+	  syntax draws upon <span class="application">C</span>, <span class="trademark">Java</span>&#8482;, and
+	  <span class="application">Perl</span> with the intention of
+	  allowing web developers to write dynamically generated
+	  webpages quickly.</p><p>Support for <acronym class="acronym">PHP</acronym> for
+	  <span class="application">Apache</span> and any other feature
+	  written in the language, can be added
+	  by installing the appropriate port.</p><p>For all supported versions, search the package database
+	  using <code class="command">pkg</code>. Here is an example of the
+	  available <acronym class="acronym">PHP</acronym> packages as of the time
+	  of this writing:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg search php</code></strong></pre><p>A list will be displayed including the versions and
+	  additional features they provide. The components are
+	  completely modular, meaning features are enabled by
+	  installing the appropriate port. To install
+	  <acronym class="acronym">PHP</acronym> version 7.4 for Apache, issue
+	  the following command:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg install mod_php74</code></strong></pre><p>If any dependency packages need to be installed, they will
+	  be installed as well.</p><p>By default, <acronym class="acronym">PHP</acronym> will not be
+	  enabled. The following lines will need to be added to
+	  the Apache configuration file located in
+	  <code class="filename">/usr/local/etc/apache24</code>
+	  to make it active:</p><pre class="programlisting">&lt;FilesMatch "\.php$"&gt;
+    SetHandler application/x-httpd-php
+&lt;/FilesMatch&gt;
+&lt;FilesMatch "\.phps$"&gt;
+    SetHandler application/x-httpd-php-source
+&lt;/FilesMatch&gt;</pre><p>In addition, the <code class="option">DirectoryIndex</code> in
+	  the configuration file will also need to be updated
+	  and Apache will either need to be restarted or reloaded
+	  for the changes to take effect.</p><p>Support for many of the <acronym class="acronym">PHP</acronym>
+	  features may also be installed by using
+	  <code class="command">pkg</code>. For example, to install
+	  support for <acronym class="acronym">XML</acronym> or
+	  <acronym class="acronym">SSL</acronym>, install their respective
+	  ports:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg install php74-xml php74-openssl</code></strong></pre><p>As before, the Apache configuration will need to be
+	  reloaded for the changes to take effect, even in cases
+	  where it was just a module install.</p><p>To perform a graceful restart to reload the
+	  configuration, issue the following command:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>apachectl graceful</code></strong></pre><p>Once the install is complete, there are two methods of
+	  obtaining the installed <acronym class="acronym">PHP</acronym> support modules
+	  and the environmental information of the build. The first is
+	  to install the full <acronym class="acronym">PHP</acronym> binary and running
+	  the command to gain the information:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg install php74</code></strong></pre><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>php -i |less</code></strong></pre><p>It is necessary to pass the output to a pager, such as
+	  the <code class="command">more</code> or <code class="command">less</code> to
+	  easier digest the amount of output.</p><p>Finally, to make any changes to the global configuration
+	  of <acronym class="acronym">PHP</acronym> there is a well documented file
+	  installed into
+	  <code class="filename">/usr/local/etc/php.ini</code>.
+	  At the time of install, this file will not exist because there
+	  are two versions to choose from, one is
+	  <code class="filename">php.ini-development</code> and the other is
+	  <code class="filename">php.ini-production</code>. These are starting
+	  points to assist administrators in their deployment.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp70881144"></a>29.8.4. Dynamic Websites</h3></div></div></div><a id="idp70881784" class="indexterm"></a><p>In addition to <span class="application">mod_perl</span> and
+	<span class="application">mod_php</span>, other languages are
+	available for creating dynamic web content.  These include
+	<span class="application">Django</span> and
+	<span class="application">Ruby on Rails</span>.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp70888952"></a>29.8.4.1. Django</h4></div></div></div><a id="idp70889592" class="indexterm"></a><a id="idp70890104" class="indexterm"></a><p><span class="application">Django</span> is a BSD-licensed
+	  framework designed to allow developers to write high
+	  performance, elegant web applications quickly.  It provides
+	  an object-relational mapper so that data types are developed
+	  as <span class="application">Python</span> objects.  A rich
+	  dynamic database-access <acronym class="acronym">API</acronym> is provided
+	  for those objects without the developer ever having to write
+	  <acronym class="acronym">SQL</acronym>.  It also provides an extensible
+	  template system so that the logic of the application is
+	  separated from the <acronym class="acronym">HTML</acronym>
+	  presentation.</p><p>Django depends on <code class="filename">mod_python</code>, and
+	  an <acronym class="acronym">SQL</acronym> database engine.  In FreeBSD, the
+	  <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/www/py-django/pkg-descr">www/py-django</a> port automatically installs
+	  <code class="filename">mod_python</code> and supports the
+	  <span class="application">PostgreSQL</span>,
+	  <span class="application">MySQL</span>, or
+	  <span class="application">SQLite</span> databases, with the
+	  default being <span class="application">SQLite</span>.  To change
+	  the database engine, type <code class="command">make config</code>
+	  within <code class="filename">/usr/ports/www/py-django</code>, then
+	  install the port.</p><p>Once <span class="application">Django</span> is installed, the
+	  application will need a project directory along with the
+	  <span class="application">Apache</span> configuration in order to
+	  use the embedded <span class="application">Python</span>
+	  interpreter.  This interpreter is used to call the
+	  application for specific <acronym class="acronym">URL</acronym>s on the
+	  site.</p><p>To configure <span class="application">Apache</span> to pass
+	  requests for certain <acronym class="acronym">URL</acronym>s to the web
+	  application, add the following to
+	  <code class="filename">httpd.conf</code>, specifying the full path to
+	  the project directory:</p><pre class="programlisting">&lt;Location "/"&gt;
+    SetHandler python-program
+    PythonPath "['<em class="replaceable"><code>/dir/to/the/django/packages/</code></em>'] + sys.path"
+    PythonHandler django.core.handlers.modpython
+    SetEnv DJANGO_SETTINGS_MODULE mysite.settings
+    PythonAutoReload On
+    PythonDebug On
+&lt;/Location&gt;</pre><p>Refer to <code class="uri"><a class="uri" href="https://docs.djangoproject.com" target="_top">https://docs.djangoproject.com</a></code>
+	  for more information on how to use
+	  <span class="application">Django</span>.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp70915064"></a>29.8.4.2. Ruby on Rails</h4></div></div></div><a id="idp70915704" class="indexterm"></a><p><span class="application">Ruby on Rails</span> is another open
+	  source web framework that provides a full development stack.
+	  It is optimized to make web developers more productive and
+	  capable of writing powerful applications quickly.  On FreeBSD,
+	  it can be installed using the
+	  <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/www/rubygem-rails/pkg-descr">www/rubygem-rails</a> package or port.</p><p>Refer to <code class="uri"><a class="uri" href="http://guides.rubyonrails.org" target="_top">http://guides.rubyonrails.org</a></code>
+	  for more information on how to use <span class="application">Ruby on
+	    Rails</span>.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="network-dns.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="network-servers.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="network-ftp.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">29.7. Domain Name System (<acronym class="acronym">DNS</acronym>) </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 29.9. File Transfer Protocol (<acronym class="acronym">FTP</acronym>)</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>3. Emulation</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Linux® emulation in FreeBSD" /><link rel="up" href="index.html" title="Linux® emulation in FreeBSD" /><link rel="prev" href="inside.html" title="2. A look inside&#8230;" /><link rel="next" href="md.html" title="4. Linux® emulation layer -MD part" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">3. Emulation</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="inside.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="md.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="freebsd-emulation"></a>3. Emulation</h2></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47385976"></a>3.1. How emulation works in FreeBSD</h3></div></div></div><p>As stated earlier, FreeBSD supports running binaries from
+	several other <span class="trademark">UNIX</span>®es.  This works because FreeBSD has an
+	abstraction called the execution class loader.  This wedges
+	into the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=execve&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">execve</span>(2)</span></a> syscall, so when <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=execve&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">execve</span>(2)</span></a> is
+	about to execute a binary it examines its type.</p><p>There are basically two types of binaries in FreeBSD.
+	Shell-like text scripts which are identified by
+	<code class="literal">#!</code> as their first two characters and normal
+	(typically <em class="firstterm">ELF</em>) binaries, which are a
+	representation of a compiled executable object.  The vast
+	majority (one could say all of them) of binaries in FreeBSD are
+	from type ELF.  ELF files contain a header, which specifies
+	the OS ABI for this ELF file.  By reading this information,
+	the operating system can accurately determine what type of
+	binary the given file is.</p><p>Every OS ABI must be registered in the FreeBSD kernel.  This
+	applies to the FreeBSD native OS ABI, as well.  So when
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=execve&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">execve</span>(2)</span></a> executes a binary it iterates through the list
+	of registered APIs and when it finds the right one it starts
+	to use the information contained in the OS ABI description
+	(its syscall table, <code class="literal">errno</code> translation
+	table, etc.).  So every time the process calls a syscall, it
+	uses its own set of syscalls instead of some global one.  This
+	effectively provides a very elegant and easy way of supporting
+	execution of various binary formats.</p><p>The nature of emulation of different OSes (and also some
+	other subsystems) led developers to invite a handler event
+	mechanism.  There are various places in the kernel, where a
+	list of event handlers are called.  Every subsystem can
+	register an event handler and they are called accordingly.
+	For example, when a process exits there is a handler called
+	that possibly cleans up whatever the subsystem needs to be
+	cleaned.</p><p>Those simple facilities provide basically everything that
+	is needed for the emulation infrastructure and in fact these
+	are basically the only things necessary to implement the
+	<span class="trademark">Linux</span>® emulation layer.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="freebsd-common-primitives"></a>3.2. Common primitives in the FreeBSD kernel</h3></div></div></div><p>Emulation layers need some support from the operating
+	system.  I am going to describe some of the supported
+	primitives in the FreeBSD operating system.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="freebsd-locking-primitives"></a>3.2.1. Locking primitives</h4></div></div></div><p>Contributed by: Attilio Rao <code class="email">&lt;<a xmlns="" class="email" href="mailto:attilio@FreeBSD.org">attilio@FreeBSD.org</a>&gt;</code></p><p>The FreeBSD synchronization primitive set is based on the
+	  idea to supply a rather huge number of different primitives
+	  in a way that the better one can be used for every
+	  particular, appropriate situation.</p><p>To a high level point of view you can consider three
+	  kinds of synchronization primitives in the FreeBSD
+	  kernel:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>atomic operations and memory barriers</p></li><li class="listitem"><p>locks</p></li><li class="listitem"><p>scheduling barriers</p></li></ul></div><p>Below there are descriptions for the 3 families.  For
+	  every lock, you should really check the linked manpage
+	  (where possible) for more detailed explanations.</p><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="freebsd-atomic-op"></a>3.2.1.1. Atomic operations and memory barriers</h5></div></div></div><p>Atomic operations are implemented through a set of
+	    functions performing simple arithmetics on memory operands
+	    in an atomic way with respect to external events
+	    (interrupts, preemption, etc.).  Atomic operations can
+	    guarantee atomicity just on small data types (in the
+	    magnitude order of the <code class="literal">.long.</code>
+	    architecture C data type), so should be rarely used
+	    directly in the end-level code, if not only for very
+	    simple operations (like flag setting in a bitmap, for
+	    example).  In fact, it is rather simple and common to
+	    write down a wrong semantic based on just atomic
+	    operations (usually referred as lock-less).  The FreeBSD
+	    kernel offers a way to perform atomic operations in
+	    conjunction with a memory barrier.  The memory barriers
+	    will guarantee that an atomic operation will happen
+	    following some specified ordering with respect to other
+	    memory accesses.  For example, if we need that an atomic
+	    operation happen just after all other pending writes (in
+	    terms of instructions reordering buffers activities) are
+	    completed, we need to explicitly use a memory barrier in
+	    conjunction to this atomic operation.  So it is simple to
+	    understand why memory barriers play a key role for
+	    higher-level locks building (just as refcounts, mutexes,
+	    etc.).  For a detailed explanatory on atomic operations,
+	    please refer to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=atomic&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">atomic</span>(9)</span></a>.  It is far, however,
+	    noting that atomic operations (and memory barriers as
+	    well) should ideally only be used for building
+	    front-ending locks (as mutexes).</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="freebsd-refcounts"></a>3.2.1.2. Refcounts</h5></div></div></div><p>Refcounts are interfaces for handling reference
+	    counters.  They are implemented through atomic operations
+	    and are intended to be used just for cases, where the
+	    reference counter is the only one thing to be protected,
+	    so even something like a spin-mutex is deprecated.  Using
+	    the refcount interface for structures, where a mutex is
+	    already used is often wrong since we should probably close
+	    the reference counter in some already protected paths.  A
+	    manpage discussing refcount does not exist currently, just
+	    check <code class="filename">sys/refcount.h</code> for an overview
+	    of the existing API.</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="freebsd-locks"></a>3.2.1.3. Locks</h5></div></div></div><p>FreeBSD kernel has huge classes of locks.  Every lock is
+	    defined by some peculiar properties, but probably the most
+	    important is the event linked to contesting holders (or in
+	    other terms, the behavior of threads unable to acquire the
+	    lock).  FreeBSD's locking scheme presents three different
+	    behaviors for contenders:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>spinning</p></li><li class="listitem"><p>blocking</p></li><li class="listitem"><p>sleeping</p></li></ol></div><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">numbers are not casual</p></div></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="freebsd-spinlocks"></a>3.2.1.4. Spinning locks</h5></div></div></div><p>Spin locks let waiters to spin until they cannot
+	    acquire the lock.  An important matter do deal with is
+	    when a thread contests on a spin lock if it is not
+	    descheduled.  Since the FreeBSD kernel is preemptive, this
+	    exposes spin lock at the risk of deadlocks that can be
+	    solved just disabling interrupts while they are acquired.
+	    For this and other reasons (like lack of priority
+	    propagation support, poorness in load balancing schemes
+	    between CPUs, etc.), spin locks are intended to protect
+	    very small paths of code, or ideally not to be used at all
+	    if not explicitly requested (explained later).</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="freebsd-blocking"></a>3.2.1.5. Blocking</h5></div></div></div><p>Block locks let waiters to be descheduled and blocked
+	    until the lock owner does not drop it and wakes up one or
+	    more contenders.  In order to avoid starvation issues,
+	    blocking locks do priority propagation from the waiters to
+	    the owner.  Block locks must be implemented through the
+	    turnstile interface and are intended to be the most used
+	    kind of locks in the kernel, if no particular conditions
+	    are met.</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="freebsd-sleeping"></a>3.2.1.6. Sleeping</h5></div></div></div><p>Sleep locks let waiters to be descheduled and fall
+	    asleep until the lock holder does not drop it and wakes up
+	    one or more waiters.  Since sleep locks are intended to
+	    protect large paths of code and to cater asynchronous
+	    events, they do not do any form of priority propagation.
+	    They must be implemented through the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sleepqueue&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sleepqueue</span>(9)</span></a>
+	    interface.</p><p>The order used to acquire locks is very important, not
+	    only for the possibility to deadlock due at lock order
+	    reversals, but even because lock acquisition should follow
+	    specific rules linked to locks natures.  If you give a
+	    look at the table above, the practical rule is that if a
+	    thread holds a lock of level n (where the level is the
+	    number listed close to the kind of lock) it is not allowed
+	    to acquire a lock of superior levels, since this would
+	    break the specified semantic for a path.  For example, if
+	    a thread holds a block lock (level 2), it is allowed to
+	    acquire a spin lock (level 1) but not a sleep lock (level
+	    3), since block locks are intended to protect smaller
+	    paths than sleep lock (these rules are not about atomic
+	    operations or scheduling barriers, however).</p><p>This is a list of lock with their respective
+	    behaviors:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>spin mutex - spinning - <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mutex&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mutex</span>(9)</span></a></p></li><li class="listitem"><p>sleep mutex - blocking - <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mutex&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mutex</span>(9)</span></a></p></li><li class="listitem"><p>pool mutex - blocking - <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mtx_pool&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mtx_pool</span>(9)</span></a></p></li><li class="listitem"><p>sleep family - sleeping - <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sleep&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sleep</span>(9)</span></a> pause
+		tsleep msleep msleep spin msleep rw msleep sx</p></li><li class="listitem"><p>condvar - sleeping - <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=condvar&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">condvar</span>(9)</span></a></p></li><li class="listitem"><p>rwlock - blocking - <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rwlock&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rwlock</span>(9)</span></a></p></li><li class="listitem"><p>sxlock - sleeping - <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sx&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sx</span>(9)</span></a></p></li><li class="listitem"><p>lockmgr - sleeping - <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=lockmgr&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">lockmgr</span>(9)</span></a></p></li><li class="listitem"><p>semaphores - sleeping - <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sema&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sema</span>(9)</span></a></p></li></ul></div><p>Among these locks only mutexes, sxlocks, rwlocks and
+	    lockmgrs are intended to handle recursion, but currently
+	    recursion is only supported by mutexes and
+	    lockmgrs.</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="freebsd-scheduling"></a>3.2.1.7. Scheduling barriers</h5></div></div></div><p>Scheduling barriers are intended to be used in order
+	    to drive scheduling of threading.  They consist mainly of
+	    three different stubs:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>critical sections (and preemption)</p></li><li class="listitem"><p>sched_bind</p></li><li class="listitem"><p>sched_pin</p></li></ul></div><p>Generally, these should be used only in a particular
+	    context and even if they can often replace locks, they
+	    should be avoided because they do not let the diagnose of
+	    simple eventual problems with locking debugging tools (as
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=witness&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">witness</span>(4)</span></a>).</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="freebsd-critical"></a>3.2.1.8. Critical sections</h5></div></div></div><p>The FreeBSD kernel has been made preemptive basically to
+	    deal with interrupt threads.  In fact, in order to avoid
+	    high interrupt latency, time-sharing priority threads can
+	    be preempted by interrupt threads (in this way, they do
+	    not need to wait to be scheduled as the normal path
+	    previews).  Preemption, however, introduces new racing
+	    points that need to be handled, as well.  Often, in order
+	    to deal with preemption, the simplest thing to do is to
+	    completely disable it.  A critical section defines a piece
+	    of code (borderlined by the pair of functions
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=critical_enter&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">critical_enter</span>(9)</span></a> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=critical_exit&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">critical_exit</span>(9)</span></a>, where
+	    preemption is guaranteed to not happen (until the
+	    protected code is fully executed).  This can often replace
+	    a lock effectively but should be used carefully in order
+	    to not lose the whole advantage that preemption
+	    brings.</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="freebsd-schedpin"></a>3.2.1.9. sched_pin/sched_unpin</h5></div></div></div><p>Another way to deal with preemption is the
+	    <code class="function">sched_pin()</code> interface.  If a piece of
+	    code is closed in the <code class="function">sched_pin()</code>
+	    and <code class="function">sched_unpin()</code> pair of functions
+	    it is guaranteed that the respective thread, even if it
+	    can be preempted, it will always be executed on the same
+	    CPU.  Pinning is very effective in the particular case
+	    when we have to access at per-cpu datas and we assume
+	    other threads will not change those data.  The latter
+	    condition will determine a critical section as a too
+	    strong condition for our code.</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="freebsd-schedbind"></a>3.2.1.10. sched_bind/sched_unbind</h5></div></div></div><p><code class="function">sched_bind</code> is an API used in
+	    order to bind a thread to a particular CPU for all the
+	    time it executes the code, until a
+	    <code class="function">sched_unbind</code> function call does not
+	    unbind it.  This feature has a key role in situations
+	    where you cannot trust the current state of CPUs (for
+	    example, at very early stages of boot), as you want to
+	    avoid your thread to migrate on inactive CPUs.  Since
+	    <code class="function">sched_bind</code> and
+	    <code class="function">sched_unbind</code> manipulate internal
+	    scheduler structures, they need to be enclosed in
+	    <code class="function">sched_lock</code> acquisition/releasing when
+	    used.</p></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="freebsd-proc"></a>3.2.2. Proc structure</h4></div></div></div><p>Various emulation layers sometimes require some
+	  additional per-process data.  It can manage separate
+	  structures (a list, a tree etc.) containing these data for
+	  every process but this tends to be slow and memory
+	  consuming.  To solve this problem the FreeBSD
+	  <code class="literal">proc</code> structure contains
+	  <code class="literal">p_emuldata</code>, which is a void pointer to
+	  some emulation layer specific data.  This
+	  <code class="literal">proc</code> entry is protected by the proc
+	  mutex.</p><p>The FreeBSD <code class="literal">proc</code> structure contains a
+	  <code class="literal">p_sysent</code> entry that identifies, which ABI
+	  this process is running.  In fact, it is a pointer to the
+	  <code class="literal">sysentvec</code> described above.  So by
+	  comparing this pointer to the address where the
+	  <code class="literal">sysentvec</code> structure for the given ABI is
+	  stored we can effectively determine whether the process
+	  belongs to our emulation layer.  The code typically looks
+	  like:</p><pre class="programlisting">if (__predict_true(p-&gt;p_sysent != &amp;elf_<span class="trademark">Linux</span>®_sysvec))
+	  return;</pre><p>As you can see, we effectively use the
+	  <code class="literal">__predict_true</code> modifier to collapse the
+	  most common case (FreeBSD process) to a simple return operation
+	  thus preserving high performance.  This code should be
+	  turned into a macro because currently it is not very
+	  flexible, i.e. we do not support <span class="trademark">Linux</span>®64 emulation nor
+	  A.OUT <span class="trademark">Linux</span>® processes on i386.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="freebsd-vfs"></a>3.2.3. VFS</h4></div></div></div><p>The FreeBSD VFS subsystem is very complex but the <span class="trademark">Linux</span>®
+	  emulation layer uses just a small subset via a well defined
+	  API.  It can either operate on vnodes or file handlers.
+	  Vnode represents a virtual vnode, i.e. representation of a
+	  node in VFS.  Another representation is a file handler,
+	  which represents an opened file from the perspective of a
+	  process.  A file handler can represent a socket or an
+	  ordinary file.  A file handler contains a pointer to its
+	  vnode.  More then one file handler can point to the same
+	  vnode.</p><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="freebsd-namei"></a>3.2.3.1. namei</h5></div></div></div><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=namei&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">namei</span>(9)</span></a> routine is a central entry point to
+	    pathname lookup and translation.  It traverses the path
+	    point by point from the starting point to the end point
+	    using lookup function, which is internal to VFS.  The
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=namei&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">namei</span>(9)</span></a> syscall can cope with symlinks, absolute and
+	    relative paths.  When a path is looked up using
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=namei&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">namei</span>(9)</span></a> it is inputed to the name cache.  This
+	    behavior can be suppressed.  This routine is used all over
+	    the kernel and its performance is very critical.</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="freebsd-vn"></a>3.2.3.2. vn_fullpath</h5></div></div></div><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=vn_fullpath&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">vn_fullpath</span>(9)</span></a> function takes the best effort
+	    to traverse VFS name cache and returns a path for a given
+	    (locked) vnode.  This process is unreliable but works just
+	    fine for the most common cases.  The unreliability is
+	    because it relies on VFS cache (it does not traverse the
+	    on medium structures), it does not work with hardlinks,
+	    etc.  This routine is used in several places in the
+	    Linuxulator.</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="freebsd-vnode"></a>3.2.3.3. Vnode operations</h5></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="function">fgetvp</code> - given a thread and a
+		file descriptor number it returns the associated
+		vnode</p></li><li class="listitem"><p><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=vn_lock&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">vn_lock</span>(9)</span></a> - locks a vnode</p></li><li class="listitem"><p><code class="function">vn_unlock</code> - unlocks a
+		vnode</p></li><li class="listitem"><p><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=VOP_READDIR&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">VOP_READDIR</span>(9)</span></a> - reads a directory referenced
+		by a vnode</p></li><li class="listitem"><p><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=VOP_GETATTR&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">VOP_GETATTR</span>(9)</span></a> - gets attributes of a file or
+		a directory referenced by a vnode</p></li><li class="listitem"><p><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=VOP_LOOKUP&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">VOP_LOOKUP</span>(9)</span></a> - looks up a path to a given
+		directory</p></li><li class="listitem"><p><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=VOP_OPEN&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">VOP_OPEN</span>(9)</span></a> - opens a file referenced by a
+		vnode</p></li><li class="listitem"><p><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=VOP_CLOSE&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">VOP_CLOSE</span>(9)</span></a> - closes a file referenced by a
+		vnode</p></li><li class="listitem"><p><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=vput&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">vput</span>(9)</span></a> - decrements the use count for a
+		vnode and unlocks it</p></li><li class="listitem"><p><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=vrele&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">vrele</span>(9)</span></a> - decrements the use count for a
+		vnode</p></li><li class="listitem"><p><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=vref&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">vref</span>(9)</span></a> - increments the use count for a
+		vnode</p></li></ul></div></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="freebsd-file-handler"></a>3.2.3.4. File handler operations</h5></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="function">fget</code> - given a thread and a
+		file descriptor number it returns associated file
+		handler and references it</p></li><li class="listitem"><p><code class="function">fdrop</code> - drops a reference to
+		a file handler</p></li><li class="listitem"><p><code class="function">fhold</code> - references a file
+		handler</p></li></ul></div></div></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="inside.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="md.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2. A look inside&#8230; </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 4. <span class="trademark">Linux</span>® emulation layer -MD part</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">搜索</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -221,16 +220,12 @@
                 <li>
                   <a href="../../releases/">发行版信息</a>
                   <ul>
-                    <li>生产适用版本: <br /><a href="../../../releases/11.2R/announce.html">11.2</a></li>
-                    <li>生产适用版本: <br /><a href="../../../releases/11.1R/announce.html">11.1</a></li>
-                    <li>生产适用版本: <br /><a href="../../../releases/10.4R/announce.html">10.4</a></li>
+                    <li>生产适用版本: <br /><a href="../../../releases/12.0R/announce.html">12.0</a></li>
                   </ul>
                 </li>
                 <li>
                   <a href="../../../snapshots/">快照版本</a>
-                  <ul>
-                    <li>即将发布:<br /><a href="../../../releases/12.0R/schedule.html">12.0</a></li>
-                  </ul>
+                  <ul></ul>
                 </li>
                 <li>
                   <a href="../../../ports/">移植的应用程序 (ports)</a>

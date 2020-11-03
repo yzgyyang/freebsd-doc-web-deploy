@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>13.13. Marking a Port Not Installable with BROKEN, FORBIDDEN, or IGNORE</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Porter's Handbook" /><link rel="up" href="porting-dads.html" title="Chapter 13. Dos and Don'ts" /><link rel="prev" href="dads-readme.html" title="13.12. README.html" /><link rel="next" href="dads-arch.html" title="13.14. Architectural Considerations" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">13.13. Marking a Port Not Installable with
+      <code class="varname">BROKEN</code>, <code class="varname">FORBIDDEN</code>, or
+      <code class="varname">IGNORE</code></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="dads-readme.html">Prev</a> </td><th width="60%" align="center">Chapter 13. Dos and Don'ts</th><td width="20%" align="right"> <a accesskey="n" href="dads-arch.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="dads-noinstall"></a>13.13. Marking a Port Not Installable with
+      <code class="varname">BROKEN</code>, <code class="varname">FORBIDDEN</code>, or
+      <code class="varname">IGNORE</code></h2></div></div></div><p>In certain cases, users must be prevented from installing
+      a port.  There are several variables that can be used in a
+      port's <code class="filename">Makefile</code> to tell the user that the
+      port cannot be installed.  The value of
+      these make variables will be the
+      reason that is shown to users for why the port refuses to
+      install itself.  Please use the correct make
+      variable.  Each variable conveys radically different
+      meanings, both to users and to automated systems that depend on
+      <code class="filename">Makefile</code>s, such as
+      <a class="link" href="build-cluster.html" title="16.4. The FreeBSD Port Building Cluster">the ports build cluster</a>,
+      <a class="link" href="keeping-up.html#freshports" title="16.1. FreshPorts">FreshPorts</a>, and
+      <a class="link" href="portsmon.html" title="16.6. The FreeBSD Ports Monitoring System">portsmon</a>.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="dads-noinstall-variables"></a>13.13.1. Variables</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="varname">BROKEN</code> is reserved for ports that
+	    currently do not compile, install, deinstall, or run
+	    correctly.  Use it for ports where the problem
+	    is believed to be temporary.</p><p>If instructed, the build cluster will still attempt
+	    to try to build them to see if the underlying problem has
+	    been resolved.  (However, in general, the cluster is run
+	    without this.)</p><p>For instance, use <code class="varname">BROKEN</code> when a
+	    port:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem"><p>does not compile</p></li><li class="listitem"><p>fails its configuration or installation
+		process</p></li><li class="listitem"><p>installs files outside of
+		<code class="filename">${PREFIX}</code></p></li><li class="listitem"><p>does not remove all its files cleanly upon
+		deinstall (however, it may be acceptable, and
+		desirable, for the port to leave user-modified files
+		behind)</p></li><li class="listitem"><p>has runtime issues on systems where it is
+		supposed to run fine.</p></li></ul></div></li><li class="listitem"><p><code class="varname">FORBIDDEN</code> is used for ports that
+	    contain a security vulnerability or induce grave concern
+	    regarding the security of a FreeBSD system with a given port
+	    installed (for example, a reputably insecure program or a
+	    program that provides easily exploitable services).  Mark
+	    ports as <code class="varname">FORBIDDEN</code> as soon as a
+	    particular piece of software has a vulnerability and there
+	    is no released upgrade.  Ideally upgrade ports as soon as
+	    possible when a security vulnerability is discovered so as
+	    to reduce the number of vulnerable FreeBSD hosts (we like
+	    being known for being secure), however sometimes there is
+	    a noticeable time gap between disclosure of a
+	    vulnerability and an updated release of the vulnerable
+	    software.  Do not mark a port <code class="varname">FORBIDDEN</code>
+	    for any reason other than security.</p></li><li class="listitem"><p><code class="varname">IGNORE</code> is reserved for ports that
+	    must not be built for some other reason.  Use it
+	    for ports where the problem is believed to be
+	    structural.  The build cluster will not, under any
+	    circumstances, build ports marked as
+	    <code class="varname">IGNORE</code>.  For instance, use
+	    <code class="varname">IGNORE</code> when a port:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem"><p>does not work on the installed version of
+		FreeBSD</p></li><li class="listitem"><p>has a distfile which may not be automatically
+		fetched due to licensing restrictions</p></li><li class="listitem"><p>does not work with some other currently
+		installed port (for instance, the port depends on
+		<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/www/apache20/pkg-descr">www/apache20</a> but
+		<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/www/apache22/pkg-descr">www/apache22</a> is
+		installed)</p></li></ul></div><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">If a port would conflict with a currently
+	      installed port (for example, if they install a file in
+	      the same place that performs a different function),
+	      <a class="link" href="conflicts.html" title="5.15. Conflict Handling">use
+		<code class="varname">CONFLICTS</code> instead</a>.
+	      <code class="varname">CONFLICTS</code> will set
+	      <code class="varname">IGNORE</code> by itself.</p></div></li></ul></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="dads-noinstall-notes"></a>13.13.2. Implementation Notes</h3></div></div></div><p>Do not quote the values of <code class="varname">BROKEN</code>,
+	<code class="varname">IGNORE</code>, and related variables.  Due to the
+	way the information is shown to the user, the wording of
+	messages for each variable differ:</p><pre class="programlisting">BROKEN=	fails to link with base -lcrypto</pre><pre class="programlisting">IGNORE=	unsupported on recent versions</pre><p>resulting in this output from
+	<code class="command">make describe</code>:</p><pre class="programlisting">===&gt;  foobar-0.1 is marked as broken: fails to link with base -lcrypto.</pre><pre class="programlisting">===&gt;  foobar-0.1 is unsupported on recent versions.</pre></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="dads-readme.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="porting-dads.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="dads-arch.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">13.12. <code class="filename">README.html</code> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 13.14. Architectural Considerations</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>9.8. Links</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Documentation Project Primer for New Contributors" /><link rel="up" href="docbook-markup.html" title="Chapter 9. DocBook Markup" /><link rel="prev" href="docbook-markup-images.html" title="9.7. Images" /><link rel="next" href="stylesheets.html" title="Chapter 10. Style Sheets" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">9.8. Links</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="docbook-markup-images.html">Prev</a> </td><th width="60%" align="center">Chapter 9. DocBook Markup</th><td width="20%" align="right"> <a accesskey="n" href="stylesheets.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="docbook-markup-links"></a>9.8. Links</h2></div></div></div><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Links are also in-line elements.  To show a
+	<acronym class="acronym">URI</acronym> without creating a link, see
+	<a class="xref" href="docbook-markup-inline-elements.html#docbook-markup-uri" title="9.6.9. Uniform Resource Identifiers (URIs)">Section 9.6.9, &#8220;Uniform Resource Identifiers
+	(<acronym class="acronym">URI</acronym>s)&#8221;</a>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="docbook-markup-links-ids"></a>9.8.1. <code class="literal">xml:id</code> Attributes</h3></div></div></div><p>Most DocBook elements accept an <code class="literal">xml:id</code>
+	attribute to give that part of the document a unique name.
+	The <code class="literal">xml:id</code> can be used as a target for a
+	crossreference or link.</p><p>Any portion of the document that will be a link target
+	must have an <code class="literal">xml:id</code> attribute.  Assigning
+	an <code class="literal">xml:id</code> to all chapters and sections,
+	even if there are no current plans to link to them, is a good
+	idea.  These <code class="literal">xml:id</code>s can be used as unique
+	reference points by anyone referring to the
+	<acronym class="acronym">HTML</acronym> version of the document.</p><div class="example"><a id="idp53003384"></a><div class="example-title">Example 9.35. <code class="literal">xml:id</code> on Chapters and
+	  Sections Example</div><div class="example-contents"><pre class="programlisting"><code class="sgmltag-starttag">&lt;chapter xml:id="introduction"&gt;</code>
+  <code class="sgmltag-starttag">&lt;title&gt;</code>Introduction<code class="sgmltag-endtag">&lt;/title&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;para&gt;</code>This is the introduction.  It contains a subsection,
+    which is identified as well.<code class="sgmltag-endtag">&lt;/para&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;sect1 xml:id="introduction-moredetails"&gt;</code>
+    <code class="sgmltag-starttag">&lt;title&gt;</code>More Details<code class="sgmltag-endtag">&lt;/title&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;para&gt;</code>This is a subsection.<code class="sgmltag-endtag">&lt;/para&gt;</code>
+  <code class="sgmltag-endtag">&lt;/sect1&gt;</code>
+<code class="sgmltag-endtag">&lt;/chapter&gt;</code></pre></div></div><br class="example-break" /><p>Use descriptive values for <code class="literal">xml:id</code>
+	names.  The values must be unique within the entire document,
+	not just in a single file.  In the example, the subsection
+	<code class="literal">xml:id</code> is constructed by appending text to
+	the chapter <code class="literal">xml:id</code>.  This ensures that the
+	<code class="literal">xml:id</code>s are unique.  It also helps both
+	reader and anyone editing the document to see where the link
+	is located within the document, similar to a directory path to
+	a file.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="docbook-markup-links-crossreferences"></a>9.8.2. Crossreferences with <code class="literal">xref</code></h3></div></div></div><p><code class="sgmltag-element">xref</code> provides the reader with a link to jump to
+	another section of the document.  The target
+	<code class="literal">xml:id</code> is specified in the
+	<code class="literal">linkend</code> attribute, and <code class="sgmltag-element">xref</code>
+	generates the link text automatically.</p><div class="example"><a id="idp53015672"></a><div class="example-title">Example 9.36. <code class="sgmltag-element">xref</code> Example</div><div class="example-contents"><p>Assume that this fragment appears somewhere in a
+	  document that includes the <code class="literal">xml:id</code>
+	  example shown above:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;para&gt;</code>More information can be found
+  in <code class="sgmltag-emptytag">&lt;xref linkend="introduction"/&gt;</code>.<code class="sgmltag-endtag">&lt;/para&gt;</code>
+
+<code class="sgmltag-starttag">&lt;para&gt;</code>More specific information can be found
+  in <code class="sgmltag-emptytag">&lt;xref linkend="introduction-moredetails"/&gt;</code>.<code class="sgmltag-endtag">&lt;/para&gt;</code></pre><p>The link text will be generated automatically, looking
+	  like (<span class="emphasis"><em>emphasized</em></span> text indicates the
+	  link text):</p><div class="blockquote"><blockquote class="blockquote"><p>More information can be found in <span class="emphasis"><em>Chapter
+	      1, Introduction</em></span>.</p><p>More specific information can be found in
+	    <span class="emphasis"><em>Section 1.1,
+	      <span class="quote">&#8220;<span class="quote">More Details</span>&#8221;</span></em></span>.</p></blockquote></div></div></div><br class="example-break" /><p>The link text is generated automatically from the chapter
+	and section number and <code class="literal">title</code>
+	elements.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="docbook-markup-links-to-web-documents"></a>9.8.3. Linking to Other Documents on the
+	Web</h3></div></div></div><p>The link element described here allows the writer to
+	define the link text.  When link text is used, it is very
+	important to be descriptive to give the reader an idea of
+	where the link goes.  Remember that DocBook can be rendered to
+	multiple types of media.  The reader might be looking at a
+	printed book or other form of media where there are no links.
+	If the link text is not descriptive enough, the reader might
+	not be able to locate the linked section.</p><p>The <code class="literal">xlink:href</code> attribute is the
+	<acronym class="acronym">URL</acronym> of the page, and the content of the
+	element is the text that will be displayed for the user to
+	activate.</p><p>In many situations, it is preferable to show the actual
+	<acronym class="acronym">URL</acronym> rather than text.  This can be done by
+	leaving out the element text entirely.</p><div class="example"><a id="idp53048056"></a><div class="example-title">Example 9.37. <code class="sgmltag-element">link</code> to a FreeBSD Documentation Web
+	    Page Example</div><div class="example-contents"><p>Link to the book or article <acronym class="acronym">URL</acronym>
+	    entity.  To link to a specific chapter in a book, add a
+	    slash and the chapter file name, followed by an optional
+	    anchor within the chapter.  For articles, link to the
+	    article <acronym class="acronym">URL</acronym> entity, followed by an
+	    optional anchor within the article.
+	    <acronym class="acronym">URL</acronym> entities can be found in
+	    <code class="filename">doc/share/xml/urls.ent</code>.</p><p>Usage for FreeBSD book links:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;para&gt;</code>Read the <code class="sgmltag-starttag">&lt;link
+    xlink:href="&amp;url.books.handbook;/svn.html#svn-intro"&gt;</code>SVN
+    introduction<code class="sgmltag-endtag">&lt;/link&gt;</code>, then pick the nearest mirror from
+  the list of <code class="sgmltag-starttag">&lt;link
+    xlink:href="&amp;url.books.handbook;/svn.html#svn-mirrors"&gt;</code>Subversion
+    mirror sites<code class="sgmltag-endtag">&lt;/link&gt;</code>.<code class="sgmltag-endtag">&lt;/para&gt;</code></pre><p>Appearance:</p><p>Read the <a class="link" href="../../../../doc/en_US.ISO8859-1/books/handbook/svn.html#svn-intro" target="_top">SVN
+	      introduction</a>, then pick the nearest mirror from
+	    the list of <a class="link" href="../../../../doc/en_US.ISO8859-1/books/handbook/svn.html#svn-mirrors" target="_top">Subversion
+	      mirror sites</a>.</p><p>Usage for FreeBSD article links:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;para&gt;</code>Read this
+  <code class="sgmltag-starttag">&lt;link xlink:href="&amp;url.articles.bsdl-gpl;"&gt;</code>article
+    about the BSD license<code class="sgmltag-endtag">&lt;/link&gt;</code>, or just the
+  <code class="sgmltag-starttag">&lt;link xlink:href="&amp;url.articles.bsdl-gpl;#intro"&gt;</code>introduction<code class="sgmltag-endtag">&lt;/link&gt;</code>.<code class="sgmltag-endtag">&lt;/para&gt;</code></pre><p>Appearance:</p><p>Read this
+	    <a class="link" href="../../../../doc/en_US.ISO8859-1/articles/bsdl-gpl" target="_top">article
+	      about the BSD license</a>, or just the <a class="link" href="../../../../doc/en_US.ISO8859-1/articles/bsdl-gpl#intro" target="_top">introduction</a>.</p></div></div><br class="example-break" /><div class="example"><a id="idp53070072"></a><div class="example-title">Example 9.38. <code class="sgmltag-element">link</code> to a FreeBSD Web Page Example</div><div class="example-contents"><p>Usage:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;para&gt;</code>Of course, you could stop reading this document and go to the
+  <code class="sgmltag-starttag">&lt;link xlink:href="&amp;url.base;/index.html"&gt;</code>FreeBSD home page<code class="sgmltag-endtag">&lt;/link&gt;</code> instead.<code class="sgmltag-endtag">&lt;/para&gt;</code></pre><p>Appearance:</p><p>Of course, you could stop reading this document and go
+	    to the <a class="link" href="../../../../index.html" target="_top">FreeBSD
+	      home page</a> instead.</p></div></div><br class="example-break" /><div class="example"><a id="idp53075064"></a><div class="example-title">Example 9.39. <code class="sgmltag-element">link</code> to an External Web
+	    Page Example</div><div class="example-contents"><p>Usage:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;para&gt;</code>Wikipedia has an excellent reference on
+  <code class="sgmltag-starttag">&lt;link
+    xlink:href="http://en.wikipedia.org/wiki/GUID_Partition_Table"&gt;</code>GUID
+    Partition Tables<code class="sgmltag-endtag">&lt;/link&gt;</code>.<code class="sgmltag-endtag">&lt;/para&gt;</code></pre><p>Appearance:</p><p>Wikipedia has an excellent reference on <a class="link" href="http://en.wikipedia.org/wiki/GUID_Partition_Table" target="_top">GUID
+	      Partition Tables</a>.</p><p>The link text can be omitted to show the actual
+	    URL:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;para&gt;</code>Wikipedia has an excellent reference on
+  GUID Partition Tables: <code class="sgmltag-starttag">&lt;link
+    xlink:href="http://en.wikipedia.org/wiki/GUID_Partition_Table"&gt;</code><code class="sgmltag-endtag">&lt;/link&gt;</code>.<code class="sgmltag-endtag">&lt;/para&gt;</code></pre><p>The same link can be entered using shorter
+	    notation instead of a separate ending tag:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;para&gt;</code>Wikipedia has an excellent reference on
+  GUID Partition Tables: <code class="sgmltag-emptytag">&lt;link
+    xlink:href="http://en.wikipedia.org/wiki/GUID_Partition_Table"/&gt;</code>.<code class="sgmltag-endtag">&lt;/para&gt;</code></pre><p>The two methods are equivalent.  Appearance:</p><p>Wikipedia has an excellent reference on GUID Partition
+	    Tables: <code class="uri"><a class="uri" href="http://en.wikipedia.org/wiki/GUID_Partition_Table" target="_top">http://en.wikipedia.org/wiki/GUID_Partition_Table</a></code>.</p></div></div><br class="example-break" /></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="docbook-markup-images.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="docbook-markup.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="stylesheets.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">9.7. Images </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 10. Style Sheets</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

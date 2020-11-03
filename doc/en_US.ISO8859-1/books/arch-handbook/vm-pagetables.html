@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>7.4. Mapping Page Tables&#8212;vm_map_t, vm_entry_t</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Architecture Handbook" /><link rel="up" href="vm.html" title="Chapter 7. Virtual Memory System" /><link rel="prev" href="vm-fileio.html" title="7.3. Filesystem I/O&#8212;struct buf" /><link rel="next" href="vm-kvm.html" title="7.5. KVM Memory Mapping" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">7.4. Mapping Page Tables&#8212;<code class="literal">vm_map_t,
+	vm_entry_t</code></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="vm-fileio.html">Prev</a> </td><th width="60%" align="center">Chapter 7. Virtual Memory System</th><td width="20%" align="right"> <a accesskey="n" href="vm-kvm.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="vm-pagetables"></a>7.4. Mapping Page Tables&#8212;<code class="literal">vm_map_t,
+	vm_entry_t</code></h2></div></div></div><a id="idp55702904" class="indexterm"></a><p>FreeBSD separates the physical page table topology from the
+      VM system.  All hard per-process page tables can be
+      reconstructed on the fly and are usually considered throwaway.
+      Special page tables such as those managing KVM are typically
+      permanently preallocated.  These page tables are not
+      throwaway.</p><p>FreeBSD associates portions of vm_objects with address
+      ranges in virtual memory through <code class="literal">vm_map_t</code> and
+      <code class="literal">vm_entry_t</code> structures.  Page tables are
+      directly synthesized from the
+      <code class="literal">vm_map_t</code>/<code class="literal">vm_entry_t</code>/
+      <code class="literal">vm_object_t</code> hierarchy.  Recall that I
+      mentioned that physical pages are only directly associated with
+      a <code class="literal">vm_object</code>; that is not quite true.
+      <code class="literal">vm_page_t</code>'s are also linked into page tables
+      that they are actively associated with.  One
+      <code class="literal">vm_page_t</code> can be linked into several
+      <span class="emphasis"><em>pmaps</em></span>, as page tables are called.  However,
+      the hierarchical association holds, so all references to the
+      same page in the same object reference the same
+      <code class="literal">vm_page_t</code> and thus give us buffer cache
+      unification across the board.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="vm-fileio.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="vm.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="vm-kvm.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">7.3. Filesystem I/O&#8212;<code class="literal">struct buf</code> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 7.5. KVM Memory Mapping</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

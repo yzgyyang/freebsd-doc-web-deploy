@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>21.5. FreeBSD as a Guest on VirtualBox&#8482;</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="virtualization.html" title="Chapter 21. Virtualization" /><link rel="prev" href="virtualization-guest-vmware.html" title="21.4. FreeBSD as a Guest on VMware Fusion for Mac OS®" /><link rel="next" href="virtualization-host-virtualbox.html" title="21.6. FreeBSD as a Host with VirtualBox&#8482;" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">21.5. FreeBSD as a Guest on <span class="trademark">VirtualBox</span>&#8482;</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="virtualization-guest-vmware.html">Prev</a> </td><th width="60%" align="center">Chapter 21. Virtualization</th><td width="20%" align="right"> <a accesskey="n" href="virtualization-host-virtualbox.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="virtualization-guest-virtualbox"></a>21.5. FreeBSD as a Guest on <span class="trademark">VirtualBox</span>&#8482;</h2></div></div></div><p>FreeBSD works well as a guest in
+      <span class="application"><span class="trademark">VirtualBox</span>&#8482;</span>.  The virtualization
+      software is available for most common operating systems,
+      including FreeBSD itself.</p><p>The <span class="application"><span class="trademark">VirtualBox</span>&#8482;</span> guest additions
+      provide support for:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Clipboard sharing.</p></li><li class="listitem"><p>Mouse pointer integration.</p></li><li class="listitem"><p>Host time synchronization.</p></li><li class="listitem"><p>Window scaling.</p></li><li class="listitem"><p>Seamless mode.</p></li></ul></div><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">These commands are run in the FreeBSD guest.</p></div><p>First, install the
+      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/emulators/virtualbox-ose-additions/pkg-descr">emulators/virtualbox-ose-additions</a> package
+      or port in the FreeBSD guest.  This will install the port:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/ports/emulators/virtualbox-ose-additions &amp;&amp; make install clean</code></strong></pre><p>Add these lines to <code class="filename">/etc/rc.conf</code>:</p><pre class="programlisting">vboxguest_enable="YES"
+vboxservice_enable="YES"</pre><p>If <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ntpd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ntpd</span>(8)</span></a> or <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ntpdate&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ntpdate</span>(8)</span></a> is used, disable host
+      time synchronization:</p><pre class="programlisting">vboxservice_flags="--disable-timesync"</pre><p><span class="application">Xorg</span> will automatically recognize
+      the <code class="literal">vboxvideo</code> driver.  It can also be
+      manually entered in
+      <code class="filename">/etc/X11/xorg.conf</code>:</p><pre class="programlisting">Section "Device"
+	Identifier "Card0"
+	Driver "vboxvideo"
+	VendorName "InnoTek Systemberatung GmbH"
+	BoardName "VirtualBox Graphics Adapter"
+EndSection</pre><p>To use the <code class="literal">vboxmouse</code> driver, adjust the
+      mouse section in <code class="filename">/etc/X11/xorg.conf</code>:</p><pre class="programlisting">Section "InputDevice"
+	Identifier "Mouse0"
+	Driver "vboxmouse"
+EndSection</pre><p><acronym class="acronym">HAL</acronym> users should create the following
+      <code class="filename">/usr/local/etc/hal/fdi/policy/90-vboxguest.fdi</code>
+      or copy it from
+      <code class="filename">/usr/local/share/hal/fdi/policy/10osvendor/90-vboxguest.fdi</code>:</p><pre class="programlisting">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;!--
+# Sun VirtualBox
+# Hal driver description for the vboxmouse driver
+# $Id: chapter.xml,v 1.33 2012-03-17 04:53:52 eadler Exp $
+
+	Copyright (C) 2008-2009 Sun Microsystems, Inc.
+
+	This file is part of VirtualBox Open Source Edition (OSE, as
+	available from http://www.virtualbox.org. This file is free software;
+	you can redistribute it and/or modify it under the terms of the GNU
+	General Public License (GPL) as published by the Free Software
+	Foundation, in version 2 as it comes in the "COPYING" file of the
+	VirtualBox OSE distribution. VirtualBox OSE is distributed in the
+	hope that it will be useful, but WITHOUT ANY WARRANTY of any kind.
+
+	Please contact Sun Microsystems, Inc., 4150 Network Circle, Santa
+	Clara, CA 95054 USA or visit http://www.sun.com if you need
+	additional information or have any questions.
+--&gt;
+&lt;deviceinfo version="0.2"&gt;
+  &lt;device&gt;
+    &lt;match key="info.subsystem" string="pci"&gt;
+      &lt;match key="info.product" string="VirtualBox guest Service"&gt;
+        &lt;append key="info.capabilities" type="strlist"&gt;input&lt;/append&gt;
+	&lt;append key="info.capabilities" type="strlist"&gt;input.mouse&lt;/append&gt;
+        &lt;merge key="input.x11_driver" type="string"&gt;vboxmouse&lt;/merge&gt;
+	&lt;merge key="input.device" type="string"&gt;/dev/vboxguest&lt;/merge&gt;
+      &lt;/match&gt;
+    &lt;/match&gt;
+  &lt;/device&gt;
+&lt;/deviceinfo&gt;</pre><p>Shared folders for file transfers between host and VM are
+      accessible by mounting them using
+      <code class="literal">mount_vboxvfs</code>.  A shared folder can be created
+      on the host using the VirtualBox GUI or via
+      <code class="command">vboxmanage</code>.  For example, to create a shared
+      folder called <em class="replaceable"><code>myshare</code></em> under
+      <code class="filename"><em class="replaceable"><code>/mnt/bsdboxshare</code></em></code>
+      for the VM named <em class="replaceable"><code>BSDBox</code></em>, run:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>vboxmanage sharedfolder add '<em class="replaceable"><code>BSDBox</code></em>' --name <em class="replaceable"><code>myshare</code></em> --hostpath <em class="replaceable"><code>/mnt/bsdboxshare</code></em></code></strong></pre><p>Note that the shared folder name must not contain spaces.
+      Mount the shared folder from within the guest system like
+      this:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>mount_vboxvfs -w <em class="replaceable"><code>myshare</code></em> <em class="replaceable"><code>/mnt</code></em></code></strong></pre></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="virtualization-guest-vmware.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="virtualization.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="virtualization-host-virtualbox.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">21.4. FreeBSD as a Guest on <span class="application">VMware Fusion</span>
+      for <span class="trademark">Mac OS</span>® </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 21.6. FreeBSD as a Host with <span class="trademark">VirtualBox</span>&#8482;</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

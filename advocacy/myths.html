@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">Search</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="//www.FreeBSD.org/cgi/man.cgi">Manual Pages</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">Presentations and Papers</a>
                   </li>
                   <li>
                     <a href="../doc/en_US.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
@@ -268,29 +270,30 @@
           </div>
           <div id="contentwrap"><h1>FreeBSD Advocacy Project</h1>
 
-    <p>As the BSD projects (including DragonFlyBSD, FreeBSD, NetBSD, and OpenBSD) have grown in size,
-      a number of persistent myths have grown up around them. Some of these are
-      perpetuated by well meaning but misguided individuals, others by people
-      pursuing their own agendas.</p>
+    <p>As the BSD projects (including DragonFlyBSD, FreeBSD, NetBSD, and
+      OpenBSD) have grown in size, a number of persistent myths have
+      grown up around them.  Some of these are perpetuated by well
+      meaning but misguided individuals, others by people pursuing
+      their own agendas.</p>
 
-    <p>This page aims to dispel those myths while remaining as dispassionate
-      as possible.</p>
+    <p>This page aims to dispel those myths while remaining as
+      dispassionate as possible.</p>
 
-    <blockquote><b>Note:</b> Throughout this page, ``*BSD'' refers to all
-      of the BSD Projects. Where a myth or response is specific to a
-      particular project it is indicated as such.</blockquote>
+    <blockquote><b>Note:</b> Throughout this page, ''*BSD'' refers to
+      all of the BSD Projects.  Where a myth or response is specific
+      to a particular project it is indicated as such.</blockquote>
 
-    <blockquote>If you are aware of an omission or error on this page, please
-      let the <a href="mailto:doc@freebsd.org" shape="rect">FreeBSD
-      documentation project mailing list</a> know.</blockquote>
+    <blockquote>If you are aware of an omission or error on this page,
+      please let the <a href="mailto:doc@freebsd.org" shape="rect">FreeBSD
+      Documentation Project mailing list</a> know.</blockquote>
 
     <h2>Myths</h2>
 
     <h2>Index</h2>
 
     <ul>
-        <li><a href="#closed-model" shape="rect">*BSD has a closed development model,
-	  it's more ``Cathedral'' than ``Bazaar''</a></li>
+	<li><a href="#closed-model" shape="rect">*BSD has a closed development
+	  model, it's more ''Cathedral'' than ''Bazaar''</a></li>
 
         <li><a href="#own-distro" shape="rect">You can't make your own distributions or
 	  derivative works of *BSD</a></li>
@@ -319,20 +322,22 @@
 </ul>
 
     <h3>Myth: <a name="closed-model" shape="rect" id="closed-model">*BSD</a> has a closed development
-      model, it's more ``Cathedral'' than ``Bazaar''</h3>
+      model, it's more ''Cathedral'' than ''Bazaar''</h3>
 
-    <p>Eric Raymond wrote an influential paper, ``<a href="http://www.catb.org/~esr/writings/cathedral-bazaar/" shape="rect">The
-      Cathedral and the Bazaar</a>'' in which the Linux development model
-      (and the model Eric used for <tt>fetchmail</tt>) is held up as an
-      example of how to do ``open'' development. By contrast, the model
-      employed by *BSD is often characterized as closed.</p>
+    <p>Eric Raymond wrote an influential paper,
+      ''<a href="http://www.catb.org/~esr/writings/cathedral-bazaar/" target="_blank" rel="noopener" shape="rect">The
+	  Cathedral and the Bazaar</a>'' in which the Linux
+      development model (and the model Eric used for
+      <tt>fetchmail</tt>) is held up as an example of how to do
+      ''open'' development.  By contrast, the model employed by *BSD
+      is often characterized as closed.</p>
 
-    <p>The implicit value judgment is that ``bazaar'' (open) is good, and
-      ``cathedral'' (closed) is bad.</p>
+    <p>The implicit value judgment is that ''bazaar'' (open) is good,
+      and ''cathedral'' (closed) is bad.</p>
 
     <p>If anything, *BSD's development model is probably
-      <strong>more</strong> akin to the ``bazaar'' that Eric describes than
-      either Linux or <tt>fetchmail</tt>.</p>
+      <strong>more</strong> akin to the ''bazaar'' that Eric describes
+      than either Linux or <tt>fetchmail</tt>.</p>
 
     <p>Consider the following;</p>
 
@@ -366,20 +371,22 @@
 
 	<p>Pointers to this system litter the documentation.</p></li>
 
-        <li><p>Not everyone can commit code changes to the *BSD code. You
-	  need to be a <em>committer</em> first. Typically, people are offered
-	  ``commit privs'' after they have made a few well-thought out
-	  submissions to the project using Bugzilla or similar.</p>
+	<li><p>Not everyone can commit code changes to the *BSD code.
+	  You need to be a <em>committer</em> first.  Typically,
+	  people are offered ''commit privs'' after they have made a
+	  few well-thought out submissions to the project using
+	  Bugzilla or similar.</p>
 
 	<p>This is identical to the Linux mechanism. Only one person is
 	  (notionally) allowed to change the Kernel, Linus. But specific areas
 	  (such as the networking code) are delegated to other people.</p>
 
-	<p><i>Aside: Nik (nik@FreeBSD.org) is a case in point. After making
-	    several submissions to the FreeBSD Documentation Project and
-	    web pages, he was offered ``commit privs'' so that he did not
-	    have to keep bothering other committers to commit the changes. He
-	    never had to ask for them, they were freely given.</i></p></li>
+	<p><i>Aside: Nik (nik@FreeBSD.org) is a case in point.  After
+	    making several submissions to the FreeBSD Documentation
+	    Project and web pages, he was offered ''commit privs'' so
+	    that he did not have to keep bothering other committers to
+	    commit the changes.  He never had to ask for them, they
+	    were freely given.</i></p></li>
 </ul>
 
     <hr noshade="noshade" size="1" />
@@ -392,27 +399,10 @@
       projects exist:</p>
 
     <ul>
-	<li><p><a href="https://wiki.debian.org/Debian_GNU/kFreeBSD" shape="rect">Debian
-	    GNU/kFreeBSD</a> is a port of the Debian GNU userland
-	  tools to the FreeBSD kernel.  It takes advantage of the devfs(8)
-	  implementation (versus three discordant Linux interfaces),
-	  security features (like jails, ipfw, and pf), and ZFS, among
-	  other things.</p></li>
-
-	<li><p><a href="http://www.desktopbsd.net/" shape="rect">DesktopBSD</a> is
-	  another FreeBSD based operating system
-	  customized for desktop usability.</p></li>
-
 	<li><p><a href="http://www.dragonflybsd.org/" shape="rect">DragonflyBSD</a>
 	  started as a code fork from
 	  FreeBSD 4.X, but it has since its own user community and
 	  development goals.</p></li>
-
-	<li><p><a href="http://frenzy.org.ua/eng/" shape="rect">Frenzy</a> is
-	  another live-CD distribution, but customized
-	  for administering tasks.  It contains software for hardware
-	  tests, file system checks, security checks, network setup
-	  and analysis.</p></li>
 
 	<li><p><a href="https://wiki.gentoo.org/wiki/Gentoo_FreeBSD" shape="rect">Gentoo/FreeBSD</a>
 	  is an effort by the Gentoo Project to port their complete
@@ -426,29 +416,24 @@
 	  storage.  It is also a part of the FreeBSD source tree, see
 	  /usr/src/tools/tools/nanobsd.</p></li>
 
-	<li><p><a href="https://www.trueos.org" shape="rect">TrueOS</a> is a desktop
-	  oriented FreeBSD derivative. It is
-	  intended to be easy to install and well-supported by its
-	  community.</p></li>
+	<li><p><a href="https://www.furybsd.org" shape="rect">FuryBSD</a> is a
+	  brand new, open source FreeBSD desktop.  FuryBSD pays homage to
+	  desktop BSD projects of the past PC-BSD and TrueOS with its
+	  graphical interface and adds additional tools like a live,
+	  hybrid USB/DVD image.  FuryBSD is completely free to use and
+	  distributed under the BSD license.</p></li>
 
-	<li><p><a href="https://www.FreeBSD.org/cgi/man.cgi?query=picobsd" shape="rect">PicoBSD</a>
-	  is a tailored distribution of FreeBSD that fits
-	  on a floppy.  It is great for turning diskless 386 PC into a
-	  router or a network print server.  It is a part of the FreeBSD
-	  source tree, see /usr/src/release/picobsd.</p></li>
+	<li><p><a href="https://ghostbsd.org" shape="rect">GhostBSD</a> is derived
+	  from FreeBSD, uses the GTK environment to provide a beautiful
+	  looks and comfortable experience on the modern BSD platform
+	  offering a natural and native UNIX® work
+	  environment.</p></li>
 
-	<li><p><a href="http://code.google.com/p/tinybsd/" shape="rect">TinyBSD</a> is
-	  a set of tools made up of shell scripts designed to allow easy
-	  development of Embedded Systems based on FreeBSD.</p></li>
-
-	<li><p><a href="http://www.trustedbsd.org/" shape="rect">TrustedBSD</a>
-	   provides a set of trusted operating system
-	   extensions to the FreeBSD operating system, targeting the
-	   Common Criteria for Information Technology Security
-	   Evaluation (CC).  This project is still under development,
-	   and much of the code is destined to make its way back into
-	   the base FreeBSD operating system, but the development
-	   takes place separately.</p></li>
+	<li><p><a href="https://www.midnightbsd.org" shape="rect">MidnightBSD</a>
+	  is a FreeBSD derived operating system developed with desktop
+	  users in mind.  It includes all the software you'd expect
+	  for your daily tasks: mail, web browsing, word processing,
+	  gaming, and much more.</p></li>
 
 	<li><p><a href="http://www.pfsense.com" shape="rect">pfSense</a> is an open source
 	  firewall derived from the m0n0wall firewall system with several
@@ -457,13 +442,31 @@
 	  finally an integrated package management system for extending the
 	  environment with new features.</p></li>
 
-	<li><p>The Whistle Interjet: A ``network appliance'' that acts as a
-	  router, web server, mailhost (and other functionality), and can be
-	  configured using a web browser. The underlying operating system is
-	  FreeBSD, and Whistle have contributed many of their code
-	  enhancements back to the FreeBSD project (while keeping enough of
-	  them proprietary that they can stay in business).</p></li>
+	<li><p><a href="https://hardenedbsd.org" shape="rect">HardenedBSD</a> was
+	  Founded in 2014 by Oliver Pinter and Shawn Webb, HardenedBSD
+	  is a security-enhanced fork of FreeBSD.  The HardenedBSD
+	  Project is implementing many exploit mitigation and security
+	  technologies on top of FreeBSD.</p></li>
 
+	<li><p><a href="https://opnsense.org" shape="rect">OPNsense</a> started as
+	  a fork of pfSense© and m0n0wall in 2014, with its first
+	  official release in January 2015.  The project has evolved
+	  very quickly while still retaining familiar aspects of both
+	  m0n0wall and pfSense.  A strong focus on security and code
+	  quality drives the development of the project.</p></li>
+
+	<li><p><a href="https://www.freenas.org/" shape="rect">FreeNAS</a> is an
+	  operating system that can be installed on virtually any
+	  hardware platform to share data over a network.  FreeNAS is
+	  the simplest way to create a centralized and easily
+	  accessible place for your data.  Use FreeNAS with ZFS to
+	  protect, store, and back up all of your data.  FreeNAS is
+	  used everywhere, for the home, small business, and the
+	  enterprise.</p></li>
+
+	<li><p><a href="https://www.xigmanas.com/" shape="rect">XigmaNAS</a> is an
+	  embedded Open Source NAS (Network-Attached Storage)
+	  distribution based on FreeBSD.</p></li>
 </ul>
 
     <p>Similarly to DragonflyBSD, OpenBSD was not a standalone project,
@@ -481,8 +484,8 @@
       desktop machine.</p>
 
     <p>*BSD has access to the same desktop tools (KDE, GNOME, Firefox,
-      windowmanagers) as Linux. And ``office'' applications such as
-      OpenOffice suite work under *BSD too.</p>
+      windowmanagers) as Linux.  And ''office'' applications such as
+      LibreOffice suite work under *BSD too.</p>
 
     <hr noshade="noshade" size="1" />
 
@@ -565,10 +568,10 @@
       systems (SunOS and similar). *BSD users can generally compile software
       written for these systems without needing to make any changes.</p>
 
-    <p>In addition, each *BSD project uses a ``ports'' system to make the
-      building of ported software much easier.</p>
+    <p>In addition, each *BSD project uses a ''ports'' system to make
+      the building of ported software much easier.</p>
 
-    <p><b>FreeBSD:</b> There are currently more than 26,000
+    <p><b>FreeBSD:</b> There are currently more than 30,000
       applications ready to download and install in the FreeBSD ports
       collection. On i386 and AMD64, the Linux emulation layer will
       also run the vast majority of Linux applications. On the AMD64
@@ -578,7 +581,7 @@
       i386 Linux applications, and the majority of SunOS4 applications can be
       run on a SPARCStation.</p>
 
-    <p><b>OpenBSD:</b> There are currently more than 3700 applications
+    <p><b>OpenBSD:</b> There are currently more than 8000 applications
       ready to download and install in the OpenBSD ports collection. The Linux
       emulation layer will also run the vast majority of i386 Linux
       applications, and the majority of SunOS4 applications can be run on a
@@ -649,7 +652,7 @@
         </div>
         <div id="footer">
           <span><a href="../search/index-site.html">Site Map</a> |
-  <a href="../copyright/">Legal Notices</a> | © 1995&#8211;2018 The FreeBSD Project.
+  <a href="../copyright/">Legal Notices</a> | © 1995&#8211;2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

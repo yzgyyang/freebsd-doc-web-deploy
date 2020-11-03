@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">検索</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="../../cgi/man.cgi">マニュアルページ</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">プレゼンテーションと論文</a>
                   </li>
                   <li>
                     <a href="../../doc/en_US.ISO8859-1/books/fdp-primer">新しい貢献者のためのドキュメンテーションプロジェクト入門</a>
@@ -231,6 +233,9 @@
                   <a href="//www.FreeBSD.org/cgi/man.cgi">マニュアルページ</a>
                 </li>
                 <li>
+                  <a href="https://papers.FreeBSD.org">プレゼンテーションと論文</a>
+                </li>
+                <li>
                   <a href="../docs/books.html">Books と Articles</a>
                 </li>
                 <li>
@@ -269,6 +274,10 @@
       また、私たちは新しい文書を寄贈したり、
       既存の文書を維持管理してくれる人を常に募集しています。</p>
 
+    <p><a href="https://papers.freebsd.org/" shape="rect">FreeBSD Papers</a>
+      ウェブサイトには、FreeBSD に関する論文、
+      プレゼンテーションおよびビデオが保存され、分類されています。</p>
+
     <h3>Books</h3>
 
     <p><a href="../../doc/en_US.ISO8859-1/books/dev-model/index.html" shape="rect">A project model for
@@ -299,12 +308,6 @@
 	port 作成者のためのハンドブック</a> (porters-handbook)<br clear="none" />
       サードパーティ製ソフトウェアの port を作成することを考えているのなら、
       まずこれを読みましょう。</p>
-
-    <p><a href="../../doc/en_US.ISO8859-1/books/pmake/index.html" shape="rect">The PMake Tutorial</a>
-	(pmake) (英語版のみ)<br clear="none" />
-      <em>make</em> ユーティリティのチュートリアルです。
-      Makefile を読み書きして <em>make</em>
-      を使う詳細を理解したいなら、まずこれを読みましょう。</p>
 
     <p><a href="../../doc/ja_JP.eucJP/books/design-44bsd/index.html" shape="rect">"4.4BSD
 	オペレーティングシステムの設計と実装" 第 2 章</a> (design-44bsd)<br clear="none" />
@@ -508,11 +511,6 @@
       </li>
 
       <li>
-	<p><a href="http://www.nber.org/sys-admin/amd.html" shape="rect">FreeBSD
-	  で AMD を使ってみよう</a></p>
-      </li>
-
-      <li>
 	<p><a href="http://software.intel.com/sites/default/files/profiling_debugging_freebsd_kernel_321772.pdf" shape="rect">Profiling
 	    and Debugging the FreeBSD Kernel</a></p>
       </li>
@@ -520,11 +518,6 @@
       <li>
 	<p><a href="http://software.intel.com/sites/default/files/debugging_buffer_overruns_322486.pdf" shape="rect">Debugging
 	    Buffer Overruns in the FreeBSD Kernel</a></p>
-      </li>
-
-      <li>
-	<p><a href="http://www.cfcl.com/rdm/split_DNS.html" shape="rect">FreeBSD 4.1
-	    における分割 DNS の設定</a></p>
       </li>
 
       <li>
@@ -540,7 +533,7 @@
         </div>
         <div id="footer">
           <span><a href="../search/index-site.html">サイトマップ</a> |
-  <a href="../copyright/">知的財産権について</a> | (C) 1995〓2018 The FreeBSD Project.
+  <a href="../copyright/">知的財産権について</a> | (C) 1995〓2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

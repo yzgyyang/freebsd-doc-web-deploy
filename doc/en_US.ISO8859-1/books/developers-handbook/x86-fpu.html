@@ -1,0 +1,1501 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>11.13. Using the FPU</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Developers' Handbook" /><link rel="up" href="x86.html" title="Chapter 11. x86 Assembly Language Programming" /><link rel="prev" href="x86-one-pointed-mind.html" title="11.12. One-Pointed Mind" /><link rel="next" href="x86-caveats.html" title="11.14. Caveats" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">11.13. Using the <acronym class="acronym">FPU</acronym></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="x86-one-pointed-mind.html">Prev</a> </td><th width="60%" align="center">Chapter 11. x86 Assembly Language Programming</th><td width="20%" align="right"> <a accesskey="n" href="x86-caveats.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="x86-fpu"></a>11.13. Using the <acronym class="acronym">FPU</acronym></h2></div></div></div><p>Strangely enough, most of assembly language literature
+	does not even mention the existence of the
+	<acronym class="acronym">FPU</acronym>, or <span class="emphasis"><em>floating point
+	  unit</em></span>, let alone discuss programming it.</p><p>Yet, never does assembly language shine more than when we
+	create highly optimized <acronym class="acronym">FPU</acronym> code by doing
+	things that can be done <span class="emphasis"><em>only</em></span> in assembly
+	language.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-fpu-organization"></a>11.13.1. Organization of the <acronym class="acronym">FPU</acronym></h3></div></div></div><p>The <acronym class="acronym">FPU</acronym> consists of 8 80&#8211;bit
+	  floating&#8211;point registers.  These are organized in a
+	  stack fashion&#8212;you can <code class="function">push</code> a
+	  value on <acronym class="acronym">TOS</acronym> (<span class="emphasis"><em>top of
+	    stack</em></span>) and you can <code class="function">pop</code>
+	  it.</p><p>That said, the assembly language op codes are not
+	  <code class="function">push</code> and <code class="function">pop</code> because those are already
+	  taken.</p><p>You can <code class="function">push</code> a value on
+	  <acronym class="acronym">TOS</acronym> by using <code class="function">fld</code>, <code class="function">fild</code>, and <code class="function">fbld</code>.  Several other op codes let
+	  you <code class="function">push</code> many common
+	  <span class="emphasis"><em>constants</em></span>&#8212;such as
+	  <span class="emphasis"><em>pi</em></span>&#8212;on the
+	  <acronym class="acronym">TOS</acronym>.</p><p>Similarly, you can <code class="function">pop</code> a value by
+	  using <code class="function">fst</code>, <code class="function">fstp</code>, <code class="function">fist</code>, <code class="function">fistp</code>, and <code class="function">fbstp</code>.  Actually, only the op
+	  codes that end with a <span class="emphasis"><em>p</em></span> will literally
+	  <code class="function">pop</code> the value, the rest will
+	  <code class="function">store</code> it somewhere else without
+	  removing it from the <acronym class="acronym">TOS</acronym>.</p><p>We can transfer the data between the
+	  <acronym class="acronym">TOS</acronym> and the computer memory either as a
+	  32&#8211;bit, 64&#8211;bit, or 80&#8211;bit
+	  <span class="emphasis"><em>real</em></span>, a 16&#8211;bit, 32&#8211;bit, or
+	  64&#8211;bit <span class="emphasis"><em>integer</em></span>, or an
+	  80&#8211;bit <span class="emphasis"><em>packed decimal</em></span>.</p><p>The 80&#8211;bit <span class="emphasis"><em>packed decimal</em></span> is
+	  a special case of <span class="emphasis"><em>binary coded decimal</em></span>
+	  which is very convenient when converting between the
+	  <acronym class="acronym">ASCII</acronym> representation of data and the
+	  internal data of the <acronym class="acronym">FPU</acronym>.  It allows us
+	  to use 18 significant digits.</p><p>No matter how we represent data in the memory, the
+	  <acronym class="acronym">FPU</acronym> always stores it in the 80&#8211;bit
+	  <span class="emphasis"><em>real</em></span> format in its registers.</p><p>Its internal precision is at least 19 decimal digits, so
+	  even if we choose to display results as
+	  <acronym class="acronym">ASCII</acronym> in the full 18&#8211;digit
+	  precision, we are still showing correct results.</p><p>We can perform mathematical operations on the
+	  <acronym class="acronym">TOS</acronym>: We can calculate its
+	  <span class="emphasis"><em>sine</em></span>, we can <span class="emphasis"><em>scale</em></span>
+	  it (i.e., we can multiply or divide it by a power of 2), we
+	  can calculate its base&#8211;2
+	  <span class="emphasis"><em>logarithm</em></span>, and many other
+	  things.</p><p>We can also <span class="emphasis"><em>multiply</em></span> or
+	  <span class="emphasis"><em>divide</em></span> it by, <span class="emphasis"><em>add</em></span>
+	  it to, or <span class="emphasis"><em>subtract</em></span> it from, any of the
+	  <acronym class="acronym">FPU</acronym> registers (including itself).</p><p>The official Intel op code for the
+	  <acronym class="acronym">TOS</acronym> is <code class="varname">st</code>, and for the
+	  <span class="emphasis"><em>registers</em></span> <code class="varname">st(0)</code>&#8211;<code class="varname">st(7)</code>.  <code class="varname">st</code> and <code class="varname">st(0)</code>, then,
+	  refer to the same register.</p><p>For whatever reasons, the original author of
+	  <span class="application">nasm</span> has decided to use
+	  different op codes, namely <code class="varname">st0</code>&#8211;<code class="varname">st7</code>.  In other words, there are
+	  no parentheses, and the <acronym class="acronym">TOS</acronym> is always
+	  <code class="varname">st0</code>, never just
+	  <code class="function">st</code>.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-fpu-packed-decimal"></a>11.13.1.1. The Packed Decimal Format</h4></div></div></div><p>The <span class="emphasis"><em>packed decimal</em></span> format uses 10
+	    bytes (80 bits) of memory to represent 18 digits.  The
+	    number represented there is always an
+	    <span class="emphasis"><em>integer</em></span>.</p><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">You can use it to get decimal places by multiplying
+	      the <acronym class="acronym">TOS</acronym> by a power of 10
+	      first.</p></div><p>The highest bit of the highest byte (byte 9) is the
+	    <span class="emphasis"><em>sign bit</em></span>: If it is set, the number is
+	    <span class="emphasis"><em>negative</em></span>, otherwise, it is
+	    <span class="emphasis"><em>positive</em></span>.  The rest of the bits of
+	    this byte are unused/ignored.</p><p>The remaining 9 bytes store the 18 digits of the
+	    number: 2 digits per byte.</p><p>The <span class="emphasis"><em>more significant digit</em></span> is
+	    stored in the high <span class="emphasis"><em>nibble</em></span> (4 bits),
+	    the <span class="emphasis"><em>less significant digit</em></span> in the low
+	    <span class="emphasis"><em>nibble</em></span>.</p><p>That said, you might think that
+	    <code class="constant">-1234567</code> would be stored in the
+	    memory like this (using hexadecimal notation):</p><pre class="programlisting">80 00 00 00 00 00 01 23 45 67</pre><p>Alas it is not! As with everything else of Intel make,
+	    even the <span class="emphasis"><em>packed decimal</em></span> is
+	    <span class="emphasis"><em>little&#8211;endian</em></span>.</p><p>That means our <code class="constant">-1234567</code> is stored
+	    like this:</p><pre class="programlisting">67 45 23 01 00 00 00 00 00 80</pre><p>Remember that, or you will be pulling your hair out in
+	    desperation!</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">The book to read&#8212;if you can find it&#8212;is
+	      Richard Startz' <a class="link" href="http://www.amazon.com/exec/obidos/ASIN/013246604X/whizkidtechnomag" target="_top">8087/80287/80387
+	      for the IBM PC &amp; Compatibles</a>.  Though it does
+	      seem to take the fact about the little&#8211;endian
+	      storage of the <span class="emphasis"><em>packed decimal</em></span> for
+	      granted.  I kid you not about the desperation of trying
+	      to figure out what was wrong with the filter I show
+	      below <span class="emphasis"><em>before</em></span> it occurred to me I
+	      should try the little&#8211;endian order even for this
+	      type of data.</p></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-pinhole-photography"></a>11.13.2. Excursion to Pinhole Photography</h3></div></div></div><p>To write meaningful software, we must not only
+	  understand our programming tools, but also the
+	  field we are creating software for.</p><p>Our next filter will help us whenever we want to build a
+	  <span class="emphasis"><em>pinhole camera</em></span>, so, we need some
+	  background in <span class="emphasis"><em>pinhole photography</em></span>
+	  before we can continue.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-camera"></a>11.13.2.1. The Camera</h4></div></div></div><p>The easiest way to describe any camera ever built is
+	    as some empty space enclosed in some lightproof material,
+	    with a small hole in the enclosure.</p><p>The enclosure is usually sturdy (e.g., a box), though
+	    sometimes it is flexible (the bellows).  It is quite dark
+	    inside the camera.  However, the hole lets light rays in
+	    through a single point (though in some cases there may be
+	    several).  These light rays form an image, a
+	    representation of whatever is outside the camera, in front
+	    of the hole.</p><p>If some light sensitive material (such as film) is
+	    placed inside the camera, it can capture the image.</p><p>The hole often contains a <span class="emphasis"><em>lens</em></span>,
+	    or a lens assembly, often called the
+	    <span class="emphasis"><em>objective</em></span>.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-the-pinhole"></a>11.13.2.2. The Pinhole</h4></div></div></div><p>But, strictly speaking, the lens is not necessary: The
+	    original cameras did not use a lens but a
+	    <span class="emphasis"><em>pinhole</em></span>.  Even today,
+	    <span class="emphasis"><em>pinholes</em></span> are used, both as a tool to
+	    study how cameras work, and to achieve a special kind of
+	    image.</p><p>The image produced by the <span class="emphasis"><em>pinhole</em></span>
+	    is all equally sharp.  Or <span class="emphasis"><em>blurred</em></span>.
+	    There is an ideal size for a pinhole: If it is either
+	    larger or smaller, the image loses its sharpness.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-focal-length"></a>11.13.2.3. Focal Length</h4></div></div></div><p>This ideal pinhole diameter is a function of the
+	    square root of <span class="emphasis"><em>focal length</em></span>, which is
+	    the distance of the pinhole from the film.</p><pre class="programlisting">D = PC * sqrt(FL)</pre><p>In here, <code class="varname">D</code> is the ideal diameter of
+	    the pinhole, <code class="varname">FL</code> is the focal length,
+	    and <code class="constant">PC</code> is a pinhole constant.
+	    According to Jay Bender, its value is
+	    <code class="constant">0.04</code>, while Kenneth Connors has
+	    determined it to be <code class="constant">0.037</code>.  Others
+	    have proposed other values.  Plus, this value is for the
+	    daylight only: Other types of light will require a
+	    different constant, whose value can only be determined by
+	    experimentation.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-f-number"></a>11.13.2.4. The F&#8211;Number</h4></div></div></div><p>The f&#8211;number is a very useful measure of how
+	    much light reaches the film.  A light meter can determine
+	    that, for example, to expose a film of specific
+	    sensitivity with f5.6 mkay require the exposure to last
+	    1/1000 sec.</p><p>It does not matter whether it is a 35&#8211;mm
+	    camera, or a 6x9cm camera, etc.  As long as we know the
+	    f&#8211;number, we can determine the proper
+	    exposure.</p><p>The f&#8211;number is easy to calculate:</p><pre class="programlisting">F = FL / D</pre><p>In other words, the f&#8211;number equals the focal
+	    length divided by the diameter of the pinhole.  It also
+	    means a higher f&#8211;number either implies a smaller
+	    pinhole or a larger focal distance, or both.  That, in
+	    turn, implies, the higher the f&#8211;number, the longer
+	    the exposure has to be.</p><p>Furthermore, while pinhole diameter and focal distance
+	    are one&#8211;dimensional measurements, both, the film and
+	    the pinhole, are two&#8211;dimensional.  That means that
+	    if you have measured the exposure at f&#8211;number
+	    <code class="varname">A</code> as <code class="varname">t</code>, then the
+	    exposure at f&#8211;number <code class="varname">B</code> is:</p><pre class="programlisting">t * (B / A)²</pre></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-normalized-f-number"></a>11.13.2.5. Normalized F&#8211;Number</h4></div></div></div><p>While many modern cameras can change the diameter of
+	    their pinhole, and thus their f&#8211;number, quite
+	    smoothly and gradually, such was not always the
+	    case.</p><p>To allow for different f&#8211;numbers, cameras
+	    typically contained a metal plate with several holes of
+	    different sizes drilled to them.</p><p>Their sizes were chosen according to the above formula
+	    in such a way that the resultant f&#8211;number was one
+	    of standard f&#8211;numbers used on all cameras
+	    everywhere.  For example, a very old Kodak Duaflex IV
+	    camera in my possession has three such holes for
+	    f&#8211;numbers 8, 11, and 16.</p><p>A more recently made camera may offer f&#8211;numbers
+	    of 2.8, 4, 5.6, 8, 11, 16, 22, and 32 (as well as others).
+	    These numbers were not chosen arbitrarily: They all are
+	    powers of the square root of 2, though they may be rounded
+	    somewha.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-f-stop"></a>11.13.2.6. The F&#8211;Stop</h4></div></div></div><p>A typical camera is designed in such a way that
+	    setting any of the normalized f&#8211;numbers changes the
+	    feel of the dial.  It will naturally
+	    <span class="emphasis"><em>stop</em></span> in that position.  Because of
+	    that, these positions of the dial are called
+	    f&#8211;stops.</p><p>Since the f&#8211;numbers at each stop are powers of
+	    the square root of 2, moving the dial by 1 stop will
+	    double the amount of light required for proper exposure.
+	    Moving it by 2 stops will quadruple the required exposure.
+	    Moving the dial by 3 stops will require the increase in
+	    exposure 8 times, etc.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-pinhole-software"></a>11.13.3. Designing the Pinhole Software</h3></div></div></div><p>We are now ready to decide what exactly we want our
+	  pinhole software to do.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="xpinhole-processing-input"></a>11.13.3.1. Processing Program Input</h4></div></div></div><p>Since its main purpose is to help us design a working
+	    pinhole camera, we will use the <span class="emphasis"><em>focal
+	      length</em></span> as the input to the program.  This is
+	    something we can determine without software: Proper focal
+	    length is determined by the size of the film and by the
+	    need to shoot "regular" pictures, wide angle pictures, or
+	    telephoto pictures.</p><p>Most of the programs we have written so far worked
+	    with individual characters, or bytes, as their input: The
+	    <span class="application">hex</span> program converted
+	    individual bytes into a hexadecimal number, the
+	    <span class="application">csv</span> program either let a
+	    character through, or deleted it, or changed it to a
+	    different character, etc.</p><p>One program, <span class="application">ftuc</span> used the
+	    state machine to consider at most two input bytes at a
+	    time.</p><p>But our <span class="application">pinhole</span> program
+	    cannot just work with individual characters, it has to
+	    deal with larger syntactic units.</p><p>For example, if we want the program to calculate the
+	    pinhole diameter (and other values we will discuss later)
+	    at the focal lengths of <code class="constant">100 mm</code>,
+	    <code class="constant">150 mm</code>, and <code class="constant">210
+	      mm</code>, we may want to enter something like
+	    this:</p><pre class="screen"><strong class="userinput"><code>100, 150, 210</code></strong></pre><p>Our program needs to consider more than a single byte
+	    of input at a time.  When it sees the first
+	    <code class="constant">1</code>, it must understand it is seeing
+	    the first digit of a decimal number.  When it sees the
+	    <code class="constant">0</code> and the other
+	    <code class="constant">0</code>, it must know it is seeing more
+	    digits of the same number.</p><p>When it encounters the first comma, it must know it is
+	    no longer receiving the digits of the first number.  It
+	    must be able to convert the digits of the first number
+	    into the value of <code class="constant">100</code>.  And the
+	    digits of the second number into the value of
+	    <code class="constant">150</code>.  And, of course, the digits of
+	    the third number into the numeric value of
+	    <code class="constant">210</code>.</p><p>We need to decide what delimiters to accept: Do the
+	    input numbers have to be separated by a comma? If so, how
+	    do we treat two numbers separated by something
+	    else?</p><p>Personally, I like to keep it simple.  Something
+	    either is a number, so I process it.  Or it is not a
+	    number, so I discard it.  I do not like the computer
+	    complaining about me typing in an extra character when it
+	    is <span class="emphasis"><em>obvious</em></span> that it is an extra
+	    character.  Duh!</p><p>Plus, it allows me to break up the monotony of
+	    computing and type in a query instead of just a
+	    number:</p><pre class="screen"><strong class="userinput"><code>What is the best pinhole diameter for the
+	    focal length of 150?</code></strong></pre><p>There is no reason for the computer to spit out a
+	    number of complaints:</p><pre class="screen">Syntax error: What
+Syntax error: is
+Syntax error: the
+Syntax error: best</pre><p>Et cetera, et cetera, et cetera.</p><p>Secondly, I like the <code class="constant">#</code> character
+	    to denote the start of a comment which extends to the end
+	    of the line.  This does not take too much effort to code,
+	    and lets me treat input files for my software as
+	    executable scripts.</p><p>In our case, we also need to decide what units the
+	    input should come in: We choose
+	    <span class="emphasis"><em>millimeters</em></span> because that is how most
+	    photographers measure the focus length.</p><p>Finally, we need to decide whether to allow the use of
+	    the decimal point (in which case we must also consider the
+	    fact that much of the world uses a decimal
+	    <span class="emphasis"><em>comma</em></span>).</p><p>In our case allowing for the decimal point/comma would
+	    offer a false sense of precision: There is little if any
+	    noticeable difference between the focus lengths of
+	    <code class="constant">50</code> and <code class="constant">51</code>, so
+	    allowing the user to input something like
+	    <code class="constant">50.5</code> is not a good idea.  This is
+	    my opinion, mind you, but I am the one writing this
+	    program.  You can make other choices in yours, of
+	    course.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-pinhole-options"></a>11.13.3.2. Offering Options</h4></div></div></div><p>The most important thing we need to know when building
+	    a pinhole camera is the diameter of the pinhole.  Since we
+	    want to shoot sharp images, we will use the above formula
+	    to calculate the pinhole diameter from focal length.  As
+	    experts are offering several different values for the
+	    <code class="constant">PC</code> constant, we will need to have the
+	    choice.</p><p>It is traditional in <span class="trademark">UNIX</span>® programming to have two
+	    main ways of choosing program parameters, plus to have a
+	    default for the time the user does not make a
+	    choice.</p><p>Why have two ways of choosing?</p><p>One is to allow a (relatively)
+	    <span class="emphasis"><em>permanent</em></span> choice that applies
+	    automatically each time the software is run without us
+	    having to tell it over and over what we want it to
+	    do.</p><p>The permanent choices may be stored in a configuration
+	    file, typically found in the user's home directory.  The
+	    file usually has the same name as the application but is
+	    started with a dot.  Often <span class="emphasis"><em>"rc"</em></span> is
+	    added to the file name.  So, ours could be
+	    <code class="filename">~/.pinhole</code> or
+	    <code class="filename">~/.pinholerc</code>.  (The
+	    <code class="filename">~/</code> means current user's home
+	    directory.)</p><p>The configuration file is used mostly by programs that
+	    have many configurable parameters.  Those that have only
+	    one (or a few) often use a different method: They expect
+	    to find the parameter in an <span class="emphasis"><em>environment
+	      variable</em></span>.  In our case, we might look at an
+	    environment variable named
+	    <code class="varname">PINHOLE</code>.</p><p>Usually, a program uses one or the other of the above
+	    methods.  Otherwise, if a configuration file said one
+	    thing, but an environment variable another, the program
+	    might get confused (or just too complicated).</p><p>Because we only need to choose
+	    <span class="emphasis"><em>one</em></span> such parameter, we will go with
+	    the second method and search the environment for a
+	    variable named <code class="varname">PINHOLE</code>.</p><p>The other way allows us to make <span class="emphasis"><em>ad
+	      hoc</em></span> decisions: <span class="emphasis"><em>"Though I usually
+	      want you to use 0.039, this time I want
+	      0.03872."</em></span>  In other words, it allows us to
+	    <span class="emphasis"><em>override</em></span> the permanent choice.</p><p>This type of choice is usually done with command line
+	    parameters.</p><p>Finally, a program <span class="emphasis"><em>always</em></span> needs a
+	    <span class="emphasis"><em>default</em></span>.  The user may not make any
+	    choices.  Perhaps he does not know what to choose.
+	    Perhaps he is "just browsing." Preferably, the default
+	    will be the value most users would choose anyway.  That
+	    way they do not need to choose.  Or, rather, they can
+	    choose the default without an additional effort.</p><p>Given this system, the program may find conflicting
+	    options, and handle them this way:</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p>If it finds an <span class="emphasis"><em>ad hoc</em></span> choice
+		(e.g., command line parameter), it should accept that
+		choice.  It must ignore any permanent choice and any
+		default.</p></li><li class="step"><p><span class="emphasis"><em>Otherwise</em></span>, if it finds a
+		permanent option (e.g., an environment variable), it
+		should accept it, and ignore the default.</p></li><li class="step"><p><span class="emphasis"><em>Otherwise</em></span>, it should use the
+		default.</p></li></ol></div><p>We also need to decide what
+	    <span class="emphasis"><em>format</em></span> our <code class="constant">PC</code>
+	    option should have.</p><p>At first site, it seems obvious to use the
+	    <code class="varname">PINHOLE=0.04</code> format for the
+	    environment variable, and <em class="parameter"><code>-p0.04</code></em>
+	    for the command line.</p><p>Allowing that is actually a security risk.  The
+	    <code class="constant">PC</code> constant is a very small number.
+	    Naturally, we will test our software using various small
+	    values of <code class="constant">PC</code>.  But what will happen
+	    if someone runs the program choosing a huge value?</p><p>It may crash the program because we have not designed
+	    it to handle huge numbers.</p><p>Or, we may spend more time on the program so it can
+	    handle huge numbers.  We might do that if we were writing
+	    commercial software for computer illiterate
+	    audience.</p><p>Or, we might say, <span class="emphasis"><em>"Tough! The user should
+	      know better.""</em></span></p><p>Or, we just may make it impossible for the user to
+	    enter a huge number.  This is the approach we will take:
+	    We will use an <span class="emphasis"><em>implied 0.</em></span>
+	    prefix.</p><p>In other words, if the user wants
+	    <code class="constant">0.04</code>, we will expect him to type
+	    <em class="parameter"><code>-p04</code></em>, or set
+	    <code class="varname">PINHOLE=04</code> in his environment.  So, if
+	    he says <em class="parameter"><code>-p9999999</code></em>, we will
+	    interpret it as <code class="constant">0.9999999</code>&#8212;still
+	    ridiculous but at least safer.</p><p>Secondly, many users will just want to go with either
+	    Bender's constant or Connors' constant.  To make it easier
+	    on them, we will interpret <em class="parameter"><code>-b</code></em> as
+	    identical to <em class="parameter"><code>-p04</code></em>, and
+	    <em class="parameter"><code>-c</code></em> as identical to
+	    <em class="parameter"><code>-p037</code></em>.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-pinhole-output"></a>11.13.3.3. The Output</h4></div></div></div><p>We need to decide what we want our software to send to
+	    the output, and in what format.</p><p>Since our input allows for an unspecified number of
+	    focal length entries, it makes sense to use a traditional
+	    database&#8211;style output of showing the result of the
+	    calculation for each focal length on a separate line,
+	    while separating all values on one line by a
+	    <code class="constant">tab</code> character.</p><p>Optionally, we should also allow the user to specify
+	    the use of the <acronym class="acronym">CSV</acronym> format we have
+	    studied earlier.  In this case, we will print out a line
+	    of comma&#8211;separated names describing each field of
+	    every line, then show our results as before, but
+	    substituting a <code class="constant">comma</code> for the
+	    <code class="constant">tab</code>.</p><p>We need a command line option for the
+	    <acronym class="acronym">CSV</acronym> format.  We cannot use
+	    <em class="parameter"><code>-c</code></em> because that already means
+	    <span class="emphasis"><em>use Connors' constant</em></span>.  For some
+	    strange reason, many web sites refer to
+	    <acronym class="acronym">CSV</acronym> files as <span class="emphasis"><em>"Excel
+	      spreadsheet"</em></span> (though the
+	    <acronym class="acronym">CSV</acronym> format predates Excel).
+	    We will, therefore, use the <em class="parameter"><code>-e</code></em>
+	    switch to inform our software we want the output in the
+	    <acronym class="acronym">CSV</acronym> format.</p><p>We will start each line of the output with the focal
+	    length.  This may sound repetitious at first, especially
+	    in the interactive mode: The user types in the focal
+	    length, and we are repeating it.</p><p>But the user can type several focal lengths on one
+	    line.  The input can also come in from a file or from the
+	    output of another program.  In that case the user does not
+	    see the input at all.</p><p>By the same token, the output can go to a file which
+	    we will want to examine later, or it could go to the
+	    printer, or become the input of another program.</p><p>So, it makes perfect sense to start each line with
+	    the focal length as entered by the user.</p><p>No, wait! Not as entered by the user.  What if the
+	    user types in something like this:</p><pre class="screen"><strong class="userinput"><code>00000000150</code></strong></pre><p>Clearly, we need to strip those leading zeros.</p><p>So, we might consider reading the user input as is,
+	    converting it to binary inside the <acronym class="acronym">FPU</acronym>,
+	    and printing it out from there.</p><p>But...</p><p>What if the user types something like this:</p><pre class="screen"><strong class="userinput"><code>17459765723452353453534535353530530534563507309676764423</code></strong></pre><p>Ha! The packed decimal <acronym class="acronym">FPU</acronym> format
+	    lets us input 18&#8211;digit numbers.  But the user has
+	    entered more than 18 digits.  How do we handle
+	    that?</p><p>Well, we <span class="emphasis"><em>could</em></span> modify our code to
+	    read the first 18 digits, enter it to the
+	    <acronym class="acronym">FPU</acronym>, then read more, multiply what we
+	    already have on the <acronym class="acronym">TOS</acronym> by 10 raised to
+	    the number of additional digits, then
+	    <code class="function">add</code> to it.</p><p>Yes, we could do that.  But in
+	    <span class="emphasis"><em>this</em></span> program it would be ridiculous
+	    (in a different one it may be just the thing to do): Even
+	    the circumference of the Earth expressed in millimeters
+	    only takes 11 digits.  Clearly, we cannot build a camera
+	    that large (not yet, anyway).</p><p>So, if the user enters such a huge number, he is
+	    either bored, or testing us, or trying to break into the
+	    system, or playing games&#8212;doing anything but
+	    designing a pinhole camera.</p><p>What will we do?</p><p>We will slap him in the face, in a manner of
+	    speaking:</p><pre class="screen">17459765723452353453534535353530530534563507309676764423	???	???	???	???	???</pre><p>To achieve that, we will simply ignore any leading
+	    zeros.  Once we find a non&#8211;zero digit, we will
+	    initialize a counter to <code class="constant">0</code> and start
+	    taking three steps:</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p>Send the digit to the output.</p></li><li class="step"><p>Append the digit to a buffer we will use later to
+		produce the packed decimal we can send to the
+		<acronym class="acronym">FPU</acronym>.</p></li><li class="step"><p>Increase the counter.</p></li></ol></div><p>Now, while we are taking these three steps, we also
+	    need to watch out for one of two conditions:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>If the counter grows above 18, we stop appending
+		to the buffer.  We continue reading the digits and
+		sending them to the output.</p></li><li class="listitem"><p>If, or rather <span class="emphasis"><em>when</em></span>, the next
+		input character is not a digit, we are done inputting
+		for now.</p><p>Incidentally, we can simply discard the
+		non&#8211;digit, unless it is a
+		<code class="constant">#</code>, which we must return to the
+		input stream.  It starts a comment, so we must see it
+		after we are done producing output and start looking
+		for more input.</p></li></ul></div><p>That still leaves one possibility uncovered: If all
+	    the user enters is a zero (or several zeros), we will
+	    never find a non&#8211;zero to display.</p><p>We can determine this has happened whenever our
+	    counter stays at <code class="constant">0</code>.  In that case we
+	    need to send <code class="constant">0</code> to the output, and
+	    perform another "slap in the face":</p><pre class="screen">0	???	???	???	???	???</pre><p>Once we have displayed the focal length and determined
+	    it is valid (greater than <code class="constant">0</code> but not
+	    exceeding 18 digits), we can calculate the pinhole
+	    diameter.</p><p>It is not by coincidence that
+	    <span class="emphasis"><em>pinhole</em></span> contains the word
+	    <span class="emphasis"><em>pin</em></span>.  Indeed, many a pinhole
+	    literally is a <span class="emphasis"><em>pin hole</em></span>, a hole
+	    carefully punched with the tip of a pin.</p><p>That is because a typical pinhole is very small.  Our
+	    formula gets the result in millimeters.  We will multiply
+	    it by <code class="constant">1000</code>, so we can output the
+	    result in <span class="emphasis"><em>microns</em></span>.</p><p>At this point we have yet another trap to face:
+	    <span class="emphasis"><em>Too much precision.</em></span></p><p>Yes, the <acronym class="acronym">FPU</acronym> was designed for high
+	    precision mathematics.  But we are not dealing with high
+	    precision mathematics.  We are dealing with physics
+	    (optics, specifically).</p><p>Suppose we want to convert a truck into a pinhole
+	    camera (we would not be the first ones to do that!).
+	    Suppose its box is <code class="constant">12</code> meters long,
+	    so we have the focal length of <code class="constant">12000</code>.
+	    Well, using Bender's constant, it gives us square root of
+	    <code class="constant">12000</code> multiplied by
+	    <code class="constant">0.04</code>, which is
+	    <code class="constant">4.381780460</code> millimeters, or
+	    <code class="constant">4381.780460</code> microns.</p><p>Put either way, the result is absurdly precise.  Our
+	    truck is not <span class="emphasis"><em>exactly</em></span>
+	    <code class="constant">12000</code> millimeters long.  We did not
+	    measure its length with such a precision, so stating we
+	    need a pinhole with the diameter of
+	    <code class="constant">4.381780460</code> millimeters is, well,
+	    deceiving.  <code class="constant">4.4</code> millimeters would do
+	    just fine.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">I "only" used ten digits in the above example.
+	      Imagine the absurdity of going for all 18!</p></div><p>We need to limit the number of significant digits of
+	    our result.  One way of doing it is by using an integer
+	    representing microns.  So, our truck would need a pinhole
+	    with the diameter of <code class="constant">4382</code> microns.
+	    Looking at that number, we still decide that
+	    <code class="constant">4400</code> microns, or
+	    <code class="constant">4.4</code> millimeters is close
+	    enough.</p><p>Additionally, we can decide that no matter how big a
+	    result we get, we only want to display four significant
+	    digits (or any other number of them, of course).  Alas,
+	    the <acronym class="acronym">FPU</acronym> does not offer rounding to a
+	    specific number of digits (after all, it does not view the
+	    numbers as decimal but as binary).</p><p>We, therefore, must devise an algorithm to reduce
+	    the number of significant digits.</p><p>Here is mine (I think it is awkward&#8212;if you know
+	    a better one, <span class="emphasis"><em>please</em></span>, let me
+	    know):</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p>Initialize a counter to
+		<code class="constant">0</code>.</p></li><li class="step"><p>While the number is greater than or equal to
+		<code class="constant">10000</code>, divide it by
+		<code class="constant">10</code> and increase the
+		counter.</p></li><li class="step"><p>Output the result.</p></li><li class="step"><p>While the counter is greater than
+		<code class="constant">0</code>, output <code class="constant">0</code>
+		and decrease the counter.</p></li></ol></div><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">The <code class="constant">10000</code> is only good if you
+	      want <span class="emphasis"><em>four</em></span> significant digits.  For
+	      any other number of significant digits, replace
+	      <code class="constant">10000</code> with <code class="constant">10</code>
+	      raised to the number of significant digits.</p></div><p>We will, then, output the pinhole diameter in microns,
+	    rounded off to four significant digits.</p><p>At this point, we know the <span class="emphasis"><em>focal
+	      length</em></span> and the <span class="emphasis"><em>pinhole
+	      diameter</em></span>.  That means we have enough
+	    information to also calculate the
+	    <span class="emphasis"><em>f&#8211;number</em></span>.</p><p>We will display the f&#8211;number, rounded to four
+	    significant digits.  Chances are the f&#8211;number will
+	    tell us very little.  To make it more meaningful, we can
+	    find the nearest <span class="emphasis"><em>normalized
+	    f&#8211;number</em></span>, i.e., the nearest power of the
+	    square root of 2.</p><p>We do that by multiplying the actual f&#8211;number by
+	    itself, which, of course, will give us its
+	    <code class="function">square</code>.  We will then calculate its
+	    base&#8211;2 logarithm, which is much easier to do than
+	    calculating the
+	    base&#8211;square&#8211;root&#8211;of&#8211;2 logarithm!
+	    We will round the result to the nearest integer.  Next, we
+	    will raise 2 to the result.  Actually, the
+	    <acronym class="acronym">FPU</acronym> gives us a good shortcut to do
+	    that: We can use the <code class="function">fscale</code> op code to "scale" 1,
+	    which is analogous to <code class="function">shift</code>ing an integer left.
+	    Finally, we calculate the square root of it all, and we
+	    have the nearest normalized f&#8211;number.</p><p>If all that sounds overwhelming&#8212;or too much
+	    work, perhaps&#8212;it may become much clearer if you see
+	    the code.  It takes 9 op codes altogether:</p><pre class="programlisting">fmul	st0, st0
+	fld1
+	fld	st1
+	fyl2x
+	frndint
+	fld1
+	fscale
+	fsqrt
+	fstp	st1</pre><p>The first line, <code class="function">fmul st0, st0</code>, squares the
+	    contents of the <acronym class="acronym">TOS</acronym> (top of the stack,
+	    same as <code class="varname">st</code>, called
+	    <code class="varname">st0</code> by
+	    <span class="application">nasm</span>).  The <code class="function">fld1</code> pushes
+	    <code class="constant">1</code> on the
+	    <acronym class="acronym">TOS</acronym>.</p><p>The next line, <code class="function">fld
+	      st1</code>, pushes the square back to the
+	    <acronym class="acronym">TOS</acronym>.  At this point the square is
+	    both in <code class="varname">st</code> and <code class="varname">st(2)</code> (it will become clear
+	    why we leave a second copy on the stack in a moment).
+	    <code class="varname">st(1)</code> contains
+	    <code class="constant">1</code>.</p><p>Next, <code class="function">fyl2x</code>
+	    calculates base&#8211;2 logarithm of <code class="varname">st</code> multiplied by
+	    <code class="varname">st(1)</code>.  That is why we
+	    placed <code class="constant">1</code> on <code class="varname">st(1)</code> before.</p><p>At this point, <code class="varname">st</code>
+	    contains the logarithm we have just calculated, <code class="varname">st(1)</code> contains the square of
+	    the actual f&#8211;number we saved for later.</p><p><code class="function">frndint</code> rounds the
+	    <acronym class="acronym">TOS</acronym> to the nearest integer.  <code class="function">fld1</code> pushes a
+	    <code class="constant">1</code>.  <code class="function">fscale</code> shifts the
+	    <code class="constant">1</code> we have on the
+	    <acronym class="acronym">TOS</acronym> by the value in <code class="varname">st(1)</code>, effectively raising 2
+	    to <code class="varname">st(1)</code>.</p><p>Finally, <code class="function">fsqrt</code>
+	    calculates the square root of the result, i.e., the
+	    nearest normalized f&#8211;number.</p><p>We now have the nearest normalized f&#8211;number on
+	    the <acronym class="acronym">TOS</acronym>, the base&#8211;2 logarithm
+	    rounded to the nearest integer in <code class="varname">st(1)</code>, and the square of the
+	    actual f&#8211;number in <code class="varname">st(2)</code>.  We are saving the
+	    value in <code class="varname">st(2)</code> for
+	    later.</p><p>But we do not need the contents of <code class="varname">st(1)</code> anymore.  The last line,
+	    <code class="function">fstp st1</code>, places the
+	    contents of <code class="varname">st</code> to
+	    <code class="varname">st(1)</code>, and pops.  As a
+	    result, what was <code class="varname">st(1)</code>
+	    is now <code class="varname">st</code>, what was
+	    <code class="varname">st(2)</code> is now <code class="varname">st(1)</code>, etc.  The new <code class="varname">st</code> contains the normalized
+	    f&#8211;number.  The new <code class="varname">st(1)</code> contains the square of
+	    the actual f&#8211;number we have stored there for
+	    posterity.</p><p>At this point, we are ready to output the normalized
+	    f&#8211;number.  Because it is normalized, we will not
+	    round it off to four significant digits, but will send it
+	    out in its full precision.</p><p>The normalized f-number is useful as long as it is
+	    reasonably small and can be found on our light meter.
+	    Otherwise we need a different method of determining proper
+	    exposure.</p><p>Earlier we have figured out the formula of calculating
+	    proper exposure at an arbitrary f&#8211;number from that
+	    measured at a different f&#8211;number.</p><p>Every light meter I have ever seen can determine
+	    proper exposure at f5.6.  We will, therefore, calculate an
+	    <span class="emphasis"><em>"f5.6 multiplier,"</em></span> i.e., by how much
+	    we need to multiply the exposure measured at f5.6 to
+	    determine the proper exposure for our pinhole
+	    camera.</p><p>From the above formula we know this factor can be
+	    calculated by dividing our f&#8211;number (the actual one,
+	    not the normalized one) by <code class="constant">5.6</code>, and
+	    squaring the result.</p><p>Mathematically, dividing the square of our
+	    f&#8211;number by the square of <code class="constant">5.6</code>
+	    will give us the same result.</p><p>Computationally, we do not want to square two numbers
+	    when we can only square one.  So, the first solution seems
+	    better at first.</p><p>But...</p><p><code class="constant">5.6</code> is a
+	    <span class="emphasis"><em>constant</em></span>.  We do not have to have our
+	    <acronym class="acronym">FPU</acronym> waste precious cycles.  We can just
+	    tell it to divide the square of the f&#8211;number by
+	    whatever <code class="constant">5.6²</code> equals to.  Or we
+	    can divide the f&#8211;number by <code class="constant">5.6</code>,
+	    and then square the result.  The two ways now seem
+	    equal.</p><p>But, they are not!</p><p>Having studied the principles of photography above, we
+	    remember that the <code class="constant">5.6</code> is actually
+	    square root of 2 raised to the fifth power.  An
+	    <span class="emphasis"><em>irrational</em></span> number.  The square of
+	    this number is <span class="emphasis"><em>exactly</em></span>
+	    <code class="constant">32</code>.</p><p>Not only is <code class="constant">32</code> an integer, it is
+	    a power of 2.  We do not need to divide the square of the
+	    f&#8211;number by <code class="constant">32</code>.  We only need
+	    to use <code class="function">fscale</code> to shift
+	    it right by five positions.  In the <acronym class="acronym">FPU</acronym>
+	    lingo it means we will <code class="function">fscale</code> it with <code class="varname">st(1)</code> equal to
+	    <code class="constant">-5</code>.  That is <span class="emphasis"><em>much
+	      faster</em></span> than a division.</p><p>So, now it has become clear why we have saved the
+	    square of the f&#8211;number on the top of the
+	    <acronym class="acronym">FPU</acronym> stack.  The calculation of the
+	    f5.6 multiplier is the easiest calculation of this entire
+	    program! We will output it rounded to four significant
+	    digits.</p><p>There is one more useful number we can calculate:  The
+	    number of stops our f&#8211;number is from f5.6.  This may
+	    help us if our f&#8211;number is just outside the range of
+	    our light meter, but we have a shutter which lets us set
+	    various speeds, and this shutter uses stops.</p><p>Say, our f&#8211;number is 5 stops from f5.6, and the
+	    light meter says we should use 1/1000 sec.  Then we can
+	    set our shutter speed to 1/1000 first, then move the dial
+	    by 5 stops.</p><p>This calculation is quite easy as well.  All we have
+	    to do is to calculate the base-2 logarithm of the f5.6
+	    multiplier we had just calculated (though we need its
+	    value from before we rounded it off).  We then output the
+	    result rounded to the nearest integer.  We do not need to
+	    worry about having more than four significant digits in
+	    this one: The result is most likely to have only one or
+	    two digits anyway.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-fpu-optimizations"></a>11.13.4. FPU Optimizations</h3></div></div></div><p>In assembly language we can optimize the
+	  <acronym class="acronym">FPU</acronym> code in ways impossible in high
+	  languages, including C.</p><p>Whenever a C function needs to calculate a
+	  floating&#8211;point value, it loads all necessary variables
+	  and constants into <acronym class="acronym">FPU</acronym> registers.  It
+	  then does whatever calculation is required to get the
+	  correct result.  Good C compilers can optimize that part of
+	  the code really well.</p><p>It "returns" the value by leaving the result on the
+	  <acronym class="acronym">TOS</acronym>.  However, before it returns, it
+	  cleans up.  Any variables and constants it used in its
+	  calculation are now gone from the
+	  <acronym class="acronym">FPU</acronym>.</p><p>It cannot do what we just did above: We calculated the
+	  square of the f&#8211;number and kept it on the stack for
+	  later use by another function.</p><p>We <span class="emphasis"><em>knew</em></span> we would need that value
+	  later on.  We also knew we had enough room on the
+	  stack (which only has room for 8 numbers) to store it
+	  there.</p><p>A C compiler has no way of knowing that a value it has
+	  on the stack will be required again in the very near
+	  future.</p><p>Of course, the C programmer may know it.  But the only
+	  recourse he has is to store the value in a memory
+	  variable.</p><p>That means, for one, the value will be changed from the
+	  80-bit precision used internally by the
+	  <acronym class="acronym">FPU</acronym> to a C <span class="emphasis"><em>double</em></span>
+	  (64 bits) or even <span class="emphasis"><em>single</em></span> (32
+	  bits).</p><p>That also means that the value must be moved from the
+	  <acronym class="acronym">TOS</acronym> into the memory, and then back again.
+	  Alas, of all <acronym class="acronym">FPU</acronym> operations, the ones
+	  that access the computer memory are the slowest.</p><p>So, whenever programming the <acronym class="acronym">FPU</acronym> in
+	  assembly language, look for the ways of keeping intermediate
+	  results on the <acronym class="acronym">FPU</acronym> stack.</p><p>We can take that idea even further! In our program we
+	  are using a <span class="emphasis"><em>constant</em></span> (the one we named
+	  <code class="constant">PC</code>).</p><p>It does not matter how many pinhole diameters we are
+	  calculating: 1, 10, 20, 1000, we are always using the same
+	  constant.  Therefore, we can optimize our program by keeping
+	  the constant on the stack all the time.</p><p>Early on in our program, we are calculating the value of
+	  the above constant.  We need to divide our input by
+	  <code class="constant">10</code> for every digit in the
+	  constant.</p><p>It is much faster to multiply than to divide.  So, at
+	  the start of our program, we divide <code class="constant">10</code>
+	  into <code class="constant">1</code> to obtain
+	  <code class="constant">0.1</code>, which we then keep on the stack:
+	  Instead of dividing the input by <code class="constant">10</code> for
+	  every digit, we multiply it by
+	  <code class="constant">0.1</code>.</p><p>By the way, we do not input <code class="constant">0.1</code>
+	  directly, even though we could.  We have a reason for that:
+	  While <code class="constant">0.1</code> can be expressed with just
+	  one decimal place, we do not know how many
+	  <span class="emphasis"><em>binary</em></span> places it takes.  We, therefore,
+	  let the <acronym class="acronym">FPU</acronym> calculate its binary value to
+	  its own high precision.</p><p>We are using other constants: We multiply the pinhole
+	  diameter by <code class="constant">1000</code> to convert it from
+	  millimeters to microns.  We compare numbers to
+	  <code class="constant">10000</code> when we are rounding them off to
+	  four significant digits.  So, we keep both,
+	  <code class="constant">1000</code> and <code class="constant">10000</code>, on
+	  the stack.  And, of course, we reuse the
+	  <code class="constant">0.1</code> when rounding off numbers to four
+	  digits.</p><p>Last but not least, we keep <code class="constant">-5</code> on
+	  the stack.  We need it to scale the square of the
+	  f&#8211;number, instead of dividing it by
+	  <code class="constant">32</code>.  It is not by coincidence we load
+	  this constant last.  That makes it the top of the stack when
+	  only the constants are on it.  So, when the square of the
+	  f&#8211;number is being scaled, the <code class="constant">-5</code>
+	  is at <code class="varname">st(1)</code>, precisely
+	  where <code class="function">fscale</code> expects it
+	  to be.</p><p>It is common to create certain constants from scratch
+	  instead of loading them from the memory.  That is what we
+	  are doing with <code class="constant">-5</code>:</p><pre class="programlisting">	fld1			; TOS =  1
+	fadd	st0, st0	; TOS =  2
+	fadd	st0, st0	; TOS =  4
+	fld1			; TOS =  1
+	faddp	st1, st0	; TOS =  5
+	fchs			; TOS = -5</pre><p>We can generalize all these optimizations into one rule:
+	<span class="emphasis"><em>Keep repeat values on the stack!</em></span></p><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml"><span class="emphasis"><em><span class="trademark">PostScript</span>®</em></span> is a
+	  stack&#8211;oriented programming language.  There are many
+	  more books available about <span class="trademark">PostScript</span>® than about the
+	  <acronym class="acronym">FPU</acronym> assembly language: Mastering
+	  <span class="trademark">PostScript</span>® will help you master the
+	  <acronym class="acronym">FPU</acronym>.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-pinhole-the-code"></a>11.13.5. <span class="application">pinhole</span>&#8212;The Code</h3></div></div></div><pre class="programlisting">;;;;;;; pinhole.asm ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;
+; Find various parameters of a pinhole camera construction and use
+;
+; Started:	 9-Jun-2001
+; Updated:	10-Jun-2001
+;
+; Copyright (c) 2001 G. Adam Stanislav
+; All rights reserved.
+;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+%include	'system.inc'
+
+%define	BUFSIZE	2048
+
+section	.data
+align 4
+ten	dd	10
+thousand	dd	1000
+tthou	dd	10000
+fd.in	dd	stdin
+fd.out	dd	stdout
+envar	db	'PINHOLE='	; Exactly 8 bytes, or 2 dwords long
+pinhole	db	'04,', 		; Bender's constant (0.04)
+connors	db	'037', 0Ah	; Connors' constant
+usg	db	'Usage: pinhole [-b] [-c] [-e] [-p &lt;value&gt;] [-o &lt;outfile&gt;] [-i &lt;infile&gt;]', 0Ah
+usglen	equ	$-usg
+iemsg	db	"pinhole: Can't open input file", 0Ah
+iemlen	equ	$-iemsg
+oemsg	db	"pinhole: Can't create output file", 0Ah
+oemlen	equ	$-oemsg
+pinmsg	db	"pinhole: The PINHOLE constant must not be 0", 0Ah
+pinlen	equ	$-pinmsg
+toobig	db	"pinhole: The PINHOLE constant may not exceed 18 decimal places", 0Ah
+biglen	equ	$-toobig
+huhmsg	db	9, '???'
+separ	db	9, '???'
+sep2	db	9, '???'
+sep3	db	9, '???'
+sep4	db	9, '???', 0Ah
+huhlen	equ	$-huhmsg
+header	db	'focal length in millimeters,pinhole diameter in microns,'
+	db	'F-number,normalized F-number,F-5.6 multiplier,stops '
+	db	'from F-5.6', 0Ah
+headlen	equ	$-header
+
+section .bss
+ibuffer	resb	BUFSIZE
+obuffer	resb	BUFSIZE
+dbuffer	resb	20		; decimal input buffer
+bbuffer	resb	10		; BCD buffer
+
+section	.text
+align 4
+huh:
+	call	write
+	push	dword huhlen
+	push	dword huhmsg
+	push	dword [fd.out]
+	sys.write
+	add	esp, byte 12
+	ret
+
+align 4
+perr:
+	push	dword pinlen
+	push	dword pinmsg
+	push	dword stderr
+	sys.write
+	push	dword 4		; return failure
+	sys.exit
+
+align 4
+consttoobig:
+	push	dword biglen
+	push	dword toobig
+	push	dword stderr
+	sys.write
+	push	dword 5		; return failure
+	sys.exit
+
+align 4
+ierr:
+	push	dword iemlen
+	push	dword iemsg
+	push	dword stderr
+	sys.write
+	push	dword 1		; return failure
+	sys.exit
+
+align 4
+oerr:
+	push	dword oemlen
+	push	dword oemsg
+	push	dword stderr
+	sys.write
+	push	dword 2
+	sys.exit
+
+align 4
+usage:
+	push	dword usglen
+	push	dword usg
+	push	dword stderr
+	sys.write
+	push	dword 3
+	sys.exit
+
+align 4
+global	_start
+_start:
+	add	esp, byte 8	; discard argc and argv[0]
+	sub	esi, esi
+
+.arg:
+	pop	ecx
+	or	ecx, ecx
+	je	near .getenv		; no more arguments
+
+	; ECX contains the pointer to an argument
+	cmp	byte [ecx], '-'
+	jne	usage
+
+	inc	ecx
+	mov	ax, [ecx]
+	inc	ecx
+
+.o:
+	cmp	al, 'o'
+	jne	.i
+
+	; Make sure we are not asked for the output file twice
+	cmp	dword [fd.out], stdout
+	jne	usage
+
+	; Find the path to output file - it is either at [ECX+1],
+	; i.e., -ofile --
+	; or in the next argument,
+	; i.e., -o file
+
+	or	ah, ah
+	jne	.openoutput
+	pop	ecx
+	jecxz	usage
+
+.openoutput:
+	push	dword 420	; file mode (644 octal)
+	push	dword 0200h | 0400h | 01h
+	; O_CREAT | O_TRUNC | O_WRONLY
+	push	ecx
+	sys.open
+	jc	near oerr
+
+	add	esp, byte 12
+	mov	[fd.out], eax
+	jmp	short .arg
+
+.i:
+	cmp	al, 'i'
+	jne	.p
+
+	; Make sure we are not asked twice
+	cmp	dword [fd.in], stdin
+	jne	near usage
+
+	; Find the path to the input file
+	or	ah, ah
+	jne	.openinput
+	pop	ecx
+	or	ecx, ecx
+	je near usage
+
+.openinput:
+	push	dword 0		; O_RDONLY
+	push	ecx
+	sys.open
+	jc	near ierr		; open failed
+
+	add	esp, byte 8
+	mov	[fd.in], eax
+	jmp	.arg
+
+.p:
+	cmp	al, 'p'
+	jne	.c
+	or	ah, ah
+	jne	.pcheck
+
+	pop	ecx
+	or	ecx, ecx
+	je	near usage
+
+	mov	ah, [ecx]
+
+.pcheck:
+	cmp	ah, '0'
+	jl	near usage
+	cmp	ah, '9'
+	ja	near usage
+	mov	esi, ecx
+	jmp	.arg
+
+.c:
+	cmp	al, 'c'
+	jne	.b
+	or	ah, ah
+	jne	near usage
+	mov	esi, connors
+	jmp	.arg
+
+.b:
+	cmp	al, 'b'
+	jne	.e
+	or	ah, ah
+	jne	near usage
+	mov	esi, pinhole
+	jmp	.arg
+
+.e:
+	cmp	al, 'e'
+	jne	near usage
+	or	ah, ah
+	jne	near usage
+	mov	al, ','
+	mov	[huhmsg], al
+	mov	[separ], al
+	mov	[sep2], al
+	mov	[sep3], al
+	mov	[sep4], al
+	jmp	.arg
+
+align 4
+.getenv:
+	; If ESI = 0, we did not have a -p argument,
+	; and need to check the environment for "PINHOLE="
+	or	esi, esi
+	jne	.init
+
+	sub	ecx, ecx
+
+.nextenv:
+	pop	esi
+	or	esi, esi
+	je	.default	; no PINHOLE envar found
+
+	; check if this envar starts with 'PINHOLE='
+	mov	edi, envar
+	mov	cl, 2		; 'PINHOLE=' is 2 dwords long
+rep	cmpsd
+	jne	.nextenv
+
+	; Check if it is followed by a digit
+	mov	al, [esi]
+	cmp	al, '0'
+	jl	.default
+	cmp	al, '9'
+	jbe	.init
+	; fall through
+
+align 4
+.default:
+	; We got here because we had no -p argument,
+	; and did not find the PINHOLE envar.
+	mov	esi, pinhole
+	; fall through
+
+align 4
+.init:
+	sub	eax, eax
+	sub	ebx, ebx
+	sub	ecx, ecx
+	sub	edx, edx
+	mov	edi, dbuffer+1
+	mov	byte [dbuffer], '0'
+
+	; Convert the pinhole constant to real
+.constloop:
+	lodsb
+	cmp	al, '9'
+	ja	.setconst
+	cmp	al, '0'
+	je	.processconst
+	jb	.setconst
+
+	inc	dl
+
+.processconst:
+	inc	cl
+	cmp	cl, 18
+	ja	near consttoobig
+	stosb
+	jmp	short .constloop
+
+align 4
+.setconst:
+	or	dl, dl
+	je	near perr
+
+	finit
+	fild	dword [tthou]
+
+	fld1
+	fild	dword [ten]
+	fdivp	st1, st0
+
+	fild	dword [thousand]
+	mov	edi, obuffer
+
+	mov	ebp, ecx
+	call	bcdload
+
+.constdiv:
+	fmul	st0, st2
+	loop	.constdiv
+
+	fld1
+	fadd	st0, st0
+	fadd	st0, st0
+	fld1
+	faddp	st1, st0
+	fchs
+
+	; If we are creating a CSV file,
+	; print header
+	cmp	byte [separ], ','
+	jne	.bigloop
+
+	push	dword headlen
+	push	dword header
+	push	dword [fd.out]
+	sys.write
+
+.bigloop:
+	call	getchar
+	jc	near done
+
+	; Skip to the end of the line if you got '#'
+	cmp	al, '#'
+	jne	.num
+	call	skiptoeol
+	jmp	short .bigloop
+
+.num:
+	; See if you got a number
+	cmp	al, '0'
+	jl	.bigloop
+	cmp	al, '9'
+	ja	.bigloop
+
+	; Yes, we have a number
+	sub	ebp, ebp
+	sub	edx, edx
+
+.number:
+	cmp	al, '0'
+	je	.number0
+	mov	dl, 1
+
+.number0:
+	or	dl, dl		; Skip leading 0's
+	je	.nextnumber
+	push	eax
+	call	putchar
+	pop	eax
+	inc	ebp
+	cmp	ebp, 19
+	jae	.nextnumber
+	mov	[dbuffer+ebp], al
+
+.nextnumber:
+	call	getchar
+	jc	.work
+	cmp	al, '#'
+	je	.ungetc
+	cmp	al, '0'
+	jl	.work
+	cmp	al, '9'
+	ja	.work
+	jmp	short .number
+
+.ungetc:
+	dec	esi
+	inc	ebx
+
+.work:
+	; Now, do all the work
+	or	dl, dl
+	je	near .work0
+
+	cmp	ebp, 19
+	jae	near .toobig
+
+	call	bcdload
+
+	; Calculate pinhole diameter
+
+	fld	st0	; save it
+	fsqrt
+	fmul	st0, st3
+	fld	st0
+	fmul	st5
+	sub	ebp, ebp
+
+	; Round off to 4 significant digits
+.diameter:
+	fcom	st0, st7
+	fstsw	ax
+	sahf
+	jb	.printdiameter
+	fmul	st0, st6
+	inc	ebp
+	jmp	short .diameter
+
+.printdiameter:
+	call	printnumber	; pinhole diameter
+
+	; Calculate F-number
+
+	fdivp	st1, st0
+	fld	st0
+
+	sub	ebp, ebp
+
+.fnumber:
+	fcom	st0, st6
+	fstsw	ax
+	sahf
+	jb	.printfnumber
+	fmul	st0, st5
+	inc	ebp
+	jmp	short .fnumber
+
+.printfnumber:
+	call	printnumber	; F number
+
+	; Calculate normalized F-number
+	fmul	st0, st0
+	fld1
+	fld	st1
+	fyl2x
+	frndint
+	fld1
+	fscale
+	fsqrt
+	fstp	st1
+
+	sub	ebp, ebp
+	call	printnumber
+
+	; Calculate time multiplier from F-5.6
+
+	fscale
+	fld	st0
+
+	; Round off to 4 significant digits
+.fmul:
+	fcom	st0, st6
+	fstsw	ax
+	sahf
+
+	jb	.printfmul
+	inc	ebp
+	fmul	st0, st5
+	jmp	short .fmul
+
+.printfmul:
+	call	printnumber	; F multiplier
+
+	; Calculate F-stops from 5.6
+
+	fld1
+	fxch	st1
+	fyl2x
+
+	sub	ebp, ebp
+	call	printnumber
+
+	mov	al, 0Ah
+	call	putchar
+	jmp	.bigloop
+
+.work0:
+	mov	al, '0'
+	call	putchar
+
+align 4
+.toobig:
+	call	huh
+	jmp	.bigloop
+
+align 4
+done:
+	call	write		; flush output buffer
+
+	; close files
+	push	dword [fd.in]
+	sys.close
+
+	push	dword [fd.out]
+	sys.close
+
+	finit
+
+	; return success
+	push	dword 0
+	sys.exit
+
+align 4
+skiptoeol:
+	; Keep reading until you come to cr, lf, or eof
+	call	getchar
+	jc	done
+	cmp	al, 0Ah
+	jne	.cr
+	ret
+
+.cr:
+	cmp	al, 0Dh
+	jne	skiptoeol
+	ret
+
+align 4
+getchar:
+	or	ebx, ebx
+	jne	.fetch
+
+	call	read
+
+.fetch:
+	lodsb
+	dec	ebx
+	clc
+	ret
+
+read:
+	jecxz	.read
+	call	write
+
+.read:
+	push	dword BUFSIZE
+	mov	esi, ibuffer
+	push	esi
+	push	dword [fd.in]
+	sys.read
+	add	esp, byte 12
+	mov	ebx, eax
+	or	eax, eax
+	je	.empty
+	sub	eax, eax
+	ret
+
+align 4
+.empty:
+	add	esp, byte 4
+	stc
+	ret
+
+align 4
+putchar:
+	stosb
+	inc	ecx
+	cmp	ecx, BUFSIZE
+	je	write
+	ret
+
+align 4
+write:
+	jecxz	.ret	; nothing to write
+	sub	edi, ecx	; start of buffer
+	push	ecx
+	push	edi
+	push	dword [fd.out]
+	sys.write
+	add	esp, byte 12
+	sub	eax, eax
+	sub	ecx, ecx	; buffer is empty now
+.ret:
+	ret
+
+align 4
+bcdload:
+	; EBP contains the number of chars in dbuffer
+	push	ecx
+	push	esi
+	push	edi
+
+	lea	ecx, [ebp+1]
+	lea	esi, [dbuffer+ebp-1]
+	shr	ecx, 1
+
+	std
+
+	mov	edi, bbuffer
+	sub	eax, eax
+	mov	[edi], eax
+	mov	[edi+4], eax
+	mov	[edi+2], ax
+
+.loop:
+	lodsw
+	sub	ax, 3030h
+	shl	al, 4
+	or	al, ah
+	mov	[edi], al
+	inc	edi
+	loop	.loop
+
+	fbld	[bbuffer]
+
+	cld
+	pop	edi
+	pop	esi
+	pop	ecx
+	sub	eax, eax
+	ret
+
+align 4
+printnumber:
+	push	ebp
+	mov	al, [separ]
+	call	putchar
+
+	; Print the integer at the TOS
+	mov	ebp, bbuffer+9
+	fbstp	[bbuffer]
+
+	; Check the sign
+	mov	al, [ebp]
+	dec	ebp
+	or	al, al
+	jns	.leading
+
+	; We got a negative number (should never happen)
+	mov	al, '-'
+	call	putchar
+
+.leading:
+	; Skip leading zeros
+	mov	al, [ebp]
+	dec	ebp
+	or	al, al
+	jne	.first
+	cmp	ebp, bbuffer
+	jae	.leading
+
+	; We are here because the result was 0.
+	; Print '0' and return
+	mov	al, '0'
+	jmp	putchar
+
+.first:
+	; We have found the first non-zero.
+	; But it is still packed
+	test	al, 0F0h
+	jz	.second
+	push	eax
+	shr	al, 4
+	add	al, '0'
+	call	putchar
+	pop	eax
+	and	al, 0Fh
+
+.second:
+	add	al, '0'
+	call	putchar
+
+.next:
+	cmp	ebp, bbuffer
+	jb	.done
+
+	mov	al, [ebp]
+	push	eax
+	shr	al, 4
+	add	al, '0'
+	call	putchar
+	pop	eax
+	and	al, 0Fh
+	add	al, '0'
+	call	putchar
+
+	dec	ebp
+	jmp	short .next
+
+.done:
+	pop	ebp
+	or	ebp, ebp
+	je	.ret
+
+.zeros:
+	mov	al, '0'
+	call	putchar
+	dec	ebp
+	jne	.zeros
+
+.ret:
+	ret</pre><p>The code follows the same format as all the other filters
+	we have seen before, with one subtle exception:</p><div class="blockquote"><blockquote class="blockquote"><p>We are no longer assuming that the end of input implies
+	  the end of things to do, something we took for granted in
+	  the <span class="emphasis"><em>character&#8211;oriented</em></span>
+	  filters.</p><p>This filter does not process characters.  It processes a
+	  <span class="emphasis"><em>language</em></span> (albeit a very simple one,
+	  consisting only of numbers).</p><p>When we have no more input, it can mean one of two
+	  things:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>We are done and can quit.  This is the same as
+	      before.</p></li><li class="listitem"><p>The last character we have read was a digit.  We
+	      have stored it at the end of our
+	      <acronym class="acronym">ASCII</acronym>&#8211;to&#8211;float
+	      conversion buffer.  We now need to convert the contents
+	      of that buffer into a number and write the last line of
+	      our output.</p></li></ul></div><p>For that reason, we have modified our
+	  <code class="function">getchar</code> and our
+	  <code class="function">read</code> routines to return with the
+	  <code class="varname">carry flag</code>
+	  <span class="emphasis"><em>clear</em></span> whenever we are fetching another
+	  character from the input, or the <code class="varname">carry flag</code>
+	  <span class="emphasis"><em>set</em></span> whenever there is no more
+	  input.</p><p>Of course, we are still using assembly language magic to
+	  do that! Take a good look at <code class="function">getchar</code>.
+	  It <span class="emphasis"><em>always</em></span> returns with the <code class="varname">carry flag</code>
+	  <span class="emphasis"><em>clear</em></span>.</p><p>Yet, our main code relies on the <code class="varname">carry flag</code> to tell it when to
+	  quit&#8212;and it works.</p><p>The magic is in <code class="function">read</code>.  Whenever it
+	  receives more input from the system, it just returns to
+	  <code class="function">getchar</code>, which fetches a character from
+	  the input buffer, <span class="emphasis"><em>clears</em></span> the <code class="varname">carry flag</code> and returns.</p><p>But when <code class="function">read</code> receives no more
+	  input from the system, it does <span class="emphasis"><em>not</em></span>
+	  return to <code class="function">getchar</code> at all.  Instead, the
+	  <code class="function">add esp, byte 4</code> op code
+	  adds <code class="constant">4</code> to <code class="varname">ESP</code>, <span class="emphasis"><em>sets</em></span>
+	  the <code class="varname">carry flag</code>, and
+	  returns.</p><p>So, where does it return to? Whenever a program uses the
+	  <code class="function">call</code> op code, the
+	  microprocessor <code class="function">push</code>es the
+	  return address, i.e., it stores it on the top of the stack
+	  (not the <acronym class="acronym">FPU</acronym> stack, the system stack,
+	  which is in the memory).  When a program uses the <code class="function">ret</code> op code, the microprocessor
+	  <code class="function">pop</code>s the return value
+	  from the stack, and jumps to the address that was stored
+	  there.</p><p>But since we added <code class="constant">4</code> to <code class="varname">ESP</code> (which is the stack pointer
+	  register), we have effectively given the microprocessor a
+	  minor case of <span class="emphasis"><em>amnesia</em></span>: It no longer
+	  remembers it was <code class="function">getchar</code> that <code class="function">call</code>ed
+	  <code class="function">read</code>.</p><p>And since <code class="function">getchar</code> never <code class="function">push</code>ed anything before <code class="function">call</code>ing
+	  <code class="function">read</code>, the top of the stack now contains
+	  the return address to whatever or whoever <code class="function">call</code>ed
+	  <code class="function">getchar</code>.  As far as that caller is
+	  concerned, he <code class="function">call</code>ed
+	  <code class="function">getchar</code>, which <code class="function">ret</code>urned with the <code class="varname">carry flag</code> set!</p></blockquote></div><p>Other than that, the <code class="function">bcdload</code> routine
+	is caught up in the middle of a Lilliputian conflict between
+	the Big&#8211;Endians and the Little&#8211;Endians.</p><p>It is converting the text representation of a number into
+	that number: The text is stored in the big&#8211;endian order,
+	but the <span class="emphasis"><em>packed decimal</em></span> is
+	little&#8211;endian.</p><p>To solve the conflict, we use the <code class="function">std</code>
+	op code early on.  We cancel it with <code class="function">cld</code>
+	later on: It is quite important we do not
+	<code class="function">call</code> anything that may depend on the
+	default setting of the <span class="emphasis"><em>direction flag</em></span>
+	while <code class="function">std</code> is active.</p><p>Everything else in this code should be quit eclear,
+	providing you have read the entire chapter that precedes
+	it.</p><p>It is a classical example of the adage that programming
+	requires a lot of thought and only a little coding.  Once we
+	have thought through every tiny detail, the code almost writes
+	itself.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-pinhole-using"></a>11.13.6. Using <span class="application">pinhole</span></h3></div></div></div><p>Because we have decided to make the program
+	<span class="emphasis"><em>ignore</em></span> any input except for numbers (and
+	even those inside a comment), we can actually perform
+	<span class="emphasis"><em>textual queries</em></span>.  We do not
+	<span class="emphasis"><em>have to</em></span>, but we
+	<span class="emphasis"><em>can</em></span>.</p><p>In my humble opinion, forming a textual query, instead of
+	having to follow a very strict syntax, makes software much
+	more user friendly.</p><p>Suppose we want to build a pinhole camera to use the 4x5
+	inch film.  The standard focal length for that film is about
+	150mm.  We want to <span class="emphasis"><em>fine&#8211;tune</em></span> our
+	focal length so the pinhole diameter is as round a number as
+	possible.  Let us also suppose we are quite comfortable with
+	cameras but somewhat intimidated by computers.  Rather than
+	just have to type in a bunch of numbers, we want to
+	<span class="emphasis"><em>ask</em></span> a couple of questions.</p><p>Our session might look like this:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>pinhole
+
+Computer,
+
+What size pinhole do I need for the focal length of 150?</code></strong>
+150	490	306	362	2930	12
+<strong class="userinput"><code>Hmmm... How about 160?</code></strong>
+160	506	316	362	3125	12
+<strong class="userinput"><code>Let's make it 155, please.</code></strong>
+155	498	311	362	3027	12
+<strong class="userinput"><code>Ah, let's try 157...</code></strong>
+157	501	313	362	3066	12
+<strong class="userinput"><code>156?</code></strong>
+156	500	312	362	3047	12
+<strong class="userinput"><code>That's it! Perfect! Thank you very much!
+^D</code></strong></pre><p>We have found that while for the focal length of 150, our
+	pinhole diameter should be 490 microns, or 0.49 mm, if we go
+	with the almost identical focal length of 156 mm, we can get
+	away with a pinhole diameter of exactly one half of a
+	millimeter.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-pinhole-scripting"></a>11.13.7. Scripting</h3></div></div></div><p>Because we have chosen the <code class="constant">#</code>
+	character to denote the start of a comment, we can treat our
+	<span class="application">pinhole</span> software as a
+	<span class="emphasis"><em>scripting language</em></span>.</p><p>You have probably seen <span class="application">shell</span>
+	<span class="emphasis"><em>scripts</em></span> that start with:</p><pre class="programlisting">#! /bin/sh</pre><p>...or...</p><pre class="programlisting">#!/bin/sh</pre><p>...because the blank space after the
+	<code class="function">#!</code> is optional.</p><p>Whenever <span class="trademark">UNIX</span>® is asked to run an executable
+	file which starts with the <code class="function">#!</code>,
+	it assumes the file is a script.  It adds the
+	command to the rest of the first line of the
+	script, and tries to execute that.</p><p>Suppose now that we have installed
+	<span class="application">pinhole</span> in
+	<span class="application">/usr/local/bin/</span>, we can now write a
+	script to calculate various pinhole diameters suitable for
+	various focal lengths commonly used with the 120 film.</p><p>The script might look something like this:</p><pre class="programlisting">#! /usr/local/bin/pinhole -b -i
+# Find the best pinhole diameter
+# for the 120 film
+
+### Standard
+80
+
+### Wide angle
+30, 40, 50, 60, 70
+
+### Telephoto
+100, 120, 140</pre><p>Because 120 is a medium size film, we may name this file
+	<span class="application">medium</span>.</p><p>We can set its permissions to execute, and run it as if it
+	were a program:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>chmod 755 medium</code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>./medium</code></strong></pre><p><span class="trademark">UNIX</span>® will interpret that last command as:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>/usr/local/bin/pinhole -b -i ./medium</code></strong></pre><p>It will run that command and display:</p><pre class="screen">80	358	224	256	1562	11
+30	219	137	128	586	9
+40	253	158	181	781	10
+50	283	177	181	977	10
+60	310	194	181	1172	10
+70	335	209	181	1367	10
+100	400	250	256	1953	11
+120	438	274	256	2344	11
+140	473	296	256	2734	11</pre><p>Now, let us enter:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>./medium -c</code></strong></pre><p><span class="trademark">UNIX</span>® will treat that as:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>/usr/local/bin/pinhole -b -i ./medium -c</code></strong></pre><p>That gives it two conflicting options:
+	<em class="parameter"><code>-b</code></em> and <em class="parameter"><code>-c</code></em>
+	(Use Bender's constant and use Connors' constant).  We have
+	programmed it so later options override early ones&#8212;our
+	program will calculate everything using Connors'
+	constant:</p><pre class="screen">80	331	242	256	1826	11
+30	203	148	128	685	9
+40	234	171	181	913	10
+50	262	191	181	1141	10
+60	287	209	181	1370	10
+70	310	226	256	1598	11
+100	370	270	256	2283	11
+120	405	296	256	2739	11
+140	438	320	362	3196	12</pre><p>We decide we want to go with Bender's constant after all.
+	We want to save its values as a comma&#8211;separated
+	file:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>./medium -b -e &gt; bender</code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>cat bender</code></strong>
+focal length in millimeters,pinhole diameter in microns,F-number,normalized F-number,F-5.6 multiplier,stops from F-5.6
+80,358,224,256,1562,11
+30,219,137,128,586,9
+40,253,158,181,781,10
+50,283,177,181,977,10
+60,310,194,181,1172,10
+70,335,209,181,1367,10
+100,400,250,256,1953,11
+120,438,274,256,2344,11
+140,473,296,256,2734,11
+<code class="prompt">%</code></pre></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="x86-one-pointed-mind.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="x86.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="x86-caveats.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">11.12. One-Pointed Mind </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 11.14. Caveats</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

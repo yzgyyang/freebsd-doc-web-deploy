@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>2.9. Network Filesystem</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="The Design and Implementation of the 4.4BSD Operating System" /><link rel="up" href="overview.html" title="Chapter 2. Design Overview of 4.4BSD" /><link rel="prev" href="overview-filestore.html" title="2.8. Filestores" /><link rel="next" href="overview-terminal.html" title="2.10. Terminals" /><link rel="copyright" href="legalnotice.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">2.9. Network Filesystem</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="overview-filestore.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Design Overview of 4.4BSD</th><td width="20%" align="right"> <a accesskey="n" href="overview-terminal.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="overview-nfs"></a>2.9. Network Filesystem</h2></div></div></div><p>Initially, networking was used
+    to transfer data from one machine to another.
+    Later, it evolved to allowing users to log in remotely to another machine.
+    The next logical step was to bring the data to the user,
+    instead of having the user go to the data --
+    and network filesystems were born.
+    Users working locally
+    do not experience the network delays on each keystroke,
+    so they have a more responsive environment.</p><p>Bringing the filesystem to a local machine was among the first
+    of the major client-server applications.
+    The
+    <span class="emphasis"><em>server</em></span>
+    is the remote machine that exports one or more of its filesystems.
+    The
+    <span class="emphasis"><em>client</em></span>
+    is the local machine that imports those filesystems.
+    From the local client's point of view,
+    a remotely mounted filesystem appears in the file-tree name space
+    just like any other locally mounted filesystem.
+    Local clients can change into directories on the remote filesystem,
+    and can read, write, and execute binaries within that remote filesystem
+    identically to the way that they can do these operations
+    on a local filesystem.</p><p>When the local client does an operation on a remote filesystem,
+    the request is packaged and is sent to the server.
+    The server does the requested operation and
+    returns either the requested information or an error
+    indicating why the request was denied.
+    To get reasonable performance,
+    the client must cache frequently accessed data.
+    The complexity of remote filesystems lies in maintaining cache
+    consistency between the server and its many clients.</p><p>Although many remote-filesystem protocols
+    have been developed over the years,
+    the most pervasive one in use among UNIX
+    systems is the Network Filesystem
+    (NFS),
+    whose protocol and most widely used implementation were
+    done by Sun Microsystems.
+    The 4.4BSD kernel supports the
+    NFS
+    protocol, although the implementation was done independently
+    from the protocol specification
+    <a class="xref" href="overview.html#biblio-macklem">[<abbr class="abbrev">Macklem, 1994</abbr>]</a>.
+    The
+    NFS
+    protocol is described in
+    Chapter 9.
+    </p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="overview-filestore.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="overview.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="overview-terminal.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2.8. Filestores </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 2.10. Terminals</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

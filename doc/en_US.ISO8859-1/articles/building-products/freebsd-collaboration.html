@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>3. Collaborating with FreeBSD</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Building Products with FreeBSD" /><link rel="up" href="index.html" title="Building Products with FreeBSD" /><link rel="prev" href="freebsd-intro.html" title="2. FreeBSD as a set of building blocks" /><link rel="next" href="conclusion.html" title="4. Conclusion" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">3. Collaborating with FreeBSD</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="freebsd-intro.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="conclusion.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="freebsd-collaboration"></a>3. Collaborating with FreeBSD</h2></div></div></div><p>Open-source projects like FreeBSD offer finished code of a
+      very high quality.</p><p>While access to quality source code can reduce the cost of
+      initial development, in the long-term the costs of managing
+      change begin to dominate. As computing environments change over
+      the years and new security vulnerabilities are discovered, your
+      product too needs to change and adapt. Using open-source code is
+      best viewed not as a one-off activity, but as an
+      <span class="emphasis"><em>ongoing process</em></span>. The best projects to
+      collaborate with are the ones that are
+      <span class="emphasis"><em>live</em></span>; i.e., with an active community, clear
+      goals and a transparent working style.</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">FreeBSD has an active developer community around it.
+          At the time of writing there are many thousands of
+          contributors from every populated continent in the world and
+          over 300 individuals with write access to the project's
+          source repositories.</li><li class="listitem"><p class="simpara">The goals of the FreeBSD project are
+          [<a class="citation" href="bi01.html#idp47352696"><span class="citation">Hub1994</span></a>]:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem">To develop a high-quality operating system for
+              popular computer hardware, and,</li><li class="listitem">To make our work available to all under a liberal
+              license.</li></ul></div></li><li class="listitem">FreeBSD enjoys an open and transparent working
+          culture.  Nearly all discussion in the project happens by
+          email, on <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo" target="_top">public mailing
+            lists</a> that are also archived for posterity. The
+          project's policies are <a class="link" href="../../../../internal/policies.html" target="_top">documented</a>
+          and maintained under revision control. Participation in the
+          project is open to all.</li></ul></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="freebsd-org"></a>3.1. Understanding FreeBSD culture</h3></div></div></div><p>To be able to work effectively with the FreeBSD project,
+        you need to understand the project's culture.</p><p>Volunteer driven projects operate under different rules
+        than for-profit corporates.  A common mistake that companies
+        make when venturing into the open-source world is that of
+        underplaying these differences.</p><p><span class="formalpara-title">Motivation. </span>Most contributions to FreeBSD are done voluntarily
+          without monetary rewards entering the picture.  The factors
+          that motivate individuals are complex, ranging from
+          altruism, to an interest in solving the kinds of problems
+          that FreeBSD attempts to solve.  In this environment,
+          <span class="quote">&#8220;<span class="quote">elegance is never optional</span>&#8221;</span>
+          [<a class="citation" href="bi01.html#idp47421432"><span class="citation">Nor1993</span></a>].</p><p><span class="formalpara-title">The Long Term View. </span>FreeBSD traces its roots back nearly twenty years to the
+          work of the Computer Science Research Group at the
+          University of California Berkeley.<a href="#ftn.idp47177208" class="footnote" id="idp47177208"><sup class="footnote">[1]</sup></a>  A number of the original CSRG developers remain
+          associated with the project.</p><p>The project values long-term perspectives
+        [<a class="citation" href="bi01.html#idp47431928"><span class="citation">Nor2001</span></a>].  A frequent acronym encountered
+        in the project is <acronym class="acronym">DTRT</acronym>, which stands for
+        <span class="quote">&#8220;<span class="quote">Do The Right Thing</span>&#8221;</span>.</p><p><span class="formalpara-title">Development Processes. </span>Computer programs are tools for communication: at one
+          level programmers communicate their intentions using a
+          precise notation to a tool (a compiler) that translates
+          their instructions to executable code.  At another level,
+          the same notation is used for communication of intent
+          between two programmers.</p><p>Formal specifications and design documents are seldom used
+        in the project.  Clear and well-written code and well-written
+        change logs (<a class="xref" href="freebsd-collaboration.html#fig-change-log" title="Figure 3. A sample change log entry">Figure 3, &#8220;A sample change log entry&#8221;</a>) are used in
+        their place.  FreeBSD development happens by <span class="quote">&#8220;<span class="quote">rough
+          consensus and running code</span>&#8221;</span>
+        [<a class="citation" href="bi01.html#idp47319416"><span class="citation">Carp1996</span></a>].</p><div class="figure"><a id="fig-change-log"></a><div class="figure-title">Figure 3. A sample change log entry</div><div class="figure-contents"><pre class="programlisting">
+r151864 | bde | 2005-10-29 09:34:50 -0700 (Sat, 29 Oct 2005) | 13 lines
+Changed paths:
+   M /head/lib/msun/src/e_rem_pio2f.c
+
+Use double precision to simplify and optimize arg reduction for small
+and medium size args too: instead of conditionally subtracting a float
+17+24, 17+17+24 or 17+17+17+24 bit approximation to pi/2, always
+subtract a double 33+53 bit one.  The float version is now closer to
+the double version than to old versions of itself -- it uses the same
+33+53 bit approximation as the simplest cases in the double version,
+and where the float version had to switch to the slow general case at
+|x| == 2^7*pi/2, it now switches at |x| == 2^19*pi/2 the same as the
+double version.
+
+This speeds up arg reduction by a factor of 2 for |x| between 3*pi/4 and
+2^7*pi/4, and by a factor of 7 for |x| between 2^7*pi/4 and 2^19*pi/4.
+        </pre></div></div><br class="figure-break" /><p>Communication between programmers is enhanced by the
+        use of a common coding standard <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=style&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">style</span>(9)</span></a>.</p><p><span class="formalpara-title">Communication Channels. </span>FreeBSD's contributors are spread across the world.
+          Email (and to a lesser extent, IRC) is the preferred means
+          of communication in the project.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47220472"></a>3.2. Best Practices for collaborating with the FreeBSD
+        project</h3></div></div></div><p>We now look at a few best practices for making the best
+        use of FreeBSD in product development.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">Plan for the long term</span></dt><dd><p>Setup processes that help in tracking the development of
+              FreeBSD.  For example:</p><p><span class="formalpara-title">Track FreeBSD source code. </span>The project makes it easy to mirror its SVN
+                repository using <a class="link" href="../../../../doc/en_US.ISO8859-1/articles/committers-guide/article.html#svn-advanced-use-setting-up-svnsync" target="_top"><span class="application">svnsync</span></a>. Having
+                the complete history of the source is useful when
+                debugging complex problems and offers valuable insight
+                into the intentions of the original developers.  Use a
+                capable source control system that allows you to
+                easily merge changes between the upstream FreeBSD code
+                base and your own in-house code.</p><p><a class="xref" href="freebsd-collaboration.html#fig-svn-blame" title="Figure 4. An annotated source listing generated using svn blame">Figure 4, &#8220;An annotated source listing generated using <code class="command">svn blame</code>&#8221;</a> shows a portion of
+              an annotated listing of the file referenced by the
+              change log in <a class="xref" href="freebsd-collaboration.html#fig-change-log" title="Figure 3. A sample change log entry">Figure 3, &#8220;A sample change log entry&#8221;</a>.  The
+              ancestry of each line of the source is clearly visible.
+              Annotated listings showing the history of every file
+              that is part of FreeBSD are <a class="link" href="https://svnweb.freebsd.org/" target="_top">available on the
+                web</a>.</p><div class="figure"><a id="fig-svn-blame"></a><div class="figure-title">Figure 4. An annotated source listing generated using <code class="command">svn blame</code></div><div class="figure-contents"><pre class="programlisting">
+
+#REV         #WHO #DATE                                        #TEXT
+
+176410        bde 2008-02-19 07:42:46 -0800 (Tue, 19 Feb 2008) #include &lt;sys/cdefs.h&gt;
+176410        bde 2008-02-19 07:42:46 -0800 (Tue, 19 Feb 2008) __FBSDID("$FreeBSD$");
+  2116        jkh 1994-08-19 02:40:01 -0700 (Fri, 19 Aug 1994) 
+  2116        jkh 1994-08-19 02:40:01 -0700 (Fri, 19 Aug 1994) /* __ieee754_rem_pio2f(x,y)
+  8870    rgrimes 1995-05-29 22:51:47 -0700 (Mon, 29 May 1995)  *
+176552        bde 2008-02-25 05:33:20 -0800 (Mon, 25 Feb 2008)  * return the remainder of x rem pi/2 in *y
+176552        bde 2008-02-25 05:33:20 -0800 (Mon, 25 Feb 2008)  * use double precision for everything except passing x
+152535        bde 2005-11-16 18:20:04 -0800 (Wed, 16 Nov 2005)  * use __kernel_rem_pio2() for large x
+  2116        jkh 1994-08-19 02:40:01 -0700 (Fri, 19 Aug 1994)  */
+  2116        jkh 1994-08-19 02:40:01 -0700 (Fri, 19 Aug 1994) 
+176465        bde 2008-02-22 07:55:14 -0800 (Fri, 22 Feb 2008) #include &lt;float.h&gt;
+176465        bde 2008-02-22 07:55:14 -0800 (Fri, 22 Feb 2008) 
+  2116        jkh 1994-08-19 02:40:01 -0700 (Fri, 19 Aug 1994) #include "math.h"
+
+              </pre></div></div><br class="figure-break" /><p><span class="formalpara-title">Use a gatekeeper. </span>Appoint a <em class="firstterm">gatekeeper</em> to
+                monitor FreeBSD development, to keep an eye out for
+                changes that could potentially impact your
+                products.</p><p><span class="formalpara-title">Report bugs upstream. </span>If you notice bug in the FreeBSD code that you are
+		using, file a <a class="link" href="https://www.FreeBSD.org/support/bugreports.html" target="_top">bug
+                  report</a>.  This step helps ensure that you do
+                not have to fix the bug the next time you take a code
+                drop from upstream.</p></dd><dt><span class="term">Leverage FreeBSD's release engineering efforts</span></dt><dd>Use code from a -STABLE development branch of
+              FreeBSD.  These development branches are formally
+              supported by FreeBSD's release engineering and security
+              teams and comprise of tested code.
+            </dd><dt><span class="term">Donate code to reduce costs</span></dt><dd>A major proportion of the costs associated with
+              developing products is that of doing maintenance. By
+              donating non-critical code to the project, you benefit
+              by having your code see much wider exposure than it
+              would otherwise get.  This in turn leads to more bugs
+              and security vulnerabilities being flushed out and
+              performance anomalies being identified and fixed.
+            </dd><dt><span class="term">Get support effectively</span></dt><dd><p class="simpara">For products with tight deadlines, it is
+              recommended that you hire or enter into a consulting
+              agreement with a developer or firm with FreeBSD
+              experience.  The <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo/freebsd-jobs" target="_top">FreeBSD related employment mailing list</a> is a useful communication
+              channel to find talent. The FreeBSD project maintains a
+              <a class="link" href="../../../../commercial/consult_bycat.html" target="_top">gallery
+                of consultants and consulting firms</a>
+              undertaking FreeBSD work. The <a class="link" href="http://www.bsdcertification.org/" target="_top">BSD
+                Certification Group</a> offers certification for
+              all the major BSD derived OSes.</p><p class="simpara">For less critical needs, you can ask for help on
+              the <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo" target="_top">project
+                mailing lists</a>.  A useful guide to follow when
+              asking for help is given in
+              [<a class="citation" href="bi01.html#idp47439096"><span class="citation">Ray2004</span></a>].
+            </p></dd><dt><span class="term">Publicize your involvement</span></dt><dd><p class="simpara">You are not required to publicize your use of
+              FreeBSD, but doing so helps both your effort as well as
+              that of the project.</p><p class="simpara">Letting the FreeBSD community know that your
+              company uses FreeBSD helps improve your chances of
+              attracting high quality talent.  A large roster of
+              support for FreeBSD also means more mind share for it
+              among developers.  This in turn yields a healthier
+              foundation for your future.</p></dd><dt><span class="term">Support FreeBSD developers</span></dt><dd><p class="simpara">Sometimes the most direct way to get a desired
+              feature into FreeBSD is to support a developer who is
+              already looking at a related problem.  Help can range
+              from hardware donations to direct financial assistance.
+              In some countries, donations to the FreeBSD project
+              enjoy tax benefits. The project has a dedicated <a class="link" href="../../../../donations/" target="_top">donations liaison</a>
+              to assist donors.  The project also maintains a web page
+              where developers <a class="link" href="../../../../donations/wantlist.html" target="_top">list their
+                needs</a>.
+            </p><p class="simpara">As a policy the FreeBSD project <a class="link" href="../../../../doc/en_US.ISO8859-1/articles/contributors" target="_top">acknowledges</a>
+              all contributions received on its web site.</p></dd></dl></div></div><div class="footnotes"><br /><hr class="footnote-hr" /><div id="ftn.idp47177208" class="footnote"><p><a href="#idp47177208" class="simpara"><sup class="simpara">[1] </sup></a>FreeBSD's <a class="link" href="https://svnweb.freebsd.org/" target="_top">source
+                repository</a> contains a history of the project
+              since its inception, and there are <a class="link" href="http://www.mckusick.com/csrg/" target="_top">CDROMs
+                available</a> that contain earlier code from the
+              CSRG.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="freebsd-intro.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="conclusion.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2. FreeBSD as a set of building blocks </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 4. Conclusion</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

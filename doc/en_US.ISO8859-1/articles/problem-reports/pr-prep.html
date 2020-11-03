@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>3. Preparations</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Writing FreeBSD Problem Reports" /><link rel="up" href="index.html" title="Writing FreeBSD Problem Reports" /><link rel="prev" href="pr-when.html" title="2. When to Submit a Problem Report" /><link rel="next" href="pr-writing.html" title="4. Writing the Problem Report" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">3. Preparations</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="pr-when.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="pr-writing.html">Next</a></td></tr></table><hr /></div><div class="section"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="pr-prep"></a>3. Preparations</h2></div></div></div><p>A good rule to follow is to always do a background search
+      before submitting a problem report.  Maybe the problem has
+      already been reported; maybe it is being discussed on the
+      mailing lists, or recently was; it may even already be fixed in
+      a newer version than what you are running.  You should therefore
+      check all the obvious places before submitting your problem
+      report.  For FreeBSD, this means:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>The FreeBSD <a class="link" href="../../../../doc/en_US.ISO8859-1/books/faq/index.html" target="_top">Frequently Asked
+	    Questions</a> (FAQ) list.
+	  The FAQ attempts to provide answers for a wide range of
+	  questions, such as those concerning
+	  <a class="link" href="../../../../doc/en_US.ISO8859-1/books/faq/hardware.html" target="_top">hardware
+	    compatibility</a>,
+	  <a class="link" href="../../../../doc/en_US.ISO8859-1/books/faq/applications.html" target="_top">user
+	    applications</a>, and
+	  <a class="link" href="../../../../doc/en_US.ISO8859-1/books/faq/kernelconfig.html" target="_top">kernel
+	    configuration</a>.</p></li><li class="listitem"><p>The <a class="link" href="../../../../doc/en_US.ISO8859-1/books/handbook/eresources.html#ERESOURCES-MAIL" target="_top">mailing
+	    lists</a>&#8212;if you are not subscribed, use <a class="link" href="https://www.FreeBSD.org/search/search.html#mailinglists" target="_top">the
+	    searchable archives</a> on the FreeBSD web site.  If the
+	  problem has not been discussed on the lists, you might try
+	  posting a message about it and waiting a few days to see if
+	  someone can spot something that has been overlooked.</p></li><li class="listitem"><p>Optionally, the entire web&#8212;use your favorite
+	  search engine to locate any references to the problem.  You
+	  may even get hits from archived mailing lists or newsgroups
+	  you did not know of or had not thought to search
+	  through.</p></li><li class="listitem"><p>Next, the searchable <a class="link" href="https://bugs.freebsd.org/bugzilla/query.cgi" target="_top">FreeBSD
+	    PR database</a> (Bugzilla).  Unless the problem is
+	  recent or obscure, there is a fair chance it has already
+	  been reported.</p></li><li class="listitem"><p>Most importantly, attempt to see if existing
+	  documentation in the source base addresses your
+	  problem.</p><p>For the base FreeBSD code, you should carefully study the
+	  contents of <code class="filename">/usr/src/UPDATING</code> on your
+	  system or the latest version at <code class="uri"><a class="uri" href="https://svnweb.freebsd.org/base/head/UPDATING?view=log" target="_top">https://svnweb.freebsd.org/base/head/UPDATING?view=log</a></code>.
+	  (This is vital information if you are upgrading from one
+	  version to another&#8212;especially if you are upgrading to
+	  the FreeBSD-CURRENT branch).</p><p>However, if the problem is in something that was
+	  installed as a part of the FreeBSD Ports Collection, you should
+	  refer to <code class="filename">/usr/ports/UPDATING</code> (for
+	  individual ports) or <code class="filename">/usr/ports/CHANGES</code>
+	  (for changes that affect the entire Ports Collection).  <code class="uri"><a class="uri" href="https://svnweb.freebsd.org/ports/head/UPDATING?view=log" target="_top">https://svnweb.freebsd.org/ports/head/UPDATING?view=log</a></code>
+	  and <code class="uri"><a class="uri" href="https://svnweb.freebsd.org/ports/head/CHANGES?view=log" target="_top">https://svnweb.freebsd.org/ports/head/CHANGES?view=log</a></code>
+	  are also available via svnweb.</p></li></ul></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="pr-when.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="pr-writing.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2. When to Submit a Problem Report </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 4. Writing the Problem Report</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

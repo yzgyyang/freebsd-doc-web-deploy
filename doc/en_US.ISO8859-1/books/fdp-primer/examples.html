@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>Appendix A. Examples</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Documentation Project Primer for New Contributors" /><link rel="up" href="index.html" title="FreeBSD Documentation Project Primer for New Contributors" /><link rel="prev" href="see-also-docbook.html" title="16.4. DocBook" /><link rel="next" href="examples-docbook-article.html" title="A.2. DocBook article" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Appendix A. Examples</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="see-also-docbook.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="examples-docbook-article.html">Next</a></td></tr></table><hr /></div><div class="appendix"><div xmlns="" class="titlepage"><div><div><h1 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="examples"></a>Appendix A. Examples</h1></div></div></div><div class="toc"><div class="toc-title">Table of Contents</div><dl class="toc"><dt><span class="sect1"><a href="examples.html#examples-docbook-book">A.1. DocBook <code class="sgmltag-element">book</code></a></span></dt><dt><span class="sect1"><a href="examples-docbook-article.html">A.2. DocBook <code class="sgmltag-element">article</code></a></span></dt></dl></div><p>These examples are not exhaustive&#8212;they do not contain
+    all the elements that might be desirable to use, particularly in a
+    document's front matter.  For more examples of DocBook markup,
+    examine the <acronym class="acronym">XML</acronym> source for this and other
+    documents available in the <span class="application">Subversion</span>
+    <code class="literal">doc</code> repository, or available online starting at
+    <code class="uri"><a class="uri" href="http://svnweb.FreeBSD.org/doc/" target="_top">http://svnweb.FreeBSD.org/doc/</a></code>.</p><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="examples-docbook-book"></a>A.1. DocBook <code class="sgmltag-element">book</code></h2></div></div></div><div class="example"><a id="idp54136696"></a><div class="example-title">Example A.1. DocBook <code class="sgmltag-element">book</code></div><div class="example-contents"><pre class="programlisting">&lt;!DOCTYPE book PUBLIC "-//FreeBSD//DTD DocBook XML V5.0-Based Extension//EN"
+	"http://www.FreeBSD.org/XML/share/xml/freebsd50.dtd"&gt;
+
+<code class="sgmltag-starttag">&lt;book xmlns="http://docbook.org/ns/docbook"
+  xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0"
+  xml:lang="en"&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;info&gt;</code>
+    <code class="sgmltag-starttag">&lt;title&gt;</code>An Example Book<code class="sgmltag-endtag">&lt;/title&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;author&gt;</code>
+      <code class="sgmltag-starttag">&lt;personname&gt;</code>
+        <code class="sgmltag-starttag">&lt;firstname&gt;</code>Your first name<code class="sgmltag-endtag">&lt;/firstname&gt;</code>
+        <code class="sgmltag-starttag">&lt;surname&gt;</code>Your surname<code class="sgmltag-endtag">&lt;/surname&gt;</code>
+      <code class="sgmltag-endtag">&lt;/personname&gt;</code>
+
+      <code class="sgmltag-starttag">&lt;affiliation&gt;</code>
+	<code class="sgmltag-starttag">&lt;address&gt;</code>
+	  <code class="sgmltag-starttag">&lt;email&gt;</code>foo@example.com<code class="sgmltag-endtag">&lt;/email&gt;</code>
+	<code class="sgmltag-endtag">&lt;/address&gt;</code>
+      <code class="sgmltag-endtag">&lt;/affiliation&gt;</code>
+    <code class="sgmltag-endtag">&lt;/author&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;copyright&gt;</code>
+      <code class="sgmltag-starttag">&lt;year&gt;</code>2000<code class="sgmltag-endtag">&lt;/year&gt;</code>
+      <code class="sgmltag-starttag">&lt;holder&gt;</code>Copyright string here<code class="sgmltag-endtag">&lt;/holder&gt;</code>
+    <code class="sgmltag-endtag">&lt;/copyright&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;abstract&gt;</code>
+      <code class="sgmltag-starttag">&lt;para&gt;</code>If your book has an abstract then it should go here.<code class="sgmltag-endtag">&lt;/para&gt;</code>
+    <code class="sgmltag-endtag">&lt;/abstract&gt;</code>
+  <code class="sgmltag-endtag">&lt;/info&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;preface&gt;</code>
+    <code class="sgmltag-starttag">&lt;title&gt;</code>Preface<code class="sgmltag-endtag">&lt;/title&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;para&gt;</code>Your book may have a preface, in which case it should be placed
+      here.<code class="sgmltag-endtag">&lt;/para&gt;</code>
+  <code class="sgmltag-endtag">&lt;/preface&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;chapter&gt;</code>
+    <code class="sgmltag-starttag">&lt;title&gt;</code>My First Chapter<code class="sgmltag-endtag">&lt;/title&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;para&gt;</code>This is the first chapter in my book.<code class="sgmltag-endtag">&lt;/para&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;sect1&gt;</code>
+      <code class="sgmltag-starttag">&lt;title&gt;</code>My First Section<code class="sgmltag-endtag">&lt;/title&gt;</code>
+
+      <code class="sgmltag-starttag">&lt;para&gt;</code>This is the first section in my book.<code class="sgmltag-endtag">&lt;/para&gt;</code>
+    <code class="sgmltag-endtag">&lt;/sect1&gt;</code>
+  <code class="sgmltag-endtag">&lt;/chapter&gt;</code>
+<code class="sgmltag-endtag">&lt;/book&gt;</code></pre></div></div><br class="example-break" /></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="see-also-docbook.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="examples-docbook-article.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">16.4. DocBook </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> A.2. DocBook <code class="sgmltag-element">article</code></td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

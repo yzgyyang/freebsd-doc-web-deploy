@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>18.8. UFS Journaling Through GEOM</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="geom.html" title="Chapter 18. GEOM: Modular Disk Transformation Framework" /><link rel="prev" href="geom-glabel.html" title="18.7. Labeling Disk Devices" /><link rel="next" href="zfs.html" title="Chapter 19. The Z File System (ZFS)" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">18.8. UFS Journaling Through <acronym class="acronym">GEOM</acronym></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="geom-glabel.html">Prev</a> </td><th width="60%" align="center">Chapter 18. GEOM: Modular Disk Transformation Framework</th><td width="20%" align="right"> <a accesskey="n" href="zfs.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="geom-gjournal"></a>18.8. UFS Journaling Through <acronym class="acronym">GEOM</acronym></h2></div></div></div><a id="idp63885432" class="indexterm"></a><a id="idp63886328" class="indexterm"></a><p>Support for journals on
+      <acronym class="acronym">UFS</acronym> file systems is available on FreeBSD.  The
+      implementation is provided through the <acronym class="acronym">GEOM</acronym>
+      subsystem and is configured using <code class="command">gjournal</code>.
+      Unlike other file system journaling implementations, the
+      <code class="command">gjournal</code> method is block based and not
+      implemented as part of the file system.  It is a
+      <acronym class="acronym">GEOM</acronym> extension.</p><p>Journaling stores a log of file system transactions, such as
+      changes that make up a complete disk write operation, before
+      meta-data and file writes are committed to the disk.  This
+      transaction log can later be replayed to redo file system
+      transactions, preventing file system inconsistencies.</p><p>This method provides another mechanism to protect against
+      data loss and inconsistencies of the file system.  Unlike Soft
+      Updates, which tracks and enforces meta-data updates, and
+      snapshots, which create an image of the file system, a log is
+      stored in disk space specifically for this task.  For better
+      performance, the journal may be stored on another disk.  In this
+      configuration, the journal provider or storage device should be
+      listed after the device to enable journaling on.</p><p>The <code class="filename">GENERIC</code> kernel provides support for
+      <code class="command">gjournal</code>.  To automatically load the
+      <code class="filename">geom_journal.ko</code> kernel module at boot time,
+      add the following line to
+      <code class="filename">/boot/loader.conf</code>:</p><pre class="programlisting">geom_journal_load="YES"</pre><p>If a custom kernel is used, ensure the following line is in
+      the kernel configuration file:</p><pre class="programlisting">options	GEOM_JOURNAL</pre><p>Once the module is loaded, a journal can be created on a new
+      file system using the following steps.  In this example,
+      <code class="filename">da4</code> is a new <acronym class="acronym">SCSI</acronym>
+      disk:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>gjournal load</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>gjournal label /dev/<em class="replaceable"><code>da4</code></em></code></strong></pre><p>This will load the module and create a
+      <code class="filename">/dev/da4.journal</code> device node on
+      <code class="filename">/dev/da4</code>.</p><p>A <acronym class="acronym">UFS</acronym> file system may now be created on
+      the journaled device, then mounted on an existing mount
+      point:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>newfs -O 2 -J /dev/<em class="replaceable"><code>da4</code></em>.journal</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>mount /dev/<em class="replaceable"><code>da4</code></em>.journal <em class="replaceable"><code>/mnt</code></em></code></strong></pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">In the case of several slices, a journal will be created
+	for each individual slice.  For instance, if
+	<code class="filename">ad4s1</code> and <code class="filename">ad4s2</code> are
+	both slices, then <code class="command">gjournal</code> will create
+	<code class="filename">ad4s1.journal</code> and
+	<code class="filename">ad4s2.journal</code>.</p></div><p>Journaling may also be enabled on current file systems by
+      using <code class="command">tunefs</code>.  However,
+      <span class="emphasis"><em>always</em></span> make a backup before attempting to
+      alter an existing file system.  In most cases,
+      <code class="command">gjournal</code> will fail if it is unable to create
+      the journal, but this does not protect against data loss
+      incurred as a result of misusing <code class="command">tunefs</code>.
+      Refer to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=gjournal&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">gjournal</span>(8)</span></a> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=tunefs&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">tunefs</span>(8)</span></a> for more
+      information about these commands.</p><p>It is possible to journal the boot disk of a FreeBSD system.
+      Refer to the article <a class="link" href="../../../../doc/en_US.ISO8859-1/articles/gjournal-desktop" target="_top">Implementing UFS
+	Journaling on a Desktop PC</a> for detailed
+      instructions.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="geom-glabel.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="geom.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="zfs.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">18.7. Labeling Disk Devices </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 19. The Z File System (<acronym class="acronym">ZFS</acronym>)</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

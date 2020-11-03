@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>2. Release Process</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Release Engineering" /><link rel="up" href="index.html" title="FreeBSD Release Engineering" /><link rel="prev" href="index.html" title="FreeBSD Release Engineering" /><link rel="next" href="release-build.html" title="3. Release Building" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">2. Release Process</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="index.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="release-build.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="release-proc"></a>2. Release Process</h2></div></div></div><p>New releases of FreeBSD are released from the -STABLE branch
+	at approximately four month intervals.  The FreeBSD release
+	process begins to ramp up 70-80 days before the anticipated
+	release date when the release engineer sends an email to the
+	development mailing lists to remind developers that they only
+	have 15 days to integrate new changes before the code freeze.
+	During this time, many developers perform what have become
+	known as <span class="quote">&#8220;<span class="quote">MFC sweeps</span>&#8221;</span>.</p><p><acronym class="acronym">MFC</acronym> stands for <span class="quote">&#8220;<span class="quote">Merge From
+	  CURRENT</span>&#8221;</span> and it describes the process of merging a
+	tested change from our -CURRENT development branch to our
+	-STABLE branch.  Project policy requires any change to be
+	first applied to trunk, and merged to the -STABLE branches
+	after sufficient external testing was done by -CURRENT users
+	(developers are expected to extensively test the change before
+	committing to -CURRENT, but it is impossible for a person to
+	exercise all usages of the general-purpose operating system).
+	Minimal MFC period is 3 days, which is typically used only for
+	trivial or critical bugfixes.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47023864"></a>2.1. Code Review</h3></div></div></div><p>Sixty days before the anticipated release, the source
+	  repository enters a <span class="quote">&#8220;<span class="quote">code freeze</span>&#8221;</span>.  During this
+	  time, all commits to the -STABLE branch must be approved by
+	  Release Engineering Team <code class="email">&lt;<a xmlns="" class="email" href="mailto:re@FreeBSD.org">re@FreeBSD.org</a>&gt;</code>.  The approval process is technically enforced by a
+	  pre-commit hook.  The kinds of changes that are allowed
+	  during this period include:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Bug fixes.</p></li><li class="listitem"><p>Documentation updates.</p></li><li class="listitem"><p>Security-related fixes of any kind.</p></li><li class="listitem"><p>Minor changes to device drivers, such as adding new
+	      Device IDs.</p></li><li class="listitem"><p>Driver updates from the vendors.</p></li><li class="listitem"><p>Any additional change that the release engineering
+	      team feels is justified, given the potential
+	      risk.</p></li></ul></div><p>Shortly after the code freeze is started, a
+	  <span class="emphasis"><em>BETA1</em></span> image is built and released for
+	  widespread testing.  During the code freeze, at least one
+	  beta image or release candidate is released every two weeks
+	  until the final release is ready.  During the days preceding
+	  the final release, the release engineering team is in
+	  constant communication with the security-officer team, the
+	  documentation maintainers, and the port maintainers to
+	  ensure that all of the different components required for a
+	  successful release are available.</p><p>After the quality of the BETA images is satisfying
+	  enough, and no large and potentially risky changes are
+	  planned, the release branch is created and <span class="emphasis"><em>Release
+	    Candidate</em></span> (RC) images are built from the
+	  release branch, instead of the BETA images from the STABLE
+	  branch.  Also, the freeze on the STABLE branch is lifted and
+	  release branch enters a <span class="quote">&#8220;<span class="quote">hard code freeze</span>&#8221;</span>
+	  where it becomes much harder to justify new changes to the
+	  system unless a serious bug-fix or security issue is
+	  involved.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47054200"></a>2.2. Final Release Checklist</h3></div></div></div><p>When several BETA images have been made available for
+	  widespread testing and all major issues have been resolved,
+	  the final release <span class="quote">&#8220;<span class="quote">polishing</span>&#8221;</span> can begin.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="rel-branch"></a>2.2.1. Creating the Release Branch</h4></div></div></div><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">In all examples below,
+	      <code class="literal">$FSVN</code> refers to the location
+	      of the FreeBSD Subversion repository,
+	      <code class="literal">svn+ssh://svn.FreeBSD.org/base/</code>.</p></div><p>The layout of FreeBSD branches in Subversion is described
+	    in the <a class="link" href="../../../../doc/en_US.ISO8859-1/articles/committers-guide/subversion-primer.html#subversion-primer-base-layout" target="_top">Committer's
+	      Guide</a>.  The first step in creating a branch is to
+	    identify the revision of the
+	    <code class="literal">stable/<em class="replaceable"><code>X</code></em></code>
+	    sources that you want to branch
+	    <span class="emphasis"><em>from</em></span>.</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>svn log -v $FSVN/stable/9</code></strong></pre><p>The next step is to create the <span class="emphasis"><em>release
+	      branch</em></span></p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>svn cp $FSVN/stable/9@REVISION $FSVN/releng/9.2</code></strong></pre><p>This branch can be checked out:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>svn co $FSVN/releng/9.2 src</code></strong></pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Creating the <code class="literal">releng</code> branch and
+	  <code class="literal">release</code> tags is done by the <a class="link" href="../../../../administration.html#t-re" target="_top">Release
+	    Engineering Team</a>.</p></div><div class="mediaobject" align="center"><img src="branches-head.png" align="middle" alt="FreeBSD Development Branch" /></div><div class="mediaobject" align="center"><img src="branches-releng3.png" align="middle" alt="FreeBSD 3.x STABLE Branch" /></div><div class="mediaobject" align="center"><img src="branches-releng4.png" align="middle" alt="FreeBSD 4.x STABLE Branch" /></div><div class="mediaobject" align="center"><img src="branches-releng5.png" align="middle" alt="FreeBSD 5.x STABLE Branch" /></div><div class="mediaobject" align="center"><img src="branches-releng6.png" align="middle" alt="FreeBSD 6.x STABLE Branch" /></div><div class="mediaobject" align="center"><img src="branches-releng7.png" align="middle" alt="FreeBSD 7.x STABLE Branch" /></div><div class="mediaobject" align="center"><img src="branches-releng8.png" align="middle" alt="FreeBSD 8.x STABLE Branch" /></div><div class="mediaobject" align="center"><img src="branches-releng9.png" align="middle" alt="FreeBSD 9.x STABLE Branch" /></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="versionbump"></a>2.2.2. Bumping up the Version Number</h4></div></div></div><p>Before the final release can be tagged, built, and
+	released, the following files need to be modified to reflect
+	the correct version of FreeBSD:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="filename">doc/en_US.ISO8859-1/books/handbook/mirrors/chapter.xml</code></p></li><li class="listitem"><p><code class="filename">doc/en_US.ISO8859-1/books/porters-handbook/book.xml</code></p></li><li class="listitem"><p><code class="filename">doc/en_US.ISO8859-1/htdocs/cgi/ports.cgi</code></p></li><li class="listitem"><p><code class="filename">ports/Tools/scripts/release/config</code></p></li><li class="listitem"><p><code class="filename">doc/share/xml/freebsd.ent</code></p></li><li class="listitem"><p><code class="filename">src/Makefile.inc1</code></p></li><li class="listitem"><p><code class="filename">src/UPDATING</code></p></li><li class="listitem"><p><code class="filename">src/gnu/usr.bin/groff/tmac/mdoc.local</code></p></li><li class="listitem"><p><code class="filename">src/release/Makefile</code></p></li><li class="listitem"><p><code class="filename">src/release/doc/en_US.ISO8859-1/share/xml/release.dsl</code></p></li><li class="listitem"><p><code class="filename">src/release/doc/share/examples/Makefile.relnotesng</code></p></li><li class="listitem"><p><code class="filename">src/release/doc/share/xml/release.ent</code></p></li><li class="listitem"><p><code class="filename">src/sys/conf/newvers.sh</code></p></li><li class="listitem"><p><code class="filename">src/sys/sys/param.h</code></p></li><li class="listitem"><p><code class="filename">src/usr.sbin/pkg_install/add/main.c</code></p></li><li class="listitem"><p><code class="filename">doc/en_US.ISO8859-1/htdocs/search/opensearch/man.xml</code></p></li></ul></div><p>The release notes and errata files also need to be
+	adjusted for the new release (on the release branch) and
+	truncated appropriately (on the stable/current branch):</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="filename">src/release/doc/en_US.ISO8859-1/relnotes/common/new.xml</code></p></li><li class="listitem"><p><code class="filename">src/release/doc/en_US.ISO8859-1/errata/article.xml</code></p></li></ul></div><p><span class="application">Sysinstall</span> should be updated to
+	note the number of available ports and the amount of disk
+	space required for the Ports Collection.
+	<a href="#ftn.idp47225464" class="footnote" id="idp47225464"><sup class="footnote">[5]</sup></a>
+	This information is currently kept in
+	<code class="filename">src/usr.sbin/bsdinstall/dist.c</code>.</p><p>After the release has been built, a number of files should
+	be updated to announce the release to the world.  These files
+	are relative to <code class="literal">head/</code> within the
+	<code class="literal">doc/</code> subversion tree.</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="filename">share/images/articles/releng/branches-releng<em class="replaceable"><code>X</code></em>.pic</code></p></li><li class="listitem"><p><code class="filename">head/share/xml/release.ent</code></p></li><li class="listitem"><p><code class="filename">en_US.ISO8859-1/htdocs/releases/*</code></p></li><li class="listitem"><p><code class="filename">en_US.ISO8859-1/htdocs/releng/index.xml</code></p></li><li class="listitem"><p><code class="filename">share/xml/news.xml</code></p></li></ul></div><p>Additionally, update the <span class="quote">&#8220;<span class="quote">BSD Family Tree</span>&#8221;</span>
+	file:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="filename">src/share/misc/bsd-family-tree</code></p></li></ul></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47262456"></a>2.2.3. Creating the Release Tag</h4></div></div></div><p>When the final release is ready, the following command
+	will create the <code class="literal">release/9.2.0</code> tag.</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>svn cp $FSVN/releng/9.2 $FSVN/release/9.2.0</code></strong></pre><p>The Documentation and Ports managers are responsible for
+	tagging their respective trees with the
+	<code class="literal">tags/RELEASE_9_2_0</code> tag.</p><div class="sidebar"><div xmlns="" class="titlepage"></div><p>When the Subversion <code class="command">svn cp</code> command is
+	  used to create a <span class="emphasis"><em>release tag</em></span>, this
+	  identifies the source at a specific point in time.  By
+	  creating tags, we ensure that future release builders will
+	  always be able to use the exact same source we used to
+	  create the official FreeBSD Project releases.</p></div></div></div><div class="footnotes"><br /><hr class="footnote-hr" /><div id="ftn.idp47225464" class="footnote"><p><a href="#idp47225464" class="simpara"><sup class="simpara">[5] </sup></a>FreeBSD Ports Collection <code class="uri"><a class="uri" href="https://www.FreeBSD.org/ports" target="_top">https://www.FreeBSD.org/ports</a></code>
+	  </p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="index.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="release-build.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">FreeBSD Release Engineering </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 3. Release Building</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

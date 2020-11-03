@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>6.2. Bundled Libraries</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Porter's Handbook" /><link rel="up" href="special.html" title="Chapter 6. Special Considerations" /><link rel="prev" href="special.html" title="Chapter 6. Special Considerations" /><link rel="next" href="porting-shlibs.html" title="6.3. Shared Libraries" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.2. Bundled Libraries</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="special.html">Prev</a> </td><th width="60%" align="center">Chapter 6. Special Considerations</th><td width="20%" align="right"> <a accesskey="n" href="porting-shlibs.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="bundled-libs"></a>6.2. Bundled Libraries</h2></div></div></div><p>This section explains why bundled dependencies are
+      considered bad and what to do about them.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="bundled-libs-why-bad"></a>6.2.1. Why Bundled Libraries Are Bad</h3></div></div></div><p>Some software requires the porter to locate third-party
+	libraries and add the required dependencies to the port.
+	Other software bundles all necessary libraries into the
+	distribution file.  The second approach seems easier at
+	first, but there are some serious drawbacks:</p><p>This list is loosely based on the <a class="link" href="https://fedoraproject.org/wiki/Packaging:No_Bundled_Libraries" target="_top">Fedora</a>
+	and <a class="link" href="http://wiki.gentoo.org/wiki/Why_not_bundle_dependencies" target="_top">Gentoo</a>
+	wikis, both licensed under the <a class="link" href="http://creativecommons.org/licenses/by-sa/3.0/" target="_top">CC-BY-SA
+	  3.0</a> license.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">Security</span></dt><dd><p>If vulnerabilities are found in the upstream library
+	      and fixed there, they might not be fixed in the library
+	      bundled with the port.  One reason could be that the
+	      author is not aware of the problem.  This means that the
+	      porter must fix them, or upgrade to a non-vulnerable
+	      version, and send a patch to the author.  This all takes
+	      time, which results in software being vulnerable longer
+	      than necessary.  This in turn makes it harder to
+	      coordinate a fix without unnecessarily leaking
+	      information about the vulnerability.</p></dd><dt><span class="term">Bugs</span></dt><dd><p>This problem is similar to the problem with security
+	      in the last paragraph, but generally less severe.</p></dd><dt><span class="term">Forking</span></dt><dd><p>It is easier for the author to fork the upstream
+	      library once it is bundled.  While convenient on first
+	      sight, it means that the code diverges from upstream
+	      making it harder to address security or other problems
+	      with the software.  A reason for this is that patching
+	      becomes harder.</p><p>Another problem of forking is that because code
+	      diverges from upstream, bugs get solved over and over
+	      again instead of just once at a central location.  This
+	      defeats the idea of open source software in the first
+	      place.</p></dd><dt><span class="term">Symbol collision</span></dt><dd><p>When a library is installed on the system, it might
+	      collide with the bundled version.  This can cause
+	      immediate errors at compile or link time.  It can also
+	      cause errors when running the program which might be
+	      harder to track down.  The latter problem could be
+	      caused because the versions of the two libraries are
+	      incompatible.</p></dd><dt><span class="term">Licensing</span></dt><dd><p>When bundling projects from different sources,
+	      license issues can arise more easily, especially when
+	      licenses are incompatible.</p></dd><dt><span class="term">Waste of resources</span></dt><dd><p>Bundled libraries waste resources on several levels.
+	      It takes longer to build the actual application,
+	      especially if these libraries are already present on the
+	      system.  At run-time, they can take up unnecessary
+	      memory when the system-wide library is already loaded by
+	      one program and the bundled library is loaded by another
+	      program.</p></dd><dt><span class="term">Waste of effort</span></dt><dd><p>When a library needs patches for FreeBSD, these patches
+	      have to be duplicated again in the bundled library.
+	      This wastes developer time because the patches might not
+	      apply cleanly.  It can also be hard to notice that these
+	      patches are required in the first place.</p></dd></dl></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="bundled-libs-practices"></a>6.2.2. What to do About Bundled Libraries</h3></div></div></div><p>Whenever possible, use the unbundled version of the
+	library by adding a <code class="varname">LIB_DEPENDS</code> to the
+	port.  If such a port does not exist yet, consider creating
+	it.</p><p>Only use bundled libraries if the upstream has a
+	good track record on security and using unbundled versions
+	leads to overly complex patches.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">In some very special cases, for example emulators, like
+	  <span class="application">Wine</span>, a port has to bundle
+	  libraries, because they are in a different architecture, or
+	  they have been modified to fit the software's use.  In that
+	  case, those libraries should not be exposed to other ports
+	  for linking.  Add <code class="literal">BUNDLE_LIBS=yes</code> to the
+	  port's <code class="filename">Makefile</code>.  This will tell
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pkg&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pkg</span>(8)</span></a> to not compute provided libraries.  Always ask
+	  the Ports Management Team <code class="email">&lt;<a xmlns="" class="email" href="mailto:portmgr@FreeBSD.org">portmgr@FreeBSD.org</a>&gt;</code> before adding this to a port.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="special.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="special.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="porting-shlibs.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 6. Special Considerations </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 6.3. Shared Libraries</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

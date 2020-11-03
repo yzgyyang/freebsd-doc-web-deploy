@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>28.6. Advanced Topics</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="mail.html" title="Chapter 28. Electronic Mail" /><link rel="prev" href="mail-trouble.html" title="28.5. Troubleshooting" /><link rel="next" href="outgoing-only.html" title="28.7. Setting Up to Send Only" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">28.6. Advanced Topics</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="mail-trouble.html">Prev</a> </td><th width="60%" align="center">Chapter 28. Electronic Mail</th><td width="20%" align="right"> <a accesskey="n" href="outgoing-only.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="mail-advanced"></a>28.6. Advanced Topics</h2></div></div></div><p>This section covers more involved topics such as mail
+      configuration and setting up mail for an entire domain.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mail-config"></a>28.6.1. Basic Configuration</h3></div></div></div><a id="idp69090040" class="indexterm"></a><p>Out of the box, one can send email to external hosts as
+	long as <code class="filename">/etc/resolv.conf</code> is configured or
+	the network has access to a configured <acronym class="acronym">DNS</acronym>
+	server.  To have email delivered to the <acronym class="acronym">MTA</acronym>
+	on the FreeBSD host, do one of the following:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Run a <acronym class="acronym">DNS</acronym> server for the
+	    domain.</p></li><li class="listitem"><p>Get mail delivered directly to the
+	    <acronym class="acronym">FQDN</acronym> for the machine.</p></li></ul></div><a id="idp69111800" class="indexterm"></a><p>In order to have mail delivered directly to a host, it
+	must have a permanent static IP address, not a dynamic IP
+	address.  If the system is behind a firewall, it must be
+	configured to allow SMTP traffic.  To receive mail directly at
+	a host, one of these two must be configured:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Make sure that the lowest-numbered
+	    <acronym class="acronym">MX</acronym><a id="idp69113720" class="indexterm"></a> record in
+	    <acronym class="acronym">DNS</acronym> points to the host's static IP
+	    address.</p></li><li class="listitem"><p>Make sure there is no <acronym class="acronym">MX</acronym> entry in
+	    the <acronym class="acronym">DNS</acronym> for the host.</p></li></ul></div><p>Either of the above will allow mail to be received
+	directly at the host.</p><p>Try this:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>hostname</code></strong>
+example.FreeBSD.org
+<code class="prompt">#</code> <strong class="userinput"><code>host example.FreeBSD.org</code></strong>
+example.FreeBSD.org has address 204.216.27.XX</pre><p>In this example, mail sent directly to
+	<code class="email">&lt;yourlogin@example.FreeBSD.org&gt;</code>
+	should work without problems, assuming
+	<span class="application">Sendmail</span> is running correctly on
+	<code class="systemitem">example.FreeBSD.org</code>.</p><p>For this example:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>host example.FreeBSD.org</code></strong>
+example.FreeBSD.org has address 204.216.27.XX
+example.FreeBSD.org mail is handled (pri=10) by nevdull.FreeBSD.org</pre><p>All mail sent to <code class="systemitem">example.FreeBSD.org</code> will
+	be collected on <code class="systemitem">hub</code> under the same
+	username instead of being sent directly to your host.</p><p>The above information is handled by the
+	<acronym class="acronym">DNS</acronym> server.  The <acronym class="acronym">DNS</acronym>
+	record that carries mail routing information is the
+	<acronym class="acronym">MX</acronym> entry.  If no <acronym class="acronym">MX</acronym>
+	record exists, mail will be delivered directly to the host by
+	way of its IP address.</p><p>The <acronym class="acronym">MX</acronym> entry for <code class="systemitem">freefall.FreeBSD.org</code> at
+	one time looked like this:</p><pre class="programlisting">freefall		MX	30	mail.crl.net
+freefall		MX	40	agora.rdrop.com
+freefall		MX	10	freefall.FreeBSD.org
+freefall		MX	20	who.cdrom.com</pre><p><code class="systemitem">freefall</code> had many
+	<acronym class="acronym">MX</acronym> entries.  The lowest
+	<acronym class="acronym">MX</acronym> number is the host that receives mail
+	directly, if available.  If it is not accessible for some
+	reason, the next lower-numbered host will accept messages
+	temporarily, and pass it along when a lower-numbered host
+	becomes available.</p><p>Alternate <acronym class="acronym">MX</acronym> sites should have separate
+	Internet connections in order to be most useful.  Your
+	<acronym class="acronym">ISP</acronym> can provide this service.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mail-domain"></a>28.6.2. Mail for a Domain</h3></div></div></div><p>When configuring a <acronym class="acronym">MTA</acronym> for a network,
+	any mail sent to hosts in its domain should be diverted to the
+	<acronym class="acronym">MTA</acronym> so that users can receive their mail on
+	the master mail server.</p><a id="idp68878072" class="indexterm"></a><p>To make life easiest, a user account with the same
+	<span class="emphasis"><em>username</em></span> should exist on both the
+	<acronym class="acronym">MTA</acronym> and the system with the
+	<acronym class="acronym">MUA</acronym>.  Use <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=adduser&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">adduser</span>(8)</span></a> to create the
+	user accounts.</p><p>The <acronym class="acronym">MTA</acronym> must be the designated mail
+	exchanger for each workstation on the network.  This is done
+	in the<acronym class="acronym">DNS</acronym> configuration with an
+	<acronym class="acronym">MX</acronym> record:</p><pre class="programlisting">example.FreeBSD.org	A	204.216.27.XX		; Workstation
+			MX	10 nevdull.FreeBSD.org	; Mailhost</pre><p>This will redirect mail for the workstation to the
+	<acronym class="acronym">MTA</acronym> no matter where the A record points.
+	The mail is sent to the <acronym class="acronym">MX</acronym> host.</p><p>This must be configured on a <acronym class="acronym">DNS</acronym>
+	server.  If the network does not run its own
+	<acronym class="acronym">DNS</acronym> server, talk to the
+	<acronym class="acronym">ISP</acronym> or <acronym class="acronym">DNS</acronym>
+	provider.</p><p>The following is an example of virtual email hosting.
+	Consider a customer with the domain <code class="systemitem">customer1.org</code>, where all
+	the mail for <code class="systemitem">customer1.org</code> should be
+	sent to <code class="systemitem">mail.myhost.com</code>.  The
+	<acronym class="acronym">DNS</acronym> entry should look like this:</p><pre class="programlisting">customer1.org		MX	10	mail.myhost.com</pre><p>An <code class="literal">A</code>&gt; record is
+	<span class="emphasis"><em>not</em></span> needed for <code class="systemitem">customer1.org</code> in order to
+	only handle email for that domain.  However, running
+	<code class="command">ping</code> against <code class="systemitem">customer1.org</code> will not
+	work unless an <code class="literal">A</code> record exists for
+	it.</p><p>Tell the <acronym class="acronym">MTA</acronym> which domains and/or
+	hostnames it should accept mail for.  Either of the following
+	will work for <span class="application">Sendmail</span>:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Add the hosts to
+	    <code class="filename">/etc/mail/local-host-names</code> when
+	    using the <code class="literal">FEATURE(use_cw_file)</code>.</p></li><li class="listitem"><p>Add a <code class="literal">Cwyour.host.com</code> line to
+	    <code class="filename">/etc/sendmail.cf</code>.</p></li></ul></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="mail-trouble.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="mail.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="outgoing-only.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">28.5. Troubleshooting </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 28.7. Setting Up to Send Only</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

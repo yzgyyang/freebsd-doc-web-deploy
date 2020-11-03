@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>3. Configuring the CUPS Print Server</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="CUPS on FreeBSD" /><link rel="up" href="index.html" title="CUPS on FreeBSD" /><link rel="prev" href="printing-cups-install.html" title="2. Installing the CUPS Print Server" /><link rel="next" href="printing-cups-configuring-printers.html" title="4. Configuring Printers on the CUPS Print Server" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">3. Configuring the CUPS Print Server</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="printing-cups-install.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="printing-cups-configuring-printers.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="printing-cups-configuring-server"></a>3. Configuring the CUPS Print Server</h2></div></div></div><p>After installation, a few files must be edited in order to
+      configure the <span class="application">CUPS</span> server.  First,
+      create or modify, as the case may be, the file
+      <code class="filename">/etc/devfs.rules</code> and add the following
+      information to set the proper permissions on all potential
+      printer devices and to associate printers with the <code class="systemitem">cups</code> user group:</p><pre class="programlisting">[system=10]
+add path 'unlpt*' mode 0660 group cups
+add path 'ulpt*' mode 0660 group cups
+add path 'lpt*' mode 0660 group cups
+add path 'usb/<em class="replaceable"><code>X</code></em>.<em class="replaceable"><code>Y</code></em>.<em class="replaceable"><code>Z</code></em>' mode 0660 group cups</pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Note that <em class="replaceable"><code>X</code></em>,
+	<em class="replaceable"><code>Y</code></em>, and <em class="replaceable"><code>Z</code></em>
+	should be replaced with the target USB device listed in the
+	<code class="filename">/dev/usb</code> directory that
+	corresponds to the printer.  To find the correct device,
+	examine the output of <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=dmesg&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">dmesg</span>(8)</span></a>, where
+	<code class="filename">ugen<em class="replaceable"><code>X</code></em>.<em class="replaceable"><code>Y</code></em></code>
+	lists the printer device, which is a symbolic link to a USB
+	device in <code class="filename">/dev/usb</code>.</p></div><p>Next, add two lines to <code class="filename">/etc/rc.conf</code> as
+      follows:</p><pre class="programlisting">cupsd_enable="YES"
+devfs_system_ruleset="system"</pre><p>These two entries will start the
+      <span class="application">CUPS</span> print server on boot and invoke
+      the local devfs rule created above, respectively.</p><p>In order to enable <span class="application">CUPS</span> printing
+      under certain <span class="trademark">Microsoft</span>® <span class="trademark">Windows</span>® clients, the line below should
+      be uncommented in
+      <code class="filename">/usr/local/etc/cups/mime.types</code> and
+      <code class="filename">/usr/local/etc/cups/mime.convs</code>:</p><pre class="programlisting">application/octet-stream</pre><p>Once these changes have been made, the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=devfs&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">devfs</span>(8)</span></a> and
+      <span class="application">CUPS</span> systems must both be restarted,
+      either by rebooting the computer or issuing the following two
+      commands in a root terminal:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>/etc/rc.d/devfs restart</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>/usr/local/etc/rc.d/cupsd restart</code></strong></pre></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="printing-cups-install.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="printing-cups-configuring-printers.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2. Installing the CUPS Print Server </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 4. Configuring Printers on the CUPS Print Server</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

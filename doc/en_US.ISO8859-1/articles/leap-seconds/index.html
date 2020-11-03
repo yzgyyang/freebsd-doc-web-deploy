@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>FreeBSD Support for Leap Seconds</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Support for Leap Seconds" /><link rel="next" href="leapseconds-posix.html" title="2. Default Leap Second Handling on FreeBSD" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">FreeBSD Support for Leap Seconds</th></tr><tr><td width="20%" align="left"> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="leapseconds-posix.html">Next</a></td></tr></table><hr /></div><div class="article"><div xmlns="" class="titlepage"><div><div><h1 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="leapseconds"></a>FreeBSD Support for Leap Seconds</h1></div><div>Last modified on 2017-11-30 14:49:53 +0000 by ygy.</div></div><div class="docformatnavi">
+      [
+      
+	  Split HTML
+	
+      /
+      <a href="article.html">Single HTML</a>
+      ]
+    </div><hr /></div><div class="toc"><div class="toc-title">Table of Contents</div><dl class="toc"><dt><span class="sect1"><a href="index.html#leapseconds-definition">1. Introduction</a></span></dt><dt><span class="sect1"><a href="leapseconds-posix.html">2. Default Leap Second Handling on FreeBSD</a></span></dt><dt><span class="sect1"><a href="leapseconds-cautions.html">3. Cautions</a></span></dt><dt><span class="sect1"><a href="leapseconds-testing.html">4. Testing</a></span></dt><dt><span class="sect1"><a href="leapseconds-conclusion.html">5. Conclusion</a></span></dt></dl></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="leapseconds-definition"></a>1. Introduction</h2></div></div></div><p>A <span class="emphasis"><em>leap second</em></span> is an one second
+      adjustment made at specific times of year to UTC to synchronize
+      atomic time scales with variations in the rotation of the Earth.
+      This article describes how FreeBSD interacts with leap
+      seconds.</p><p>As of this writing, the next leap second will occur at
+      2015-Jun-30 23:59:60 UTC.  This leap second will occur during a
+      business day for North and South America and the Asia/Pacific
+      region.</p><p>Leap seconds are announced by <a class="link" href="http://datacenter.iers.org/" target="_top"><acronym class="acronym">IERS</acronym></a>
+      on <a class="link" href="http://datacenter.iers.org/web/guest/bulletins/-/somos/5Rgv/product/16" target="_top">Bulletin
+	C</a>.</p><p>Standard leap second behavior is described in <a class="link" href="https://tools.ietf.org/html/rfc7164#section-3" target="_top">RFC
+	7164</a>.  Also see <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=time2posix&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">time2posix</span>(3)</span></a>.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="leapseconds-posix.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"> </td><td width="20%" align="center"> </td><td width="40%" align="right" valign="top"> 2. Default Leap Second Handling on FreeBSD</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

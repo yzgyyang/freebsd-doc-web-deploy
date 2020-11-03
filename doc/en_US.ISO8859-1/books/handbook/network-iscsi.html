@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>29.12. iSCSI Initiator and Target Configuration</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="network-servers.html" title="Chapter 29. Network Servers" /><link rel="prev" href="network-ntp.html" title="29.11. Clock Synchronization with NTP" /><link rel="next" href="firewalls.html" title="Chapter 30. Firewalls" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">29.12. <acronym class="acronym">iSCSI</acronym> Initiator and Target
+      Configuration</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="network-ntp.html">Prev</a> </td><th width="60%" align="center">Chapter 29. Network Servers</th><td width="20%" align="right"> <a accesskey="n" href="firewalls.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="network-iscsi"></a>29.12. <acronym class="acronym">iSCSI</acronym> Initiator and Target
+      Configuration</h2></div></div></div><p><acronym class="acronym">iSCSI</acronym> is a way to share storage over a
+      network.  Unlike <acronym class="acronym">NFS</acronym>, which works at the file
+      system level, <acronym class="acronym">iSCSI</acronym> works at the block device
+      level.</p><p>In <acronym class="acronym">iSCSI</acronym> terminology, the system that
+      shares the storage is known as the <span class="emphasis"><em>target</em></span>.
+      The storage can be a physical disk, or an area representing
+      multiple disks or a portion of a physical disk.  For example, if
+      the disk(s) are formatted with <acronym class="acronym">ZFS</acronym>, a zvol
+      can be created to use as the <acronym class="acronym">iSCSI</acronym>
+      storage.</p><p>The clients which access the <acronym class="acronym">iSCSI</acronym>
+      storage are called <span class="emphasis"><em>initiators</em></span>.  To
+      initiators, the storage available through
+      <acronym class="acronym">iSCSI</acronym> appears as a raw, unformatted disk
+      known as a <acronym class="acronym">LUN</acronym>.  Device nodes for the disk
+      appear in <code class="filename">/dev/</code> and the device must be
+      separately formatted and mounted.</p><p>FreeBSD provides a native,
+      kernel-based <acronym class="acronym">iSCSI</acronym> target and initiator.
+      This section describes how to configure a FreeBSD system as a
+      target or an initiator.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="network-iscsi-target"></a>29.12.1. Configuring an <acronym class="acronym">iSCSI</acronym> Target</h3></div></div></div><p>To configure an <acronym class="acronym">iSCSI</acronym> target, create
+	the <code class="filename">/etc/ctl.conf</code> configuration file, add
+	a line to <code class="filename">/etc/rc.conf</code> to make sure the
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ctld&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ctld</span>(8)</span></a> daemon is automatically started at boot, and then
+	start the daemon.</p><p>The following is an example of a simple
+	<code class="filename">/etc/ctl.conf</code> configuration file.  Refer
+	to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ctl.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ctl.conf</span>(5)</span></a> for a more complete description of this
+	file's available options.</p><pre class="programlisting">portal-group pg0 {
+	discovery-auth-group no-authentication
+	listen 0.0.0.0
+	listen [::]
+}
+
+target iqn.2012-06.com.example:target0 {
+	auth-group no-authentication
+	portal-group pg0
+
+	lun 0 {
+		path /data/target0-0
+		size 4G
+	}
+}</pre><p>The first entry defines the <code class="literal">pg0</code> portal
+	group.  Portal groups define which network addresses the
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ctld&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ctld</span>(8)</span></a> daemon will listen on.  The
+	<code class="literal">discovery-auth-group no-authentication</code>
+	entry indicates that any initiator is allowed to perform
+	<acronym class="acronym">iSCSI</acronym> target discovery without
+	authentication.  Lines three and four configure <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ctld&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ctld</span>(8)</span></a>
+	to listen on all <acronym class="acronym">IPv4</acronym>
+	(<code class="literal">listen 0.0.0.0</code>) and
+	<acronym class="acronym">IPv6</acronym> (<code class="literal">listen [::]</code>)
+	addresses on the default port of 3260.</p><p>It is not necessary to define a portal group as there is a
+	built-in portal group called <code class="literal">default</code>.  In
+	this case, the difference between <code class="literal">default</code>
+	and <code class="literal">pg0</code> is that with
+	<code class="literal">default</code>, target discovery is always denied,
+	while with <code class="literal">pg0</code>, it is always
+	allowed.</p><p>The second entry defines a single target.  Target has two
+	possible meanings: a machine serving <acronym class="acronym">iSCSI</acronym>
+	or a named group of <acronym class="acronym">LUNs</acronym>.  This example
+	uses the latter meaning, where
+	<code class="literal">iqn.2012-06.com.example:target0</code> is the
+	target name.  This target name is suitable for testing
+	purposes.  For actual use, change
+	<code class="literal">com.example</code> to the real domain name,
+	reversed.  The <code class="literal">2012-06</code> represents the year
+	and month of acquiring control of that domain name, and
+	<code class="literal">target0</code> can be any value.  Any number of
+	targets can be defined in this configuration file.</p><p>The <code class="literal">auth-group no-authentication</code> line
+	allows all initiators to connect to the specified target and
+	<code class="literal">portal-group pg0</code> makes the target reachable
+	through the <code class="literal">pg0</code> portal group.</p><p>The next section defines the <acronym class="acronym">LUN</acronym>.  To
+	the initiator, each <acronym class="acronym">LUN</acronym> will be visible as
+	a separate disk device.  Multiple <acronym class="acronym">LUNs</acronym> can
+	be defined for each target.  Each <acronym class="acronym">LUN</acronym> is
+	identified by a number, where <acronym class="acronym">LUN</acronym> 0 is
+	mandatory.  The <code class="literal">path /data/target0-0</code> line
+	defines the full path to a file or zvol backing the
+	<acronym class="acronym">LUN</acronym>.  That path must exist before starting
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ctld&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ctld</span>(8)</span></a>.  The second line is optional and specifies the
+	size of the <acronym class="acronym">LUN</acronym>.</p><p>Next, to make sure the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ctld&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ctld</span>(8)</span></a> daemon is started at
+	boot, add this line to
+	<code class="filename">/etc/rc.conf</code>:</p><pre class="programlisting">ctld_enable="YES"</pre><p>To start <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ctld&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ctld</span>(8)</span></a> now, run this command:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service ctld start</code></strong></pre><p>As the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ctld&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ctld</span>(8)</span></a> daemon is started, it reads
+	<code class="filename">/etc/ctl.conf</code>.  If this file is edited
+	after the daemon starts, use this command so that the changes
+	take effect immediately:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service ctld reload</code></strong></pre><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp71271672"></a>29.12.1.1. Authentication</h4></div></div></div><p>The previous example is inherently insecure as it uses
+	  no authentication, granting anyone full access to all
+	  targets.  To require a username and password to access
+	  targets, modify the configuration as follows:</p><pre class="programlisting">auth-group ag0 {
+	chap username1 secretsecret
+	chap username2 anothersecret
+}
+
+portal-group pg0 {
+	discovery-auth-group no-authentication
+	listen 0.0.0.0
+	listen [::]
+}
+
+target iqn.2012-06.com.example:target0 {
+	auth-group ag0
+	portal-group pg0
+	lun 0 {
+		path /data/target0-0
+		size 4G
+	}
+}</pre><p>The <code class="literal">auth-group</code> section defines
+	  username and password pairs.  An initiator trying to connect
+	  to <code class="literal">iqn.2012-06.com.example:target0</code> must
+	  first specify a defined username and secret.  However,
+	  target discovery is still permitted without authentication.
+	  To require target discovery authentication, set
+	  <code class="literal">discovery-auth-group</code> to a defined
+	  <code class="literal">auth-group</code> name instead of
+	  <code class="literal">no-authentication</code>.</p><p>It is common to define a single exported target for
+	  every initiator.  As a shorthand for the syntax above, the
+	  username and password can be specified directly in the
+	  target entry:</p><pre class="programlisting">target iqn.2012-06.com.example:target0 {
+	portal-group pg0
+	chap username1 secretsecret
+
+	lun 0 {
+		path /data/target0-0
+		size 4G
+	}
+}</pre></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="network-iscsi-initiator"></a>29.12.2. Configuring an <acronym class="acronym">iSCSI</acronym> Initiator</h3></div></div></div><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">The <acronym class="acronym">iSCSI</acronym> initiator described in this
+	  section is supported starting with FreeBSD 10.0-RELEASE.  To
+	  use the <acronym class="acronym">iSCSI</acronym> initiator available in
+	  older versions, refer to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=iscontrol&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">iscontrol</span>(8)</span></a>.</p></div><p>The <acronym class="acronym">iSCSI</acronym> initiator requires that the
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=iscsid&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">iscsid</span>(8)</span></a> daemon is running.  This daemon does not use a
+	configuration file.  To start it automatically at boot, add
+	this line to <code class="filename">/etc/rc.conf</code>:</p><pre class="programlisting">iscsid_enable="YES"</pre><p>To start <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=iscsid&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">iscsid</span>(8)</span></a> now, run this command:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service iscsid start</code></strong></pre><p>Connecting to a target can be done with or without an
+	<code class="filename">/etc/iscsi.conf</code> configuration file.  This
+	section demonstrates both types of connections.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp71297400"></a>29.12.2.1. Connecting to a Target Without a Configuration
+	  File</h4></div></div></div><p>To connect an initiator to a single target, specify the
+	  <acronym class="acronym">IP</acronym> address of the portal and the name of
+	  the target:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>iscsictl -A -p <em class="replaceable"><code>10.10.10.10</code></em> -t <em class="replaceable"><code>iqn.2012-06.com.example:target0</code></em></code></strong></pre><p>To verify if the connection succeeded, run
+	  <code class="command">iscsictl</code> without any arguments.  The
+	  output should look similar to this:</p><pre class="programlisting">Target name                                     Target portal   State
+iqn.2012-06.com.example:target0                 10.10.10.10     Connected: da0</pre><p>In this example, the <acronym class="acronym">iSCSI</acronym> session
+	  was successfully established, with
+	  <code class="filename">/dev/da0</code> representing the attached
+	  <acronym class="acronym">LUN</acronym>.  If the
+	  <code class="literal">iqn.2012-06.com.example:target0</code> target
+	  exports more than one <acronym class="acronym">LUN</acronym>, multiple
+	  device nodes will be shown in that section of the
+	  output:</p><pre class="screen">Connected: da0 da1 da2.</pre><p>Any errors will be reported in the output, as well as
+	  the system logs.  For example, this message usually means
+	  that the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=iscsid&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">iscsid</span>(8)</span></a> daemon is not running:</p><pre class="programlisting">Target name                                     Target portal   State
+iqn.2012-06.com.example:target0                 10.10.10.10     Waiting for iscsid(8)</pre><p>The following message suggests a networking problem,
+	  such as a wrong <acronym class="acronym">IP</acronym> address or
+	  port:</p><pre class="programlisting">Target name                                     Target portal   State
+iqn.2012-06.com.example:target0                 10.10.10.11     Connection refused</pre><p>This message means that the specified target name is
+	  wrong:</p><pre class="programlisting">Target name                                     Target portal   State
+iqn.2012-06.com.example:target0                 10.10.10.10     Not found</pre><p>This message means that the target requires
+	  authentication:</p><pre class="programlisting">Target name                                     Target portal   State
+iqn.2012-06.com.example:target0                 10.10.10.10     Authentication failed</pre><p>To specify a <acronym class="acronym">CHAP</acronym> username and
+	  secret, use this syntax:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>iscsictl -A -p <em class="replaceable"><code>10.10.10.10</code></em> -t <em class="replaceable"><code>iqn.2012-06.com.example:target0</code></em> -u <em class="replaceable"><code>user</code></em> -s <em class="replaceable"><code>secretsecret</code></em></code></strong></pre></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp71315832"></a>29.12.2.2. Connecting to a Target with a Configuration
+	  File</h4></div></div></div><p>To connect using a configuration file, create
+	  <code class="filename">/etc/iscsi.conf</code> with contents like
+	  this:</p><pre class="programlisting">t0 {
+	TargetAddress   = 10.10.10.10
+	TargetName      = iqn.2012-06.com.example:target0
+	AuthMethod      = CHAP
+	chapIName       = user
+	chapSecret      = secretsecret
+}</pre><p>The <code class="literal">t0</code> specifies a nickname for the
+	  configuration file section.  It will be used by the
+	  initiator to specify which configuration to use.  The other
+	  lines specify the parameters to use during connection.  The
+	  <code class="literal">TargetAddress</code> and
+	  <code class="literal">TargetName</code> are mandatory, whereas the
+	  other options are optional.  In this example, the
+	  <acronym class="acronym">CHAP</acronym> username and secret are
+	  shown.</p><p>To connect to the defined target, specify the
+	  nickname:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>iscsictl -An <em class="replaceable"><code>t0</code></em></code></strong></pre><p>Alternately, to connect to all targets defined in the
+	  configuration file, use:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>iscsictl -Aa</code></strong></pre><p>To make the initiator automatically connect to all
+	  targets in <code class="filename">/etc/iscsi.conf</code>, add the
+	  following to <code class="filename">/etc/rc.conf</code>:</p><pre class="programlisting">iscsictl_enable="YES"
+iscsictl_flags="-Aa"</pre></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="network-ntp.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="network-servers.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="firewalls.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">29.11. Clock Synchronization with NTP </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 30. Firewalls</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

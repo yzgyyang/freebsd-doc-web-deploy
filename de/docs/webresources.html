@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' site: www.FreeBSD.org site: docs.FreeBSD.org site: lists.FreeBSD.org site: wiki.FreeBSD.org site: forums.FreeBSD.org'">
                   <h2 class="blockhide">
                     <label for="words">Suche</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="//www.FreeBSD.org/cgi/man.cgi">Manualpages</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">Presentations and Papers</a>
                   </li>
                   <li>
                     <a href="../../doc/de_DE.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
@@ -231,6 +233,9 @@
                   <a href="//www.FreeBSD.org/cgi/man.cgi">Manual-Pages (Online)</a>
                 </li>
                 <li>
+                  <a href="https://papers.FreeBSD.org">Presentations and Papers</a>
+                </li>
+                <li>
                   <a href="../docs/books.html">Bücher und Artikel (Online)</a>
                 </li>
                 <li>
@@ -283,40 +288,45 @@
       
     <h2>Weitere Resourcen</h2>  
 
+    <h3><a href="https://www.freebsdnews.com/" shape="rect">FreeBSDNews.com</a></h3>
+
+    <p>FreeBSDNews.com ist ein Blog, der über aktuelle Entwicklungen
+      in der FreeBSD-Community berichtet.  Geboten wird eine
+      Mischung aus gesammelten Neuigkeiten sowie diversen
+      Anleitungen.</p>
+
+    <h3><a href="https://www.bsdnow.tv/" shape="rect">BSD Now</a></h3>
+
+    <p>BSD Now ist ein wöchentlich erscheinender Videopodcast, der
+      sich der Förderung der BSD-Familie von Betriebssystemen
+      verschrieben hat.  Er bietet einen Überblick über aktuelle
+      Entwicklungen, Interviews, Anleitungen und Hilfestellungen
+      für spezielle Fragen seiner Hörer.</p>
+
+    <h3><a href="https://bsdmag.org/" shape="rect">BSD MAG</a></h3>
+
+    <p>BSD MAG schreibt über BSD und Open Source-Lösungen, die sich
+      sowohl an Einsteiger als auch an Fortgeschrittene wenden.  Das
+      monatlich erscheinende Magazin ist kostenlos erhältich.</p>
+
+
     <h3><a href="http://fxr.watson.org/" shape="rect">The Source Code</a></h3>
 
     <p>Wenn Sie gerne im Quellcode herumstöbern, sollten Sie sich
       die Hypertextversion der FreeBSD <em>Kernel</em>-Quellen ansehen,
       die von Robert Watson zur Verfügung gestellt wird.</p>
 
-    <h3><a name="diary" href="http://www.freebsddiary.org/" shape="rect" id="diary">The FreeBSD
-      Diary</a></h3>
-
-    <p>Das FreeBSD Diary ist eine Sammlung von How-To's für
-      UNIX-Neulinge.  Das Ziel sind Schritt-für-Schritt-Anleitungen
-      zur Installation und Konfiguration von verschiedenen Ports.</p>
-
-    <h3><a href="http://www.OnLamp.com/bsd/" shape="rect">The O'Reilly Network BSD
-      Dev Center</a></h3>
-
-    <p>Das BSD Dev Center bietet zwei regelmäßige
-      Kolumnen mit Tipps und Anleitungen zu FreeBSD.</p>
-
-    <h3><a href="https://forums.FREEBSD.org" shape="rect">Die FreeBSD-Foren</a></h3>
+    <h3><a href="https://forums.FreeBSD.org" shape="rect">Die FreeBSD-Foren</a></h3>
 
     <p>Die offiziellen FreeBSD-Foren bieten Ihnen umfangreiche
       Diskussionen und Hilfestellungen zu allen Fragen rund um
       FreeBSD.</p>
 
-    <h3><a href="http://www.bsdguides.org" shape="rect">BSD Guides</a></h3>
-
-    <p>BSDGuides.org bietet zahlreiche BSD-spezifische Anleitungen.</p>
-
   </div>
           <br class="clearboth" />
         </div>
         <div id="footer">
-          <span><a href="../../search/index-site.html">Sitemap</a> | <a href="../../copyright/">Legal Notices</a> | © 1995&#8211;2018 The FreeBSD Project.  Alle Rechte vorbehalten.</span>
+          <span><a href="../../search/index-site.html">Sitemap</a> | <a href="../../copyright/">Legal Notices</a> | © 1995&#8211;2020 The FreeBSD Project.  Alle Rechte vorbehalten.</span>
           <br />
         </div>
       </div>

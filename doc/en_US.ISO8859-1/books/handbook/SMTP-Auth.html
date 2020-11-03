@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>28.9. SMTP Authentication</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="mail.html" title="Chapter 28. Electronic Mail" /><link rel="prev" href="SMTP-dialup.html" title="28.8. Using Mail with a Dialup Connection" /><link rel="next" href="mail-agents.html" title="28.10. Mail User Agents" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">28.9. SMTP Authentication</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SMTP-dialup.html">Prev</a> </td><th width="60%" align="center">Chapter 28. Electronic Mail</th><td width="20%" align="right"> <a accesskey="n" href="mail-agents.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="SMTP-Auth"></a>28.9. SMTP Authentication</h2></div><div><span class="authorgroup">Written by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">James</span> <span class="surname">Gorham</span></span>. </span></div></div></div><p>Configuring <acronym class="acronym">SMTP</acronym> authentication on the
+      <acronym class="acronym">MTA</acronym> provides a number of benefits.
+      <acronym class="acronym">SMTP</acronym> authentication adds a layer
+      of security to <span class="application">Sendmail</span>, and provides
+      mobile users who switch hosts the ability to use the same
+      <acronym class="acronym">MTA</acronym> without the need to reconfigure their
+      mail client's settings each time.</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p>Install <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/security/cyrus-sasl2/pkg-descr">security/cyrus-sasl2</a>
+	  from the Ports Collection.  This port supports a number of
+	  compile-time options.  For the SMTP authentication method
+	  demonstrated in this example, make sure that
+	  <code class="option">LOGIN</code> is not disabled.</p></li><li class="step"><p>After installing
+	  <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/security/cyrus-sasl2/pkg-descr">security/cyrus-sasl2</a>, edit
+	  <code class="filename">/usr/local/lib/sasl2/Sendmail.conf</code>,
+	  or create it if it does not exist, and add the following
+	  line:</p><pre class="programlisting">pwcheck_method: saslauthd</pre></li><li class="step"><p>Next, install
+	  <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/security/cyrus-sasl2-saslauthd/pkg-descr">security/cyrus-sasl2-saslauthd</a> and add
+	  the following line to
+	  <code class="filename">/etc/rc.conf</code>:</p><pre class="programlisting">saslauthd_enable="YES"</pre><p>Finally, start the saslauthd daemon:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service saslauthd start</code></strong></pre><p>This daemon serves as a broker for
+	  <span class="application">Sendmail</span> to authenticate against
+	  the FreeBSD <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=passwd&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">passwd</span>(5)</span></a> database.  This saves the trouble of
+	  creating a new set of usernames and passwords for each user
+	  that needs to use <acronym class="acronym">SMTP</acronym> authentication,
+	  and keeps the login and mail password the same.</p></li><li class="step"><p>Next, edit <code class="filename">/etc/make.conf</code> and add
+	  the following lines:</p><pre class="programlisting">SENDMAIL_CFLAGS=-I/usr/local/include/sasl -DSASL
+SENDMAIL_LDADD=/usr/local/lib/libsasl2.so</pre><p>These lines provide <span class="application">Sendmail</span>
+	  the proper configuration options for linking to
+	  <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/cyrus-sasl2/pkg-descr">cyrus-sasl2</a> at compile time.  Make sure
+	  that <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/cyrus-sasl2/pkg-descr">cyrus-sasl2</a> has been installed
+	  before recompiling
+	  <span class="application">Sendmail</span>.</p></li><li class="step"><p>Recompile <span class="application">Sendmail</span> by
+	  executing the following commands:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/src/lib/libsmutil</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make cleandir &amp;&amp; make obj &amp;&amp; make</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>cd /usr/src/lib/libsm</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make cleandir &amp;&amp; make obj &amp;&amp; make</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>cd /usr/src/usr.sbin/sendmail</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make cleandir &amp;&amp; make obj &amp;&amp; make &amp;&amp; make install</code></strong></pre><p>This compile should not have any problems if
+	  <code class="filename">/usr/src</code> has not changed extensively
+	  and the shared libraries it needs are available.</p></li><li class="step"><p>After <span class="application">Sendmail</span> has been
+	  compiled and reinstalled, edit
+	  <code class="filename">/etc/mail/freebsd.mc</code> or the local
+	  <code class="filename">.mc</code>.  Many administrators choose
+	  to use the output from <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=hostname&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">hostname</span>(1)</span></a> as the name of
+	  <code class="filename">.mc</code> for uniqueness.  Add these
+	  lines:</p><pre class="programlisting">dnl set SASL options
+TRUST_AUTH_MECH(`GSSAPI DIGEST-MD5 CRAM-MD5 LOGIN')dnl
+define(`confAUTH_MECHANISMS', `GSSAPI DIGEST-MD5 CRAM-MD5 LOGIN')dnl</pre><p>These options configure the different methods available
+	  to <span class="application">Sendmail</span> for authenticating
+	  users.  To use a method other than
+	  <span class="application">pwcheck</span>, refer to the
+	  <span class="application">Sendmail</span> documentation.</p></li><li class="step"><p>Finally, run <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=make&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">make</span>(1)</span></a> while in
+	  <code class="filename">/etc/mail</code>.  That will run the new
+	  <code class="filename">.mc</code> and create a
+	  <code class="filename">.cf</code> named either
+	  <code class="filename">freebsd.cf</code> or the name used for the
+	  local <code class="filename">.mc</code>.  Then, run <code class="command">make
+	    install restart</code>, which will copy the file to
+	  <code class="filename">sendmail.cf</code>, and properly restart
+	  <span class="application">Sendmail</span>.  For more information
+	  about this process, refer to
+	  <code class="filename">/etc/mail/Makefile</code>.</p></li></ol></div><p>To test the configuration, use a <acronym class="acronym">MUA</acronym> to
+      send a test message.  For further investigation, set the
+      <code class="option">LogLevel</code> of <span class="application">Sendmail</span>
+      to <code class="literal">13</code> and watch
+      <code class="filename">/var/log/maillog</code> for any errors.</p><p>For more information, refer to <a class="link" href="http://www.sendmail.org/~ca/email/auth.html" target="_top">
+	<acronym class="acronym">SMTP</acronym> authentication</a>.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SMTP-dialup.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="mail.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="mail-agents.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">28.8. Using Mail with a Dialup Connection </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 28.10. Mail User Agents</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

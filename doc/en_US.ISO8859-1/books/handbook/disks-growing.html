@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>17.3. Resizing and Growing Disks</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="disks.html" title="Chapter 17. Storage" /><link rel="prev" href="disks-adding.html" title="17.2. Adding Disks" /><link rel="next" href="usb-disks.html" title="17.4. USB Storage Devices" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">17.3. Resizing and Growing Disks</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="disks-adding.html">Prev</a> </td><th width="60%" align="center">Chapter 17. Storage</th><td width="20%" align="right"> <a accesskey="n" href="usb-disks.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="disks-growing"></a>17.3. Resizing and Growing Disks</h2></div><div><span class="authorgroup">Originally contributed by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Allan</span> <span class="surname">Jude</span></span>. </span></div></div></div><a id="idp61771128" class="indexterm"></a><p>A disk's capacity can increase without any changes to the
+      data already present.  This happens commonly with virtual
+      machines, when the virtual disk turns out to be too small and is
+      enlarged.  Sometimes a disk image is written to a
+      <acronym class="acronym">USB</acronym> memory stick, but does not use the full
+      capacity.  Here we describe how to resize or
+      <span class="emphasis"><em>grow</em></span> disk contents to take advantage of
+      increased capacity.</p><p>Determine the device name of the disk to be resized by
+      inspecting <code class="filename">/var/run/dmesg.boot</code>.  In this
+      example, there is only one <acronym class="acronym">SATA</acronym> disk in the
+      system, so the drive will appear as
+      <code class="filename">ada0</code>.</p><a id="idp61774968" class="indexterm"></a><a id="idp61775480" class="indexterm"></a><p>List the partitions on the disk to see the current
+      configuration:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>gpart show <em class="replaceable"><code>ada0</code></em></code></strong>
+=&gt;      34  83886013  ada0  GPT  (48G) [CORRUPT]
+        34       128     1  freebsd-boot  (64k)
+       162  79691648     2  freebsd-ufs  (38G)
+  79691810   4194236     3  freebsd-swap  (2G)
+  83886046         1        - free -  (512B)</pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">If the disk was formatted with the <a class="link" href="http://en.wikipedia.org/wiki/GUID_Partition_Table" target="_top">
+	<acronym class="acronym">GPT</acronym></a> partitioning scheme, it may show
+	as <span class="quote">&#8220;<span class="quote">corrupted</span>&#8221;</span> because the <acronym class="acronym">GPT</acronym>
+	backup partition table is no longer at the end of the
+	drive.  Fix the backup
+	partition table with
+	<code class="command">gpart</code>:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="screen"><code class="prompt">#</code> <strong class="userinput"><code>gpart recover <em class="replaceable"><code>ada0</code></em></code></strong>
+ada0 recovered</pre></div><p>Now the additional space on the disk is available for
+      use by a new partition, or an existing partition can be
+      expanded:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>gpart show <em class="replaceable"><code>ada0</code></em></code></strong>
+=&gt;       34  102399933  ada0  GPT  (48G)
+         34        128     1  freebsd-boot  (64k)
+        162   79691648     2  freebsd-ufs  (38G)
+   79691810    4194236     3  freebsd-swap  (2G)
+   83886046   18513921        - free -  (8.8G)</pre><p>Partitions can only be resized into contiguous free space.
+      Here, the last partition on the disk is the swap partition, but
+      the second partition is the one that needs to be resized.  Swap
+      partitions only contain temporary data, so it can safely be
+      unmounted, deleted, and then recreate the third partition after
+      resizing the second partition.</p><p>Disable the swap partition:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>swapoff <em class="replaceable"><code>/dev/ada0p3</code></em></code></strong></pre><p>Delete the third partition, specified by the
+      <code class="option">-i</code> flag, from the disk
+      <em class="replaceable"><code>ada0</code></em>.</p><pre class="screen">
+<code class="prompt">#</code> <strong class="userinput"><code>gpart delete -i <em class="replaceable"><code>3</code></em> <em class="replaceable"><code>ada0</code></em></code></strong>
+ada0p3 deleted
+<code class="prompt">#</code> <strong class="userinput"><code>gpart show <em class="replaceable"><code>ada0</code></em></code></strong>
+=&gt;       34  102399933  ada0  GPT  (48G)
+         34        128     1  freebsd-boot  (64k)
+        162   79691648     2  freebsd-ufs  (38G)
+   79691810   22708157        - free -  (10G)</pre><div xmlns="" class="warning"><h3 class="admontitle">Warning: </h3><p xmlns="http://www.w3.org/1999/xhtml">There is risk of data loss when modifying the partition
+	table of a mounted file system.  It is best to perform the
+	following steps on an unmounted file system while running from
+	a live <acronym class="acronym">CD-ROM</acronym> or <acronym class="acronym">USB</acronym>
+	device.  However, if absolutely necessary, a mounted file
+	system can be  resized after disabling GEOM safety
+	features:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="screen"><code class="prompt">#</code> <strong class="userinput"><code>sysctl kern.geom.debugflags=16</code></strong></pre></div><p>Resize the partition, leaving room to recreate a swap
+      partition of the desired size.  The partition to resize is
+      specified with <code class="option">-i</code>, and the new desired size
+      with <code class="option">-s</code>.  Optionally, alignment of the
+      partition is controlled with <code class="option">-a</code>.  This only
+      modifies the size of the partition.  The file system in the
+      partition will be expanded in a separate step.</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>gpart resize -i <em class="replaceable"><code>2</code></em> -s <em class="replaceable"><code>47G</code></em> -a 4k <em class="replaceable"><code>ada0</code></em></code></strong>
+ada0p2 resized
+<code class="prompt">#</code> <strong class="userinput"><code>gpart show <em class="replaceable"><code>ada0</code></em></code></strong>
+=&gt;       34  102399933  ada0  GPT  (48G)
+         34        128     1  freebsd-boot  (64k)
+        162   98566144     2  freebsd-ufs  (47G)
+   98566306    3833661        - free -  (1.8G)</pre><p>Recreate the swap partition and activate it.  If no size
+      is specified with <code class="option">-s</code>, all remaining space is
+      used:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>gpart add -t freebsd-swap -a 4k <em class="replaceable"><code>ada0</code></em></code></strong>
+ada0p3 added
+<code class="prompt">#</code> <strong class="userinput"><code>gpart show <em class="replaceable"><code>ada0</code></em></code></strong>
+=&gt;       34  102399933  ada0  GPT  (48G)
+         34        128     1  freebsd-boot  (64k)
+        162   98566144     2  freebsd-ufs  (47G)
+   98566306    3833661     3  freebsd-swap  (1.8G)
+<code class="prompt">#</code> <strong class="userinput"><code>swapon <em class="replaceable"><code>/dev/ada0p3</code></em></code></strong></pre><p>Grow the <acronym class="acronym">UFS</acronym> file system to use the new
+      capacity of the resized partition:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>growfs <em class="replaceable"><code>/dev/ada0p2</code></em></code></strong>
+Device is mounted read-write; resizing will result in temporary write suspension for /.
+It's strongly recommended to make a backup before growing the file system.
+OK to grow file system on /dev/ada0p2, mounted on /, from 38GB to 47GB? [Yes/No] <strong class="userinput"><code>Yes</code></strong>
+super-block backups (for fsck -b #) at:
+ 80781312, 82063552, 83345792, 84628032, 85910272, 87192512, 88474752,
+ 89756992, 91039232, 92321472, 93603712, 94885952, 96168192, 97450432</pre><p>If the file system is <acronym class="acronym">ZFS</acronym>, the resize is
+      triggered by running the <code class="option">online</code> subcommand with
+      <code class="option">-e</code>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>zpool online -e <em class="replaceable"><code>zroot</code></em> <em class="replaceable"><code>/dev/ada0p2</code></em></code></strong></pre><p>Both the partition and the file system on it have now been
+      resized to use the newly-available disk space.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="disks-adding.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="disks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="usb-disks.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">17.2. Adding Disks </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 17.4. <acronym class="acronym">USB</acronym> Storage Devices</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

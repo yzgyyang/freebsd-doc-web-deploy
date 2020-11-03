@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>8. Commit Log Messages</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Committer's Guide" /><link rel="up" href="index.html" title="Committer's Guide" /><link rel="prev" href="pre-commit-review.html" title="7. Pre-Commit Review" /><link rel="next" href="pref-license.html" title="9. Preferred License for New Files" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">8. Commit Log Messages</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="pre-commit-review.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="pref-license.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="commit-log-message"></a>8. Commit Log Messages</h2></div></div></div><p>This section contains some suggestions and traditions for
+      how commit logs are formatted.</p><p>As well as including an informative message with each
+      commit, some additional information may be needed.</p><p>This information consists of one or more lines
+      containing the key word or phrase, a colon, tabs for formatting,
+      and then the additional information.</p><p>The key words or phrases are:</p><div class="informaltable"><table class="informaltable" width="100%" border="0"><colgroup><col /><col /></colgroup><tbody><tr><td><code class="literal">PR:</code></td><td>The problem report (if any) which is affected
+	      (typically, by being closed) by this commit.
+	      Multiple PRs may be specified on one line, separated by
+	      commas or spaces.</td></tr><tr><td><code class="literal">Submitted by:</code></td><td>
+	      <p>The name and e-mail address of the person
+		that submitted the fix; for developers, just the
+		username on the FreeBSD cluster.</p>
+
+	      <p>If the submitter is the maintainer of the port
+		being committed, include "(maintainer)"
+		after the email address.</p>
+
+	      <p>Avoid obfuscating the email address of the
+		submitter as this adds additional work when searching
+		logs.</p>
+	    </td></tr><tr><td><code class="literal">Reviewed by:</code></td><td>The name and e-mail address of the person or
+	      people that reviewed the change; for developers,
+	      just the username on the FreeBSD cluster.  If a
+	      patch was submitted to a mailing list for review,
+	      and the review was favorable, then just include
+	      the list name.</td></tr><tr><td><code class="literal">Approved by:</code></td><td><p>The name and e-mail address of the person or
+	      people that approved the change; for developers, just
+	      the username on the FreeBSD cluster.  It is customary to
+	      get prior approval for a commit if it is to an area of
+	      the tree to which you do not usually commit.  In
+	      addition, during the run up to a new release all commits
+	      <span class="emphasis"><em>must</em></span> be approved by the release
+	      engineering team.</p>
+
+	    <p>While under mentorship, get mentor approval before
+	      the commit.  Enter the mentor's username in this field,
+	      and note that they are a mentor:</p>
+
+	    <pre class="screen">Approved by: <strong class="userinput"><code><em class="replaceable"><code>username-of-mentor</code></em> <code class="literal">(mentor)</code></code></strong></pre>
+
+	    <p>If a team approved these commits then include the
+	      team name followed by the username of the approver in
+	      parentheses.  For example:</p>
+
+	    <pre class="screen">Approved by: <strong class="userinput"><code><code class="literal">re</code> (<em class="replaceable"><code>username</code></em>)</code></strong></pre></td></tr><tr><td><code class="literal">Obtained from:</code></td><td>The name of the project (if any) from which
+	      the code was obtained.  Do not use this line for the
+	      name of an individual person.</td></tr><tr><td><code class="literal">Sponsored by:</code></td><td>Sponsoring organizations for this change, if any.
+	      Separate multiple organizations with commas.  If only a
+	      portion of the work was sponsored, or different amounts
+	      of sponsorship were provided to different authors,
+	      please give appropriate credit in parentheses after each
+	      sponsor name.  For example, <code class="literal">Example.com (alice,
+		code refactoring), Wormulon (bob), Momcorp
+		(cindy)</code> shows that Alice was sponsored by
+	      Example.com to do code refactoring, while Wormulon
+	      sponsored Bob's work and Momcorp sponsored Cindy's work.
+	      Other authors were either not sponsored or chose not to
+	      list sponsorship.</td></tr><tr><td><code class="literal">MFC after:</code></td><td>To receive an e-mail reminder to
+	      <acronym class="acronym">MFC</acronym> at a later date, specify the
+	      number of days, weeks, or months after which an
+	      <acronym class="acronym">MFC</acronym> is planned.</td></tr><tr><td><code class="literal">MFC to:</code></td><td>If the commit should be merged to a subset of
+	      stable branches, specify the branch names.</td></tr><tr><td><code class="literal">MFC with:</code></td><td>If the commit should be merged together with
+	      a previous one in a single
+	      <acronym class="acronym">MFC</acronym> commit (for example, where
+	      this commit corrects a bug in the previous change),
+	      specify the corresponding revision number.</td></tr><tr><td><code class="literal">Relnotes:</code></td><td>If the change is a candidate for inclusion in
+	      the release notes for the next release from the branch,
+	      set to <code class="literal">yes</code>.</td></tr><tr><td><code class="literal">Security:</code></td><td>If the change is related to a security
+	      vulnerability or security exposure, include one or more
+	      references or a description of the issue.  If possible,
+	      include a VuXML URL or a CVE ID.</td></tr><tr><td><code class="literal">Event:</code></td><td>The description for the event where this commit was
+	      made.  If this is a recurring event, add the year or
+	      even the month to it.  For example, this could be
+	      <code class="literal">FooBSDcon 2019</code>.  The idea behind this
+	      line is to put recognition to conferences, gatherings,
+	      and other types of meetups and to show that these are
+	      useful to have.  Please do not use the
+	      <code class="literal">Sponsored by:</code> line for this as that
+	      is meant for organizations sponsoring certain features
+	      or developers working on them.</td></tr><tr><td><code class="literal">Differential Revision:</code></td><td>The full URL of the Phabricator review.  This line
+	      <span class="emphasis"><em>must be the last line</em></span>.  For
+	      example:
+	      <code class="literal">https://reviews.freebsd.org/D1708</code>.</td></tr></tbody></table></div><div class="example"><a id="idp51236600"></a><div class="example-title">Example 2. Commit Log for a Commit Based on a PR</div><div class="example-contents"><p>The commit is based on a patch from a PR submitted by John
+	Smith.  The commit message <span class="quote">&#8220;<span class="quote">PR</span>&#8221;</span> and
+	<span class="quote">&#8220;<span class="quote">Submitted by</span>&#8221;</span> fields are filled..</p><pre class="programlisting">...
+
+	    PR:                    12345
+	    Submitted by:	   John Smith &lt;John.Smith@example.com&gt;</pre></div></div><br class="example-break" /><div class="example"><a id="idp51238904"></a><div class="example-title">Example 3. Commit Log for a Commit Needing Review</div><div class="example-contents"><p>The virtual memory system is being changed.  After
+	posting patches to the appropriate mailing list (in this
+	case, <code class="literal">freebsd-arch</code>) and the changes have
+	been approved.</p><pre class="programlisting">...
+
+	    Reviewed by:       -arch</pre></div></div><br class="example-break" /><div class="example"><a id="idp51240952"></a><div class="example-title">Example 4. Commit Log for a Commit Needing Approval</div><div class="example-contents"><p>Commit a port, after working with
+	the listed MAINTAINER, who said to go ahead and
+	commit.</p><pre class="programlisting">...
+
+	    Approved by:	    <em class="replaceable"><code>abc</code></em> (maintainer)</pre><p>Where <em class="replaceable"><code>abc</code></em> is the account name
+	of the person who approved.</p></div></div><br class="example-break" /><div class="example"><a id="idp51243640"></a><div class="example-title">Example 5. Commit Log for a Commit Bringing in Code from
+	OpenBSD</div><div class="example-contents"><p>Committing some code based on work done in the
+	OpenBSD project.</p><pre class="programlisting">...
+
+	    Obtained from:      OpenBSD</pre></div></div><br class="example-break" /><div class="example"><a id="idp51245176"></a><div class="example-title">Example 6. Commit Log for a Change to FreeBSD-CURRENT with a Planned
+	Commit to FreeBSD-STABLE to Follow at a Later Date.</div><div class="example-contents"><p>Committing some code which will be merged from
+	FreeBSD-CURRENT into the FreeBSD-STABLE branch after two
+	weeks.</p><pre class="programlisting">...
+
+MFC after:      <em class="replaceable"><code>2 weeks</code></em></pre><p>Where <em class="replaceable"><code>2</code></em> is the number of days,
+	weeks, or months after which an <acronym class="acronym">MFC</acronym> is
+	planned.  The <em class="replaceable"><code>weeks</code></em> option may be
+	<code class="literal">day</code>, <code class="literal">days</code>,
+	<code class="literal">week</code>, <code class="literal">weeks</code>,
+	<code class="literal">month</code>, <code class="literal">months</code>.</p></div></div><br class="example-break" /><p>It is often necessary to combine these.</p><p>Consider the situation where a user has submitted a PR
+      containing code from the NetBSD project.  Looking at the PR, the
+      developer sees it is not an area of the tree they normally work
+      in, so they have the change reviewed by the
+      <code class="literal">arch</code> mailing list.  Since the change is
+      complex, the developer opts to <acronym class="acronym">MFC</acronym> after one
+      month to allow adequate testing.</p><p>The extra information to include in the commit would look
+      something like</p><div class="example"><a id="idp51256952"></a><div class="example-title">Example 7. Example Combined Commit Log</div><div class="example-contents"><pre class="programlisting">PR:                 54321
+Submitted by:       John Smith &lt;John.Smith@example.com&gt;
+Reviewed by:        -arch
+Obtained from:      NetBSD
+MFC after:          1 month
+Relnotes:           yes</pre></div></div><br class="example-break" /></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="pre-commit-review.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="pref-license.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">7. Pre-Commit Review </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 9. Preferred License for New Files</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

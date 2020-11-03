@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>28.11. Using fetchmail</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="mail.html" title="Chapter 28. Electronic Mail" /><link rel="prev" href="mail-agents.html" title="28.10. Mail User Agents" /><link rel="next" href="mail-procmail.html" title="28.12. Using procmail" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">28.11. Using <span class="application">fetchmail</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="mail-agents.html">Prev</a> </td><th width="60%" align="center">Chapter 28. Electronic Mail</th><td width="20%" align="right"> <a accesskey="n" href="mail-procmail.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="mail-fetchmail"></a>28.11. Using <span class="application">fetchmail</span></h2></div><div><span class="authorgroup">Contributed by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Marc</span> <span class="surname">Silver</span></span>. </span></div></div></div><a id="idp69447672" class="indexterm"></a><p><span class="application">fetchmail</span> is a full-featured
+      <acronym class="acronym">IMAP</acronym> and <acronym class="acronym">POP</acronym> client.  It
+      allows users to automatically download mail from remote
+      <acronym class="acronym">IMAP</acronym> and <acronym class="acronym">POP</acronym> servers and
+      save it into local mailboxes where it can be accessed more
+      easily.  <span class="application">fetchmail</span> can be installed
+      using the <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/mail/fetchmail/pkg-descr">mail/fetchmail</a> port, and offers
+      various features, including:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Support for the <acronym class="acronym">POP3</acronym>,
+	  <acronym class="acronym">APOP</acronym>, <acronym class="acronym">KPOP</acronym>,
+	  <acronym class="acronym">IMAP</acronym>, <acronym class="acronym">ETRN</acronym> and
+	  <acronym class="acronym">ODMR</acronym> protocols.</p></li><li class="listitem"><p>Ability to forward mail using <acronym class="acronym">SMTP</acronym>,
+	  which allows filtering, forwarding, and aliasing to function
+	  normally.</p></li><li class="listitem"><p>May be run in daemon mode to check periodically for new
+	  messages.</p></li><li class="listitem"><p>Can retrieve multiple mailboxes and forward them, based
+	  on configuration, to different local users.</p></li></ul></div><p>This section explains some of the basic features of
+      <span class="application">fetchmail</span>.  This utility requires a
+      <code class="filename">.fetchmailrc</code> configuration in the user's
+      home directory in order to run correctly.  This file includes
+      server information as well as login credentials.  Due to the
+      sensitive nature of the contents of this file, it is advisable
+      to make it readable only by the user, with the following
+      command:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>chmod 600 .fetchmailrc</code></strong></pre><p>The following <code class="filename">.fetchmailrc</code> serves as an
+      example for downloading a single user mailbox using
+      <acronym class="acronym">POP</acronym>.  It tells
+      <span class="application">fetchmail</span> to connect to
+      <code class="systemitem">example.com</code> using
+      a username of <code class="systemitem">joesoap</code>
+      and a password of <code class="literal">XXX</code>.  This example assumes
+      that the user <code class="systemitem">joesoap</code>
+      exists on the local system.</p><pre class="programlisting">poll example.com protocol pop3 username "joesoap" password "XXX"</pre><p>The next example connects to multiple <acronym class="acronym">POP</acronym>
+      and <acronym class="acronym">IMAP</acronym> servers and redirects to different
+      local usernames where applicable:</p><pre class="programlisting">poll example.com proto pop3:
+user "joesoap", with password "XXX", is "jsoap" here;
+user "andrea", with password "XXXX";
+poll example2.net proto imap:
+user "john", with password "XXXXX", is "myth" here;</pre><p><span class="application">fetchmail</span> can be run in daemon
+      mode by running it with <code class="option">-d</code>, followed by the
+      interval (in seconds) that <span class="application">fetchmail</span>
+      should poll servers listed in <code class="filename">.fetchmailrc</code>.
+      The following example configures
+      <span class="application">fetchmail</span> to poll every 600
+      seconds:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>fetchmail -d 600</code></strong></pre><p>More information on <span class="application">fetchmail</span> can
+      be found at <code class="uri"><a class="uri" href="http://www.fetchmail.info/" target="_top">http://www.fetchmail.info/</a></code>.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="mail-agents.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="mail.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="mail-procmail.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">28.10. Mail User Agents </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 28.12. Using <span class="application">procmail</span></td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

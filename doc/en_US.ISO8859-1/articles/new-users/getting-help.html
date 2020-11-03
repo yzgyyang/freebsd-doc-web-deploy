@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>4. Getting Help and Information</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="For People New to Both FreeBSD and UNIX®" /><link rel="up" href="index.html" title="For People New to Both FreeBSD and UNIX®" /><link rel="prev" href="looking-around.html" title="3. Looking Around" /><link rel="next" href="editing-text.html" title="5. Editing Text" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">4. Getting Help and Information</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="looking-around.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="editing-text.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="getting-help"></a>4. Getting Help and Information</h2></div></div></div><p>Here are some useful sources of help.
+      <em class="replaceable"><code>Text</code></em> stands for something of your
+      choice that you type in&#8212;usually a command or
+      filename.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="command">apropos
+	    <em class="replaceable"><code>text</code></em></code></span></dt><dd><p>Everything containing string
+	    <em class="replaceable"><code>text</code></em> in the <span class="database">whatis
+	    database</span>.</p></dd><dt><span class="term"><code class="command">man
+	    <em class="replaceable"><code>text</code></em></code></span></dt><dd><p>The manual page for <em class="replaceable"><code>text</code></em>.
+	    The major source of documentation for <span class="trademark">UNIX</span>® systems.
+	    <code class="command">man ls</code> will tell you all the ways to
+	    use <code class="command">ls</code>.  Press <span class="keycap"><strong>Enter</strong></span>
+	    to move through text,
+	    <span class="keycap"><strong>Ctrl</strong></span>+<span class="keycap"><strong>B</strong></span>
+	    to go back a page,
+	    <span class="keycap"><strong>Ctrl</strong></span>+<span class="keycap"><strong>F</strong></span>
+	    to go forward, <span class="keycap"><strong>q</strong></span> or
+	    <span class="keycap"><strong>Ctrl</strong></span>+<span class="keycap"><strong>C</strong></span>
+	    to quit.</p></dd><dt><span class="term"><code class="command">which
+	    <em class="replaceable"><code>text</code></em></code></span></dt><dd><p>Tells you where in the user's path the command
+	    <em class="replaceable"><code>text</code></em> is found.</p></dd><dt><span class="term"><code class="command">locate
+	    <em class="replaceable"><code>text</code></em></code></span></dt><dd><p>All the paths where the string
+	    <em class="replaceable"><code>text</code></em> is found.</p></dd><dt><span class="term"><code class="command">whatis
+	    <em class="replaceable"><code>text</code></em></code></span></dt><dd><p>Tells you what the command
+	    <em class="replaceable"><code>text</code></em> does and its manual page.
+	    Typing <code class="command">whatis *</code> will tell you about all
+	    the binaries in the current directory.</p></dd><dt><span class="term"><code class="command">whereis
+	    <em class="replaceable"><code>text</code></em></code></span></dt><dd><p>Finds the file <em class="replaceable"><code>text</code></em>, giving
+	    its full path.</p></dd></dl></div><p>You might want to try using <code class="command">whatis</code> on
+      some common useful commands like <code class="command">cat</code>,
+      <code class="command">more</code>, <code class="command">grep</code>,
+      <code class="command">mv</code>, <code class="command">find</code>,
+      <code class="command">tar</code>, <code class="command">chmod</code>,
+      <code class="command">chown</code>, <code class="command">date</code>, and
+      <code class="command">script</code>.  <code class="command">more</code> lets you
+      read a page at a time as it does in DOS, e.g., <code class="command">ls -l |
+	more</code> or <code class="command">more
+	<em class="replaceable"><code>filename</code></em></code>.  The
+      <code class="literal">*</code> works as a wildcard&#8212;e.g., <code class="command">ls
+	w*</code> will show you files beginning with
+      <code class="literal">w</code>.</p><p>Are some of these not working very well?  Both
+      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=locate&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">locate</span>(1)</span></a> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=whatis&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">whatis</span>(1)</span></a> depend on a database that is
+      rebuilt weekly.  If your machine is not going to be left on over
+      the weekend (and running FreeBSD), you might want to run the
+      commands for daily, weekly, and monthly maintenance now and
+      then.  Run them as <code class="systemitem">root</code> and, for now, give each one
+      time to finish before you start the next one.</p><div class="informalexample"><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>periodic daily</code></strong>
+<em class="lineannotation"><span class="lineannotation">output omitted</span></em>
+<code class="prompt">#</code> <strong class="userinput"><code>periodic weekly</code></strong>
+<em class="lineannotation"><span class="lineannotation">output omitted</span></em>
+<code class="prompt">#</code> <strong class="userinput"><code>periodic monthly</code></strong>
+<em class="lineannotation"><span class="lineannotation">output omitted</span></em></pre></div><p>If you get tired of waiting, press
+      <span class="keycap"><strong>Alt</strong></span>+<span class="keycap"><strong>F2</strong></span> to
+      get another <em class="firstterm">virtual console</em>, and log in
+      again.  After all, it is a multi-user, multi-tasking system.
+      Nevertheless these commands will probably flash messages on your
+      screen while they are running; you can type
+      <code class="command">clear</code> at the prompt to clear the screen.
+      Once they have run, you might want to look at
+      <code class="filename">/var/mail/root</code> and
+      <code class="filename">/var/log/messages</code>.</p><p>Running such commands is part of system
+      administration&#8212;and as a single user of a <span class="trademark">UNIX</span>® system,
+      you are your own system administrator.  Virtually everything you
+      need to be <code class="systemitem">root</code> to do
+      is system administration.  Such responsibilities are not covered
+      very well even in those big fat books on <span class="trademark">UNIX</span>®, which seem to
+      devote a lot of space to pulling down menus in windows managers.
+      You might want to get one of the two leading books on systems
+      administration, either Evi Nemeth et.al.'s <em class="citetitle">UNIX
+	System Administration Handbook</em> (Prentice-Hall,
+      1995, ISBN 0-13-15051-7)&#8212;the second edition with the red
+      cover; or Æleen Frisch's <em class="citetitle">Essential System
+	Administration</em> (O'Reilly &amp; Associates, 2002,
+      ISBN 0-596-00343-9).  I used Nemeth.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="looking-around.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="editing-text.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">3. Looking Around </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 5. Editing Text</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

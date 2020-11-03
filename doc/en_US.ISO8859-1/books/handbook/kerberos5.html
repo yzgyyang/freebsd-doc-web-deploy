@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>13.5. Kerberos</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="security.html" title="Chapter 13. Security" /><link rel="prev" href="tcpwrappers.html" title="13.4. TCP Wrapper" /><link rel="next" href="openssl.html" title="13.6. OpenSSL" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">13.5. <span class="application">Kerberos</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="tcpwrappers.html">Prev</a> </td><th width="60%" align="center">Chapter 13. Security</th><td width="20%" align="right"> <a accesskey="n" href="openssl.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="kerberos5"></a>13.5. <span class="application">Kerberos</span></h2></div><div><span class="authorgroup">Contributed by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Tillman</span> <span class="surname">Hodgson</span></span>. </span></div><div><span class="authorgroup">Based on a contribution by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Mark</span> <span class="surname">Murray</span></span>. </span></div></div></div><p><span class="application">Kerberos</span> is a network
+      authentication protocol which was originally created by the
+      Massachusetts Institute of Technology (<acronym class="acronym">MIT</acronym>)
+      as a way to securely provide authentication across a potentially
+      hostile network.  The <span class="application">Kerberos</span>
+      protocol uses strong cryptography so that both a client and
+      server can prove their identity without sending any unencrypted
+      secrets over the network.  <span class="application">Kerberos</span>
+      can be described as an identity-verifying proxy system and as a
+      trusted third-party authentication system.  After a user
+      authenticates with <span class="application">Kerberos</span>, their
+      communications can be encrypted to assure privacy and data
+      integrity.</p><p>The only function of <span class="application">Kerberos</span> is
+      to provide the secure authentication of users and servers on the
+      network.  It does not provide authorization or auditing
+      functions.  It is recommended that
+      <span class="application">Kerberos</span> be used with other security
+      methods which provide authorization and audit services.</p><p>The current version of the protocol is version 5, described
+      in <acronym class="acronym">RFC</acronym> 4120.  Several free
+      implementations of this protocol are available, covering a wide
+      range of operating systems.  <acronym class="acronym">MIT</acronym> continues to
+      develop their <span class="application">Kerberos</span> package.  It
+      is commonly used in the <acronym class="acronym">US</acronym> as a cryptography
+      product, and has historically been subject to
+      <acronym class="acronym">US</acronym> export regulations.  In FreeBSD,
+      <acronym class="acronym">MIT</acronym> <span class="application">Kerberos</span> is
+      available as the <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/security/krb5/pkg-descr">security/krb5</a> package or
+      port.  The Heimdal <span class="application">Kerberos</span>
+      implementation was explicitly developed outside of the
+      <acronym class="acronym">US</acronym> to avoid export regulations.  The Heimdal
+      <span class="application">Kerberos</span> distribution is included in
+      the base FreeBSD installation, and another distribution with more
+      configurable options is available as
+      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/security/heimdal/pkg-descr">security/heimdal</a> in the Ports
+      Collection.</p><p>In <span class="application">Kerberos</span> users and services
+      are identified as <span class="quote">&#8220;<span class="quote">principals</span>&#8221;</span> which are contained
+      within an administrative grouping, called a
+      <span class="quote">&#8220;<span class="quote">realm</span>&#8221;</span>.  A typical user principal would be of the
+      form
+      <code class="literal"><em class="replaceable"><code>user</code></em>@<em class="replaceable"><code>REALM</code></em></code>
+      (realms are traditionally uppercase).</p><p>This section provides a guide on how to set up
+      <span class="application">Kerberos</span> using the Heimdal
+      distribution included in FreeBSD.</p><p>For purposes of demonstrating a
+      <span class="application">Kerberos</span> installation, the name
+      spaces will be as follows:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>The <acronym class="acronym">DNS</acronym> domain (zone) will be
+	  <code class="systemitem">example.org</code>.</p></li><li class="listitem"><p>The <span class="application">Kerberos</span> realm will be
+	  <code class="literal">EXAMPLE.ORG</code>.</p></li></ul></div><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Use real domain names when setting up
+	<span class="application">Kerberos</span>, even if it will run
+	internally.  This avoids <acronym class="acronym">DNS</acronym> problems and
+	assures inter-operation with other
+	<span class="application">Kerberos</span> realms.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp59015416"></a>13.5.1. Setting up a Heimdal <acronym class="acronym">KDC</acronym></h3></div></div></div><a id="idp59016312" class="indexterm"></a><p>The Key Distribution Center (<acronym class="acronym">KDC</acronym>) is
+	the centralized authentication service that
+	<span class="application">Kerberos</span> provides, the
+	<span class="quote">&#8220;<span class="quote">trusted third party</span>&#8221;</span> of the system.  It is the
+	computer that issues <span class="application">Kerberos</span>
+	tickets, which are used for clients to authenticate to
+	servers.  Because the <acronym class="acronym">KDC</acronym> is considered
+	trusted by all other computers in the
+	<span class="application">Kerberos</span> realm, it has heightened
+	security concerns.  Direct access to the KDC should be
+	limited.</p><p>While running a <acronym class="acronym">KDC</acronym> requires few
+	computing resources, a dedicated machine acting only as a
+	<acronym class="acronym">KDC</acronym> is recommended for security
+	reasons.</p><p>To begin, install the <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/security/heimdal/pkg-descr">security/heimdal</a>
+	package as follows:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg install heimdal</code></strong></pre><p>Next, update <code class="filename">/etc/rc.conf</code> using
+	<code class="command">sysrc</code> as follows:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>sysrc kdc_enable=yes</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>sysrc kadmind_enable=yes</code></strong></pre><p>Next, edit <code class="filename">/etc/krb5.conf</code> as
+	follows:</p><pre class="programlisting">[libdefaults]
+    default_realm = <em class="replaceable"><code>EXAMPLE.ORG</code></em>
+[realms]
+    <em class="replaceable"><code>EXAMPLE.ORG</code></em> = {
+	kdc = <em class="replaceable"><code>kerberos.example.org</code></em>
+	admin_server = <em class="replaceable"><code>kerberos.example.org</code></em>
+    }
+[domain_realm]
+    <em class="replaceable"><code>.example.org</code></em> = <em class="replaceable"><code>EXAMPLE.ORG</code></em></pre><p>In this example, the <acronym class="acronym">KDC</acronym> will use the
+	fully-qualified hostname <code class="systemitem">kerberos.example.org</code>.  The
+	hostname of the KDC must be resolvable in the
+	<acronym class="acronym">DNS</acronym>.</p><p><span class="application">Kerberos</span> can also use the
+	<acronym class="acronym">DNS</acronym> to locate KDCs, instead of a
+	<code class="literal">[realms]</code> section in
+	<code class="filename">/etc/krb5.conf</code>.  For large organizations
+	that have their own <acronym class="acronym">DNS</acronym> servers, the above
+	example could be trimmed to:</p><pre class="programlisting">[libdefaults]
+      default_realm = <em class="replaceable"><code>EXAMPLE.ORG</code></em>
+[domain_realm]
+    <em class="replaceable"><code>.example.org</code></em> = <em class="replaceable"><code>EXAMPLE.ORG</code></em></pre><p>With the following lines being included in the
+	<code class="systemitem">example.org</code> zone
+	file:</p><pre class="programlisting">_kerberos._udp      IN  SRV     01 00 88 <em class="replaceable"><code>kerberos.example.org</code></em>.
+_kerberos._tcp      IN  SRV     01 00 88 <em class="replaceable"><code>kerberos.example.org</code></em>.
+_kpasswd._udp       IN  SRV     01 00 464 <em class="replaceable"><code>kerberos.example.org</code></em>.
+_kerberos-adm._tcp  IN  SRV     01 00 749 <em class="replaceable"><code>kerberos.example.org</code></em>.
+_kerberos           IN  TXT     <em class="replaceable"><code>EXAMPLE.ORG</code></em></pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">In order for clients to be able to find the
+	  <span class="application">Kerberos</span> services, they
+	  <span class="emphasis"><em>must</em></span> have either
+	  a fully configured <code class="filename">/etc/krb5.conf</code> or a
+	  minimally configured <code class="filename">/etc/krb5.conf</code>
+	  <span class="emphasis"><em>and</em></span> a properly configured
+	  <acronym class="acronym">DNS</acronym> server.</p></div><p>Next, create the <span class="application">Kerberos</span>
+	database which contains the keys of all principals (users and
+	hosts) encrypted with a master password.  It is not required
+	to remember this password as it will be stored in
+	<code class="filename">/var/heimdal/m-key</code>; it would be
+	reasonable to use a 45-character random password for this
+	purpose.  To create the master key, run
+	<code class="command">kstash</code> and enter a password:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>kstash</code></strong>
+Master key: <strong class="userinput"><code><em class="replaceable"><code>xxxxxxxxxxxxxxxxxxxxxxx</code></em></code></strong>
+Verifying password - Master key: <strong class="userinput"><code><em class="replaceable"><code>xxxxxxxxxxxxxxxxxxxxxxx</code></em></code></strong></pre><p>Once the master key has been created, the database should
+	be initialized.  The <span class="application">Kerberos</span>
+	administrative tool <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=kadmin&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">kadmin</span>(8)</span></a> can be used on the KDC in a
+	mode that operates directly on the database, without using the
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=kadmind&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">kadmind</span>(8)</span></a> network service, as
+	<code class="command">kadmin -l</code>.  This resolves the
+	chicken-and-egg problem of trying to connect to the database
+	before it is created.  At the <code class="command">kadmin</code>
+	prompt, use <code class="command">init</code> to create the realm's
+	initial database:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>kadmin -l</code></strong>
+kadmin&gt; <strong class="userinput"><code>init <em class="replaceable"><code>EXAMPLE.ORG</code></em></code></strong>
+Realm max ticket life [unlimited]:</pre><p>Lastly, while still in <code class="command">kadmin</code>, create
+	the first principal using <code class="command">add</code>.  Stick to
+	the default options for the principal for now, as these can be
+	changed later with <code class="command">modify</code>.
+	Type <code class="literal">?</code> at the prompt to see the available
+	options.</p><pre class="screen">kadmin&gt; <strong class="userinput"><code>add tillman</code></strong>
+Max ticket life [unlimited]:
+Max renewable life [unlimited]:
+Principal expiration time [never]:
+Password expiration time [never]:
+Attributes []:
+Password: <strong class="userinput"><code><em class="replaceable"><code>xxxxxxxx</code></em></code></strong>
+Verifying password - Password: <strong class="userinput"><code><em class="replaceable"><code>xxxxxxxx</code></em></code></strong></pre><p>Next, start the <acronym class="acronym">KDC</acronym> services by
+	running:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service kdc start</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>service kadmind start</code></strong></pre><p>While there will not be any kerberized daemons running at
+	this point, it is possible to confirm that the
+	<acronym class="acronym">KDC</acronym> is functioning by obtaining a ticket
+	for the principal that was just created:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>kinit <em class="replaceable"><code>tillman</code></em></code></strong>
+tillman@EXAMPLE.ORG's Password:</pre><p>Confirm that a ticket was successfully obtained using
+	<code class="command">klist</code>:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>klist</code></strong>
+Credentials cache: FILE:/tmp/krb5cc_1001
+	Principal: tillman@EXAMPLE.ORG
+
+  Issued                Expires               Principal
+Aug 27 15:37:58 2013  Aug 28 01:37:58 2013  krbtgt/EXAMPLE.ORG@EXAMPLE.ORG</pre><p>The temporary ticket can be destroyed when the test is
+	finished:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>kdestroy</code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp59101560"></a>13.5.2. Configuring a Server to Use
+	<span class="application">Kerberos</span></h3></div></div></div><a id="idp59102456" class="indexterm"></a><p>The first step in configuring a server to use
+	<span class="application">Kerberos</span> authentication is to
+	ensure that it has the correct configuration in
+	<code class="filename">/etc/krb5.conf</code>.  The version from the
+	<acronym class="acronym">KDC</acronym> can be used as-is, or it can be
+	regenerated on the new system.</p><p>Next, create <code class="filename">/etc/krb5.keytab</code> on the
+	server.  This is the main part of <span class="quote">&#8220;<span class="quote">Kerberizing</span>&#8221;</span> a
+	service &#8212; it corresponds to generating a secret shared
+	between the service and the <acronym class="acronym">KDC</acronym>.  The
+	secret is a cryptographic key, stored in a
+	<span class="quote">&#8220;<span class="quote">keytab</span>&#8221;</span>.  The keytab contains the server's host
+	key, which allows it and the <acronym class="acronym">KDC</acronym> to verify
+	each others' identity.  It must be transmitted to the server
+	in a secure fashion, as the security of the server can be
+	broken if the key is made public.  Typically, the
+	<code class="filename">keytab</code> is generated on an administrator's
+	trusted machine using <code class="command">kadmin</code>, then securely
+	transferred to the server, e.g., with <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=scp&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">scp</span>(1)</span></a>; it can also
+	be created directly on the server if that is consistent with
+	the desired security policy.  It is very important that the
+	keytab is transmitted to the server in a secure fashion: if
+	the key is known by some other party, that party can
+	impersonate any user to the server!  Using
+	<code class="command">kadmin</code> on the server directly is
+	convenient, because the entry for the host principal in the
+	<acronym class="acronym">KDC</acronym> database is also created using
+	<code class="command">kadmin</code>.</p><p>Of course, <code class="command">kadmin</code> is a kerberized
+	service; a <span class="application">Kerberos</span> ticket is
+	needed to authenticate to the network service, but to ensure
+	that the user running <code class="command">kadmin</code> is actually
+	present (and their session has not been hijacked),
+	<code class="command">kadmin</code> will prompt for the password to get
+	a fresh ticket.  The principal authenticating to the kadmin
+	service must be permitted to use the <code class="command">kadmin</code>
+	interface, as specified in
+	<code class="filename">/var/heimdal/kadmind.acl</code>.  See the
+	section titled <span class="quote">&#8220;<span class="quote">Remote administration</span>&#8221;</span> in
+	<code class="command">info heimdal</code> for details on designing
+	access control lists.  Instead of enabling remote
+	<code class="command">kadmin</code> access, the administrator could
+	securely connect to the <acronym class="acronym">KDC</acronym> via the local
+	console or <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ssh&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ssh</span>(1)</span></a>, and perform administration locally
+	using <code class="command">kadmin -l</code>.</p><p>After installing <code class="filename">/etc/krb5.conf</code>,
+	use <code class="command">add --random-key</code> in
+	<code class="command">kadmin</code>.  This adds the server's host
+	principal to the database, but does not extract a copy of the
+	host principal key to a keytab.  To generate the keytab, use
+	<code class="command">ext</code> to extract the server's host principal
+	key to its own keytab:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>kadmin</code></strong>
+kadmin&gt;<strong class="userinput"><code> add --random-key host/myserver.example.org</code></strong>
+Max ticket life [unlimited]:
+Max renewable life [unlimited]:
+Principal expiration time [never]:
+Password expiration time [never]:
+Attributes []:
+kadmin&gt;<strong class="userinput"><code> ext_keytab <em class="replaceable"><code>host/myserver.example.org</code></em></code></strong>
+kadmin&gt;<strong class="userinput"><code> exit</code></strong></pre><p>Note that <code class="command">ext_keytab</code> stores the
+	extracted key in <code class="filename">/etc/krb5.keytab</code> by
+	default.  This is good when being run on the server being
+	kerberized, but the <code class="command">--keytab
+	  <em class="replaceable"><code>path/to/file</code></em></code> argument
+	should be used when the keytab is being extracted
+	elsewhere:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>kadmin</code></strong>
+kadmin&gt;<strong class="userinput"><code> ext_keytab --keytab=/tmp/example.keytab <em class="replaceable"><code>host/myserver.example.org</code></em></code></strong>
+kadmin&gt;<strong class="userinput"><code> exit</code></strong></pre><p>The keytab can then be securely copied to the server
+	using <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=scp&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">scp</span>(1)</span></a> or a removable media.  Be sure to specify a
+	non-default keytab name to avoid inserting unneeded keys into
+	the system's keytab.</p><p>At this point, the server can read encrypted messages from
+	the <acronym class="acronym">KDC</acronym> using its shared key, stored in
+	<code class="filename">krb5.keytab</code>.  It is now ready for the
+	<span class="application">Kerberos</span>-using services to be
+	enabled.  One of the most common such services is
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sshd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sshd</span>(8)</span></a>, which supports
+	<span class="application">Kerberos</span> via the
+	<acronym class="acronym">GSS-API</acronym>.  In
+	<code class="filename">/etc/ssh/sshd_config</code>, add the
+	line:</p><pre class="programlisting">GSSAPIAuthentication yes</pre><p>After making this change, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sshd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sshd</span>(8)</span></a> must be restarted
+	for the new configuration to take effect:
+	<code class="command">service sshd restart</code>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp59126008"></a>13.5.3. Configuring a Client to Use
+	<span class="application">Kerberos</span></h3></div></div></div><a id="idp59126904" class="indexterm"></a><p>As it was for the server, the client requires
+	configuration in <code class="filename">/etc/krb5.conf</code>.  Copy
+	the file in place (securely) or re-enter it as needed.</p><p>Test the client by using <code class="command">kinit</code>,
+	<code class="command">klist</code>, and <code class="command">kdestroy</code> from
+	the client to obtain, show, and then delete a ticket for an
+	existing principal.  <span class="application">Kerberos</span>
+	applications should also be able to connect to
+	<span class="application">Kerberos</span> enabled servers.  If that
+	does not work but obtaining a ticket does, the problem is
+	likely with the server and not with the client or the
+	<acronym class="acronym">KDC</acronym>.  In the case of kerberized
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ssh&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ssh</span>(1)</span></a>, <acronym class="acronym">GSS-API</acronym> is disabled by
+	default, so test using <code class="command">ssh -o
+	  GSSAPIAuthentication=yes
+	  <em class="replaceable"><code>hostname</code></em></code>.</p><p>When testing a Kerberized application, try using a packet
+	sniffer such as <code class="command">tcpdump</code> to confirm that no
+	sensitive information is sent in the clear.</p><p>Various <span class="application">Kerberos</span> client
+	applications are available.  With the advent of a bridge so
+	that applications using <acronym class="acronym">SASL</acronym> for
+	authentication can use <acronym class="acronym">GSS-API</acronym> mechanisms
+	as well, large classes of client applications can use
+	<span class="application">Kerberos</span> for authentication, from
+	Jabber clients to <acronym class="acronym">IMAP</acronym> clients.</p><a id="idp59152760" class="indexterm"></a><a id="idp59157752" class="indexterm"></a><p>Users within a realm typically have their
+	<span class="application">Kerberos</span> principal mapped to a
+	local user account.  Occasionally, one needs to grant access
+	to a local user account to someone who does not have a
+	matching <span class="application">Kerberos</span> principal.  For
+	example, <code class="systemitem">tillman@EXAMPLE.ORG</code> may need
+	access to the local user account <code class="systemitem">webdevelopers</code>.  Other
+	principals may also need access to that local account.</p><p>The <code class="filename">.k5login</code> and
+	<code class="filename">.k5users</code> files, placed in a user's home
+	directory, can be used to solve this problem.  For example, if
+	the following <code class="filename">.k5login</code> is placed in the
+	home directory of <code class="systemitem">webdevelopers</code>, both principals
+	listed will have access to that account without requiring a
+	shared password:</p><pre class="programlisting">tillman@example.org
+jdoe@example.org</pre><p>Refer to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ksu&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ksu</span>(1)</span></a> for more information about
+	<code class="filename">.k5users</code>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp59164920"></a>13.5.4. <acronym class="acronym">MIT</acronym> Differences</h3></div></div></div><p>The major difference between the <acronym class="acronym">MIT</acronym>
+	and Heimdal implementations is that <code class="command">kadmin</code>
+	has a different, but equivalent, set of commands and uses a
+	different protocol.  If the <acronym class="acronym">KDC</acronym> is
+	<acronym class="acronym">MIT</acronym>, the Heimdal version of
+	<code class="command">kadmin</code> cannot be used to administer the
+	<acronym class="acronym">KDC</acronym> remotely, and vice versa.</p><p>Client applications may also use slightly different
+	command line options to accomplish the same tasks.  Following
+	the instructions at <a class="link" href="http://web.mit.edu/Kerberos/www/" target="_top">http://web.mit.edu/Kerberos/www/</a>
+	is recommended.  Be careful of path issues: the
+	<acronym class="acronym">MIT</acronym> port installs into
+	<code class="filename">/usr/local/</code> by default, and the FreeBSD
+	system applications run instead of the
+	<acronym class="acronym">MIT</acronym> versions if <code class="envar">PATH</code> lists
+	the system directories first.</p><p>When using MIT Kerberos as a <acronym class="acronym">KDC</acronym> on
+	FreeBSD, the following edits should also be made to
+	<code class="filename">rc.conf</code>:</p><pre class="programlisting">kdc_program="/usr/local/sbin/kdc"
+kadmind_program="/usr/local/sbin/kadmind"
+kdc_flags=""
+kdc_enable="YES"
+kadmind_enable="YES"</pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp59172728"></a>13.5.5. <span class="application">Kerberos</span> Tips, Tricks, and
+	Troubleshooting</h3></div></div></div><p>When configuring and troubleshooting
+	<span class="application">Kerberos</span>, keep the following points
+	in mind:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>When using either Heimdal or <acronym class="acronym">MIT</acronym>
+	    <span class="application">Kerberos</span> from ports, ensure
+	    that the <code class="envar">PATH</code> lists the port's versions of
+	    the client applications before the system versions.</p></li><li class="listitem"><p>If all the computers in the realm do not have
+	    synchronized time settings, authentication may fail.
+	    <a class="xref" href="network-ntp.html" title="29.11. Clock Synchronization with NTP">Section 29.11, &#8220;Clock Synchronization with NTP&#8221;</a> describes how to synchronize
+	    clocks using <acronym class="acronym">NTP</acronym>.</p></li><li class="listitem"><p>If the hostname is changed, the <code class="systemitem">host/</code> principal must be
+	    changed and the keytab updated.  This also applies to
+	    special keytab entries like the <code class="systemitem">HTTP/</code> principal used for
+	    Apache's <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/www/mod_auth_kerb/pkg-descr">www/mod_auth_kerb</a>.</p></li><li class="listitem"><p>All hosts in the realm must be both forward and
+	    reverse resolvable in <acronym class="acronym">DNS</acronym> or, at a
+	    minimum, exist in <code class="filename">/etc/hosts</code>.  CNAMEs
+	    will work, but the A and PTR records must be correct and
+	    in place.  The error message for unresolvable hosts is not
+	    intuitive: <span class="errorname">Kerberos5 refuses authentication
+	      because Read req failed: Key table entry not
+	      found</span>.</p></li><li class="listitem"><p>Some operating systems that act as clients to the
+	    <acronym class="acronym">KDC</acronym> do not set the permissions for
+	    <code class="command">ksu</code> to be setuid <code class="systemitem">root</code>.  This means that
+	    <code class="command">ksu</code> does not work.  This is a
+	    permissions problem, not a <acronym class="acronym">KDC</acronym>
+	    error.</p></li><li class="listitem"><p>With <acronym class="acronym">MIT</acronym>
+	    <span class="application">Kerberos</span>, to allow a principal
+	    to have a ticket life longer than the default lifetime of
+	    ten hours, use <code class="command">modify_principal</code> at the
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=kadmin&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">kadmin</span>(8)</span></a> prompt to change the
+	    <code class="literal">maxlife</code> of both the principal in
+	    question and the
+	    <code class="systemitem">krbtgt</code>
+	    principal.  The principal can then use
+	    <code class="command">kinit -l</code> to request a ticket with a
+	    longer lifetime.</p></li><li class="listitem"><p>When running a packet sniffer on the
+	    <acronym class="acronym">KDC</acronym> to aid in troubleshooting while
+	    running <code class="command">kinit</code> from a workstation, the
+	    Ticket Granting Ticket (<acronym class="acronym">TGT</acronym>) is sent
+	    immediately, even before the password is typed.  This is
+	    because the <span class="application">Kerberos</span> server
+	    freely transmits a <acronym class="acronym">TGT</acronym> to any
+	    unauthorized request.  However, every
+	    <acronym class="acronym">TGT</acronym> is encrypted in a key derived from
+	    the user's password.  When a user types their password, it
+	    is not sent to the <acronym class="acronym">KDC</acronym>, it is instead
+	    used to decrypt the <acronym class="acronym">TGT</acronym> that
+	    <code class="command">kinit</code> already obtained.  If the
+	    decryption process results in a valid ticket with a valid
+	    time stamp, the user has valid
+	    <span class="application">Kerberos</span> credentials.  These
+	    credentials include a session key for establishing secure
+	    communications with the
+	    <span class="application">Kerberos</span> server in the future,
+	    as well as the actual <acronym class="acronym">TGT</acronym>, which is
+	    encrypted with the <span class="application">Kerberos</span>
+	    server's own key.  This second layer of encryption allows
+	    the <span class="application">Kerberos</span> server to verify
+	    the authenticity of each <acronym class="acronym">TGT</acronym>.</p></li><li class="listitem"><p>Host principals can have a longer ticket lifetime.  If
+	    the user principal has a lifetime of a week but the host
+	    being connected to has a lifetime of nine hours, the user
+	    cache will have an expired host principal and the ticket
+	    cache will not work as expected.</p></li><li class="listitem"><p>When setting up <code class="filename">krb5.dict</code> to
+	    prevent specific bad passwords from being used as
+	    described in <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=kadmind&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">kadmind</span>(8)</span></a>, remember that it only
+	    applies to principals that have a password policy assigned
+	    to them.  The format used in
+	    <code class="filename">krb5.dict</code> is one string per line.
+	    Creating a symbolic link to
+	    <code class="filename">/usr/share/dict/words</code> might be
+	    useful.</p></li></ul></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp59220216"></a>13.5.6. Mitigating <span class="application">Kerberos</span>
+	Limitations</h3></div></div></div><a id="idp59221240" class="indexterm"></a><p>Since <span class="application">Kerberos</span> is an all or
+	nothing approach, every service enabled on the network must
+	either be modified to work with
+	<span class="application">Kerberos</span> or be otherwise secured
+	against network attacks.  This is to prevent user credentials
+	from being stolen and re-used.  An example is when
+	<span class="application">Kerberos</span> is enabled on all remote
+	shells but the non-Kerberized <acronym class="acronym">POP3</acronym> mail
+	server sends passwords in plain text.</p><p>The <acronym class="acronym">KDC</acronym> is a single point of failure.
+	By design, the <acronym class="acronym">KDC</acronym> must be as secure as its
+	master password database.  The <acronym class="acronym">KDC</acronym> should
+	have absolutely no other services running on it and should be
+	physically secure.  The danger is high because
+	<span class="application">Kerberos</span> stores all passwords
+	encrypted with the same master key which is stored as a file
+	on the <acronym class="acronym">KDC</acronym>.</p><p>A compromised master key is not quite as bad as one might
+	fear.  The master key is only used to encrypt the
+	<span class="application">Kerberos</span> database and as a seed for
+	the random number generator.  As long as access to the
+	<acronym class="acronym">KDC</acronym> is secure, an attacker cannot do much
+	with the master key.</p><p>If the <acronym class="acronym">KDC</acronym> is unavailable, network
+	services are unusable as authentication cannot be performed.
+	This can be alleviated with a single master
+	<acronym class="acronym">KDC</acronym> and one or more slaves, and with
+	careful implementation of secondary or fall-back
+	authentication using <acronym class="acronym">PAM</acronym>.</p><p><span class="application">Kerberos</span> allows users, hosts
+	and services to authenticate between themselves.  It does not
+	have a mechanism to authenticate the
+	<acronym class="acronym">KDC</acronym> to the users, hosts, or services.  This
+	means that a trojanned <code class="command">kinit</code> could record
+	all user names and passwords.  File system integrity checking
+	tools like <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/security/tripwire/pkg-descr">security/tripwire</a> can
+	alleviate this.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp59231480"></a>13.5.7. Resources and Further Information</h3></div></div></div><a id="idp59232120" class="indexterm"></a><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><a class="link" href="http://www.faqs.org/faqs/Kerberos-faq/general/preamble.html" target="_top">
+	      The <span class="application">Kerberos</span>
+	      FAQ</a></p></li><li class="listitem"><p><a class="link" href="http://web.mit.edu/Kerberos/www/dialogue.html" target="_top">Designing
+	      an Authentication System: a Dialog in Four
+	      Scenes</a></p></li><li class="listitem"><p><a class="link" href="https://www.ietf.org/rfc/rfc4120.txt" target="_top">RFC
+	      4120, The <span class="application">Kerberos</span> Network
+	      Authentication Service (V5)</a></p></li><li class="listitem"><p><a class="link" href="http://web.mit.edu/Kerberos/www/" target="_top"><acronym class="acronym">MIT</acronym>
+	      <span class="application">Kerberos</span> home
+	      page</a></p></li><li class="listitem"><p><a class="link" href="https://github.com/heimdal/heimdal/wiki" target="_top">Heimdal
+	      <span class="application">Kerberos</span> project wiki
+	      page</a></p></li></ul></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="tcpwrappers.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="security.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="openssl.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">13.4. TCP Wrapper </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 13.6. OpenSSL</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

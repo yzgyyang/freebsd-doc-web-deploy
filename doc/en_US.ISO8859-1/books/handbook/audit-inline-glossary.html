@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>16.2. Key Terms</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="audit.html" title="Chapter 16. Security Event Auditing" /><link rel="prev" href="audit.html" title="Chapter 16. Security Event Auditing" /><link rel="next" href="audit-config.html" title="16.3. Audit Configuration" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">16.2. Key Terms</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="audit.html">Prev</a> </td><th width="60%" align="center">Chapter 16. Security Event Auditing</th><td width="20%" align="right"> <a accesskey="n" href="audit-config.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="audit-inline-glossary"></a>16.2. Key Terms</h2></div></div></div><p>The following terms are related to security event
+      auditing:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><span class="emphasis"><em>event</em></span>: an auditable event is any
+	  event that can be logged using the audit subsystem.
+	  Examples of security-relevant events include the creation of
+	  a file, the building of a network connection, or a user
+	  logging in.  Events are either <span class="quote">&#8220;<span class="quote">attributable</span>&#8221;</span>,
+	  meaning that they can be traced to an authenticated user, or
+	  <span class="quote">&#8220;<span class="quote">non-attributable</span>&#8221;</span>.  Examples of
+	  non-attributable events are any events that occur before
+	  authentication in the login process, such as bad password
+	  attempts.</p></li><li class="listitem"><p><span class="emphasis"><em>class</em></span>: a named set of related
+	  events which are used in selection expressions.  Commonly
+	  used classes of events include <span class="quote">&#8220;<span class="quote">file creation</span>&#8221;</span>
+	  (fc), <span class="quote">&#8220;<span class="quote">exec</span>&#8221;</span> (ex), and
+	  <span class="quote">&#8220;<span class="quote">login_logout</span>&#8221;</span> (lo).</p></li><li class="listitem"><p><span class="emphasis"><em>record</em></span>: an audit log entry
+	  describing a security event.  Records contain a record
+	  event type, information on the subject (user) performing the
+	  action, date and time information, information on any
+	  objects or arguments, and a success or failure
+	  condition.</p></li><li class="listitem"><p><span class="emphasis"><em>trail</em></span>: a log file consisting of a
+	  series of audit records describing security events.  Trails
+	  are in roughly chronological order with respect to the time
+	  events completed.  Only authorized processes are allowed to
+	  commit records to the audit trail.</p></li><li class="listitem"><p><span class="emphasis"><em>selection expression</em></span>: a string
+	  containing a list of prefixes and audit event class names
+	  used to match events.</p></li><li class="listitem"><p><span class="emphasis"><em>preselection</em></span>: the process by which
+	  the system identifies which events are of interest to the
+	  administrator.  The preselection configuration uses a series
+	  of selection expressions to identify which classes of events
+	  to audit for which users, as well as global settings that
+	  apply to both authenticated and unauthenticated
+	  processes.</p></li><li class="listitem"><p><span class="emphasis"><em>reduction</em></span>: the process by which
+	  records from existing audit trails are selected for
+	  preservation, printing, or analysis.  Likewise, the process
+	  by which undesired audit records are removed from the audit
+	  trail.  Using reduction, administrators can implement
+	  policies for the preservation of audit data.  For example,
+	  detailed audit trails might be kept for one month, but after
+	  that, trails might be reduced in order to preserve only
+	  login information for archival purposes.</p></li></ul></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="audit.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="audit.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="audit-config.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 16. Security Event Auditing </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 16.3. Audit Configuration</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

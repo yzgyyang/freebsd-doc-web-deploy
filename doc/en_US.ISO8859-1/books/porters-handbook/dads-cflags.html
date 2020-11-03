@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>13.9. Respect CFLAGS</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Porter's Handbook" /><link rel="up" href="porting-dads.html" title="Chapter 13. Dos and Don'ts" /><link rel="prev" href="dads-cc.html" title="13.8. Respect Both CC and CXX" /><link rel="next" href="dads-verbose-logs.html" title="13.10. Verbose Build Logs" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">13.9. Respect <code class="varname">CFLAGS</code></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="dads-cc.html">Prev</a> </td><th width="60%" align="center">Chapter 13. Dos and Don'ts</th><td width="20%" align="right"> <a accesskey="n" href="dads-verbose-logs.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="dads-cflags"></a>13.9. Respect <code class="varname">CFLAGS</code></h2></div></div></div><p>The port must respect <code class="varname">CFLAGS</code>.
+      What we mean by this is that the port must not set
+      the value of this variable absolutely, overriding the existing
+      value.  Instead, it may append whatever values it needs to the
+      existing value.  This is so that build options that affect all
+      ports can be set globally.</p><p>If it does not, please add
+      <code class="literal">NO_PACKAGE=ignores cflags</code> to the
+      <code class="filename">Makefile</code>.</p><p>Here is an example of a <code class="filename">Makefile</code>
+      respecting <code class="varname">CFLAGS</code>.  Note the
+      <code class="literal">+=</code>:</p><pre class="programlisting">CFLAGS+= -Wall -Werror</pre><p>Here is an example which does not respect
+      <code class="varname">CFLAGS</code>:</p><pre class="programlisting">CFLAGS= -Wall -Werror</pre><p><code class="varname">CFLAGS</code> is defined on
+      FreeBSD systems in <code class="filename">/etc/make.conf</code>.  The first
+      example appends additional flags to
+      <code class="varname">CFLAGS</code>, preserving any system-wide
+      definitions.  The second example clobbers anything previously
+      defined.</p><p>Remove optimization flags from the third party
+      <code class="filename">Makefile</code>s.  The system
+      <code class="varname">CFLAGS</code> contains system-wide optimization
+      flags.  An example from an unmodified
+      <code class="filename">Makefile</code>:</p><pre class="programlisting">CFLAGS= -O3 -funroll-loops -DHAVE_SOUND</pre><p>Using system optimization flags, the
+      <code class="filename">Makefile</code> would look similar to this
+      example:</p><pre class="programlisting">CFLAGS+= -DHAVE_SOUND</pre></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="dads-cc.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="porting-dads.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="dads-verbose-logs.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">13.8. Respect Both <code class="varname">CC</code> and
+      <code class="varname">CXX</code> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 13.10. Verbose Build Logs</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

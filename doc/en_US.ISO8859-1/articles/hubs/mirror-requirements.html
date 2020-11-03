@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>2. Requirements for FreeBSD Mirrors</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Mirroring FreeBSD" /><link rel="up" href="index.html" title="Mirroring FreeBSD" /><link rel="prev" href="index.html" title="Mirroring FreeBSD" /><link rel="next" href="mirror-howto.html" title="3. How to Mirror FreeBSD" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">2. Requirements for FreeBSD Mirrors</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="index.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="mirror-howto.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="mirror-requirements"></a>2. Requirements for FreeBSD Mirrors</h2></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-diskspace"></a>2.1. Disk Space</h3></div></div></div><p>Disk space is one of the most important requirements.
+	Depending on the set of releases, architectures, and degree of
+	completeness you want to mirror, a huge amount of disk space
+	may be consumed.  Also keep in mind that
+	<span class="emphasis"><em>official</em></span> mirrors are probably required to
+	be complete.  The web pages should always be mirrored
+	completely.  Also note that the numbers stated here are
+	reflecting the current state (at
+	12.0-RELEASE/11.3-RELEASE).  Further
+	development and releases will only increase the required
+	amount.  Also make sure to keep some (ca. 10-20%) extra space
+	around just to be sure.  Here are some approximate
+	figures:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Full FTP Distribution: 1.4 TB</p></li><li class="listitem"><p>CTM deltas: 10 GB</p></li><li class="listitem"><p>Web pages: 1GB</p></li></ul></div><p>The current disk usage of FTP Distribution can be found at
+	<a class="link" href="ftp://ftp.FreeBSD.org/pub/FreeBSD/dir.sizes" target="_top">ftp://ftp.FreeBSD.org/pub/FreeBSD/dir.sizes</a>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-bandwidth"></a>2.2. Network Connection/Bandwidth</h3></div></div></div><p>Of course, you need to be connected to the Internet.  The
+	required bandwidth depends on your intended use of the mirror.
+	If you just want to mirror some parts of FreeBSD for local use
+	at your site/intranet, the demand may be much smaller than if
+	you want to make the files publicly available.  If you intend
+	to become an official mirror, the bandwidth required will be
+	even higher.  We can only give rough estimates here:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Local site, no public access: basically no minimum,
+	    but &lt; 2 Mbps could make syncing too
+	    slow.</p></li><li class="listitem"><p>Unofficial public site: 34 Mbps is probably a good
+	    start.</p></li><li class="listitem"><p>Official site: &gt; 100 Mbps is recommended, and your
+	    host should be connected as close as possible to your
+	    border router.</p></li></ul></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-system"></a>2.3. System Requirements, CPU, RAM</h3></div></div></div><p>One thing this depends on the expected number of clients,
+	which is determined by the server's policy.  It is also
+	affected by the types of services you want to offer.  Plain
+	FTP or HTTP services may not require a huge amount of
+	resources.  Watch out if you provide rsync.  This can have a
+	huge impact on CPU and memory requirements as it is considered
+	a memory hog.  The following are just examples to give you a
+	very rough hint.</p><p>For a moderately visited site that offers
+	<span class="application">rsync</span>, you might consider a current
+	CPU with around 800MHz - 1 GHz, and at least 512MB RAM. This
+	is probably the minimum you want for an
+	<span class="emphasis"><em>official</em></span> site.</p><p>For a frequently used site you definitely need more RAM
+	(consider 2GB as a good start) and possibly more CPU, which
+	could also mean that you need to go for a SMP system.</p><p>You also want to consider a fast disk subsystem.
+	Operations on the SVN repository require a fast disk subsystem
+	(RAID is highly advised).  A SCSI controller that has a cache
+	of its own can also speed up things since most of these
+	services incur a large number of small modifications to the
+	disk.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-services"></a>2.4. Services to Offer</h3></div></div></div><p>Every mirror site is required to have a set of core
+	services available.  In addition to these required services,
+	there are a number of optional services that server
+	administrators may choose to offer.  This section explains
+	which services you can provide and how to go about
+	implementing them.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-serv-ftp"></a>2.4.1. FTP (required for FTP Fileset)</h4></div></div></div><p>This is one of the most basic services, and it is
+	  required for each mirror offering public FTP distributions.
+	  FTP access must be anonymous, and no upload/download ratios
+	  are allowed (a ridiculous thing anyway).  Upload capability
+	  is not required (and <span class="emphasis"><em>must</em></span> never be
+	  allowed for the FreeBSD file space).  Also the FreeBSD
+	  archive should be available under the path
+	  <code class="filename">/pub/FreeBSD</code>.</p><p>There is a lot of software available which can be set up
+	  to allow anonymous FTP (in alphabetical order).</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="command">/usr/libexec/ftpd</code>: FreeBSD's own
+	      ftpd can be used.  Be sure to read <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ftpd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ftpd</span>(8)</span></a>.</p></li><li class="listitem"><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/ftp/ncftpd/pkg-descr">ftp/ncftpd</a>: A commercial package,
+	      free for educational use.</p></li><li class="listitem"><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/ftp/oftpd/pkg-descr">ftp/oftpd</a>: An ftpd designed with
+	      security as a main focus.</p></li><li class="listitem"><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/ftp/proftpd/pkg-descr">ftp/proftpd</a>: A modular and very
+	      flexible ftpd.</p></li><li class="listitem"><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/ftp/pure-ftpd/pkg-descr">ftp/pure-ftpd</a>: Another ftpd
+	      developed with security in mind.</p></li><li class="listitem"><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/ftp/twoftpd/pkg-descr">ftp/twoftpd</a>: As
+	      above.</p></li><li class="listitem"><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/ftp/vsftpd/pkg-descr">ftp/vsftpd</a>: The <span class="quote">&#8220;<span class="quote">very
+		secure</span>&#8221;</span> ftpd.</p></li></ul></div><p>FreeBSD's <span class="application">ftpd</span>,
+	  <span class="application">proftpd</span> and maybe
+	  <span class="application">ncftpd</span> are among the most
+	  commonly used FTPds.  The others do not have a large
+	  userbase among mirror sites.  One thing to consider is that
+	  you may need flexibility in limiting how many simultaneous
+	  connections are allowed, thus limiting how much network
+	  bandwidth and system resources are consumed.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-serv-rsync"></a>2.4.2. Rsync (optional for FTP Fileset)</h4></div></div></div><p><span class="application">Rsync</span> is often offered for
+	  access to the contents of the FTP area of FreeBSD, so other
+	  mirror sites can use your system as their source.  The
+	  protocol is different from FTP in many ways.  It is much
+	  more bandwidth friendly, as only differences between files
+	  are transferred instead of whole files when they change.
+	  <span class="application">Rsync</span> does require a significant
+	  amount of memory for each instance.  The size depends on the
+	  size of the synced module in terms of the number of
+	  directories and files.  <span class="application">Rsync</span> can
+	  use <code class="command">rsh</code> and <code class="command">ssh</code> (now
+	  default) as a transport, or use its own protocol for
+	  stand-alone access (this is the preferred method for public
+	  rsync servers).  Authentication, connection limits, and
+	  other restrictions may be applied.  There is just one
+	  software package available:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/net/rsync/pkg-descr">net/rsync</a></p></li></ul></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-serv-http"></a>2.4.3. HTTP (required for Web Pages, Optional for FTP
+	  Fileset)</h4></div></div></div><p>If you want to offer the FreeBSD web pages, you will
+	  need to install a web server.  You may optionally offer the
+	  FTP fileset via HTTP.  The choice of web server software is
+	  left up to the mirror administrator.  Some of the most
+	  popular choices are:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/www/apache24/pkg-descr">www/apache24</a>:
+	      <span class="application">Apache</span> is still one of the
+	      most widely deployed web servers on the Internet.  It is
+	      used extensively by the FreeBSD Project.</p></li><li class="listitem"><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/www/boa/pkg-descr">www/boa</a>:
+	      <span class="application">Boa</span> is a single-tasking HTTP
+	      server.  Unlike traditional web servers, it does not
+	      fork for each incoming connection, nor does it fork many
+	      copies of itself to handle multiple connections.
+	      Although, it should provide considerably great
+	      performance for purely static content.</p></li><li class="listitem"><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/www/cherokee/pkg-descr">www/cherokee</a>:
+	      <span class="application">&gt;Cherokee</span> is a very fast,
+	      flexible and easy to configure web server.  It supports
+	      the widespread technologies nowadays: FastCGI, SCGI,
+	      PHP, CGI, SSL/TLS encrypted connections, vhosts, users
+	      authentication, on the fly encoding and load balancing.
+	      It also generates <span class="application">Apache</span>
+	      compatible log files.</p></li><li class="listitem"><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/www/lighttpd/pkg-descr">www/lighttpd</a>:
+	      <span class="application">lighttpd</span> is a secure, fast,
+	      compliant and very flexible web server which has been
+	      optimized for high-performance environments.  It has a
+	      very low memory footprint compared to other web servers
+	      and takes care of cpu-load.</p></li><li class="listitem"><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/www/nginx/pkg-descr">www/nginx</a>:
+	      <span class="application">nginx</span> is a high performance
+	      edge web server with a low memory footprint and key
+	      features to build a modern and efficient web
+	      infrastructure.  Features include a HTTP server, HTTP
+	      and mail reverse proxy, caching, load balancing,
+	      compression, request throttling, connection multiplexing
+	      and reuse, SSL offload and HTTP media streaming.</p></li><li class="listitem"><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/www/thttpd/pkg-descr">www/thttpd</a>: If you are going to
+	      be serving a large amount of static content you may find
+	      that using an application such as
+	      <span class="application">thttpd</span> is more efficient than
+	      others.  It is also optimized for excellent performance
+	      on FreeBSD.</p></li></ul></div></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="index.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="mirror-howto.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Mirroring FreeBSD </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 3. How to Mirror FreeBSD</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

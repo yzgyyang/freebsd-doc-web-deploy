@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>10.6. Debugging Deadlocks</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Developers' Handbook" /><link rel="up" href="kerneldebug.html" title="Chapter 10. Kernel Debugging" /><link rel="prev" href="kerneldebug-console.html" title="10.5. Debugging a Console Driver" /><link rel="next" href="kerneldebug-dcons.html" title="10.7. Kernel debugging with Dcons" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">10.6. Debugging Deadlocks</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="kerneldebug-console.html">Prev</a> </td><th width="60%" align="center">Chapter 10. Kernel Debugging</th><td width="20%" align="right"> <a accesskey="n" href="kerneldebug-dcons.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="kerneldebug-deadlocks"></a>10.6. Debugging Deadlocks</h2></div></div></div><p>You may experience so called deadlocks, a situation where
+      a system stops doing useful work.  To provide a helpful bug
+      report in this situation, use <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ddb&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ddb</span>(4)</span></a> as described in the
+      previous section.  Include the output of <code class="command">ps</code>
+      and <code class="command">trace</code> for suspected processes in the
+      report.</p><p>If possible, consider doing further investigation.  The
+      recipe below is especially useful if you suspect that a deadlock
+      occurs in the VFS layer.  Add these options to the kernel
+      configuration file.</p><pre class="programlisting">makeoptions 	DEBUG=-g
+options 	INVARIANTS
+options 	INVARIANT_SUPPORT
+options 	WITNESS
+options 	WITNESS_SKIPSPIN
+options 	DEBUG_LOCKS
+options 	DEBUG_VFS_LOCKS
+options 	DIAGNOSTIC</pre><p>When a deadlock occurs, in addition to the output of the
+      <code class="command">ps</code> command, provide information from the
+      <code class="command">show pcpu</code>, <code class="command">show allpcpu</code>,
+      <code class="command">show locks</code>, <code class="command">show alllocks</code>,
+      <code class="command">show lockedvnods</code> and
+      <code class="command">alltrace</code>.</p><p>To obtain meaningful backtraces for threaded processes, use
+      <code class="command">thread thread-id</code> to switch to the thread
+      stack, and do a backtrace with <code class="command">where</code>.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="kerneldebug-console.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="kerneldebug.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="kerneldebug-dcons.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">10.5. Debugging a Console Driver </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 10.7. Kernel debugging with Dcons</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

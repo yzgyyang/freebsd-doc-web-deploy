@@ -25,7 +25,7 @@
    claim, the designations have been followed by the "(TM)" or the "(R)"
    symbol.
 
-   Last modified on 2018-11-06 21:55:58 +0000 by rene.
+   Last modified on 2020-11-03 01:10:13 +0800 by Guangyuan Yang.
    Abstract
 
    This document gives a brief introduction to FreeBSD 12.0-RELEASE. It
@@ -49,7 +49,7 @@
 
 1. Introduction
 
-   This distribution is a snapshot of FreeBSD 12.0-RELEASE, the latest point
+   This distribution is a release of FreeBSD 12.0-RELEASE, the latest point
    along the 12-STABLE branch.
 
   1.1. About FreeBSD
@@ -82,12 +82,12 @@
 
   1.2. Target Audience
 
-   This snapshot is aimed primarily at early adopters and various other users
+   This release is aimed primarily at early adopters and various other users
    who want to get involved with the ongoing development of FreeBSD. While
-   the FreeBSD development team tries its best to ensure that each snapshot
+   the FreeBSD development team tries its best to ensure that each release
    works as advertised, 12-STABLE is very much a work-in-progress.
 
-   The basic requirements for using this snapshot are technical proficiency
+   The basic requirements for using this release are technical proficiency
    with FreeBSD and an understanding of the ongoing development process of
    FreeBSD 12-STABLE (as discussed on the FreeBSD-CURRENT mailing list).
 
@@ -97,12 +97,12 @@
    of testing and quality assurance checking to ensure high reliability and
    dependability.
 
-   This snapshot is aimed primarily at early adopters and various other users
+   This release is aimed primarily at early adopters and various other users
    who want to get involved with the ongoing development of FreeBSD. While
-   the FreeBSD development team tries its best to ensure that each snapshot
+   the FreeBSD development team tries its best to ensure that each release
    works as advertised, 12-STABLE is very much a work-in-progress.
 
-   The basic requirements for using this snapshot are technical proficiency
+   The basic requirements for using this release are technical proficiency
    with FreeBSD and an understanding of the ongoing development process of
    FreeBSD 12-STABLE (as discussed on the FreeBSD-CURRENT mailing list).
 
@@ -112,7 +112,7 @@
    of testing and quality assurance checking to ensure high reliability and
    dependability.
 
-   This snapshot of FreeBSD is suitable for all users. It has undergone a
+   This release of FreeBSD is suitable for all users. It has undergone a
    period of testing and quality assurance checking to ensure the highest
    reliability and dependability.
 
@@ -219,7 +219,7 @@
   4.1. Release Documentation
 
    A number of other files provide more specific information about this
-   snapshot distribution. These files are provided in various formats. Most
+   release distribution. These files are provided in various formats. Most
    distributions will include both ASCII text (.TXT) and HTML (.HTM)
    renditions. Some distributions may also include other formats such as
    Portable Document Format (.PDF).
@@ -296,10 +296,10 @@
 
    FreeBSD represents the cumulative work of many hundreds, if not thousands,
    of individuals from around the world who have worked countless hours to
-   bring about this snapshot. For a complete list of FreeBSD developers and
+   bring about this release. For a complete list of FreeBSD developers and
    contributors, please see "Contributors to FreeBSD" on the FreeBSD Web site
    or any of its mirrors.
 
    Special thanks also go to the many thousands of FreeBSD users and testers
-   all over the world, without whom this snapshot simply would not have been
+   all over the world, without whom this release simply would not have been
    possible.

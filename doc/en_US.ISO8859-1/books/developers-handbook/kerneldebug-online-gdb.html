@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>10.4. On-Line Kernel Debugging Using Remote GDB</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Developers' Handbook" /><link rel="up" href="kerneldebug.html" title="Chapter 10. Kernel Debugging" /><link rel="prev" href="kerneldebug-online-ddb.html" title="10.3. On-Line Kernel Debugging Using DDB" /><link rel="next" href="kerneldebug-console.html" title="10.5. Debugging a Console Driver" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">10.4. On-Line Kernel Debugging Using Remote GDB</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="kerneldebug-online-ddb.html">Prev</a> </td><th width="60%" align="center">Chapter 10. Kernel Debugging</th><td width="20%" align="right"> <a accesskey="n" href="kerneldebug-console.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="kerneldebug-online-gdb"></a>10.4. On-Line Kernel Debugging Using Remote GDB</h2></div></div></div><p>This feature has been supported since FreeBSD 2.2, and it is
+      actually a very neat one.</p><p>GDB has already supported <span class="emphasis"><em>remote debugging</em></span> for
+      a long time.  This is done using a very simple protocol along a serial
+      line.  Unlike the other methods described above, you will need two
+      machines for doing this.  One is the host providing the debugging
+      environment, including all the sources, and a copy of the kernel binary
+      with all the symbols in it, and the other one is the target machine that
+      simply runs a similar copy of the very same kernel (but stripped of the
+      debugging information).</p><p>You should configure the kernel in question with <code class="command">config
+	-g</code> if building the <span class="quote">&#8220;<span class="quote">traditional</span>&#8221;</span> way.  If
+      building the <span class="quote">&#8220;<span class="quote">new</span>&#8221;</span> way, make sure that
+      <code class="literal">makeoptions DEBUG=-g</code> is in the configuration.
+      In both cases, include <code class="option">DDB</code> in the configuration, and
+      compile it as usual.  This gives a large binary, due to the
+      debugging information.  Copy this kernel to the target machine, strip
+      the debugging symbols off with <code class="command">strip -x</code>, and boot it
+      using the <code class="option">-d</code> boot option.  Connect the serial line
+      of the target machine that has "flags 080" set on its uart device
+      to any serial line of the debugging host.  See <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=uart&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">uart</span>(4)</span></a> for
+      information on how to set the flags on an uart device.
+      Now, on the debugging machine, go to the compile directory of the target
+      kernel, and start <code class="command">gdb</code>:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>kgdb kernel</code></strong>
+GDB is free software and you are welcome to distribute copies of it
+ under certain conditions; type "show copying" to see the conditions.
+There is absolutely no warranty for GDB; type "show warranty" for details.
+GDB 4.16 (i386-unknown-freebsd),
+Copyright 1996 Free Software Foundation, Inc...
+<code class="prompt">(kgdb)</code> </pre><p>Initialize the remote debugging session (assuming the first serial
+      port is being used) by:</p><pre class="screen"><code class="prompt">(kgdb)</code> <strong class="userinput"><code>target remote /dev/cuau0</code></strong></pre><p>Now, on the target host (the one that entered DDB right before even
+      starting the device probe), type:</p><pre class="screen">Debugger("Boot flags requested debugger")
+Stopped at Debugger+0x35: movb	$0, edata+0x51bc
+<code class="prompt">db&gt;</code> <strong class="userinput"><code>gdb</code></strong></pre><p>DDB will respond with:</p><pre class="screen">Next trap will enter GDB remote protocol mode</pre><p>Every time you type <code class="command">gdb</code>, the mode will be toggled
+      between remote GDB and local DDB.  In order to force a next trap
+      immediately, simply type <code class="command">s</code> (step).  Your hosting GDB
+      will now gain control over the target kernel:</p><pre class="screen">Remote debugging using /dev/cuau0
+Debugger (msg=0xf01b0383 "Boot flags requested debugger")
+    at ../../i386/i386/db_interface.c:257
+<code class="prompt">(kgdb)</code></pre><p>You can use this session almost as any other GDB session, including
+      full access to the source, running it in gud-mode inside an Emacs window
+      (which gives you an automatic source code display in another Emacs
+      window), etc.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="kerneldebug-online-ddb.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="kerneldebug.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="kerneldebug-console.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">10.3. On-Line Kernel Debugging Using DDB </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 10.5. Debugging a Console Driver</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>11.9. Command Line Arguments</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Developers' Handbook" /><link rel="up" href="x86.html" title="Chapter 11. x86 Assembly Language Programming" /><link rel="prev" href="x86-buffered-io.html" title="11.8. Buffered Input and Output" /><link rel="next" href="x86-environment.html" title="11.10. UNIX® Environment" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">11.9. Command Line Arguments</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="x86-buffered-io.html">Prev</a> </td><th width="60%" align="center">Chapter 11. x86 Assembly Language Programming</th><td width="20%" align="right"> <a accesskey="n" href="x86-environment.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="x86-command-line"></a>11.9. Command Line Arguments</h2></div></div></div><p>Our <span class="application">hex</span> program will be more
+      useful if it can read the names of an input and output file from
+      its command line, i.e., if it can process the command line
+      arguments.  But... Where are they?</p><p>Before a <span class="trademark">UNIX</span>® system starts a program, it <code class="function">push</code>es some data on the stack, then
+      jumps at the <code class="varname">_start</code> label of the program.
+      Yes, I said jumps, not calls.  That means the data can be
+      accessed by reading <code class="varname">[esp+offset]</code>, or by
+      simply <code class="function">pop</code>ping it.</p><p>The value at the top of the stack contains the number of
+      command line arguments.  It is traditionally called
+      <code class="varname">argc</code>, for "argument count."</p><p>Command line arguments follow next, all
+      <code class="varname">argc</code> of them.  These are typically referred
+      to as <code class="varname">argv</code>, for "argument value(s)."  That
+      is, we get <code class="varname">argv[0]</code>,
+      <code class="varname">argv[1]</code>, <code class="varname">...</code>,
+      <code class="varname">argv[argc-1]</code>.  These are not the actual
+      arguments, but pointers to arguments, i.e., memory addresses of
+      the actual arguments.  The arguments themselves are
+      NUL-terminated character strings.</p><p>The <code class="varname">argv</code> list is followed by a NULL
+      pointer, which is simply a <code class="constant">0</code>.  There is
+      more, but this is enough for our purposes right now.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">If you have come from the <acronym class="acronym"><span class="trademark">MS-DOS</span>®</acronym>
+	programming environment, the main difference is that each
+	argument is in a separate string.  The second difference is
+	that there is no practical limit on how many arguments there
+	can be.</p></div><p>Armed with this knowledge, we are almost ready for the next
+      version of <code class="filename">hex.asm</code>.  First, however, we
+      need to add a few lines to
+      <code class="filename">system.inc</code>:</p><p>First, we need to add two new entries to our list of system
+      call numbers:</p><pre class="programlisting">%define	SYS_open	5
+%define	SYS_close	6</pre><p>Then we add two new macros at the end of the file:</p><pre class="programlisting">%macro	sys.open	0
+	system	SYS_open
+%endmacro
+
+%macro	sys.close	0
+	system	SYS_close
+%endmacro</pre><p>Here, then, is our modified source code:</p><pre class="programlisting">%include	'system.inc'
+
+%define	BUFSIZE	2048
+
+section	.data
+fd.in	dd	stdin
+fd.out	dd	stdout
+hex	db	'0123456789ABCDEF'
+
+section .bss
+ibuffer	resb	BUFSIZE
+obuffer	resb	BUFSIZE
+
+section	.text
+align 4
+err:
+	push	dword 1		; return failure
+	sys.exit
+
+align 4
+global	_start
+_start:
+	add	esp, byte 8	; discard argc and argv[0]
+
+	pop	ecx
+	jecxz	.init		; no more arguments
+
+	; ECX contains the path to input file
+	push	dword 0		; O_RDONLY
+	push	ecx
+	sys.open
+	jc	err		; open failed
+
+	add	esp, byte 8
+	mov	[fd.in], eax
+
+	pop	ecx
+	jecxz	.init		; no more arguments
+
+	; ECX contains the path to output file
+	push	dword 420	; file mode (644 octal)
+	push	dword 0200h | 0400h | 01h
+	; O_CREAT | O_TRUNC | O_WRONLY
+	push	ecx
+	sys.open
+	jc	err
+
+	add	esp, byte 12
+	mov	[fd.out], eax
+
+.init:
+	sub	eax, eax
+	sub	ebx, ebx
+	sub	ecx, ecx
+	mov	edi, obuffer
+
+.loop:
+	; read a byte from input file or stdin
+	call	getchar
+
+	; convert it to hex
+	mov	dl, al
+	shr	al, 4
+	mov	al, [hex+eax]
+	call	putchar
+
+	mov	al, dl
+	and	al, 0Fh
+	mov	al, [hex+eax]
+	call	putchar
+
+	mov	al, ' '
+	cmp	dl, 0Ah
+	jne	.put
+	mov	al, dl
+
+.put:
+	call	putchar
+	cmp	al, dl
+	jne	.loop
+	call	write
+	jmp	short .loop
+
+align 4
+getchar:
+	or	ebx, ebx
+	jne	.fetch
+
+	call	read
+
+.fetch:
+	lodsb
+	dec	ebx
+	ret
+
+read:
+	push	dword BUFSIZE
+	mov	esi, ibuffer
+	push	esi
+	push	dword [fd.in]
+	sys.read
+	add	esp, byte 12
+	mov	ebx, eax
+	or	eax, eax
+	je	.done
+	sub	eax, eax
+	ret
+
+align 4
+.done:
+	call	write		; flush output buffer
+
+	; close files
+	push	dword [fd.in]
+	sys.close
+
+	push	dword [fd.out]
+	sys.close
+
+	; return success
+	push	dword 0
+	sys.exit
+
+align 4
+putchar:
+	stosb
+	inc	ecx
+	cmp	ecx, BUFSIZE
+	je	write
+	ret
+
+align 4
+write:
+	sub	edi, ecx	; start of buffer
+	push	ecx
+	push	edi
+	push	dword [fd.out]
+	sys.write
+	add	esp, byte 12
+	sub	eax, eax
+	sub	ecx, ecx	; buffer is empty now
+	ret</pre><p>In our <code class="varname">.data</code> section we now have two
+	new variables, <code class="varname">fd.in</code> and
+	<code class="varname">fd.out</code>.  We store the input and output file
+	descriptors here.</p><p>In the <code class="varname">.text</code> section we have replaced
+	the references to <code class="varname">stdin</code> and
+	<code class="varname">stdout</code> with <code class="varname">[fd.in]</code> and
+	<code class="varname">[fd.out]</code>.</p><p>The <code class="varname">.text</code> section now starts with a
+	simple error handler, which does nothing but exit the program
+	with a return value of <code class="constant">1</code>.  The error
+	handler is before <code class="varname">_start</code> so we are within
+	a short distance from where the errors occur.</p><p>Naturally, the program execution still begins at
+	<code class="varname">_start</code>.  First, we remove
+	<code class="varname">argc</code> and <code class="varname">argv[0]</code> from
+	the stack: They are of no interest to us (in this program,
+	that is).</p><p>We pop <code class="varname">argv[1]</code> to <code class="varname">ECX</code>.  This register is
+	particularly suited for pointers, as we can handle NULL
+	pointers with <code class="function">jecxz</code>.  If
+	<code class="varname">argv[1]</code> is not NULL, we try to open the
+	file named in the first argument.  Otherwise, we continue the
+	program as before: Reading from <code class="varname">stdin</code>,
+	writing to <code class="varname">stdout</code>.  If we fail to open the
+	input file (e.g., it does not exist), we jump to the error
+	handler and quit.</p><p>If all went well, we now check for the second argument.
+	If it is there, we open the output file.  Otherwise, we send
+	the output to <code class="varname">stdout</code>.  If we fail to open
+	the output file (e.g., it exists and we do not have the write
+	permission), we, again, jump to the error handler.</p><p>The rest of the code is the same as before, except we
+	close the input and output files before exiting, and, as
+	mentioned, we use <code class="varname">[fd.in]</code> and
+	<code class="varname">[fd.out]</code>.</p><p>Our executable is now a whopping 768 bytes long.</p><p>Can we still improve it? Of course!  Every program can be
+	improved.  Here are a few ideas of what we could do:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Have our error handler print a message to
+	    <code class="varname">stderr</code>.</p></li><li class="listitem"><p>Add error handlers to the <code class="function">read</code>
+	    and <code class="function">write</code> functions.</p></li><li class="listitem"><p>Close <code class="varname">stdin</code> when we open an input
+	    file, <code class="varname">stdout</code> when we open an output
+	    file.</p></li><li class="listitem"><p>Add command line switches, such as
+	    <em class="parameter"><code>-i</code></em> and <em class="parameter"><code>-o</code></em>,
+	    so we can list the input and output files in any order,
+	    or perhaps read from <code class="varname">stdin</code> and write to
+	    a file.</p></li><li class="listitem"><p>Print a usage message if command line arguments are
+	    incorrect.</p></li></ul></div><p>I shall leave these enhancements as an exercise to the
+	reader: You already know everything you need to know to
+	implement them.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="x86-buffered-io.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="x86.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="x86-environment.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">11.8. Buffered Input and Output </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 11.10. <span class="trademark">UNIX</span>® Environment</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

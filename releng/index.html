@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">Search</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="//www.FreeBSD.org/cgi/man.cgi">Manual Pages</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">Presentations and Papers</a>
                   </li>
                   <li>
                     <a href="../doc/en_US.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
@@ -277,9 +279,16 @@
     </tr>
 
     <tr>
-      <td rowspan="1" colspan="1">December 2018</td>
-      <td rowspan="1" colspan="1">FreeBSD 12.0</td>
-      <td rowspan="1" colspan="1"><a href="../releases/12.0R/schedule.html" shape="rect">Target
+      <td rowspan="1" colspan="1">October 2020</td>
+      <td rowspan="1" colspan="1">FreeBSD 12.2</td>
+      <td rowspan="1" colspan="1"><a href="../releases/12.2R/schedule.html" shape="rect">Target
+	  Schedule</a></td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">January 2021</td>
+      <td rowspan="1" colspan="1">FreeBSD 13.0</td>
+      <td rowspan="1" colspan="1"><a href="../releases/13.0R/schedule.html" shape="rect">Target
 	  Schedule</a></td>
     </tr>
   </table>
@@ -312,9 +321,30 @@
 
     <tr>
       <td rowspan="1" colspan="1"><tt>stable/12</tt></td>
+      <td rowspan="1" colspan="1">Open</td>
+      <td rowspan="1" colspan="1">committers</td>
+      <td rowspan="1" colspan="1">Development branch for FreeBSD 12-STABLE.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"><tt>releng/12.2</tt></td>
       <td rowspan="1" colspan="1">Frozen</td>
       <td rowspan="1" colspan="1"><a href="mailto:re@FreeBSD.org" shape="rect">re@FreeBSD.org</a></td>
-      <td rowspan="1" colspan="1">Development branch for FreeBSD 12-STABLE.</td>
+      <td rowspan="1" colspan="1">FreeBSD 12.2 supported errata fix branch.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"><tt>releng/12.1</tt></td>
+      <td rowspan="1" colspan="1">Frozen</td>
+      <td rowspan="1" colspan="1"><a href="mailto:security-officer@FreeBSD.org" shape="rect">security-officer@FreeBSD.org</a></td>
+      <td rowspan="1" colspan="1">FreeBSD 12.1 supported errata fix branch.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"><tt>releng/12.0</tt></td>
+      <td rowspan="1" colspan="1">Frozen</td>
+      <td rowspan="1" colspan="1"><a href="mailto:security-officer@FreeBSD.org" shape="rect">security-officer@FreeBSD.org</a></td>
+      <td rowspan="1" colspan="1">FreeBSD 12.0 errata fix branch (not officially supported).</td>
     </tr>
 
     <tr>
@@ -325,10 +355,24 @@
     </tr>
 
     <tr>
+      <td rowspan="1" colspan="1"><tt>releng/11.4</tt></td>
+      <td rowspan="1" colspan="1">Frozen</td>
+      <td rowspan="1" colspan="1"><a href="mailto:security-officer@FreeBSD.org" shape="rect">security-officer@FreeBSD.org</a></td>
+      <td rowspan="1" colspan="1">FreeBSD 11.4 supported errata fix branch.</td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1"><tt>releng/11.3</tt></td>
+      <td rowspan="1" colspan="1">Frozen</td>
+      <td rowspan="1" colspan="1"><a href="mailto:security-officer@FreeBSD.org" shape="rect">security-officer@FreeBSD.org</a></td>
+      <td rowspan="1" colspan="1">FreeBSD 11.3 errata fix branch (not officially supported).</td>
+    </tr>
+
+    <tr>
       <td rowspan="1" colspan="1"><tt>releng/11.2</tt></td>
       <td rowspan="1" colspan="1">Frozen</td>
       <td rowspan="1" colspan="1"><a href="mailto:security-officer@FreeBSD.org" shape="rect">security-officer@FreeBSD.org</a></td>
-      <td rowspan="1" colspan="1">FreeBSD 11.2 supported errata fix branch.</td>
+      <td rowspan="1" colspan="1">FreeBSD 11.2 errata fix branch (not officially supported).</td>
     </tr>
 
     <tr>
@@ -349,7 +393,7 @@
       <td rowspan="1" colspan="1"><tt>stable/10</tt></td>
       <td rowspan="1" colspan="1">Open</td>
       <td rowspan="1" colspan="1">committers</td>
-      <td rowspan="1" colspan="1">Development branch for FreeBSD 10-STABLE.</td>
+      <td rowspan="1" colspan="1">Maintenance branch for 10-STABLE (not officially supported).</td>
     </tr>
 
     <tr>
@@ -728,7 +772,7 @@
 
   <p><strong>Primary RE Team
       (<a href="mailto:re@FreeBSD.org" shape="rect">re@FreeBSD.org</a>)</strong> :
-	Glen Barber, Konstantin Belousov, Bryan Drewery, Marc Fonvieille, Rodney Grimes, Xin Li, Hiroki Sato, Gleb Smirnoff, Marius Strobl form the primary release engineering
+	Glen Barber, Konstantin Belousov, Bryan Drewery, Marc Fonvieille, Xin Li, Colin Percival, Hiroki Sato, Gleb Smirnoff form the primary release engineering
 	decision-making group.</p>
 
   <p>The builders release engineering team is responsible
@@ -744,7 +788,7 @@
     packages.</p>
 
   <p><strong>Package Builders (<a href="mailto:portmgr@FreeBSD.org" shape="rect">portmgr@FreeBSD.org</a>)</strong> :
-    Mathieu Arnold, Antoine Brodin, Baptiste Daroussin, Bryan Drewery, Mark Felder, René Ladan, Steve Wills, Adam Weinberger</p>
+    Mathieu Arnold, Antoine Brodin, Baptiste Daroussin, Bryan Drewery, René Ladan, Steve Wills, Adam Weinberger</p>
 
   <h2><a name="old" id="old" shape="rect">Old Releases</a></h2>
 
@@ -760,7 +804,7 @@
         </div>
         <div id="footer">
           <span><a href="../search/index-site.html">Site Map</a> |
-  <a href="../copyright/">Legal Notices</a> | © 1995&#8211;2018 The FreeBSD Project.
+  <a href="../copyright/">Legal Notices</a> | © 1995&#8211;2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

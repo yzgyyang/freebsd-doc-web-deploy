@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">Search</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="//www.FreeBSD.org/cgi/man.cgi">Manual Pages</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">Presentations and Papers</a>
                   </li>
                   <li>
                     <a href="../../doc/en_US.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
@@ -268,13 +270,13 @@
           </div>
           <div id="contentwrap"><h1>FreeBSD Status Reports</h1>
 
-  <h2>Next Quarterly Status Report submissions (October, 2017 &#8211;
-    September, 2018) due: October 31th, 2018</h2>
+  <h2>Next Quarterly Status Report submissions (July &#8211;
+    September) due: October 1st, 2020</h2>
 
   <p>Submit your entries as Pull Requests from your fork of
     <a href="https://github.com/freebsd/freebsd-quarterly" shape="rect">FreeBSD
     Quarterly Status Reports GitHub repo</a> or submit them via e-mail to
-    <a href="mailto:quarterly@FreeBSD.org" shape="rect">quarterly@FreeBSD.org</a>,
+    <a href="mailto:quarterly-submissions@FreeBSD.org" shape="rect">quarterly-submissions@FreeBSD.org</a>,
     using the <a href="report-sample.md" shape="rect">Markdown template</a>.</p>
   <hr />
 
@@ -309,6 +311,37 @@
 
   <p>These status reports may be reproduced in whole or in part, as long as the
     source is clearly identified and appropriate credit given.</p>
+  
+  <h2>2020</h2>
+
+  <ul>
+    <li><a href="report-2020-04-2020-06.html" shape="rect">April, 2020 -
+      June, 2020</a></li>
+    <li><a href="report-2020-01-2020-03.html" shape="rect">January, 2020 -
+      March, 2020</a></li>
+  </ul>
+
+  <h2>2019</h2>
+
+  <ul>
+    <li><a href="report-2019-10-2019-12.html" shape="rect">October, 2019 -
+      December, 2019</a></li>
+    <li><a href="report-2019-07-2019-09.html" shape="rect">July, 2019 -
+      September, 2019</a></li>
+    <li><a href="report-2019-04-2019-06.html" shape="rect">April, 2019 -
+      June, 2019</a></li>
+    <li><a href="report-2019-01-2019-03.html" shape="rect">January, 2019 -
+      March, 2019</a></li>
+   </ul>
+
+  <h2>2018</h2>
+
+  <ul>
+    <li><a href="report-2018-09-2018-12.html" shape="rect">October, 2018 -
+      December, 2018</a></li>
+    <li><a href="report-2018-01-2018-09.html" shape="rect">October, 2017 -
+      September, 2018</a></li>
+   </ul>
 
   <h2>2017</h2>
 
@@ -535,7 +568,7 @@
         </div>
         <div id="footer">
           <span><a href="../../search/index-site.html">Site Map</a> |
-  <a href="../../copyright/">Legal Notices</a> | © 1995&#8211;2018 The FreeBSD Project.
+  <a href="../../copyright/">Legal Notices</a> | © 1995&#8211;2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

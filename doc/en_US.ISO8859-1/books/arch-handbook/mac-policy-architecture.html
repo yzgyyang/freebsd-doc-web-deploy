@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>6.6. MAC Policy Architecture</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Architecture Handbook" /><link rel="up" href="mac.html" title="Chapter 6. The TrustedBSD MAC Framework" /><link rel="prev" href="mac-framework-kernel-arch.html" title="6.5. MAC Framework Kernel Architecture" /><link rel="next" href="mac-entry-point-reference.html" title="6.7. MAC Policy Entry Point Reference" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.6. MAC Policy Architecture</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="mac-framework-kernel-arch.html">Prev</a> </td><th width="60%" align="center">Chapter 6. The TrustedBSD MAC Framework</th><td width="20%" align="right"> <a accesskey="n" href="mac-entry-point-reference.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="mac-policy-architecture"></a>6.6. MAC Policy Architecture</h2></div></div></div><p>Security policies are either linked directly into the
+      kernel, or compiled into loadable kernel modules that may be
+      loaded at boot, or dynamically using the module loading system
+      calls at runtime.  Policy modules interact with the system
+      through a set of declared entry points, providing access to a
+      stream of system events and permitting the policy to influence
+      access control decisions.  Each policy contains a number of
+      elements:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Optional configuration parameters for
+	  policy.</p></li><li class="listitem"><p>Centralized implementation of the policy logic and
+	  parameters.</p></li><li class="listitem"><p>Optional implementation of policy life cycle events,
+	  such as initialization and destruction.</p></li><li class="listitem"><p>Optional support for initializing, maintaining, and
+	  destroying labels on selected kernel
+	  objects.</p></li><li class="listitem"><p>Optional support for user process inspection and
+	  modification of labels on selected
+	  objects.</p></li><li class="listitem"><p>Implementation of selected access control entry points
+	  that are of interest to the policy.</p></li><li class="listitem"><p>Declaration of policy identity, module entry points, and
+	  policy properties.</p></li></ul></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mac-policy-declaration"></a>6.6.1. Policy Declaration</h3></div></div></div><p>Modules may be declared using the
+	<code class="function">MAC_POLICY_SET()</code> macro, which names the
+	policy, provides a reference to the MAC entry point vector,
+	provides load-time flags determining how the policy framework
+	should handle the policy, and optionally requests the
+	allocation of label state by the framework.</p><pre class="programlisting">static struct mac_policy_ops mac_<em class="replaceable"><code>policy</code></em>_ops =
+{
+        .mpo_destroy = mac_<em class="replaceable"><code>policy</code></em>_destroy,
+        .mpo_init = mac_<em class="replaceable"><code>policy</code></em>_init,
+        .mpo_init_bpfdesc_label = mac_<em class="replaceable"><code>policy</code></em>_init_bpfdesc_label,
+        .mpo_init_cred_label = mac_<em class="replaceable"><code>policy</code></em>_init_label,
+/* ... */
+        .mpo_check_vnode_setutimes = mac_<em class="replaceable"><code>policy</code></em>_check_vnode_setutimes,
+        .mpo_check_vnode_stat = mac_<em class="replaceable"><code>policy</code></em>_check_vnode_stat,
+        .mpo_check_vnode_write = mac_<em class="replaceable"><code>policy</code></em>_check_vnode_write,
+};</pre><p>The MAC policy entry point vector,
+	<code class="varname">mac_<em class="replaceable"><code>policy</code></em>_ops</code>
+	in this example, associates functions defined in the module
+	with specific entry points.  A complete listing of available
+	entry points and their prototypes may be found in the MAC
+	entry point reference section.  Of specific interest during
+	module registration are the <span class="symbol">.mpo_destroy</span> and
+	<span class="symbol">.mpo_init</span> entry points.
+	<span class="symbol">.mpo_init</span> will be invoked once a policy is
+	successfully registered with the module framework but prior to
+	any other entry points becoming active.  This permits the
+	policy to perform any policy-specific allocation and
+	initialization, such as initialization of any data or locks.
+	<span class="symbol">.mpo_destroy</span> will be invoked when a policy
+	module is unloaded to permit releasing of any allocated memory
+	and destruction of locks.  Currently, these two entry points
+	are invoked with the MAC policy list mutex held to prevent any
+	other entry points from being invoked: this will be changed,
+	but in the mean time, policies should be careful about what
+	kernel primitives they invoke so as to avoid lock ordering or
+	sleeping problems.</p><p>The policy declaration's module name field exists so that
+	the module may be uniquely identified for the purposes of
+	module dependencies.  An appropriate string should be
+	selected.  The full string name of the policy is displayed to
+	the user via the kernel log during load and unload events, and
+	also exported when providing status information to userland
+	processes.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mac-policy-flags"></a>6.6.2. Policy Flags</h3></div></div></div><p>The policy declaration flags field permits the module to
+	provide the framework with information about its capabilities
+	at the time the module is loaded.  Currently, three flags are
+	defined:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">MPC_LOADTIME_FLAG_UNLOADOK</span></dt><dd><p>This flag indicates that the policy module may be
+	      unloaded.  If this flag is not provided, then the policy
+	      framework will reject requests to unload the module.
+	      This flag might be used by modules that allocate label
+	      state and are unable to free that state at
+	      runtime.</p></dd><dt><span class="term">MPC_LOADTIME_FLAG_NOTLATE</span></dt><dd><p>This flag indicates that the policy module must be
+	      loaded and initialized early in the boot process.  If
+	      the flag is specified, attempts to register the module
+	      following boot will be rejected.  The flag may be used
+	      by policies that require pervasive labeling of all
+	      system objects, and cannot handle objects that have not
+	      been properly initialized by the policy.</p></dd><dt><span class="term">MPC_LOADTIME_FLAG_LABELMBUFS</span></dt><dd><p>This flag indicates that the policy module requires
+	      labeling of Mbufs, and that memory should always be
+	      allocated for the storage of Mbuf labels.  By default,
+	      the MAC Framework will not allocate label storage for
+	      Mbufs unless at least one loaded policy has this flag
+	      set.  This measurably improves network performance when
+	      policies do not require Mbuf labeling.  A kernel option,
+	      <code class="literal">MAC_ALWAYS_LABEL_MBUF</code>, exists to
+	      force the MAC Framework to allocate Mbuf label storage
+	      regardless of the setting of this flag, and may be
+	      useful in some environments.</p></dd></dl></div><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Policies using the
+	  <code class="literal">MPC_LOADTIME_FLAG_LABELMBUFS</code> without the
+	  <code class="literal">MPC_LOADTIME_FLAG_NOTLATE</code> flag set must
+	  be able to correctly handle <code class="literal">NULL</code> Mbuf
+	  label pointers passed into entry points.  This is necessary
+	  as in-flight Mbufs without label storage may persist after a
+	  policy enabling Mbuf labeling has been loaded.  If a policy
+	  is loaded before the network subsystem is active (i.e., the
+	  policy is not being loaded late), then all Mbufs are
+	  guaranteed to have label storage.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mac-policy-entry-points"></a>6.6.3. Policy Entry Points</h3></div></div></div><p>Four classes of entry points are offered to policies
+	registered with the framework: entry points associated with
+	the registration and management of policies, entry points
+	denoting initialization, creation, destruction, and other life
+	cycle events for kernel objects, events associated with access
+	control decisions that the policy module may influence, and
+	calls associated with the management of labels on objects.  In
+	addition, a <code class="function">mac_syscall()</code> entry point is
+	provided so that policies may extend the kernel interface
+	without registering new system calls.</p><p>Policy module writers should be aware of the kernel
+	locking strategy, as well as what object locks are available
+	during which entry points.  Writers should attempt to avoid
+	deadlock scenarios by avoiding grabbing non-leaf locks inside
+	of entry points, and also follow the locking protocol for
+	object access and modification.  In particular, writers should
+	be aware that while necessary locks to access objects and
+	their labels are generally held, sufficient locks to modify an
+	object or its label may not be present for all entry points.
+	Locking information for arguments is documented in the MAC
+	framework entry point document.</p><p>Policy entry points will pass a reference to the object
+	label along with the object itself.  This permits labeled
+	policies to be unaware of the internals of the object yet
+	still make decisions based on the label.  The exception to
+	this is the process credential, which is assumed to be
+	understood by policies as a first class security object in the
+	kernel.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="mac-framework-kernel-arch.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="mac.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="mac-entry-point-reference.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">6.5. MAC Framework Kernel Architecture </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 6.7. MAC Policy Entry Point Reference</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>Chapter 8. XHTML Markup</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Documentation Project Primer for New Contributors" /><link rel="up" href="index.html" title="FreeBSD Documentation Project Primer for New Contributors" /><link rel="prev" href="xml-primer-conclusion.html" title="7.9. Conclusion" /><link rel="next" href="xhtml-markup-fpi.html" title="8.2. Formal Public Identifier (FPI)" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 8. <acronym class="acronym">XHTML</acronym> Markup</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="xml-primer-conclusion.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="xhtml-markup-fpi.html">Next</a></td></tr></table><hr /></div><div class="chapter"><div xmlns="" class="titlepage"><div><div><h1 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="xhtml-markup"></a>Chapter 8. <acronym class="acronym">XHTML</acronym> Markup</h1></div></div></div><div class="toc"><div class="toc-title">Table of Contents</div><dl class="toc"><dt><span class="sect1"><a href="xhtml-markup.html#xhtml-markup-introduction">8.1. Introduction</a></span></dt><dt><span class="sect1"><a href="xhtml-markup-fpi.html">8.2. Formal Public Identifier (<acronym class="acronym">FPI</acronym>)</a></span></dt><dt><span class="sect1"><a href="xhtml-markup-sectional-elements.html">8.3. Sectional Elements</a></span></dt><dt><span class="sect1"><a href="xhtml-markup-block-elements.html">8.4. Block Elements</a></span></dt><dt><span class="sect1"><a href="xhtml-markup-inline-elements.html">8.5. In-line Elements</a></span></dt></dl></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="xhtml-markup-introduction"></a>8.1. Introduction</h2></div></div></div><p>This chapter describes usage of the <acronym class="acronym">XHTML</acronym>
+      markup language used for the FreeBSD web site.</p><p><acronym class="acronym">XHTML</acronym> is the <acronym class="acronym">XML</acronym>
+      version of the HyperText Markup Language, the markup language of
+      choice on the World Wide Web.  More information can be found at
+      <code class="uri"><a class="uri" href="http://www.w3.org/" target="_top">http://www.w3.org/</a></code>.</p><p><acronym class="acronym">XHTML</acronym> is used to mark up pages on the
+      FreeBSD web site.  It is usually not used to mark up other
+      documentation, since DocBook offers a far richer set of elements
+      from which to choose.  Consequently, <acronym class="acronym">XHTML</acronym>
+      pages will normally only be encountered when writing for the web
+      site.</p><p><acronym class="acronym">HTML</acronym> has gone through a number of
+      versions.  The <acronym class="acronym">XML</acronym>-compliant version
+      described here is called <acronym class="acronym">XHTML</acronym>.  The latest
+      widespread version is <acronym class="acronym">XHTML</acronym> 1.0, available in
+      both <span class="emphasis"><em>strict</em></span> and
+      <span class="emphasis"><em>transitional</em></span> variants.</p><p>The <acronym class="acronym">XHTML</acronym> <acronym class="acronym">DTDs</acronym> are
+      available from the Ports Collection in
+      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/textproc/xhtml/pkg-descr">textproc/xhtml</a>.  They are automatically
+      installed by the <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/textproc/docproj/pkg-descr">textproc/docproj</a>
+      port.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">This is <span class="emphasis"><em>not</em></span> an exhaustive list of
+	elements, since that would just repeat the documentation for
+	<acronym class="acronym">XHTML</acronym>.  The aim is to list those elements
+	most commonly used.  Please post questions about elements or
+	uses not covered here to the <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo/freebsd-doc" target="_top">FreeBSD documentation project mailing list</a>.</p></div><div xmlns="" class="note"><h3 class="admontitle">Inline Versus Block: </h3><p xmlns="http://www.w3.org/1999/xhtml">In the remainder of this document, when describing
+	elements, <span class="emphasis"><em>inline</em></span> means that the element
+	can occur within a block element, and does not cause a line
+	break.  A <span class="emphasis"><em>block</em></span> element, by comparison,
+	will cause a line break (and other processing) when it is
+	encountered.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="xml-primer-conclusion.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="xhtml-markup-fpi.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">7.9. Conclusion </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 8.2. Formal Public Identifier (<acronym class="acronym">FPI</acronym>)</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

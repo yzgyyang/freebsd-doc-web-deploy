@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>4.2. Localized Messages with POSIX.1 Native Language Support (NLS)</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Developers' Handbook" /><link rel="up" href="l10n.html" title="Chapter 4. Localization and Internationalization - L10N and I18N" /><link rel="prev" href="l10n.html" title="Chapter 4. Localization and Internationalization - L10N and I18N" /><link rel="next" href="policies.html" title="Chapter 5. Source Tree Guidelines and Policies" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">4.2. Localized Messages with POSIX.1 Native Language Support (NLS)</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="l10n.html">Prev</a> </td><th width="60%" align="center">Chapter 4. Localization and Internationalization - L10N and I18N</th><td width="20%" align="right"> <a accesskey="n" href="policies.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="posix-nls"></a>4.2. Localized Messages with POSIX.1 Native Language Support (NLS)</h2></div><div><span class="authorgroup">Contributed by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Gábor</span> <span class="surname">Kövesdán</span></span>. </span></div></div></div><p>Beyond the basic I18N functions, like supporting various input
+	encodings or supporting national conventions, such as the different
+	decimal	separators, at a higher level of I18N, it is possible to localize the
+	messages written to the output by the various programs.  A common way of doing
+	this is using the POSIX.1 NLS functions, which are provided as a part
+	of the FreeBSD base system.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="nls-catalogs"></a>4.2.1. Organizing Localized Messages into Catalog Files</h3></div></div></div><p>POSIX.1 NLS is based on catalog files, which contain the
+	  localized messages in the desired encoding.  The messages are
+	  organized into sets and each message is identified by an integer
+	  number in the containing set.  The catalog files are conventionally
+	  named after the locale they contain localized messages for, followed
+	  by the <code class="literal">.msg</code> extension.  For instance, the
+	  Hungarian messages for ISO8859-2 encoding should be stored in a file
+	  called <code class="filename">hu_HU.ISO8859-2</code>.</p><p>These catalog files are common text files that contain the
+	  numbered messages.  It is possible to write comments by starting
+	  the line with a <code class="literal">$</code> sign.  Set boundaries are also separated by
+	  special comments, where the keyword <code class="literal">set</code> must
+	  directly follow the <code class="literal">$</code> sign.  The <code class="literal">set</code> keyword
+	  is then followed by the set number.  For example:</p><pre class="programlisting">$set 1</pre><p>The actual message entries start with the message number and
+	  followed by the localized message.  The well-known
+	  modifiers from <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=printf&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">printf</span>(3)</span></a> are accepted:</p><pre class="programlisting">15 "File not found: %s\n"</pre><p>The language catalog files have to be compiled into a binary
+	  form before they can be opened from the program.  This conversion
+	  is done with the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=gencat&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">gencat</span>(1)</span></a> utility.  Its first argument is the
+	  filename of the compiled catalog and its further arguments are the
+	  input catalogs.  The localized messages can also be organized into
+	  more catalog files and then all of them can be processed with
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=gencat&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">gencat</span>(1)</span></a>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="nls-using"></a>4.2.2. Using the Catalog Files from the Source Code</h3></div></div></div><p>Using the catalog files is simple.  To use
+	  the related functions, <code class="filename">nl_types.h</code> must be included.  Before
+	  using a catalog, it has to be opened with <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=catopen&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">catopen</span>(3)</span></a>.
+	  The function takes two arguments.  The first parameter is the name of the
+	  installed and compiled catalog.  Usually, the name of the
+	  program is used, such as <span class="application">grep</span>.
+	  This name will be used when looking for the compiled
+	  catalog file.  The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=catopen&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">catopen</span>(3)</span></a> call looks for this file
+	  in <code class="filename">/usr/share/nls/<em class="replaceable"><code>locale</code></em>/<em class="replaceable"><code>catname</code></em></code>
+	  and in <code class="filename">/usr/local/share/nls/<em class="replaceable"><code>locale</code></em>/<em class="replaceable"><code>catname</code></em></code>,
+	  where <code class="literal">locale</code> is the locale set and
+	  <code class="literal">catname</code> is the catalog name being
+	  discussed.  The second parameter is a constant, which can have
+	  two values:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="literal">NL_CAT_LOCALE</code>, which means that
+	      the used catalog file will be based on
+	      <code class="envar">LC_MESSAGES</code>.</p></li><li class="listitem"><p><code class="literal">0</code>, which means that
+	      <code class="envar">LANG</code> has to be used to open
+	      the proper catalog.</p></li></ul></div><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=catopen&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">catopen</span>(3)</span></a> call returns a catalog identifier of
+	  type <code class="literal">nl_catd</code>.  Please refer to the manual page for a list of possible returned error
+	  codes.</p><p>After opening a catalog <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=catgets&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">catgets</span>(3)</span></a> can be used to retrieve
+	  a message.  The first parameter is the catalog identifier returned
+	  by <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=catopen&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">catopen</span>(3)</span></a>, the second one is the number of the set, the
+	  third one is the number of the messages, and the fourth one is a
+	  fallback message, which will be returned if the requested message
+	  cannot be retrieved from the catalog file.</p><p>After using the catalog file, it must be closed by calling
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=catclose&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">catclose</span>(3)</span></a>, which has one argument, the catalog id.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="nls-example"></a>4.2.3. A Practical Example</h3></div></div></div><p>The following example will demonstrate an easy solution on how to
+	  use NLS catalogs in a flexible way.</p><p>The below lines need to be put into a common header file of
+	  the program, which is included into all source files where
+	  localized messages are necessary:</p><pre class="programlisting">
+#ifdef WITHOUT_NLS
+#define getstr(n)	 nlsstr[n]
+#else
+#include &lt;nl_types.h&gt;
+
+extern nl_catd		 catalog;
+#define getstr(n)	 catgets(catalog, 1, n, nlsstr[n])
+#endif
+
+extern char		*nlsstr[];</pre><p>Next, put these lines into the global declaration part of the
+	  main source file:</p><pre class="programlisting">
+#ifndef WITHOUT_NLS
+#include &lt;nl_types.h&gt;
+nl_catd	 catalog;
+#endif
+
+/*
+ * Default messages to use when NLS is disabled or no catalog
+ * is found.
+ */
+char    *nlsstr[] = {
+        "",
+/* 1*/  "some random message",
+/* 2*/  "some other message"
+};</pre><p>Next come the real code snippets, which open, read, and
+	  close the catalog:</p><pre class="programlisting">
+#ifndef WITHOUT_NLS
+	catalog = catopen("myapp", NL_CAT_LOCALE);
+#endif
+
+...
+
+printf(getstr(1));
+
+...
+
+#ifndef WITHOUT_NLS
+	catclose(catalog);
+#endif</pre><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp51164920"></a>4.2.3.1. Reducing Strings to Localize</h4></div></div></div><p>There is a good way of reducing the strings that
+	    need to be localized by using <span class="application">libc</span>
+	    error messages.  This is also useful to just avoid duplication
+	    and provide consistent error messages for the common errors
+	    that can be encountered by a great many of programs.</p><p>First, here is an example that does not use
+	    <span class="application">libc</span> error messages:</p><pre class="programlisting">
+#include &lt;err.h&gt;
+...
+if (!S_ISDIR(st.st_mode))
+	errx(1, "argument is not a directory");
+	  </pre><p>This can be transformed to print an error message by
+	    reading <code class="varname">errno</code> and printing an error message
+	    accordingly:</p><pre class="programlisting">
+#include &lt;err.h&gt;
+#include &lt;errno.h&gt;
+...
+if (!S_ISDIR(st.st_mode)) {
+	errno = ENOTDIR;
+	err(1, NULL);
+}
+	  </pre><p>In this example, the custom string is eliminated, thus
+	    translators will have less work when localizing the program
+	    and users will see the usual <span class="quote">&#8220;<span class="quote">Not a directory</span>&#8221;</span>
+	    error message when they encounter this error.  This message
+	    will probably seem more familiar to them.  Please note that
+	    it was necessary to include <code class="filename">errno.h</code> in order to directly
+	    access <code class="varname">errno</code>.</p><p>It is worth to note that there are cases when
+	    <code class="varname">errno</code> is set automatically by a preceding
+	    call, so it is not necessary to set it explicitly:</p><pre class="programlisting">
+#include &lt;err.h&gt;
+...
+if ((p = malloc(size)) == NULL)
+	err(1, NULL);
+	  </pre></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="nls-mk"></a>4.2.4. Making use of <code class="filename">bsd.nls.mk</code></h3></div></div></div><p>Using the catalog files requires few repeatable steps,
+	  such as compiling the catalogs and installing them to the
+	  proper location.  In order to simplify this process even
+	  more, <code class="filename">bsd.nls.mk</code> introduces some macros.
+	  It is not necessary to include <code class="filename">bsd.nls.mk</code>
+	  explicitly, it is pulled in from the common Makefiles,
+	  such as <code class="filename">bsd.prog.mk</code> or
+	  <code class="filename">bsd.lib.mk</code>.</p><p>Usually it is enough to define <code class="varname">NLSNAME</code>,
+	  which should have the catalog name mentioned as the first
+	  argument of <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=catopen&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">catopen</span>(3)</span></a> and list the catalog files in
+	  <code class="varname">NLS</code> without their <code class="literal">.msg</code>
+	  extension.  Here is an example, which makes it possible to
+	  to disable NLS when used with the code examples before.
+	  The <code class="varname">WITHOUT_NLS</code> <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=make&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">make</span>(1)</span></a> variable has
+	  to be defined in order to build the program without NLS
+	  support.</p><pre class="programlisting">
+.if !defined(WITHOUT_NLS)
+NLS=	es_ES.ISO8859-1
+NLS+=	hu_HU.ISO8859-2
+NLS+=	pt_BR.ISO8859-1
+.else
+CFLAGS+=	-DWITHOUT_NLS
+.endif</pre><p>Conventionally, the catalog files are placed under the
+	  <code class="filename">nls</code> subdirectory and
+	  this is the default behavior of <code class="filename">bsd.nls.mk</code>.
+	  It is possible, though to override the location of the
+	  catalogs with the <code class="varname">NLSSRCDIR</code> <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=make&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">make</span>(1)</span></a>
+	  variable.  The default name of the precompiled catalog files
+	  also follow the naming convention mentioned before.  It can be
+	  overridden by setting the <code class="varname">NLSNAME</code> variable.
+	  There are other options to fine tune the processing of the catalog
+	  files but usually it is not needed, thus they are not described
+	  here.  For further information on <code class="filename">bsd.nls.mk</code>,
+	  please refer to the file itself, it is short and easy to
+	  understand.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="l10n.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="l10n.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="policies.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 4. Localization and Internationalization - L10N and I18N </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 5. Source Tree Guidelines and Policies</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

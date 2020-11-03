@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>4. Writing the Problem Report</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Writing FreeBSD Problem Reports" /><link rel="up" href="index.html" title="Writing FreeBSD Problem Reports" /><link rel="prev" href="pr-prep.html" title="3. Preparations" /><link rel="next" href="pr-followup.html" title="5. Follow-up" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">4. Writing the Problem Report</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="pr-prep.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="pr-followup.html">Next</a></td></tr></table><hr /></div><div class="section"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="pr-writing"></a>4. Writing the Problem Report</h2></div></div></div><p>Now that you have decided that your issue merits a problem
+      report, and that it is a FreeBSD problem, it is time to write the
+      actual problem report.  Before we get into the mechanics of the
+      program used to generate and submit PRs, here are some tips and
+      tricks to help make sure that your PR will be most
+      effective.</p><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pr-writing-tips"></a>4.1. Tips and Tricks for Writing a Good Problem Report</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><span class="emphasis"><em>Do not leave the <span class="quote">&#8220;<span class="quote">Summary</span>&#8221;</span>
+	      line empty.</em></span> The PRs go both onto a mailing
+	    list that goes all over the world (where the
+	    <span class="quote">&#8220;<span class="quote">Summary</span>&#8221;</span> is used for the
+	    <code class="literal">Subject:</code> line), but also into a
+	    database.  Anyone who comes along later and browses the
+	    database by synopsis, and finds a PR with a blank subject
+	    line, tends just to skip over it.  Remember that PRs stay
+	    in this database until they are closed by someone; an
+	    anonymous one will usually just disappear in the
+	    noise.</p></li><li class="listitem"><p><span class="emphasis"><em>Avoid using a weak <span class="quote">&#8220;<span class="quote">Summary</span>&#8221;</span>
+	      line.</em></span>  You should not assume that anyone
+	    reading your PR has any context for your submission, so
+	    the more you provide, the better.  For instance, what part
+	    of the system does the problem apply to?  Do you only see
+	    the problem while installing, or while running?  To
+	    illustrate, instead of
+	    <code class="literal">Summary: portupgrade is broken</code>, see
+	    how much more informative this seems:
+	    <code class="literal">Summary: port ports-mgmt/portupgrade coredumps
+	      on -current</code>.  (In the case of ports, it is
+	    especially helpful to have both the category and portname
+	    in the <span class="quote">&#8220;<span class="quote">Summary</span>&#8221;</span> line.)</p></li><li class="listitem"><p><span class="emphasis"><em>If you have a patch, say so.</em></span>
+	    A PR with a patch included is much more likely to be
+	    looked at than one without.  Please set the
+	    <code class="literal">patch</code> Keyword in Bugzilla.</p></li><li class="listitem"><p><span class="emphasis"><em>If you are a maintainer, say so.</em></span>
+	    If you are maintaining a part of the source code (for
+	    instance, an existing port), you
+	    definitely should set the <span class="quote">&#8220;<span class="quote">Class</span>&#8221;</span> of your PR
+	    to <code class="literal">maintainer-update</code>.  This way any
+	    committer that handles your PR will not have to
+	    check.</p></li><li class="listitem"><p><span class="emphasis"><em>Be specific.</em></span> The more information
+	    you supply about what problem you are having, the better
+	    your chance of getting a response.</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem"><p>Include the version of FreeBSD you are running (there
+		is a place to put that, see below) and on which
+		architecture.  You should include whether you are
+		running from a release (e.g., from a
+		<acronym class="acronym">CD-ROM</acronym> or download), or from a
+		system maintained by Subversion (and, if so, what
+		revision number you are at).  If you are tracking the
+		FreeBSD-CURRENT branch, that is the very first thing
+		someone will ask, because fixes (especially for
+		high-profile problems) tend to get committed very
+		quickly, and FreeBSD-CURRENT users are expected to keep
+		up.</p></li><li class="listitem"><p>Include which global options you have specified in
+		your <code class="filename">make.conf</code>,
+		<code class="filename">src.conf</code>,
+		and <code class="filename">src-env.conf</code>.
+		Given the infinite number of options, not every
+		combination may be fully supported.</p></li><li class="listitem"><p>If the problem can be reproduced easily, include
+		information that will help a developer to reproduce it
+		themselves.  If a problem can be demonstrated with
+		specific input then include an example of that input
+		if possible, and include both the actual and the
+		expected output.  If this data is large or cannot be
+		made public, then do try to create a minimal file that
+		exhibits the same issue and that can be included
+		within the PR.</p></li><li class="listitem"><p>If this is a kernel problem, then be prepared to
+		supply the following information.  (You do not have to
+		include these by default, which only tends to fill up
+		the database, but you should include excerpts that you
+		think might be relevant):</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: square; "><li class="listitem"><p>your kernel configuration (including which
+		    hardware devices you have installed)</p></li><li class="listitem"><p>whether or not you have debugging options
+		    enabled (such as <code class="literal">WITNESS</code>), and
+		    if so, whether the problem persists when you
+		    change the sense of that option</p></li><li class="listitem"><p>the full text of any backtrace, panic or other
+		    console output, or entries in
+		    <code class="filename">/var/log/messages</code>, if any
+		    were generated</p></li><li class="listitem"><p>the output of <code class="command">pciconf -l</code>
+		    and relevant parts of your
+		    <code class="command">dmesg</code> output if your problem
+		    relates to a specific piece of hardware</p></li><li class="listitem"><p>the fact that you have read
+		    <code class="filename">src/UPDATING</code> and that your
+		    problem is not listed there (someone is guaranteed
+		    to ask)</p></li><li class="listitem"><p>whether or not you can run any other kernel as
+		    a fallback (this is to rule out hardware-related
+		    issues such as failing disks and overheating CPUs,
+		    which can masquerade as kernel problems)</p></li></ul></div></li><li class="listitem"><p>If this is a ports problem, then be prepared to
+		supply the following information.  (You do not
+		have to include these by default, which only tends to
+		fill up the database, but you should include excerpts
+		that you think might be relevant):</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: square; "><li class="listitem"><p>which ports you have installed</p></li><li class="listitem"><p>any environment variables that override the
+		    defaults in <code class="filename">bsd.port.mk</code>, such
+		    as <code class="varname">PORTSDIR</code></p></li><li class="listitem"><p>the fact that you have read
+		    <code class="filename">ports/UPDATING</code> and that your
+		    problem is not listed there (someone is guaranteed
+		    to ask)</p></li></ul></div></li></ul></div></li><li class="listitem"><p><span class="emphasis"><em>Avoid vague requests for
+	      features.</em></span> PRs of the form
+	    <span class="quote">&#8220;<span class="quote">someone should really implement something that does
+	      so-and-so</span>&#8221;</span> are less likely to get results than
+	    very specific requests.  Remember, the source is available
+	    to everyone, so if you want a feature, the best way to
+	    ensure it being included is to get to work!  Also consider
+	    the fact that many things like this would make a better
+	    topic for discussion on
+	    <code class="literal">freebsd-questions</code> than an entry in the
+	    PR database, as discussed above.</p></li><li class="listitem"><p><span class="emphasis"><em>Make sure no one else has already submitted
+	      a similar PR.</em></span> Although this has already been
+	    mentioned above, it bears repeating here.  It only take a
+	    minute or two to use the web-based search engine at <code class="uri"><a class="uri" href="https://bugs.freebsd.org/bugzilla/query.cgi" target="_top">https://bugs.freebsd.org/bugzilla/query.cgi</a></code>.
+	    (Of course, everyone is guilty of forgetting to do this
+	    now and then.)</p></li><li class="listitem"><p><span class="emphasis"><em>Report only one issue per Problem
+	      Report.</em></span> Avoid including two or more problems
+	    within the same report unless they are related.  When
+	    submitting patches, avoid adding multiple features or
+	    fixing multiple bugs in the same PR unless they are
+	    closely related&#8212;such PRs often take longer to
+	    resolve.</p></li><li class="listitem"><p><span class="emphasis"><em>Avoid controversial requests.</em></span>
+	    If your PR addresses an area that has been controversial
+	    in the past, you should probably be prepared to not only
+	    offer patches, but also justification for why the patches
+	    are <span class="quote">&#8220;<span class="quote">The Right Thing To Do</span>&#8221;</span>.  As noted above,
+	    a careful search of the mailing lists using the archives
+	    at <code class="uri"><a class="uri" href="https://www.FreeBSD.org/search/search.html#mailinglists" target="_top">https://www.FreeBSD.org/search/search.html#mailinglists</a></code>
+	    is always good preparation.</p></li><li class="listitem"><p><span class="emphasis"><em>Be polite.</em></span> Almost anyone who
+	    would potentially work on your PR is a volunteer.  No one
+	    likes to be told that they have to do something when they
+	    are already doing it for some motivation other than
+	    monetary gain.  This is a good thing to keep in mind at
+	    all times on Open Source projects.</p></li></ul></div></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pr-writing-before-beginning"></a>4.2. Before Beginning</h3></div></div></div><p>Similar considerations apply to use of the
+	<a class="link" href="https://bugs.freebsd.org/bugzilla/enter_bug.cgi" target="_top">web-based
+	PR submission form</a>.  Be careful of cut-and-paste
+	operations that might change whitespace or other text
+	formatting.</p><p>Finally, if the submission is lengthy, prepare the work
+	offline so that nothing will be lost if there is a problem
+	submitting it.</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pr-writing-attaching-patches"></a>4.3. Attaching Patches or Files</h3></div></div></div><p>When attaching a patch, be sure to use
+	either <code class="command">svn diff</code> or
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=diff&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">diff</span>(1)</span></a> with the <code class="option">-u</code> option
+	to create a unified diff
+	and make sure to specify the SVN revision number of the
+	repository against which you modified files,
+	so the developers who read your report will
+	be able to apply them easily.  For problems with the kernel or
+	the base utilities, a patch against FreeBSD-CURRENT (the HEAD
+	Subversion branch) is preferred since all new code should be
+	applied and tested there first.  After appropriate or
+	substantial testing has been done, the code will be
+	merged/migrated to the FreeBSD-STABLE branch.</p><p>If you attach a patch inline, instead of as an attachment,
+	note that the most common problem by far is the tendency of
+	some email programs to render tabs as spaces, which will
+	completely ruin anything intended to be part of a
+	Makefile.</p><p>Do not send patches as attachments using
+	<code class="command">Content-Transfer-Encoding:
+	  quoted-printable</code>.  These will perform character
+	escaping and the entire patch will be useless.</p><p>Also note that while including small patches in a PR is
+	generally all right&#8212;particularly when they fix the
+	problem described in the PR&#8212;large patches and especially
+	new code which may require substantial review before
+	committing should be placed on a web or ftp server, and the
+	URL should be included in the PR instead of the patch.
+	Patches in email tend to get mangled,
+	and the larger the patch, the harder it will be for
+	interested parties to unmangle it.  Also, posting a patch on
+	the web allows you to modify it without having to resubmit the
+	entire patch in a followup to the original PR.  Finally, large
+	patches simply increase the size of the database, since closed
+	PRs are not actually deleted but instead kept and simply
+	marked as complete.</p><p>You should also take note that unless you explicitly
+	specify otherwise in your PR or in the patch itself, any
+	patches you submit will be assumed to be licensed under the
+	same terms as the original file you modified.</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pr-writing-filling-template"></a>4.4. Filling out the Form</h3></div></div></div><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">The email address you use will become public
+	  information and may become available to spammers.  You
+	  should either have spam handling procedures in place, or
+	  use a temporary email account.  However, please note
+	  that if you do not use a valid email account at all, we
+	  will not be able to ask you questions about your
+	  PR.</p></div><p>When you file a bug, you will find the following
+	fields:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><span class="emphasis"><em>Summary:</em></span> Fill this out with a
+	    short and accurate description of the problem.  The
+	    synopsis is used as the subject of the problem report
+	    email, and is used in problem report listings and
+	    summaries; problem reports with obscure synopses tend to
+	    get ignored.</p></li><li class="listitem"><p><span class="emphasis"><em>Severity:</em></span> One of
+	    <code class="literal">Affects only me</code>,
+	    <code class="literal">Affects some people</code> or <code class="literal">Affects
+	      many people</code>.
+	    Do not overreact; refrain from labeling your problem
+	    <code class="literal">Affects many people</code> unless it really
+	    does.  FreeBSD developers will not
+	    necessarily work on your problem faster if you inflate its
+	    importance since there are so many other people who have
+	    done exactly that.</p></li><li class="listitem"><p><span class="emphasis"><em>Category:</em></span> Choose an appropriate
+	    category.</p><p>The first thing you need to do is to decide what part
+	    of the system your problem lies in.  Remember, FreeBSD is a
+	    complete operating system, which installs both a kernel,
+	    the standard libraries, many peripheral drivers, and a
+	    large number of utilities (the
+	    <span class="quote">&#8220;<span class="quote">base system</span>&#8221;</span>).  However, there are thousands
+	    of additional applications in the Ports Collection.
+	    You'll first need to decide if the problem is in the base
+	    system or something installed via the Ports
+	    Collection.</p><p>Here is a description of the major categories:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem"><p>If a problem is with the kernel, the libraries
+		(such as standard C library <code class="literal">libc</code>),
+		or a peripheral driver in the base system, in general
+		you will use the <code class="literal">kern</code> category.
+		(There are a few exceptions; see below).  In general
+		these are things that are described in section 2, 3,
+		or 4 of the manual pages.</p></li><li class="listitem"><p>If a problem is with a binary program such as
+		<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sh&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sh</span>(1)</span></a> or <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mount&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mount</span>(8)</span></a>, you will first need to
+		determine whether these programs are in the base
+		system or were added via the Ports Collection.  If you
+		are unsure, you can do <code class="command">whereis
+		  <em class="replaceable"><code>programname</code></em></code>.
+		FreeBSD's convention for the Ports Collection is to
+		install everything underneath
+		<code class="filename">/usr/local</code>,
+		although this can be overridden by a system
+		administrator.  For these, you will use the
+		<code class="literal">ports</code> category (yes, even if the
+		port's category is <code class="literal">www</code>; see below).
+		If the location is
+		<code class="filename">/bin</code>,
+		<code class="filename">/usr/bin</code>,
+		<code class="filename">/sbin</code>, or
+		<code class="filename">/usr/sbin</code>, it
+		is part of the base system, and you should use the
+		<code class="literal">bin</code> category.  These are all things
+		that are described in section 1 or 8 of the manual
+		pages.</p></li><li class="listitem"><p>If you believe that the error is in the startup
+		<code class="literal">(rc)</code> scripts, or in some kind of
+		other non-executable configuration file, then the
+		right category is <code class="literal">conf</code>
+		(configuration).  These are things that are described
+		in section 5 of the manual pages.</p></li><li class="listitem"><p>If you have found a problem in the documentation
+		set (articles, books, man pages) or website the
+		correct choice is <code class="literal">docs</code>.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">if you are having a problem with something from
+		  a port named
+		  <code class="literal">www/<em class="replaceable"><code>someportname</code></em></code>,
+		  this nevertheless goes in the
+		  <code class="literal">ports</code> category.</p></div></li></ul></div><p>There are a few more specialized categories.</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem"><p>If the problem would otherwise be filed in
+		<code class="literal">kern</code> but has to do with the USB
+		subsystem, the correct choice is
+		<code class="literal">usb</code>.</p></li><li class="listitem"><p>If the problem would otherwise be filed in
+		<code class="literal">kern</code> but has to do with the
+		threading libraries, the correct choice is
+		<code class="literal">threads</code>.</p></li><li class="listitem"><p>If the problem would otherwise be in the base
+		system, but has to do with our adherence to standards
+		such as <span class="trademark">POSIX</span>®, the correct choice is
+		<code class="literal">standards</code>.</p></li><li class="listitem"><p>If you are convinced that the problem will only
+		occur under the processor architecture you are using,
+		select one of the architecture-specific categories:
+		commonly <code class="literal">i386</code> for Intel-compatible
+		machines in 32-bit mode; <code class="literal">amd64</code> for
+		AMD machines running in 64-bit mode (this also
+		includes Intel-compatible machines running in EMT64
+		mode); and less commonly <code class="literal">arm</code> or
+		<code class="literal">powerpc</code>.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">These categories are quite often misused for
+		  <span class="quote">&#8220;<span class="quote">I do not know</span>&#8221;</span> problems.  Rather than
+		  guessing, please just use
+		  <code class="literal">misc</code>.</p></div><div class="example"><a id="idp47290872"></a><div class="example-title">Example 1. Correct Use of Arch-Specific Category</div><div class="example-contents"><p>You have a common PC-based machine, and think
+		  you have encountered a problem specific to a
+		  particular chipset or a particular motherboard:
+		  <code class="literal">i386</code> is the right
+		  category.</p></div></div><br class="example-break" /><div class="example"><a id="idp47309304"></a><div class="example-title">Example 2. Incorrect Use of Arch-Specific Category</div><div class="example-contents"><p>You are having a problem with an add-in
+		  peripheral card on a commonly seen bus, or a problem
+		  with a particular type of hard disk drive: in this
+		  case, it probably applies to more than one
+		  architecture, and <code class="literal">kern</code> is the
+		  right category.</p></div></div><br class="example-break" /></li><li class="listitem"><p>If you really do not know where the problem lies
+		(or the explanation does not seem to fit into the ones
+		above), use the <code class="literal">misc</code> category.
+		Before you do so, you may wish to ask for help on the
+		<a class="link" href="http://lists.FreeBSD.org/mailman/listinfo/freebsd-questions" target="_top">FreeBSD general questions mailing list</a> first.  You may be advised that one of
+		the existing categories really is a better
+		choice.</p></li></ul></div></li><li class="listitem"><p><span class="emphasis"><em>Environment:</em></span>  This should
+	    describe, as accurately as possible, the environment in
+	    which the problem has been observed.  This includes the
+	    operating system version, the version of the specific
+	    program or file that contains the problem, and any other
+	    relevant items such as system configuration, other
+	    installed software that influences the problem,
+	    etc.&#8212;quite simply everything a developer needs to
+	    know to reconstruct the environment in which the problem
+	    occurs.</p></li><li class="listitem"><p><span class="emphasis"><em>Description:</em></span>A complete and
+	    accurate description of the problem you are experiencing.
+	    Try to avoid speculating about the causes of the problem
+	    unless you are certain that you are on the right track, as
+	    it may mislead a developer into making incorrect
+	    assumptions about the problem.  It should include the
+	    actions you need to take to reproduce the problem.  If you
+	    know any workaround, include it.  It not only helps other
+	    people with
+	    the same problem work around it, but may also help a
+	    developer understand the cause for the problem.</p></li></ul></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="pr-prep.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="pr-followup.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">3. Preparations </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 5. Follow-up</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

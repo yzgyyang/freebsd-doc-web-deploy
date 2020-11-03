@@ -2,7 +2,7 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
   <channel>
     <title>FreeBSD News Flash</title>
-    <link>http://www.FreeBSD.org/ja/news/</link>
+    <link>https://www.FreeBSD.org/ja/news/</link>
     <description>FreeBSD プロジェクトの最新ニュース</description>
     <language>ja-jp</language>
     <webMaster>freebsd-www@FreeBSD.org (Webmaster Team)</webMaster>
@@ -10,73 +10,76 @@
     <docs>http://blogs.law.harvard.edu/tech/rss</docs>
     <ttl>120</ttl>
     <image>
-      <url>http://www.FreeBSD.org/logo/logo-full.png</url>
+      <url>https://www.FreeBSD.org/logo/logo-full.png</url>
       <title>FreeBSD News Flash</title>
-      <link>http://www.FreeBSD.org/ja/news/</link>
+      <link>https://www.FreeBSD.org/ja/news/</link>
     </image>
-    <atom:link href="http://www.FreeBSD.org/ja/news/rss.xml" rel="self" type="application/rss+xml"/>
+    <atom:link href="https://www.FreeBSD.org/ja/news/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
-      <title>FreeBSD〓12.0-BETA3 公開</title>
-      <description>FreeBSD〓12.0 リリースサイクルから 3 回目の BETA ビルドが公開されました (アナウンス)。 FreeBSD ミラーサイト から amd64, armv6, armv7, arm64, i386, powerpc, powerpc64 および sparc64 アーキテクチャの ISO イメージを入手できます。</description>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20181103:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20181103:01</guid>
-      <pubDate>Sat, 3 Nov 2018 00:00:00 PST</pubDate>
+      <title>新コミッタ就任: Mikaël Urankar (ports)</title>
+      <link>https://www.FreeBSD.org/ja/news/newsflash.html#event20200110:01</link>
+      <guid>https://www.FreeBSD.org/ja/news/newsflash.html#event20200110:01</guid>
+      <pubDate>Fri, 10 Jan 2020 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>FreeBSD〓12.0-BETA2 公開</title>
-      <description>FreeBSD〓12.0 リリースサイクルから 2 回目の BETA ビルドが公開されました (アナウンス)。 FreeBSD ミラーサイト から amd64, armv6, armv7, arm64, i386, powerpc, powerpc64, powerpcspe および sparc64 アーキテクチャの ISO イメージを入手できます。</description>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20181027:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20181027:01</guid>
-      <pubDate>Sat, 27 Oct 2018 00:00:00 PST</pubDate>
+      <title>新コミッタ就任: Loïc Bartoletti (ports)</title>
+      <link>https://www.FreeBSD.org/ja/news/newsflash.html#event20200102:01</link>
+      <guid>https://www.FreeBSD.org/ja/news/newsflash.html#event20200102:01</guid>
+      <pubDate>Thu, 2 Jan 2020 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>FreeBSD〓12.0-BETA1 公開</title>
-      <description>FreeBSD〓12.0 リリースサイクルから最初の BETA ビルドが公開されました (アナウンス)。 FreeBSD ミラーサイト から amd64, armv6, armv7, arm64, i386, powerpc, powerpc64 および sparc64 アーキテクチャの ISO イメージを入手できます。</description>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20181020:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20181020:01</guid>
-      <pubDate>Sat, 20 Oct 2018 00:00:00 PST</pubDate>
+      <title>開発進捗レポート (2019 年 7 月 〓 9 月) 公開</title>
+      <description>2019 年 7 月 〓 9 月開発進捗レポート が公開されました。</description>
+      <link>https://www.FreeBSD.org/ja/news/newsflash.html#event20191125:01</link>
+      <guid>https://www.FreeBSD.org/ja/news/newsflash.html#event20191125:01</guid>
+      <pubDate>Mon, 25 Nov 2019 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>新コミッタ就任: Thomas Munro (src)</title>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20181016:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20181016:01</guid>
-      <pubDate>Tue, 16 Oct 2018 00:00:00 PST</pubDate>
+      <title>FreeBSD〓12.1-RELEASE 公開</title>
+      <description>FreeBSD 12.1-RELEASE が公開されました。 インストール前に リリースノート および リリース Errata を読み、12.1 に関する最新情報や問題点などを確認してください。 FreeBSD のリリースに関するより詳しい情報については リリース情報 をご覧ください。</description>
+      <link>https://www.FreeBSD.org/ja/news/newsflash.html#event20191104:01</link>
+      <guid>https://www.FreeBSD.org/ja/news/newsflash.html#event20191104:01</guid>
+      <pubDate>Mon, 4 Nov 2019 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>新コミッタ就任: Yuri Pankov (src)</title>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20181009:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20181009:01</guid>
-      <pubDate>Tue, 9 Oct 2018 00:00:00 PST</pubDate>
+      <title>FreeBSD〓12.1-RC2 公開</title>
+      <description>FreeBSD〓12.1 リリースサイクルから 2 回目のリリース候補版が公開されました (アナウンス)。 FreeBSD ミラーサイト から amd64, armv6, armv7, arm64, i386, powerpc, powerpc64, powerpcspe および sparc64 アーキテクチャの ISO イメージを入手できます。</description>
+      <link>https://www.FreeBSD.org/ja/news/newsflash.html#event20191018:01</link>
+      <guid>https://www.FreeBSD.org/ja/news/newsflash.html#event20191018:01</guid>
+      <pubDate>Fri, 18 Oct 2019 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>新コミッタ就任: Vinícius Zavam (ports)</title>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20181008:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20181008:01</guid>
-      <pubDate>Mon, 8 Oct 2018 00:00:00 PST</pubDate>
+      <title>FreeBSD〓12.1-RC1 公開</title>
+      <description>FreeBSD〓12.1 リリースサイクルから最初のリリース候補版が公開されました (アナウンス)。 FreeBSD ミラーサイト から amd64, armv6, armv7, arm64, i386, powerpc, powerpc64, powerpcspe および sparc64 アーキテクチャの ISO イメージを入手できます。</description>
+      <link>https://www.FreeBSD.org/ja/news/newsflash.html#event20191011:01</link>
+      <guid>https://www.FreeBSD.org/ja/news/newsflash.html#event20191011:01</guid>
+      <pubDate>Fri, 11 Oct 2019 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>新コミッタ就任: Alexandre C. Guimaraes (ports)</title>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20181001:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20181001:01</guid>
-      <pubDate>Mon, 1 Oct 2018 00:00:00 PST</pubDate>
+      <title>新コミッタ就任: Alex Samorukov (ports)</title>
+      <link>https://www.FreeBSD.org/ja/news/newsflash.html#event20191011:02</link>
+      <guid>https://www.FreeBSD.org/ja/news/newsflash.html#event20191011:02</guid>
+      <pubDate>Fri, 11 Oct 2019 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>新コミッタ就任: Sergey Kozlov (ports)</title>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180921:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180921:01</guid>
-      <pubDate>Fri, 21 Sep 2018 00:00:00 PST</pubDate>
+      <title>FreeBSD〓12.1-BETA3 公開</title>
+      <description>FreeBSD〓12.1 リリースサイクルから 3 回目のベータ版が公開されました (アナウンス)。 FreeBSD ミラーサイト から amd64, armv6, armv7, arm64, i386, powerpc, powerpc64, powerpcspe および sparc64 アーキテクチャの ISO イメージを入手できます。</description>
+      <link>https://www.FreeBSD.org/ja/news/newsflash.html#event20191004:01</link>
+      <guid>https://www.FreeBSD.org/ja/news/newsflash.html#event20191004:01</guid>
+      <pubDate>Fri, 4 Oct 2019 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>新コミッタ就任: Emmanuel Vadot (ports)</title>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180906:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180906:01</guid>
-      <pubDate>Thu, 6 Sep 2018 00:00:00 PST</pubDate>
+      <title>FreeBSD〓12.1-BETA2 公開</title>
+      <description>FreeBSD〓12.1 リリースサイクルから 2 回目のベータ版が公開されました (アナウンス)。 FreeBSD ミラーサイト から amd64, armv6, armv7, arm64, i386, powerpc, powerpc64, powerpcspe および sparc64 アーキテクチャの ISO イメージを入手できます。</description>
+      <link>https://www.FreeBSD.org/ja/news/newsflash.html#event20190928:01</link>
+      <guid>https://www.FreeBSD.org/ja/news/newsflash.html#event20190928:01</guid>
+      <pubDate>Sat, 28 Sep 2019 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>新コミッタ就任: Kevin Bowling (ports)</title>
-      <link>http://www.FreeBSD.org/ja/news/newsflash.html#event20180902:01</link>
-      <guid>http://www.FreeBSD.org/ja/news/newsflash.html#event20180902:01</guid>
-      <pubDate>Sun, 2 Sep 2018 00:00:00 PST</pubDate>
+      <title>新コミッタ就任: Pawel Biernacki (src)</title>
+      <link>https://www.FreeBSD.org/ja/news/newsflash.html#event20190926:01</link>
+      <guid>https://www.FreeBSD.org/ja/news/newsflash.html#event20190926:01</guid>
+      <pubDate>Thu, 26 Sep 2019 00:00:00 PST</pubDate>
     </item>
   </channel>
 </rss>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>7.7. Concurrent Servers</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Developers' Handbook" /><link rel="up" href="sockets.html" title="Chapter 7. Sockets" /><link rel="prev" href="sockets-helper-functions.html" title="7.6. Helper Functions" /><link rel="next" href="ipv6.html" title="Chapter 8. IPv6 Internals" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">7.7. Concurrent Servers</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="sockets-helper-functions.html">Prev</a> </td><th width="60%" align="center">Chapter 7. Sockets</th><td width="20%" align="right"> <a accesskey="n" href="ipv6.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="sockets-concurrent-servers"></a>7.7. Concurrent Servers</h2></div></div></div><p>Unlike a sequential server, a <span class="emphasis"><em>concurrent
+	server</em></span> has to be able to serve more than one client
+      at a time.  For example, a <span class="emphasis"><em>chat server</em></span> may
+      be serving a specific client for hours&#8212;it cannot wait till
+      it stops serving a client before it serves the next one.</p><p>This requires a significant change in our flowchart:</p><div class="mediaobject"><img src="sockets/serv2.png" alt="Concurrent Server" /></div><p>We moved the <span class="emphasis"><em>serve</em></span> from the
+      <span class="emphasis"><em>daemon process</em></span> to its own <span class="emphasis"><em>server
+	process</em></span>.  However, because each child process
+      inherits all open files (and a socket is treated just like a
+      file), the new process inherits not only the
+      <span class="emphasis"><em><span class="quote">&#8220;<span class="quote">accepted handle,</span>&#8221;</span></em></span> i.e., the
+      socket returned by the <code class="function">accept</code> call, but
+      also the <span class="emphasis"><em>top socket</em></span>, i.e., the one opened
+      by the top process right at the beginning.</p><p>However, the <span class="emphasis"><em>server process</em></span> does not
+      need this socket and should <code class="function">close</code> it
+      immediately.  Similarly, the <span class="emphasis"><em>daemon process</em></span>
+      no longer needs the <span class="emphasis"><em>accepted socket</em></span>, and
+      not only should, but <span class="emphasis"><em>must</em></span>
+      <code class="function">close</code> it&#8212;otherwise, it will run out
+      of available <span class="emphasis"><em>file descriptors</em></span> sooner or
+      later.</p><p>After the <span class="emphasis"><em>server process</em></span> is done
+      serving, it should close the <span class="emphasis"><em>accepted
+	socket</em></span>.  Instead of returning to
+      <code class="function">accept</code>, it now exits.</p><p>Under <span class="trademark">UNIX</span>®, a process does not really
+      <span class="emphasis"><em>exit</em></span>.  Instead, it
+      <span class="emphasis"><em>returns</em></span> to its parent.  Typically, a parent
+      process <code class="function">wait</code>s for its child process, and
+      obtains a return value.  However, our <span class="emphasis"><em>daemon
+	process</em></span> cannot simply stop and wait.  That would
+      defeat the whole purpose of creating additional processes.  But
+      if it never does <code class="function">wait</code>, its children will
+      become <span class="emphasis"><em>zombies</em></span>&#8212;no longer functional
+      but still roaming around.</p><p>For that reason, the <span class="emphasis"><em>daemon process</em></span>
+      needs to set <span class="emphasis"><em>signal handlers</em></span> in its
+      <span class="emphasis"><em>initialize daemon</em></span> phase.  At least a
+      <span class="symbol">SIGCHLD</span> signal has to be processed, so the
+      daemon can remove the zombie return values from the system and
+      release the system resources they are taking up.</p><p>That is why our flowchart now contains a <span class="emphasis"><em>process
+	signals</em></span> box, which is not connected to any other
+      box.  By the way, many servers also process
+      <span class="symbol">SIGHUP</span>, and typically interpret as the signal
+      from the superuser that they should reread their configuration
+      files.  This allows us to change settings without having to kill
+      and restart these servers.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="sockets-helper-functions.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="sockets.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ipv6.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">7.6. Helper Functions </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 8. IPv6 Internals</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

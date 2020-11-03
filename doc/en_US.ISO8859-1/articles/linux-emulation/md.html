@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>4. Linux® emulation layer -MD part</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Linux® emulation in FreeBSD" /><link rel="up" href="index.html" title="Linux® emulation in FreeBSD" /><link rel="prev" href="freebsd-emulation.html" title="3. Emulation" /><link rel="next" href="mi.html" title="5. Linux® emulation layer -MI part" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">4. <span class="trademark">Linux</span>® emulation layer -MD part</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="freebsd-emulation.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="mi.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="md"></a>4. <span class="trademark">Linux</span>® emulation layer -MD part</h2></div></div></div><p>This section deals with implementation of <span class="trademark">Linux</span>® emulation
+      layer in FreeBSD operating system.  It first describes the machine
+      dependent part talking about how and where interaction between
+      userland and kernel is implemented.  It talks about syscalls,
+      signals, ptrace, traps, stack fixup.  This part discusses i386
+      but it is written generally so other architectures should not
+      differ very much.  The next part is the machine independent part
+      of the Linuxulator.  This section only covers i386 and ELF
+      handling.  A.OUT is obsolete and untested.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="syscall-handling"></a>4.1. Syscall handling</h3></div></div></div><p>Syscall handling is mostly written in
+	<code class="filename">linux_sysvec.c</code>, which covers most of the
+	routines pointed out in the <code class="literal">sysentvec</code>
+	structure.  When a <span class="trademark">Linux</span>® process running on FreeBSD issues a
+	syscall, the general syscall routine calls linux prepsyscall
+	routine for the <span class="trademark">Linux</span>® ABI.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="linux-prepsyscall"></a>4.1.1. <span class="trademark">Linux</span>® prepsyscall</h4></div></div></div><p><span class="trademark">Linux</span>® passes arguments to syscalls via registers (that
+	  is why it is limited to 6 parameters on i386) while FreeBSD
+	  uses the stack.  The <span class="trademark">Linux</span>® prepsyscall routine must copy
+	  parameters from registers to the stack.  The order of the
+	  registers is: <code class="varname">%ebx</code>,
+	  <code class="varname">%ecx</code>, <code class="varname">%edx</code>,
+	  <code class="varname">%esi</code>, <code class="varname">%edi</code>,
+	  <code class="varname">%ebp</code>.  The catch is that this is true for
+	  only <span class="emphasis"><em>most</em></span> of the syscalls.  Some (most
+	  notably <code class="function">clone</code>) uses a different order
+	  but it is luckily easy to fix by inserting a dummy parameter
+	  in the <code class="function">linux_clone</code> prototype.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="syscall-writing"></a>4.1.2. Syscall writing</h4></div></div></div><p>Every syscall implemented in the Linuxulator must have
+	  its prototype with various flags in
+	  <code class="filename">syscalls.master</code>.  The form of the file
+	  is:</p><pre class="programlisting">...
+	AUE_FORK STD		{ int linux_fork(void); }
+...
+	AUE_CLOSE NOPROTO	{ int close(int fd); }
+...</pre><p>The first column represents the syscall number.  The
+	  second column is for auditing support.  The third column
+	  represents the syscall type.  It is either
+	  <code class="literal">STD</code>, <code class="literal">OBSOL</code>,
+	  <code class="literal">NOPROTO</code> and <code class="literal">UNIMPL</code>.
+	  <code class="literal">STD</code> is a standard syscall with full
+	  prototype and implementation.  <code class="literal">OBSOL</code> is
+	  obsolete and defines just the prototype.
+	  <code class="literal">NOPROTO</code> means that the syscall is
+	  implemented elsewhere so do not prepend ABI prefix, etc.
+	  <code class="literal">UNIMPL</code> means that the syscall will be
+	  substituted with the <code class="function">nosys</code> syscall (a
+	  syscall just printing out a message about the syscall not
+	  being implemented and returning
+	  <code class="literal">ENOSYS</code>).</p><p>From <code class="filename">syscalls.master</code> a script
+	  generates three files: <code class="filename">linux_syscall.h</code>,
+	  <code class="filename">linux_proto.h</code> and
+	  <code class="filename">linux_sysent.c</code>.  The
+	  <code class="filename">linux_syscall.h</code> contains definitions of
+	  syscall names and their numerical value, e.g.:</p><pre class="programlisting">...
+#define LINUX_SYS_linux_fork 2
+...
+#define LINUX_SYS_close 6
+...</pre><p>The <code class="filename">linux_proto.h</code> contains
+	  structure definitions of arguments to every syscall,
+	  e.g.:</p><pre class="programlisting">struct linux_fork_args {
+  register_t dummy;
+};</pre><p>And finally, <code class="filename">linux_sysent.c</code>
+	  contains structure describing the system entry table, used
+	  to actually dispatch a syscall, e.g.:</p><pre class="programlisting">{ 0, (sy_call_t *)linux_fork, AUE_FORK, NULL, 0, 0 }, /* 2 = linux_fork */
+{ AS(close_args), (sy_call_t *)close, AUE_CLOSE, NULL, 0, 0 }, /* 6 = close */</pre><p>As you can see <code class="function">linux_fork</code> is
+	  implemented in Linuxulator itself so the definition is of
+	  <code class="literal">STD</code> type and has no argument, which is
+	  exhibited by the dummy argument structure.  On the other
+	  hand <code class="function">close</code> is just an alias for real
+	  FreeBSD <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=close&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">close</span>(2)</span></a> so it has no linux arguments structure
+	  associated and in the system entry table it is not prefixed
+	  with linux as it calls the real <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=close&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">close</span>(2)</span></a> in the
+	  kernel.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="dummy-syscalls"></a>4.1.3. Dummy syscalls</h4></div></div></div><p>The <span class="trademark">Linux</span>® emulation layer is not complete, as some
+	  syscalls are not implemented properly and some are not
+	  implemented at all.  The emulation layer employs a facility
+	  to mark unimplemented syscalls with the
+	  <code class="literal">DUMMY</code> macro.  These dummy definitions
+	  reside in <code class="filename">linux_dummy.c</code> in a form of
+	  <code class="literal">DUMMY(syscall);</code>, which is then translated
+	  to various syscall auxiliary files and the implementation
+	  consists of printing a message saying that this syscall is
+	  not implemented.  The <code class="literal">UNIMPL</code> prototype is
+	  not used because we want to be able to identify the name of
+	  the syscall that was called in order to know what syscalls
+	  are more important to implement.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="signal-handling"></a>4.2. Signal handling</h3></div></div></div><p>Signal handling is done generally in the FreeBSD kernel for
+	all binary compatibilities with a call to a compat-dependent
+	layer.  <span class="trademark">Linux</span>® compatibility layer defines
+	<code class="function">linux_sendsig</code> routine for this
+	purpose.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="linux-sendsig"></a>4.2.1. <span class="trademark">Linux</span>® sendsig</h4></div></div></div><p>This routine first checks whether the signal has been
+	  installed with a <code class="literal">SA_SIGINFO</code> in which case
+	  it calls <code class="function">linux_rt_sendsig</code> routine
+	  instead.  Furthermore, it allocates (or reuses an already
+	  existing) signal handle context, then it builds a list of
+	  arguments for the signal handler.  It translates the signal
+	  number based on the signal translation table, assigns a
+	  handler, translates sigset.  Then it saves context for the
+	  <code class="function">sigreturn</code> routine (various registers,
+	  translated trap number and signal mask).  Finally, it copies
+	  out the signal context to the userspace and prepares context
+	  for the actual signal handler to run.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="linux-rt-sendsig"></a>4.2.2. linux_rt_sendsig</h4></div></div></div><p>This routine is similar to
+	  <code class="function">linux_sendsig</code> just the signal context
+	  preparation is different.  It adds
+	  <code class="literal">siginfo</code>, <code class="literal">ucontext</code>, and
+	  some <span class="trademark">POSIX</span>® parts.  It might be worth considering whether
+	  those two functions could not be merged with a benefit of
+	  less code duplication and possibly even faster
+	  execution.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="linux-sigreturn"></a>4.2.3. linux_sigreturn</h4></div></div></div><p>This syscall is used for return from the signal handler.
+	  It does some security checks and restores the original
+	  process context.  It also unmasks the signal in process
+	  signal mask.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="ptrace"></a>4.3. Ptrace</h3></div></div></div><p>Many <span class="trademark">UNIX</span>® derivates implement the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ptrace&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ptrace</span>(2)</span></a> syscall
+	in order to allow various tracking and debugging features.
+	This facility enables the tracing process to obtain various
+	information about the traced process, like register dumps, any
+	memory from the process address space, etc. and also to trace
+	the process like in stepping an instruction or between system
+	entries (syscalls and traps).  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ptrace&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ptrace</span>(2)</span></a> also lets you
+	set various information in the traced process (registers
+	etc.).  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ptrace&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ptrace</span>(2)</span></a> is a <span class="trademark">UNIX</span>®-wide standard implemented
+	in most <span class="trademark">UNIX</span>®es around the world.</p><p><span class="trademark">Linux</span>® emulation in FreeBSD implements the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ptrace&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ptrace</span>(2)</span></a>
+	facility in <code class="filename">linux_ptrace.c</code>.  The routines
+	for converting registers between <span class="trademark">Linux</span>® and FreeBSD and the
+	actual <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ptrace&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ptrace</span>(2)</span></a> syscall emulation syscall.  The syscall
+	is a long switch block that implements its counterpart in FreeBSD
+	for every <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ptrace&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ptrace</span>(2)</span></a> command.  The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ptrace&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ptrace</span>(2)</span></a> commands
+	are mostly equal between <span class="trademark">Linux</span>® and FreeBSD so usually just a
+	small modification is needed.  For example,
+	<code class="literal">PT_GETREGS</code> in <span class="trademark">Linux</span>® operates on direct
+	data while FreeBSD uses a pointer to the data so after performing
+	a (native) <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ptrace&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ptrace</span>(2)</span></a> syscall, a copyout must be done to
+	preserve <span class="trademark">Linux</span>® semantics.</p><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ptrace&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ptrace</span>(2)</span></a> implementation in Linuxulator has some
+	known weaknesses.  There have been panics seen when using
+	<code class="command">strace</code> (which is a <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ptrace&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ptrace</span>(2)</span></a> consumer)
+	in the Linuxulator environment.  Also
+	<code class="literal">PT_SYSCALL</code> is not implemented.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="traps"></a>4.4. Traps</h3></div></div></div><p>Whenever a <span class="trademark">Linux</span>® process running in the emulation layer
+	traps the trap itself is handled transparently with the only
+	exception of the trap translation.  <span class="trademark">Linux</span>® and FreeBSD differs
+	in opinion on what a trap is so this is dealt with here.  The
+	code is actually very short:</p><pre class="programlisting">static int
+translate_traps(int signal, int trap_code)
+{
+
+  if (signal != SIGBUS)
+    return signal;
+
+  switch (trap_code) {
+
+    case T_PROTFLT:
+    case T_TSSFLT:
+    case T_DOUBLEFLT:
+    case T_PAGEFLT:
+      return SIGSEGV;
+
+    default:
+      return signal;
+  }
+}</pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="stack-fixup"></a>4.5. Stack fixup</h3></div></div></div><p>The RTLD run-time link-editor expects so called AUX tags
+	on stack during an <code class="function">execve</code> so a fixup must
+	be done to ensure this.  Of course, every RTLD system is
+	different so the emulation layer must provide its own stack
+	fixup routine to do this.  So does Linuxulator.  The
+	<code class="function">elf_linux_fixup</code> simply copies out AUX
+	tags to the stack and adjusts the stack of the user space
+	process to point right after those tags.  So RTLD works in a
+	smart way.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="aout-support"></a>4.6. A.OUT support</h3></div></div></div><p>The <span class="trademark">Linux</span>® emulation layer on i386 also supports <span class="trademark">Linux</span>®
+	A.OUT binaries.  Pretty much everything described in the
+	previous sections must be implemented for A.OUT support
+	(beside traps translation and signals sending).  The support
+	for A.OUT binaries is no longer maintained, especially the 2.6
+	emulation does not work with it but this does not cause any
+	problem, as the linux-base in ports probably do not support
+	A.OUT binaries at all.  This support will probably be removed
+	in future.  Most of the stuff necessary for loading <span class="trademark">Linux</span>®
+	A.OUT binaries is in <code class="filename">imgact_linux.c</code>
+	file.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="freebsd-emulation.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="mi.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">3. Emulation </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 5. <span class="trademark">Linux</span>® emulation layer -MI part</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

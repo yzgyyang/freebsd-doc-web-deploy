@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">Search</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="//www.FreeBSD.org/cgi/man.cgi">Manual Pages</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">Presentations and Papers</a>
                   </li>
                   <li>
                     <a href="../doc/en_US.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
@@ -231,6 +233,9 @@
                   <a href="//www.FreeBSD.org/cgi/man.cgi">Manual Pages</a>
                 </li>
                 <li>
+                  <a href="https://papers.FreeBSD.org">Presentations and Papers</a>
+                </li>
+                <li>
                   <a href="../docs/books.html">Books and Articles Online</a>
                 </li>
                 <li>
@@ -253,260 +258,136 @@
           </div>
           <div id="contentwrap"><h1>FreeBSD Code of Conduct</h1>
 
-    <h2>FreeBSD Code of Conduct</h2>
+    <h2>FreeBSD Community Code of Conduct</h2>
 
-    <p>The FreeBSD Project is inclusive.  We want the FreeBSD Project
-      to be a venue where people of all backgrounds can work together
-      to make the best operating system, built by a strong community.
-      These values extend beyond just development to all aspects of
-      the Project.  All those given recognition as members of the
-      Project in whatever form are seen as ambassadors of the
-      Project.</p>
-
-    <p>Diversity is a huge strength and is critical to the long term
-      success of the Project.  To that end we have a few ground rules
-      that we ask people to adhere to.  This code applies equally to
-      everyone representing the FreeBSD Project in any way, from new
-      members, to committers, to the core team itself.  These rules
-      are intended to ensure a safe, harassment-free environment for
-      all and to ensure that everyone feels welcome both working
-      within, and interacting with, the Project.</p>
-
-    <p>This document is not an exhaustive list of things that you
-      should not do.  Rather, consider it a guide to make it easier to
-      enrich all of us and the technical communities in which we
-      participate.</p>
-
-    <p>This code of conduct applies to all spaces used by the FreeBSD
-      Project, including our mailing lists, IRC channels, and social
-      media, both online and off.  Anyone who is found to violate this
-      code of conduct may be sanctioned or expelled from FreeBSD
-      Project controlled spaces at the discretion of the FreeBSD Code
-      of Conduct Committee.</p>
-
-    <p>Some FreeBSD Project spaces may have additional rules in place,
-      which will be made clearly available to participants.
-      Participants are responsible for knowing and abiding by these
-      rules.  Harassment includes but is not limited to:</p>
+    <p>The FreeBSD community has always worked to be a welcoming and
+      respectful community, and we want to ensure that doesn't change
+      as we grow and evolve. To that end, we have a few ground rules
+      that we ask people to adhere to:</p>
 
     <ul>
-      <li>Comments that reinforce systemic oppression related to
-	gender, gender identity and expression, sexual orientation,
-	disability, mental illness, neurodiversity, physical
-	appearance, body size, age, race, or religion.</li>
+      <li>be friendly and patient,</li>
 
-      <li>Unwelcome comments regarding a person's lifestyle choices
-	and practices, including those related to food, health,
-	parenting, drugs, and employment.</li>
+      <li>be welcoming,</li>
 
-      <li>Deliberate misgendering.</li>
+      <li>be considerate,</li>
 
-      <li>Deliberate use of "dead" or rejected names.</li>
+      <li>be respectful,</li>
 
-      <li>Gratuitous or off-topic sexual images or behaviour in spaces
-	where they're not appropriate.</li>
+      <li>be careful in the words that you choose and be kind to
+	others,</li>
 
-      <li>Physical contact and simulated physical contact (e.g.,
-	textual descriptions like "*hug*" or
-	"*backrub*") without consent or after a request
-	to stop.</li>
-
-      <li>Threats of violence.</li>
-
-      <li>Incitement of violence towards any individual, including
-	encouraging a person to commit suicide or to engage in
-	self-harm.</li>
-
-      <li>Deliberate intimidation.</li>
-
-      <li>Stalking or following.</li>
-
-      <li>Harassing photography or recording, including logging online
-	activity for harassment purposes.</li>
-
-      <li>Sustained disruption of discussion.</li>
-
-      <li>Unwelcome sexual attention.</li>
-
-      <li>Pattern of inappropriate social contact, such as
-	requesting/assuming inappropriate levels of intimacy with
-	others.</li>
-
-      <li>Continued one-on-one communication after requests to
-	cease.</li>
-
-      <li>Deliberate "outing" of any private aspect of a
-	person's identity without their consent except as necessary to
-	protect vulnerable people from intentional abuse.</li>
-
-      <li>Publication of non-harassing private communication without
-	consent.</li>
-
-      <li>Publication of non-harassing private communication with
-	consent but in a way that intentionally misrepresents the
-	communication (e.g., removes context that changes the
-	meaning).</li>
-
-      <li>Knowingly making harmful false claims about a person.</li>
+      <li>when we disagree, try to understand why.</li>
     </ul>
 
-    <h2>Reporting Instructions</h2>
+    <p>This isn't an exhaustive list of things that you can't do.
+      Rather, take it in the spirit in which it's intended - a guide
+      to make it easier to communicate and participate in the
+      community.</p>
 
-    <p>If you believe someone is violating the code of conduct we ask
-      that you report it to the FreeBSD Code of Conduct Committee by
-      emailing <a href="mailto:conduct@freebsd.org" shape="rect">conduct@freebsd.org</a>.</p>
+    <p>This code of conduct applies to all spaces managed by the FreeBSD
+      project. This includes online chat, mailing lists, bug trackers,
+      FreeBSD events such as the developer meetings and socials, and any
+      other forums created by the project that the community uses for
+      communication. It applies to all of your communication and
+      conduct in these spaces, including emails, chats, things you
+      say, slides, videos, posters, signs, or even t-shirts you
+      display in these spaces. In addition, violations of this code
+      outside these spaces may, in rare cases, affect a person's
+      ability to participate within them, when the conduct amounts to
+      an egregious violation of this code.</p>
 
-    <p>All reports will be kept confidential whenever possible.  We
-      strive to protect the identity and safety of reporters.  In some
-      cases we may need to make a public statement of some form, in
-      which case we will use the minimum of details and identifying
-      information necessary to protect our community.  In rare cases,
-      we may need to identify some of the people involved to comply
-      with the law or protect other potential victims.  In these
-      cases, we will consult with the reporter to find out what their
-      wishes are and take them into account in our final decision.  In
-      all cases, we will not directly or indirectly identify reporters
-      without their consent unless we see no other option.</p>
-
-    <p>If you believe anyone is in physical danger, please notify
-      appropriate law enforcement first.</p>
-
-    <p>In your report please include:</p>
+    <p>If you believe someone is violating the code of conduct, we ask
+      that you report it by emailing <a href="mailto:conduct@freebsd.org" shape="rect">conduct@FreeBSD.org</a>. For
+      more details please see our <a href="conduct-reporting.html" shape="rect">Reporting Guide</a>.</p>
 
     <ul>
-      <li>Your name and contact info (so we can get in touch with you
-	if we need to follow up)</li>
+      <li><b>Be friendly and patient.</b></li>
 
-      <li>Names (real, nicknames, and/or pseudonyms) of any
-	individuals involved.  If there were other witnesses besides
-	you, please try to include them as well.</li>
+      <li><b>Be welcoming.</b> We strive to be a community that
+	welcomes and supports people of all backgrounds and
+	identities. This includes, but is not limited to members of
+	any race, ethnicity, culture, national origin, color,
+	immigration status, social and economic class, educational
+	level, sex, sexual orientation, gender identity and
+	expression, age, size, family status, political belief,
+	religion or lack thereof, and mental and physical
+	ability.</li>
 
-      <li>When and where the incident occurred.  Please be as specific
-	as possible.</li>
+      <li><b>Be considerate.</b> Your work will be used by other
+	people, and you in turn will depend on the work of others. Any
+	decision you take will affect users and colleagues, and you
+	should take those consequences into account. Remember that
+	we're a world-wide community, so you might not be
+	communicating in someone else's primary language.</li>
 
-      <li>Your account of what occurred.  If there is a publicly
-	available record (e.g. a mailing list archive, tweet, or a
-	public IRC logger) please include a link and/or screen
-	shots.</li>
+      <li><b>Be respectful.</b> Not all of us will agree all the time,
+	but disagreement is no excuse for poor behavior and poor
+	manners. We might all experience some frustration now and
+	then, but we cannot allow that frustration to turn into a
+	personal attack. It's important to remember that a community
+	where people feel uncomfortable or threatened is not a
+	productive one. Members of the FreeBSD community should be
+	respectful when dealing with other members as well as with
+	people outside the FreeBSD community.</li>
 
-      <li>Any extra context you believe relevant for the
-	incident.</li>
+      <li><b>Be careful in the words that you choose and be kind to
+	others.</b> Do not insult or put down other participants.
+	Harassment and other exclusionary behavior aren't acceptable.
+	This includes, but is not limited to:
 
-      <li>If you believe this incident is ongoing.</li>
+	<ul>
+	  <li>Violent threats or language directed against another
+	    person.</li>
 
-      <li>Any other information you believe we should have.</li>
-    </ul>
+	  <li>Discriminatory jokes and language.</li>
 
-    <h2>What happens after you file a report?</h2>
+	  <li>Posting sexually explicit or violent material.</li>
 
-    <p>You will receive an email from the FreeBSD Code of Conduct
-      Committee acknowledging receipt of your report within 48
-      hours.</p>
+	  <li>Posting (or threatening to post) other people's
+	    personally identifying information ("doxing").</li>
 
-    <p>The committee will meet as quickly as possible to review the
-      incident and determine:</p>
+	  <li>Personal insults, especially those using racist or
+	    sexist terms.</li>
 
-    <ul>
-      <li>Whether an investigation is needed, including interviewing
-	additional parties or witnesses;</li>
+	  <li>Unwelcome sexual attention.</li>
 
-      <li>What appears to have happened and;</li>
+	  <li>Advocating for, or encouraging, any of the above
+	    behavior.</li></ul></li>
 
-      <li>Whether the behavior constitutes a Code of Conduct
-	violation.</li>
-    </ul>
+        <li><b>In general, if someone asks you to stop, then
+	  stop.</b> Persisting in such behavior after being asked to
+	  stop is considered harassment.</li>
 
-    <p>If a member of the FreeBSD Code of Conduct Committee is one of
-      the individuals included in the report they will recuse
-      themselves from handling the report.</p>
+	<li><b>When we disagree, try to understand why.</b>
+	  Disagreements, both social and technical, happen all the
+	  time and FreeBSD is no exception. It is important that we
+	  resolve disagreements and differing views constructively.
+	  Remember that we're different. The strength of FreeBSD comes
+	  from its varied community, people from a wide range of
+	  backgrounds. Different people have different perspectives on
+	  issues. Being unable to understand why someone holds a
+	  viewpoint doesn't mean that they're wrong. Don't forget that
+	  it is human to err and blaming each other doesn't get us
+	  anywhere. Instead, focus on helping to resolve issues and
+	  learning from mistakes.</li></ul>
 
-    <p>Once the working group has a complete account of the events
-      they will make a decision as to how to respond.  Actions taken
-      may include:</p>
+    <h2>Questions?</h2>
 
-    <ul>
-      <li>Nothing (for example, if we determine that no violation
-	occurred).</li>
+    <p>If you have questions, please feel free to contact the FreeBSD
+      Code of Conduct Committee by emailing <a href="mailto:conduct@freebsd.org" shape="rect">conduct@FreeBSD.org</a> or
+      the FreeBSD Core team <a href="mailto:core@freebsd.org" shape="rect">core@FreeBSD.org</a>.</p>
 
-      <li>If determined to be solely technical in nature or if it
-	falls outside the scope of the Code of Conduct, forwarding the
-	incident to the FreeBSD Core Team</li>
-
-      <li>A private reprimand from the working group to the
-	individual(s) involved.</li>
-
-      <li>A public reprimand.</li>
-
-      <li>An imposed vacation from FreeBSD Project controlled spaces
-	(e.g. asking someone to "take a week off" from a
-	mailing list or IRC).</li>
-
-      <li>A permanent or temporary ban from some or all FreeBSD
-	Project controlled spaces (events, meetings, mailing lists,
-	IRC, etc.)</li>
-
-      <li>A request for a public or private apology.</li>
-
-      <li>A request to engage in mediation and/or an accountability
-	plan.</li>
-    </ul>
-
-    <p>We will do our best to respond within one week to the person
-      who filed the report with either a resolution or an explanation
-      of why the situation is not yet resolved.</p>
-
-    <p>Once we have determined our final action, we will contact the
-      original reporter to let them know what action (if any) we will
-      be taking.  We will take into account feedback from the reporter
-      on the appropriateness of our response, but we do not guarantee
-      we will act on it.</p>
-
-    <p>Finally, the committee will make a report on the situation to
-      the FreeBSD Core Team.  The Core Team may choose to issue a
-      public report of the incident.</p>
-
-    <h2>Appeals</h2>
-
-    <p>Only permanent resolutions (such as bans) may be appealed.  To
-      appeal a decision of the CoC Committee, contact the FreeBSD Core
-      Team at <a href="mailto:core@freebsd.org" shape="rect">core@freebsd.org</a>
-      with your appeal and the Core Team will review the case.</p>
-
-    <h2>Glossary</h2>
-
-    <dl>
-      <dt>Systemic oppression:</dt>
-
-      <dd>
-	<p>The ways in which history, culture, ideology, public
-	  policies, institutional practices, and personal behaviors
-	  and beliefs interact to maintain a hierarchy &#8212; based
-	  on race, class, gender, sexuality, and/or other group
-	  identities &#8212; that allows the privileges associated
-	  with the dominant group and the disadvantages associated
-	  with the oppressed, targeted, or marginalized group to
-	  endure and adapt over time.  (Derived from Aspen Institute,
-	  via Open Source Leadership)</p></dd>
-
-      <dt>Dead names:</dt>
-
-      <dd>
-	<p>A name assigned to a person at birth which they no longer
-	  identify with.  Most often used to refer to the assigned
-	  name of a trans person who has publicly identified
-	  themselves under a new name.  Deliberately using a dead name
-	  is an act of hostility.</p></dd></dl>
-
-    <h2>Attribution</h2>
-
-    <p>This Code of Conduct is based on the example policy from the <a href="http://geekfeminism.wikia.com/wiki/Community_anti-harassment" shape="rect">Geek
-      Feminism wiki</a>.</p>
+    <p>(This text is based on the LLVM Project's <a href="https://llvm.org/docs/CodeOfConduct.html" shape="rect">draft
+      CoC</a>, which in turn is based on the <a href="https://www.djangoproject.com/conduct/" shape="rect">Django
+	Project</a> Code of Conduct, which is in turn based on
+      wording from the Speak Up! project.)</p>
   </div>
           <br class="clearboth" />
         </div>
         <div id="footer">
           <span><a href="../search/index-site.html">Site Map</a> |
-  <a href="../copyright/">Legal Notices</a> | © 1995&#8211;2018 The FreeBSD Project.
+  <a href="../copyright/">Legal Notices</a> | © 1995&#8211;2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

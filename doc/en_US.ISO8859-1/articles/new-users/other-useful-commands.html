@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>6. Other Useful Commands</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="For People New to Both FreeBSD and UNIX®" /><link rel="up" href="index.html" title="For People New to Both FreeBSD and UNIX®" /><link rel="prev" href="editing-text.html" title="5. Editing Text" /><link rel="next" href="next-steps.html" title="7. Next Steps" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6. Other Useful Commands</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="editing-text.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="next-steps.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="other-useful-commands"></a>6. Other Useful Commands</h2></div></div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="command">df</code></span></dt><dd><p>shows file space and mounted systems.</p></dd><dt><span class="term"><code class="command">ps aux</code></span></dt><dd><p>shows processes running.  <code class="command">ps ax</code> is
+	    a narrower form.</p></dd><dt><span class="term">
+	  <code class="command">rm
+	    <em class="replaceable"><code>filename</code></em>
+	  </code>
+	</span></dt><dd><p>remove <em class="replaceable"><code>filename</code></em>.</p></dd><dt><span class="term">
+	  <code class="command">rm -R
+	    <em class="replaceable"><code>dir</code></em>
+	  </code>
+	</span></dt><dd><p>removes a directory <em class="replaceable"><code>dir</code></em> and
+	    all subdirectories&#8212;careful!</p></dd><dt><span class="term"><code class="command">ls -R</code></span></dt><dd><p>lists files in the current directory and all
+	    subdirectories; I used a variant, <code class="command">ls -AFR &gt;
+	      where.txt</code>, to get a list of all the files in
+	    <code class="filename">/</code> and (separately)
+	    <code class="filename">/usr</code> before I found better ways to
+	    find files.</p></dd><dt><span class="term"><code class="command">passwd</code></span></dt><dd><p>to change user's password (or <code class="systemitem">root</code>'s password)</p></dd><dt><span class="term"><code class="command">man hier</code></span></dt><dd><p>manual page on the <span class="trademark">UNIX</span>® filesystem</p></dd></dl></div><p>Use <code class="command">find</code> to locate
+      <code class="filename">filename</code> in <code class="filename">/usr</code> or
+      any of its subdirectories with</p><div class="informalexample"><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>find /usr -name "<em class="replaceable"><code>filename</code></em>"</code></strong></pre></div><p>You can use <code class="literal">*</code> as a wildcard in
+      <em class="parameter"><code>"<em class="replaceable"><code>filename</code></em>"</code></em>
+      (which should be in quotes).  If you tell
+      <code class="command">find</code> to search in <code class="filename">/</code>
+      instead of <code class="filename">/usr</code> it will look for the
+      file(s) on all mounted filesystems, including the CDROM and the
+      DOS partition.</p><p>An excellent book that explains <span class="trademark">UNIX</span>® commands and
+      utilities is Abrahams &amp; Larson, <em class="citetitle">Unix for the
+	Impatient</em> (2nd ed., Addison-Wesley, 1996).  There
+      is also a lot of <span class="trademark">UNIX</span>® information on the Internet.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="editing-text.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="next-steps.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">5. Editing Text </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 7. Next Steps</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

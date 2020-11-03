@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>14.4. Fine Tuning and Administration</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="jails.html" title="Chapter 14. Jails" /><link rel="prev" href="jails-build.html" title="14.3. Creating and Controlling Jails" /><link rel="next" href="jails-application.html" title="14.5. Updating Multiple Jails" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">14.4. Fine Tuning and Administration</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="jails-build.html">Prev</a> </td><th width="60%" align="center">Chapter 14. Jails</th><td width="20%" align="right"> <a accesskey="n" href="jails-application.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="jails-tuning"></a>14.4. Fine Tuning and Administration</h2></div></div></div><p>There are several options which can be set for any jail, and
+      various ways of combining a host FreeBSD system with jails, to
+      produce higher level applications.  This section
+      presents:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Some of the options available for tuning the behavior
+	  and security restrictions implemented by a jail
+	  installation.</p></li><li class="listitem"><p>Some of the high-level applications for jail management,
+	  which are available through the FreeBSD Ports Collection, and
+	  can be used to implement overall jail-based
+	  solutions.</p></li></ul></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="jails-tuning-utilities"></a>14.4.1. System Tools for Jail Tuning in FreeBSD</h3></div></div></div><p>Fine tuning of a jail's configuration is mostly done by
+	setting <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sysctl&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sysctl</span>(8)</span></a> variables.  A special subtree of sysctl
+	exists as a basis for organizing all the relevant options: the
+	<code class="varname">security.jail.*</code> hierarchy of FreeBSD kernel
+	options.  Here is a list of the main jail-related sysctls,
+	complete with their default value.  Names should be
+	self-explanatory, but for more information about them, please
+	refer to the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jail&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jail</span>(8)</span></a> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sysctl&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sysctl</span>(8)</span></a> manual
+	pages.</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="varname">security.jail.set_hostname_allowed:
+	      1</code></p></li><li class="listitem"><p><code class="varname">security.jail.socket_unixiproute_only:
+	      1</code></p></li><li class="listitem"><p><code class="varname">security.jail.sysvipc_allowed:
+	      0</code></p></li><li class="listitem"><p><code class="varname">security.jail.enforce_statfs:
+	      2</code></p></li><li class="listitem"><p><code class="varname">security.jail.allow_raw_sockets:
+	      0</code></p></li><li class="listitem"><p><code class="varname">security.jail.chflags_allowed:
+	      0</code></p></li><li class="listitem"><p><code class="varname">security.jail.jailed: 0</code></p></li></ul></div><p>These variables can be used by the system administrator of
+	the <span class="emphasis"><em>host system</em></span> to add or remove some of
+	the limitations imposed by default on the <code class="systemitem">root</code> user.  Note that there
+	are some limitations which cannot be removed.  The
+	<code class="systemitem">root</code> user is not
+	allowed to mount or unmount file systems from within a
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jail&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jail</span>(8)</span></a>.  The <code class="systemitem">root</code> inside a jail may not
+	load or unload <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=devfs&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">devfs</span>(8)</span></a> rulesets, set firewall rules, or
+	do many other administrative tasks which require modifications
+	of in-kernel data, such as setting the
+	<code class="varname">securelevel</code> of the kernel.</p><p>The base system of FreeBSD contains a basic set of tools for
+	viewing information about the active jails, and attaching to a
+	jail to run administrative commands.  The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jls&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jls</span>(8)</span></a> and
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jexec&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jexec</span>(8)</span></a> commands are part of the base FreeBSD system, and
+	can be used to perform the following simple tasks:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Print a list of active jails and their corresponding
+	    jail identifier (<acronym class="acronym">JID</acronym>),
+	    <acronym class="acronym">IP</acronym> address, hostname and path.</p></li><li class="listitem"><p>Attach to a running jail, from its host system, and
+	    run a command inside the jail or perform administrative
+	    tasks inside the jail itself.  This is especially useful
+	    when the <code class="systemitem">root</code>
+	    user wants to cleanly shut down a jail.  The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jexec&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jexec</span>(8)</span></a>
+	    utility can also be used to start a shell in a jail to do
+	    administration in it; for example:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>jexec <em class="replaceable"><code>1</code></em> tcsh</code></strong></pre></li></ul></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="jails-tuning-admintools"></a>14.4.2. High-Level Administrative Tools in the FreeBSD Ports
+	Collection</h3></div></div></div><p>Among the many third-party utilities for jail
+	administration, one of the most complete and useful is
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/sysutils/ezjail/pkg-descr">sysutils/ezjail</a>.  It is a set of scripts
+	that contribute to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jail&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jail</span>(8)</span></a> management.  Please refer to
+	<a class="link" href="../../../../doc/en_US.ISO8859-1/books/handbook/jails-ezjail.html" target="_top">the
+	  handbook section on <span class="application">ezjail</span></a>
+	for more information.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="jails-updating"></a>14.4.3. Keeping Jails Patched and up to Date</h3></div></div></div><p>Jails should be kept up to date from the host operating
+	system as attempting to patch userland from within the jail
+	may likely fail as the default behavior in FreeBSD is to
+	disallow the use of <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=chflags&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">chflags</span>(1)</span></a> in a jail which prevents
+	the replacement of some files.  It is possible to change this
+	behavior but it is recommended to use <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=freebsd-update&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">freebsd-update</span>(8)</span></a>
+	to maintain jails instead.  Use <code class="option">-b</code> to specify
+	the path of the jail to be updated.</p><p>To update the jail to the latest patch release of the
+	version of FreeBSD it is already running, then execute the
+	following commands on the host:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>freebsd-update -b <em class="replaceable"><code>/here/is/the/jail</code></em> fetch</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>freebsd-update -b <em class="replaceable"><code>/here/is/the/jail</code></em> install</code></strong></pre><p>To upgrade the jail to a new major or minor version,
+	first upgrade the host system as described in
+	<a class="xref" href="updating-upgrading-freebsdupdate.html#freebsdupdate-upgrade" title="23.2.3. Performing Major and Minor Version Upgrades">Section 23.2.3, &#8220;Performing Major and Minor Version Upgrades&#8221;</a>. Once the host has been
+	upgraded and rebooted, the jail can then be upgraded.
+	For example to upgrade from 12.0-RELEASE to 12.1-RELEASE,
+	on the host run:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>freebsd-update -b <em class="replaceable"><code>/here/is/the/jail</code></em> --currently-running <em class="replaceable"><code>12.0-RELEASE</code></em> -r <em class="replaceable"><code>12.1-RELEASE</code></em> upgrade</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>freebsd-update -b <em class="replaceable"><code>/here/is/the/jail</code></em> install</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>service jail restart <em class="replaceable"><code>myjail</code></em></code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>freebsd-update -b <em class="replaceable"><code>/here/is/the/jail</code></em> install</code></strong></pre><p>Then, if it was a major version upgrade, reinstall all
+	installed packages and restart the jail again.  This is
+	required because the ABI version changes when upgrading
+	between major versions of FreeBSD. From the host:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg -j <em class="replaceable"><code>myjail</code></em> upgrade -f</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>service jail restart <em class="replaceable"><code>myjail</code></em></code></strong></pre></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="jails-build.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="jails.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="jails-application.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">14.3. Creating and Controlling Jails </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 14.5. Updating Multiple Jails</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

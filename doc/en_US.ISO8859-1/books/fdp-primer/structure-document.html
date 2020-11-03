@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>4.3. Document-Specific Information</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Documentation Project Primer for New Contributors" /><link rel="up" href="structure.html" title="Chapter 4. Documentation Directory Structure" /><link rel="prev" href="structure-locale.html" title="4.2. The lang.encoding/ Directories" /><link rel="next" href="doc-build.html" title="Chapter 5. The Documentation Build Process" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">4.3. Document-Specific Information</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="structure-locale.html">Prev</a> </td><th width="60%" align="center">Chapter 4. Documentation Directory Structure</th><td width="20%" align="right"> <a accesskey="n" href="doc-build.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="structure-document"></a>4.3. Document-Specific Information</h2></div></div></div><p>This section contains specific notes about particular
+      documents managed by the FDP.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="structure-document-handbook"></a>4.3.1. The Handbook</h3></div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="subtitle"><code class="filename">books/handbook/</code></h4></div></div></div><p>The Handbook is written in DocBook <acronym class="acronym">XML</acronym>
+	using the FreeBSD DocBook extended <acronym class="acronym">DTD</acronym>.</p><p>The Handbook is organized as a DocBook
+	<code class="sgmltag-element">book</code>.  The book is divided into
+	<code class="sgmltag-element">part</code>s, each of which contains several
+	<code class="sgmltag-element">chapter</code>s.  <code class="sgmltag-element">chapter</code>s are
+	further subdivided into sections (<code class="sgmltag-element">sect1</code>)
+	and subsections (<code class="sgmltag-element">sect2</code>,
+	<code class="sgmltag-element">sect3</code>) and so on.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="structure-document-handbook-physical"></a>4.3.1.1. Physical Organization</h4></div></div></div><p>There are a number of files and directories within the
+	  <code class="filename">handbook</code> directory.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">The Handbook's organization may change over time, and
+	    this document may lag in detailing the organizational
+	    changes.  Post questions about Handbook organization to
+	    the <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo/freebsd-doc" target="_top">FreeBSD documentation project mailing list</a>.</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="structure-document-handbook-physical-Makefile"></a>4.3.1.1.1. <code class="filename">Makefile</code></h5></div></div></div><p>The <code class="filename">Makefile</code> defines some
+	    variables that affect how the <acronym class="acronym">XML</acronym>
+	    source is converted to other formats, and lists the
+	    various source files that make up the Handbook.  It then
+	    includes the standard <code class="filename">doc.project.mk</code>,
+	    to bring in the rest of the code that handles converting
+	    documents from one format to another.</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="structure-document-handbook-physical-book-xml"></a>4.3.1.1.2. <code class="filename">book.xml</code></h5></div></div></div><p>This is the top level document in the Handbook.  It
+	    contains the Handbook's <a class="link" href="xml-primer-doctype-declaration.html" title="7.3. The DOCTYPE Declaration">DOCTYPE
+	      declaration</a>, as well as the elements that
+	    describe the Handbook's structure.</p><p><code class="filename">book.xml</code> uses <a class="link" href="xml-primer-entities.html#xml-primer-parameter-entities" title="7.6.2. Parameter Entities">parameter
+	      entities</a> to load in the files with the
+	    <code class="filename">.ent</code> extension.  These files
+	    (described later) then define <a class="link" href="xml-primer-entities.html#xml-primer-general-entities" title="7.6.1. General Entities">general
+	      entities</a> that are used throughout the rest of the
+	    Handbook.</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="structure-document-handbook-physical-chapters-xml"></a>4.3.1.1.3. <code class="filename"><em class="replaceable"><code>directory</code></em>/chapter.xml</code></h5></div></div></div><p>Each chapter in the Handbook is stored in a file
+	    called <code class="filename">chapter.xml</code> in a separate
+	    directory from the other chapters.  Each directory is
+	    named after the value of the <code class="literal">id</code>
+	    attribute on the <code class="sgmltag-element">chapter</code>
+	    element.</p><p>For example, if one of the chapter files
+	    contains:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;chapter id="kernelconfig"&gt;</code>
+...
+<code class="sgmltag-endtag">&lt;/chapter&gt;</code></pre><p>Then it will be called
+	    <code class="filename">chapter.xml</code> in the
+	    <code class="filename">kernelconfig</code> directory.  In general,
+	    the entire contents of the chapter are in this one
+	    file.</p><p>When the <acronym class="acronym">XHTML</acronym> version of the
+	    Handbook is produced, this will yield
+	    <code class="filename">kernelconfig.html</code>.  This is because
+	    of the <code class="literal">id</code> value, and is not related to
+	    the name of the directory.</p><p>In earlier versions of the Handbook, the files were
+	    stored in the same directory as
+	    <code class="filename">book.xml</code>, and named after the value
+	    of the <code class="literal">id</code> attribute on the file's
+	    <code class="sgmltag-element">chapter</code> element.  Now, it is possible to
+	    include images in each chapter.  Images for each Handbook
+	    chapter are stored within
+	    <code class="filename">share/images/books/handbook</code>.  The
+	    localized version of these images should be placed in the
+	    same directory as the <acronym class="acronym">XML</acronym> sources for
+	    each chapter.  Namespace collisions are inevitable, and it
+	    is easier to work with several directories with a few
+	    files in them than it is to work with one directory that
+	    has many files in it.</p><p>A brief look will show that there are many directories
+	    with individual <code class="filename">chapter.xml</code> files,
+	    including <code class="filename">basics/chapter.xml</code>,
+	    <code class="filename">introduction/chapter.xml</code>, and
+	    <code class="filename">printing/chapter.xml</code>.</p><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">Do not name chapters or directories after
+	      their ordering within the Handbook.  This ordering can
+	      change as the content within the Handbook is
+	      reorganized.  Reorganization should be possible without
+	      renaming files, unless entire chapters are being
+	      promoted or demoted within the hierarchy.</p></div><p>The <code class="filename">chapter.xml</code> files are not
+	    complete <acronym class="acronym">XML</acronym> documents that can be
+	    built individually.  They can only be built
+	    as parts of the whole Handbook.</p></div></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="structure-locale.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="structure.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="doc-build.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">4.2. The
+      <code class="filename"><em class="replaceable"><code>lang</code></em>.<em class="replaceable"><code>encoding</code></em>/</code>
+      Directories </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 5. The Documentation Build Process</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

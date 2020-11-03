@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>6.5. Building Mechanisms</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Porter's Handbook" /><link rel="up" href="special.html" title="Chapter 6. Special Considerations" /><link rel="prev" href="porting-restrictions.html" title="6.4. Ports with Distribution Restrictions or Legal Concerns" /><link rel="next" href="using-autotools.html" title="6.6. Using GNU Autotools" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.5. Building Mechanisms</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="porting-restrictions.html">Prev</a> </td><th width="60%" align="center">Chapter 6. Special Considerations</th><td width="20%" align="right"> <a accesskey="n" href="using-autotools.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="building"></a>6.5. Building Mechanisms</h2></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="parallel-builds"></a>6.5.1. Building Ports in Parallel</h3></div></div></div><p>The FreeBSD ports framework supports parallel building
+	using multiple <code class="command">make</code> sub-processes, which
+	allows <acronym class="acronym">SMP</acronym> systems to utilize all of
+	their available <acronym class="acronym">CPU</acronym> power, allowing port
+	builds to be faster and more effective.</p><p>This is achieved by passing <code class="literal">-jX</code> flag
+	to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=make&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">make</span>(1)</span></a> running on vendor code.  This is the default
+	build behavior of ports.  Unfortunately, not all ports
+	handle parallel building well and it may be required to
+	explicitly disable this feature by adding the
+	<code class="literal">MAKE_JOBS_UNSAFE=yes</code> variable.  It is
+	used when a port is known to be broken with
+	<code class="literal">-jX</code> due to race conditions causing
+	intermittent build failures.</p><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">When setting <code class="varname">MAKE_JOBS_UNSAFE</code>, it
+	  is very important to explain either with a comment in the
+	  <code class="filename">Makefile</code>, or at least in the commit
+	  message, <span class="emphasis"><em>why</em></span> the port does not build
+	  when enabling.  Otherwise, it is almost impossible to
+	  either fix the problem, or test if it has been fixed when
+	  committing an update at a later date.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="using-make"></a>6.5.2. <code class="command">make</code>, <code class="command">gmake</code>,
+	and <code class="command">imake</code></h3></div></div></div><p>Several differing <code class="literal">make</code>
+	implementations exist.  Ported software often requires a
+	particular implementation, like <acronym class="acronym">GNU</acronym>
+	<code class="command">make</code>, known in FreeBSD as
+	<code class="command">gmake</code>.</p><p>If the port uses <span class="application">GNU make</span>,
+	add <code class="literal">gmake</code> to
+	<code class="literal">USES</code>.</p><p><code class="varname">MAKE_CMD</code> can be used to reference the
+	specific command configured by the <code class="literal">USES</code>
+	setting in the port's <code class="filename">Makefile</code>.
+	Only use <code class="varname">MAKE_CMD</code> within the
+	application <code class="filename">Makefile</code>s in
+	<code class="varname">WRKSRC</code> to call the
+	<code class="command">make</code> implementation expected by the
+	ported software.</p><p>If the port is an X application that uses
+	<span class="application">imake</span> to create
+	<code class="filename">Makefile</code>s from
+	<code class="filename">Imakefile</code>s, set <code class="literal">USES=
+	  imake</code>..  See the <a class="link" href="uses-imake.html" title="17.41. imake"><code class="literal">USES=imake</code></a>
+	section of <a class="xref" href="uses.html" title="Chapter 17. Using USES Macros">Chapter 17, <em>Using <code class="varname">USES</code> Macros</em></a> for more details.</p><p>If the port's source <code class="filename">Makefile</code> has
+	something other than <code class="buildtarget">all</code> as the
+	main build target, set <code class="varname">ALL_TARGET</code>
+	accordingly.  The same goes for
+	<code class="buildtarget">install</code> and
+	<code class="varname">INSTALL_TARGET</code>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="using-configure"></a>6.5.3. <code class="command">configure</code> Script</h3></div></div></div><p>If the port uses the <code class="command">configure</code>
+	script to generate <code class="filename">Makefile</code> from
+	<code class="filename">Makefile.in</code>, set
+	<code class="literal">GNU_CONFIGURE=yes</code>.  To give
+	extra arguments to the <code class="command">configure</code> script
+	(the default argument is <code class="literal">--prefix=${PREFIX}
+	  --infodir=${PREFIX}/${INFO_PATH}
+	  --mandir=${MANPREFIX}/man
+	  --build=${CONFIGURE_TARGET}</code>), set those
+	extra arguments in <code class="varname">CONFIGURE_ARGS</code>.  Extra
+	environment variables can be passed using
+	<code class="varname">CONFIGURE_ENV</code>.</p><div class="table"><a id="using-configure-variables"></a><div class="table-title">Table 6.1. Variables for Ports That Use
+	  <code class="command">configure</code></div><div class="table-contents"><table class="table" summary="Variables for Ports That Use&#10;&#9;  configure" border="0"><colgroup><col /><col /></colgroup><thead><tr><th>Variable</th><th>Means</th></tr></thead><tbody><tr><td><code class="varname">GNU_CONFIGURE</code></td><td>The port uses <code class="command">configure</code>
+		script to prepare build.</td></tr><tr><td><code class="varname">HAS_CONFIGURE</code></td><td>Same as <code class="varname">GNU_CONFIGURE</code>,
+		except default configure target is not added to
+		<code class="varname">CONFIGURE_ARGS</code>.</td></tr><tr><td><code class="varname">CONFIGURE_ARGS</code></td><td>Additional arguments passed to
+		<code class="command">configure</code> script.</td></tr><tr><td><code class="varname">CONFIGURE_ENV</code></td><td>Additional environment variables to be set
+		for <code class="command">configure</code> script run.</td></tr><tr><td><code class="varname">CONFIGURE_TARGET</code></td><td>Override default configure target.  Default
+		value is
+		<code class="literal">${MACHINE_ARCH}-portbld-freebsd${OSREL}</code>.</td></tr></tbody></table></div></div><br class="table-break" /></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="using-cmake"></a>6.5.4. Using <code class="command">cmake</code></h3></div></div></div><p>For ports that use <span class="application">CMake</span>,
+	define <code class="literal">USES= cmake</code>.</p><div class="table"><a id="using-cmake-variables"></a><div class="table-title">Table 6.2. Variables for Ports That Use
+	  <code class="command">cmake</code></div><div class="table-contents"><table class="table" summary="Variables for Ports That Use&#10;&#9;  cmake" border="0"><colgroup><col /><col /></colgroup><thead><tr><th>Variable</th><th>Means</th></tr></thead><tbody><tr><td><code class="varname">CMAKE_ARGS</code></td><td>Port specific <span class="application">CMake</span>
+		flags to be passed to the <code class="command">cmake</code>
+		binary.</td></tr><tr><td><code class="varname">CMAKE_ON</code></td><td>For each entry in <code class="varname">CMAKE_ON</code>, an
+		enabled boolean value is added to
+		<code class="varname">CMAKE_ARGS</code>.  See <a class="xref" href="building.html#using-cmake-example2" title="Example 6.3. CMAKE_ON and CMAKE_OFF">Example 6.3, &#8220;<code class="varname">CMAKE_ON</code> and
+	  <code class="varname">CMAKE_OFF</code>&#8221;</a>.</td></tr><tr><td><code class="varname">CMAKE_OFF</code></td><td>For each entry in <code class="varname">CMAKE_OFF</code>, a
+		disabled boolean value is added to
+		<code class="varname">CMAKE_ARGS</code>.  See <a class="xref" href="building.html#using-cmake-example2" title="Example 6.3. CMAKE_ON and CMAKE_OFF">Example 6.3, &#8220;<code class="varname">CMAKE_ON</code> and
+	  <code class="varname">CMAKE_OFF</code>&#8221;</a>.</td></tr><tr><td><code class="varname">CMAKE_BUILD_TYPE</code></td><td>Type of build (<span class="application">CMake</span>
+		predefined build profiles).  Default is
+		<code class="literal">Release</code>, or
+		<code class="literal">Debug</code> if
+		<code class="varname">WITH_DEBUG</code> is set.</td></tr><tr><td><code class="varname">CMAKE_SOURCE_PATH</code></td><td>Path to the source directory.  Default is
+		<code class="literal">${WRKSRC}</code>.</td></tr><tr><td><code class="varname">CONFIGURE_ENV</code></td><td>Additional environment variables to be set for
+		the <code class="command">cmake</code> binary.</td></tr></tbody></table></div></div><br class="table-break" /><div class="table"><a id="using-cmake-user-variables"></a><div class="table-title">Table 6.3. Variables the Users Can Define for
+	  <code class="command">cmake</code> Builds</div><div class="table-contents"><table class="table" summary="Variables the Users Can Define for&#10;&#9;  cmake Builds" border="0"><colgroup><col /><col /></colgroup><thead><tr><th>Variable</th><th>Means</th></tr></thead><tbody><tr><td><code class="varname">CMAKE_NOCOLOR</code></td><td>Disables color build output.  Default not set,
+		unless <code class="varname">BATCH</code> or
+		<code class="varname">PACKAGE_BUILDING</code> are set.</td></tr></tbody></table></div></div><br class="table-break" /><p><span class="application">CMake</span> supports these
+	build profiles: <code class="literal">Debug</code>,
+	<code class="literal">Release</code>,
+	<code class="literal">RelWithDebInfo</code> and
+	<code class="literal">MinSizeRel</code>.  <code class="literal">Debug</code> and
+	<code class="literal">Release</code> profiles respect system
+	<code class="literal">*FLAGS</code>, <code class="literal">RelWithDebInfo</code>
+	and <code class="literal">MinSizeRel</code> will set
+	<code class="varname">CFLAGS</code> to <code class="literal">-O2 -g</code> and
+	<code class="literal">-Os -DNDEBUG</code> correspondingly.  The
+	lower-cased value of <code class="varname">CMAKE_BUILD_TYPE</code> is
+	exported to <code class="varname">PLIST_SUB</code> and must be
+	used if the port installs
+	<code class="filename"><em class="replaceable"><code>*</code></em>.cmake</code>
+	depending on the build type (see
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/devel/kf5-kcrash/pkg-descr">devel/kf5-kcrash</a> for an
+	example).  Please note that some projects may define their own
+	build profiles and/or force particular build type by setting
+	<code class="literal">CMAKE_BUILD_TYPE</code> in
+	<code class="filename">CMakeLists.txt</code>.  To make a port for such
+	a project respect <code class="varname">CFLAGS</code> and
+	<code class="varname">WITH_DEBUG</code>, the
+	<code class="literal">CMAKE_BUILD_TYPE</code> definitions must be
+	removed from those files.</p><p>Most <span class="application">CMake</span>-based projects
+	support an out-of-source method of building.  The
+	out-of-source build for a port is the default setting.
+	An in-source build can be requested by using the
+	<code class="literal">:insource</code> suffix.  With out-of-source
+	builds, <code class="varname">CONFIGURE_WRKSRC</code>,
+	<code class="varname">BUILD_WRKSRC</code> and
+	<code class="varname">INSTALL_WRKSRC</code> will be set to
+	<code class="literal">${WRKDIR}/.build</code> and this
+	directory will be used to keep all files generated during
+	configuration and build stages, leaving the source directory
+	intact.</p><div class="example"><a id="using-cmake-example"></a><div class="example-title">Example 6.2. <code class="literal">USES= cmake</code> Example</div><div class="example-contents"><p>This snippet demonstrates the use of
+	  <span class="application">CMake</span> for a port.
+	  <code class="varname">CMAKE_SOURCE_PATH</code> is not usually
+	  required, but can be set when the sources are not located
+	  in the top directory, or if only a subset of the project
+	  is intended to be built by the port.</p><pre class="programlisting">USES=			cmake
+CMAKE_SOURCE_PATH=	${WRKSRC}/subproject</pre></div></div><br class="example-break" /><div class="example"><a id="using-cmake-example2"></a><div class="example-title">Example 6.3. <code class="varname">CMAKE_ON</code> and
+	  <code class="varname">CMAKE_OFF</code></div><div class="example-contents"><p>When adding boolean values to
+	  <code class="varname">CMAKE_ARGS</code>, it is easier to use the
+	  <code class="varname">CMAKE_ON</code> and <code class="varname">CMAKE_OFF</code>
+	  variables instead.  This:</p><pre class="programlisting">CMAKE_ON=	VAR1 VAR2
+CMAKE_OFF=	VAR3</pre><p>Is equivalent to:</p><pre class="programlisting">CMAKE_ARGS=	-DVAR1:BOOL=TRUE -DVAR2:BOOL=TRUE -DVAR3:BOOL=FALSE</pre><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">This is only for the default values off
+	    <code class="varname">CMAKE_ARGS</code>.  The helpers described in
+	    <a class="xref" href="makefile-options.html#options-cmake_bool" title="5.13.3.4.2. OPT_CMAKE_BOOL and OPT_CMAKE_BOOL_OFF">Section 5.13.3.4.2, &#8220;<code class="varname"><em class="replaceable"><code>OPT</code></em>_CMAKE_BOOL</code>
+	    and
+	    <code class="varname"><em class="replaceable"><code>OPT</code></em>_CMAKE_BOOL_OFF</code>&#8221;</a> use the same
+	    semantics, but for optional values.</p></div></div></div><br class="example-break" /></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="using-scons"></a>6.5.5. Using <code class="command">scons</code></h3></div></div></div><p>If the port uses <span class="application">SCons</span>,
+	define <code class="literal">USES=scons</code>.</p><p>To make third party <code class="filename">SConstruct</code>
+	respect everything that is passed to SCons in
+	the environment (that is, most importantly,
+	<code class="varname">CC/CXX/CFLAGS/CXXFLAGS</code>), patch
+	<code class="filename">SConstruct</code> so build
+	<code class="literal">Environment</code> is constructed like
+	this:</p><pre class="programlisting">env = Environment(**ARGUMENTS)</pre><p>It may be then modified with
+	<code class="literal">env.Append</code> and
+	<code class="literal">env.Replace</code>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="using-cargo"></a>6.5.6. Building <span class="application">Rust</span> Applications
+	with <code class="command">cargo</code></h3></div></div></div><p>For ports that use <span class="application">Cargo</span>,
+	define <code class="literal">USES=cargo</code>.</p><div class="table"><a id="using-cargo-user-variables"></a><div class="table-title">Table 6.4. Variables the Users Can Define for
+	  <code class="command">cargo</code> Builds</div><div class="table-contents"><table class="table" summary="Variables the Users Can Define for&#10;&#9;  cargo Builds" border="0"><colgroup><col /><col /><col /></colgroup><thead><tr><th>Variable</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code class="varname">CARGO_CRATES</code></td><td> </td><td>List of crates the port depends on.  Each entry
+		needs to have a format like
+		<code class="literal">cratename-semver</code> for example,
+		<code class="literal">libc-0.2.40</code>.  Port maintainers can
+		generate this list from
+		<code class="filename">Cargo.lock</code> using
+		<code class="command">make cargo-crates</code>.  Manually
+		bumping crate versions is possible but be mindful of
+		transitive dependencies.</td></tr><tr><td><code class="varname">CARGO_FEATURES</code></td><td> </td><td>List of application features to build (space
+		separated list).  To deactivate all default
+		features add the special token
+		<code class="literal">--no-default-features</code>
+		to <code class="varname">CARGO_FEATURES</code>.  Manually
+		passing it to <code class="varname">CARGO_BUILD_ARGS</code>,
+		<code class="varname">CARGO_INSTALL_ARGS</code>, and
+		<code class="varname">CARGO_TEST_ARGS</code> is not
+		needed.</td></tr><tr><td><code class="varname">CARGO_CARGOTOML</code></td><td><code class="literal">${WRKSRC}/Cargo.toml</code></td><td>The path to the <code class="filename">Cargo.toml</code>
+		to use.</td></tr><tr><td><code class="varname">CARGO_CARGOLOCK</code></td><td><code class="literal">${WRKSRC}/Cargo.lock</code></td><td>The path to the <code class="filename">Cargo.lock</code>
+		to use for <code class="command">make cargo-crates</code>.  It
+		is possible to specify more than one lock file when
+		necessary.</td></tr><tr><td><code class="varname">CARGO_ENV</code></td><td> </td><td>A list of environment variables to pass to Cargo
+		similar to <code class="varname">MAKE_ENV</code>.</td></tr><tr><td><code class="varname">RUSTFLAGS</code></td><td> </td><td>Flags to pass to the Rust compiler.</td></tr><tr><td><code class="varname">CARGO_CONFIGURE</code></td><td><code class="literal">yes</code></td><td>Use the default
+		<code class="buildtarget">do-configure</code>.</td></tr><tr><td><code class="varname">CARGO_UPDATE_ARGS</code></td><td> </td><td>Extra arguments to pass to Cargo during the
+		configure phase.  Valid arguments can be looked up
+		with <code class="command">cargo update --help</code>.</td></tr><tr><td><code class="varname">CARGO_BUILDDEP</code></td><td><code class="literal">yes</code></td><td>Add a build dependency on
+		<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/lang/rust/pkg-descr">lang/rust</a>.</td></tr><tr><td><code class="varname">CARGO_CARGO_BIN</code></td><td><code class="literal">${LOCALBASE}/bin/cargo</code></td><td>Location of the <code class="command">cargo</code>
+		binary.</td></tr><tr><td><code class="varname">CARGO_BUILD</code></td><td><code class="literal">yes</code></td><td>Use the default
+		<code class="buildtarget">do-build</code>.</td></tr><tr><td><code class="varname">CARGO_BUILD_ARGS</code></td><td> </td><td>Extra arguments to pass to Cargo during the
+		build phase.  Valid arguments can be looked up with
+		<code class="command">cargo build --help</code>.</td></tr><tr><td><code class="varname">CARGO_INSTALL</code></td><td><code class="literal">yes</code></td><td>Use the default
+		<code class="buildtarget">do-install</code>.</td></tr><tr><td><code class="varname">CARGO_INSTALL_ARGS</code></td><td> </td><td>Extra arguments to pass to Cargo during the
+		install phase.  Valid arguments can be looked up with
+		<code class="command">cargo install --help</code>.</td></tr><tr><td><code class="varname">CARGO_INSTALL_PATH</code></td><td><code class="literal">.</code></td><td>Path to the crate to install.  This is passed
+		to <code class="command">cargo install</code> via its
+		<code class="literal">--path</code> argument.  When multiple
+		paths are specified <code class="command">cargo install</code>
+		is run multiple times.</td></tr><tr><td><code class="varname">CARGO_TEST</code></td><td><code class="literal">yes</code></td><td>Use the default
+		<code class="buildtarget">do-test</code>.</td></tr><tr><td><code class="varname">CARGO_TEST_ARGS</code></td><td> </td><td>Extra arguments to pass to Cargo during the test
+		phase.  Valid arguments can be looked up with
+		<code class="command">cargo test --help</code>.</td></tr><tr><td><code class="varname">CARGO_TARGET_DIR</code></td><td><code class="literal">${WRKDIR}/target</code></td><td>Location of the cargo output directory.</td></tr><tr><td><code class="varname">CARGO_DIST_SUBDIR</code></td><td><code class="filename">rust/crates</code></td><td>Directory relative to <code class="varname">DISTDIR</code>
+		where the crate distribution files will be
+		stored.</td></tr><tr><td><code class="varname">CARGO_VENDOR_DIR</code></td><td><code class="literal">${WRKSRC}/cargo-crates</code></td><td>Location of the vendor directory where
+		all crates will be extracted to.  Try to keep this
+		under <code class="varname">PATCH_WRKSRC</code>, so that
+		patches can be applied easily.</td></tr><tr><td><code class="varname">CARGO_USE_GITHUB</code></td><td><code class="literal">no</code></td><td>Enable fetching of crates locked to specific Git
+		commits on GitHub via <code class="varname">GH_TUPLE</code>.
+		This will try to patch all
+		<code class="filename">Cargo.toml</code> under
+		<code class="varname">WRKDIR</code> to point to the
+		offline sources instead of fetching them from a
+		Git repository during the build.</td></tr><tr><td><code class="varname">CARGO_USE_GITLAB</code></td><td><code class="literal">no</code></td><td>Same as <code class="varname">CARGO_USE_GITHUB</code>
+		but for GitLab instances and
+		<code class="varname">GL_TUPLE</code>.</td></tr></tbody></table></div></div><br class="table-break" /><div class="example"><a id="cargo-ex1"></a><div class="example-title">Example 6.4. Creating a Port for a Simple Rust Application</div><div class="example-contents"><p>Creating a Cargo based port is a three stage process.
+	  First we need to provide a ports template that fetches the
+	  application distribution file:</p><pre class="programlisting">PORTNAME=	tokei
+DISTVERSIONPREFIX=	v
+DISTVERSION=	7.0.2
+CATEGORIES=	devel
+
+MAINTAINER=	tobik@FreeBSD.org
+COMMENT=	Display statistics about your code
+
+USES=		cargo
+USE_GITHUB=	yes
+GH_ACCOUNT=	Aaronepower
+
+.include &lt;bsd.port.mk&gt;</pre><p>Generate an initial
+	  <code class="filename">distinfo</code>:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>make makesum</code></strong>
+=&gt; Aaronepower-tokei-v7.0.2_GH0.tar.gz doesn't seem to exist in /usr/ports/distfiles/.
+=&gt; Attempting to fetch https://codeload.github.com/Aaronepower/tokei/tar.gz/v7.0.2?dummy=/Aaronepower-tokei-v7.0.2_GH0.tar.gz
+fetch: https://codeload.github.com/Aaronepower/tokei/tar.gz/v7.0.2?dummy=/Aaronepower-tokei-v7.0.2_GH0.tar.gz: size of remote file is not known
+Aaronepower-tokei-v7.0.2_GH0.tar.gz                     45 kB  239 kBps 00m00s</pre><p>Now the distribution file is ready to use and we can go
+	  ahead and extract crate dependencies from the bundled
+	  <code class="filename">Cargo.lock</code>:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>make cargo-crates</code></strong>
+CARGO_CRATES=   aho-corasick-0.6.4 \
+                ansi_term-0.11.0 \
+                arrayvec-0.4.7 \
+                atty-0.2.9 \
+                bitflags-1.0.1 \
+                byteorder-1.2.2 \
+                [...]</pre><p>The output of this command needs to be pasted directly
+	  into the Makefile:</p><pre class="programlisting">PORTNAME=	tokei
+DISTVERSIONPREFIX=	v
+DISTVERSION=	7.0.2
+CATEGORIES=	devel
+
+MAINTAINER=	tobik@FreeBSD.org
+COMMENT=	Display statistics about your code
+
+USES=		cargo
+USE_GITHUB=	yes
+GH_ACCOUNT=	Aaronepower
+
+CARGO_CRATES=   aho-corasick-0.6.4 \
+                ansi_term-0.11.0 \
+                arrayvec-0.4.7 \
+                atty-0.2.9 \
+                bitflags-1.0.1 \
+                byteorder-1.2.2 \
+                [...]
+
+.include &lt;bsd.port.mk&gt;</pre><p><code class="filename">distinfo</code> needs to be regenerated to
+	  contain all the crate distribution files:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>make makesum</code></strong>
+=&gt; rust/crates/aho-corasick-0.6.4.tar.gz doesn't seem to exist in /usr/ports/distfiles/.
+=&gt; Attempting to fetch https://crates.io/api/v1/crates/aho-corasick/0.6.4/download?dummy=/rust/crates/aho-corasick-0.6.4.tar.gz
+rust/crates/aho-corasick-0.6.4.tar.gz         100% of   24 kB 6139 kBps 00m00s
+=&gt; rust/crates/ansi_term-0.11.0.tar.gz doesn't seem to exist in /usr/ports/distfiles/.
+=&gt; Attempting to fetch https://crates.io/api/v1/crates/ansi_term/0.11.0/download?dummy=/rust/crates/ansi_term-0.11.0.tar.gz
+rust/crates/ansi_term-0.11.0.tar.gz           100% of   16 kB   21 MBps 00m00s
+=&gt; rust/crates/arrayvec-0.4.7.tar.gz doesn't seem to exist in /usr/ports/distfiles/.
+=&gt; Attempting to fetch https://crates.io/api/v1/crates/arrayvec/0.4.7/download?dummy=/rust/crates/arrayvec-0.4.7.tar.gz
+rust/crates/arrayvec-0.4.7.tar.gz             100% of   22 kB 3237 kBps 00m00s
+=&gt; rust/crates/atty-0.2.9.tar.gz doesn't seem to exist in /usr/ports/distfiles/.
+=&gt; Attempting to fetch https://crates.io/api/v1/crates/atty/0.2.9/download?dummy=/rust/crates/atty-0.2.9.tar.gz
+rust/crates/atty-0.2.9.tar.gz                 100% of 5898  B   81 MBps 00m00s
+=&gt; rust/crates/bitflags-1.0.1.tar.gz doesn't seem to exist in /usr/ports/distfiles/.
+[...]</pre><p>The port is now ready for a test build and further
+	  adjustments like creating a plist, writing a description,
+	  adding license information, options, etc. as normal.</p><p>If you are not testing your port in a clean environment
+	  like with <span class="application">Poudriere</span>, remember to
+	  run <code class="command">make clean</code> before any testing.</p></div></div><br class="example-break" /><div class="example"><a id="cargo-ex2"></a><div class="example-title">Example 6.5. Enabling Additional Application Features</div><div class="example-contents"><p>Some applications define additional features in their
+	  <code class="filename">Cargo.toml</code>.  They can be compiled in
+	  by setting <code class="varname">CARGO_FEATURES</code> in the
+	  port.</p><p>Here we enable Tokei's <code class="literal">json</code> and
+	  <code class="literal">yaml</code> features:</p><pre class="programlisting">CARGO_FEATURES=	json yaml</pre></div></div><br class="example-break" /><div class="example"><a id="cargo-ex4"></a><div class="example-title">Example 6.6. Encoding Application Features As Port Options</div><div class="example-contents"><p>An example <code class="literal">[features]</code> section
+	  in <code class="filename">Cargo.toml</code> could look like
+	  this:</p><pre class="programlisting">[features]
+pulseaudio_backend = ["librespot-playback/pulseaudio-backend"]
+portaudio_backend = ["librespot-playback/portaudio-backend"]
+default = ["pulseaudio_backend"]</pre><p><code class="literal">pulseaudio_backend</code> is a default
+	  feature.  It is always enabled unless we explicitly turn
+	  off default features by adding
+	  <code class="literal">--no-default-features</code> to
+	  <code class="varname">CARGO_FEATURES</code>.  Here we turn the
+	  <code class="literal">portaudio_backend</code>
+	  and <code class="literal">pulseaudio_backend</code> features into
+	  port options:</p><pre class="programlisting">CARGO_FEATURES=	--no-default-features
+
+OPTIONS_DEFINE=	PORTAUDIO PULSEAUDIO
+
+PORTAUDIO_VARS=		CARGO_FEATURES+=portaudio_backend
+PULSEAUDIO_VARS=	CARGO_FEATURES+=pulseaudio_backend</pre></div></div><br class="example-break" /><div class="example"><a id="cargo-ex3"></a><div class="example-title">Example 6.7. Listing Crate Licenses</div><div class="example-contents"><p>Crates have their own licenses.  It is important to
+	  know what they are when adding a <code class="varname">LICENSE</code>
+	  block to the port (see <a class="xref" href="licenses.html" title="5.7. Licenses">Section 5.7, &#8220;Licenses&#8221;</a>).  The
+	  helper target
+	  <code class="buildtarget">cargo-crates-licenses</code> will try
+	  to list all the licenses of all crates defined in
+	  <code class="varname">CARGO_CRATES</code>.</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>make cargo-crates-licenses</code></strong>
+aho-corasick-0.6.4  Unlicense/MIT
+ansi_term-0.11.0    MIT
+arrayvec-0.4.7      MIT/Apache-2.0
+atty-0.2.9          MIT
+bitflags-1.0.1      MIT/Apache-2.0
+byteorder-1.2.2     Unlicense/MIT
+[...]</pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">The license names
+	    <code class="command">make cargo-crates-licenses</code> outputs are
+	    SPDX 2.1 licenses expression which do not match the
+	    license names defined in the ports framework.  They need
+	    to be translated to the names from
+	    <a class="xref" href="licenses.html#licenses-license-list" title="Table 5.7. Predefined License List">Table 5.7, &#8220;Predefined License List&#8221;</a>.</p></div></div></div><br class="example-break" /></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="using-meson"></a>6.5.7. Using <code class="command">meson</code></h3></div></div></div><p>For ports that use <span class="application">Meson</span>,
+	define <code class="literal">USES=meson</code>.</p><div class="table"><a id="using-meson-variables"></a><div class="table-title">Table 6.5. Variables for Ports That Use
+	  <code class="command">meson</code></div><div class="table-contents"><table class="table" summary="Variables for Ports That Use&#10;&#9;  meson" border="0"><colgroup><col /><col /></colgroup><thead><tr><th>Variable</th><th>Description</th></tr></thead><tbody><tr><td><code class="varname">MESON_ARGS</code></td><td>Port specific <span class="application">Meson</span>
+		flags to be passed to the <code class="command">meson</code>
+		binary.</td></tr><tr><td><code class="varname">MESON_BUILD_DIR</code></td><td>Path to the build directory relative to
+		<code class="varname">WRKSRC</code>.  Default is
+		<code class="literal">_build</code>.</td></tr></tbody></table></div></div><br class="table-break" /><div class="example"><a id="using-meson-example"></a><div class="example-title">Example 6.8. <code class="literal">USES=meson</code> Example</div><div class="example-contents"><p>This snippet demonstrates the use of
+	  <span class="application">Meson</span> for a port.</p><pre class="programlisting">USES=		meson
+MESON_ARGS=	-Dfoo=enabled</pre></div></div><br class="example-break" /></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="using-go"></a>6.5.8. Building <span class="application">Go</span>
+	Applications</h3></div></div></div><p>For ports that use <span class="application">Go</span>,
+	define <code class="literal">USES=go</code>.  Refer to <a class="xref" href="uses-go.html" title="17.34. go">Section 17.34, &#8220;<code class="literal">go</code>&#8221;</a> for a list of variables that can be
+	set to control the build process.</p><div class="example"><a id="go-ex1"></a><div class="example-title">Example 6.9. Creating a Port for a Go Modules Based
+	  Application</div><div class="example-contents"><p>Creating a Go based port is a five stage process.
+	  First we need to provide a ports template that fetches the
+	  application distribution file:</p><pre class="programlisting">PORTNAME=	ghq
+DISTVERSIONPREFIX=	v
+DISTVERSION=	0.12.5
+CATEGORIES=	devel
+
+MAINTAINER=	tobik@FreeBSD.org
+COMMENT=	Remote repository management made easy
+
+USES=		go:modules
+USE_GITHUB=	yes
+GH_ACCOUNT=	motemen
+
+.include &lt;bsd.port.mk&gt;</pre><p>Generate an initial
+	  <code class="filename">distinfo</code>:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>make makesum</code></strong>
+===&gt;  License MIT accepted by the user
+=&gt; motemen-ghq-v0.12.5_GH0.tar.gz doesn't seem to exist in /usr/ports/distfiles/.
+=&gt; Attempting to fetch https://codeload.github.com/motemen/ghq/tar.gz/v0.12.5?dummy=/motemen-ghq-v0.12.5_GH0.tar.gz
+fetch: https://codeload.github.com/motemen/ghq/tar.gz/v0.12.5?dummy=/motemen-ghq-v0.12.5_GH0.tar.gz: size of remote file is not known
+motemen-ghq-v0.12.5_GH0.tar.gz                          32 kB  177 kBps    00s</pre><p>Now the distribution file is ready to use and we can
+	  extract the required Go module dependencies.  This step
+	  requires having
+	  <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/ports-mgmt/modules2tuple/pkg-descr">ports-mgmt/modules2tuple</a>
+	  installed:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>make gomod-vendor</code></strong>
+[...]
+GH_TUPLE=	\
+		Songmu:gitconfig:v0.0.2:songmu_gitconfig/vendor/github.com/Songmu/gitconfig \
+		daviddengcn:go-colortext:186a3d44e920:daviddengcn_go_colortext/vendor/github.com/daviddengcn/go-colortext \
+		go-yaml:yaml:v2.2.2:go_yaml_yaml/vendor/gopkg.in/yaml.v2 \
+		golang:net:3ec191127204:golang_net/vendor/golang.org/x/net \
+		golang:sync:112230192c58:golang_sync/vendor/golang.org/x/sync \
+		golang:xerrors:3ee3066db522:golang_xerrors/vendor/golang.org/x/xerrors \
+		motemen:go-colorine:45d19169413a:motemen_go_colorine/vendor/github.com/motemen/go-colorine \
+		urfave:cli:v1.20.0:urfave_cli/vendor/github.com/urfave/cli</pre><p>The output of this command needs to be pasted directly
+	  into the Makefile:</p><pre class="programlisting">PORTNAME=	ghq
+DISTVERSIONPREFIX=	v
+DISTVERSION=	0.12.5
+CATEGORIES=	devel
+
+MAINTAINER=	tobik@FreeBSD.org
+COMMENT=	Remote repository management made easy
+
+USES=		go:modules
+USE_GITHUB=	yes
+GH_ACCOUNT=	motemen
+GH_TUPLE=	Songmu:gitconfig:v0.0.2:songmu_gitconfig/vendor/github.com/Songmu/gitconfig \
+		daviddengcn:go-colortext:186a3d44e920:daviddengcn_go_colortext/vendor/github.com/daviddengcn/go-colortext \
+		go-yaml:yaml:v2.2.2:go_yaml_yaml/vendor/gopkg.in/yaml.v2 \
+		golang:net:3ec191127204:golang_net/vendor/golang.org/x/net \
+		golang:sync:112230192c58:golang_sync/vendor/golang.org/x/sync \
+		golang:xerrors:3ee3066db522:golang_xerrors/vendor/golang.org/x/xerrors \
+		motemen:go-colorine:45d19169413a:motemen_go_colorine/vendor/github.com/motemen/go-colorine \
+		urfave:cli:v1.20.0:urfave_cli/vendor/github.com/urfave/cli
+
+.include &lt;bsd.port.mk&gt;</pre><p><code class="filename">distinfo</code> needs to be regenerated to
+	  contain all the distribution files:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>make makesum</code></strong>
+=&gt; Songmu-gitconfig-v0.0.2_GH0.tar.gz doesn't seem to exist in /usr/ports/distfiles/.
+=&gt; Attempting to fetch https://codeload.github.com/Songmu/gitconfig/tar.gz/v0.0.2?dummy=/Songmu-gitconfig-v0.0.2_GH0.tar.gz
+fetch: https://codeload.github.com/Songmu/gitconfig/tar.gz/v0.0.2?dummy=/Songmu-gitconfig-v0.0.2_GH0.tar.gz: size of remote file is not known
+Songmu-gitconfig-v0.0.2_GH0.tar.gz                    5662  B  936 kBps    00s
+=&gt; daviddengcn-go-colortext-186a3d44e920_GH0.tar.gz doesn't seem to exist in /usr/ports/distfiles/.
+=&gt; Attempting to fetch https://codeload.github.com/daviddengcn/go-colortext/tar.gz/186a3d44e920?dummy=/daviddengcn-go-colortext-186a3d44e920_GH0.tar.gz
+fetch: https://codeload.github.com/daviddengcn/go-colortext/tar.gz/186a3d44e920?dummy=/daviddengcn-go-colortext-186a3d44e920_GH0.tar.gz: size of remote file is not known
+daviddengcn-go-colortext-186a3d44e920_GH0.tar.        4534  B 1098 kBps    00s
+[...]</pre><p>The port is now ready for a test build and further
+	  adjustments like creating a plist, writing a description,
+	  adding license information, options, etc. as normal.</p><p>If you are not testing your port in a clean environment
+	  like with <span class="application">Poudriere</span>, remember to
+	  run <code class="command">make clean</code> before any testing.</p></div></div><br class="example-break" /><div class="example"><a id="go-ex2"></a><div class="example-title">Example 6.10. Setting Output Binary Name or Installation Path</div><div class="example-contents"><p>Some ports need to install the resulting binary under a
+	  different name or to a path other than
+	  the default <code class="literal">${PREFIX}/bin</code>.  This can be
+	  done by using <code class="varname">GO_TARGET</code> tuple syntax,
+	  for example:</p><pre class="programlisting">GO_TARGET=  ./cmd/ipfs:ipfs-go</pre><p>will install <code class="literal">ipfs</code> binary as
+	  <code class="literal">${PREFIX}/bin/ipfs-go</code> and</p><pre class="programlisting">GO_TARGET=  ./dnscrypt-proxy:${PREFIX}/sbin/dnscrypt-proxy</pre><p>will install <code class="literal">dnscrypt-proxy</code> to
+	  <code class="literal">${PREFIX}/sbin</code>.</p></div></div><br class="example-break" /></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="using-cabal"></a>6.5.9. Building <span class="application">Haskell</span>
+	Applications with <code class="command">cabal</code></h3></div></div></div><p>For ports that use <span class="application">Cabal</span>,
+	build system defines <code class="literal">USES=cabal</code>.  Refer to <a class="xref" href="uses-cabal.html" title="17.8. cabal">Section 17.8, &#8220;<code class="literal">cabal</code>&#8221;</a> for a list of variables that can be
+	set to control the build process.</p><div class="example"><a id="cabal-ex1"></a><div class="example-title">Example 6.11. Creating a Port for a Hackage-hosted Haskell
+	  Application</div><div class="example-contents"><p>When preparing a Haskell Cabal port, the
+	  <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/devel/hs-cabal-install/pkg-descr">devel/hs-cabal-install</a> program is
+	  required, so make sure it is installed beforehand. First we need
+	  to define common ports variables that allows
+	  cabal-install to fetch the package distribution file:</p><pre class="programlisting">PORTNAME=	ShellCheck
+DISTVERSION=	0.6.0
+CATEGORIES=	devel
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Shell script analysis tool
+
+USES=		cabal
+
+.include &lt;bsd.port.mk&gt;</pre><p>This minimal Makefile allows us to fetch the distribution file:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>make cabal-extract</code></strong>
+[...]
+Downloading the latest package list from hackage.haskell.org
+cabal get ShellCheck-0.6.0
+Downloading  ShellCheck-0.6.0
+Downloaded   ShellCheck-0.6.0
+Unpacking to ShellCheck-0.6.0/</pre><p>Now we have ShellCheck.cabal package description file,
+	  which allows us to fetch all package's dependencies,
+	  including transitive ones:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>make cabal-extract-deps</code></strong>
+[...]
+Resolving dependencies...
+Downloading  base-orphans-0.8.2
+Downloaded   base-orphans-0.8.2
+Downloading  primitive-0.7.0.0
+Starting     base-orphans-0.8.2 (lib)
+Building     base-orphans-0.8.2 (lib)
+Downloaded   primitive-0.7.0.0
+Downloading  dlist-0.8.0.7
+[...]</pre><p>As a side effect, the package's dependencies are
+	  also compiled, so the command may take some time.
+	  Once done, a list of required dependencies can generated:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>make make-use-cabal</code></strong>
+USE_CABAL=QuickCheck-2.12.6.1 \
+hashable-1.3.0.0 \
+integer-logarithms-1.0.3 \
+[...]</pre><p>Haskell packages may contain revisions, just like
+	  FreeBSD ports. Revisions can affect only <code class="filename">.cabal</code>
+	  files, but it is still important to pull them in.
+	  To check <code class="varname">USE_CABAL</code> items for available
+	  revision updates, run following command:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>make make-use-cabal-revs</code></strong>
+USE_CABAL=QuickCheck-2.12.6.1_1 \
+hashable-1.3.0.0 \
+integer-logarithms-1.0.3_2 \
+[...]</pre><p>Note additional version numbers after <code class="literal">_</code>
+	  symbol. Put newly generated <code class="varname">USE_CABAL</code> list
+	  instead of an old one.</p><p>Finally, <code class="filename">distinfo</code> needs to be regenerated to
+	  contain all the distribution files:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>make makesum</code></strong>
+=&gt; ShellCheck-0.6.0.tar.gz doesn't seem to exist in /usr/local/poudriere/ports/git/distfiles/cabal.
+=&gt; Attempting to fetch https://hackage.haskell.org/package/ShellCheck-0.6.0/ShellCheck-0.6.0.tar.gz
+ShellCheck-0.6.0.tar.gz                                136 kB  642 kBps    00s
+=&gt; QuickCheck-2.12.6.1/QuickCheck-2.12.6.1.tar.gz doesn't seem to exist in /usr/local/poudriere/ports/git/distfiles/cabal.
+=&gt; Attempting to fetch https://hackage.haskell.org/package/QuickCheck-2.12.6.1/QuickCheck-2.12.6.1.tar.gz
+QuickCheck-2.12.6.1/QuickCheck-2.12.6.1.tar.gz          65 kB  361 kBps    00s
+[...]</pre><p>The port is now ready for a test build and further
+	  adjustments like creating a plist, writing a description,
+	  adding license information, options, etc. as normal.</p><p>If you are not testing your port in a clean environment
+	  like with <span class="application">Poudriere</span>, remember to
+	  run <code class="command">make clean</code> before any testing.</p></div></div><br class="example-break" /></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="porting-restrictions.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="special.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="using-autotools.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">6.4. Ports with Distribution Restrictions or Legal
+      Concerns </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 6.6. Using GNU Autotools</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

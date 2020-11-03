@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>7.6. Helper Functions</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Developers' Handbook" /><link rel="up" href="sockets.html" title="Chapter 7. Sockets" /><link rel="prev" href="sockets-essential-functions.html" title="7.5. Essential Socket Functions" /><link rel="next" href="sockets-concurrent-servers.html" title="7.7. Concurrent Servers" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">7.6. Helper Functions</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="sockets-essential-functions.html">Prev</a> </td><th width="60%" align="center">Chapter 7. Sockets</th><td width="20%" align="right"> <a accesskey="n" href="sockets-concurrent-servers.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="sockets-helper-functions"></a>7.6. Helper Functions</h2></div></div></div><p>FreeBSD C library contains many helper functions for sockets
+      programming.  For example, in our sample client we hard coded
+      the <code class="systemitem">time.nist.gov</code>
+      <acronym class="acronym">IP</acronym> address.  But we do not always know the
+      <acronym class="acronym">IP</acronym> address.  Even if we do, our software is
+      more flexible if it allows the user to enter the
+      <acronym class="acronym">IP</acronym> address, or even the domain name.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="sockets-gethostbyname"></a>7.6.1. <code class="function">gethostbyname</code></h3></div></div></div><p>While there is no way to pass the domain name directly to
+	any of the sockets functions, the FreeBSD C library comes with
+	the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=gethostbyname&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">gethostbyname</span>(3)</span></a> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=gethostbyname2&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">gethostbyname2</span>(3)</span></a>
+	functions, declared in <code class="filename">netdb.h</code>.</p><pre class="programlisting">struct hostent * gethostbyname(const char *name);
+struct hostent * gethostbyname2(const char *name, int af);</pre><p>Both return a pointer to the <code class="varname">hostent</code>
+	structure, with much information about the domain.  For our
+	purposes, the <code class="varname">h_addr_list[0]</code> field of the
+	structure points at <code class="varname">h_length</code> bytes of the
+	correct address, already stored in the <span class="emphasis"><em>network byte
+	  order</em></span>.</p><p>This allows us to create a much more flexible&#8212;and
+	much more useful&#8212;version of our
+	<span class="application">daytime</span> program:</p><pre class="programlisting">/*
+ * daytime.c
+ *
+ * Programmed by G. Adam Stanislav
+ * 19 June 2001
+ */
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/socket.h&gt;
+#include &lt;netinet/in.h&gt;
+#include &lt;netdb.h&gt;
+
+int main(int argc, char *argv[]) {
+  register int s;
+  register int bytes;
+  struct sockaddr_in sa;
+  struct hostent *he;
+  char buf[BUFSIZ+1];
+  char *host;
+
+  if ((s = socket(PF_INET, SOCK_STREAM, 0)) &lt; 0) {
+    perror("socket");
+    return 1;
+  }
+
+  bzero(&amp;sa, sizeof sa);
+
+  sa.sin_family = AF_INET;
+  sa.sin_port = htons(13);
+
+  host = (argc &gt; 1) ? (char *)argv[1] : "time.nist.gov";
+
+  if ((he = gethostbyname(host)) == NULL) {
+    herror(host);
+    return 2;
+  }
+
+  bcopy(he-&gt;h_addr_list[0],&amp;sa.sin_addr, he-&gt;h_length);
+
+  if (connect(s, (struct sockaddr *)&amp;sa, sizeof sa) &lt; 0) {
+    perror("connect");
+    return 3;
+  }
+
+  while ((bytes = read(s, buf, BUFSIZ)) &gt; 0)
+    write(1, buf, bytes);
+
+  close(s);
+  return 0;
+}</pre><p>We now can type a domain name (or an <acronym class="acronym">IP</acronym>
+	address, it works both ways) on the command line, and the
+	program will try to connect to its
+	<span class="emphasis"><em>daytime</em></span> server.  Otherwise, it will still
+	default to <code class="systemitem">time.nist.gov</code>.  However,
+	even in this case we will use
+	<code class="function">gethostbyname</code> rather than hard coding
+	<code class="systemitem">192.43.244.18</code>.
+	That way, even if its <acronym class="acronym">IP</acronym> address changes in
+	the future, we will still find it.</p><p>Since it takes virtually no time to get the time from your
+	local server, you could run <span class="application">daytime</span>
+	twice in a row: First to get the time from <code class="systemitem">time.nist.gov</code>, the second
+	time from your own system.  You can then compare the results
+	and see how exact your system clock is:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>daytime ; daytime localhost</code></strong>
+
+
+52080 01-06-20 04:02:33 50 0 0 390.2 UTC(NIST) *
+2001-06-20T04:02:35Z
+<code class="prompt">%</code></pre><p>As you can see, my system was two seconds ahead of the
+	<acronym class="acronym">NIST</acronym> time.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="sockets-getservbyname"></a>7.6.2. <code class="function">getservbyname</code></h3></div></div></div><p>Sometimes you may not be sure what port a certain service
+	uses.  The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=getservbyname&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">getservbyname</span>(3)</span></a> function, also declared in
+	<code class="filename">netdb.h</code> comes in very handy in those
+	cases:</p><pre class="programlisting">struct servent * getservbyname(const char *name, const char *proto);</pre><p>The <code class="varname">servent</code> structure contains the
+	<code class="varname">s_port</code>, which contains the proper port,
+	already in <span class="emphasis"><em>network byte order</em></span>.</p><p>Had we not known the correct port for the
+	<span class="emphasis"><em>daytime</em></span> service, we could have found it
+	this way:</p><pre class="programlisting">struct servent *se;
+  ...
+  if ((se = getservbyname("daytime", "tcp")) == NULL {
+    fprintf(stderr, "Cannot determine which port to use.\n");
+    return 7;
+  }
+  sa.sin_port = se-&gt;s_port;</pre><p>You usually do know the port.  But if you are developing a
+	new protocol, you may be testing it on an unofficial port.
+	Some day, you will register the protocol and its port (if
+	nowhere else, at least in your
+	<code class="filename">/etc/services</code>, which is where
+	<code class="function">getservbyname</code> looks).  Instead of
+	returning an error in the above code, you just use the
+	temporary port number.  Once you have listed the protocol in
+	<code class="filename">/etc/services</code>, your software will find
+	its port without you having to rewrite the code.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="sockets-essential-functions.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="sockets.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="sockets-concurrent-servers.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">7.5. Essential Socket Functions </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 7.7. Concurrent Servers</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

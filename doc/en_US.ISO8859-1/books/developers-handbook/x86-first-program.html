@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>11.6. Our First Program</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Developers' Handbook" /><link rel="up" href="x86.html" title="Chapter 11. x86 Assembly Language Programming" /><link rel="prev" href="x86-portable-code.html" title="11.5. Creating Portable Code" /><link rel="next" href="x86-unix-filters.html" title="11.7. Writing UNIX® Filters" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">11.6. Our First Program</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="x86-portable-code.html">Prev</a> </td><th width="60%" align="center">Chapter 11. x86 Assembly Language Programming</th><td width="20%" align="right"> <a accesskey="n" href="x86-unix-filters.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="x86-first-program"></a>11.6. Our First Program</h2></div></div></div><p>We are now ready for our first program, the mandatory
+    <span class="application">Hello, World!</span></p><pre class="programlisting">1:	%include	'system.inc'
+ 2:
+ 3:	section	.data
+ 4:	hello	db	'Hello, World!', 0Ah
+ 5:	hbytes	equ	$-hello
+ 6:
+ 7:	section	.text
+ 8:	global	_start
+ 9:	_start:
+10:	push	dword hbytes
+11:	push	dword hello
+12:	push	dword stdout
+13:	sys.write
+14:
+15:	push	dword 0
+16:	sys.exit</pre><p>Here is what it does: Line 1 includes the defines, the macros,
+    and the code from <code class="filename">system.inc</code>.</p><p>Lines 3-5 are the data: Line 3 starts the data
+    section/segment.  Line 4 contains the string "Hello, World!"
+    followed by a new line (<code class="constant">0Ah</code>).  Line 5 creates
+    a constant that contains the length of the string from line 4 in
+    bytes.</p><p>Lines 7-16 contain the code.  Note that FreeBSD uses the
+    <span class="emphasis"><em>elf</em></span> file format for its executables, which
+    requires every program to start at the point labeled
+    <code class="varname">_start</code> (or, more precisely, the linker expects
+    that).  This label has to be global.</p><p>Lines 10-13 ask the system to write <code class="varname">hbytes</code>
+    bytes of the <code class="varname">hello</code> string to
+    <code class="varname">stdout</code>.</p><p>Lines 15-16 ask the system to end the program with the return
+    value of <code class="constant">0</code>.  The <code class="function">SYS_exit</code> syscall never returns, so the
+    code ends there.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">If you have come to <span class="trademark">UNIX</span>® from <acronym class="acronym"><span class="trademark">MS-DOS</span>®</acronym>
+      assembly language background, you may be used to writing
+      directly to the video hardware.  You will never have to worry
+      about this in FreeBSD, or any other flavor of <span class="trademark">UNIX</span>®.  As far as
+      you are concerned, you are writing to a file known as
+      <code class="filename">stdout</code>.  This can be the video screen, or a
+      <span class="application">telnet</span> terminal, or an actual file,
+      or even the input of another program.  Which one it is, is for
+      the system to figure out.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-assemble-1"></a>11.6.1. Assembling the Code</h3></div></div></div><p>Type the code (except the line numbers) in an editor, and
+      save it in a file named <code class="filename">hello.asm</code>.  You
+      need <span class="application">nasm</span> to assemble it.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-get-nasm"></a>11.6.1.1. Installing <span class="application">nasm</span></h4></div></div></div><p>If you do not have <span class="application">nasm</span>,
+	type:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>su</code></strong>
+Password:<strong class="userinput"><code><em class="replaceable"><code>your root password</code></em></code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>cd /usr/ports/devel/nasm</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make install</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>exit</code></strong>
+<code class="prompt">%</code></pre><p>You may type <strong class="userinput"><code>make install clean</code></strong>
+	instead of just <strong class="userinput"><code>make install</code></strong> if you do
+	not want to keep <span class="application">nasm</span> source
+	code.</p><p>Either way, FreeBSD will automatically download
+	<span class="application">nasm</span> from the Internet, compile it,
+	and install it on your system.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">If your system is not FreeBSD, you need to get
+	  <span class="application">nasm</span> from its <a class="link" href="https://sourceforge.net/projects/nasm" target="_top">home
+	    page</a>.  You can still use it to assemble FreeBSD
+	  code.</p></div><p>Now you can assemble, link, and run the code:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>nasm -f elf hello.asm</code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>ld -s -o hello hello.o</code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>./hello</code></strong>
+Hello, World!
+<code class="prompt">%</code></pre></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="x86-portable-code.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="x86.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="x86-unix-filters.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">11.5. Creating Portable Code </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 11.7. Writing <span class="trademark">UNIX</span>® Filters</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

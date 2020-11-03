@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>8.4. Block Elements</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Documentation Project Primer for New Contributors" /><link rel="up" href="xhtml-markup.html" title="Chapter 8. XHTML Markup" /><link rel="prev" href="xhtml-markup-sectional-elements.html" title="8.3. Sectional Elements" /><link rel="next" href="xhtml-markup-inline-elements.html" title="8.5. In-line Elements" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">8.4. Block Elements</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="xhtml-markup-sectional-elements.html">Prev</a> </td><th width="60%" align="center">Chapter 8. <acronym class="acronym">XHTML</acronym> Markup</th><td width="20%" align="right"> <a accesskey="n" href="xhtml-markup-inline-elements.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="xhtml-markup-block-elements"></a>8.4. Block Elements</h2></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="xhtml-markup-block-elements-headings"></a>8.4.1. Headings</h3></div></div></div><p><acronym class="acronym">XHTML</acronym> has tags to denote headings in
+	the document at up to six different levels.</p><p>The largest and most prominent heading is
+	<code class="sgmltag-element">h1</code>, then <code class="sgmltag-element">h2</code>,
+	continuing down to <code class="sgmltag-element">h6</code>.</p><p>The element's content is the text of the heading.</p><div class="example"><a id="idp51521144"></a><div class="example-title">Example 8.2. <code class="sgmltag-element">h1</code>, <code class="sgmltag-element">h2</code>,
+	  and Other Header Tags</div><div class="example-contents"><p>Usage:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;h1&gt;</code>First section<code class="sgmltag-endtag">&lt;/h1&gt;</code>
+
+&lt;!-- Document introduction goes here --&gt;
+
+<code class="sgmltag-starttag">&lt;h2&gt;</code>This is the heading for the first section<code class="sgmltag-endtag">&lt;/h2&gt;</code>
+
+&lt;!-- Content for the first section goes here --&gt;
+
+<code class="sgmltag-starttag">&lt;h3&gt;</code>This is the heading for the first sub-section<code class="sgmltag-endtag">&lt;/h3&gt;</code>
+
+&lt;!-- Content for the first sub-section goes here --&gt;
+
+<code class="sgmltag-starttag">&lt;h2&gt;</code>This is the heading for the second section<code class="sgmltag-endtag">&lt;/h2&gt;</code>
+
+&lt;!-- Content for the second section goes here --&gt;</pre></div></div><br class="example-break" /><p>Generally, an <acronym class="acronym">XHTML</acronym> page should have
+	one first level heading (<code class="sgmltag-element">h1</code>).  This can
+	contain many second level headings (<code class="sgmltag-element">h2</code>),
+	which can in turn contain many third level headings.  Do not
+	leave gaps in the numbering.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="xhtml-markup-block-elements-paragraphs"></a>8.4.2. Paragraphs</h3></div></div></div><p><acronym class="acronym">XHTML</acronym> supports a single paragraph
+	element, <code class="sgmltag-element">p</code>.</p><div class="example"><a id="idp51534968"></a><div class="example-title">Example 8.3. <code class="sgmltag-element">p</code> Example</div><div class="example-contents"><p>Usage:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;p&gt;</code>This is a paragraph.  It can contain just about any
+  other element.<code class="sgmltag-endtag">&lt;/p&gt;</code></pre></div></div><br class="example-break" /></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="xhtml-markup-block-elements-block-quotations"></a>8.4.3. Block Quotations</h3></div></div></div><p>A block quotation is an extended quotation from another
+	document that will appear in a separate paragraph.</p><div class="example"><a id="idp51538808"></a><div class="example-title">Example 8.4. <code class="sgmltag-element">blockquote</code> Example</div><div class="example-contents"><p>Usage:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;p&gt;</code>A small excerpt from the US Constitution:<code class="sgmltag-endtag">&lt;/p&gt;</code>
+
+<code class="sgmltag-starttag">&lt;blockquote&gt;</code>We the People of the United States, in Order to form
+  a more perfect Union, establish Justice, insure domestic
+  Tranquility, provide for the common defence, promote the general
+  Welfare, and secure the Blessings of Liberty to ourselves and our
+  Posterity, do ordain and establish this Constitution for the
+  United States of America.<code class="sgmltag-endtag">&lt;/blockquote&gt;</code></pre></div></div><br class="example-break" /></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="xhtml-markup-block-elements-lists"></a>8.4.4. Lists</h3></div></div></div><p><acronym class="acronym">XHTML</acronym> can present the user with three
+	types of lists: ordered, unordered, and definition.</p><p>Entries in an ordered list will be numbered, while entries
+	in an unordered list will be preceded by bullet points.
+	Definition lists have two sections for each entry.  The first
+	section is the term being defined, and the second section is
+	the definition.</p><p>Ordered lists are indicated by the <code class="sgmltag-element">ol</code>
+	element, unordered lists by the <code class="sgmltag-element">ul</code>
+	element, and definition lists by the <code class="sgmltag-element">dl</code>
+	element.</p><p>Ordered and unordered lists contain listitems, indicated
+	by the <code class="sgmltag-element">li</code> element.  A listitem can
+	contain textual content, or it may be further wrapped in one
+	or more <code class="sgmltag-element">p</code> elements.</p><p>Definition lists contain definition terms
+	(<code class="sgmltag-element">dt</code>) and definition descriptions
+	(<code class="sgmltag-element">dd</code>).  A definition term can only contain
+	inline elements.  A definition description can contain other
+	block elements.</p><div class="example"><a id="idp51548280"></a><div class="example-title">Example 8.5. <code class="sgmltag-element">ul</code> and
+	  <code class="sgmltag-element">ol</code> Example</div><div class="example-contents"><p>Usage:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;p&gt;</code>An unordered list.  Listitems will probably be
+  preceded by bullets.<code class="sgmltag-endtag">&lt;/p&gt;</code>
+
+<code class="sgmltag-starttag">&lt;ul&gt;</code>
+  <code class="sgmltag-starttag">&lt;li&gt;</code>First item<code class="sgmltag-endtag">&lt;/li&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;li&gt;</code>Second item<code class="sgmltag-endtag">&lt;/li&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;li&gt;</code>Third item<code class="sgmltag-endtag">&lt;/li&gt;</code>
+<code class="sgmltag-endtag">&lt;/ul&gt;</code>
+
+<code class="sgmltag-starttag">&lt;p&gt;</code>An ordered list, with list items consisting of multiple
+  paragraphs.  Each item (note: not each paragraph) will be
+  numbered.<code class="sgmltag-endtag">&lt;/p&gt;</code>
+
+<code class="sgmltag-starttag">&lt;ol&gt;</code>
+  <code class="sgmltag-starttag">&lt;li&gt;</code><code class="sgmltag-starttag">&lt;p&gt;</code>This is the first item.  It only has one paragraph.<code class="sgmltag-endtag">&lt;/p&gt;</code><code class="sgmltag-endtag">&lt;/li&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;li&gt;</code><code class="sgmltag-starttag">&lt;p&gt;</code>This is the first paragraph of the second item.<code class="sgmltag-endtag">&lt;/p&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;p&gt;</code>This is the second paragraph of the second item.<code class="sgmltag-endtag">&lt;/p&gt;</code><code class="sgmltag-endtag">&lt;/li&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;li&gt;</code><code class="sgmltag-starttag">&lt;p&gt;</code>This is the first and only paragraph of the third
+    item.<code class="sgmltag-endtag">&lt;/p&gt;</code><code class="sgmltag-endtag">&lt;/li&gt;</code>
+<code class="sgmltag-endtag">&lt;/ol&gt;</code></pre></div></div><br class="example-break" /><div class="example"><a id="idp51588472"></a><div class="example-title">Example 8.6. Definition Lists with <code class="sgmltag-element">dl</code></div><div class="example-contents"><p>Usage:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;dl&gt;</code>
+  <code class="sgmltag-starttag">&lt;dt&gt;</code>Term 1<code class="sgmltag-endtag">&lt;/dt&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;dd&gt;</code><code class="sgmltag-starttag">&lt;p&gt;</code>Paragraph 1 of definition 1.<code class="sgmltag-endtag">&lt;/p&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;p&gt;</code>Paragraph 2 of definition 1.<code class="sgmltag-endtag">&lt;/p&gt;</code><code class="sgmltag-endtag">&lt;/dd&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;dt&gt;</code>Term 2<code class="sgmltag-endtag">&lt;/dt&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;dd&gt;</code><code class="sgmltag-starttag">&lt;p&gt;</code>Paragraph 1 of definition 2.<code class="sgmltag-endtag">&lt;/p&gt;</code><code class="sgmltag-endtag">&lt;/dd&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;dt&gt;</code>Term 3<code class="sgmltag-endtag">&lt;/dt&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;dd&gt;</code><code class="sgmltag-starttag">&lt;p&gt;</code>Paragraph 1 of definition 3.<code class="sgmltag-endtag">&lt;/p&gt;</code><code class="sgmltag-endtag">&lt;/dd&gt;</code>
+<code class="sgmltag-endtag">&lt;/dl&gt;</code></pre></div></div><br class="example-break" /></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="xhtml-markup-block-elements-preformatted-text"></a>8.4.5. Pre-formatted Text</h3></div></div></div><p>Pre-formatted text is shown to the user exactly as it is
+	in the file.  Text is shown in a fixed font.  Multiple spaces
+	and line breaks are shown exactly as they are in the
+	file.</p><p>Wrap pre-formatted text in the <code class="sgmltag-element">pre</code>
+	element.</p><div class="example"><a id="idp51610744"></a><div class="example-title">Example 8.7. <code class="sgmltag-element">pre</code> Example</div><div class="example-contents"><p>For example, the <code class="sgmltag-element">pre</code> tags could be
+	  used to mark up an email message:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;pre&gt;</code>  From: nik@FreeBSD.org
+  To: freebsd-doc@FreeBSD.org
+  Subject: New documentation available
+
+  There is a new copy of my primer for contributors to the FreeBSD
+  Documentation Project available at
+
+    &amp;lt;URL:https://people.FreeBSD.org/~nik/primer/index.html&amp;gt;
+
+  Comments appreciated.
+
+  N<code class="sgmltag-endtag">&lt;/pre&gt;</code></pre><p>Keep in mind that <code class="literal">&lt;</code> and
+	  <code class="literal">&amp;</code> still are recognized as special
+	  characters in pre-formatted text.  This is why the example
+	  shown had to use <code class="literal">&amp;lt;</code> instead of
+	  <code class="literal">&lt;</code>.  For consistency,
+	  <code class="literal">&amp;gt;</code> was used in place of
+	  <code class="literal">&gt;</code>, too.  Watch out for the special
+	  characters that may appear in text copied from a plain-text
+	  source, like an email message or program code.</p></div></div><br class="example-break" /></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="xhtml-markup-block-elements-tables"></a>8.4.6. Tables</h3></div></div></div><p>Mark up tabular information using the
+	<code class="sgmltag-element">table</code> element.  A table consists of one or
+	more table rows (<code class="sgmltag-element">tr</code>), each containing one
+	or more cells of table data (<code class="sgmltag-element">td</code>).  Each
+	cell can contain other block elements, such as paragraphs or
+	lists.  It can also contain another table (this nesting can
+	repeat indefinitely).  If the cell only contains one paragraph
+	then the <code class="sgmltag-element">p</code>element is not needed.</p><div class="example"><a id="idp51619320"></a><div class="example-title">Example 8.8. Simple Use of <code class="sgmltag-element">table</code></div><div class="example-contents"><p>Usage:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;p&gt;</code>This is a simple 2x2 table.<code class="sgmltag-endtag">&lt;/p&gt;</code>
+
+<code class="sgmltag-starttag">&lt;table&gt;</code>
+  <code class="sgmltag-starttag">&lt;tr&gt;</code>
+    <code class="sgmltag-starttag">&lt;td&gt;</code>Top left cell<code class="sgmltag-endtag">&lt;/td&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;td&gt;</code>Top right cell<code class="sgmltag-endtag">&lt;/td&gt;</code>
+  <code class="sgmltag-endtag">&lt;/tr&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;tr&gt;</code>
+    <code class="sgmltag-starttag">&lt;td&gt;</code>Bottom left cell<code class="sgmltag-endtag">&lt;/td&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;td&gt;</code>Bottom right cell<code class="sgmltag-endtag">&lt;/td&gt;</code>
+  <code class="sgmltag-endtag">&lt;/tr&gt;</code>
+<code class="sgmltag-endtag">&lt;/table&gt;</code></pre></div></div><br class="example-break" /><p>A cell can span multiple rows and columns by adding the
+	<code class="sgmltag-attribute">rowspan</code> or
+	<code class="sgmltag-attribute">colspan</code> attributes with
+	values for the number of rows or columns to be spanned.</p><div class="example"><a id="idp51634552"></a><div class="example-title">Example 8.9. Using
+	  <code class="sgmltag-attribute">rowspan</code></div><div class="example-contents"><p>Usage:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;p&gt;</code>One tall thin cell on the left, two short cells next to
+  it on the right.<code class="sgmltag-endtag">&lt;/p&gt;</code>
+
+<code class="sgmltag-starttag">&lt;table&gt;</code>
+  <code class="sgmltag-starttag">&lt;tr&gt;</code>
+    <code class="sgmltag-starttag">&lt;td rowspan="2"&gt;</code>Long and thin<code class="sgmltag-endtag">&lt;/td&gt;</code>
+  <code class="sgmltag-endtag">&lt;/tr&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;tr&gt;</code>
+    <code class="sgmltag-starttag">&lt;td&gt;</code>Top cell<code class="sgmltag-endtag">&lt;/td&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;td&gt;</code>Bottom cell<code class="sgmltag-endtag">&lt;/td&gt;</code>
+  <code class="sgmltag-endtag">&lt;/tr&gt;</code>
+<code class="sgmltag-endtag">&lt;/table&gt;</code></pre></div></div><br class="example-break" /><div class="example"><a id="idp51643384"></a><div class="example-title">Example 8.10. Using
+	  <code class="sgmltag-attribute">colspan</code></div><div class="example-contents"><p>Usage:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;p&gt;</code>One long cell on top, two short cells below it.<code class="sgmltag-endtag">&lt;/p&gt;</code>
+
+<code class="sgmltag-starttag">&lt;table&gt;</code>
+  <code class="sgmltag-starttag">&lt;tr&gt;</code>
+    <code class="sgmltag-starttag">&lt;td colspan="2"&gt;</code>Top cell<code class="sgmltag-endtag">&lt;/td&gt;</code>
+  <code class="sgmltag-endtag">&lt;/tr&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;tr&gt;</code>
+    <code class="sgmltag-starttag">&lt;td&gt;</code>Bottom left cell<code class="sgmltag-endtag">&lt;/td&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;td&gt;</code>Bottom right cell<code class="sgmltag-endtag">&lt;/td&gt;</code>
+  <code class="sgmltag-endtag">&lt;/tr&gt;</code>
+<code class="sgmltag-endtag">&lt;/table&gt;</code></pre></div></div><br class="example-break" /><div class="example"><a id="idp51652216"></a><div class="example-title">Example 8.11. Using <code class="sgmltag-attribute">rowspan</code> and
+	  <code class="sgmltag-attribute">colspan</code>
+	  Together</div><div class="example-contents"><p>Usage:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;p&gt;</code>On a 3x3 grid, the top left block is a 2x2 set of
+  cells merged into one.  The other cells are normal.<code class="sgmltag-endtag">&lt;/p&gt;</code>
+
+<code class="sgmltag-starttag">&lt;table&gt;</code>
+  <code class="sgmltag-starttag">&lt;tr&gt;</code>
+    <code class="sgmltag-starttag">&lt;td colspan="2" rowspan="2"&gt;</code>Top left large cell<code class="sgmltag-endtag">&lt;/td&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;td&gt;</code>Top right cell<code class="sgmltag-endtag">&lt;/td&gt;</code>
+  <code class="sgmltag-endtag">&lt;/tr&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;tr&gt;</code>
+    &lt;!-- Because the large cell on the left merges into
+         this row, the first &lt;td&gt; will occur on its
+         right --&gt;
+
+    <code class="sgmltag-starttag">&lt;td&gt;</code>Middle right cell<code class="sgmltag-endtag">&lt;/td&gt;</code>
+  <code class="sgmltag-endtag">&lt;/tr&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;tr&gt;</code>
+    <code class="sgmltag-starttag">&lt;td&gt;</code>Bottom left cell<code class="sgmltag-endtag">&lt;/td&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;td&gt;</code>Bottom middle cell<code class="sgmltag-endtag">&lt;/td&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;td&gt;</code>Bottom right cell<code class="sgmltag-endtag">&lt;/td&gt;</code>
+  <code class="sgmltag-endtag">&lt;/tr&gt;</code>
+<code class="sgmltag-endtag">&lt;/table&gt;</code></pre></div></div><br class="example-break" /></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="xhtml-markup-sectional-elements.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="xhtml-markup.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="xhtml-markup-inline-elements.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">8.3. Sectional Elements </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 8.5. In-line Elements</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

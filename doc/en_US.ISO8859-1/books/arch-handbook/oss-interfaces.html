@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>15.4. Interfaces</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Architecture Handbook" /><link rel="up" href="oss.html" title="Chapter 15. Sound Subsystem" /><link rel="prev" href="pcm-probe-and-attach.html" title="15.3. Probing, Attaching, etc." /><link rel="next" href="pccard.html" title="Chapter 16. PC Card" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">15.4. Interfaces</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="pcm-probe-and-attach.html">Prev</a> </td><th width="60%" align="center">Chapter 15. Sound Subsystem</th><td width="20%" align="right"> <a accesskey="n" href="pccard.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="oss-interfaces"></a>15.4. Interfaces</h2></div></div></div><p>The interface between the <code class="filename">pcm</code> core
+      and the sound drivers is defined in terms of <a class="link" href="kernel-objects.html" title="Chapter 3. Kernel Objects">kernel objects</a>.</p><p>There are two main interfaces that a sound driver will
+      usually provide: <span class="emphasis"><em>CHANNEL</em></span> and either
+      <span class="emphasis"><em>MIXER</em></span> or <span class="emphasis"><em>AC97</em></span>.</p><p>The <span class="emphasis"><em>AC97</em></span> interface is a very small
+      hardware access (register read/write) interface, implemented by
+      drivers for hardware with an AC97 codec.  In this case, the
+      actual MIXER interface is provided by the shared AC97 code in
+      <code class="filename">pcm</code>.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57145976"></a>15.4.1. The CHANNEL Interface</h3></div></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57146616"></a>15.4.1.1. Common Notes for Function Parameters</h4></div></div></div><p>Sound drivers usually have a private data structure to
+	  describe their device, and one structure for each play and
+	  record data channel that it supports.</p><p>For all CHANNEL interface functions, the first parameter
+	  is an opaque pointer.</p><p>The second parameter is a pointer to the private
+	  channel data structure, except for
+	  <code class="function">channel_init()</code> which has a pointer to
+	  the private device structure (and returns the channel
+	  pointer for further use by
+	  <code class="filename">pcm</code>).</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57149432"></a>15.4.1.2. Overview of Data Transfer Operations</h4></div></div></div><p>For sound data transfers, the
+	  <code class="filename">pcm</code> core and the sound drivers
+	  communicate through a shared memory area, described by a
+	  <code class="varname">struct
+	    snd_dbuf</code>.</p><p><code class="varname">struct snd_dbuf</code> is
+	  private to <code class="filename">pcm</code>, and sound drivers
+	  obtain values of interest by calls to accessor functions
+	  (<code class="function">sndbuf_getxxx()</code>).</p><p>The shared memory area has a size of
+	  <code class="function">sndbuf_getsize()</code> and is divided into
+	  fixed size blocks of <code class="function">sndbuf_getblksz()</code>
+	  bytes.</p><p>When playing, the general transfer mechanism is as
+	  follows (reverse the idea for recording):</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="filename">pcm</code> initially fills up the
+	      buffer, then calls the sound driver's <a class="link" href="oss-interfaces.html#channel-trigger" title="15.4.1.7. channel_trigger">
+	      <code class="function">xxxchannel_trigger()</code></a>
+	      function with a parameter of PCMTRIG_START.</p></li><li class="listitem"><p>The sound driver then arranges to repeatedly
+	      transfer the whole memory area
+	      (<code class="function">sndbuf_getbuf()</code>,
+	      <code class="function">sndbuf_getsize()</code>) to the device, in
+	      blocks of <code class="function">sndbuf_getblksz()</code> bytes.
+	      It calls back the <code class="function">chn_intr()</code>
+	      <code class="filename">pcm</code> function for each
+	      transferred block (this will typically happen at
+	      interrupt time).</p></li><li class="listitem"><p><code class="function">chn_intr()</code> arranges to copy new
+	      data to the area that was transferred to the device (now
+	      free), and make appropriate updates to the <code class="varname">snd_dbuf</code>
+	      structure.</p></li></ul></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="xxxchannel-init"></a>15.4.1.3. channel_init</h4></div></div></div><p><code class="function">xxxchannel_init()</code> is called to
+	  initialize each of the play or record channels.  The calls
+	  are initiated from the sound driver attach routine.  (See
+	  the <a class="link" href="pcm-probe-and-attach.html" title="15.3. Probing, Attaching, etc.">probe and attach
+	    section</a>).</p><pre class="programlisting">          static void *
+          xxxchannel_init(kobj_t obj, void *data,
+             struct snd_dbuf *b, struct pcm_channel *c, int dir)<a id="co-chinit-params"></a><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span>
+          {
+              struct xxx_info *sc = data;
+              struct xxx_chinfo *ch;
+               ...
+              return ch;<a id="co-chinit-return"></a><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span>
+           }</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#co-chinit-params"><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span></a> </p></td><td valign="top" align="left"><p><code class="varname">b</code> is the address for the channel
+	      <code class="varname">struct snd_dbuf</code>.
+	      It should be initialized in the function by calling
+	      <code class="function">sndbuf_alloc()</code>.  The buffer size to
+	      use is normally a small multiple of the 'typical' unit
+	      transfer size for your device.</p><p><code class="varname">c</code> is the
+	      <code class="filename">pcm</code> channel control structure
+	      pointer.  This is an opaque object.  The function should
+	      store it in the local channel structure, to be used in
+	      later calls to <code class="filename">pcm</code> (ie:
+	      <code class="function">chn_intr(c)</code>).</p><p><code class="varname">dir</code> indicates the channel
+	      direction (<code class="literal">PCMDIR_PLAY</code> or
+	      <code class="literal">PCMDIR_REC</code>).</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#co-chinit-return"><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span></a> </p></td><td valign="top" align="left"><p>The function should return a pointer to the private
+	      area used to control this channel.  This will be passed
+	      as a parameter to other channel interface calls.</p></td></tr></table></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57564024"></a>15.4.1.4. channel_setformat</h4></div></div></div><p><code class="function">xxxchannel_setformat()</code> should set
+	  up the hardware for the specified channel for the specified
+	  sound format.</p><pre class="programlisting">          static int
+          xxxchannel_setformat(kobj_t obj, void *data, u_int32_t format)<a id="co-chsetformat-params"></a><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span>
+          {
+              struct xxx_chinfo *ch = data;
+               ...
+              return 0;
+           }</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#co-chsetformat-params"><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span></a> </p></td><td valign="top" align="left"><p><code class="varname">format</code> is specified as an
+	      <code class="literal">AFMT_XXX value</code>
+	      (<code class="filename">soundcard.h</code>).</p></td></tr></table></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57568632"></a>15.4.1.5. channel_setspeed</h4></div></div></div><p><code class="function">xxxchannel_setspeed()</code> sets up the
+	  channel hardware for the specified sampling speed, and
+	  returns the possibly adjusted speed.</p><pre class="programlisting">          static int
+          xxxchannel_setspeed(kobj_t obj, void *data, u_int32_t speed)
+          {
+              struct xxx_chinfo *ch = data;
+               ...
+              return speed;
+           }</pre></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57570424"></a>15.4.1.6. channel_setblocksize</h4></div></div></div><p><code class="function">xxxchannel_setblocksize()</code> sets the
+	  block size, which is the size of unit transactions between
+	  <code class="filename">pcm</code> and the sound driver, and
+	  between the sound driver and the device.  Typically, this
+	  would be the number of bytes transferred before an interrupt
+	  occurs.  During a transfer, the sound driver should call
+	  <code class="filename">pcm</code>'s
+	  <code class="function">chn_intr()</code> every time this size has
+	  been transferred.</p><p>Most sound drivers only take note of the block size
+	  here, to be used when an actual transfer will be
+	  started.</p><pre class="programlisting">          static int
+          xxxchannel_setblocksize(kobj_t obj, void *data, u_int32_t blocksize)
+          {
+              struct xxx_chinfo *ch = data;
+                ...
+              return blocksize;<a id="co-chsetblocksize-return"></a><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span>
+           }</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#co-chsetblocksize-return"><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span></a> </p></td><td valign="top" align="left"><p>The function returns the possibly adjusted block
+	      size.  In case the block size is indeed changed,
+	      <code class="function">sndbuf_resize()</code> should be called to
+	      adjust the buffer.</p></td></tr></table></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="channel-trigger"></a>15.4.1.7. channel_trigger</h4></div></div></div><p><code class="function">xxxchannel_trigger()</code> is called by
+	  <code class="filename">pcm</code> to control data transfer
+	  operations in the driver.</p><pre class="programlisting">          static int
+          xxxchannel_trigger(kobj_t obj, void *data, int go)<a id="co-chtrigger-params"></a><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span>
+          {
+              struct xxx_chinfo *ch = data;
+               ...
+              return 0;
+           }</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#co-chtrigger-params"><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span></a> </p></td><td valign="top" align="left"><p><code class="varname">go</code> defines the action for the
+	      current call.  The possible values are:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="literal">PCMTRIG_START</code>: the driver
+		  should start a data transfer from or to the channel
+		  buffer.  If needed, the buffer base and size can be
+		  retrieved through
+		  <code class="function">sndbuf_getbuf()</code> and
+		  <code class="function">sndbuf_getsize()</code>.</p></li><li class="listitem"><p><code class="literal">PCMTRIG_EMLDMAWR</code> /
+		  <code class="literal">PCMTRIG_EMLDMARD</code>: this tells the
+		  driver that the input or output buffer may have been
+		  updated.  Most drivers just ignore these
+		  calls.</p></li><li class="listitem"><p><code class="literal">PCMTRIG_STOP</code> /
+		  <code class="literal">PCMTRIG_ABORT</code>: the driver should
+		  stop the current transfer.</p></li></ul></div></td></tr></table></div><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">If the driver uses ISA DMA,
+	    <code class="function">sndbuf_isadma()</code> should be called
+	    before performing actions on the device, and will take
+	    care of the DMA chip side of things.</p></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57590776"></a>15.4.1.8. channel_getptr</h4></div></div></div><p><code class="function">xxxchannel_getptr()</code> returns the
+	  current offset in the transfer buffer.  This will typically
+	  be called by <code class="function">chn_intr()</code>, and this is
+	  how <code class="filename">pcm</code> knows where it can transfer
+	  new data.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57592952"></a>15.4.1.9. channel_free</h4></div></div></div><p><code class="function">xxxchannel_free()</code> is called to free
+	  up channel resources, for example when the driver is
+	  unloaded, and should be implemented if the channel data
+	  structures are dynamically allocated or if
+	  <code class="function">sndbuf_alloc()</code> was not used for buffer
+	  allocation.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57594744"></a>15.4.1.10. channel_getcaps</h4></div></div></div><pre class="programlisting">          struct pcmchan_caps *
+          xxxchannel_getcaps(kobj_t obj, void *data)
+          {
+              return &amp;xxx_caps;<a id="co-chgetcaps-return"></a><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span>
+           }</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#co-chgetcaps-return"><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span></a> </p></td><td valign="top" align="left"><p>The routine returns a pointer to a (usually
+	      statically-defined) <code class="varname">pcmchan_caps</code> structure
+	      (defined in <code class="filename">sound/pcm/channel.h</code>.
+	      The structure holds the minimum and maximum sampling
+	      frequencies, and the accepted sound formats.  Look at
+	      any sound driver for an example.</p></td></tr></table></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57598456"></a>15.4.1.11. More Functions</h4></div></div></div><p><code class="function">channel_reset()</code>,
+	  <code class="function">channel_resetdone()</code>, and
+	  <code class="function">channel_notify()</code> are for special
+	  purposes and should not be implemented in a driver without
+	  discussing it on the <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo/freebsd-multimedia" target="_top">FreeBSD multimedia mailing list</a>.</p><p><code class="function">channel_setdir()</code> is
+	  deprecated.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57601912"></a>15.4.2. The MIXER Interface</h3></div></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="xxxmixer-init"></a>15.4.2.1. mixer_init</h4></div></div></div><p><code class="function">xxxmixer_init()</code> initializes the
+	  hardware and tells <code class="filename">pcm</code> what mixer
+	  devices are available for playing and recording</p><pre class="programlisting">          static int
+          xxxmixer_init(struct snd_mixer *m)
+          {
+              struct xxx_info   *sc = mix_getdevinfo(m);
+              u_int32_t v;
+
+              [Initialize hardware]
+
+              [Set appropriate bits in v for play mixers]<a id="co-mxini-sd"></a><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span>
+              mix_setdevs(m, v);
+              [Set appropriate bits in v for record mixers]
+              mix_setrecdevs(m, v)
+
+              return 0;
+          }</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#co-mxini-sd"><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span></a> </p></td><td valign="top" align="left"><p>Set bits in an integer value and call
+	      <code class="function">mix_setdevs()</code> and
+	      <code class="function">mix_setrecdevs()</code> to tell
+	      <code class="filename">pcm</code> what devices exist.</p></td></tr></table></div><p>Mixer bits definitions can be found in
+	  <code class="filename">soundcard.h</code>
+	  (<code class="literal">SOUND_MASK_XXX</code> values and
+	  <code class="literal">SOUND_MIXER_XXX</code> bit shifts).</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57625592"></a>15.4.2.2. mixer_set</h4></div></div></div><p><code class="function">xxxmixer_set()</code> sets the volume
+	  level for one mixer device.</p><pre class="programlisting">          static int
+          xxxmixer_set(struct snd_mixer *m, unsigned dev,
+                           unsigned left, unsigned right)<a id="co-mxset-params"></a><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span>
+          {
+              struct sc_info *sc = mix_getdevinfo(m);
+              [set volume level]
+              return left | (right &lt;&lt; 8);<a id="co-mxset-return"></a><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span>
+          }</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#co-mxset-params"><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span></a> </p></td><td valign="top" align="left"><p>The device is specified as a
+	      <code class="literal">SOUND_MIXER_XXX</code> value</p><p>The volume values are specified in range [0-100].
+	      A value of zero should mute the device.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#co-mxset-return"><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span></a> </p></td><td valign="top" align="left"><p>As the hardware levels probably will not match the
+	      input scale, and some rounding will occur, the routine
+	      returns the actual level values (in range 0-100) as
+	      shown.</p></td></tr></table></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57635192"></a>15.4.2.3. mixer_setrecsrc</h4></div></div></div><p><code class="function">xxxmixer_setrecsrc()</code> sets the
+	  recording source device.</p><pre class="programlisting">          static int
+          xxxmixer_setrecsrc(struct snd_mixer *m, u_int32_t src)<a id="co-mxsr-params"></a><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span>
+          {
+              struct xxx_info *sc = mix_getdevinfo(m);
+
+              [look for non zero bit(s) in src, set up hardware]
+
+              [update src to reflect actual action]
+              return src;<a id="co-mxsr-return"></a><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span>
+           }</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#co-mxsr-params"><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span></a> </p></td><td valign="top" align="left"><p>The desired recording devices are specified as a
+	      bit field</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#co-mxsr-return"><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span></a> </p></td><td valign="top" align="left"><p>The actual devices set for recording are returned.
+	      Some drivers can only set one device for recording.  The
+	      function should return -1 if an error occurs.</p></td></tr></table></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57639928"></a>15.4.2.4. mixer_uninit, mixer_reinit</h4></div></div></div><p><code class="function">xxxmixer_uninit()</code> should ensure
+	  that all sound is muted and if possible mixer hardware
+	  should be powered down.</p><p><code class="function">xxxmixer_reinit()</code> should ensure
+	  that the mixer hardware is powered up and any settings not
+	  controlled by <code class="function">mixer_set()</code> or
+	  <code class="function">mixer_setrecsrc()</code> are restored.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57298808"></a>15.4.3. The AC97 Interface</h3></div></div></div><a id="idp57299448" class="indexterm"></a><p>The <span class="emphasis"><em>AC97</em></span> interface is implemented
+	by drivers with an AC97 codec.  It only has three
+	methods:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="function">xxxac97_init()</code> returns the number
+	    of ac97 codecs found.</p></li><li class="listitem"><p><code class="function">ac97_read()</code> and
+	    <code class="function">ac97_write()</code> read or write a
+	    specified register.</p></li></ul></div><p>The <span class="emphasis"><em>AC97</em></span> interface is used by the
+	AC97 code in <code class="filename">pcm</code> to perform higher
+	level operations.  Look at
+	<code class="filename">sound/pci/maestro3.c</code> or many others under
+	<code class="filename">sound/pci/</code> for an example.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="pcm-probe-and-attach.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="oss.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="pccard.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">15.3. Probing, Attaching, etc. </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 16. PC Card</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

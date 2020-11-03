@@ -16,67 +16,71 @@
     </image>
     <atom:link href="https://www.FreeBSD.org/news/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
-      <title>FreeBSD 12.0-BETA3 Available</title>
-      <description>The third BETA build for the FreeBSD 12.0 release cycle is now available. ISO images for the amd64, armv6, armv7, arm64, i386, powerpc, powerpc64, and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20181103:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20181103:01</guid>
-      <pubDate>Sat, 3 Nov 2018 00:00:00 PST</pubDate>
+      <title>FreeBSD 12.2-RC1 Available</title>
+      <description>The first RC build for the FreeBSD 12.2 release cycle is now available. ISO images for the amd64, armv6, armv7, arm64, i386, powerpc, powerpc64, powerpcspe, and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20201003:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20201003:01</guid>
+      <pubDate>Sat, 3 Oct 2020 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>FreeBSD 12.0-BETA2 Available</title>
-      <description>The second BETA build for the FreeBSD 12.0 release cycle is now available. ISO images for the amd64, armv6, armv7, arm64, i386, powerpc, powerpc64, powerpcspe and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20181027:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20181027:01</guid>
-      <pubDate>Sat, 27 Oct 2018 00:00:00 PST</pubDate>
+      <title>FreeBSD 12.2-BETA3 Available</title>
+      <description>The third BETA build for the FreeBSD 12.2 release cycle is now available. ISO images for the amd64, armv6, armv7, arm64, i386, powerpc, powerpc64, and powerpcspe architectures are available on most of our FreeBSD mirror sites.</description>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20200926:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20200926:01</guid>
+      <pubDate>Sat, 26 Sep 2020 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>FreeBSD 12.0-BETA1 Available</title>
-      <description>The first BETA build for the FreeBSD 12.0 release cycle is now available. ISO images for the amd64, armv6, armv7, arm64, i386, powerpc, powerpc64, powerpcspe and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20181020:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20181020:01</guid>
-      <pubDate>Sat, 20 Oct 2018 00:00:00 PST</pubDate>
+      <title>FreeBSD 12.2-BETA2 Available</title>
+      <description>The second BETA build for the FreeBSD 12.2 release cycle is now available. ISO images for the amd64, armv6, armv7, arm64, i386, powerpc, powerpc64, powerpcspe, and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20200918:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20200918:01</guid>
+      <pubDate>Fri, 18 Sep 2020 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>New committer: Thomas Munro (src)</title>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20181016:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20181016:01</guid>
-      <pubDate>Tue, 16 Oct 2018 00:00:00 PST</pubDate>
+      <title>FreeBSD 12.2-BETA1 Available</title>
+      <description>The first BETA build for the FreeBSD 12.2 release cycle is now available. ISO images for the amd64, armv6, armv7, arm64, i386, powerpc, powerpc64, powerpcspe, and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20200912:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20200912:01</guid>
+      <pubDate>Sat, 12 Sep 2020 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>New committer: Yuri Pankov (src)</title>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20181009:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20181009:01</guid>
-      <pubDate>Tue, 9 Oct 2018 00:00:00 PST</pubDate>
+      <title>New committer: Rainer Hurling (ports)</title>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20200831:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20200831:01</guid>
+      <pubDate>Mon, 31 Aug 2020 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>New committer: Vinícius Zavam (ports)</title>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20181008:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20181008:01</guid>
-      <pubDate>Mon, 8 Oct 2018 00:00:00 PST</pubDate>
+      <title>New committer: Daniel Ebdrup Jensen (doc)</title>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20200726:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20200726:01</guid>
+      <pubDate>Sun, 26 Jul 2020 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>New committer: Alexandre C. Guimaraes (ports)</title>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20181001:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20181001:01</guid>
-      <pubDate>Mon, 1 Oct 2018 00:00:00 PST</pubDate>
+      <title>New committer: Robert Wing (src)</title>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20200723:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20200723:01</guid>
+      <pubDate>Thu, 23 Jul 2020 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>New committer: Sergey Kozlov (ports)</title>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20180921:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20180921:01</guid>
-      <pubDate>Fri, 21 Sep 2018 00:00:00 PST</pubDate>
+      <title>April-June 2020 Status Report</title>
+      <description>The April to June 2020 Status Report is now available with 51 entries.</description>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20200715:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20200715:01</guid>
+      <pubDate>Wed, 15 Jul 2020 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>New committer: Emmanuel Vadot (ports)</title>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20180906:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20180906:01</guid>
-      <pubDate>Thu, 6 Sep 2018 00:00:00 PST</pubDate>
+      <title>New FreeBSD Core Team Elected</title>
+      <description>Active committers to the project have elected your eleventh FreeBSD Core Team. For details, refer to the official announcement.</description>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20200701:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20200701:01</guid>
+      <pubDate>Wed, 1 Jul 2020 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>New committer: Kevin Bowling (ports)</title>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20180902:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20180902:01</guid>
-      <pubDate>Sun, 2 Sep 2018 00:00:00 PST</pubDate>
+      <title>FreeBSD 11.4-RELEASE Available</title>
+      <description>FreeBSD 11.4-RELEASE is now available. Please be sure to check the Release Notes and Release Errata before installation for any late-breaking news and/or issues with 11.4. More information about FreeBSD releases can be found on the Release Information page.</description>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20200616:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20200616:01</guid>
+      <pubDate>Tue, 16 Jun 2020 00:00:00 PST</pubDate>
     </item>
   </channel>
 </rss>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>14.2. Guidelines</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Documentation Project Primer for New Contributors" /><link rel="up" href="writing-style.html" title="Chapter 14. Writing Style" /><link rel="prev" href="writing-style.html" title="Chapter 14. Writing Style" /><link rel="next" href="writing-style-guide.html" title="14.3. Style Guide" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">14.2. Guidelines</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="writing-style.html">Prev</a> </td><th width="60%" align="center">Chapter 14. Writing Style</th><td width="20%" align="right"> <a accesskey="n" href="writing-style-guide.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="writing-style-guidelines"></a>14.2. Guidelines</h2></div></div></div><p>To promote consistency between the myriad authors of the
+      FreeBSD documentation, some guidelines have been drawn up for
+      authors to follow.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">Use American English Spelling</span></dt><dd><p>There are several variants of English, with different
+	    spellings for the same word.  Where spellings differ, use
+	    the American English variant.  <span class="quote">&#8220;<span class="quote">color</span>&#8221;</span>, not
+	    <span class="quote">&#8220;<span class="quote">colour</span>&#8221;</span>, <span class="quote">&#8220;<span class="quote">rationalize</span>&#8221;</span>, not
+	    <span class="quote">&#8220;<span class="quote">rationalise</span>&#8221;</span>, and so on.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">The use of British English may be accepted in the
+	      case of a contributed article, however the spelling must
+	      be consistent within the whole document.  The other
+	      documents such as books, web site, manual pages, etc.
+	      will have to use American English.</p></div></dd><dt><span class="term">Do not use contractions</span></dt><dd><p>Do not use contractions.  Always spell the phrase out
+	    in full.  <span class="quote">&#8220;<span class="quote">Don't use contractions</span>&#8221;</span> is
+	    wrong.</p><p>Avoiding contractions makes for a more formal tone, is
+	    more precise, and is slightly easier for
+	    translators.</p></dd><dt><span class="term">Use the serial comma</span></dt><dd><p>In a list of items within a paragraph, separate each
+	    item from the others with a comma.  Separate the last item
+	    from the others with a comma and the word
+	    <span class="quote">&#8220;<span class="quote">and</span>&#8221;</span>.</p><p>For example:</p><div class="blockquote"><blockquote class="blockquote"><p>This is a list of one, two and three items.</p></blockquote></div><p>Is this a list of three items, <span class="quote">&#8220;<span class="quote">one</span>&#8221;</span>,
+	    <span class="quote">&#8220;<span class="quote">two</span>&#8221;</span>, and <span class="quote">&#8220;<span class="quote">three</span>&#8221;</span>, or a list of
+	    two items, <span class="quote">&#8220;<span class="quote">one</span>&#8221;</span> and <span class="quote">&#8220;<span class="quote">two and
+	      three</span>&#8221;</span>?</p><p>It is better to be explicit and include a serial
+	    comma:</p><div class="blockquote"><blockquote class="blockquote"><p>This is a list of one, two, and three items.</p></blockquote></div></dd><dt><span class="term">Avoid redundant phrases</span></dt><dd><p>Do not use redundant phrases.  In particular,
+	    <span class="quote">&#8220;<span class="quote">the command</span>&#8221;</span>, <span class="quote">&#8220;<span class="quote">the file</span>&#8221;</span>, and
+	    <span class="quote">&#8220;<span class="quote">man command</span>&#8221;</span> are often redundant.</p><p>For example, commands:</p><div class="informalexample"><p>Wrong: Use the <code class="command">svn</code> command to
+	      update sources.</p></div><div class="informalexample"><p>Right:  Use <code class="command">svn</code> to update
+	      sources.</p></div><p>Filenames:</p><div class="informalexample"><p>Wrong:  &#8230; in the filename
+	      <code class="filename">/etc/rc.local</code>&#8230;</p></div><div class="informalexample"><p>Right:  &#8230; in
+	      <code class="filename">/etc/rc.local</code>&#8230;</p></div><p>Manual page references (the second example uses
+	    <code class="sgmltag-element">citerefentry</code> with the
+	    <code class="literal">&amp;man.csh.1;</code> entity):.</p><div class="informalexample"><p>Wrong:  See <code class="command">man csh</code> for more
+	      information.</p></div><div class="informalexample"><p>Right:  See <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=csh&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">csh</span>(1)</span></a>.</p></div></dd><dt><span class="term">Two spaces between sentences</span></dt><dd><p>Always use two spaces between sentences, as it
+	    improves readability and eases use of tools such as
+	    <span class="application">Emacs</span>.</p><p>A period and spaces followed by a capital letter
+	    does not always mark a new sentence, especially in names.
+	    <span class="quote">&#8220;<span class="quote">Jordan K. Hubbard</span>&#8221;</span> is a good example.  It
+	    has a capital <code class="literal">H</code> following a period and
+	    a space, and is certainly not a new sentence.</p></dd></dl></div><p>For more information about writing style, see <a class="link" href="http://www.bartleby.com/141/" target="_top">Elements of
+	Style</a>, by William Strunk.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="writing-style.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="writing-style.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="writing-style-guide.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 14. Writing Style </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 14.3. Style Guide</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

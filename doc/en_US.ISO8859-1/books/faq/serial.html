@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>Chapter 14. Serial Communications</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Frequently Asked Questions for FreeBSD 11.X and 12.X" /><link rel="up" href="index.html" title="Frequently Asked Questions for FreeBSD 11.X and 12.X" /><link rel="prev" href="security.html" title="Chapter 13. Security" /><link rel="next" href="misc.html" title="Chapter 15. Miscellaneous Questions" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 14. Serial Communications</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="security.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="misc.html">Next</a></td></tr></table><hr /></div><div class="chapter"><div xmlns="" class="titlepage"><div><div><h1 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="serial"></a>Chapter 14. Serial Communications</h1></div></div></div><p>This section answers common questions about serial
+      communications with FreeBSD.</p><div class="qandaset"><a id="idp52168440"></a><dl><dt>14.1. <a href="serial.html#idp52168696">How do I get the boot: prompt to show on the serial
+	    console?</a></dt><dt>14.2. <a href="serial.html#idp52171256">How do I tell if FreeBSD found my serial ports or modem
+	    cards?</a></dt><dt>14.3. <a href="serial.html#idp52176888">How do I access the serial ports on FreeBSD? (x86-specific)</a></dt><dt>14.4. <a href="serial.html#idp52187256">How do I enable support for a multi-port serial
+	    card?</a></dt><dt>14.5. <a href="serial.html#idp52206456">Can I set the default serial parameters for a
+	    port?</a></dt><dt>14.6. <a href="serial.html#idp52209016">Why can I not run tip or
+	    cu?</a></dt></dl><table border="0" style="width: 100%;"><colgroup><col align="left" width="1%" /><col /></colgroup><tbody><tr class="question"><td align="left" valign="top"><a id="idp52168696"></a><a id="serial-console-prompt"></a><p><strong>14.1.</strong></p></td><td align="left" valign="top"><p>How do I get the boot: prompt to show on the serial
+	    console?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>See <a class="link" href="../../../../doc/en_US.ISO8859-1/books/handbook/serialconsole-setup.html" target="_top">this
+	      section of the Handbook</a>.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp52171256"></a><a id="found-serial"></a><p><strong>14.2.</strong></p></td><td align="left" valign="top"><p>How do I tell if FreeBSD found my serial ports or modem
+	    cards?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>As the FreeBSD kernel boots, it will probe for the serial
+	    ports for which the kernel is configured.
+	    Either watch the boot messages closely
+	    or run this command after the system is up and
+	    running:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>grep -E '^(sio|uart)[0-9]' &lt; /var/run/dmesg.boot</code></strong>
+sio0: &lt;16550A-compatible COM port&gt; port 0x3f8-0x3ff irq 4 flags 0x10 on acpi0
+sio0: type 16550A
+sio1: &lt;16550A-compatible COM port&gt; port 0x2f8-0x2ff irq 3 on acpi0
+sio1: type 16550A</pre><p>This example shows two serial ports.  The first is on
+	    IRQ4, port address
+	    <code class="literal">0x3f8</code>, and has a 16550A-type UART chip.
+	    The second uses the same kind of chip but is on
+	    IRQ3 and is at port address
+	    <code class="literal">0x2f8</code>.  Internal modem cards are
+	    treated just like serial ports, except that they
+	    always have a modem attached to the
+	    port.</p><p>The <code class="filename">GENERIC</code> kernel includes
+	    support for two serial ports using the same IRQ and port
+	    address settings in the above example.  If these settings
+	    are not right for the system, or if there are more modem
+	    cards or serial ports than the kernel is
+	    configured for, reconfigure using the instructions in
+	    <a class="link" href="kernelconfig.html#make-kernel" title="7.1.">building a kernel</a>
+	    for more details.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp52176888"></a><a id="access-serial-ports"></a><p><strong>14.3.</strong></p></td><td align="left" valign="top"><p>How do I access the serial ports on FreeBSD? (x86-specific)</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>The third serial port, <code class="filename">sio2</code>,
+	    or <code class="filename">COM3</code>,
+	    is on <code class="filename">/dev/cuad2</code> for dial-out
+	    devices, and on <code class="filename">/dev/ttyd2</code> for
+	    dial-in devices.  What is the difference between these two
+	    classes of devices?</p><p>When
+	    opening <code class="filename">/dev/ttydX</code> in blocking mode,
+	    a process will wait for the corresponding
+	    <code class="filename">cuadX</code> device to become inactive, and
+	    then wait for the carrier detect line to go active.  When
+	    the <code class="filename">cuadX</code> device is opened, it makes
+	    sure the serial port is not already in use by the
+	    <code class="filename">ttydX</code> device.  If the port is
+	    available, it steals it from the
+	    <code class="filename">ttydX</code> device.  Also, the
+	    <code class="filename">cuadX</code> device does not care about
+	    carrier detect.  With this scheme and an auto-answer
+	    modem, remote users can log in and local users can still
+	    dial out with the same modem and the system will take care
+	    of all the conflicts.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp52187256"></a><a id="enable-multiport-serial"></a><p><strong>14.4.</strong></p></td><td align="left" valign="top"><p>How do I enable support for a multi-port serial
+	    card?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>The section on kernel configuration provides
+	    information about configuring the kernel.  For a
+	    multi-port serial card, place an <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sio&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sio</span>(4)</span></a> line for each
+	    serial port on the card in the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=device.hints&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">device.hints</span>(5)</span></a> file.
+	    But place the IRQ specifiers on only one of the entries.
+	    All of the ports on the card should share one IRQ.  For
+	    consistency, use the last serial port to specify the IRQ.
+	    Also, specify the following option in the kernel
+	    configuration file:</p><pre class="programlisting">options COM_MULTIPORT</pre><p>The following <code class="filename">/boot/device.hints</code>
+	    example is for an AST 4-port serial card on
+	    IRQ 12:</p><pre class="programlisting">hint.sio.4.at="isa"
+hint.sio.4.port="0x2a0"
+hint.sio.4.flags="0x701"
+hint.sio.5.at="isa"
+hint.sio.5.port="0x2a8"
+hint.sio.5.flags="0x701"
+hint.sio.6.at="isa"
+hint.sio.6.port="0x2b0"
+hint.sio.6.flags="0x701"
+hint.sio.7.at="isa"
+hint.sio.7.port="0x2b8"
+hint.sio.7.flags="0x701"
+hint.sio.7.irq="12"</pre><p>The flags indicate that the master port has minor
+	    number <code class="literal">7</code> (<code class="literal">0x700</code>),
+	    and all the ports share an IRQ
+	    (<code class="literal">0x001</code>).</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp52206456"></a><a id="default-serial-params"></a><p><strong>14.5.</strong></p></td><td align="left" valign="top"><p>Can I set the default serial parameters for a
+	    port?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>See the <a class="link" href="../../../../doc/en_US.ISO8859-1/books/handbook/serial.html#serial-hw-config" target="_top">Serial
+	      Communications</a> section in the FreeBSD
+	    Handbook.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp52209016"></a><a id="cannot-tip"></a><p><strong>14.6.</strong></p></td><td align="left" valign="top"><p>Why can I not run <code class="command">tip</code> or
+	    <code class="command">cu</code>?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>The built-in <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=tip&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">tip</span>(1)</span></a> and
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=cu&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">cu</span>(1)</span></a> utilities can only access the
+	    <code class="filename">/var/spool/lock</code> directory via user
+	    <code class="systemitem">uucp</code> and group
+	    <code class="systemitem">dialer</code>.
+	    Use the <code class="systemitem">dialer</code> group to control
+	    who has access to the modem or remote systems by adding
+	    user accounts to <code class="systemitem">dialer</code>.</p><p>Alternatively, everyone can be configured to run
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=tip&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">tip</span>(1)</span></a> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=cu&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">cu</span>(1)</span></a> by typing:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>chmod 4511 /usr/bin/cu</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>chmod 4511 /usr/bin/tip</code></strong></pre></td></tr></tbody></table></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="security.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="misc.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 13. Security </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 15. Miscellaneous Questions</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>17.11. Disk Quotas</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="disks.html" title="Chapter 17. Storage" /><link rel="prev" href="snapshots.html" title="17.10. File System Snapshots" /><link rel="next" href="disks-encrypting.html" title="17.12. Encrypting Disk Partitions" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">17.11. Disk Quotas</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="snapshots.html">Prev</a> </td><th width="60%" align="center">Chapter 17. Storage</th><td width="20%" align="right"> <a accesskey="n" href="disks-encrypting.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="quotas"></a>17.11. Disk Quotas</h2></div></div></div><a id="idp62463864" class="indexterm"></a><a id="idp62465016" class="indexterm"></a><p>Disk quotas can be used to limit the amount of disk space or
+      the number of files a user or members of a group may allocate on
+      a per-file system basis.  This prevents one user or group of
+      users from consuming all of the available disk space.</p><p>This section describes how to configure disk quotas for the
+      <acronym class="acronym">UFS</acronym> file system.  To configure quotas on the
+      <acronym class="acronym">ZFS</acronym> file system, refer to <a class="xref" href="zfs-zfs.html#zfs-zfs-quota" title="19.4.8. Dataset, User, and Group Quotas">Section 19.4.8, &#8220;Dataset, User, and Group Quotas&#8221;</a></p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp62700792"></a>17.11.1. Enabling Disk Quotas</h3></div></div></div><p>To determine if the FreeBSD kernel provides support for disk
+	quotas:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>sysctl kern.features.ufs_quota</code></strong>
+kern.features.ufs_quota: 1</pre><p>In this example, the <code class="literal">1</code> indicates quota
+	support.  If the value is instead <code class="literal">0</code>, add
+	the following line to a custom kernel configuration file and
+	rebuild the kernel using the instructions in <a class="xref" href="kernelconfig.html" title="Chapter 8. Configuring the FreeBSD Kernel">Chapter 8, <em>Configuring the FreeBSD Kernel</em></a>:</p><pre class="programlisting">options QUOTA</pre><p>Next, enable disk quotas in
+	<code class="filename">/etc/rc.conf</code>:</p><pre class="programlisting">quota_enable="YES"</pre><a id="idp62706040" class="indexterm"></a><p>Normally on bootup, the quota integrity of each file
+	system is checked by <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=quotacheck&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">quotacheck</span>(8)</span></a>.  This program insures
+	that the data in the quota database properly reflects the data
+	on the file system.  This is a time consuming process that
+	will significantly affect the time the system takes to boot.
+	To skip this step, add this variable to
+	<code class="filename">/etc/rc.conf</code>:</p><pre class="programlisting">check_quotas="NO"</pre><p>Finally, edit <code class="filename">/etc/fstab</code> to enable
+	disk quotas on a per-file system basis.  To enable per-user
+	quotas on a file system, add <code class="option">userquota</code> to the
+	options field in the <code class="filename">/etc/fstab</code> entry for
+	the file system to enable quotas on.  For example:</p><pre class="programlisting">/dev/da1s2g   /home    ufs rw,userquota 1 2</pre><p>To enable group quotas, use <code class="option">groupquota</code>
+	instead.  To enable both user and group quotas, separate the
+	options with a comma:</p><pre class="programlisting">/dev/da1s2g    /home    ufs rw,userquota,groupquota 1 2</pre><p>By default, quota files are stored in the root directory
+	of the file system as <code class="filename">quota.user</code> and
+	<code class="filename">quota.group</code>.  Refer to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=fstab&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">fstab</span>(5)</span></a> for
+	more information.  Specifying an alternate location for the
+	quota files is not recommended.</p><p>Once the configuration is complete, reboot the system and
+	<code class="filename">/etc/rc</code> will automatically run the
+	appropriate commands to create the initial quota files for all
+	of the quotas enabled in
+	<code class="filename">/etc/fstab</code>.</p><p>In the normal course of operations, there should be no
+	need to manually run <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=quotacheck&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">quotacheck</span>(8)</span></a>, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=quotaon&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">quotaon</span>(8)</span></a>, or
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=quotaoff&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">quotaoff</span>(8)</span></a>.  However, one should read these manual pages
+	to be familiar with their operation.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp62726392"></a>17.11.2. Setting Quota Limits</h3></div></div></div><a id="idp62727032" class="indexterm"></a><p>To
+	verify that quotas are enabled, run:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>quota -v</code></strong></pre><p>There should be a one line summary of disk usage and
+	current quota limits for each file system that quotas are
+	enabled on.</p><p>The system is now ready to be assigned quota limits with
+	<code class="command">edquota</code>.</p><p>Several options are available to enforce limits on the
+	amount of disk space a user or group may allocate, and how
+	many files they may create.  Allocations can be limited based
+	on disk space (block quotas), number of files (inode quotas),
+	or a combination of both.  Each limit is further broken down
+	into two categories: hard and soft limits.</p><a id="idp62731128" class="indexterm"></a><p>A hard limit may not be exceeded.  Once a user reaches a
+	hard limit, no further allocations can be made on that file
+	system by that user.  For example, if the user has a hard
+	limit of 500 kbytes on a file system and is currently using
+	490 kbytes, the user can only allocate an additional 10
+	kbytes.  Attempting to allocate an additional 11 kbytes will
+	fail.</p><a id="idp62732024" class="indexterm"></a><p>Soft limits can be exceeded for a limited amount of time,
+	known as the grace period, which is one week by default.  If a
+	user stays over their limit longer than the grace period, the
+	soft limit turns into a hard limit and no further allocations
+	are allowed.  When the user drops back below the soft limit,
+	the grace period is reset.</p><p>In the following example, the quota for the <code class="systemitem">test</code> account is being edited.
+	When <code class="command">edquota</code> is invoked, the editor
+	specified by <code class="envar">EDITOR</code> is opened in order to edit
+	the quota limits.  The default editor is set to
+	<span class="application">vi</span>.</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>edquota -u test</code></strong>
+Quotas for user test:
+/usr: kbytes in use: 65, limits (soft = 50, hard = 75)
+        inodes in use: 7, limits (soft = 50, hard = 60)
+/usr/var: kbytes in use: 0, limits (soft = 50, hard = 75)
+        inodes in use: 0, limits (soft = 50, hard = 60)</pre><p>There are normally two lines for each file system that has
+	quotas enabled.  One line represents the block limits and the
+	other represents the inode limits.  Change the value to modify
+	the quota limit.  For example, to raise the block limit on
+	<code class="filename">/usr</code> to a soft limit of
+	<code class="literal">500</code> and a hard limit of
+	<code class="literal">600</code>, change the values in that line as
+	follows:</p><pre class="programlisting">/usr: kbytes in use: 65, limits (soft = 500, hard = 600)</pre><p>The new quota limits take effect upon exiting the
+	editor.</p><p>Sometimes it is desirable to set quota limits on a range
+	of users.  This can be done by first assigning the desired
+	quota limit to a user.  Then, use <code class="option">-p</code> to
+	duplicate that quota to a specified range of user IDs
+	(<acronym class="acronym">UID</acronym>s).  The following command will
+	duplicate those quota limits for <acronym class="acronym">UID</acronym>s
+	<code class="literal">10,000</code> through
+	<code class="literal">19,999</code>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>edquota -p test 10000-19999</code></strong></pre><p>For more information, refer to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=edquota&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">edquota</span>(8)</span></a>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp62742776"></a>17.11.3. Checking Quota Limits and Disk Usage</h3></div></div></div><a id="idp62743416" class="indexterm"></a><p>To check individual user or group quotas and disk usage,
+	use <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=quota&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">quota</span>(1)</span></a>.  A user may only examine their own quota
+	and the quota of a group they are a member of.  Only the
+	superuser may view all user and group quotas.  To get a
+	summary of all quotas and disk usage for file systems with
+	quotas enabled, use <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=repquota&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">repquota</span>(8)</span></a>.</p><p>Normally, file systems that the user is not using any disk
+	space on will not show in the output of
+	<code class="command">quota</code>, even if the user has a quota limit
+	assigned for that file system.  Use <code class="option">-v</code> to
+	display those file systems.  The following is sample output
+	from <code class="command">quota -v</code> for a user that has quota
+	limits on two file systems.</p><pre class="programlisting">Disk quotas for user test (uid 1002):
+     Filesystem  usage    quota   limit   grace   files   quota   limit   grace
+           /usr      65*     50      75   5days       7      50      60
+       /usr/var       0      50      75               0      50      60</pre><a id="idp62748408" class="indexterm"></a><p>In this example, the user is currently 15 kbytes over the
+	soft limit of 50 kbytes on <code class="filename">/usr</code> and has 5
+	days of grace period left.  The asterisk <code class="literal">*</code>
+	indicates that the user is currently over the quota
+	limit.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp62782968"></a>17.11.4. Quotas over NFS</h3></div></div></div><a id="idp62783608" class="indexterm"></a><p>Quotas are enforced by the quota subsystem on the
+	<acronym class="acronym">NFS</acronym> server.  The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rpc.rquotad&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rpc.rquotad</span>(8)</span></a> daemon
+	makes quota information available to <code class="command">quota</code>
+	on <acronym class="acronym">NFS</acronym> clients, allowing users on those
+	machines to see their quota statistics.</p><p>On the <acronym class="acronym">NFS</acronym> server, enable
+	<code class="command">rpc.rquotad</code> by removing the
+	<code class="literal">#</code> from this line in
+	<code class="filename">/etc/inetd.conf</code>:</p><pre class="programlisting">rquotad/1      dgram rpc/udp wait root /usr/libexec/rpc.rquotad rpc.rquotad</pre><p>Then, restart <code class="command">inetd</code>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service inetd restart</code></strong></pre></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="snapshots.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="disks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="disks-encrypting.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">17.10. File System Snapshots </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 17.12. Encrypting Disk Partitions</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

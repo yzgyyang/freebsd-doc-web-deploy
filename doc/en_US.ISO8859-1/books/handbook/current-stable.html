@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>23.4. Tracking a Development Branch</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="updating-upgrading.html" title="Chapter 23. Updating and Upgrading FreeBSD" /><link rel="prev" href="updating-upgrading-documentation.html" title="23.3. Updating the Documentation Set" /><link rel="next" href="makeworld.html" title="23.5. Updating FreeBSD from Source" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">23.4. Tracking a Development Branch</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="updating-upgrading-documentation.html">Prev</a> </td><th width="60%" align="center">Chapter 23. Updating and Upgrading FreeBSD</th><td width="20%" align="right"> <a accesskey="n" href="makeworld.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="current-stable"></a>23.4. Tracking a Development Branch</h2></div></div></div><a id="idp66910456" class="indexterm"></a><a id="idp66910968" class="indexterm"></a><p>FreeBSD has two development branches: FreeBSD-CURRENT and
+      FreeBSD-STABLE.</p><p>This section provides an explanation of each branch and its
+      intended audience, as well as how to keep a system up-to-date
+      with each respective branch.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="current"></a>23.4.1. Using FreeBSD-CURRENT</h3></div></div></div><p>FreeBSD-CURRENT is the <span class="quote">&#8220;<span class="quote">bleeding edge</span>&#8221;</span> of FreeBSD
+	development and  FreeBSD-CURRENT users are expected to have a
+	high degree of technical skill.  Less technical users who wish
+	to track a development branch should track FreeBSD-STABLE
+	instead.</p><p>FreeBSD-CURRENT is the very latest source code for FreeBSD and
+	includes works in progress, experimental changes, and
+	transitional mechanisms that might or might not be present in
+	the next official release.  While many FreeBSD developers compile
+	the FreeBSD-CURRENT source code daily, there are short periods of
+	time when the source may not be buildable.  These problems are
+	resolved as quickly as possible, but whether or not
+	FreeBSD-CURRENT brings disaster or new functionality can be a
+	matter of when the source code was synced.</p><p>FreeBSD-CURRENT is made available for three primary interest
+	groups:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>Members of the FreeBSD community who are actively
+	    working on some part of the source tree.</p></li><li class="listitem"><p>Members of the FreeBSD community who are active testers.
+	    They are willing to spend time solving problems, making
+	    topical suggestions on changes and the general direction
+	    of FreeBSD, and submitting patches.</p></li><li class="listitem"><p>Users who wish to keep an eye on things, use the
+	    current source for reference purposes, or make the
+	    occasional comment or code contribution.</p></li></ol></div><p>FreeBSD-CURRENT should <span class="emphasis"><em>not</em></span> be
+	considered a fast-track to getting new features before the
+	next release as pre-release features are not yet fully tested
+	and most likely contain bugs.  It is not a quick way of
+	getting bug fixes as any given commit is just as likely to
+	introduce new bugs as to fix existing ones.  FreeBSD-CURRENT is
+	not in any way <span class="quote">&#8220;<span class="quote">officially supported</span>&#8221;</span>.</p><a id="idp66652152" class="indexterm"></a><p>To track FreeBSD-CURRENT:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>Join the <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo/freebsd-current" target="_top">freebsd-current</a> and the
+	    <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo/svn-src-head" target="_top">svn-src-head</a> lists.  This is
+	    <span class="emphasis"><em>essential</em></span> in order to see the
+	    comments that people are making about the current state
+	    of the system and to receive important bulletins about
+	    the current state of FreeBSD-CURRENT.</p><p>The <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo/svn-src-head" target="_top">svn-src-head</a> list records the commit log
+	    entry for each change as it is made, along with any
+	    pertinent information on possible side effects.</p><p>To join these lists, go to <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo" target="_top">http://lists.FreeBSD.org/mailman/listinfo</a>,
+	    click on the list to subscribe to, and follow the
+	    instructions.  In order to track changes to the whole
+	    source tree, not just the changes to FreeBSD-CURRENT,
+	    subscribe to the <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo/svn-src-all" target="_top">svn-src-all</a> list.</p></li><li class="listitem"><p>Synchronize with the FreeBSD-CURRENT sources.  Typically,
+	    <a class="link" href="svn.html" title="A.3. Using Subversion">svnlite</a> is used to check out the
+	    -CURRENT code from the <code class="literal">head</code> branch of
+	    one of the Subversion mirror sites listed in
+	    <a class="xref" href="svn.html#svn-mirrors" title="A.3.6. Subversion Mirror Sites">Section A.3.6, &#8220;<span class="application">Subversion</span> Mirror
+	Sites&#8221;</a>.</p></li><li class="listitem"><p>Due to the size of the repository, some users choose
+	    to only synchronize the sections of source that interest
+	    them  or which they are contributing patches to.  However,
+	    users that plan to compile the operating system from
+	    source must download <span class="emphasis"><em>all</em></span> of
+	    FreeBSD-CURRENT, not just selected portions.</p><p>Before compiling FreeBSD-CURRENT
+	    <a id="idp66661752" class="indexterm"></a>, read <code class="filename">/usr/src/Makefile</code>
+	    very carefully and follow the instructions in
+	    <a class="xref" href="makeworld.html" title="23.5. Updating FreeBSD from Source">Section 23.5, &#8220;Updating FreeBSD from Source&#8221;</a>.
+	    Read the <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo/freebsd-current" target="_top">FreeBSD-CURRENT mailing list</a> and
+	    <code class="filename">/usr/src/UPDATING</code> to stay
+	    up-to-date on other bootstrapping procedures that
+	    sometimes become necessary on the road to the next
+	    release.</p></li><li class="listitem"><p>Be active! FreeBSD-CURRENT users are encouraged to
+	    submit their suggestions for enhancements or bug fixes.
+	    Suggestions with accompanying code are always
+	    welcome.</p></li></ol></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="stable"></a>23.4.2. Using FreeBSD-STABLE</h3></div></div></div><p>FreeBSD-STABLE is the development branch from which major
+	releases are made.  Changes go into this branch at a slower
+	pace and with the general assumption that they have first been
+	tested in FreeBSD-CURRENT.  This is <span class="emphasis"><em>still</em></span> a
+	development branch and, at any given time, the sources for
+	FreeBSD-STABLE may or may not be suitable for general use.  It is
+	simply another engineering development track, not a resource
+	for end-users.  Users who do not have the resources to perform
+	testing should instead run the most recent release of
+	FreeBSD.</p><p>Those interested in tracking or contributing to the FreeBSD
+	development process, especially as it relates to the next
+	release of FreeBSD, should consider following FreeBSD-STABLE.</p><p>While the FreeBSD-STABLE branch should compile and run at all
+	times, this cannot be guaranteed.  Since more people run
+	FreeBSD-STABLE than FreeBSD-CURRENT, it is inevitable that bugs and
+	corner cases will sometimes be found in FreeBSD-STABLE that were
+	not apparent in FreeBSD-CURRENT.  For this reason, one should not
+	blindly track FreeBSD-STABLE.  It is particularly important
+	<span class="emphasis"><em>not</em></span> to update any production servers to
+	FreeBSD-STABLE without thoroughly testing the code in a
+	development or testing environment.</p><p>To track FreeBSD-STABLE:</p><a id="idp66967928" class="indexterm"></a><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>Join the <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo/freebsd-stable" target="_top">freebsd-stable</a> list in order to stay
+	    informed of build dependencies that may appear in
+	    FreeBSD-STABLE or any other issues requiring special
+	    attention.  Developers will also make announcements in
+	    this mailing list when they are contemplating some
+	    controversial fix or update, giving the users a chance to
+	    respond if they have any issues to raise concerning the
+	    proposed change.</p><p>Join the relevant <span class="application">svn</span> list
+	    for the branch being tracked.  For example, users
+	    tracking the 9-STABLE branch should join the
+	    <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo/svn-src-stable-9" target="_top">svn-src-stable-9</a> list.  This list records the
+	    commit log entry for each change as it is made, along
+	    with any pertinent information on possible
+	    side effects.</p><p>To join these lists, go to <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo" target="_top">http://lists.FreeBSD.org/mailman/listinfo</a>,
+	    click on the list to subscribe to, and follow the
+	    instructions.  In order to track changes for the whole
+	    source tree, subscribe to <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo/svn-src-all" target="_top">svn-src-all</a>.</p></li><li class="listitem"><p>To install a new FreeBSD-STABLE system, install the most
+	    recent FreeBSD-STABLE release from the <a class="link" href="mirrors.html" title="Appendix A. Obtaining FreeBSD">FreeBSD mirror sites</a> or use a
+	    monthly snapshot built from FreeBSD-STABLE.  Refer to <a class="link" href="../../../../snapshots/" target="_top">www.freebsd.org/snapshots</a>
+	    for more information about snapshots.</p><p>To compile or upgrade to an existing FreeBSD system to
+	    FreeBSD-STABLE, use <a class="link" href="svn.html" title="A.3. Using Subversion">svn</a>
+	      <a id="idp66975864" class="indexterm"></a> to check out the source for the desired
+	    branch.  Branch names, such as
+	    <code class="literal">stable/9</code>, are listed at <a class="link" href="../../../../releng/" target="_top">www.freebsd.org/releng</a>.</p></li><li class="listitem"><p>Before compiling or upgrading to FreeBSD-STABLE
+	    <a id="idp66978296" class="indexterm"></a>, read <code class="filename">/usr/src/Makefile</code>
+	    carefully and follow the instructions in <a class="xref" href="makeworld.html" title="23.5. Updating FreeBSD from Source">Section 23.5, &#8220;Updating FreeBSD from Source&#8221;</a>.  Read the <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo/freebsd-stable" target="_top">FreeBSD-STABLE mailing list</a> and
+	    <code class="filename">/usr/src/UPDATING</code> to keep up-to-date
+	    on other bootstrapping procedures that sometimes become
+	    necessary on the road to the next release.</p></li></ol></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="updating-upgrading-documentation.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="updating-upgrading.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="makeworld.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">23.3. Updating the Documentation Set </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 23.5. Updating FreeBSD from Source</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

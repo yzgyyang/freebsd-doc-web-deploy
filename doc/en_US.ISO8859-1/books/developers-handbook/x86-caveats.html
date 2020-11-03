@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>11.14. Caveats</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Developers' Handbook" /><link rel="up" href="x86.html" title="Chapter 11. x86 Assembly Language Programming" /><link rel="prev" href="x86-fpu.html" title="11.13. Using the FPU" /><link rel="next" href="x86-acknowledgements.html" title="11.15. Acknowledgements" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">11.14. Caveats</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="x86-fpu.html">Prev</a> </td><th width="60%" align="center">Chapter 11. x86 Assembly Language Programming</th><td width="20%" align="right"> <a accesskey="n" href="x86-acknowledgements.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="x86-caveats"></a>11.14. Caveats</h2></div></div></div><p>Assembly language programmers who "grew up" under
+	<acronym class="acronym"><span class="trademark">MS-DOS</span>®</acronym> and <span class="trademark">Windows</span>® often tend to take
+	shortcuts.  Reading the keyboard scan codes and writing
+	directly to video memory are two classical examples of
+	practices which, under <acronym class="acronym"><span class="trademark">MS-DOS</span>®</acronym> are not
+	frowned upon but considered the right thing to do.</p><p>The reason? Both the <acronym class="acronym">PC BIOS</acronym> and
+	<acronym class="acronym"><span class="trademark">MS-DOS</span>®</acronym> are notoriously slow when
+	performing these operations.</p><p>You may be tempted to continue similar practices in the
+	<span class="trademark">UNIX</span>® environment.  For example, I have seen a web site which
+	explains how to access the keyboard scan codes on a popular
+	<span class="trademark">UNIX</span>® clone.</p><p>That is generally a <span class="emphasis"><em>very bad idea</em></span> in
+	<span class="trademark">UNIX</span>® environment! Let me explain why.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-protected"></a>11.14.1. <span class="trademark">UNIX</span>® Is Protected</h3></div></div></div><p>For one thing, it may simply not be possible.  <span class="trademark">UNIX</span>®
+	  runs in protected mode.  Only the kernel and device drivers
+	  are allowed to access hardware directly.  Perhaps a
+	  particular <span class="trademark">UNIX</span>® clone will let you read the keyboard scan
+	  codes, but chances are a real <span class="trademark">UNIX</span>® operating system will
+	  not.  And even if one version may let you do it, the next
+	  one may not, so your carefully crafted software may become a
+	  dinosaur overnight.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-abstraction"></a>11.14.2. <span class="trademark">UNIX</span>® Is an Abstraction</h3></div></div></div><p>But there is a much more important reason not to try
+	  accessing the hardware directly (unless, of course, you are
+	  writing a device driver), even on the <span class="trademark">UNIX</span>® like systems
+	  that let you do it:</p><p><span class="emphasis"><em><span class="trademark">UNIX</span>® is an abstraction!</em></span></p><p>There is a major difference in the philosophy of design
+	  between <acronym class="acronym"><span class="trademark">MS-DOS</span>®</acronym> and <span class="trademark">UNIX</span>®.
+	  <acronym class="acronym"><span class="trademark">MS-DOS</span>®</acronym> was designed as a single-user
+	  system.  It is run on a computer with a keyboard and a video
+	  screen attached directly to that computer.  User input is
+	  almost guaranteed to come from that keyboard.  Your
+	  program's output virtually always ends up on that
+	  screen.</p><p>This is NEVER guaranteed under <span class="trademark">UNIX</span>®.  It is quite
+	  common for a <span class="trademark">UNIX</span>® user to pipe and redirect program input
+	  and output:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>program1 | program2 | program3 &gt; file1</code></strong></pre><p>If you have written <span class="application">program2</span>,
+	  your input does not come from the keyboard but from the
+	  output of <span class="application">program1</span>.  Similarly,
+	  your output does not go to the screen but becomes the input
+	  for <span class="application">program3</span> whose output, in
+	  turn, goes to <code class="filename">file1</code>.</p><p>But there is more! Even if you made sure that your input
+	  comes from, and your output goes to, the terminal, there is
+	  no guarantee the terminal is a PC: It may not have its video
+	  memory where you expect it, nor may its keyboard be
+	  producing <acronym class="acronym">PC</acronym>-style scan codes.  It may be
+	  a <span class="trademark">Macintosh</span>®, or any other computer.</p><p>Now you may be shaking your head: My software is in
+	  <acronym class="acronym">PC</acronym> assembly language, how can it run on a
+	  <span class="trademark">Macintosh</span>®? But I did not say your software would be
+	  running on a <span class="trademark">Macintosh</span>®, only that its terminal may be a
+	  <span class="trademark">Macintosh</span>®.</p><p>Under <span class="trademark">UNIX</span>®, the terminal does not have to be directly
+	  attached to the computer that runs your software, it can
+	  even be on another continent, or, for that matter, on
+	  another planet.  It is perfectly possible that a <span class="trademark">Macintosh</span>®
+	  user in Australia connects to a <span class="trademark">UNIX</span>® system in North
+	  America (or anywhere else) via
+	  <span class="application">telnet</span>.  The software then runs
+	  on one computer, while the terminal is on a different
+	  computer: If you try to read the scan codes, you will get
+	  the wrong input!</p><p>Same holds true about any other hardware: A file you are
+	  reading may be on a disk you have no direct access to.  A
+	  camera you are reading images from may be on a
+	  space shuttle, connected to you via satellites.</p><p>That is why under <span class="trademark">UNIX</span>® you must never make any
+	  assumptions about where your data is coming from and going
+	  to.  Always let the system handle the physical access to the
+	  hardware.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">These are caveats, not absolute rules.  Exceptions are
+	    possible.  For example, if a text editor has determined it
+	    is running on a local machine, it may want to read the
+	    scan codes directly for improved control.  I am not
+	    mentioning these caveats to tell you what to do or what
+	    not to do, just to make you aware of certain pitfalls that
+	    await you if you have just arrived to <span class="trademark">UNIX</span>® form
+	    <acronym class="acronym"><span class="trademark">MS-DOS</span>®</acronym>.  Of course, creative people
+	    often break rules, and it is OK as long as they know they
+	    are breaking them and why.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="x86-fpu.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="x86.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="x86-acknowledgements.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">11.13. Using the <acronym class="acronym">FPU</acronym> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 11.15. Acknowledgements</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>8. Using vinum for the Root File System</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="The vinum Volume Manager" /><link rel="up" href="index.html" title="The vinum Volume Manager" /><link rel="prev" href="vinum-config.html" title="7. Configuring vinum" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">8. Using <code class="filename">vinum</code> for the Root
+	File System</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="vinum-config.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> </td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="vinum-root"></a>8. Using <code class="filename">vinum</code> for the Root
+	File System</h2></div></div></div><p>For a machine that has fully-mirrored file systems using
+	<code class="filename">vinum</code>, it is desirable to also
+	mirror the root file system.  Setting up such a configuration
+	is less trivial than mirroring an arbitrary file system
+	because:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>The root file system must be available very early
+	    during the boot process, so the
+	    <code class="filename">vinum</code> infrastructure must
+	    already be available at this time.</p></li><li class="listitem"><p>The volume containing the root file system also
+	    contains the system bootstrap and the kernel.  These must
+	    be read using the host system's native utilities, such as
+	    the BIOS, which often cannot be taught about the details
+	    of <code class="filename">vinum</code>.</p></li></ul></div><p>In the following sections, the term <span class="quote">&#8220;<span class="quote">root
+	  volume</span>&#8221;</span> is generally used to describe the
+	<code class="filename">vinum</code> volume that contains the root
+	file system.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47401976"></a>8.1. Starting up <code class="filename">vinum</code> Early
+	  Enough for the Root File System</h3></div></div></div><p><code class="filename">vinum</code> must be available early
+	  in the system boot as <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=loader&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">loader</span>(8)</span></a> must be able to load
+	  the vinum kernel module before starting the kernel.  This
+	  can be accomplished by putting this line in
+	  <code class="filename">/boot/loader.conf</code>:</p><pre class="programlisting">geom_vinum_load="YES"</pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47408888"></a>8.2. Making a <code class="filename">vinum</code>-based Root
+	Volume Accessible to the Bootstrap</h3></div></div></div><p>The current FreeBSD bootstrap is only 7.5 KB of code and
+	does not understand the internal
+	<code class="filename">vinum</code> structures.  This means that it
+	cannot parse the <code class="filename">vinum</code> configuration
+	data or figure out the elements of a boot volume.  Thus, some
+	workarounds are necessary to provide the bootstrap code with
+	the illusion of a standard <code class="literal">a</code> partition
+	that contains the root file system.</p><p>For this to be possible, the following requirements must
+	be met for the root volume:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>The root volume must not be a stripe or
+	    <acronym class="acronym">RAID</acronym>-5.</p></li><li class="listitem"><p>The root volume must not contain more than one
+	    concatenated subdisk per plex.</p></li></ul></div><p>Note that it is desirable and possible to use multiple
+	plexes, each containing one replica of the root file system.
+	The bootstrap process will only use one replica for finding
+	the bootstrap and all boot files, until the kernel mounts the
+	root file system.  Each single subdisk within these plexes
+	needs its own <code class="literal">a</code> partition illusion, for
+	the respective device to be bootable.  It is not strictly
+	needed that each of these faked <code class="literal">a</code>
+	partitions is located at the same offset within its device,
+	compared with other devices containing plexes of the root
+	volume.  However, it is probably a good idea to create the
+	<code class="filename">vinum</code> volumes that way so the
+	resulting mirrored devices are symmetric, to avoid
+	confusion.</p><p>In order to set up these <code class="literal">a</code>
+	partitions for each device containing part of the root
+	volume, the following is required:</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p>The location, offset from the beginning of the device,
+	    and size of this device's subdisk that is part of the root
+	    volume needs to be examined, using the command:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>gvinum l -rv root</code></strong></pre><p><code class="filename">vinum</code> offsets and sizes are
+	    measured in bytes.  They must be divided by 512 in order
+	    to obtain the block numbers that are to be used by
+	    <code class="command">bsdlabel</code>.</p></li><li class="step"><p>Run this command for each device that participates in
+	    the root volume:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>bsdlabel -e <em class="replaceable"><code>devname</code></em></code></strong></pre><p><em class="replaceable"><code>devname</code></em> must be either the
+	    name of the disk, like <code class="filename">da0</code> for
+	    disks without a slice table, or the name of the
+	    slice, like <code class="filename">ad0s1</code>.</p><p>If there is already an <code class="literal">a</code>
+	    partition on the device from a
+	    pre-<code class="filename">vinum</code> root file system, it
+	    should be renamed to something else so that it remains
+	    accessible (just in case), but will no longer be used by
+	    default to bootstrap the system.  A currently mounted root
+	    file system cannot be renamed, so this must be executed
+	    either when being booted from a <span class="quote">&#8220;<span class="quote">Fixit</span>&#8221;</span>
+	    media, or in a two-step process where, in a mirror, the
+	    disk that is not been currently booted is manipulated
+	    first.</p><p>The offset of the <code class="filename">vinum</code>
+	    partition on this device (if any) must be added to the
+	    offset of the respective root volume subdisk on this
+	    device.  The resulting value will become the
+	    <code class="literal">offset</code> value for the new
+	    <code class="literal">a</code> partition.  The
+	    <code class="literal">size</code> value for this partition can be
+	    taken verbatim from the calculation above.  The
+	    <code class="literal">fstype</code> should be
+	    <code class="literal">4.2BSD</code>.  The
+	    <code class="literal">fsize</code>, <code class="literal">bsize</code>,
+	    and <code class="literal">cpg</code> values should be chosen
+	    to match the actual file system, though they are fairly
+	    unimportant within this context.</p><p>That way, a new <code class="literal">a</code> partition will
+	    be established that overlaps the
+	    <code class="filename">vinum</code> partition on this device.
+	    <code class="command">bsdlabel</code> will only allow for this
+	    overlap if the <code class="filename">vinum</code> partition
+	    has properly been marked using the
+	    <code class="literal">vinum</code> fstype.</p></li><li class="step"><p>A faked <code class="literal">a</code> partition now exists
+	    on each device that has one replica of the root volume.
+	    It is highly recommendable to verify the result using a
+	    command like:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>fsck -n /dev/<em class="replaceable"><code>devname</code></em>a</code></strong></pre></li></ol></div><p>It should be remembered that all files containing control
+	information must be relative to the root file system in the
+	<code class="filename">vinum</code> volume which, when setting up
+	a new <code class="filename">vinum</code> root volume, might not
+	match the root file system that is currently active.  So in
+	particular, <code class="filename">/etc/fstab</code> and
+	<code class="filename">/boot/loader.conf</code> need to be taken care
+	of.</p><p>At next reboot, the bootstrap should figure out the
+	appropriate control information from the new
+	<code class="filename">vinum</code>-based root file system, and act
+	accordingly.  At the end of the kernel initialization process,
+	after all devices have been announced, the prominent notice
+	that shows the success of this setup is a message like:</p><pre class="screen">Mounting root from ufs:/dev/gvinum/root</pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47496824"></a>8.3. Example of a <code class="filename">vinum</code>-based Root
+	Setup</h3></div></div></div><p>After the <code class="filename">vinum</code> root volume has
+	been set up, the output of <code class="command">gvinum l -rv
+	  root</code> could look like:</p><pre class="screen">...
+Subdisk root.p0.s0:
+		Size:        125829120 bytes (120 MB)
+		State: up
+		Plex root.p0 at offset 0 (0  B)
+		Drive disk0 (/dev/da0h) at offset 135680 (132 kB)
+
+Subdisk root.p1.s0:
+		Size:        125829120 bytes (120 MB)
+		State: up
+		Plex root.p1 at offset 0 (0  B)
+		Drive disk1 (/dev/da1h) at offset 135680 (132 kB)</pre><p>The values to note are <code class="literal">135680</code> for the
+	offset, relative to partition
+	<code class="filename">/dev/da0h</code>.  This
+	translates to 265 512-byte disk blocks in
+	<code class="command">bsdlabel</code>'s terms.  Likewise, the size of
+	this root volume is 245760 512-byte blocks.  <code class="filename">/dev/da1h</code>, containing the
+	second replica of this root volume, has a symmetric
+	setup.</p><p>The bsdlabel for these devices might look like:</p><pre class="screen">...
+8 partitions:
+#        size   offset    fstype   [fsize bsize bps/cpg]
+  a:   245760      281    4.2BSD     2048 16384     0   # (Cyl.    0*- 15*)
+  c: 71771688        0    unused        0     0         # (Cyl.    0 - 4467*)
+  h: 71771672       16     vinum                        # (Cyl.    0*- 4467*)</pre><p>It can be observed that the <code class="literal">size</code>
+	parameter for the faked <code class="literal">a</code> partition
+	matches the value outlined above, while the
+	<code class="literal">offset</code> parameter is the sum of the offset
+	within the <code class="filename">vinum</code> partition
+	<code class="literal">h</code>, and the offset of this partition
+	within the device or slice.  This is a typical setup that is
+	necessary to avoid the problem described in <a class="xref" href="vinum-root.html#vinum-root-panic" title="8.4.3. Nothing Boots, the Bootstrap Panics">Section 8.4.3, &#8220;Nothing Boots, the Bootstrap
+	  Panics&#8221;</a>.  The entire
+	<code class="literal">a</code> partition is completely within the
+	<code class="literal">h</code> partition containing all the
+	<code class="filename">vinum</code> data for this device.</p><p>In the above example, the entire device is dedicated to
+	<code class="filename">vinum</code> and there is no leftover
+	pre-<code class="filename">vinum</code> root partition.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47536248"></a>8.4. Troubleshooting</h3></div></div></div><p>The following list contains a few known pitfalls and
+	solutions.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47540344"></a>8.4.1. System Bootstrap Loads, but System Does Not
+	  Boot</h4></div></div></div><p>If for any reason the system does not continue to boot,
+	  the bootstrap can be interrupted by pressing
+	  <span class="keycap"><strong>space</strong></span> at the 10-seconds warning.  The
+	  loader variable <code class="literal">vinum.autostart</code> can be
+	  examined by typing <code class="command">show</code> and manipulated
+	  using <code class="command">set</code> or
+	  <code class="command">unset</code>.</p><p>If the <code class="filename">vinum</code> kernel module was
+	  not yet in the list of modules to load automatically, type
+	  <code class="command">load geom_vinum</code>.</p><p>When ready, the boot process can be continued by typing
+	  <code class="command">boot -as</code> which
+	  <code class="option">-as</code> requests the kernel to ask for the
+	  root file system to mount (<code class="option">-a</code>) and make the
+	  boot process stop in single-user mode (<code class="option">-s</code>),
+	  where the root file system is mounted read-only.  That way,
+	  even if only one plex of a multi-plex volume has been
+	  mounted, no data inconsistency between plexes is being
+	  risked.</p><p>At the prompt asking for a root file system to mount,
+	  any device that contains a valid root file system can be
+	  entered.  If <code class="filename">/etc/fstab</code> is set up
+	  correctly, the default should be something like
+	  <code class="literal">ufs:/dev/gvinum/root</code>.  A typical
+	  alternate choice would be something like
+	  <code class="literal">ufs:da0d</code> which could be a
+	  hypothetical partition containing the
+	  pre-<code class="filename">vinum</code> root file system.  Care
+	  should be taken if one of the alias
+	  <code class="literal">a</code> partitions is entered here, that it
+	  actually references the subdisks of the
+	  <code class="filename">vinum</code> root device, because in a
+	  mirrored setup, this would only mount one piece of a
+	  mirrored root device.  If this file system is to be mounted
+	  read-write later on, it is necessary to remove the other
+	  plex(es) of the <code class="filename">vinum</code> root volume
+	  since these plexes would otherwise carry inconsistent
+	  data.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47577336"></a>8.4.2. Only Primary Bootstrap Loads</h4></div></div></div><p>If <code class="filename">/boot/loader</code> fails to load, but
+	  the primary bootstrap still loads (visible by a single dash
+	  in the left column of the screen right after the boot
+	  process starts), an attempt can be made to interrupt the
+	  primary bootstrap by pressing
+	  <span class="keycap"><strong>space</strong></span>.  This will make the bootstrap stop
+	  in <a class="link" href="../../../../doc/en_US.ISO8859-1/books/handbook/boot.html#boot-boot1" target="_top">stage two</a>.  An attempt
+	  can be made here to boot off an alternate partition, like
+	  the partition containing the previous root file system that
+	  has been moved away from <code class="literal">a</code>.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="vinum-root-panic"></a>8.4.3. Nothing Boots, the Bootstrap
+	  Panics</h4></div></div></div><p>This situation will happen if the bootstrap had been
+	  destroyed by the <code class="filename">vinum</code>
+	  installation.  Unfortunately, <code class="filename">vinum</code>
+	  accidentally leaves only 4 KB at the beginning of its
+	  partition free before starting to write its
+	  <code class="filename">vinum</code> header information.  However,
+	  the stage one and two bootstraps plus the bsdlabel require 8
+	  KB.  So if a <code class="filename">vinum</code> partition was
+	  started at offset 0 within a slice or disk that was meant to
+	  be bootable, the <code class="filename">vinum</code> setup will
+	  trash the bootstrap.</p><p>Similarly, if the above situation has been recovered,
+	  by booting from a <span class="quote">&#8220;<span class="quote">Fixit</span>&#8221;</span> media, and the
+	  bootstrap has been re-installed using
+	  <code class="command">bsdlabel -B</code> as described in <a class="link" href="../../../../doc/en_US.ISO8859-1/books/handbook/boot.html#boot-boot1" target="_top">../../../../doc/en_US.ISO8859-1/books/handbook/boot.html#boot-boot1</a>, the bootstrap will trash the
+	  <code class="filename">vinum</code> header, and
+	  <code class="filename">vinum</code> will no longer find its
+	  disk(s).  Though no actual <code class="filename">vinum</code>
+	  configuration data or data in <code class="filename">vinum</code>
+	  volumes will be trashed, and it would be possible to recover
+	  all the data by entering exactly the same
+	  <code class="filename">vinum</code> configuration data again, the
+	  situation is hard to fix.  It is necessary to move the
+	  entire <code class="filename">vinum</code> partition by at least
+	  4 KB, in order to have the <code class="filename">vinum</code>
+	  header and the system bootstrap no longer collide.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="vinum-config.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> </td></tr><tr><td width="40%" align="left" valign="top">7. Configuring <code class="filename">vinum</code> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> </td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

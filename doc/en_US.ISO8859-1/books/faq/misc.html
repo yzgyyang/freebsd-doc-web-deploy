@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>Chapter 15. Miscellaneous Questions</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Frequently Asked Questions for FreeBSD 11.X and 12.X" /><link rel="up" href="index.html" title="Frequently Asked Questions for FreeBSD 11.X and 12.X" /><link rel="prev" href="serial.html" title="Chapter 14. Serial Communications" /><link rel="next" href="funnies.html" title="Chapter 16. The FreeBSD Funnies" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 15. Miscellaneous Questions</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="serial.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="funnies.html">Next</a></td></tr></table><hr /></div><div class="chapter"><div xmlns="" class="titlepage"><div><div><h1 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="misc"></a>Chapter 15. Miscellaneous Questions</h1></div></div></div><div class="qandaset"><a id="idp52228600"></a><dl><dt>15.1. <a href="misc.html#idp52228856">FreeBSD uses a lot of swap space even when the computer
+	    has free memory left.  Why?</a></dt><dt>15.2. <a href="misc.html#idp52231288">Why does top show very little free
+	    memory even when I have very few programs running?</a></dt><dt>15.3. <a href="misc.html#idp52240888">Why will chmod not change the
+	    permissions on symlinks?</a></dt><dt>15.4. <a href="misc.html#idp52258168">Can I run DOS binaries under FreeBSD?</a></dt><dt>15.5. <a href="misc.html#idp52274936">What do I need to do to translate a FreeBSD document into
+	    my native language?</a></dt><dt>15.6. <a href="misc.html#idp52277752">Why does my email to any address at FreeBSD.org
+	    bounce?</a></dt><dt>15.7. <a href="misc.html#idp52291320">Where can I find a free FreeBSD account?</a></dt><dt>15.8. <a href="misc.html#idp51977592">What is the cute little red guy's name?</a></dt><dt>15.9. <a href="misc.html#idp51986168">Can I use the BSD daemon image?</a></dt><dt>15.10. <a href="misc.html#idp51990008">Do you have any BSD daemon images I could use?</a></dt><dt>15.11. <a href="misc.html#idp51992440">I have seen an acronym or other term on the mailing
+	    lists and I do not understand what it means.  Where should
+	    I look?</a></dt><dt>15.12. <a href="misc.html#idp51995000">Why should I care what color the bikeshed is?</a></dt></dl><table border="0" style="width: 100%;"><colgroup><col align="left" width="1%" /><col /></colgroup><tbody><tr class="question"><td align="left" valign="top"><a id="idp52228856"></a><a id="more-swap"></a><p><strong>15.1.</strong></p></td><td align="left" valign="top"><p>FreeBSD uses a lot of swap space even when the computer
+	    has free memory left.  Why?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>FreeBSD will proactively move entirely idle, unused pages
+	    of main memory into swap in order to make more main memory
+	    available for active use.  This heavy use of swap is
+	    balanced by using the extra free memory for
+	    caching.</p><p>Note that while FreeBSD is proactive in this regard, it
+	    does not arbitrarily decide to swap pages when the system
+	    is truly idle.  Thus, the system will not be all
+	    paged out after leaving it
+	    idle overnight.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp52231288"></a><a id="top-freemem"></a><p><strong>15.2.</strong></p></td><td align="left" valign="top"><p>Why does <code class="command">top</code> show very little free
+	    memory even when I have very few programs running?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>The simple answer is that free memory is wasted
+	    memory.  Any memory that programs do not actively
+	    allocate is used within the FreeBSD kernel as disk cache.
+	    The values shown by <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=top&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">top</span>(1)</span></a> labeled as
+	    <code class="literal">Inact</code> and <code class="literal">Laundry</code>
+	    are cached data at different
+	    aging levels.  This cached data means the system does not
+	    have to access a slow disk again for data it has accessed
+	    recently, thus increasing overall performance.  In
+	    general, a low value shown for <code class="literal">Free</code>
+	    memory in <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=top&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">top</span>(1)</span></a> is good, provided it is not
+	    <span class="emphasis"><em>very</em></span> low.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp52240888"></a><a id="chmod-symlinks"></a><p><strong>15.3.</strong></p></td><td align="left" valign="top"><p>Why will <code class="command">chmod</code> not change the
+	    permissions on symlinks?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>Symlinks do not have permissions, and by default,
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=chmod&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">chmod</span>(1)</span></a> will follow symlinks to change the
+	    permissions on the source file, if possible.  For
+	    the file, <code class="filename">foo</code> with a symlink named
+	    <code class="filename">bar</code>, this command
+	    will always succeed.</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>chmod g-w bar</code></strong></pre><p>However, the permissions on <code class="filename">bar</code>
+	    will not have changed.</p><p>When changing modes of the file hierarchies rooted in
+	    the files instead of the files themselves, use
+	    either <code class="option">-H</code> or <code class="option">-L</code> together
+	    with <code class="option">-R</code> to make this work.  See
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=chmod&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">chmod</span>(1)</span></a> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=symlink&amp;sektion=7&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">symlink</span>(7)</span></a> for more
+	    information.</p><div xmlns="" class="warning"><h3 class="admontitle">Warning: </h3><p xmlns="http://www.w3.org/1999/xhtml"><code class="option">-R</code> does a
+	      <span class="emphasis"><em>recursive</em></span> <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=chmod&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">chmod</span>(1)</span></a>.  Be
+	      careful about specifying directories or symlinks to
+	      directories to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=chmod&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">chmod</span>(1)</span></a>.  To change the
+	      permissions of a directory referenced by a symlink, use
+	      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=chmod&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">chmod</span>(1)</span></a> without any options and follow the symlink
+	      with a trailing slash (<code class="filename">/</code>).  For
+	      example, if <code class="filename">foo</code> is a symlink to
+	      directory <code class="filename">bar</code>, to
+	      change the permissions of <code class="filename">foo</code>
+	      (actually <code class="filename">bar</code>), do
+	      something like:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="screen"><code class="prompt">%</code> <strong class="userinput"><code>chmod 555 foo/</code></strong></pre><p xmlns="http://www.w3.org/1999/xhtml">With the trailing slash, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=chmod&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">chmod</span>(1)</span></a> will follow
+	      the symlink, <code class="filename">foo</code>, to change the
+	      permissions of the directory,
+	      <code class="filename">bar</code>.</p></div></td></tr><tr class="question"><td align="left" valign="top"><a id="idp52258168"></a><a id="dos-binaries"></a><p><strong>15.4.</strong></p></td><td align="left" valign="top"><p>Can I run DOS binaries under FreeBSD?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>Yes.  A DOS emulation program,
+	    <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/emulators/doscmd/pkg-descr">emulators/doscmd</a>, is available in the
+	    FreeBSD Ports Collection.</p><p>If <span class="application">doscmd</span> will not suffice,
+	    <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/emulators/pcemu/pkg-descr">emulators/pcemu</a>
+	    emulates an 8088 and enough BIOS services to run many DOS
+	    text-mode applications.  It requires the X Window
+	    System.</p><p>The Ports Collection also has
+	    <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/emulators/dosbox/pkg-descr">emulators/dosbox</a>.  The main focus of
+	    this application is emulating old DOS games using the
+	    local file system for files.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp52274936"></a><a id="translation"></a><p><strong>15.5.</strong></p></td><td align="left" valign="top"><p>What do I need to do to translate a FreeBSD document into
+	    my native language?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>See the <a class="link" href="../../../../doc/en_US.ISO8859-1/books/fdp-primer/translations.html" target="_top">Translation
+	      <acronym class="acronym">FAQ</acronym></a> in the FreeBSD Documentation
+	    Project Primer.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp52277752"></a><a id="freebsd-mail-bounces"></a><p><strong>15.6.</strong></p></td><td align="left" valign="top"><p>Why does my email to any address at <code class="systemitem">FreeBSD.org</code>
+	    bounce?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>The <code class="systemitem">FreeBSD.org</code> mail
+	    system implements some <span class="application">Postfix</span>
+	    checks on incoming mail and rejects mail that is either
+	    from misconfigured relays or otherwise appears likely to
+	    be spam.  Some of the specific requirements are:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>The IP address of the SMTP client must
+		"reverse-resolve" to a forward confirmed
+		hostname.</p></li><li class="listitem"><p>The fully-qualified hostname given in the
+		SMTP conversation (either HELO or EHLO) must resolve
+		to the IP address of the client.</p></li></ul></div><p>Other advice to help mail reach its destination
+	    include:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Mail should be sent in plain text, and messages
+		sent to mailing lists should generally be no more than
+		200KB in length.</p></li><li class="listitem"><p>Avoid excessive cross posting.  Choose
+		<span class="emphasis"><em>one</em></span> mailing list which seems most
+		relevant and send it there.</p></li></ul></div><p>If you still have trouble with email infrastructure at
+	    <code class="systemitem">FreeBSD.org</code>,
+	    send a note with the details to
+	    <code class="email">&lt;<a xmlns="" class="email" href="mailto:postmaster@freebsd.org">postmaster@freebsd.org</a>&gt;</code>;  Include a
+	    date/time interval so that logs may be reviewed &#8212;
+	    and note that we only keep one week's worth of mail logs.
+	    (Be sure to specify the time zone or offset from
+	    UTC.)</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp52291320"></a><a id="free-account"></a><p><strong>15.7.</strong></p></td><td align="left" valign="top"><p>Where can I find a free FreeBSD account?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>While FreeBSD does not provide open access to any of
+	    their servers, others do provide open access <span class="trademark">UNIX</span>®
+	    systems.  The charge varies and limited services may be
+	    available.</p><p><a class="link" href="http://www.arbornet.org/" target="_top">Arbornet,
+	      Inc</a>, also known as <span class="emphasis"><em>M-Net</em></span>,
+	    has been providing open access to <span class="trademark">UNIX</span>® systems since
+	    1983.  Starting on an Altos running System III, the site
+	    switched to BSD/OS in 1991.  In June of 2000, the site
+	    switched again to FreeBSD.  <span class="emphasis"><em>M-Net</em></span> can be
+	    accessed via <span class="application">telnet</span> and
+	    <span class="application">SSH</span> and provides basic access
+	    to the entire FreeBSD software suite.  However, network
+	    access is limited to members and patrons who donate to the
+	    system, which is run as a non-profit organization.
+	    <span class="emphasis"><em>M-Net</em></span> also provides an bulletin board
+	    system and interactive chat.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51977592"></a><a id="daemon-name"></a><p><strong>15.8.</strong></p></td><td align="left" valign="top"><p>What is the cute little red guy's name?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>He does not have one, and is just called <span class="quote">&#8220;<span class="quote">the
+	      BSD daemon</span>&#8221;</span>.  If you insist upon using a name,
+	    call him <span class="quote">&#8220;<span class="quote">beastie</span>&#8221;</span>.  Note that
+	    <span class="quote">&#8220;<span class="quote">beastie</span>&#8221;</span> is pronounced
+	    <span class="quote">&#8220;<span class="quote">BSD</span>&#8221;</span>.</p><p>More about the BSD daemon is available on his <a class="link" href="http://www.mckusick.com/beastie/index.html" target="_top">home
+	      page</a>.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51986168"></a><a id="use-beastie"></a><p><strong>15.9.</strong></p></td><td align="left" valign="top"><p>Can I use the BSD daemon image?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>Perhaps.  The BSD daemon is copyrighted by Marshall
+	    Kirk McKusick.  Check his <a class="link" href="http://www.mckusick.com/beastie/mainpage/copyright.html" target="_top">Statement
+	      on the Use of the BSD Daemon Figure</a> for detailed
+	    usage terms.</p><p>In summary, the image can be used in a tasteful
+	    manner, for personal use, so long as appropriate credit
+	    is given.  Before using the logo commercially, contact
+	    Kirk McKusick <code class="email">&lt;<a xmlns="" class="email" href="mailto:mckusick@FreeBSD.org">mckusick@FreeBSD.org</a>&gt;</code> for permission.  More details are
+	    available on the <a class="link" href="http://www.mckusick.com/beastie/index.html" target="_top">BSD
+	      Daemon's home page</a>.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51990008"></a><a id="daemon-images"></a><p><strong>15.10.</strong></p></td><td align="left" valign="top"><p>Do you have any BSD daemon images I could use?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>Xfig and eps drawings are available under
+	    <code class="filename">/usr/share/examples/BSD_daemon/</code>.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51992440"></a><a id="glossary"></a><p><strong>15.11.</strong></p></td><td align="left" valign="top"><p>I have seen an acronym or other term on the mailing
+	    lists and I do not understand what it means.  Where should
+	    I look?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>Refer to the <a class="link" href="../../../../doc/en_US.ISO8859-1/books/handbook/freebsd-glossary.html" target="_top">FreeBSD
+	      Glossary</a>.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51995000"></a><a id="bikeshed-painting"></a><p><strong>15.12.</strong></p></td><td align="left" valign="top"><p>Why should I care what color the bikeshed is?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>The really, really short answer is that you should
+	    not.  The somewhat longer answer is that just because you
+	    are capable of building a bikeshed does not mean you
+	    should stop others from building one just because you do
+	    not like the color they plan to paint it.  This is a
+	    metaphor indicating that you need not argue about every
+	    little feature just because you know enough to do so.
+	    Some people have commented that the amount of noise
+	    generated by a change is inversely proportional to the
+	    complexity of the change.</p><p>The longer and more complete answer is that after a
+	    very long argument about whether <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sleep&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sleep</span>(1)</span></a> should take
+	    fractional second arguments, Poul-Henning Kamp <code class="email">&lt;<a xmlns="" class="email" href="mailto:phk@FreeBSD.org">phk@FreeBSD.org</a>&gt;</code> posted a long
+	    message entitled <span class="quote">&#8220;<span class="quote"><a class="link" href="http://www.bikeshed.com" target="_top">A
+	      bike shed (any color will do) on greener
+	      grass...</a></span>&#8221;</span>.  The appropriate portions of
+	    that message are quoted below.</p><div class="blockquote"><table border="0" class="blockquote" style="width: 100%; cellspacing: 0; cellpadding: 0;" summary="Block quote"><tr><td width="10%" valign="top"> </td><td width="80%" valign="top"><p><span class="quote">&#8220;<span class="quote">What is it about this bike shed?</span>&#8221;</span>
+	      Some of you have asked me.</p><p>It is a long story, or rather it is an old story,
+	      but it is quite short actually.  C. Northcote Parkinson
+	      wrote a book in the early 1960s, called
+	      <span class="quote">&#8220;<span class="quote">Parkinson's Law</span>&#8221;</span>, which contains a lot of
+	      insight into the dynamics of management.</p><p><span class="emphasis"><em>[snip a bit of commentary on the
+		book]</em></span></p><p>In the specific example involving the bike shed, the
+	      other vital component is an atomic power-plant, I guess
+	      that illustrates the age of the book.</p><p>Parkinson shows how you can go into the board of
+	      directors and get approval for building a multi-million
+	      or even billion dollar atomic power plant, but if you
+	      want to build a bike shed you will be tangled up in
+	      endless discussions.</p><p>Parkinson explains that this is because an atomic
+	      plant is so vast, so expensive and so complicated that
+	      people cannot grasp it, and rather than try, they fall
+	      back on the assumption that somebody else checked all
+	      the details before it got this far.  Richard P. Feynmann
+	      gives a couple of interesting, and very much to the
+	      point, examples relating to Los Alamos in his
+	      books.</p><p>A bike shed on the other hand.  Anyone can build one
+	      of those over a weekend, and still have time to watch
+	      the game on TV.  So no matter how well prepared, no
+	      matter how reasonable you are with your proposal,
+	      somebody will seize the chance to show that he is doing
+	      his job, that he is paying attention, that he is
+	      <span class="emphasis"><em>here</em></span>.</p><p>In Denmark we call it <span class="quote">&#8220;<span class="quote">setting your
+		fingerprint</span>&#8221;</span>.  It is about personal pride and
+	      prestige, it is about being able to point somewhere and
+	      say <span class="quote">&#8220;<span class="quote">There!  <span class="emphasis"><em>I</em></span> did
+		that.</span>&#8221;</span> It is a strong trait in politicians, but
+	      present in most people given the chance.  Just think
+	      about footsteps in wet cement.</p></td><td width="10%" valign="top"> </td></tr><tr><td width="10%" valign="top"> </td><td colspan="2" align="right" valign="top">--<span class="attribution">Poul-Henning Kamp <code class="email">&lt;<a xmlns="" class="email" href="mailto:phk@FreeBSD.org">phk@FreeBSD.org</a>&gt;</code> on <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo/freebsd-hackers" target="_top">freebsd-hackers</a>, October 2,
+	      1999</span></td></tr></table></div></td></tr></tbody></table></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="serial.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="funnies.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 14. Serial Communications </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 16. The FreeBSD Funnies</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

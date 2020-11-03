@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>7.3. USES=php and Flavors</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Porter's Handbook" /><link rel="up" href="flavors.html" title="Chapter 7. Flavors" /><link rel="prev" href="flavors-using.html" title="7.2. Using FLAVORS" /><link rel="next" href="flavors-auto-python.html" title="7.4. USES=python and Flavors" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">7.3. <code class="literal">USES=php</code> and Flavors</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="flavors-using.html">Prev</a> </td><th width="60%" align="center">Chapter 7. Flavors</th><td width="20%" align="right"> <a accesskey="n" href="flavors-auto-python.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="flavors-auto-php"></a>7.3. <code class="literal">USES=php</code> and Flavors</h2></div></div></div><p>When using <a class="link" href="uses-php.html" title="17.68. php">USES=php</a> with
+      one of these arguments, <code class="literal">phpize</code>,
+      <code class="literal">ext</code>, <code class="literal">zend</code>, or
+      <code class="literal">pecl</code>, the port will automatically have
+      <code class="varname">FLAVORS</code> filled in with the
+      <span class="application">PHP</span> versions it supports.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">All the examples assume the currently supported PHP
+	versions are 5.6, 7.0, 7.1, and 7.2.</p></div><div class="example"><a id="flavors-auto-php-ex1"></a><div class="example-title">Example 7.5. Simple <code class="literal">USES=php</code> Extension</div><div class="example-contents"><p>This will generate package for all the supported
+	versions:</p><pre class="programlisting">PORTNAME=	some-ext
+PORTVERSION=	0.0.1
+PKGNAMEPREFIX=	${PHP_PKGNAMEPREFIX}
+
+USES=		php:ext</pre><p>This will generate package for all the supported
+	versions but 7.2:</p><pre class="programlisting">PORTNAME=	some-ext
+PORTVERSION=	0.0.1
+PKGNAMEPREFIX=	${PHP_PKGNAMEPREFIX}
+
+USES=		php:ext
+IGNORE_WITH_PHP=	72</pre></div></div><br class="example-break" /><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="flavors-auto-php-app"></a>7.3.1. PHP Flavors with PHP Applications</h3></div></div></div><p>PHP applications can also be flavorized.</p><p>This allows generating packages for all PHP versions, so
+	that users can use them with whatever version they need on
+	their servers.</p><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">PHP applications that are flavorized
+	  <span class="emphasis"><em>must</em></span> append
+	  <code class="varname">PHP_PKGNAMESUFFIX</code> to their package
+	  names.</p></div><div class="example"><a id="flavors-auto-php-app-ex1"></a><div class="example-title">Example 7.6. Flavorizing a PHP Application</div><div class="example-contents"><p>Adding Flavors support to a PHP application is
+	  straightforward:</p><pre class="programlisting">PKGNAMESUFFIX=	${PHP_PKGNAMESUFFIX}
+
+USES=	php:flavors</pre></div></div><br class="example-break" /><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">When adding a dependency on a
+	  <span class="application">PHP</span> flavored port, use
+	  <code class="literal">@${PHP_FLAVOR}</code>.
+	  <span class="emphasis"><em>Never</em></span> use <code class="varname">FLAVOR</code>
+	  directly.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="flavors-using.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="flavors.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="flavors-auto-python.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">7.2. Using FLAVORS </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 7.4. <code class="literal">USES=python</code> and Flavors</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

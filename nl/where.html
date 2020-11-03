@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">Zoeken</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -206,9 +205,9 @@
                 <li>
                   <a href="./../releases/">Uitgave-informatie</a>
                   <ul>
-                    <li>Productie-uitgave:<br /><a href="./../releases/11.2R/announce.html">11.2</a></li>
-                    <li>Productie-uitgave (verouderd):<br /><a href="./../releases/10.4R/announce.html">10.4</a></li>
-                    <li>Aanstaande uitgave:<br /><a href="./.././../releases/12.0R/schedule.html">12.0</a></li>
+                    <li>Productie-uitgave:<br /><a href="./../releases/12.0R/announce.html">12.0</a></li>
+                    <li>Productie-uitgave (verouderd):<br /><a href="./../releases/11.2R/announce.html">11.2</a></li>
+                    <li>Aanstaande uitgave:<br /><a href="./.././../releases/12.2R/schedule.html">12.2</a></li>
                   </ul>
                 </li>
                 <li>
@@ -266,63 +265,63 @@
       </thead>
       <tbody>
 	<tr>
-	  <td colspan="2" rowspan="1">FreeBSD 11.2-RELEASE</td>
+	  <td colspan="2" rowspan="1">FreeBSD 12.0-RELEASE</td>
 	  <td colspan="2" rowspan="1"></td>
-	  <td rowspan="5" colspan="1"><a href="./../releases/11.2R/relnotes.html" shape="rect">[Bekijk]</a></td>
-	  <td rowspan="5" colspan="1"><a href="./../releases/11.2R/hardware.html" shape="rect">[Bekijk]</a></td>
-	  <td rowspan="5" colspan="1"><a href="./../releases/11.2R/installation.html" shape="rect">[Bekijk]</a></td>
-	  <td rowspan="5" colspan="1"><a href="./../releases/11.2R/errata.html" shape="rect">[Bekijk]</a></td>
+	  <td rowspan="5" colspan="1"><a href="./../releases/12.0R/relnotes.html" shape="rect">[Bekijk]</a></td>
+	  <td rowspan="5" colspan="1"><a href="./../releases/12.0R/hardware.html" shape="rect">[Bekijk]</a></td>
+	  <td rowspan="5" colspan="1"><a href="./../releases/12.0R/installation.html" shape="rect">[Bekijk]</a></td>
+	  <td rowspan="5" colspan="1"><a href="./../releases/12.0R/errata.html" shape="rect">[Bekijk]</a></td>
 	</tr>
 	<tr>
 	  <td rowspan="1" colspan="1"></td>
 	  <td rowspan="1" colspan="1">amd64<br clear="none" />(x86-64, x64)</td>
-	  <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/amd64/amd64/11.2-RELEASE" shape="rect">[Distributie]</a></td>
-	  <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/amd64/amd64/ISO-IMAGES/11.2/" shape="rect">[ISO]</a></td>
+	  <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/amd64/amd64/12.0-RELEASE" shape="rect">[Distributie]</a></td>
+	  <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/amd64/amd64/ISO-IMAGES/12.0/" shape="rect">[ISO]</a></td>
 	</tr>
 	<tr>
 	  <td rowspan="1" colspan="1"></td>
 	  <td rowspan="1" colspan="1">i386</td>
-	  <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/i386/i386/11.2-RELEASE" shape="rect">[Distributie]</a></td>
-	  <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/i386/i386/ISO-IMAGES/11.2/" shape="rect">[ISO]</a></td>
+	  <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/i386/i386/12.0-RELEASE" shape="rect">[Distributie]</a></td>
+	  <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/i386/i386/ISO-IMAGES/12.0/" shape="rect">[ISO]</a></td>
 	</tr>
 
 	<tr>
 	  <td rowspan="1" colspan="1"></td>
 	  <td rowspan="1" colspan="1">powerpc64</td>
-	  <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/powerpc/powerpc64/11.2-RELEASE" shape="rect">[Distributie]</a></td>
-	  <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/powerpc/powerpc64/ISO-IMAGES/11.2/" shape="rect">[ISO]</a></td>
+	  <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/powerpc/powerpc64/12.0-RELEASE" shape="rect">[Distributie]</a></td>
+	  <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/powerpc/powerpc64/ISO-IMAGES/12.0/" shape="rect">[ISO]</a></td>
 	</tr>
 	<tr>
 	  <td rowspan="1" colspan="1"></td>
 	  <td rowspan="1" colspan="1">sparc64</td>
-	  <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/sparc64/sparc64/11.2-RELEASE" shape="rect">[Distributie]</a></td>
-	  <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/sparc64/sparc64/ISO-IMAGES/11.2/" shape="rect">[ISO]</a></td>
+	  <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/sparc64/sparc64/12.0-RELEASE" shape="rect">[Distributie]</a></td>
+	  <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/sparc64/sparc64/ISO-IMAGES/12.0/" shape="rect">[ISO]</a></td>
 	</tr>
 	<tr>
-	  <td colspan="2" rowspan="1">FreeBSD 10.4-RELEASE</td>
+	  <td colspan="2" rowspan="1">FreeBSD 11.2-RELEASE</td>
 	  <td colspan="2" rowspan="1"></td>
-	  <td rowspan="5" colspan="1"><a href="./../releases/10.4R/relnotes.html" shape="rect">[Bekijk]</a></td>
-	  <td rowspan="5" colspan="1"><a href="./../releases/10.4R/hardware.html" shape="rect">[Bekijk]</a></td>
+	  <td rowspan="5" colspan="1"><a href="./../releases/11.2R/relnotes.html" shape="rect">[Bekijk]</a></td>
+	  <td rowspan="5" colspan="1"><a href="./../releases/11.2R/hardware.html" shape="rect">[Bekijk]</a></td>
 	  <td rowspan="5" colspan="1"><a href="./../doc/nl_NL.ISO8859-1/books/handbook/install.html" shape="rect">[Bekijk]</a></td>
-	  <td rowspan="5" colspan="1"><a href="./../releases/10.4R/errata.html" shape="rect">[Bekijk]</a></td>
+	  <td rowspan="5" colspan="1"><a href="./../releases/11.2R/errata.html" shape="rect">[Bekijk]</a></td>
 	</tr>
 	<tr>
 	  <td rowspan="1" colspan="1"></td>
 	  <td rowspan="1" colspan="1">amd64<br clear="none" />(x86-64, x64)</td>
-	  <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/amd64/10.4-RELEASE" shape="rect">[Distributie]</a></td>
-	  <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/amd64/ISO-IMAGES/10.4/" shape="rect">[ISO]</a></td>
+	  <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/amd64/11.2-RELEASE" shape="rect">[Distributie]</a></td>
+	  <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/amd64/ISO-IMAGES/11.2/" shape="rect">[ISO]</a></td>
 	</tr>
 	<tr>
 	  <td rowspan="1" colspan="1"></td>
 	  <td rowspan="1" colspan="1">i386</td>
-	  <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/i386/10.4-RELEASE" shape="rect">[Distributie]</a></td>
-	  <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/i386/ISO-IMAGES/10.4/" shape="rect">[ISO]</a></td>
+	  <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/i386/11.2-RELEASE" shape="rect">[Distributie]</a></td>
+	  <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/i386/ISO-IMAGES/11.2/" shape="rect">[ISO]</a></td>
 	</tr>
 	<tr>
 	  <td rowspan="1" colspan="1"></td>
 	  <td rowspan="1" colspan="1">pc98</td>
-	  <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/pc98/10.4-RELEASE" shape="rect">[Distributie]</a></td>
-	  <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/pc98/ISO-IMAGES/10.4/" shape="rect">[ISO]</a></td>
+	  <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/pc98/11.2-RELEASE" shape="rect">[Distributie]</a></td>
+	  <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/pc98/ISO-IMAGES/11.2/" shape="rect">[ISO]</a></td>
 	</tr>
 	
 	
@@ -356,33 +355,33 @@
       </thead>
       <tbody>
         <tr>
-          <td colspan="2" rowspan="1">FreeBSD 12.0-BETA3</td>
+          <td colspan="2" rowspan="1">FreeBSD 12.2-RC1</td>
           <td colspan="2" rowspan="1"></td>
-          <td rowspan="7" colspan="1"><a href="http://wiki.freebsd.org/Releng/12.0TODO" shape="rect">[Bekijk]</a></td>
+          <td rowspan="7" colspan="1"><a href="http://wiki.freebsd.org/Releng/12.2TODO" shape="rect">[Bekijk]</a></td>
         </tr>
         <tr>
           <td rowspan="1" colspan="1"></td>
           <td rowspan="1" colspan="1">amd64</td>
-          <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/amd64/amd64/12.0-BETA3" shape="rect">[Distributie]</a></td>
-          <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/amd64/amd64/ISO-IMAGES/12.0/" shape="rect">[ISO]</a></td>
+          <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/amd64/amd64/12.2-RC1" shape="rect">[Distributie]</a></td>
+          <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/amd64/amd64/ISO-IMAGES/12.2/" shape="rect">[ISO]</a></td>
         </tr>
         <tr>
           <td rowspan="1" colspan="1"></td>
           <td rowspan="1" colspan="1">i386</td>
-          <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/i386/i386/12.0-BETA3" shape="rect">[Distributie]</a></td>
-          <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/i386/i386/ISO-IMAGES/12.0/" shape="rect">[ISO]</a></td>
+          <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/i386/i386/12.2-RC1" shape="rect">[Distributie]</a></td>
+          <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/i386/i386/ISO-IMAGES/12.2/" shape="rect">[ISO]</a></td>
         </tr>
         <tr>
           <td rowspan="1" colspan="1"></td>
           <td rowspan="1" colspan="1">powerpc64</td>
-          <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/powerpc/powerpc64/12.0-BETA3" shape="rect">[Distributie]</a></td>
-          <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/powerpc/powerpc64/ISO-IMAGES/12.0/" shape="rect">[ISO]</a></td>
+          <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/powerpc/powerpc64/12.2-RC1" shape="rect">[Distributie]</a></td>
+          <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/powerpc/powerpc64/ISO-IMAGES/12.2/" shape="rect">[ISO]</a></td>
         </tr>
         <tr>
           <td rowspan="1" colspan="1"></td>
           <td rowspan="1" colspan="1">sparc64</td>
-          <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/sparc64/sparc64/12.0-BETA3" shape="rect">[Distributie]</a></td>
-          <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/sparc64/sparc64/ISO-IMAGES/12.0/" shape="rect">[ISO]</a></td>
+          <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/sparc64/sparc64/12.2-RC1" shape="rect">[Distributie]</a></td>
+          <td rowspan="1" colspan="1"><a href="ftp://ftp.FreeBSD.org/pub/FreeBSD/releases/sparc64/sparc64/ISO-IMAGES/12.2/" shape="rect">[ISO]</a></td>
         </tr>
       </tbody>
     </table>

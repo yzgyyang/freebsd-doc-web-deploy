@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>17.34. go</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Porter's Handbook" /><link rel="up" href="uses.html" title="Chapter 17. Using USES Macros" /><link rel="prev" href="uses-gnome.html" title="17.33. gnome" /><link rel="next" href="uses-gperf.html" title="17.35. gperf" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">17.34. <code class="literal">go</code></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="uses-gnome.html">Prev</a> </td><th width="60%" align="center">Chapter 17. Using <code class="varname">USES</code> Macros</th><td width="20%" align="right"> <a accesskey="n" href="uses-gperf.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="uses-go"></a>17.34. <code class="literal">go</code></h2></div></div></div><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">Ports should not be created for Go libs, see
+	<a class="xref" href="go-libs.html" title="6.29. Go Libraries">Section 6.29, &#8220;Go Libraries&#8221;</a> for more information.</p></div><p>Possible arguments: (none), <code class="literal">modules</code>,
+      <code class="literal">no_targets</code>, <code class="literal">run</code></p><p>Sets default values and targets used to build
+      <span class="application">Go</span> software.  A build dependency
+      on the Go compiler port selected via <code class="varname">GO_PORT</code>
+      is added.  By default the build is performed in GOPATH mode.
+      If Go software uses modules, the modules-aware mode can be
+      switched on with <code class="literal">modules</code> argument.
+      <code class="literal">no_targets</code> will setup build environment like
+      <code class="varname">GO_ENV</code>, <code class="varname">GO_BUILDFLAGS</code> but
+      skip creating <code class="buildtarget">post-extract</code> and
+      <code class="buildtarget">do-{build,install,test}</code> targets.
+      <code class="literal">run</code> will also add a run dependency on
+      what is in <code class="varname">GO_PORT</code>.</p><p>The build process is controlled by several variables:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="varname">GO_PKGNAME</code></span></dt><dd><p>The name of the <span class="application">Go</span> package
+	    when building in GOPATH mode.  This is the directory that
+	    will be created in <code class="literal">${GOPATH}/src</code>.  If
+	    not set explicitly and <code class="varname">GH_SUBDIR</code> or
+	    <code class="varname">GL_SUBDIR</code> is present,
+	    <code class="varname">GO_PKGNAME</code> will be inferred from it.
+	    It is not needed when building in modules-aware
+	    mode.</p></dd><dt><span class="term"><code class="varname">GO_TARGET</code></span></dt><dd><p>The packages to build.  The default
+	    value is <code class="varname">${GO_PKGNAME}</code>.
+	    <code class="varname">GO_TARGET</code> can also be a tuple in the
+	    form <code class="literal">package:path</code> where path can be
+	    either a simple filename or a full path starting with
+	    <code class="literal">${PREFIX}</code>.</p></dd><dt><span class="term"><code class="varname">GO_TESTTARGET</code></span></dt><dd><p>The packages to test.  The default
+	    value is <code class="literal">./...</code> (the current package
+	    and all subpackages).</p></dd><dt><span class="term"><code class="varname">CGO_CFLAGS</code></span></dt><dd><p>Additional <code class="varname">CFLAGS</code> values to be
+	    passed to the <span class="application">C</span> compiler by
+	    <code class="command">go</code>.</p></dd><dt><span class="term"><code class="varname">CGO_LDFLAGS</code></span></dt><dd><p>Additional <code class="varname">LDFLAGS</code> values to be
+	    passed to the <span class="application">C</span> compiler by
+	    <code class="command">go</code>.</p></dd><dt><span class="term"><code class="varname">GO_BUILDFLAGS</code></span></dt><dd><p>Additional build arguments to be passed to
+	    <code class="command">go build</code>.</p></dd><dt><span class="term"><code class="varname">GO_TESTFLAGS</code></span></dt><dd><p>Additional build arguments to be passed to
+	    <code class="command">go test</code>.</p></dd><dt><span class="term"><code class="varname">GO_PORT</code></span></dt><dd><p>The Go compiler port to use.  By default this is
+	    <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/lang/go/pkg-descr">lang/go</a> but can be set
+	    to <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/lang/go-devel/pkg-descr">lang/go-devel</a> in
+	    <code class="literal">make.conf</code> for testing with future Go
+	    versions.</p><div xmlns="" class="warning"><h3 class="admontitle">Warning: </h3><p xmlns="http://www.w3.org/1999/xhtml">This variable must not be set by individual
+	      ports!</p></div></dd></dl></div><p>See <a class="xref" href="building.html#using-go" title="6.5.8. Building Go Applications">Section 6.5.8, &#8220;Building <span class="application">Go</span>
+	Applications&#8221;</a> for usage examples.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="uses-gnome.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="uses.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="uses-gperf.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">17.33. <code class="literal">gnome</code> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 17.35. <code class="literal">gperf</code></td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

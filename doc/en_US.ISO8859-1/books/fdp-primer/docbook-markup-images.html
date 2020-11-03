@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>9.7. Images</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Documentation Project Primer for New Contributors" /><link rel="up" href="docbook-markup.html" title="Chapter 9. DocBook Markup" /><link rel="prev" href="docbook-markup-inline-elements.html" title="9.6. In-line Elements" /><link rel="next" href="docbook-markup-links.html" title="9.8. Links" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">9.7. Images</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="docbook-markup-inline-elements.html">Prev</a> </td><th width="60%" align="center">Chapter 9. DocBook Markup</th><td width="20%" align="right"> <a accesskey="n" href="docbook-markup-links.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="docbook-markup-images"></a>9.7. Images</h2></div></div></div><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">Image support in the documentation is somewhat
+	experimental.  The mechanisms described here are unlikely to
+	change, but that is not guaranteed.</p><p xmlns="http://www.w3.org/1999/xhtml">To provide conversion between different image formats, the
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/graphics/ImageMagick/pkg-descr">graphics/ImageMagick</a>
+	port must be installed.  This port is not included in the
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/textproc/docproj/pkg-descr">textproc/docproj</a> meta
+	port, and must be installed separately.</p><p xmlns="http://www.w3.org/1999/xhtml">A good example of the use of images is the
+	<code class="filename">doc/en_US.ISO8859-1/articles/vm-design/</code>
+	document.  Examine the files in that directory to see how
+	these elements are used together.  Build different output
+	formats to see how the format determines what images are shown
+	in the rendered document.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="docbook-markup-image-formats"></a>9.7.1. Image Formats</h3></div></div></div><p>The following image formats are currently supported.  An
+	image file will automatically be converted to bitmap or vector
+	image depending on the output document format.</p><p>These are the <span class="emphasis"><em>only</em></span> formats in which
+	images should be committed to the documentation
+	repository.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><acronym class="acronym">EPS</acronym> (Encapsulated
+	    Postscript)</span></dt><dd><p>Images that are primarily vector based, such as
+	      network diagrams, time lines, and similar, should be in
+	      this format.  These images have a
+	      <code class="filename">.eps</code> extension.</p></dd><dt><span class="term"><acronym class="acronym">PNG</acronym> (Portable Network
+	    Graphic)</span></dt><dd><p>For bitmaps, such as screen captures, use this
+	      format.  These images have the <code class="filename">.png</code>
+	      extension.</p></dd><dt><span class="term"><acronym class="acronym">PIC</acronym> (PIC graphics language)</span></dt><dd><p><acronym class="acronym">PIC</acronym> is a language for drawing
+	      simple vector-based figures used in the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pic&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pic</span>(1)</span></a>
+	      utility.  These images have the
+	      <code class="filename">.pic</code> extension.</p></dd><dt><span class="term"><acronym class="acronym">SCR</acronym> (SCReen capture)</span></dt><dd><p>This format is specific to screenshots of console
+	      output.  The following command generates an SCR file
+	      <code class="filename">shot.scr</code> from video buffer of
+	      <code class="filename">/dev/ttyv0</code>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code><code class="command">vidcontrol -p</code> &lt; <code class="filename"><em class="replaceable"><code>/dev/ttyv0</code></em></code> &gt; <code class="filename"><em class="replaceable"><code>shot.scr</code></em></code></code></strong></pre><p>This is preferable to <acronym class="acronym">PNG</acronym> format
+	      for screenshots because the <acronym class="acronym">SCR</acronym> file
+	      contains plain text of the command lines so that it can
+	      be converted to a <acronym class="acronym">PNG</acronym> image or a
+	      plain text depending on the output document
+	      format.</p></dd></dl></div><p>Use the appropriate format for each image.  Documentation
+	will often have a mix of <acronym class="acronym">EPS</acronym> and
+	<acronym class="acronym">PNG</acronym> images.  The
+	<code class="filename">Makefile</code>s ensure that the correct format
+	image is chosen depending on the output format used.
+	<span class="emphasis"><em>Do not commit the same image to the repository in
+	  two different formats</em></span>.</p><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">The Documentation Project may eventually switch to using
+	  the <acronym class="acronym">SVG</acronym> (Scalable Vector Graphic) format
+	  for vector images.  However, the current state of
+	  <acronym class="acronym">SVG</acronym> capable editing tools makes this
+	  impractical.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="docbook-markup-image-file-locations"></a>9.7.2. Image File Locations</h3></div></div></div><p>Image files can be stored in one of several locations,
+	depending on the document and image:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>In the same directory as the document itself, usually
+	    done for articles and small books that keep all their
+	    files in a single directory.</p></li><li class="listitem"><p>In a subdirectory of the main document.  Typically
+	    done when a large book uses separate subdirectories to
+	    organize individual chapters.</p><p>When images are stored in a subdirectory of the
+	    main document directory, the subdirectory name must be
+	    included in their paths in the
+	    <code class="filename">Makefile</code> and the
+	    <code class="sgmltag-element">imagedata</code> element.</p></li><li class="listitem"><p>In a subdirectory of
+	    <code class="filename">doc/share/images</code> named after the
+	    document.  For example, images for the Handbook are stored
+	    in <code class="filename">doc/share/images/books/handbook</code>.
+	    Images that work for multiple translations are stored in
+	    this upper level of the documentation file tree.
+	    Generally, these are images that can be used unchanged in
+	    non-English translations of the document.</p></li></ul></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="docbook-markup-image-markup"></a>9.7.3. Image Markup</h3></div></div></div><p>Images are included as part of a <code class="sgmltag-element">mediaobject</code>.
+	The <code class="sgmltag-element">mediaobject</code> can contain other, more specific
+	objects.  We are concerned with two, the
+	<code class="sgmltag-element">imageobject</code> and the <code class="sgmltag-element">textobject</code>.</p><p>Include one <code class="sgmltag-element">imageobject</code>, and two
+	<code class="sgmltag-element">textobject</code> elements.  The <code class="sgmltag-element">imageobject</code>
+	will point to the name of the image file without the
+	extension.  The <code class="sgmltag-element">textobject</code> elements contain
+	information that will be presented to the user as well as, or
+	instead of, the image itself.</p><p>Text elements are shown to the reader in several
+	situations.  When the document is viewed in
+	<acronym class="acronym">HTML</acronym>, text elements are shown while the
+	image is loading, or if the mouse pointer is hovered over the
+	image, or if a text-only browser is being used.  In formats
+	like plain text where graphics are not possible, the text
+	elements are shown instead of the graphical ones.</p><p>This example shows how to include an image called
+	<code class="filename">fig1.png</code> in a document.  The image is a
+	rectangle with an A inside it:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;mediaobject&gt;</code>
+  <code class="sgmltag-starttag">&lt;imageobject&gt;</code>
+    <code class="sgmltag-emptytag">&lt;imagedata fileref="fig1"/&gt;</code> <a id="co-image-ext"></a><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span>
+  <code class="sgmltag-endtag">&lt;/imageobject&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;textobject&gt;</code>
+    <code class="sgmltag-starttag">&lt;literallayout class="monospaced"&gt;</code>+---------------+ <a id="co-image-literal"></a><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span>
+|       A       |
++---------------+<code class="sgmltag-endtag">&lt;/literallayout&gt;</code>
+  <code class="sgmltag-endtag">&lt;/textobject&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;textobject&gt;</code>
+    <code class="sgmltag-starttag">&lt;phrase&gt;</code>A picture<code class="sgmltag-endtag">&lt;/phrase&gt;</code> <a id="co-image-phrase"></a><span><img src="./imagelib/callouts/3.png" alt="3" border="0" /></span>
+  <code class="sgmltag-endtag">&lt;/textobject&gt;</code>
+<code class="sgmltag-endtag">&lt;/mediaobject&gt;</code></pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#co-image-ext"><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span></a> </p></td><td valign="top" align="left"><p>Include an <code class="sgmltag-element">imagedata</code> element
+	    inside the <code class="sgmltag-element">imageobject</code> element.  The
+	    <code class="literal">fileref</code> attribute should contain the
+	    filename of the image to include, without the extension.
+	    The stylesheets will work out which extension should be
+	    added to the filename automatically.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#co-image-literal"><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span></a> </p></td><td valign="top" align="left"><p>The first <code class="sgmltag-element">textobject</code> contains a
+	    <code class="sgmltag-element">literallayout</code> element, where the
+	    <code class="literal">class</code> attribute is set to
+	    <code class="literal">monospaced</code>.  This is an opportunity to
+	    demonstrate <acronym class="acronym">ASCII</acronym> art skills.  This
+	    content will be used if the document is converted to plain
+	    text.</p><p>Notice how the first and last lines of the content
+	    of the <code class="sgmltag-element">literallayout</code> element butt up
+	    next to the element's tags.  This ensures no extraneous
+	    white space is included.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#co-image-phrase"><span><img src="./imagelib/callouts/3.png" alt="3" border="0" /></span></a> </p></td><td valign="top" align="left"><p>The second <code class="sgmltag-element">textobject</code> contains a
+	    single <code class="sgmltag-element">phrase</code> element.  The contents of
+	    this phrase will become the <code class="literal">alt</code>
+	    attribute for the image when this document is converted to
+	    <acronym class="acronym">HTML</acronym>.</p></td></tr></table></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="docbook-markup-image-makefile-entries"></a>9.7.4. Image <code class="filename">Makefile</code> Entries</h3></div></div></div><p>Images must be listed in the <code class="filename">Makefile</code>
+	in the <code class="varname">IMAGES</code> variable.  This variable must
+	contain the names of all the <span class="emphasis"><em>source</em></span>
+	images.  For example, if there are three figures,
+	<code class="filename">fig1.eps</code>, <code class="filename">fig2.png</code>,
+	<code class="filename">fig3.png</code>, then the
+	<code class="filename">Makefile</code> should have lines like this in
+	it.</p><pre class="programlisting">&#8230;
+IMAGES= fig1.eps fig2.png fig3.png
+&#8230;</pre><p>or</p><pre class="programlisting">&#8230;
+IMAGES=  fig1.eps
+IMAGES+= fig2.png
+IMAGES+= fig3.png
+&#8230;</pre><p>Again, the <code class="filename">Makefile</code> will work out the
+	complete list of images it needs to build the source document,
+	you only need to list the image files <span class="emphasis"><em>you</em></span>
+	provided.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="docbook-markup-images-in-subdirectories"></a>9.7.5. Images and Chapters in Subdirectories</h3></div></div></div><p>Be careful when separating documentation into smaller
+	files in different directories (see <a class="xref" href="xml-primer-include.html#xml-primer-include-using-gen-entities" title="7.7.1. Using General Entities to Include Files">Section 7.7.1, &#8220;Using General Entities to Include Files&#8221;</a>).</p><p>Suppose there is a book with three chapters, and the
+	chapters are stored in their own directories, called
+	<code class="filename">chapter1/chapter.xml</code>,
+	<code class="filename">chapter2/chapter.xml</code>, and
+	<code class="filename">chapter3/chapter.xml</code>.  If each chapter
+	has images associated with it, place those images in each
+	chapter's subdirectory (<code class="filename">chapter1/</code>,
+	<code class="filename">chapter2/</code>, and
+	<code class="filename">chapter3/</code>).</p><p>However, doing this requires including the directory
+	names in the <code class="varname">IMAGES</code> variable in the
+	<code class="filename">Makefile</code>, <span class="emphasis"><em>and</em></span>
+	including the directory name in the <code class="sgmltag-element">imagedata</code>
+	element in the document.</p><p>For example, if the book has
+	<code class="filename">chapter1/fig1.png</code>, then
+	<code class="filename">chapter1/chapter.xml</code> should
+	contain:</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;mediaobject&gt;</code>
+  <code class="sgmltag-starttag">&lt;imageobject&gt;</code>
+    <code class="sgmltag-emptytag">&lt;imagedata fileref="chapter1/fig1"/&gt;</code> <a id="co-image-dir"></a><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span>
+  <code class="sgmltag-endtag">&lt;/imageobject&gt;</code>
+
+  &#8230;
+
+<code class="sgmltag-endtag">&lt;/mediaobject&gt;</code></pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#co-image-dir"><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span></a> </p></td><td valign="top" align="left"><p>The directory name must be included in the
+	    <code class="literal">fileref</code> attribute.</p></td></tr></table></div><p>The <code class="filename">Makefile</code> must contain:</p><pre class="programlisting">&#8230;
+IMAGES=  chapter1/fig1.png
+&#8230;</pre></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="docbook-markup-inline-elements.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="docbook-markup.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="docbook-markup-links.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">9.6. In-line Elements </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 9.8. Links</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

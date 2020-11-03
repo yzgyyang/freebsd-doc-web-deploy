@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>23.3. Updating the Documentation Set</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="updating-upgrading.html" title="Chapter 23. Updating and Upgrading FreeBSD" /><link rel="prev" href="updating-upgrading-freebsdupdate.html" title="23.2. FreeBSD Update" /><link rel="next" href="current-stable.html" title="23.4. Tracking a Development Branch" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">23.3. Updating the Documentation Set</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="updating-upgrading-freebsdupdate.html">Prev</a> </td><th width="60%" align="center">Chapter 23. Updating and Upgrading FreeBSD</th><td width="20%" align="right"> <a accesskey="n" href="current-stable.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="updating-upgrading-documentation"></a>23.3. Updating the Documentation Set</h2></div></div></div><a id="idp66796664" class="indexterm"></a><a id="idp66797176" class="indexterm"></a><p>Documentation is an integral part of the FreeBSD operating
+      system.  While an up-to-date version of the FreeBSD documentation
+      is always available on the FreeBSD web site (<a class="link" href="../../../../doc/" target="_top">https://www.freebsd.org/doc/</a>),
+      it can be handy to have an up-to-date, local copy of the FreeBSD
+      website, handbooks, <acronym class="acronym">FAQ</acronym>, and articles.</p><p>This section describes how to use either source or the FreeBSD
+      Ports Collection to keep a local copy of the FreeBSD documentation
+      up-to-date.</p><p>For information on editing and submitting corrections to the
+      documentation, refer to the FreeBSD Documentation Project Primer
+      for New Contributors (<a class="link" href="../../../../doc/en_US.ISO8859-1/books/fdp-primer" target="_top">https://www.freebsd.org/doc/en_US.ISO8859-1/books/fdp-primer/</a>).</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="updating-installed-documentation"></a>23.3.1. Updating Documentation from Source</h3></div></div></div><p>Rebuilding the FreeBSD documentation from source requires a
+	collection of tools which are not part of the FreeBSD base
+	system.  The required tools can be installed from the
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/textproc/docproj/pkg-descr">textproc/docproj</a> package or port developed
+	by the FreeBSD Documentation Project.</p><p>Once installed, use <span class="application">svnlite</span> to
+	fetch a clean copy of the documentation source:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>svnlite checkout https://svn.FreeBSD.org/doc/head /usr/doc</code></strong></pre><p>The initial download of the documentation sources may take
+	a while.  Let it run until it completes.</p><p>Future updates of the documentation sources may be fetched
+	by running:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>svnlite update /usr/doc</code></strong></pre><p>Once an up-to-date snapshot of the documentation sources
+	has been fetched to <code class="filename">/usr/doc</code>, everything
+	is ready for an update of the installed documentation.</p><p>A full update of all available languages may be performed
+	by typing:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/doc</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make install clean</code></strong></pre><p>If an update of only a specific language is desired,
+	<code class="command">make</code> can be invoked in a language-specific
+	subdirectory of
+	<code class="filename">/usr/doc</code>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/doc/en_US.ISO8859-1</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make install clean</code></strong></pre><p>An alternative way of updating the documentation is to run
+	this command from <code class="filename">/usr/doc</code> or the desired
+	language-specific subdirectory:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>make update</code></strong></pre><p>The output formats that will be installed may be specified
+	by setting <code class="varname">FORMATS</code>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/doc</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make FORMATS='html html-split' install clean</code></strong></pre><p>Several options are available to ease the process of
+	updating only parts of the documentation, or the build of
+	specific translations.  These options can be set either as
+	system-wide options in <code class="filename">/etc/make.conf</code>, or
+	as command-line options passed to
+	<code class="command">make</code>.</p><p>The options include:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="varname">DOC_LANG</code></span></dt><dd><p>The list of languages and encodings to build and
+	      install, such as <code class="literal">en_US.ISO8859-1</code> for
+	      English documentation.</p></dd><dt><span class="term"><code class="varname">FORMATS</code></span></dt><dd><p>A single format or a list of output formats to be
+	      built.  Currently, <code class="literal">html</code>,
+	      <code class="literal">html-split</code>, <code class="literal">txt</code>,
+	      <code class="literal">ps</code>, and <code class="literal">pdf</code> are
+	      supported.</p></dd><dt><span class="term"><code class="varname">DOCDIR</code></span></dt><dd><p>Where to install the documentation.  It defaults to
+	      <code class="filename">/usr/share/doc</code>.</p></dd></dl></div><p>For more <code class="command">make</code> variables supported as
+	system-wide options in FreeBSD, refer to
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=make.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">make.conf</span>(5)</span></a>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="doc-ports-install-package"></a>23.3.2. Updating Documentation from Ports</h3></div><div><span class="authorgroup">Based on the work of <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Marc</span> <span class="surname">Fonvieille</span></span>. </span></div></div></div><a id="idp66850680" class="indexterm"></a><a id="idp66851448" class="indexterm"></a><p>The previous section presented a method for updating the
+	FreeBSD documentation from sources.  This section describes an
+	alternative method which uses the Ports Collection and makes
+	it possible to:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Install pre-built packages of the documentation,
+	    without having to locally build anything or install the
+	    documentation toolchain.</p></li><li class="listitem"><p>Build the documentation sources through the ports
+	    framework, making the checkout and build steps a bit
+	    easier.</p></li></ul></div><p>This method of updating the FreeBSD documentation is
+	supported by a set of documentation ports and packages which
+	are updated by the Documentation Engineering Team <code class="email">&lt;<a xmlns="" class="email" href="mailto:doceng@FreeBSD.org">doceng@FreeBSD.org</a>&gt;</code> on a monthly basis.  These are
+	listed in the FreeBSD Ports Collection, under the docs
+	category (<a class="link" href="http://www.freshports.org/docs/" target="_top">http://www.freshports.org/docs/</a>).</p><p>Organization of the documentation ports is as
+	follows:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>The <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/misc/freebsd-doc-en/pkg-descr">misc/freebsd-doc-en</a> package or
+	    port installs all of the English documentation.</p></li><li class="listitem"><p>The <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/misc/freebsd-doc-all/pkg-descr">misc/freebsd-doc-all</a>
+	    meta-package or port installs all documentation in all
+	    available languages.</p></li><li class="listitem"><p>There is a package and port for each translation, such
+	    as <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/misc/freebsd-doc-hu/pkg-descr">misc/freebsd-doc-hu</a> for the
+	    Hungarian documentation.</p></li></ul></div><p>When binary packages are used, the FreeBSD documentation will
+	be installed in all available formats for the given language.
+	For example, the following command will install the latest
+	package of the Hungarian documentation:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg install hu-freebsd-doc</code></strong></pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Packages use a format that differs from the
+	  corresponding port's name:
+	  <code class="literal"><em class="replaceable"><code>lang</code></em>-freebsd-doc</code>,
+	  where <em class="replaceable"><code>lang</code></em> is the short format of
+	  the language code, such as <code class="literal">hu</code> for
+	  Hungarian, or <code class="literal">zh_cn</code> for Simplified
+	  Chinese.</p></div><p>To specify the format of the documentation, build the port
+	instead of installing the package.  For example, to build and
+	install the English documentation:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/ports/misc/freebsd-doc-en</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make install clean</code></strong></pre><p>The port provides a configuration menu where the format to
+	build and install can be specified.  By default, split
+	<acronym class="acronym">HTML</acronym>, similar to the format used on <code class="uri"><a class="uri" href="http://www.FreeBSD.org" target="_top">http://www.FreeBSD.org</a></code>,
+	and <acronym class="acronym">PDF</acronym> are selected.</p><p>Alternately, several <code class="command">make</code> options can
+	be specified when building a documentation port,
+	including:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="varname">WITH_HTML</code></span></dt><dd><p>Builds the HTML format with a single HTML file per
+	      document.  The formatted documentation is saved to a
+	      file called <code class="filename">article.html</code>, or
+	      <code class="filename">book.html</code>.</p></dd><dt><span class="term"><code class="varname">WITH_PDF</code></span></dt><dd><p>The formatted documentation is saved to a file
+	      called <code class="filename">article.pdf</code> or
+	      <code class="filename">book.pdf</code>.</p></dd><dt><span class="term"><code class="varname">DOCBASE</code></span></dt><dd><p>Specifies where to install the documentation.  It
+	      defaults to
+	      <code class="filename">/usr/local/share/doc/freebsd</code>.</p></dd></dl></div><p>This example uses variables to install the Hungarian
+	documentation as a <acronym class="acronym">PDF</acronym> in the specified
+	directory:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/ports/misc/freebsd-doc-hu</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make -DWITH_PDF DOCBASE=share/doc/freebsd/hu install clean</code></strong></pre><p>Documentation packages or ports can be updated using the
+	instructions in <a class="xref" href="ports.html" title="Chapter 4. Installing Applications: Packages and Ports">Chapter 4, <em>Installing Applications: Packages and Ports</em></a>.  For example, the
+	following command updates the installed Hungarian
+	documentation using <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/ports-mgmt/portmaster/pkg-descr">ports-mgmt/portmaster</a>
+	by using packages only:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>portmaster -PP hu-freebsd-doc</code></strong></pre></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="updating-upgrading-freebsdupdate.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="updating-upgrading.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="current-stable.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">23.2. FreeBSD Update </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 23.4. Tracking a Development Branch</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

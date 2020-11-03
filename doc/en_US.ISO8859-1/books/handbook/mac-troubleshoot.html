@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>15.8. Troubleshooting the MAC Framework</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="mac.html" title="Chapter 15. Mandatory Access Control" /><link rel="prev" href="mac-implementing.html" title="15.7. Nagios in a MAC Jail" /><link rel="next" href="audit.html" title="Chapter 16. Security Event Auditing" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">15.8. Troubleshooting the MAC Framework</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="mac-implementing.html">Prev</a> </td><th width="60%" align="center">Chapter 15. Mandatory Access Control</th><td width="20%" align="right"> <a accesskey="n" href="audit.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="mac-troubleshoot"></a>15.8. Troubleshooting the MAC Framework</h2></div></div></div><a id="idp61397496" class="indexterm"></a><p>This section discusses common configuration errors and how
+      to resolve them.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">The <code class="option">multilabel</code> flag does not stay
+	  enabled on the root (<code class="filename">/</code>)
+	  partition:</span></dt><dd><p>The following steps may resolve this transient
+	    error:</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p>Edit <code class="filename">/etc/fstab</code> and set the
+		root partition to <code class="option">ro</code> for
+		read-only.</p></li><li class="step"><p>Reboot into single user mode.</p></li><li class="step"><p>Run <code class="command">tunefs</code> <code class="option">-l
+		  enable</code> on <code class="filename">/</code>.</p></li><li class="step"><p>Reboot the system.</p></li><li class="step"><p>Run <code class="command">mount</code> <code class="option">-urw</code>
+		<code class="filename">/</code> and change the
+		<code class="option">ro</code> back to <code class="option">rw</code> in
+		<code class="filename">/etc/fstab</code> and reboot the system
+		again.</p></li><li class="step"><p>Double-check the output from
+		<code class="command">mount</code> to ensure that
+		<code class="option">multilabel</code> has been properly set on
+		the root file system.</p></li></ol></div></dd><dt><span class="term">After establishing a secure environment with
+	  <acronym class="acronym">MAC</acronym>, <span class="application">Xorg</span> no
+	  longer starts:</span></dt><dd><p>This could be caused by the <acronym class="acronym">MAC</acronym>
+	    <code class="literal">partition</code> policy or by a mislabeling
+	    in one of the <acronym class="acronym">MAC</acronym> labeling policies.
+	    To debug, try the following:</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p>Check the error message.  If the user is in the
+		<code class="literal">insecure</code> class, the
+		<code class="literal">partition</code> policy may be the
+		culprit.  Try setting the user's class back to the
+		<code class="literal">default</code> class and rebuild the
+		database with <code class="command">cap_mkdb</code>.  If this
+		does not alleviate the problem, go to step two.</p></li><li class="step"><p>Double-check that the label policies are set
+		correctly for the user,
+		<span class="application">Xorg</span>, and the
+		<code class="filename">/dev</code> entries.</p></li><li class="step"><p>If neither of these resolve the problem, send the
+		error message and a description of the environment to
+		the <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo/freebsd-questions" target="_top">FreeBSD general questions mailing list</a>.</p></li></ol></div></dd><dt><span class="term">The <span class="errorname">_secure_path: unable to stat
+	    .login_conf</span> error appears:</span></dt><dd><p>This error can appear when a user attempts to switch
+	    from the <code class="systemitem">root</code>
+	    user to another user in the system.  This message
+	    usually occurs when the user has a higher label setting
+	    than that of the user they are attempting to become.
+	    For instance, if <code class="systemitem">joe</code> has a default label
+	    of <code class="option">biba/low</code> and <code class="systemitem">root</code> has a label of
+	    <code class="option">biba/high</code>, <code class="systemitem">root</code> cannot view
+	    <code class="systemitem">joe</code>'s home
+	    directory.  This will happen whether or not <code class="systemitem">root</code> has used
+	    <code class="command">su</code> to become <code class="systemitem">joe</code> as the Biba
+	    integrity model will not permit <code class="systemitem">root</code> to view objects set
+	    at a lower integrity level.</p></dd><dt><span class="term">The system no longer recognizes <code class="systemitem">root</code>:</span></dt><dd><p>When this occurs, <code class="command">whoami</code> returns
+	    <code class="literal">0</code> and <code class="command">su</code> returns
+	    <span class="errorname">who are you?</span>.</p><p>This can happen if a labeling policy has been
+	    disabled by <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sysctl&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sysctl</span>(8)</span></a> or the policy module was
+	    unloaded.  If the policy is disabled, the login
+	    capabilities database needs to be reconfigured.  Double
+	    check <code class="filename">/etc/login.conf</code> to ensure
+	    that all <code class="option">label</code> options have been
+	    removed and rebuild the database with
+	    <code class="command">cap_mkdb</code>.</p><p>This may also happen if a policy restricts access to
+	    <code class="filename">master.passwd</code>.  This is usually
+	    caused by an administrator altering the file under a
+	    label which conflicts with the general policy being used
+	    by the system.  In these cases, the user information
+	    would be read by the system and access would be blocked
+	    as the file has inherited the new label.  Disable the
+	    policy using <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sysctl&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sysctl</span>(8)</span></a> and everything should return
+	    to normal.</p></dd></dl></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="mac-implementing.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="mac.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="audit.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">15.7. Nagios in a MAC Jail </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 16. Security Event Auditing</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

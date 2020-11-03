@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>Filtering Bridges</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><meta name="description" content="Often it is useful to divide one physical network (like an Ethernet) into two separate segments without having to create subnets, and use a router to link them together. The device that connects the two networks in this way is called a bridge. A FreeBSD system with two network interfaces is enough in order to act as a bridge. A bridge works by scanning the addresses of MAC level (Ethernet addresses) of the devices connected to each of its network interfaces and then forwarding the traffic between the two networks only if the source and the destination are on different segments. Under many points of view a bridge is similar to an Ethernet switch with only two ports." /><link rel="home" href="index.html" title="Filtering Bridges" /><link rel="next" href="filtering-bridges-how.html" title="2. How to Install" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Filtering Bridges</th></tr><tr><td width="20%" align="left"> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="filtering-bridges-how.html">Next</a></td></tr></table><hr /></div><div xml:lang="en" class="article" lang="en"><div xmlns="" class="titlepage"><div><div><h1 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp46678904"></a>Filtering Bridges</h1></div><div><div xmlns="http://www.w3.org/1999/xhtml" class="authorgroup"><div class="author"><h3 class="author"><span class="firstname">Alex</span> <span class="surname">Dupre</span></h3><div class="affiliation"><div class="address"><p><code class="email">&lt;<a xmlns="" class="email" href="mailto:ale@FreeBSD.org">ale@FreeBSD.org</a>&gt;</code></p></div></div></div></div></div><div>Revision: <a href="https://svnweb.freebsd.org/changeset/doc/0eb2a0ed1f"><span class="svnref">0eb2a0ed1f</span></a></div><div><a xmlns="http://www.w3.org/1999/xhtml" href="trademarks.html">Legal Notice</a></div><div>Last modified on 2019-12-29 14:13:50 +0000 by carlavilla.</div><div><div xmlns="http://www.w3.org/1999/xhtml" class="abstract"><div class="abstract-title">Abstract</div><p>Often it is useful to divide one physical network (like an
+	Ethernet) into two separate segments without having to create subnets,
+	and use a router to link them together. The device that connects the
+	two networks in this way is called a bridge.  A FreeBSD system with
+	two network interfaces is enough in order to act as a bridge.</p><p>A bridge works by scanning the addresses of <acronym class="acronym">MAC</acronym>
+	level (Ethernet addresses) of the devices connected to each of its
+	network interfaces and then forwarding the traffic between the two
+	networks only if the source and the destination are on different
+	segments. Under many points of view a bridge is similar to an Ethernet
+	switch with only two ports.</p></div></div></div><div class="docformatnavi">
+      [
+      
+	  Split HTML
+	
+      /
+      <a href="article.html">Single HTML</a>
+      ]
+    </div><hr /></div><div class="toc"><div class="toc-title">Table of Contents</div><dl class="toc"><dt><span class="sect1"><a href="index.html#filtering-bridges-why">1. Why use a filtering bridge?</a></span></dt><dt><span class="sect1"><a href="filtering-bridges-how.html">2. How to Install</a></span></dt><dt><span class="sect1"><a href="filtering-bridges-finalprep.html">3. Final Preparation</a></span></dt><dt><span class="sect1"><a href="filtering-bridges-enabling.html">4. Enabling the Bridge</a></span></dt><dt><span class="sect1"><a href="filtering-bridges-ipfirewall.html">5. Configuring The Firewall</a></span></dt><dt><span class="sect1"><a href="filtering-bridges-contributors.html">6. Contributors</a></span></dt></dl></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="filtering-bridges-why"></a>1. Why use a filtering bridge?</h2></div></div></div><p>More and more frequently, thanks to the lowering costs of broad band
+      Internet connections (xDSL) and also because of the reduction of
+      available IPv4 addresses, many companies are connected to the Internet
+      24 hours on 24 and with few (sometimes not even a power of 2) IP
+      addresses. In these situations it is often desirable to have a firewall
+      that filters incoming and outgoing traffic from and towards Internet,
+      but a packet filtering solution based on router may not be applicable,
+      either due to subnetting issues, the router is owned by the connectivity
+      supplier (<acronym class="acronym">ISP</acronym>), or because it does not support such
+      functionalities. In these scenarios the use of a filtering bridge is
+      highly advised.</p><p>A bridge-based firewall can be configured and inserted between the
+      xDSL router and your Ethernet hub/switch without any IP numbering
+      issues.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="filtering-bridges-how.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"> </td><td width="20%" align="center"> </td><td width="40%" align="right" valign="top"> 2. How to Install</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

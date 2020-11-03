@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>21.6. FreeBSD as a Host with VirtualBox&#8482;</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="virtualization.html" title="Chapter 21. Virtualization" /><link rel="prev" href="virtualization-guest-virtualbox.html" title="21.5. FreeBSD as a Guest on VirtualBox&#8482;" /><link rel="next" href="virtualization-host-bhyve.html" title="21.7. FreeBSD as a Host with bhyve" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">21.6. FreeBSD as a Host with <span class="trademark">VirtualBox</span>&#8482;</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="virtualization-guest-virtualbox.html">Prev</a> </td><th width="60%" align="center">Chapter 21. Virtualization</th><td width="20%" align="right"> <a accesskey="n" href="virtualization-host-bhyve.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="virtualization-host-virtualbox"></a>21.6. FreeBSD as a Host with <span class="trademark">VirtualBox</span>&#8482;</h2></div></div></div><p><span class="application"><span class="trademark">VirtualBox</span>&#8482;</span> is an actively
+      developed, complete virtualization package, that is available
+      for most operating systems including <span class="trademark">Windows</span>®, <span class="trademark">Mac OS</span>®, <span class="trademark">Linux</span>®
+      and FreeBSD.  It is equally capable of running <span class="trademark">Windows</span>® or
+      <span class="trademark">UNIX</span>®-like guests.  It is released as open source software, but
+      with closed-source components available in a separate extension
+      pack.  These components include support for USB 2.0 devices.
+      More information may be found on the <a class="link" href="http://www.virtualbox.org/wiki/Downloads" target="_top"><span class="quote">&#8220;<span class="quote">Downloads</span>&#8221;</span>
+	page of the <span class="application"><span class="trademark">VirtualBox</span>&#8482;</span>
+	wiki</a>.  Currently, these extensions are not available
+      for FreeBSD.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="virtualization-virtualbox-install"></a>21.6.1. Installing <span class="trademark">VirtualBox</span>&#8482;</h3></div></div></div><p><span class="application"><span class="trademark">VirtualBox</span>&#8482;</span> is available as a
+	FreeBSD package or port in
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/emulators/virtualbox-ose/pkg-descr">emulators/virtualbox-ose</a>.  The port can be
+	installed using these commands:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/ports/emulators/virtualbox-ose</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make install clean</code></strong></pre><p>One useful option in the port's configuration menu is the
+	<code class="literal">GuestAdditions</code> suite of programs.  These
+	provide a number of useful features in guest operating
+	systems, like mouse pointer integration (allowing the mouse to
+	be shared between host and guest without the need to press a
+	special keyboard shortcut to switch) and faster video
+	rendering, especially in <span class="trademark">Windows</span>® guests.  The guest
+	additions are available in the <span class="guimenu">Devices</span>
+	menu, after the installation of the guest is finished.</p><p>A few configuration changes are needed before
+	<span class="application"><span class="trademark">VirtualBox</span>&#8482;</span> is started for the
+	first time.  The port installs a kernel module in
+	<code class="filename">/boot/modules</code> which
+	must be loaded into the running kernel:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>kldload vboxdrv</code></strong></pre><p>To ensure the module is always loaded after a reboot,
+	add this line to
+	<code class="filename">/boot/loader.conf</code>:</p><pre class="programlisting">vboxdrv_load="YES"</pre><p>To use the kernel modules that allow bridged or host-only
+	networking, add this line to
+	<code class="filename">/etc/rc.conf</code> and reboot the
+	computer:</p><pre class="programlisting">vboxnet_enable="YES"</pre><p>The <code class="systemitem">vboxusers</code>
+	group is created during installation of
+	<span class="application"><span class="trademark">VirtualBox</span>&#8482;</span>.  All users that need
+	access to <span class="application"><span class="trademark">VirtualBox</span>&#8482;</span> will have to
+	be added as members of this group.  <code class="command">pw</code> can
+	be used to add new members:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pw groupmod vboxusers -m <em class="replaceable"><code>yourusername</code></em></code></strong></pre><p>The default permissions for
+	<code class="filename">/dev/vboxnetctl</code> are restrictive and need
+	to be changed for bridged networking:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>chown root:vboxusers /dev/vboxnetctl</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>chmod 0660 /dev/vboxnetctl</code></strong></pre><p>To make this permissions change permanent, add these
+	lines to <code class="filename">/etc/devfs.conf</code>:</p><pre class="programlisting">own     vboxnetctl root:vboxusers
+perm    vboxnetctl 0660</pre><p>To launch <span class="application"><span class="trademark">VirtualBox</span>&#8482;</span>,
+	type from a <span class="application">Xorg</span> session:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>VirtualBox</code></strong></pre><p>For more information on configuring and using
+	<span class="application"><span class="trademark">VirtualBox</span>&#8482;</span>, refer to the
+	<a class="link" href="http://www.virtualbox.org" target="_top">official
+	  website</a>.  For FreeBSD-specific information and
+	troubleshooting instructions, refer to the <a class="link" href="http://wiki.FreeBSD.org/VirtualBox" target="_top">relevant
+	  page in the FreeBSD wiki</a>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="virtualization-virtualbox-usb-support"></a>21.6.2. <span class="trademark">VirtualBox</span>&#8482; USB Support</h3></div></div></div><p><span class="application"><span class="trademark">VirtualBox</span>&#8482;</span> can be configured
+	to pass <acronym class="acronym">USB</acronym> devices through to the guest
+	operating system.  The host controller of the OSE version is
+	limited to emulating <acronym class="acronym">USB</acronym> 1.1 devices until
+	the extension pack supporting <acronym class="acronym">USB</acronym> 2.0 and
+	3.0 devices becomes available on FreeBSD.</p><p>For <span class="application"><span class="trademark">VirtualBox</span>&#8482;</span> to be aware of
+	<acronym class="acronym">USB</acronym> devices attached to the machine, the
+	user needs to be a member of the <code class="systemitem">operator</code> group.</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pw groupmod operator -m <em class="replaceable"><code>yourusername</code></em></code></strong></pre><p>Then, add the following to
+       <code class="filename">/etc/devfs.rules</code>, or create this file if
+       it does not exist yet:</p><pre class="programlisting">[system=10]
+add path 'usb/*' mode 0660 group operator</pre><p>To load these new rules, add the following to
+       <code class="filename">/etc/rc.conf</code>:</p><pre class="programlisting">devfs_system_ruleset="system"</pre><p>Then, restart devfs:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service devfs restart</code></strong></pre><p>Restart the login session and
+	<span class="application"><span class="trademark">VirtualBox</span>&#8482;</span> for these changes to
+	take effect, and create <acronym class="acronym">USB</acronym> filters as
+	necessary.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="virtualization-virtualbox-host-dvd-cd-access"></a>21.6.3. <span class="trademark">VirtualBox</span>&#8482; Host
+	<acronym class="acronym">DVD</acronym>/<acronym class="acronym">CD</acronym> Access</h3></div></div></div><p>Access to the host
+	<acronym class="acronym">DVD</acronym>/<acronym class="acronym">CD</acronym> drives from
+	guests is achieved through the sharing of the physical drives.
+	Within <span class="trademark">VirtualBox</span>&#8482;, this is set up from the Storage window in
+	the Settings of the virtual machine.  If needed, create an
+	empty <acronym class="acronym">IDE</acronym>
+	<acronym class="acronym">CD</acronym>/<acronym class="acronym">DVD</acronym> device first.
+	Then choose the Host Drive from the popup menu for the virtual
+	<acronym class="acronym">CD</acronym>/<acronym class="acronym">DVD</acronym> drive selection.
+	A checkbox labeled <code class="literal">Passthrough</code> will appear.
+	This allows the virtual machine to use the hardware directly.
+	For example, audio <acronym class="acronym">CD</acronym>s or the burner will
+	only function if this option is selected.</p><p><acronym class="acronym">HAL</acronym> needs to run for
+	<span class="application"><span class="trademark">VirtualBox</span>&#8482;</span>
+	<acronym class="acronym">DVD</acronym>/<acronym class="acronym">CD</acronym> functions to
+	work, so enable it in <code class="filename">/etc/rc.conf</code> and
+	start it if it is not already running:</p><pre class="programlisting">hald_enable="YES"</pre><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service hald start</code></strong></pre><p>In order for users to be able to use
+	<span class="application"><span class="trademark">VirtualBox</span>&#8482;</span>
+	<acronym class="acronym">DVD</acronym>/<acronym class="acronym">CD</acronym> functions, they
+	need access to <code class="filename">/dev/xpt0</code>,
+	<code class="filename">/dev/cd<em class="replaceable"><code>N</code></em></code>, and
+	<code class="filename">/dev/pass<em class="replaceable"><code>N</code></em></code>.
+	This is usually achieved by making the user a member of
+	<code class="systemitem">operator</code>.
+	Permissions to these devices have to be corrected by adding
+	these lines to <code class="filename">/etc/devfs.conf</code>:</p><pre class="programlisting">perm cd* 0660
+perm xpt0 0660
+perm pass* 0660</pre><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service devfs restart</code></strong></pre></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="virtualization-guest-virtualbox.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="virtualization.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="virtualization-host-bhyve.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">21.5. FreeBSD as a Guest on <span class="trademark">VirtualBox</span>&#8482; </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 21.7. FreeBSD as a Host with
+      <span class="application">bhyve</span></td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

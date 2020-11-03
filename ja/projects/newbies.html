@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">検索</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="../../cgi/man.cgi">マニュアルページ</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">プレゼンテーションと論文</a>
                   </li>
                   <li>
                     <a href="../../doc/en_US.ISO8859-1/books/fdp-primer">新しい貢献者のためのドキュメンテーションプロジェクト入門</a>
@@ -231,6 +233,9 @@
                   <a href="//www.FreeBSD.org/cgi/man.cgi">マニュアルページ</a>
                 </li>
                 <li>
+                  <a href="https://papers.FreeBSD.org">プレゼンテーションと論文</a>
+                </li>
+                <li>
                   <a href="../docs/books.html">Books と Articles</a>
                 </li>
                 <li>
@@ -315,10 +320,28 @@
 	どのハードウェアプラットホーム上でも仮想的にインストール可能な、
 	ネットワーク上でデータを共有するためのストレージソリューションです。
 	すべてのデータの保護、保存、バックアップのために ZFS を使っています。</p></li>
-      <li><p><a href="https://www.trueos.org" shape="rect">TrueOS</a> は、
-	FreeBSD をベースとして、
-	グラフィカルなインストーラと美しいディスクトップツールを加え、
-	カジュアルなコンピュータユーザでも簡単に使えることを目指しています。</p></li>
+
+      <li><p><a href="https://www.furybsd.org" shape="rect">FuryBSD</a> は、
+	新しくできたばかりのオープンソースの FreeBSD デスクトップです。
+	FuryBSD は、過去の PC-BSD および TrueOS
+	といったデスクトップ BSD
+	プロジェクトのグラフィカルインターフェスに敬意を払い、
+	さらに、ライブ、ハイブリッド USB/DVD
+	イメージなどのツールが追加されています。
+	FuryBSD は完全に無料で利用でき、
+	BSD ライセンスのもとに配布されています。</p></li>
+
+      <li><p><a href="https://ghostbsd.org" shape="rect">GhostBSD</a> は、FreeBSD
+	から派生しました。GhostBSD は、GTK 環境を使用し、
+	美しい見た目や使い勝手の良さを現代の BSD プラットフォームに実現し、
+	自然でネイティブな UNIX® 環境を提供します。</p></li>
+
+      <li><p><a href="https://www.midnightbsd.org" shape="rect">MidnightBSD</a> は、
+	BSD から派生したオペレーティングシステムで、
+	デスクトップユーザを念頭において開発されています。
+	このオペレーティングシステムには、
+	メール、ウェブブラウザ、ワードプロセッサ、ゲームといった、
+	日々の生活で必要と思われるすべてのソフトウェアが含まれています。</p></li>
 
       <li><p><a href="http://www.pfsense.org" shape="rect">pfSense</a> は、
 	FreeBSD ベースのネットワークソリューションです。
@@ -357,7 +380,7 @@
         </div>
         <div id="footer">
           <span><a href="../search/index-site.html">サイトマップ</a> |
-  <a href="../copyright/">知的財産権について</a> | (C) 1995〓2018 The FreeBSD Project.
+  <a href="../copyright/">知的財産権について</a> | (C) 1995〓2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

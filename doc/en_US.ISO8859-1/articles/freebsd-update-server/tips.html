@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>7. Tips</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Build Your Own FreeBSD Update Server" /><link rel="up" href="index.html" title="Build Your Own FreeBSD Update Server" /><link rel="prev" href="patch.html" title="6. Building a Patch" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">7. Tips</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="patch.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> </td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="tips"></a>7. Tips</h2></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>If a custom release is built using the native
+	  <code class="command">make release</code> <a class="link" href="../../../../doc/en_US.ISO8859-1/articles/releng/release-build.html" target="_top">procedure</a>,
+	  <span class="application">freebsd-update-server</span> code will
+	  work from your release.  As an example, a release without
+	  ports or documentation can be built by clearing
+	  functionality pertaining to documentation subroutines
+	  <code class="function"> findextradocs ()</code>,
+	  <code class="function">addextradocs ()</code> and altering the
+	  download location in <code class="function">fetchiso ()</code>,
+	  respectively, in <code class="filename">scripts/build.subr</code>.
+	  As a last step, change the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sha256&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sha256</span>(1)</span></a> hash in
+	  <code class="filename">build.conf</code> under your respective
+	  release and architecture and you are ready to build off your
+	  custom release.</p><pre class="programlisting"># Compare ${WORKDIR}/release and ${WORKDIR}/$1, identify which parts
+# of the world|doc subcomponent are missing from the latter, and
+# build a tarball out of them.
+findextradocs () {
+}
+
+# Add extra docs to ${WORKDIR}/$1
+addextradocs () { 
+}</pre></li><li class="listitem"><p>Adding <code class="option">-j
+	    <em class="replaceable"><code>NUMBER</code></em></code> flags to
+	  <code class="buildtarget">buildworld</code> and
+	  <code class="buildtarget">obj</code> targets in the
+	  <code class="filename">scripts/build.subr</code> script may speed up
+	  processing depending on the hardware used, however it is not
+	  necessary.  Using these flags in other targets is not
+	  recommended, as it may cause the build to become
+	  unreliable.</p><pre class="programlisting">              # Build the world
+		   log "Building world"
+		   cd /usr/src &amp;&amp;
+		   make -j 2 ${COMPATFLAGS} buildworld 2&gt;&amp;1
+
+		# Distribute the world
+		   log "Distributing world"
+		   cd /usr/src/release &amp;&amp;
+		   make -j 2 obj &amp;&amp;
+		   make ${COMPATFLAGS} release.1 release.2 2&gt;&amp;1</pre></li><li class="listitem"><p>Create an appropriate <a class="link" href="../../../../doc/en_US.ISO8859-1/books/handbook/network-dns.html" target="_top">DNS</a>
+	  SRV record for the update server, and put others behind it
+	  with variable weights.  Using this facility will provide
+	  update mirrors, however this tip is not necessary unless you
+	  wish to provide a redundant service.</p><pre class="programlisting">_http._tcp.update.myserver.com.		IN SRV   0 2 80   host1.myserver.com.
+					IN SRV   0 1 80   host2.myserver.com.
+					IN SRV   0 0 80   host3.myserver.com.</pre></li></ul></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="patch.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> </td></tr><tr><td width="40%" align="left" valign="top">6. Building a Patch </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> </td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

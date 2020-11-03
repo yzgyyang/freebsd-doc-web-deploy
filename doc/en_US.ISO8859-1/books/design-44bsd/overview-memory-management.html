@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>2.5. Memory Management</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="The Design and Implementation of the 4.4BSD Operating System" /><link rel="up" href="overview.html" title="Chapter 2. Design Overview of 4.4BSD" /><link rel="prev" href="overview-process-management.html" title="2.4. Process Management" /><link rel="next" href="overview-io-system.html" title="2.6. I/O System" /><link rel="copyright" href="legalnotice.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">2.5. Memory Management</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="overview-process-management.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Design Overview of 4.4BSD</th><td width="20%" align="right"> <a accesskey="n" href="overview-io-system.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="overview-memory-management"></a>2.5. Memory Management</h2></div></div></div><p>Each process has its own private address space.
+	The address space is initially divided into three logical segments:
+	<span class="emphasis"><em>text</em></span>,
+	<span class="emphasis"><em>data</em></span>,
+	and
+	<span class="emphasis"><em>stack</em></span>.
+	The text segment is read-only and contains the machine
+	instructions of a program.
+	The data and stack segments are both readable and writable.
+	The data segment contains the
+	initialized and uninitialized data portions of a program, whereas
+	the stack segment holds the application's run-time stack.
+	On most machines, the stack segment is extended automatically
+	by the kernel as the process executes.
+	A process can expand or contract its data segment by making a system call,
+	whereas a process can change the size of its text segment
+	only when the segment's contents are overlaid with data from the
+	filesystem, or when debugging takes place.
+	The initial contents of the segments of a child process
+	are duplicates of the segments of a parent process.</p><p>The entire contents of a process address space do not need to be resident
+	for a process to execute.
+	If a process references a part of its address space that is not
+	resident in main memory, the system
+	<span class="emphasis"><em>pages</em></span>
+	the necessary information into memory.
+	When system resources are scarce, the system uses a two-level
+	approach to maintain available resources.
+	If a modest amount of memory is available, the system will take
+	memory resources away from processes if these resources have not been
+	used recently.
+	Should there be a severe resource shortage, the system will resort to
+	<span class="emphasis"><em>swapping</em></span>
+	the entire context of a process to secondary storage.
+	The
+	<span class="emphasis"><em>demand paging</em></span>
+	and
+	<span class="emphasis"><em>swapping</em></span>
+	done by the system are effectively transparent to processes.
+	A process may, however, advise the system
+	about expected future memory utilization as a performance aid.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47340792"></a>2.5.1. BSD Memory-Management Design Decisions</h3></div></div></div><p>The support of large sparse address spaces, mapped files,
+	  and shared memory was a requirement for 4.2BSD.
+	  An interface was specified, called
+	  <span class="emphasis"><em>mmap</em></span>,
+	  that allowed unrelated processes to request a shared
+	  mapping of a file into their address spaces.
+	  If multiple processes mapped the same file into their address spaces,
+	  changes to the file's portion of an address space
+	  by one process would be reflected
+	  in the area mapped by the other processes, as well as in the file itself.
+	  Ultimately, 4.2BSD was shipped without the
+	  <span class="emphasis"><em>mmap</em></span>
+	  interface, because of pressure to make other features, such as
+	  networking, available.</p><p>Further development of the
+	  <span class="emphasis"><em>mmap</em></span>
+	  interface continued during the work on 4.3BSD.
+	  Over 40 companies and research groups participated
+	  in the discussions leading to the revised architecture
+	  that was described in the Berkeley Software Architecture Manual
+	  <a class="xref" href="overview.html#biblio-mckusick-1">[<abbr class="abbrev">McKusick et al, 1994</abbr>]</a>.
+	  Several of the companies have implemented the revised interface
+	  <a class="xref" href="overview.html#biblio-gingell">[<abbr class="abbrev">Gingell et al, 1987</abbr>]</a>.</p><p>Once again, time pressure prevented 4.3BSD from providing an
+	  implementation of the interface.
+	  Although the latter could have been built into the existing
+	  4.3BSD virtual-memory system,
+	  the developers decided not to put it in because
+	  that implementation was nearly 10 years old.
+	  Furthermore, the original virtual-memory design was based
+	  on the assumption that computer
+	  memories were small and expensive, whereas disks were
+	  locally connected, fast, large, and inexpensive.
+	  Thus, the virtual-memory system was designed to be frugal
+	  with its use of memory at the expense of generating extra disk traffic.
+	  In addition, the
+	  4.3BSD implementation was riddled with
+	  VAX
+	  memory-management hardware dependencies that impeded its portability
+	  to other computer architectures.
+	  Finally, the virtual-memory system was not designed
+	  to support the tightly coupled
+	  multiprocessors that are becoming
+	  increasingly common and important today.</p><p>Attempts to improve the old implementation incrementally
+	  seemed doomed to failure.
+	  A completely new design,
+	  on the other hand,
+	  could take advantage of large memories,
+	  conserve disk transfers,
+	  and have the potential to run on multiprocessors.
+	  Consequently, the virtual-memory system was completely replaced in 4.4BSD.
+	  The 4.4BSD virtual-memory system
+	  is based on the Mach 2.0 VM system
+	  <a class="xref" href="overview.html#biblio-tevanian">[<abbr class="abbrev">Tevanian, 1987</abbr>]</a>.
+	  with updates from Mach 2.5 and Mach 3.0.
+	  It features
+	  efficient support for sharing,
+	  a clean separation of machine-independent and machine-dependent features,
+	  as well as (currently unused) multiprocessor support.
+	  Processes can map files anywhere in their address space.
+	  They can share parts of their address space by
+	  doing a shared mapping of the same file.
+	  Changes made by one process are visible in the address space of
+	  the other process, and also are written back to the file itself.
+	  Processes can also request private mappings of a file, which prevents
+	  any changes that they make from being visible to other processes
+	  mapping the file or being written back to the file itself.</p><p>Another issue with the virtual-memory system is the way that
+	  information is passed into the kernel when a system call is made.
+	  4.4BSD always copies data from the process address space
+	  into a buffer in the kernel.
+	  For read or write operations
+	  that are transferring large quantities of data,
+	  doing the copy can be time consuming.
+	  An alternative to doing the copying is to remap the
+	  process memory into the kernel.
+	  The 4.4BSD kernel always copies the data for several reasons:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Often, the user data are not page aligned and are not a multiple of
+	      the hardware page length.</p></li><li class="listitem"><p>If the page is taken away from the process,
+	      it will no longer be able to reference that page.
+	      Some programs depend on the data remaining in the
+	      buffer even after those data have been written.</p></li><li class="listitem"><p>If the process is allowed to keep a copy of the page
+	      (as it is in current 4.4BSD semantics),
+	      the page must be made
+	      <span class="emphasis"><em>copy-on-write</em></span>.
+	      A copy-on-write page is one that is protected against being written
+	      by being made read-only.
+	      If the process attempts to modify the page,
+	      the kernel gets a write fault.
+	      The kernel then makes a copy of the page that the process can modify.
+	      Unfortunately, the typical process will immediately
+	      try to write new data to its output buffer,
+	      forcing the data to be copied anyway.</p></li><li class="listitem"><p>When pages are remapped to new virtual-memory addresses,
+	      most memory-management hardware requires that the hardware
+	      address-translation cache be purged selectively.
+	      The cache purges are often slow.
+	      The net effect is that remapping is slower than
+	      copying for blocks of data less than 4 to 8 Kbyte.</p></li></ul></div><p>The biggest incentives for memory mapping are the needs for
+	  accessing big files and for passing large quantities of data
+	  between processes.
+	  The
+	  <span class="emphasis"><em>mmap</em></span>
+	  interface provides a way for both of these tasks
+	  to be done without copying.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47367672"></a>2.5.2. Memory Management Inside the Kernel</h3></div></div></div><p>The kernel often does allocations of memory that are
+	  needed for only the duration of a single system call.
+	  In a user process, such short-term
+	  memory would be allocated on the run-time stack.
+	  Because the kernel has a limited run-time stack,
+	  it is not feasible to allocate even moderate-sized blocks of memory on it.
+	  Consequently, such memory must be allocated
+	  through a more dynamic mechanism.
+	  For example,
+	  when the system must translate a pathname,
+	  it must allocate a 1-Kbyte buffer to hold the name.
+	  Other blocks of memory must be more persistent than a single system call,
+	  and thus could not be allocated on the stack even if there was space.
+	  An example is protocol-control blocks that remain throughout
+	  the duration of a network connection.</p><p>Demands for dynamic memory allocation in the kernel have increased
+	  as more services have been added.
+	  A generalized memory allocator reduces the complexity
+	  of writing code inside the kernel.
+	  Thus, the 4.4BSD kernel has a single memory allocator that can be
+	  used by any part of the system.
+	  It has an interface similar to the C library routines
+	  <span class="emphasis"><em>malloc</em></span>
+	  and
+	  <span class="emphasis"><em>free</em></span>
+	  that provide memory allocation to application programs
+	  <a class="xref" href="overview.html#biblio-mckusick-2">[<abbr class="abbrev">McKusick &amp; Karels, 1988</abbr>]</a>.
+	  Like the C library interface,
+	  the allocation routine takes a parameter specifying the
+	  size of memory that is needed.
+	  The range of sizes for memory requests is not constrained;
+	  however, physical memory is allocated and is not paged.
+	  The free routine takes a pointer to the storage being freed,
+	  but does not require the size
+	  of the piece of memory being freed.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="overview-process-management.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="overview.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="overview-io-system.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2.4. Process Management </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 2.6. I/O System</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

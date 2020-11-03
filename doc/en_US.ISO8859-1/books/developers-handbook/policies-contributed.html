@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>5.3. Contributed Software</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Developers' Handbook" /><link rel="up" href="policies.html" title="Chapter 5. Source Tree Guidelines and Policies" /><link rel="prev" href="policies-maintainer.html" title="5.2. MAINTAINER on Makefiles" /><link rel="next" href="policies-encumbered.html" title="5.4. Encumbered Files" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5.3. Contributed Software</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="policies-maintainer.html">Prev</a> </td><th width="60%" align="center">Chapter 5. Source Tree Guidelines and Policies</th><td width="20%" align="right"> <a accesskey="n" href="policies-encumbered.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="policies-contributed"></a>5.3. Contributed Software</h2></div><div><span class="authorgroup">Contributed by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Poul-Henning</span> <span class="surname">Kamp</span></span>, <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">David</span> <span class="surname">O'Brien</span></span> and <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Gavin</span> <span class="surname">Atkinson</span></span>. </span></div></div></div><a id="idp51230712" class="indexterm"></a><p>Some parts of the FreeBSD distribution consist of software
+      that is actively being maintained outside the FreeBSD project.
+      For historical reasons, we call this
+      <span class="emphasis"><em>contributed</em></span> software.  Some examples are
+      <span class="application">sendmail</span>,
+      <span class="application">gcc</span> and
+      <span class="application">patch</span>.</p><p>Over the last couple of years, various methods have been
+      used in dealing with this type of software and all have some
+      number of advantages and drawbacks.  No clear winner has
+      emerged.</p><p>Since this is the case, after some debate one of these
+      methods has been selected as the <span class="quote">&#8220;<span class="quote">official</span>&#8221;</span> method
+      and will be required for future imports of software of this
+      kind.  Furthermore, it is strongly suggested that existing
+      contributed software converge on this model over time, as it has
+      significant advantages over the old method, including the
+      ability to easily obtain diffs relative to the
+      <span class="quote">&#8220;<span class="quote">official</span>&#8221;</span> versions of the source by everyone (even
+      without direct repository access).  This will make it
+      significantly easier to return changes to the primary developers
+      of the contributed software.</p><p>Ultimately, however, it comes down to the people actually
+      doing the work.  If using this model is particularly unsuited to
+      the package being dealt with, exceptions to these rules may be
+      granted only with the approval of the core team and with the
+      general consensus of the other developers.  The ability to
+      maintain the package in the future will be a key issue in the
+      decisions.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Because it makes it harder to import future versions
+	minor, trivial and/or cosmetic changes are
+	<span class="emphasis"><em>strongly discouraged</em></span> on files that are
+	still tracking the vendor branch.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="vendor-import-svn"></a>5.3.1. Vendor Imports with SVN</h3></div><div><span class="authorgroup">Contributed by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Dag-Erling</span> <span class="surname">Smørgrav</span></span>. </span></div></div></div><p>This section describes the vendor import procedure with
+	<span class="application">Subversion</span> in details.</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p class="title"><strong>Preparing the Tree</strong></p><p>If this is your first import after the switch to
+	    <acronym class="acronym">SVN</acronym>, you will have to flatten and clean
+	    up the vendor tree, and bootstrap merge history in the
+	    main tree.  If not, you can safely omit this step.</p><p>During the conversion from <acronym class="acronym">CVS</acronym> to
+	    <acronym class="acronym">SVN</acronym>, vendor branches were imported with
+	    the same layout as the main tree.  For example, the
+	    <span class="application">foo</span> vendor sources ended up in
+	    <code class="filename">vendor/<em class="replaceable"><code>foo</code></em>/dist/contrib/<em class="replaceable"><code>foo</code></em></code>,
+	    but it is pointless and rather inconvenient.  What we
+	    really want is to have the vendor source directly in
+	    <code class="filename">vendor/<em class="replaceable"><code>foo</code></em>/dist</code>,
+	    like this:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>cd vendor/<em class="replaceable"><code>foo</code></em>/dist/contrib/<em class="replaceable"><code>foo</code></em></code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>svn move $(svn list) ../..</code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>cd ../..</code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>svn remove contrib</code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>svn propdel -R svn:mergeinfo</code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>svn commit</code></strong></pre><p>Note that, the <code class="literal">propdel</code> bit is
+	    necessary because starting with 1.5, Subversion will
+	    automatically add <code class="literal">svn:mergeinfo</code> to any
+	    directory you copy or move.  In this case, you will not
+	    need this information, since you are not going to merge
+	    anything from the tree you deleted.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">You may want to flatten the tags as well.  The
+	      procedure is exactly the same.  If you do this, put off
+	      the commit until the end.</p></div><p>Check the <code class="filename">dist</code> tree and perform
+	    any cleanup that is deemed to be necessary.  You may want
+	    to disable keyword expansion, as it makes no sense on
+	    unmodified vendor code.  In some cases, it can be even be
+	    harmful.</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>svn propdel svn:keywords -R .</code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>svn commit</code></strong></pre><p>Bootstrapping of <code class="literal">svn:mergeinfo</code> on
+	    the target directory (in the main tree) to the revision
+	    that corresponds to the last change was made to the vendor
+	    tree prior to importing new sources is also needed:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>cd head/contrib/<em class="replaceable"><code>foo</code></em></code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>svn merge --record-only ^/vendor/<em class="replaceable"><code>foo</code></em>/dist@<em class="replaceable"><code>12345678</code></em> .</code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>svn commit</code></strong></pre><p>With some shells, the <code class="literal">^</code> in the
+	    above command may need to be escaped with a
+	    backslash.</p></li><li class="step"><p class="title"><strong>Importing New Sources</strong></p><p>Prepare a full, clean tree of the vendor sources.
+	    With <acronym class="acronym">SVN</acronym>, we can keep a full
+	    distribution in the vendor tree without bloating the main
+	    tree.  Import everything but merge only what is
+	    needed.</p><p>Note that you will need to add any files that were
+	    added since the last vendor import, and remove any that
+	    were removed.  To facilitate this, you should prepare
+	    sorted lists of the contents of the vendor tree and of the
+	    sources you are about to import:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>cd vendor/<em class="replaceable"><code>foo</code></em>/dist</code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>svn list -R | grep -v '/$' | sort &gt; ../<em class="replaceable"><code>old</code></em></code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>cd ../<em class="replaceable"><code>foo-9.9</code></em></code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>find . -type f | cut -c 3- | sort &gt; ../<em class="replaceable"><code>new</code></em></code></strong></pre><p>With these two files, the following command will list
+	    removed files (files only in
+	    <code class="filename"><em class="replaceable"><code>old</code></em></code>):</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>comm -23 ../<em class="replaceable"><code>old</code></em> ../<em class="replaceable"><code>new</code></em></code></strong></pre><p>While the command below will list added files (files
+	    only in
+	    <code class="filename"><em class="replaceable"><code>new</code></em></code>):</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>comm -13 ../<em class="replaceable"><code>old</code></em> ../<em class="replaceable"><code>new</code></em></code></strong></pre><p>Let us put this together:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>cd vendor/<em class="replaceable"><code>foo</code></em>/<em class="replaceable"><code>foo-9.9</code></em></code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>tar cf - . | tar xf - -C ../dist</code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>cd ../dist</code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>comm -23 ../<em class="replaceable"><code>old</code></em> ../<em class="replaceable"><code>new</code></em> | xargs svn remove</code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>comm -13 ../<em class="replaceable"><code>old</code></em> ../<em class="replaceable"><code>new</code></em> | xargs svn add</code></strong></pre><div xmlns="" class="warning"><h3 class="admontitle">Warning: </h3><p xmlns="http://www.w3.org/1999/xhtml">If there are new directories in the new
+	      distribution, the last command will fail.  You will have
+	      to add the directories, and run it again.  Conversely,
+	      if any directories were removed, you will have to remove
+	      them manually.</p></div><p>Check properties on any new files:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>All text files
+		should have <code class="literal">svn:eol-style</code> set to
+		<code class="literal">native</code>.</p></li><li class="listitem"><p>All binary files should have
+		<code class="literal">svn:mime-type</code> set to
+		<code class="literal">application/octet-stream</code>, unless
+		there is a more appropriate media type.</p></li><li class="listitem"><p>Executable files should have
+		<code class="literal">svn:executable</code> set to
+		<code class="literal">*</code>.</p></li><li class="listitem"><p>There should be no other properties on any file in
+		the tree.</p></li></ul></div><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">You are ready to commit, but you should first check
+	      the output of <code class="command">svn stat</code> and
+	      <code class="command">svn diff</code> to make sure everything is
+	      in order.</p></div><p>Once you have committed the new vendor release, you
+	    should tag it for future reference.  The best and quickest
+	    way is to do it directly in the repository:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>svn copy ^/vendor/<em class="replaceable"><code>foo</code></em>/dist <em class="replaceable"><code>svn_base</code></em>/vendor/<em class="replaceable"><code>foo</code></em>/<em class="replaceable"><code>9.9</code></em></code></strong></pre><p>To get the new tag, you can update your working copy
+	    of
+	    <code class="filename">vendor/<em class="replaceable"><code>foo</code></em></code>.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">If you choose to do the copy in the checkout
+	      instead, do not forget to remove the generated
+	      <code class="literal">svn:mergeinfo</code> as described
+	      above.</p></div></li><li class="step"><p class="title"><strong>Merging to <span class="emphasis"><em>-HEAD</em></span></strong></p><p>After you have prepared your import, it is time to
+	    merge.  Option <code class="option">--accept=postpone</code> tells
+	    <acronym class="acronym">SVN</acronym> not to handle merge conflicts yet,
+	    because they will be taken care of manually:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>cd head/contrib/<em class="replaceable"><code>foo</code></em></code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>svn update</code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>svn merge --accept=postpone ^/vendor/<em class="replaceable"><code>foo</code></em>/dist</code></strong></pre><p>Resolve any conflicts, and make sure that any files
+	    that were added or removed in the vendor tree have been
+	    properly added or removed in the main tree.  It is always
+	    a good idea to check differences against the vendor
+	    branch:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>svn diff --no-diff-deleted --old=^/vendor/<em class="replaceable"><code>foo</code></em>/dist --new=.</code></strong></pre><p><code class="option">--no-diff-deleted</code> tells
+	    <acronym class="acronym">SVN</acronym> not to check files that are in the
+	    vendor tree but not in the main tree.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">With <acronym class="acronym">SVN</acronym>, there is no concept of
+	      on or off the vendor branch.  If a file that previously
+	      had local modifications no longer does, just remove any
+	      left-over cruft, such as FreeBSD version tags, so it no
+	      longer shows up in diffs against the vendor tree.</p></div><p>If any changes are required for the world to build
+	    with the new sources, make them now &#8212; and test until
+	    you are satisfied that everything build and runs
+	    correctly.</p></li><li class="step"><p class="title"><strong>Commit</strong></p><p>Now, you are ready to commit.  Make sure you get
+	    everything in one go.  Ideally, you would have done all
+	    steps in a clean tree, in which case you can just commit
+	    from the top of that tree.  That is the best way to avoid
+	    surprises.  If you do it properly, the tree will move
+	    atomically from a consistent state with the old code to a
+	    consistent state with the new code.</p></li></ol></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="policies-maintainer.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="policies.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="policies-encumbered.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">5.2. <code class="varname">MAINTAINER</code> on Makefiles </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 5.4. Encumbered Files</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

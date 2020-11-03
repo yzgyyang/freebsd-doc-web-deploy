@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">搜索</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -286,7 +285,7 @@
 
     <h2>FreeBSD 发行版本</h2>
 
-    <p>FreeBSD 的 -RELEASE 版本 (例如 11.2-RELEASE) 可以在
+    <p>FreeBSD 的 -RELEASE 版本 (例如 12.0-RELEASE) 可以在
       <a href="releases/index.html" shape="rect">发行版信息</a> 页面和镜像页面中找到。</p>
 
     <p>这些文档在每个发行版本的根目录下。 通常会提供 HTML 和纯文本格式的文档。</p>

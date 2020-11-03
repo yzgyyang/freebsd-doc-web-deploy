@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>25.2. USB Virtual Serial Ports</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="usb-device-mode.html" title="Chapter 25. USB Device Mode / USB OTG" /><link rel="prev" href="usb-device-mode.html" title="Chapter 25. USB Device Mode / USB OTG" /><link rel="next" href="usb-device-mode-network.html" title="25.3. USB Device Mode Network Interfaces" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">25.2. <acronym class="acronym">USB</acronym> Virtual Serial Ports</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="usb-device-mode.html">Prev</a> </td><th width="60%" align="center">Chapter 25. USB Device Mode / USB OTG</th><td width="20%" align="right"> <a accesskey="n" href="usb-device-mode-network.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="usb-device-mode-terminals"></a>25.2. <acronym class="acronym">USB</acronym> Virtual Serial Ports</h2></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp66990712"></a>25.2.1. Configuring USB Device Mode Serial Ports</h3></div></div></div><p>Virtual serial port support is provided by templates
+	number 3, 8, and 10.  Note that template 3 works with
+	Microsoft Windows 10 without the need for special drivers
+	and INF files.  Other host operating systems work with all
+	three templates.  Both <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=usb_template&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">usb_template</span>(4)</span></a> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=umodem&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">umodem</span>(4)</span></a>
+	kernel modules must be loaded.</p><p>To enable USB device mode serial ports, add those lines
+	to <code class="filename">/etc/ttys</code>:</p><pre class="programlisting">ttyU0	"/usr/libexec/getty 3wire"	vt100	onifconsole secure
+ttyU1	"/usr/libexec/getty 3wire"	vt100	onifconsole secure</pre><p>Then add these lines to
+	<code class="filename">/etc/devd.conf</code>:</p><pre class="programlisting">notify 100 {
+	match "system"		"DEVFS";
+	match "subsystem"	"CDEV";
+	match "type"		"CREATE";
+	match "cdev"		"ttyU[0-9]+";
+	action "/sbin/init q";
+};</pre><p>Reload the configuration if
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=devd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">devd</span>(8)</span></a> is already running:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service devd restart</code></strong></pre><p>Make sure the necessary modules are loaded and the
+	correct template is set at boot by adding
+	those lines to <code class="filename">/boot/loader.conf</code>,
+	creating it if it does not already exist:</p><pre class="screen">umodem_load="YES"
+hw.usb.template=3</pre><p>To load the module and set the template without rebooting
+	use:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>kldload umodem</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>sysctl hw.usb.template=3</code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp67353336"></a>25.2.2. Connecting to USB Device Mode Serial Ports from
+	FreeBSD</h3></div></div></div><p>To connect to a board configured to provide USB device
+	mode serial ports, connect the USB host, such as a laptop, to
+	the boards USB OTG or USB client port.  Use
+	<code class="command">pstat -t</code> on the host to list the terminal
+	lines.  Near the end of the list you should see a USB serial
+	port, eg "ttyU0".  To open the connection, use:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cu -l /dev/ttyU0</code></strong></pre><p>After pressing the <span class="keycap"><strong>Enter</strong></span> key a few times you will see
+	a login prompt.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp67356536"></a>25.2.3. Connecting to USB Device Mode Serial Ports from
+	<span class="trademark">Mac OS</span>®</h3></div></div></div><p>To connect to a board configured to provide USB device
+	mode serial ports, connect the USB host, such as a laptop,
+	to the boards USB OTG or USB client port.  To open the
+	connection, use:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cu -l /dev/cu.usbmodemFreeBSD1</code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp67363064"></a>25.2.4. Connecting to USB Device Mode Serial Ports from
+	Linux</h3></div></div></div><p>To connect to a board configured to provide USB device
+	mode serial ports, connect the USB host, such as a laptop,
+	to the boards USB OTG or USB client port.  To open the
+	connection, use:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>minicom -D /dev/ttyACM0</code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp67365112"></a>25.2.5. Connecting to USB Device Mode Serial Ports from
+	Microsoft Windows 10</h3></div></div></div><p>To connect to a board configured to provide USB device
+	mode serial ports, connect the USB host, such as a laptop,
+	to the boards USB OTG or USB client port.  To open a
+	connection you will need a serial terminal program, such as
+	<span class="application">PuTTY</span>.  To check the COM port name
+	used by Windows, run Device Manager, expand "Ports (COM &amp;
+	LPT)".  You will see a name similar to "USB Serial Device
+	(COM4)".  Run serial terminal program of your choice, for
+	example <span class="application">PuTTY</span>.  In the
+	<span class="application">PuTTY</span> dialog set "Connection type"
+	to "Serial", type the COMx obtained from Device Manager in the
+	"Serial line" dialog box and click Open.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="usb-device-mode.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="usb-device-mode.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="usb-device-mode-network.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 25. USB Device Mode / USB OTG </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 25.3. <acronym class="acronym">USB</acronym> Device Mode Network
+      Interfaces</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

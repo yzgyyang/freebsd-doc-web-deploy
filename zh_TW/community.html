@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">搜尋</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -253,13 +252,13 @@
           </div>
           <div id="contentwrap">
             <p>有超過一百個<a href="./../community/mailinglists.html">郵件論壇</a>、數十個網頁版<a href="https://forums.FreeBSD.org/">論壇</a>和數個 <a href="./../doc/en_US.ISO8859-1/books/handbook/eresources-news.html">newsgroups</a> 。
-		有超過 93 個<a href="./../usergroups.html">愛用者組織</a>分佈於全世界
-		41
+		有超過 77 個<a href="./../usergroups.html">愛用者組織</a>分佈於全世界
+		36
 		個國家。也有一個活躍的 <a href="./community/irc.html">IRC</a>
 		社群。許多開發者也有建立關於他們 FreeBSD 開發工作的 <a href="https://planet.freebsd.org">部落格</a>
 	      	開發者和主要貢獻者亦共同維護一個關於 FreeBSD 開發和相關計畫資訊的 <a href="https://wiki.FreeBSD.org/">維基網站</a>。</p>
-            <p>去年有 9 FreeBSD 活動在全世界
-		9 個不同國家舉辦
+            <p>去年有 19 FreeBSD 活動在全世界
+		12 個不同國家舉辦
 		。近期 FreeBSD 相關活動的 <a href="./../events/events.ics">行事曆</a> 和
 		<a href="./../events/rss.xml">RSS feed</a>
 		可以查看 <a href="./../events/events.html">近期活動
@@ -336,7 +335,7 @@
         </div>
         <div id="footer">
           <span><a href="./../search/index-site.html">Site Map</a> |
-  <a href="./../copyright/">法律聲明</a> | © 1995–2018 FreeBSD 計劃。
+  <a href="./../copyright/">法律聲明</a> | © 1995–2020 FreeBSD 計劃。
   保留所有權利。</span>
           <br />
         </div>

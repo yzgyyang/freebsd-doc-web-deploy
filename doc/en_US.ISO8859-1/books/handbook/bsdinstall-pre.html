@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>2.3. Pre-Installation Tasks</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="bsdinstall.html" title="Chapter 2. Installing FreeBSD" /><link rel="prev" href="bsdinstall-hardware.html" title="2.2. Minimum Hardware Requirements" /><link rel="next" href="bsdinstall-start.html" title="2.4. Starting the Installation" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">2.3. Pre-Installation Tasks</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="bsdinstall-hardware.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Installing FreeBSD</th><td width="20%" align="right"> <a accesskey="n" href="bsdinstall-start.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="bsdinstall-pre"></a>2.3. Pre-Installation Tasks</h2></div></div></div><p>Once it has been determined that the system meets the
+      minimum hardware requirements for installing FreeBSD, the
+      installation file should be downloaded and the installation
+      media prepared.  Before doing this, check that the system is
+      ready for an installation by verifying the items in this
+      checklist:</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p class="title"><strong>Back Up Important Data</strong></p><p>Before installing any operating system,
+	  <span class="emphasis"><em>always</em></span> backup all important data first.
+	  Do not store the backup on the system being installed.
+	  Instead, save the data to a removable disk such as a
+	  <acronym class="acronym">USB</acronym> drive, another system on the network,
+	  or an online backup service.  Test the backup before
+	  starting the installation to make sure it contains all of
+	  the needed files.  Once the installer formats the system's
+	  disk, all data stored on that disk will be lost.</p></li><li class="step"><p class="title"><strong>Decide Where to Install FreeBSD</strong></p><p>If FreeBSD will be the only operating system installed,
+	  this step can be skipped.  But if FreeBSD will share the disk
+	  with another operating system, decide which disk or
+	  partition will be used for FreeBSD.</p><p>In the i386 and amd64 architectures, disks
+	  can be divided into multiple partitions using one of two
+	  partitioning schemes.  A traditional <em class="firstterm">Master Boot
+	    Record</em> (<acronym class="acronym">MBR</acronym>) holds a
+	  partition table defining up to four <em class="firstterm">primary
+	    partitions</em>.  For historical reasons, FreeBSD
+	  calls these primary partition
+	  <em class="firstterm">slices</em>.  One of these primary
+	  partitions can be made into an <em class="firstterm">extended
+	    partition</em> containing multiple
+	  <em class="firstterm">logical partitions</em>.  The
+	  <em class="firstterm">GUID Partition Table</em>
+	  (<acronym class="acronym">GPT</acronym>) is a newer and simpler method of
+	  partitioning a disk.  Common <acronym class="acronym">GPT</acronym>
+	  implementations allow up to 128 partitions per disk,
+	  eliminating the need for logical partitions.</p><p>The FreeBSD boot loader requires either a primary or
+	  <acronym class="acronym">GPT</acronym> partition.  If all of the primary or
+	  <acronym class="acronym">GPT</acronym> partitions are already in use, one
+	  must be freed for FreeBSD.  To create a partition without
+	  deleting existing data, use a partition resizing tool to
+	  shrink an existing partition and create a new partition
+	  using the freed space.</p><p>A variety of free and commercial partition resizing
+	  tools are listed at <a class="link" href="http://en.wikipedia.org/wiki/List_of_disk_partitioning_software" target="_top">http://en.wikipedia.org/wiki/List_of_disk_partitioning_software</a>.
+	  <span class="application">GParted Live</span> (<a class="link" href="http://gparted.sourceforge.net/livecd.php" target="_top">http://gparted.sourceforge.net/livecd.php</a>)
+	  is a free live <acronym class="acronym">CD</acronym> which includes the
+	  <span class="application">GParted</span> partition editor.
+	  <span class="application">GParted</span> is also included with
+	  many other Linux live <acronym class="acronym">CD</acronym>
+	  distributions.</p><div xmlns="" class="warning"><h3 class="admontitle">Warning: </h3><p xmlns="http://www.w3.org/1999/xhtml">When used properly, disk shrinking utilities can
+	    safely create space for creating a new partition.  Since
+	    the possibility of selecting the wrong partition exists,
+	    always backup any important data and verify the integrity
+	    of the backup before modifying disk partitions.</p></div><p>Disk partitions containing different operating systems
+	  make it possible to install multiple operating systems on
+	  one computer.  An alternative is to use virtualization
+	  (<a class="xref" href="virtualization.html" title="Chapter 21. Virtualization">Chapter 21, <em>Virtualization</em></a>) which allows multiple
+	  operating systems to run at the same time without modifying
+	  any disk partitions.</p></li><li class="step"><p class="title"><strong>Collect Network Information</strong></p><p>Some FreeBSD installation methods require a network
+	  connection in order to download the installation files.
+	  After any installation, the installer will offer to setup
+	  the system's network interfaces.</p><p>If the network has a <acronym class="acronym">DHCP</acronym> server, it
+	  can be used to provide automatic network configuration.  If
+	  <acronym class="acronym">DHCP</acronym> is not available, the following
+	  network information for the system must be obtained from the
+	  local network administrator or Internet service
+	  provider:</p><div class="orderedlist"><a id="bsdinstall-collect-network-information"></a><div class="orderedlist-title">Required Network Information</div><ol class="orderedlist" type="1"><li class="listitem"><p><acronym class="acronym">IP</acronym> address</p></li><li class="listitem"><p>Subnet mask</p></li><li class="listitem"><p><acronym class="acronym">IP</acronym> address of default
+	      gateway</p></li><li class="listitem"><p>Domain name of the network</p></li><li class="listitem"><p><acronym class="acronym">IP</acronym> addresses of the network's
+	      <acronym class="acronym">DNS</acronym> servers</p></li></ol></div></li><li class="step"><p class="title"><strong>Check for FreeBSD Errata</strong></p><p>Although the FreeBSD Project strives to ensure that
+	  each release of FreeBSD is as stable as possible, bugs
+	  occasionally creep into the process.  On very rare occasions
+	  those bugs affect the installation process.  As these
+	  problems are discovered and fixed, they are noted in the
+	  FreeBSD Errata (<a class="link" href="../../../../releases/12.1R/errata.html" target="_top">https://www.freebsd.org/releases/12.1R/errata.html</a>)
+	  on the FreeBSD web site.  Check the errata before installing to
+	  make sure that there are no problems that might affect the
+	  installation.</p><p>Information and errata for all the releases can be found
+	  on the release information section of the FreeBSD web site
+	  (<a class="link" href="../../../../releases/index.html" target="_top">https://www.freebsd.org/releases/index.html</a>).</p></li></ol></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="bsdinstall-installation-media"></a>2.3.1. Prepare the Installation Media</h3></div></div></div><p>The FreeBSD installer is not an application that can be run
+	from within another operating system.  Instead, download a
+	FreeBSD installation file, burn it to the media associated with
+	its file type and size (<acronym class="acronym">CD</acronym>,
+	<acronym class="acronym">DVD</acronym>, or <acronym class="acronym">USB</acronym>), and boot
+	the system to install from the inserted media.</p><p>FreeBSD installation files are available at <a class="link" href="../../../../where.html#download" target="_top">www.freebsd.org/where.html#download</a>.
+	Each installation file's name includes the release version of
+	FreeBSD, the architecture, and the type of file.  For example, to
+	install FreeBSD 12.1 on an amd64 system from a
+	<acronym class="acronym">DVD</acronym>, download
+	<code class="filename">FreeBSD-12.1-RELEASE-amd64-dvd1.iso</code>, burn
+	this file to a <acronym class="acronym">DVD</acronym>, and boot the system
+	with the <acronym class="acronym">DVD</acronym> inserted.</p><p>Installation files are available in several formats.
+	The formats vary depending on computer architecture and media
+	type.</p><p><a id="bsdinstall-installation-media-uefi"></a>Additional
+	installation files are included for computers that boot with
+	<acronym class="acronym">UEFI</acronym> (Unified Extensible Firmware
+	Interface).  The names of these files include the string
+	<code class="filename">uefi</code>.</p><p>File types:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="literal">-bootonly.iso</code>: This is the smallest
+	    installation file as it only contains the installer.  A
+	    working Internet connection is required during
+	    installation as the installer will download the files it
+	    needs to complete the FreeBSD installation.  This file should
+	    be burned to a <acronym class="acronym">CD</acronym> using a
+	    <acronym class="acronym">CD</acronym> burning application.</p></li><li class="listitem"><p><code class="literal">-disc1.iso</code>: This file contains all
+	    of the files needed to install FreeBSD, its source, and the
+	    Ports Collection.  It should be burned to a
+	    <acronym class="acronym">CD</acronym> using a <acronym class="acronym">CD</acronym>
+	    burning application.</p></li><li class="listitem"><p><code class="literal">-dvd1.iso</code>: This file contains all
+	    of the files needed to install FreeBSD, its source, and the
+	    Ports Collection.  It also contains a set of popular
+	    binary packages for installing a window manager and some
+	    applications so that a complete system can be installed
+	    from media without requiring a connection to the Internet.
+	    This file should be burned to a <acronym class="acronym">DVD</acronym>
+	    using a <acronym class="acronym">DVD</acronym> burning application.</p></li><li class="listitem"><p><code class="literal">-memstick.img</code>: This file contains
+	    all of the files needed to install FreeBSD, its source, and
+	    the Ports Collection.  It should be burned to a
+	    <acronym class="acronym">USB</acronym> stick using the instructions
+	    below.</p></li><li class="listitem"><p><code class="literal">-mini-memstick.img</code>: Like
+	    <code class="literal">-bootonly.iso</code>, does not include
+	    installation files, but downloads them as needed.  A
+	    working internet connection is required during
+	    installation.  Write this file to a <acronym class="acronym">USB</acronym>
+	    stick as shown in <a class="xref" href="bsdinstall-pre.html#bsdinstall-usb" title="2.3.1.1. Writing an Image File to USB">Section 2.3.1.1, &#8220;Writing an Image File to <acronym class="acronym">USB</acronym>&#8221;</a>.</p></li></ul></div><p>After downloading the image file, download
+	<code class="filename">CHECKSUM.SHA256</code> from
+	the same directory.  Calculate a
+	<em class="firstterm">checksum</em> for the image file.
+	FreeBSD provides <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sha256&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sha256</span>(1)</span></a> for this, used as <code class="command">sha256
+	  <em class="replaceable"><code>imagefilename</code></em></code>.
+	Other operating systems have similar programs.</p><p>Compare the calculated checksum with the one shown in
+	<code class="filename">CHECKSUM.SHA256</code>.  The checksums must
+	match exactly.  If the checksums do not match, the image file
+	is corrupt and must be downloaded again.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="bsdinstall-usb"></a>2.3.1.1. Writing an Image File to <acronym class="acronym">USB</acronym></h4></div></div></div><p>The <code class="filename">*.img</code> file is an
+	  <span class="emphasis"><em>image</em></span> of the complete contents of a
+	  memory stick.  It <span class="emphasis"><em>cannot</em></span> be copied to
+	  the target device as a file.  Several applications are
+	  available for writing the <code class="filename">*.img</code> to a
+	  <acronym class="acronym">USB</acronym> stick.  This section describes two of
+	  these utilities.</p><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">Before proceeding, back up any important data on the
+	    <acronym class="acronym">USB</acronym> stick.  This procedure will erase
+	    the existing data on the stick.</p></div><div class="procedure"><a id="bsdinstall-usb-dd"></a><div class="procedure-title">Procedure 2.1. Using <code class="command">dd</code> to Write the
+	    Image</div><div xmlns="" class="warning"><h3 class="admontitle">Warning: </h3><p xmlns="http://www.w3.org/1999/xhtml">This example uses <code class="filename">/dev/da0</code> as
+	      the target device where the image will be written.  Be
+	      <span class="emphasis"><em>very careful</em></span> that the correct
+	      device is used as this command will destroy the existing
+	      data on the specified target device.</p></div><ul class="procedure"><li class="step"><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=dd&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">dd</span>(1)</span></a> command-line utility is
+	      available on BSD, <span class="trademark">Linux</span>®, and <span class="trademark">Mac OS</span>® systems.  To burn
+	      the image using <code class="command">dd</code>, insert the
+	      <acronym class="acronym">USB</acronym> stick and determine its device
+	      name.  Then, specify the name of the downloaded
+	      installation file and the device name for the
+	      <acronym class="acronym">USB</acronym> stick.  This example burns the
+	      amd64 installation image to the first
+	      <acronym class="acronym">USB</acronym> device on an existing FreeBSD
+	      system.</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>dd if=<em class="replaceable"><code>FreeBSD-12.1-RELEASE-amd64-memstick.img</code></em> of=/dev/<em class="replaceable"><code>da0</code></em> bs=1M conv=sync</code></strong></pre><p>If this command fails, verify that the
+	      <acronym class="acronym">USB</acronym> stick is not mounted and that the
+	      device name is for the disk, not a partition.  Some
+	      operating systems might require this command to be run
+	      with <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sudo&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sudo</span>(8)</span></a>.  The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=dd&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">dd</span>(1)</span></a> syntax varies slightly
+	      across different platforms; for example, <span class="trademark">Mac OS</span>® requires
+	      a lower-case <code class="option">bs=1m</code>.
+	      Systems like <span class="trademark">Linux</span>® might buffer
+	      writes.  To force all writes to complete, use
+	      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sync&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sync</span>(8)</span></a>.</p></li></ul></div><div class="procedure"><a id="idp51091448"></a><div class="procedure-title">Procedure 2.2. Using <span class="trademark">Windows</span>® to Write the Image</div><div xmlns="" class="warning"><h3 class="admontitle">Warning: </h3><p xmlns="http://www.w3.org/1999/xhtml">Be sure to give the correct drive letter as the
+	      existing data on the specified drive will be overwritten
+	      and destroyed.</p></div><ol class="procedure" type="1"><li class="step"><p class="title"><strong>Obtaining <span class="application">Image Writer for
+		<span class="trademark">Windows</span>®</span></strong></p><p><span class="application">Image Writer for
+		<span class="trademark">Windows</span>®</span> is a free application that can
+	      correctly write an image file to a memory stick.
+	      Download it from <code class="uri"><a class="uri" href="https://sourceforge.net/projects/win32diskimager/" target="_top">https://sourceforge.net/projects/win32diskimager/</a></code>
+	      and extract it into a folder.</p></li><li class="step"><p class="title"><strong>Writing the Image with Image Writer</strong></p><p>Double-click the
+	      <span class="application">Win32DiskImager</span> icon to start
+	      the program.  Verify that the drive letter shown under
+	      <code class="computeroutput">Device</code> is the drive
+	      with the memory stick.  Click the folder icon and select
+	      the image to be written to the memory stick.  Click
+	      <span class="guibutton">[ Save ]</span> to accept the
+	      image file name.  Verify that everything is correct, and
+	      that no folders on the memory stick are open in other
+	      windows.  When everything is ready, click
+	      <span class="guibutton">[ Write ]</span> to write the
+	      image file to the memory stick.</p></li></ol></div><p>You are now ready to start installing FreeBSD.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="bsdinstall-hardware.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="bsdinstall.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="bsdinstall-start.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2.2. Minimum Hardware Requirements </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 2.4. Starting the Installation</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>Mirroring FreeBSD</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><meta name="description" content="An in-progress article on how to mirror FreeBSD, aimed at hub administrators." /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div xml:lang="en" class="article" lang="en"><div xmlns="" class="titlepage"><div><div><h1 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp44041336"></a>Mirroring FreeBSD</h1></div><div><div xmlns="http://www.w3.org/1999/xhtml" class="authorgroup"><div class="author"><h3 class="author"><span class="firstname">Jun</span> <span class="surname">Kuriyama</span></h3><div class="affiliation"><div class="address"><p><br />
+	    <code class="email">&lt;<a xmlns="" class="email" href="mailto:kuriyama@FreeBSD.org">kuriyama@FreeBSD.org</a>&gt;</code><br />
+	  </p></div></div></div><div class="author"><h3 class="author"><span class="firstname">Valentino</span> <span class="surname">Vaschetto</span></h3><div class="affiliation"><div class="address"><p><br />
+	    <code class="email">&lt;<a xmlns="" class="email" href="mailto:logo@FreeBSD.org">logo@FreeBSD.org</a>&gt;</code><br />
+	  </p></div></div></div><div class="author"><h3 class="author"><span class="firstname">Daniel</span> <span class="surname">Lang</span></h3><div class="affiliation"><div class="address"><p><br />
+	    <code class="email">&lt;<a xmlns="" class="email" href="mailto:dl@leo.org">dl@leo.org</a>&gt;</code><br />
+	  </p></div></div></div><div class="author"><h3 class="author"><span class="firstname">Ken</span> <span class="surname">Smith</span></h3><div class="affiliation"><div class="address"><p><br />
+	    <code class="email">&lt;<a xmlns="" class="email" href="mailto:kensmith@FreeBSD.org">kensmith@FreeBSD.org</a>&gt;</code><br />
+	  </p></div></div></div></div></div><div>Revision: <a href="https://svnweb.freebsd.org/changeset/doc/ce8c8eed74"><span class="svnref">ce8c8eed74</span></a></div><div><div xmlns="http://www.w3.org/1999/xhtml" class="legalnotice"><a id="trademarks"></a><p>FreeBSD is a registered trademark of
+  the FreeBSD Foundation.</p><p>Many of the designations used by
+  manufacturers and sellers to distinguish their products are claimed
+  as trademarks.  Where those designations appear in this document,
+  and the FreeBSD Project was aware of the trademark claim, the
+  designations have been followed by the <span class="quote">&#8220;<span class="quote">&#8482;</span>&#8221;</span> or the
+  <span class="quote">&#8220;<span class="quote">®</span>&#8221;</span> symbol.</p></div></div><div>Last modified on 2019-07-03 16:51:13 +0000 by gjb.</div><div><div xmlns="http://www.w3.org/1999/xhtml" class="abstract"><div class="abstract-title">Abstract</div><p>An in-progress article on how to mirror FreeBSD, aimed at
+	hub administrators.</p></div></div></div><div class="docformatnavi">
+      [
+      <a href="index.html">Split HTML</a>
+      /
+      
+	  Single HTML
+	
+      ]
+    </div><hr /></div><div class="toc"><div class="toc-title">Table of Contents</div><dl class="toc"><dt><span class="sect1"><a href="#mirror-contact">1. Contact Information</a></span></dt><dt><span class="sect1"><a href="#mirror-requirements">2. Requirements for FreeBSD Mirrors</a></span></dt><dt><span class="sect1"><a href="#mirror-howto">3. How to Mirror FreeBSD</a></span></dt><dt><span class="sect1"><a href="#mirror-where">4. Where to Mirror From</a></span></dt><dt><span class="sect1"><a href="#mirror-official">5. Official Mirrors</a></span></dt><dt><span class="sect1"><a href="#mirror-statpages">6. Some Statistics from Mirror Sites</a></span></dt></dl></div><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">We are not accepting new mirrors at this time.</p></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="mirror-contact"></a>1. Contact Information</h2></div></div></div><p>The Mirror System Coordinators can be reached through email
+      at <code class="email">&lt;<a xmlns="" class="email" href="mailto:mirror-admin@FreeBSD.org">mirror-admin@FreeBSD.org</a>&gt;</code>.  There is also
+      a <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo/freebsd-hubs" target="_top">FreeBSD mirror sites mailing lists</a>.</p></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="mirror-requirements"></a>2. Requirements for FreeBSD Mirrors</h2></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-diskspace"></a>2.1. Disk Space</h3></div></div></div><p>Disk space is one of the most important requirements.
+	Depending on the set of releases, architectures, and degree of
+	completeness you want to mirror, a huge amount of disk space
+	may be consumed.  Also keep in mind that
+	<span class="emphasis"><em>official</em></span> mirrors are probably required to
+	be complete.  The web pages should always be mirrored
+	completely.  Also note that the numbers stated here are
+	reflecting the current state (at
+	12.0-RELEASE/11.3-RELEASE).  Further
+	development and releases will only increase the required
+	amount.  Also make sure to keep some (ca. 10-20%) extra space
+	around just to be sure.  Here are some approximate
+	figures:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Full FTP Distribution: 1.4 TB</p></li><li class="listitem"><p>CTM deltas: 10 GB</p></li><li class="listitem"><p>Web pages: 1GB</p></li></ul></div><p>The current disk usage of FTP Distribution can be found at
+	<a class="link" href="ftp://ftp.FreeBSD.org/pub/FreeBSD/dir.sizes" target="_top">ftp://ftp.FreeBSD.org/pub/FreeBSD/dir.sizes</a>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-bandwidth"></a>2.2. Network Connection/Bandwidth</h3></div></div></div><p>Of course, you need to be connected to the Internet.  The
+	required bandwidth depends on your intended use of the mirror.
+	If you just want to mirror some parts of FreeBSD for local use
+	at your site/intranet, the demand may be much smaller than if
+	you want to make the files publicly available.  If you intend
+	to become an official mirror, the bandwidth required will be
+	even higher.  We can only give rough estimates here:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Local site, no public access: basically no minimum,
+	    but &lt; 2 Mbps could make syncing too
+	    slow.</p></li><li class="listitem"><p>Unofficial public site: 34 Mbps is probably a good
+	    start.</p></li><li class="listitem"><p>Official site: &gt; 100 Mbps is recommended, and your
+	    host should be connected as close as possible to your
+	    border router.</p></li></ul></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-system"></a>2.3. System Requirements, CPU, RAM</h3></div></div></div><p>One thing this depends on the expected number of clients,
+	which is determined by the server's policy.  It is also
+	affected by the types of services you want to offer.  Plain
+	FTP or HTTP services may not require a huge amount of
+	resources.  Watch out if you provide rsync.  This can have a
+	huge impact on CPU and memory requirements as it is considered
+	a memory hog.  The following are just examples to give you a
+	very rough hint.</p><p>For a moderately visited site that offers
+	<span class="application">rsync</span>, you might consider a current
+	CPU with around 800MHz - 1 GHz, and at least 512MB RAM. This
+	is probably the minimum you want for an
+	<span class="emphasis"><em>official</em></span> site.</p><p>For a frequently used site you definitely need more RAM
+	(consider 2GB as a good start) and possibly more CPU, which
+	could also mean that you need to go for a SMP system.</p><p>You also want to consider a fast disk subsystem.
+	Operations on the SVN repository require a fast disk subsystem
+	(RAID is highly advised).  A SCSI controller that has a cache
+	of its own can also speed up things since most of these
+	services incur a large number of small modifications to the
+	disk.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-services"></a>2.4. Services to Offer</h3></div></div></div><p>Every mirror site is required to have a set of core
+	services available.  In addition to these required services,
+	there are a number of optional services that server
+	administrators may choose to offer.  This section explains
+	which services you can provide and how to go about
+	implementing them.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-serv-ftp"></a>2.4.1. FTP (required for FTP Fileset)</h4></div></div></div><p>This is one of the most basic services, and it is
+	  required for each mirror offering public FTP distributions.
+	  FTP access must be anonymous, and no upload/download ratios
+	  are allowed (a ridiculous thing anyway).  Upload capability
+	  is not required (and <span class="emphasis"><em>must</em></span> never be
+	  allowed for the FreeBSD file space).  Also the FreeBSD
+	  archive should be available under the path
+	  <code class="filename">/pub/FreeBSD</code>.</p><p>There is a lot of software available which can be set up
+	  to allow anonymous FTP (in alphabetical order).</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="command">/usr/libexec/ftpd</code>: FreeBSD's own
+	      ftpd can be used.  Be sure to read <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ftpd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ftpd</span>(8)</span></a>.</p></li><li class="listitem"><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/ftp/ncftpd/pkg-descr">ftp/ncftpd</a>: A commercial package,
+	      free for educational use.</p></li><li class="listitem"><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/ftp/oftpd/pkg-descr">ftp/oftpd</a>: An ftpd designed with
+	      security as a main focus.</p></li><li class="listitem"><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/ftp/proftpd/pkg-descr">ftp/proftpd</a>: A modular and very
+	      flexible ftpd.</p></li><li class="listitem"><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/ftp/pure-ftpd/pkg-descr">ftp/pure-ftpd</a>: Another ftpd
+	      developed with security in mind.</p></li><li class="listitem"><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/ftp/twoftpd/pkg-descr">ftp/twoftpd</a>: As
+	      above.</p></li><li class="listitem"><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/ftp/vsftpd/pkg-descr">ftp/vsftpd</a>: The <span class="quote">&#8220;<span class="quote">very
+		secure</span>&#8221;</span> ftpd.</p></li></ul></div><p>FreeBSD's <span class="application">ftpd</span>,
+	  <span class="application">proftpd</span> and maybe
+	  <span class="application">ncftpd</span> are among the most
+	  commonly used FTPds.  The others do not have a large
+	  userbase among mirror sites.  One thing to consider is that
+	  you may need flexibility in limiting how many simultaneous
+	  connections are allowed, thus limiting how much network
+	  bandwidth and system resources are consumed.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-serv-rsync"></a>2.4.2. Rsync (optional for FTP Fileset)</h4></div></div></div><p><span class="application">Rsync</span> is often offered for
+	  access to the contents of the FTP area of FreeBSD, so other
+	  mirror sites can use your system as their source.  The
+	  protocol is different from FTP in many ways.  It is much
+	  more bandwidth friendly, as only differences between files
+	  are transferred instead of whole files when they change.
+	  <span class="application">Rsync</span> does require a significant
+	  amount of memory for each instance.  The size depends on the
+	  size of the synced module in terms of the number of
+	  directories and files.  <span class="application">Rsync</span> can
+	  use <code class="command">rsh</code> and <code class="command">ssh</code> (now
+	  default) as a transport, or use its own protocol for
+	  stand-alone access (this is the preferred method for public
+	  rsync servers).  Authentication, connection limits, and
+	  other restrictions may be applied.  There is just one
+	  software package available:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/net/rsync/pkg-descr">net/rsync</a></p></li></ul></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-serv-http"></a>2.4.3. HTTP (required for Web Pages, Optional for FTP
+	  Fileset)</h4></div></div></div><p>If you want to offer the FreeBSD web pages, you will
+	  need to install a web server.  You may optionally offer the
+	  FTP fileset via HTTP.  The choice of web server software is
+	  left up to the mirror administrator.  Some of the most
+	  popular choices are:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/www/apache24/pkg-descr">www/apache24</a>:
+	      <span class="application">Apache</span> is still one of the
+	      most widely deployed web servers on the Internet.  It is
+	      used extensively by the FreeBSD Project.</p></li><li class="listitem"><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/www/boa/pkg-descr">www/boa</a>:
+	      <span class="application">Boa</span> is a single-tasking HTTP
+	      server.  Unlike traditional web servers, it does not
+	      fork for each incoming connection, nor does it fork many
+	      copies of itself to handle multiple connections.
+	      Although, it should provide considerably great
+	      performance for purely static content.</p></li><li class="listitem"><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/www/cherokee/pkg-descr">www/cherokee</a>:
+	      <span class="application">&gt;Cherokee</span> is a very fast,
+	      flexible and easy to configure web server.  It supports
+	      the widespread technologies nowadays: FastCGI, SCGI,
+	      PHP, CGI, SSL/TLS encrypted connections, vhosts, users
+	      authentication, on the fly encoding and load balancing.
+	      It also generates <span class="application">Apache</span>
+	      compatible log files.</p></li><li class="listitem"><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/www/lighttpd/pkg-descr">www/lighttpd</a>:
+	      <span class="application">lighttpd</span> is a secure, fast,
+	      compliant and very flexible web server which has been
+	      optimized for high-performance environments.  It has a
+	      very low memory footprint compared to other web servers
+	      and takes care of cpu-load.</p></li><li class="listitem"><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/www/nginx/pkg-descr">www/nginx</a>:
+	      <span class="application">nginx</span> is a high performance
+	      edge web server with a low memory footprint and key
+	      features to build a modern and efficient web
+	      infrastructure.  Features include a HTTP server, HTTP
+	      and mail reverse proxy, caching, load balancing,
+	      compression, request throttling, connection multiplexing
+	      and reuse, SSL offload and HTTP media streaming.</p></li><li class="listitem"><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/www/thttpd/pkg-descr">www/thttpd</a>: If you are going to
+	      be serving a large amount of static content you may find
+	      that using an application such as
+	      <span class="application">thttpd</span> is more efficient than
+	      others.  It is also optimized for excellent performance
+	      on FreeBSD.</p></li></ul></div></div></div></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="mirror-howto"></a>3. How to Mirror FreeBSD</h2></div></div></div><p>Ok, now you know the requirements and how to offer the
+      services, but not how to get it.  :-) This section explains how
+      to actually mirror the various parts of FreeBSD, what tools to
+      use, and where to mirror from.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-ftp-rsync"></a>3.1. Mirroring the FTP Site</h3></div></div></div><p>The FTP area is the largest amount of data that needs to
+	be mirrored.  It includes the <span class="emphasis"><em>distribution
+	  sets</em></span> required for network installation, the
+	<span class="emphasis"><em>branches</em></span> which are actually snapshots of
+	checked-out source trees, the <span class="emphasis"><em>ISO Images</em></span>
+	to write CD-ROMs with the installation distribution, a live
+	file system, and a snapshot of the ports tree.  All of course
+	for various FreeBSD versions, and various
+	architectures.</p><p>The best way to mirror the FTP area is
+	<span class="application">rsync</span>.  You can install the port
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/net/rsync/pkg-descr">net/rsync</a> and then use rsync to sync with
+	your upstream host.  <span class="application">rsync</span> is
+	already mentioned in <a class="xref" href="#mirror-serv-rsync" title="2.4.2. Rsync (optional for FTP Fileset)">Section 2.4.2, &#8220;Rsync (optional for FTP Fileset)&#8221;</a>.
+	Since <span class="application">rsync</span> access is not required,
+	your preferred upstream site may not allow it.  You may need
+	to hunt around a little bit to find a site that allows
+	<span class="application">rsync</span> access.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Since the number of <span class="application">rsync</span>
+	  clients will have a significant impact on the server
+	  machine, most admins impose limitations on their server.
+	  For a mirror, you should ask the site maintainer you are
+	  syncing from about their policy, and maybe an exception for
+	  your host (since you are a mirror).</p></div><p>A command line to mirror FreeBSD might look like:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>rsync -vaHz --delete rsync://ftp4.de.FreeBSD.org/FreeBSD/ /pub/FreeBSD/</code></strong></pre><p>Consult the documentation for
+	<span class="application">rsync</span>, which is also available at
+	<a class="link" href="http://rsync.samba.org/" target="_top">http://rsync.samba.org/</a>,
+	about the various options to be used with rsync.  If you sync
+	the whole module (unlike subdirectories), be aware that the
+	module-directory (here "FreeBSD") will not be created, so you
+	cannot omit the target directory.  Also you might want to set
+	up a script framework that calls such a command via
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=cron&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">cron</span>(8)</span></a>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-www"></a>3.2. Mirroring the WWW Pages</h3></div></div></div><p>The FreeBSD website should only be mirrored via
+	<span class="application">rsync</span>.</p><p>A command line to mirror the FreeBSD web site might look
+	like:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>rsync -vaHz --delete rsync://bit0.us-west.freebsd.org/FreeBSD-www-data/ /usr/local/www/</code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-pkgs"></a>3.3. Mirroring Packages</h3></div></div></div><p>Due to very high requirements of bandwidth, storage and
+	adminstration the FreeBSD Project has decided not to allow public
+	mirrors of packages.  For sites with lots of machines, it
+	might be advantagous to run a caching HTTP proxy for the
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pkg&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pkg</span>(8)</span></a> process.  Alternatively specific packages and
+	their dependencies can be fetched by running something like
+	the following:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>pkg fetch -d -o <em class="replaceable"><code>/usr/local/mirror</code></em> <em class="replaceable"><code>vim</code></em></code></strong></pre><p>Once those packages have been fetched, the repository
+	metadata must be generated by running:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>pkg repo <em class="replaceable"><code>/usr/local/mirror</code></em></code></strong></pre><p>Once the packages have been fetched and the metadata for
+	the repository has been generated, serve the packages up to
+	the client machines via HTTP.  For additional information see
+	the man pages for <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pkg&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pkg</span>(8)</span></a>, specifically the
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pkg-repo&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pkg-repo</span>(8)</span></a> page.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-how-often"></a>3.4. How Often Should I Mirror?</h3></div></div></div><p>Every mirror should be updated at a minimum of once per
+	day.  Certainly a script with locking to prevent multiple runs
+	happening at the same time will be needed to run from
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=cron&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">cron</span>(8)</span></a>.  Since nearly every admin does this in their own
+	way, specific instructions cannot be provided.  It could work
+	something like this:</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p>Put the command to run your mirroring application in a
+	    script.  Use of a plain <code class="command">/bin/sh</code> script
+	    is recommended.</p></li><li class="step"><p>Add some output redirections so diagnostic messages
+	    are logged to a file.</p></li><li class="step"><p>Test if your script works.  Check the logs.</p></li><li class="step"><p>Use <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=crontab&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">crontab</span>(1)</span></a> to add the script to the
+	    appropriate user's <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=crontab&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">crontab</span>(5)</span></a>.  This should be a
+	    different user than what your FTP daemon runs as so that
+	    if file permissions inside your FTP area are not
+	    world-readable those files cannot be accessed by anonymous
+	    FTP.  This is used to <span class="quote">&#8220;<span class="quote">stage</span>&#8221;</span> releases
+	    &#8212; making sure all of the official mirror sites have
+	    all of the necessary release files on release day.</p></li></ol></div><p>Here are some recommended schedules:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>FTP fileset: daily</p></li><li class="listitem"><p>WWW pages: daily</p></li></ul></div></div></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="mirror-where"></a>4. Where to Mirror From</h2></div></div></div><p>This is an important issue.  So this section will spend some
+      effort to explain the backgrounds.  We will say this several
+      times: under no circumstances should you mirror from <code class="systemitem">ftp.FreeBSD.org</code>.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-where-organization"></a>4.1. A few Words About the Organization</h3></div></div></div><p>Mirrors are organized by country.  All official mirrors
+	have a DNS entry of the form <code class="systemitem">ftpN.CC.FreeBSD.org</code>.
+	<span class="emphasis"><em>CC</em></span> (i.e., country code) is the
+	<span class="emphasis"><em>top level domain</em></span> (TLD) of the country
+	where this mirror is located.  <span class="emphasis"><em>N</em></span> is a
+	number, telling that the host would be the
+	<span class="emphasis"><em>Nth</em></span> mirror in that country.  (Same
+	applies to <code class="systemitem">wwwN.CC.FreeBSD.org</code>, etc.)
+	There are mirrors with no <span class="emphasis"><em>CC</em></span> part.  These
+	are the mirror sites that are very well connected and allow a
+	large number of concurrent users.  <code class="systemitem">ftp.FreeBSD.org</code> is
+	actually two machines, one currently located in Denmark and
+	the other in the United States.  It is
+	<span class="emphasis"><em>NOT</em></span> a master site and should never be
+	used to mirror from.  Lots of online documentation leads
+	<span class="quote">&#8220;<span class="quote">interactive</span>&#8221;</span>users to <code class="systemitem">ftp.FreeBSD.org</code> so
+	automated mirroring systems should find a different machine to
+	mirror from.</p><p>Additionally there exists a hierarchy of mirrors, which is
+	described in terms of <span class="emphasis"><em>tiers</em></span>.  The master
+	sites are not referred to but can be described as
+	<span class="emphasis"><em>Tier-0</em></span>.  Mirrors that mirror from these
+	sites can be considered <span class="emphasis"><em>Tier-1</em></span>, mirrors
+	of <span class="emphasis"><em>Tier-1</em></span>-mirrors, are
+	<span class="emphasis"><em>Tier-2</em></span>, etc.  Official sites are
+	encouraged to be of a low <span class="emphasis"><em>tier</em></span>, but the
+	lower the tier the higher the requirements in terms as
+	described in <a class="xref" href="#mirror-requirements" title="2. Requirements for FreeBSD Mirrors">Section 2, &#8220;Requirements for FreeBSD Mirrors&#8221;</a>.  Also
+	access to low-tier-mirrors may be restricted, and access to
+	master sites is definitely restricted.  The
+	<span class="emphasis"><em>tier</em></span>-hierarchy is not reflected by DNS
+	and generally not documented anywhere except for the master
+	sites.  However, official mirrors with low numbers like 1-4,
+	are usually <span class="emphasis"><em>Tier-1</em></span> (this is just a rough
+	hint, and there is no rule).</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-where-where"></a>4.2. Ok, but Where Should I get the Stuff Now?</h3></div></div></div><p>Under no circumstances should you mirror from <code class="systemitem">ftp.FreeBSD.org</code>.  The
+	short answer is: from the site that is closest to you in
+	Internet terms, or gives you the fastest access.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-where-simple"></a>4.2.1. I Just Want to Mirror from Somewhere!</h4></div></div></div><p>If you have no special intentions or requirements, the
+	  statement in <a class="xref" href="#mirror-where-where" title="4.2. Ok, but Where Should I get the Stuff Now?">Section 4.2, &#8220;Ok, but Where Should I get the Stuff Now?&#8221;</a> applies.
+	  This means:</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p>Check for those which provide fastest access (number
+	      of hops, round-trip-times) and offer the services you
+	      intend to use (like
+	      <span class="application">rsync</span>).</p></li><li class="step"><p>Contact the administrators of your chosen site
+	      stating your request, and asking about their terms and
+	      policies.</p></li><li class="step"><p>Set up your mirror as described above.</p></li></ol></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-where-official"></a>4.2.2. I am an Official Mirror, What is the Right Rite for
+	  Me?</h4></div></div></div><p>In general the description in <a class="xref" href="#mirror-where-simple" title="4.2.1. I Just Want to Mirror from Somewhere!">Section 4.2.1, &#8220;I Just Want to Mirror from Somewhere!&#8221;</a> still applies.  Of course
+	  you may want to put some weight on the fact that your
+	  upstream should be of a low tier.  There are some other
+	  considerations about <span class="emphasis"><em>official</em></span> mirrors
+	  that are described in <a class="xref" href="#mirror-official" title="5. Official Mirrors">Section 5, &#8220;Official Mirrors&#8221;</a>.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-where-master"></a>4.2.3. I Want to Access the Master Sites!</h4></div></div></div><p>If you have good reasons and good prerequisites, you may
+	  want and get access to one of the master sites.  Access to
+	  these sites is generally restricted, and there are special
+	  policies for access.  If you are already an
+	  <span class="emphasis"><em>official</em></span> mirror, this certainly helps
+	  you getting access.  In any other case make sure your
+	  country really needs another mirror.  If it already has
+	  three or more, ask the <span class="quote">&#8220;<span class="quote">zone administrator</span>&#8221;</span>
+	  (<code class="email">&lt;<a xmlns="" class="email" href="mailto:hostmaster@CC.FreeBSD.org">hostmaster@CC.FreeBSD.org</a>&gt;</code>) or <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo/freebsd-hubs" target="_top">FreeBSD mirror sites mailing lists</a>
+	  first.</p><p>Whoever helped you become, an
+	  <span class="emphasis"><em>official</em></span> should have helped you gain
+	  access to an appropriate upstream host, either one of the
+	  master sites or a suitable Tier-1 site.  If not, you can
+	  send email to <code class="email">&lt;<a xmlns="" class="email" href="mailto:mirror-admin@FreeBSD.org">mirror-admin@FreeBSD.org</a>&gt;</code> to
+	  request help with that.</p><p>There is one master site for the FTP fileset.</p><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-where-master-ftp"></a>4.2.3.1. ftp-master.FreeBSD.org</h5></div></div></div><p>This is the master site for the FTP fileset.</p><p><code class="systemitem">ftp-master.FreeBSD.org</code>
+	    provides <span class="application">rsync</span> access, in
+	    addition to FTP.  Refer to <a class="xref" href="#mirror-ftp-rsync" title="3.1. Mirroring the FTP Site">Section 3.1, &#8220;Mirroring the FTP Site&#8221;</a>.</p><p>Mirrors are also encouraged to allow
+	    <span class="application">rsync</span> access for the FTP
+	    contents, since they are
+	    <span class="emphasis"><em>Tier-1</em></span>-mirrors.</p></div></div></div></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="mirror-official"></a>5. Official Mirrors</h2></div></div></div><p>Official mirrors are mirrors that</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>a) have a <code class="systemitem">FreeBSD.org</code> DNS entry
+	  (usually a CNAME).</p></li><li class="listitem"><p>b) are listed as an official mirror in the FreeBSD
+	  documentation (like handbook).</p></li></ul></div><p>So far to distinguish official mirrors.  Official mirrors
+      are not necessarily <span class="emphasis"><em>Tier-1</em></span>-mirrors.
+      However you probably will not find a
+      <span class="emphasis"><em>Tier-1</em></span>-mirror, that is not also
+      official.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-official-requirements"></a>5.1. Special Requirements for Official (tier-1)
+	Mirrors</h3></div></div></div><p>It is not so easy to state requirements for all official
+	mirrors, since the project is sort of tolerant here.  It is
+	more easy to say, what <span class="emphasis"><em>official tier-1
+	  mirrors</em></span> are required to.  All other official
+	mirrors can consider this a big
+	<span class="emphasis"><em>should</em></span>.</p><p>Tier-1 mirrors are required to:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>carry the complete fileset</p></li><li class="listitem"><p>allow access to other mirror sites</p></li><li class="listitem"><p>provide <span class="application">FTP</span> and
+	    <span class="application">rsync</span> access</p></li></ul></div><p>Furthermore, admins should be subscribed to the <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo/freebsd-hubs" target="_top">FreeBSD mirror sites mailing lists</a>.
+	See <a class="link" href="https://www.FreeBSD.org/doc/en_US.ISO8859-1/books/handbook/eresources.html#ERESOURCES-MAIL" target="_top">this
+	  link</a> for details, how to subscribe.</p><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">It is <span class="emphasis"><em>very</em></span> important for a hub
+	  administrator, especially Tier-1 hub admins, to check the
+	  <a class="link" href="https://www.FreeBSD.org/releng/" target="_top">release
+	    schedule</a> for the next FreeBSD release.  This is
+	  important because it will tell you when the next release is
+	  scheduled to come out, and thus giving you time to prepare
+	  for the big spike of traffic which follows it.</p><p xmlns="http://www.w3.org/1999/xhtml">It is also important that hub administrators try to keep
+	  their mirrors as up-to-date as possible (again, even more
+	  crucial for Tier-1 mirrors).  If Mirror1 does not update for
+	  a while, lower tier mirrors will begin to mirror old data
+	  from Mirror1 and thus begins a downward spiral... Keep your
+	  mirrors up to date!</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-official-become"></a>5.2. How to Become Official Then?</h3></div></div></div><p>We are not accepting any new mirrors at this time.</p></div></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="mirror-statpages"></a>6. Some Statistics from Mirror Sites</h2></div></div></div><p>Here are links to the stat pages of your favorite mirrors
+      (aka the only ones who feel like providing stats).</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-statpagesftp"></a>6.1. FTP Site Statistics</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>ftp.is.FreeBSD.org -
+	    <code class="email">&lt;<a xmlns="" class="email" href="mailto:hostmaster@is.FreeBSD.org">hostmaster@is.FreeBSD.org</a>&gt;</code> - <a class="link" href="http://www.rhnet.is/status/draupnir/draupnir.html" target="_top">
+	      (Bandwidth)</a> <a class="link" href="http://www.rhnet.is/status/ftp/ftp-notendur.html" target="_top">(FTP
+	      processes)</a> <a class="link" href="http://www.rhnet.is/status/ftp/http-notendur.html" target="_top">(HTTP
+	      processes)</a></p></li><li class="listitem"><p>ftp2.ru.FreeBSD.org -
+	    <code class="email">&lt;<a xmlns="" class="email" href="mailto:mirror@macomnet.ru">mirror@macomnet.ru</a>&gt;</code> - <a class="link" href="http://mirror.macomnet.net/mrtg/mirror.macomnet.net_195.128.64.25.html" target="_top">(Bandwidth)</a>
+	    <a class="link" href="http://mirror.macomnet.net/mrtg/mirror.macomnet.net_proc.html" target="_top">(HTTP
+	      and FTP users)</a></p></li></ul></div></div></div></div></body></html>

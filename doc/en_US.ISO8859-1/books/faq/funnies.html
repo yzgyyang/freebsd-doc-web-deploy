@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>Chapter 16. The FreeBSD Funnies</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Frequently Asked Questions for FreeBSD 11.X and 12.X" /><link rel="up" href="index.html" title="Frequently Asked Questions for FreeBSD 11.X and 12.X" /><link rel="prev" href="misc.html" title="Chapter 15. Miscellaneous Questions" /><link rel="next" href="advanced.html" title="Chapter 17. Advanced Topics" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 16. The FreeBSD Funnies</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="misc.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="advanced.html">Next</a></td></tr></table><hr /></div><div class="chapter"><div xmlns="" class="titlepage"><div><div><h1 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="funnies"></a>Chapter 16. The FreeBSD Funnies</h1></div></div></div><div class="qandaset"><a id="idp52097400"></a><dl><dt>16.1. <a href="funnies.html#idp52097656">How cool is FreeBSD?</a></dt><dt>16.2. <a href="funnies.html#idp52102776">Who is scratching in my memory banks??</a></dt><dt>16.3. <a href="funnies.html#idp52332536">How many FreeBSD hackers does it take to change a
+	    lightbulb?</a></dt><dt>16.4. <a href="funnies.html#idp52396664">Where does data written to
+	    /dev/null go?</a></dt><dt>16.5. <a href="funnies.html#idp52402680">My colleague sits at the computer too much, how
+	    can I prank her?</a></dt></dl><table border="0" style="width: 100%;"><colgroup><col align="left" width="1%" /><col /></colgroup><tbody><tr class="question"><td align="left" valign="top"><a id="idp52097656"></a><a id="very-very-cool"></a><p><strong>16.1.</strong></p></td><td align="left" valign="top"><p>How cool is FreeBSD?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>Q.  Has anyone done any temperature testing while
+	    running FreeBSD?  I know <span class="trademark">Linux</span>® runs cooler than DOS, but
+	    have never seen a mention of FreeBSD.  It seems to run really
+	    hot.</p><p>A.  No, but we have done numerous taste tests on
+	    blindfolded volunteers who have also had 250 micrograms of
+	    LSD-25 administered beforehand.  35% of the volunteers
+	    said that FreeBSD tasted sort of orange, whereas <span class="trademark">Linux</span>®
+	    tasted like purple haze.  Neither group mentioned any
+	    significant variances in temperature.  We eventually had
+	    to throw the results of this survey out entirely anyway
+	    when we found that too many volunteers were wandering out
+	    of the room during the tests, thus skewing the results.
+	    We think most of the volunteers are at Apple now, working
+	    on their new <span class="quote">&#8220;<span class="quote">scratch and sniff</span>&#8221;</span> GUI.  It is
+	    a funny old business we are in!</p><p>Seriously, FreeBSD uses the <acronym class="acronym">HLT</acronym> (halt)
+	    instruction when the system is idle thus lowering its
+	    energy consumption and therefore the heat it generates.
+	    Also if you have <acronym class="acronym">ACPI</acronym> (Advanced
+	    Configuration and Power Interface) configured, then FreeBSD
+	    can also put the CPU into a low power mode.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp52102776"></a><a id="letmeoutofhere"></a><p><strong>16.2.</strong></p></td><td align="left" valign="top"><p>Who is scratching in my memory banks??</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>Q.  Is there anything <span class="quote">&#8220;<span class="quote">odd</span>&#8221;</span> that FreeBSD
+	    does when compiling the kernel which would cause the
+	    memory to make a scratchy sound?  When compiling (and for
+	    a brief moment after recognizing the floppy drive upon
+	    startup, as well), a strange scratchy sound emanates from
+	    what appears to be the memory banks.</p><p>A.  Yes!  You will see frequent references to
+	    <span class="quote">&#8220;<span class="quote">daemons</span>&#8221;</span> in the BSD documentation, and what
+	    most people do not know is that this refers to genuine,
+	    non-corporeal entities that now possess your computer.
+	    The scratchy sound coming from your memory is actually
+	    high-pitched whispering exchanged among the daemons as
+	    they best decide how to deal with various system
+	    administration tasks.</p><p>If the noise gets to you, a good <code class="command">fdisk
+	      /mbr</code> from DOS will get rid of them, but do not
+	    be surprised if they react adversely and try to stop you.
+	    In fact, if at any point during the exercise you hear the
+	    satanic voice of Bill Gates coming from the built-in
+	    speaker, take off running and do not ever look back!
+	    Freed from the counterbalancing influence of the BSD
+	    daemons, the twin demons of DOS and <span class="trademark">Windows</span>® are often
+	    able to re-assert total control over your machine to the
+	    eternal damnation of your soul.  Now that you know, given
+	    a choice you would probably prefer to get used to the
+	    scratchy noises, no?</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp52332536"></a><a id="changing-lightbulbs"></a><p><strong>16.3.</strong></p></td><td align="left" valign="top"><p>How many FreeBSD hackers does it take to change a
+	    lightbulb?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>One thousand, one hundred and sixty-nine:</p><p>Twenty-three to complain to -CURRENT about the lights
+	    being out;</p><p>Four to claim that it is a configuration problem, and
+	    that such matters really belong on -questions;</p><p>Three to submit PRs about it, one of which is misfiled
+	    under doc and consists only of <span class="quote">&#8220;<span class="quote">it's
+	      dark</span>&#8221;</span>;</p><p>One to commit an untested lightbulb which breaks
+	    buildworld, then back it out five minutes later;</p><p>Eight to flame the PR originators for not including
+	    patches in their PRs;</p><p>Five to complain about buildworld being broken;</p><p>Thirty-one to answer that it works for them, and they
+	    must have updated at a bad time;</p><p>One to post a patch for a new lightbulb to
+	    -hackers;</p><p>One to complain that he had patches for this three
+	    years ago, but when he sent them to -CURRENT they were
+	    just ignored, and he has had bad experiences with the PR
+	    system; besides, the proposed new lightbulb is
+	    non-reflexive;</p><p>Thirty-seven to scream that lightbulbs do not belong
+	    in the base system, that committers have no right to do
+	    things like this without consulting the Community, and
+	    WHAT IS -CORE DOING ABOUT IT!?</p><p>Two hundred to complain about the color of the bicycle
+	    shed;</p><p>Three to point out that the patch breaks
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=style&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">style</span>(9)</span></a>;</p><p>Seventeen to complain that the proposed new lightbulb
+	    is under GPL;</p><p>Five hundred and eighty-six to engage in a flame war
+	    about the comparative advantages of the GPL, the BSD
+	    license, the MIT license, the NPL, and the personal
+	    hygiene of unnamed FSF founders;</p><p>Seven to move various portions of the thread to -chat
+	    and -advocacy;</p><p>One to commit the suggested lightbulb, even though it
+	    shines dimmer than the old one;</p><p>Two to back it out with a furious flame of a commit
+	    message, arguing that FreeBSD is better off in the dark than
+	    with a dim lightbulb;</p><p>Forty-six to argue vociferously about the backing out
+	    of the dim lightbulb and demanding a statement from
+	    -core;</p><p>Eleven to request a smaller lightbulb so it will fit
+	    their Tamagotchi if we ever decide to port FreeBSD to that
+	    platform;</p><p>Seventy-three to complain about the SNR on -hackers
+	    and -chat and unsubscribe in protest;</p><p>Thirteen to post <span class="quote">&#8220;<span class="quote">unsubscribe</span>&#8221;</span>,
+	    <span class="quote">&#8220;<span class="quote">How do I unsubscribe?</span>&#8221;</span>, or <span class="quote">&#8220;<span class="quote">Please
+	      remove me from the list</span>&#8221;</span>, followed by the usual
+	    footer;</p><p>One to commit a working lightbulb while everybody is
+	    too busy flaming everybody else to notice;</p><p>Thirty-one to point out that the new lightbulb would
+	    shine 0.364% brighter if compiled with TenDRA (although it
+	    will have to be reshaped into a cube), and that FreeBSD
+	    should therefore switch to TenDRA instead of GCC;</p><p>One to complain that the new lightbulb lacks
+	    fairings;</p><p>Nine (including the PR originators) to ask <span class="quote">&#8220;<span class="quote">what
+	      is MFC?</span>&#8221;</span>;</p><p>Fifty-seven to complain about the lights being out two
+	    weeks after the bulb has been changed.</p><p><span class="emphasis"><em>Nik Clayton <code class="email">&lt;<a xmlns="" class="email" href="mailto:nik@FreeBSD.org">nik@FreeBSD.org</a>&gt;</code> adds:</em></span></p><p><span class="emphasis"><em>I was laughing quite hard at
+	      this.</em></span></p><p><span class="emphasis"><em>And then I thought, <span class="quote">&#8220;<span class="quote">Hang on,
+	      shouldn't there be '1 to document it.' in that list
+	      somewhere?</span>&#8221;</span></em></span></p><p><span class="emphasis"><em>And then I was enlightened
+	      :-)</em></span></p><p><span class="emphasis"><em>Thomas Abthorpe <code class="email">&lt;<a xmlns="" class="email" href="mailto:tabthorpe@FreeBSD.org">tabthorpe@FreeBSD.org</a>&gt;</code></em></span> says:
+	    <span class="quote">&#8220;<span class="quote">None, <span class="emphasis"><em>real</em></span> FreeBSD hackers are
+	      not afraid of the dark!</span>&#8221;</span></p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp52396664"></a><a id="dev-null"></a><p><strong>16.4.</strong></p></td><td align="left" valign="top"><p>Where does data written to
+	    <code class="filename">/dev/null</code> go?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>It goes into a special data sink in the CPU where it
+	    is converted to heat which is vented through the heatsink
+	    / fan assembly.  This is why CPU cooling is increasingly
+	    important; as people get used to faster processors, they
+	    become careless with their data and more and more of it
+	    ends up in <code class="filename">/dev/null</code>, overheating
+	    their CPUs.  If you delete <code class="filename">/dev/null</code>
+	    (which effectively disables the CPU data sink) your CPU
+	    may run cooler but your system will quickly become
+	    constipated with all that excess data and start to behave
+	    erratically.  If you have a fast network connection you
+	    can cool down your CPU by reading data out of
+	    <code class="filename">/dev/random</code> and sending it off
+	    somewhere; however you run the risk of overheating your
+	    network connection and <code class="filename">/</code> or angering
+	    your ISP, as most of the data will end up getting
+	    converted to heat by their equipment, but they generally
+	    have good cooling, so if you do not overdo it you should
+	    be OK.</p><p><span class="emphasis"><em>Paul Robinson adds:</em></span></p><p>There are other methods.  As every good sysadmin
+	    knows, it is part of standard practice to send data to the
+	    screen of interesting variety to keep all the pixies that
+	    make up your picture happy.  Screen pixies (commonly
+	    mis-typed or re-named as <span class="quote">&#8220;<span class="quote">pixels</span>&#8221;</span>) are
+	    categorized by the type of hat they wear (red, green or
+	    blue) and will hide or appear (thereby showing the color
+	    of their hat) whenever they receive a little piece of
+	    food.  Video cards turn data into pixie-food, and then
+	    send them to the pixies &#8212; the more expensive the
+	    card, the better the food, so the better behaved the
+	    pixies are.  They also need constant stimulation &#8212;
+	    this is why screen savers exist.</p><p>To take your suggestions further, you could just throw
+	    the random data to console, thereby letting the pixies
+	    consume it.  This causes no heat to be produced at all,
+	    keeps the pixies happy and gets rid of your data quite
+	    quickly, even if it does make things look a bit messy on
+	    your screen.</p><p>Incidentally, as an ex-admin of a large ISP who
+	    experienced many problems attempting to maintain a stable
+	    temperature in a server room, I would strongly discourage
+	    people sending the data they do not want out to the
+	    network.  The fairies who do the packet switching and
+	    routing get annoyed by it as well.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp52402680"></a><a id="punk-my-friend"></a><p><strong>16.5.</strong></p></td><td align="left" valign="top"><p>My colleague sits at the computer too much, how
+	    can I prank her?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>Install <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/games/sl/pkg-descr">games/sl</a> and
+	    wait for her to mistype <strong class="userinput"><code>sl</code></strong> for
+	    <code class="command">ls</code>.</p></td></tr></tbody></table></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="misc.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="advanced.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 15. Miscellaneous Questions </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 17. Advanced Topics</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

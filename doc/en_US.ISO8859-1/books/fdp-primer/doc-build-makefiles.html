@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>5.3. Understanding Makefiles in the Documentation Tree</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Documentation Project Primer for New Contributors" /><link rel="up" href="doc-build.html" title="Chapter 5. The Documentation Build Process" /><link rel="prev" href="doc-build-toolset.html" title="5.2. The FreeBSD Documentation Build Toolset" /><link rel="next" href="make-includes.html" title="5.4. FreeBSD Documentation Project Make Includes" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5.3. Understanding <code class="filename">Makefile</code>s in the
+      Documentation Tree</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="doc-build-toolset.html">Prev</a> </td><th width="60%" align="center">Chapter 5. The Documentation Build Process</th><td width="20%" align="right"> <a accesskey="n" href="make-includes.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="doc-build-makefiles"></a>5.3. Understanding <code class="filename">Makefile</code>s in the
+      Documentation Tree</h2></div></div></div><p>There are three main types of <code class="filename">Makefile</code>s
+      in the FreeBSD Documentation Project tree.</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><a class="link" href="doc-build-makefiles.html#sub-make" title="5.3.1. Subdirectory Makefiles">Subdirectory
+	    <code class="filename">Makefile</code>s</a> simply pass
+	  commands to those directories below them.</p></li><li class="listitem"><p><a class="link" href="doc-build-makefiles.html#doc-make" title="5.3.2. Documentation Makefiles">Documentation
+	    <code class="filename">Makefile</code>s</a> describe the
+	  documents that are produced from this
+	  directory.</p></li><li class="listitem"><p><a class="link" href="make-includes.html" title="5.4. FreeBSD Documentation Project Make Includes"><span class="application">Make</span>
+	    includes</a> are the glue that perform the document
+	  production, and are usually of the form
+	  <code class="filename">doc.<em class="replaceable"><code>xxx</code></em>.mk</code>.</p></li></ul></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="sub-make"></a>5.3.1. Subdirectory <code class="filename">Makefile</code>s</h3></div></div></div><p>These <code class="filename">Makefile</code>s usually take the form
+	of:</p><pre class="programlisting">SUBDIR =articles
+SUBDIR+=books
+
+COMPAT_SYMLINK = en
+
+DOC_PREFIX?= ${.CURDIR}/..
+.include "${DOC_PREFIX}/share/mk/doc.project.mk"</pre><p>The first four non-empty lines define the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=make&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">make</span>(1)</span></a>
+	variables <code class="varname">SUBDIR</code>,
+	<code class="varname">COMPAT_SYMLINK</code>, and
+	<code class="varname">DOC_PREFIX</code>.</p><p>The <code class="varname">SUBDIR</code> statement and
+	<code class="varname">COMPAT_SYMLINK</code> statement show how to
+	assign a value to a variable, overriding any previous
+	value.</p><p>The second <code class="varname">SUBDIR</code> statement shows how a
+	value is appended to the current value of a variable.  The
+	<code class="varname">SUBDIR</code> variable is now <code class="literal">articles
+	  books</code>.</p><p>The <code class="varname">DOC_PREFIX</code> assignment shows how a
+	value is assigned to the variable, but only if it is not
+	already defined.  This is useful if
+	<code class="varname">DOC_PREFIX</code> is not where this
+	<code class="filename">Makefile</code> thinks it is - the user can
+	override this and provide the correct value.</p><p>What does it all mean?  <code class="varname">SUBDIR</code>
+	mentions which subdirectories below this one the build process
+	should pass any work on to.</p><p><code class="varname">COMPAT_SYMLINK</code> is specific to
+	compatibility symlinks (amazingly enough) for languages to
+	their official encoding (<code class="filename">doc/en</code> would
+	point to <code class="filename">en_US.ISO-8859-1</code>).</p><p><code class="varname">DOC_PREFIX</code> is the path to the root of
+	the FreeBSD Document Project tree.  This is not always that easy
+	to find, and is also easily overridden, to allow for
+	flexibility.  <code class="varname">.CURDIR</code> is a <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=make&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">make</span>(1)</span></a>
+	builtin variable with the path to the current
+	directory.</p><p>The final line includes the FreeBSD Documentation Project's
+	project-wide <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=make&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">make</span>(1)</span></a> system file
+	<code class="filename">doc.project.mk</code> which is the glue which
+	converts these variables into build instructions.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="doc-make"></a>5.3.2. Documentation <code class="filename">Makefile</code>s</h3></div></div></div><p>These <code class="filename">Makefile</code>s set <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=make&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">make</span>(1)</span></a>
+	variables that describe how to build the documentation
+	contained in that directory.</p><p>Here is an example:</p><pre class="programlisting">MAINTAINER=nik@FreeBSD.org
+
+DOC?= book
+
+FORMATS?= html-split html
+
+INSTALL_COMPRESSED?= gz
+INSTALL_ONLY_COMPRESSED?=
+
+# SGML content
+SRCS=  book.xml
+
+DOC_PREFIX?= ${.CURDIR}/../../..
+
+.include "$(DOC_PREFIX)/share/mk/docproj.docbook.mk"</pre><p>The <code class="varname">MAINTAINER</code> variable allows
+	committers to claim ownership of a document in the FreeBSD
+	Documentation Project, and take responsibility for maintaining
+	it.</p><p><code class="varname">DOC</code> is the name (sans the
+	<code class="filename">.xml</code> extension) of the main document
+	created by this directory.  <code class="varname">SRCS</code> lists all
+	the individual files that make up the document.  This should
+	also include important files in which a change should result
+	in a rebuild.</p><p><code class="varname">FORMATS</code> indicates the default formats
+	that should be built for this document.
+	<code class="varname">INSTALL_COMPRESSED</code> is the default list of
+	compression techniques that should be used in the document
+	build.  <code class="varname">INSTALL_ONLY_COMPRESS</code>, empty by
+	default, should be non-empty if only compressed documents are
+	desired in the build.</p><p>The <code class="varname">DOC_PREFIX</code> and include statements
+	should be familiar already.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="doc-build-toolset.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="doc-build.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="make-includes.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">5.2. The FreeBSD Documentation Build Toolset </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 5.4. FreeBSD Documentation Project
+      <span class="application">Make</span> Includes</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

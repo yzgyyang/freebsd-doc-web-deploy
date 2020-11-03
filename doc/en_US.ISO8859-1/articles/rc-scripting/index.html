@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>Practical rc.d scripting in BSD</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><meta name="description" content="Beginners may find it difficult to relate the facts from the formal documentation on the BSD rc.d framework with the practical tasks of rc.d scripting. In this article, we consider a few typical cases of increasing complexity, show rc.d features suited for each case, and discuss how they work. Such an examination should provide reference points for further study of the design and efficient application of rc.d." /><link rel="home" href="index.html" title="Practical rc.d scripting in BSD" /><link rel="next" href="rcng-task.html" title="2. Outlining the task" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Practical rc.d scripting in BSD</th></tr><tr><td width="20%" align="left"> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="rcng-task.html">Next</a></td></tr></table><hr /></div><div xml:lang="en" class="article" lang="en"><div xmlns="" class="titlepage"><div><div><h1 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp46772984"></a>Practical rc.d scripting in BSD</h1></div><div><div xmlns="http://www.w3.org/1999/xhtml" class="author"><h3 class="author"><span class="firstname">Yar</span> <span class="surname">Tikhiy</span></h3><div class="affiliation"><div class="address"><p><code class="email">&lt;<a xmlns="" class="email" href="mailto:yar@FreeBSD.org">yar@FreeBSD.org</a>&gt;</code></p></div></div></div></div><div>Revision: <a href="https://svnweb.freebsd.org/changeset/doc/c5d00c16fb"><span class="svnref">c5d00c16fb</span></a></div><div><p xmlns="http://www.w3.org/1999/xhtml" class="copyright">Copyright © 2005-2006, 2012 The FreeBSD Project</p></div><div><a xmlns="http://www.w3.org/1999/xhtml" href="trademarks.html">Legal Notice</a></div><div>Last modified on 2014-04-29 21:39:27 +0000 by wblock.</div><div><div xmlns="http://www.w3.org/1999/xhtml" class="abstract"><div class="abstract-title">Abstract</div><p>Beginners may find it difficult to relate the
+	facts from the formal documentation on the BSD
+	<code class="filename">rc.d</code> framework with the practical tasks
+	of <code class="filename">rc.d</code> scripting.  In this article,
+	we consider a few typical cases of increasing complexity,
+	show <code class="filename">rc.d</code> features suited for each
+	case, and discuss how they work.  Such an examination should
+	provide reference points for further study of the design
+	and efficient application of <code class="filename">rc.d</code>.</p></div></div></div><div class="docformatnavi">
+      [
+      
+	  Split HTML
+	
+      /
+      <a href="article.html">Single HTML</a>
+      ]
+    </div><hr /></div><div class="toc"><div class="toc-title">Table of Contents</div><dl class="toc"><dt><span class="sect1"><a href="index.html#rcng-intro">1. Introduction</a></span></dt><dt><span class="sect1"><a href="rcng-task.html">2. Outlining the task</a></span></dt><dt><span class="sect1"><a href="rcng-dummy.html">3. A dummy script</a></span></dt><dt><span class="sect1"><a href="rcng-confdummy.html">4. A configurable dummy script</a></span></dt><dt><span class="sect1"><a href="rcng-daemon.html">5. Startup and shutdown of a simple daemon</a></span></dt><dt><span class="sect1"><a href="rcng-daemon-adv.html">6. Startup and shutdown of an advanced daemon</a></span></dt><dt><span class="sect1"><a href="rcng-hookup.html">7. Connecting a script to the rc.d framework</a></span></dt><dt><span class="sect1"><a href="rcng-args.html">8. Giving more flexibility to an rc.d script</a></span></dt><dt><span class="sect1"><a href="rcng-furthur.html">9. Further reading</a></span></dt></dl></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="rcng-intro"></a>1. Introduction</h2></div></div></div><p>The historical BSD had a monolithic startup script,
+      <code class="filename">/etc/rc</code>.  It was invoked by
+      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=init&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">init</span>(8)</span></a> at system boot time and performed all userland
+      tasks required for multi-user operation: checking and
+      mounting file systems, setting up the network, starting
+      daemons, and so on.  The precise list of tasks was not the
+      same in every system; admins needed to customize it.  With
+      few exceptions, <code class="filename">/etc/rc</code> had to be modified,
+      and true hackers liked it.</p><p>The real problem with the monolithic approach was that
+      it provided no control over the individual components started
+      from <code class="filename">/etc/rc</code>.  For instance,
+      <code class="filename">/etc/rc</code> could not restart a single daemon.
+      The system admin had to find the daemon process by hand, kill it,
+      wait until it actually exited, then browse through
+      <code class="filename">/etc/rc</code> for the flags, and finally type
+      the full command line to start the daemon again.  The task
+      would become even more difficult and prone to errors if the
+      service to restart consisted of more than one daemon or
+      demanded additional actions.  In a few words, the single
+      script failed to fulfil what scripts are for: to make the
+      system admin's life easier.</p><p>Later there was an attempt to split out some parts of
+      <code class="filename">/etc/rc</code> for the sake of starting the
+      most important subsystems separately.  The notorious example
+      was <code class="filename">/etc/netstart</code> to bring up networking.
+      It did allow for accessing the network from single-user
+      mode, but it did not integrate well into the automatic startup
+      process because parts of its code needed to interleave with
+      actions essentially unrelated to networking.  That was why
+      <code class="filename">/etc/netstart</code> mutated into
+      <code class="filename">/etc/rc.network</code>.  The latter was no
+      longer an ordinary script; it comprised of large, tangled
+      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sh&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sh</span>(1)</span></a> functions called from <code class="filename">/etc/rc</code>
+      at different stages of system startup.  However, as the startup
+      tasks grew diverse and sophisticated, the
+      <span class="quote">&#8220;<span class="quote">quasi-modular</span>&#8221;</span> approach became even more of a
+      drag than the monolithic <code class="filename">/etc/rc</code> had
+      been.</p><p>Without a clean and well-designed framework, the startup
+      scripts had to bend over backwards to satisfy the needs of
+      rapidly developing BSD-based operating systems.  It became
+      obvious at last that more steps are necessary on the way to
+      a fine-grained and extensible <code class="filename">rc</code> system.
+      Thus BSD <code class="filename">rc.d</code> was born.  Its acknowledged
+      fathers were Luke Mewburn and the NetBSD community.  Later
+      it was imported into FreeBSD.  Its name refers to the location
+      of system scripts for individual services, which is in
+      <code class="filename">/etc/rc.d</code>.  Soon we
+      will learn about more components of the <code class="filename">rc.d</code>
+      system and see how the individual scripts are invoked.</p><p>The basic ideas behind BSD <code class="filename">rc.d</code> are
+      <span class="emphasis"><em>fine modularity</em></span> and <span class="emphasis"><em>code
+      reuse</em></span>.  <span class="emphasis"><em>Fine modularity</em></span> means
+      that each basic <span class="quote">&#8220;<span class="quote">service</span>&#8221;</span> such as a system daemon
+      or primitive startup task gets its own <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sh&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sh</span>(1)</span></a> script able
+      to start the service, stop it, reload it, check its status.
+      A particular action is chosen by the command-line argument
+      to the script.  The <code class="filename">/etc/rc</code> script still
+      drives system startup, but now it merely invokes the smaller
+      scripts one by one with the <code class="option">start</code> argument.
+      It is easy to perform shutdown tasks as well by running the
+      same set of scripts with the <code class="option">stop</code> argument,
+      which is done by <code class="filename">/etc/rc.shutdown</code>.  Note
+      how closely this follows the Unix way of having a set of small
+      specialized tools, each fulfilling its task as well as possible.
+      <span class="emphasis"><em>Code reuse</em></span> means that common operations
+      are implemented as <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sh&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sh</span>(1)</span></a> functions and collected in
+      <code class="filename">/etc/rc.subr</code>.  Now a typical script can
+      be just a few lines' worth of <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sh&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sh</span>(1)</span></a> code.  Finally, an
+      important part of the <code class="filename">rc.d</code> framework is
+      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rcorder&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rcorder</span>(8)</span></a>, which helps <code class="filename">/etc/rc</code> to
+      run the small scripts orderly with respect to dependencies
+      between them.  It can help <code class="filename">/etc/rc.shutdown</code>,
+      too, because the proper order for the shutdown sequence is
+      opposite to that of startup.</p><p>The BSD <code class="filename">rc.d</code> design is described in
+      <a class="link" href="rcng-furthur.html#lukem">the original article by Luke Mewburn</a>,
+      and the <code class="filename">rc.d</code> components are documented
+      in great detail in <a class="link" href="rcng-furthur.html#manpages">the respective
+      manual pages</a>.  However, it might not appear obvious
+      to an <code class="filename">rc.d</code> newbie how to tie the numerous
+      bits and pieces together in order to create a well-styled
+      script for a particular task.  Therefore this article will
+      try a different approach to describe <code class="filename">rc.d</code>.
+      It will show which features should be used in a number of
+      typical cases, and why.  Note that this is not a how-to
+      document because our aim is not at giving ready-made recipes,
+      but at showing a few easy entrances into the
+      <code class="filename">rc.d</code> realm.  Neither is this article a
+      replacement for the relevant manual pages.  Do not hesitate
+      to refer to them for more formal and complete documentation
+      while reading this article.</p><p>There are prerequisites to understanding this article.
+      First of all, you should be familiar with the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sh&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sh</span>(1)</span></a>
+      scripting language in order to master <code class="filename">rc.d</code>.
+      In addition, you should know how the system performs
+      userland startup and shutdown tasks, which is described in
+      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rc&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rc</span>(8)</span></a>.</p><p>This article focuses on the FreeBSD branch of
+      <code class="filename">rc.d</code>.  Nevertheless, it may be useful
+      to NetBSD developers, too, because the two branches of BSD
+      <code class="filename">rc.d</code> not only share the same design
+      but also stay similar in their aspects visible to script
+      authors.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="rcng-task.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"> </td><td width="20%" align="center"> </td><td width="40%" align="right" valign="top"> 2. Outlining the task</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

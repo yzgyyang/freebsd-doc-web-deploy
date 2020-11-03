@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>A. Useful Aids</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="LDAP Authentication" /><link rel="up" href="index.html" title="LDAP Authentication" /><link rel="prev" href="secure.html" title="4. Security Considerations" /><link rel="next" href="ssl-ca.html" title="B. OpenSSL Certificates for LDAP" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">A. Useful Aids</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="secure.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ssl-ca.html">Next</a></td></tr></table><hr /></div><div class="appendix"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="useful"></a>A. Useful Aids</h2></div></div></div><p>There are a few other programs that might be useful,
+      particularly if you have many users and do not want to configure
+      everything manually.</p><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/security/pam_mkhomedir/pkg-descr">security/pam_mkhomedir</a> is a PAM module
+      that always succeeds; its purpose is to create home directories
+      for users which do not have them.  If you have dozens of client
+      servers and hundreds of users, it is much easier to use this and
+      set up skeleton directories than to prepare every home
+      directory.</p><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/sysutils/cpu/pkg-descr">sysutils/cpu</a> is a <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pw&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pw</span>(8)</span></a>-like utility
+      that can be used to manage users in the LDAP directory.  You can
+      call it directly, or wrap scripts around it.  It can handle both
+      TLS (with the <code class="option">-x</code> flag) and SSL
+      (directly).</p><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/sysutils/ldapvi/pkg-descr">sysutils/ldapvi</a> is a great utility for
+      editing LDAP values in an LDIF-like syntax.  The directory (or
+      subsection of the directory) is presented in the editor chosen
+      by the <code class="envar">EDITOR</code> environment variable.  This makes
+      it easy to enable large-scale changes in the directory without
+      having to write a custom tool.</p><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/security/openssh-portable/pkg-descr">security/openssh-portable</a> has the ability
+      to contact an LDAP server to verify
+      <span class="application">SSH</span> keys.  This is extremely nice if
+      you have many servers and do not want to copy your public keys
+      across all of them.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="secure.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ssl-ca.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">4. Security Considerations </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> B. <span class="application">OpenSSL</span> Certificates for
+      LDAP</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

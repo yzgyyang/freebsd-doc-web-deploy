@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">Поиск</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -681,7 +680,7 @@
 
   <p><strong>Основная группа подготовки релизов (Primary RE Team)
       <a href="mailto:re@FreeBSD.org" shape="rect">re@FreeBSD.org</a>)</strong> :
-	Glen Barber, Konstantin Belousov, Bryan Drewery, Marc Fonvieille, Rodney Grimes, Xin Li, Hiroki Sato, Gleb Smirnoff, Marius Strobl формирует основную группу подготовки, принимающую
+	Glen Barber, Konstantin Belousov, Bryan Drewery, Marc Fonvieille, Xin Li, Colin Percival, Hiroki Sato, Gleb Smirnoff формирует основную группу подготовки, принимающую
 	решения.</p>
 
   <p>Группа построения релизов отвечает за построение и
@@ -696,7 +695,7 @@
     гладкую работу кластера портов в процессе создания двоичных пакаджей.</p>
 
   <p><strong>Создатели пакаджей (<a href="mailto:portmgr@FreeBSD.org" shape="rect">portmgr@FreeBSD.org</a>)</strong> :
-    Mathieu Arnold, Antoine Brodin, Baptiste Daroussin, Bryan Drewery, Mark Felder, Ren'e Ladan, Steve Wills, Adam Weinberger</p>
+    Mathieu Arnold, Antoine Brodin, Baptiste Daroussin, Bryan Drewery, Ren'e Ladan, Steve Wills, Adam Weinberger</p>
 
   <h2><a name="old" id="old" shape="rect">Старые релизы</a></h2>
 

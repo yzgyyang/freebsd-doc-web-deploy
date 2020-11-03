@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>4. System Startup</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Quickstart Guide for Linux® Users" /><link rel="up" href="index.html" title="FreeBSD Quickstart Guide for Linux® Users" /><link rel="prev" href="software.html" title="3. Packages and Ports: Adding Software in FreeBSD" /><link rel="next" href="network.html" title="5. Network Configuration" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">4. System Startup</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="software.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="network.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="startup"></a>4. System Startup</h2></div></div></div><p>Many <span class="trademark">Linux</span>® distributions use the SysV init system, whereas
+      FreeBSD uses the traditional BSD-style <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=init&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">init</span>(8)</span></a>.  Under the
+      BSD-style <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=init&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">init</span>(8)</span></a>, there are no run-levels and
+      <code class="filename">/etc/inittab</code> does not exist.  Instead,
+      startup is controlled by <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rc&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rc</span>(8)</span></a> scripts.  At system boot,
+      <code class="filename">/etc/rc</code> reads
+      <code class="filename">/etc/rc.conf</code> and
+      <code class="filename">/etc/defaults/rc.conf</code>
+      to determine which services are to be started.  The specified
+      services are then started by running the corresponding service
+      initialization scripts located in
+      <code class="filename">/etc/rc.d/</code> and
+      <code class="filename">/usr/local/etc/rc.d/</code>.  These scripts are
+      similar to the scripts located in
+      <code class="filename">/etc/init.d/</code> on <span class="trademark">Linux</span>® systems.</p><p>The scripts found in <code class="filename">/etc/rc.d/</code> are for
+      applications that are part of the <span class="quote">&#8220;<span class="quote">base</span>&#8221;</span> system,
+      such as <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=cron&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">cron</span>(8)</span></a>, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sshd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sshd</span>(8)</span></a>, and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=syslog&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">syslog</span>(3)</span></a>.  The
+      scripts in <code class="filename">/usr/local/etc/rc.d/</code> are for
+      user-installed applications such as
+      <span class="application">Apache</span> and
+      <span class="application">Squid</span>.</p><p>Since FreeBSD is developed as a complete operating system,
+      user-installed applications are not considered to be part of
+      the <span class="quote">&#8220;<span class="quote">base</span>&#8221;</span> system.  User-installed applications
+      are generally installed using <a class="link" href="../../../../doc/en_US.ISO8859-1/books/handbook/ports-using.html" target="_top">Packages
+	or Ports</a>.  In order to keep them separate from the base
+      system, user-installed applications are installed under
+      <code class="filename">/usr/local/</code>.  Therefore, user-installed
+      binaries reside in <code class="filename">/usr/local/bin/</code>,
+      configuration files are in <code class="filename">/usr/local/etc/</code>,
+      and so on.</p><p>Services are enabled by adding an entry for the service in
+      <code class="filename">/etc/rc.conf</code> .  The system defaults are
+      found in <code class="filename">/etc/defaults/rc.conf</code> and these
+      default settings are overridden by settings in
+      <code class="filename">/etc/rc.conf</code>.  Refer to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rc.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rc.conf</span>(5)</span></a> for
+      more information about the available entries.  When installing
+      additional applications, review the application's install
+      message to determine how to enable any associated
+      services.</p><p>The following entries in <code class="filename">/etc/rc.conf</code>
+      enable <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sshd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sshd</span>(8)</span></a>, enable <span class="application">Apache
+	2.4</span>, and specify that
+      <span class="application">Apache</span> should be started with
+      <acronym class="acronym">SSL</acronym>.</p><pre class="programlisting"># enable SSHD
+sshd_enable="YES"
+# enable Apache with SSL
+apache24_enable="YES"
+apache24_flags="-DSSL"</pre><p>Once a service has been enabled in
+      <code class="filename">/etc/rc.conf</code>, it can be started without
+      rebooting the system:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service <em class="replaceable"><code>sshd</code></em> start</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>service <em class="replaceable"><code>apache24</code></em> start</code></strong></pre><p>If a service has not been enabled, it can be started from
+      the command line using <code class="option">onestart</code>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service <em class="replaceable"><code>sshd</code></em> onestart</code></strong></pre></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="software.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="network.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">3. Packages and Ports: Adding Software in FreeBSD </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 5. Network Configuration</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

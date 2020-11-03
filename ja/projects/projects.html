@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">検索</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="../../cgi/man.cgi">マニュアルページ</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">プレゼンテーションと論文</a>
                   </li>
                   <li>
                     <a href="../../doc/en_US.ISO8859-1/books/fdp-primer">新しい貢献者のためのドキュメンテーションプロジェクト入門</a>
@@ -371,7 +373,8 @@ FreeBSD のアプリケーションの範囲を新しい方向で拡大するために作業を行っています。
       などの機能が含まれています。これらの機能は FreeBSD に統合されるだけでなく、
       他の BSD 由来のシステム用への移植も進められています。</li>
 
-      <li><a name="kernelstresstest" href="http://www.holm.cc/stress/" shape="rect" id="kernelstresstest">Kernel Stress Test Suite</a>:
+      <li><a name="kernelstresstest" href="https://people.freebsd.org/~pho/stress/index.html" shape="rect" id="kernelstresstest">Kernel
+  Stress Test Suite</a>:
 	この高負荷テストの目的はシステムをクラッシュさせることです。
 	このストレステストは小さなテストプログラムとスクリプトから構成されます。
 	それぞれのテストは、それぞれカーネルの特定のエリアをターゲットとしています。
@@ -383,17 +386,6 @@ FreeBSD のアプリケーションの範囲を新しい方向で拡大するために作業を行っています。
 <a name="devicedrivers" shape="rect" id="devicedrivers"></a>
 <h3>デバイスドライバ</h3>
     <ul>
-      <li><a name="busdma" href="../../projects/busdma/index.html" shape="rect" id="busdma">busdma
-	および SMPng ドライバの書き換え</a>:
-        busdma は、高機能なデバイスドライバの多くで使用される、
-        ダイレクトメモリアクセス (DMA) によるハードウェア操作を行なうための、
-        移植性の高い抽象的な手段を提供します。
-        デバイスドライバの作者は busdma を使うことで、プラットフォームに依存する
-        DMA 管理コードを追加する必要がなくなり、
-        ハードウェアアーキテクチャ間の移植性を向上させることが可能になります。
-        また、このページではドライバを SMPng
-        のコードで安全に動作するようにするための書き換え作業の進捗も公開しています。</li>
-
       <li><a name="homeauto" href="https://people.FreeBSD.org/~fsmp/HomeAuto/HomeAuto.html" shape="rect" id="homeauto">家庭での自動化</a>:
 	器具コントローラ、赤外線コントローラ、
 	自動化された電話システム等々を FreeBSD で。</li>
@@ -459,7 +451,7 @@ FreeBSD のアプリケーションの範囲を新しい方向で拡大するために作業を行っています。
 	emacs エディタ,	elvis エディタに対応していて、
 	言語は C, Yacc, Java に対応しています。</li>
 
-      <li><a name="acpi" href="../../projects/acpi/" shape="rect" id="acpi">ACPI on FreeBSD</a>:
+      <li><a name="acpi" href="https://wiki.freebsd.org/ACPI" shape="rect" id="acpi">ACPI on FreeBSD</a>:
 	FreeBSD で、ACPI を円滑に動かすためのプロジェクトです。</li>
 
       <li><a name="testsuite" href="http://wiki.freebsd.org/TestSuite" shape="rect" id="testsuite">
@@ -476,7 +468,7 @@ FreeBSD のアプリケーションの範囲を新しい方向で拡大するために作業を行っています。
         </div>
         <div id="footer">
           <span><a href="../search/index-site.html">サイトマップ</a> |
-  <a href="../copyright/">知的財産権について</a> | (C) 1995〓2018 The FreeBSD Project.
+  <a href="../copyright/">知的財産権について</a> | (C) 1995〓2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

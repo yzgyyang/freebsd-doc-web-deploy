@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>4. Configuration: Installation &amp; Setup</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Build Your Own FreeBSD Update Server" /><link rel="up" href="index.html" title="Build Your Own FreeBSD Update Server" /><link rel="prev" href="prerequisites.html" title="3. Prerequisites" /><link rel="next" href="build.html" title="5. Building Update Code" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">4. Configuration: Installation &amp; Setup</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="prerequisites.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="build.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="Configuration"></a>4. Configuration: Installation &amp; Setup</h2></div></div></div><p>Download the <a class="link" href="https://svnweb.freebsd.org/base/user/cperciva/freebsd-update-build/" target="_top">
+	freebsd-update-server</a> software by installing
+      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/devel/subversion/pkg-descr">devel/subversion</a> and
+      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/security/ca_root_nss/pkg-descr">security/ca_root_nss</a>, and execute:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>svn co https://svn.freebsd.org/base/user/cperciva/freebsd-update-build freebsd-update-server</code></strong></pre><p>Update <code class="filename">scripts/build.conf</code>
+      appropriately.  It is sourced during all build
+      operations.</p><p>Here is the default <code class="filename">build.conf</code>, which
+      should be modified to suit your environment.</p><div class="informalexample"><pre class="programlisting"># Main configuration file for FreeBSD Update builds.  The
+# release-specific configuration data is lower down in
+# the scripts tree.
+
+# Location from which to fetch releases
+export FTP=ftp://ftp2.freebsd.org/pub/FreeBSD/releases<a id="ftp-id"></a><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span>
+
+# Host platform
+export HOSTPLATFORM=`uname -m`
+
+# Host name to use inside jails
+export BUILDHOSTNAME=${HOSTPLATFORM}-builder.daemonology.net<a id="buildhost-id"></a><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span>
+
+# Location of SSH key
+export SSHKEY=/root/.ssh/id_dsa<a id="sshkey-id"></a><span><img src="./imagelib/callouts/3.png" alt="3" border="0" /></span>
+
+# SSH account into which files are uploaded
+MASTERACCT=builder@wadham.daemonology.net<a id="mstacct-id"></a><span><img src="./imagelib/callouts/4.png" alt="4" border="0" /></span>
+
+# Directory into which files are uploaded
+MASTERDIR=update-master.freebsd.org<a id="mstdir-id"></a><span><img src="./imagelib/callouts/5.png" alt="5" border="0" /></span></pre></div><p>Parameters for consideration would be:</p><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#ftp-id"><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span></a> </p></td><td valign="top" align="left"><p>This is the location where ISO images are downloaded
+	  from (by the <code class="function">fetchiso()</code> subroutine of
+	  <code class="filename">scripts/build.subr</code>).  The location
+	  configured is not limited to FTP URIs.  Any URI scheme
+	  supported by standard <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=fetch&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">fetch</span>(1)</span></a> utility should work
+	  fine.</p><p>Customizations to the <code class="function">fetchiso()</code>
+	  code can be installed by copying the default
+	  <code class="filename">build.subr</code> script to the release and
+	  architecture-specific area at
+	  <code class="filename">scripts/RELEASE/ARCHITECTURE/build.subr</code>
+	  and applying local changes.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#buildhost-id"><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span></a> </p></td><td valign="top" align="left"><p>The name of the build host.  This information will be
+	  displayed on updated systems when issuing:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>uname -v</code></strong></pre></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#sshkey-id"><span><img src="./imagelib/callouts/3.png" alt="3" border="0" /></span></a> </p></td><td valign="top" align="left"><p>The <span class="application">SSH</span> key for uploading
+	  files to the update server.  A key pair can be created by
+	  typing <code class="command">ssh-keygen -t dsa</code>.  This parameter
+	  is optional; standard password authentication will be used
+	  as a fallback authentication method when
+	  <code class="literal">SSHKEY</code> is not defined.</p><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ssh-keygen&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ssh-keygen</span>(1)</span></a> manual page has more detailed
+	  information about <span class="application">SSH</span> and the
+	  appropriate steps for creating and using one.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#mstacct-id"><span><img src="./imagelib/callouts/4.png" alt="4" border="0" /></span></a> </p></td><td valign="top" align="left"><p>Account for uploading files to the update server.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#mstdir-id"><span><img src="./imagelib/callouts/5.png" alt="5" border="0" /></span></a> </p></td><td valign="top" align="left"><p>Directory on the update server where files are uploaded
+	  to.</p></td></tr></table></div><p>The default <code class="filename">build.conf</code> shipped with the
+      <span class="application">freebsd-update-server</span> sources is
+      suitable for building i386 releases of FreeBSD.  As an
+      example of building an update server for other architectures,
+      the following steps outline the configuration changes needed for
+      amd64:</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p>Create a build environment for amd64:</p><div class="informalexample"><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>mkdir -p /usr/local/freebsd-update-server/scripts/7.2-RELEASE/amd64</code></strong></pre></div></li><li class="step"><p>Install a <code class="filename">build.conf</code> in the newly
+	  created build directory.  The build configuration options
+	  for FreeBSD 7.2-RELEASE on amd64 should be similar
+	  to:</p><div class="informalexample"><pre class="programlisting"># SHA256 hash of RELEASE disc1.iso image.
+export RELH=1ea1f6f652d7c5f5eab7ef9f8edbed50cb664b08ed761850f95f48e86cc71ef5<a id="sha256-id"></a><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span>
+
+# Components of the world, source, and kernels
+export WORLDPARTS="base catpages dict doc games info manpages proflibs lib32"
+export SOURCEPARTS="base bin contrib crypto etc games gnu include krb5  \
+                lib libexec release rescue sbin secure share sys tools  \
+                ubin usbin cddl"
+export KERNELPARTS="generic"
+
+# EOL date
+export EOL=1275289200<a id="eol-id"></a><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span></pre></div><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#sha256-id"><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span></a> </p></td><td valign="top" align="left"><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sha256&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sha256</span>(1)</span></a> hash key for the desired release,
+	      is published within the respective <a class="link" href="../../../../releases/" target="_top">release
+		announcement</a>.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#eol-id"><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span></a> </p></td><td valign="top" align="left"><p>To generate the "End of Life" number for
+	      <code class="filename">build.conf</code>, refer to the "Estimated
+	      EOL" posted on the <a class="link" href="../../../../security/security.html" target="_top">FreeBSD
+		Security Website</a>.  The value of
+	      <code class="literal">EOL</code> can be derived from the date
+	      listed on the web site, using the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=date&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">date</span>(1)</span></a> utility,
+	      for example:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>date -j -f '%Y%m%d-%H%M%S' '20090401-000000' '+%s'</code></strong></pre></td></tr></table></div></li></ol></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="prerequisites.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="build.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">3. Prerequisites </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 5. Building Update Code</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

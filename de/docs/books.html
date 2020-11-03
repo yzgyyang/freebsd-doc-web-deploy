@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' site: www.FreeBSD.org site: docs.FreeBSD.org site: lists.FreeBSD.org site: wiki.FreeBSD.org site: forums.FreeBSD.org'">
                   <h2 class="blockhide">
                     <label for="words">Suche</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="//www.FreeBSD.org/cgi/man.cgi">Manualpages</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">Presentations and Papers</a>
                   </li>
                   <li>
                     <a href="../../doc/de_DE.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
@@ -231,6 +233,9 @@
                   <a href="//www.FreeBSD.org/cgi/man.cgi">Manual-Pages (Online)</a>
                 </li>
                 <li>
+                  <a href="https://papers.FreeBSD.org">Presentations and Papers</a>
+                </li>
+                <li>
                   <a href="../docs/books.html">Bücher und Artikel (Online)</a>
                 </li>
                 <li>
@@ -272,6 +277,10 @@
       Suche nach Personen, die neue Anleitungen beisteuern oder die
       vorhandene Dokumentation betreuen wollen.</p>
 
+    <p>Papers, Präsentationen sowie Videos über FreeBSD werden auf der Seite
+      <a href="https://papers.freebsd.org/" shape="rect">FreeBSD Papers</a> gesammelt
+      und archiviert.</p>
+
     <h3><a name="books" shape="rect" id="books">Bücher</a></h3>
 
     <p><a href="../../doc/en_US.ISO8859-1/books/dev-model/index.html" shape="rect">A project
@@ -303,13 +312,6 @@
         FreeBSD Porter-Handbuch</a> (porters-handbook)<br clear="none" />
       Essentiell, wenn Sie einen Port für ein Programm
         von Drittherstellern beisteuern wollen.</p>
-
-    <p><a href="../../doc/en_US.ISO8859-1/books/pmake/index.html" shape="rect">The PMake Tutorial</a>
-        (pmake)<br clear="none" />
-      Ein Tutorial für <em>make</em>.  Dieses Buch enthält
-        elementare Informationen für jeden, der alle Details von
-        <em>make</em> kennen und Makefiles verstehen und erstellen
-        will.</p>
 
     <p><a href="../../doc/en_US.ISO8859-1/books/design-44bsd/index.html" shape="rect">Kapitel 2
         von "The Design and Implementation of the 4.4BSD Operating
@@ -440,12 +442,6 @@
       Für Personen, die das erste Mal mit FreeBSD und UNIX®
         konfrontiert werden.</p>
 
-    <p><a href="../../doc/en_US.ISO8859-1/articles/p4-primer/index.html" shape="rect">Perforce
-        in FreeBSD Development</a> (p4-primer)<br clear="none" />
-      Beschreibt das Perforce Versionskontrollsystem sowie das
-        Management experimenteller Projekte mit dem FreeBSD
-        Perforce-Server.</p>
-
     <p><a href="../../doc/en_US.ISO8859-1/articles/pam/index.html" shape="rect">Pluggable
         Authentication Modules</a> (pam)<br clear="none" />
       Eine Beschreibung des PAM-Systems sowie dessen Module unter
@@ -474,13 +470,6 @@
         rc.d scripting in BSD</a> (rc-scripting)<br clear="none" />
       Eine Anleitung zum Schreiben neuer und zum besseren
         Verstehen bereits vorhandener rc.d-Skripte.</p>
-
-    <p><a href="../../doc/en_US.ISO8859-1/articles/relaydelay/index.html" shape="rect">FreeBSD as
-        a greylist mail server</a> (relaydelay)<br clear="none" />
-      Beschreibt die Einrichtung eines "Greylist"-Mailservers
-        unter FreeBSD mit Hilfe von Sendmail, MySQL, Perl sowie dem
-        Programm relaydelay.  Dies ist eine exzellente Methode im
-        Kampf gegen Spam.</p>
 
     <p><a href="../../doc/en_US.ISO8859-1/articles/releng/index.html" shape="rect">FreeBSD
         Release Engineering</a> (releng)<br clear="none" />
@@ -542,11 +531,6 @@
 	  erhältlich.</p>
       </li>
 
-      <li>
-	<p><a href="http://www.nber.org/sys-admin/amd.html" shape="rect">Getting started with AMD on
-	    FreeBSD</a>.  (Dieser Artikel beschreibt den Umgang mit dem
-	    Automount-Daemon, nicht den Chiphersteller.)</p>
-      </li>
 
       <li>
 	<p><a href="http://software.intel.com/sites/default/files/profiling_debugging_freebsd_kernel_321772.pdf" shape="rect">Profiling
@@ -556,11 +540,6 @@
       <li>
 	<p><a href="http://software.intel.com/sites/default/files/debugging_buffer_overruns_322486.pdf" shape="rect">Debugging
 	    Buffer Overruns in the FreeBSD Kernel</a></p>
-      </li>
-
-      <li>
-	<p><a href="http://www.cfcl.com/rdm/split_DNS.html" shape="rect">Setting up
-	  Split DNS on FreeBSD 4.1</a>.</p>
       </li>
 
       <li>
@@ -577,7 +556,7 @@
           <br class="clearboth" />
         </div>
         <div id="footer">
-          <span><a href="../../search/index-site.html">Sitemap</a> | <a href="../../copyright/">Legal Notices</a> | © 1995&#8211;2018 The FreeBSD Project.  Alle Rechte vorbehalten.</span>
+          <span><a href="../../search/index-site.html">Sitemap</a> | <a href="../../copyright/">Legal Notices</a> | © 1995&#8211;2020 The FreeBSD Project.  Alle Rechte vorbehalten.</span>
           <br />
         </div>
       </div>

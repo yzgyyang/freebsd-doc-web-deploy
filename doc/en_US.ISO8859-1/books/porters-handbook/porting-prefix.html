@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>10.4. PREFIX and DESTDIR</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Porter's Handbook" /><link rel="up" href="testing.html" title="Chapter 10. Testing the Port" /><link rel="prev" href="testing-porttools.html" title="10.3. Port Tools" /><link rel="next" href="testing-poudriere.html" title="10.5. Poudriere" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">10.4. <code class="varname">PREFIX</code> and
+      <code class="varname">DESTDIR</code></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="testing-porttools.html">Prev</a> </td><th width="60%" align="center">Chapter 10. Testing the Port</th><td width="20%" align="right"> <a accesskey="n" href="testing-poudriere.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="porting-prefix"></a>10.4. <code class="varname">PREFIX</code> and
+      <code class="varname">DESTDIR</code></h2></div></div></div><p><code class="varname">PREFIX</code> determines where the port will be
+      installed.  It defaults to <code class="filename">/usr/local</code>, but
+      can be set by the user to a custom path like
+      <code class="filename">/opt</code>.  The port must respect the value of
+      this variable.</p><p><code class="varname">DESTDIR</code>, if set by the user, determines
+      the complete alternative environment, usually a jail or an
+      installed system mounted somewhere other than
+      <code class="filename">/</code>.  A port will actually install into
+      <code class="filename">DESTDIR/PREFIX</code>, and register with the
+      package database in <code class="filename">DESTDIR/var/db/pkg</code>.  As
+      <code class="varname">DESTDIR</code> is handled automatically by the ports
+      infrastructure with <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=chroot&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">chroot</span>(8)</span></a>.  There is no need for
+      modifications or any extra care to write
+      <code class="varname">DESTDIR</code>-compliant ports.</p><p>The value of <code class="varname">PREFIX</code> will be set to
+      <code class="varname">LOCALBASE</code> (defaulting to
+      <code class="filename">/usr/local</code>).  If
+      <code class="varname">USE_LINUX_PREFIX</code> is set,
+      <code class="varname">PREFIX</code> will be <code class="varname">LINUXBASE</code>
+      (defaulting to <code class="filename">/compat/linux</code>).</p><p>Avoiding hard-coded <code class="filename">/usr/local</code> paths in
+      the source makes the port much more flexible and able to cater
+      to the needs of other sites.  Often, this can be accomplished by
+      replacing occurrences of <code class="filename">/usr/local</code>
+      in the port's various <code class="filename">Makefile</code>s with
+      <code class="literal">${PREFIX}</code>.  This variable is
+      automatically passed down to every stage of the build and
+      install processes.</p><p>Make sure the application is not installing things in
+      <code class="filename">/usr/local</code> instead of
+      <code class="varname">PREFIX</code>.  A quick test for such hard-coded
+      paths is:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>make clean; make package PREFIX=/var/tmp/`make -V PORTNAME`</code></strong></pre><p>If anything is installed outside of
+      <code class="varname">PREFIX</code>, the package creation process will
+      complain that it cannot find the files.</p><p>In addition, it is worth checking the same with the stage
+      directory support (see <a class="xref" href="special.html#staging" title="6.1. Staging">Section 6.1, &#8220;Staging&#8221;</a>):</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>make stage &amp;&amp; make check-plist &amp;&amp; make stage-qa &amp;&amp; make package</code></strong></pre><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="buildtarget">check-plist</code> checks for files
+	  missing from the plist, and files in the plist that are not
+	  installed by the port.</p></li><li class="listitem"><p><code class="buildtarget">stage-qa</code> checks for common
+	  problems like bad shebang, symlinks pointing outside the
+	  stage directory, setuid files, and non-stripped
+	  libraries...</p></li></ul></div><p>These tests will not find hard-coded paths inside the port's
+      files, nor will it verify that <code class="varname">LOCALBASE</code> is
+      being used to correctly refer to files from other ports.  The
+      temporarily-installed port in
+      <code class="filename">/var/tmp/`make -V PORTNAME`</code> must be
+      tested for proper operation to make sure there are no problems
+      with paths.</p><p><code class="varname">PREFIX</code> must not be set explicitly in a
+      port's <code class="filename">Makefile</code>.  Users installing the port
+      may have set <code class="varname">PREFIX</code> to a custom location, and
+      the port must respect that setting.</p><p>Refer to programs and files from other ports with the
+      variables mentioned above, not explicit pathnames.  For
+      instance, if the port requires a macro <code class="literal">PAGER</code>
+      to have the full pathname of <code class="command">less</code>, do not use
+      a literal path of <code class="filename">/usr/local/bin/less</code>.
+      Instead, use <code class="literal">${LOCALBASE}</code>:</p><pre class="programlisting">-DPAGER=\"${LOCALBASE}/bin/less\"</pre><p>The path with <code class="varname">LOCALBASE</code> is more likely to
+      still work if the system administrator has moved the whole
+      <code class="filename">/usr/local</code> tree somewhere else.</p><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">All these tests are done automatically when running
+	<code class="command">poudriere testport</code> or <code class="command">poudriere
+	  bulk -t</code>.  It is highly recommended that every
+	ports contributor install and test their ports with it.  See
+	<a class="xref" href="testing-poudriere.html" title="10.5. Poudriere">Section 10.5, &#8220;<span class="application">Poudriere</span>&#8221;</a> for more
+	information.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="testing-porttools.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="testing.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="testing-poudriere.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">10.3. Port Tools </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 10.5. <span class="application">Poudriere</span></td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

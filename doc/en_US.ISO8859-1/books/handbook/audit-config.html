@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>16.3. Audit Configuration</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="audit.html" title="Chapter 16. Security Event Auditing" /><link rel="prev" href="audit-inline-glossary.html" title="16.2. Key Terms" /><link rel="next" href="audit-administration.html" title="16.4. Working with Audit Trails" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">16.3. Audit Configuration</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="audit-inline-glossary.html">Prev</a> </td><th width="60%" align="center">Chapter 16. Security Event Auditing</th><td width="20%" align="right"> <a accesskey="n" href="audit-administration.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="audit-config"></a>16.3. Audit Configuration</h2></div></div></div><p>User space support for event auditing is installed as part
+      of the base FreeBSD operating system.  Kernel support is available
+      in the <code class="filename">GENERIC</code> kernel by default,
+      and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=auditd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">auditd</span>(8)</span></a> can be enabled
+      by adding the following line to
+      <code class="filename">/etc/rc.conf</code>:</p><pre class="programlisting">auditd_enable="YES"</pre><p>Then, start the audit daemon:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service auditd start</code></strong></pre><p>Users who prefer to compile a custom kernel must include the
+      following line in their custom kernel configuration file:</p><pre class="programlisting">options	AUDIT</pre><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp61517176"></a>16.3.1. Event Selection Expressions</h3></div></div></div><p>Selection expressions are used in a number of places in
+	the audit configuration to determine which events should be
+	audited.  Expressions contain a list of event classes to
+	match.  Selection expressions are evaluated from left to
+	right, and two expressions are combined by appending one onto
+	the other.</p><p><a class="xref" href="audit-config.html#event-selection" title="Table 16.1. Default Audit Event Classes">Table 16.1, &#8220;Default Audit Event Classes&#8221;</a> summarizes the default
+	audit event classes:</p><div class="table"><a id="event-selection"></a><div class="table-title">Table 16.1. Default Audit Event Classes</div><div class="table-contents"><table class="table" summary="Default Audit Event Classes" width="100%" border="0"><colgroup><col /><col /><col /></colgroup><thead><tr><th>Class Name</th><th>Description</th><th>Action</th></tr></thead><tbody><tr><td>all</td><td>all</td><td>Match all event classes.</td></tr><tr><td>aa</td><td>authentication and authorization</td><td> </td></tr><tr><td>ad</td><td>administrative</td><td>Administrative actions performed on the system as
+		a whole.</td></tr><tr><td>ap</td><td>application</td><td>Application defined action.</td></tr><tr><td>cl</td><td>file close</td><td>Audit calls to the
+		<code class="function">close</code> system call.</td></tr><tr><td>ex</td><td>exec</td><td>Audit program execution.  Auditing of command
+		line arguments and environmental variables is
+		controlled via <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=audit_control&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">audit_control</span>(5)</span></a> using the
+		<code class="literal">argv</code> and <code class="literal">envv</code>
+		parameters to the <code class="literal">policy</code>
+		setting.</td></tr><tr><td>fa</td><td>file attribute access</td><td>Audit the access of object attributes such as
+		<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=stat&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">stat</span>(1)</span></a> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pathconf&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pathconf</span>(2)</span></a>.</td></tr><tr><td>fc</td><td>file create</td><td>Audit events where a file is created as a
+		result.</td></tr><tr><td>fd</td><td>file delete</td><td>Audit events where file deletion occurs.</td></tr><tr><td>fm</td><td>file attribute modify</td><td>Audit events  where file attribute modification
+		occurs, such as by <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=chown&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">chown</span>(8)</span></a>, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=chflags&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">chflags</span>(1)</span></a>, and
+		<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=flock&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">flock</span>(2)</span></a>.</td></tr><tr><td>fr</td><td>file read</td><td>Audit events in which data is read or files are
+		opened for reading.</td></tr><tr><td>fw</td><td>file write</td><td>Audit events in which data is written or files
+		are written or modified.</td></tr><tr><td>io</td><td>ioctl</td><td>Audit use of the <code class="function">ioctl</code>
+		system call.</td></tr><tr><td>ip</td><td>ipc</td><td>Audit various forms of Inter-Process
+		Communication, including POSIX pipes and System V
+		<acronym class="acronym">IPC</acronym> operations.</td></tr><tr><td>lo</td><td>login_logout</td><td>Audit <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=login&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">login</span>(1)</span></a> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=logout&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">logout</span>(1)</span></a>
+		events.</td></tr><tr><td>na</td><td>non attributable</td><td>Audit non-attributable events.</td></tr><tr><td>no</td><td>invalid class</td><td>Match no audit events.</td></tr><tr><td>nt</td><td>network</td><td>Audit events related to network actions such as
+		<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=connect&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">connect</span>(2)</span></a> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=accept&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">accept</span>(2)</span></a>.</td></tr><tr><td>ot</td><td>other</td><td>Audit miscellaneous events.</td></tr><tr><td>pc</td><td>process</td><td>Audit process operations such as <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=exec&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">exec</span>(3)</span></a> and
+		<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=exit&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">exit</span>(3)</span></a>.</td></tr></tbody></table></div></div><br class="table-break" /><p>These audit event classes may be customized by modifying
+	the <code class="filename">audit_class</code> and
+	<code class="filename">audit_event</code> configuration files.</p><p>Each audit event class may be combined with a prefix
+	indicating whether successful/failed operations are matched,
+	and whether the entry is adding or removing matching for the
+	class and type.  <a class="xref" href="audit-config.html#event-prefixes" title="Table 16.2. Prefixes for Audit Event Classes">Table 16.2, &#8220;Prefixes for Audit Event Classes&#8221;</a> summarizes
+	the available prefixes:</p><div class="table"><a id="event-prefixes"></a><div class="table-title">Table 16.2. Prefixes for Audit Event Classes</div><div class="table-contents"><table class="table" summary="Prefixes for Audit Event Classes" width="100%" border="0"><colgroup><col /><col /></colgroup><thead><tr><th>Prefix</th><th>Action</th></tr></thead><tbody><tr><td>+</td><td>Audit successful events in this class.</td></tr><tr><td>-</td><td>Audit failed events in this class.</td></tr><tr><td>^</td><td>Audit neither successful nor failed events in
+		this class.</td></tr><tr><td>^+</td><td>Do not audit successful events in this
+		class.</td></tr><tr><td>^-</td><td>Do not audit failed events in this class.</td></tr></tbody></table></div></div><br class="table-break" /><p>If no prefix is present, both successful and failed
+	instances of the event will be audited.</p><p>The following example selection string selects both
+	successful and failed login/logout events, but only successful
+	execution events:</p><pre class="programlisting">lo,+ex</pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp61618424"></a>16.3.2. Configuration Files</h3></div></div></div><p>The following configuration files for security event
+	auditing are found in
+	<code class="filename">/etc/security</code>:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="filename">audit_class</code>: contains the
+	    definitions of the audit classes.</p></li><li class="listitem"><p><code class="filename">audit_control</code>: controls aspects
+	    of the audit subsystem, such as default audit classes,
+	    minimum disk space to leave on the audit log volume, and
+	    maximum audit trail size.</p></li><li class="listitem"><p><code class="filename">audit_event</code>: textual names and
+	    descriptions of system audit events and a list of which
+	    classes each event is in.</p></li><li class="listitem"><p><code class="filename">audit_user</code>: user-specific audit
+	    requirements to be combined with the global defaults at
+	    login.</p></li><li class="listitem"><p><code class="filename">audit_warn</code>: a customizable shell
+	    script used by <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=auditd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">auditd</span>(8)</span></a> to generate warning messages
+	    in exceptional situations, such as when space for audit
+	    records is running low or when the audit trail file has
+	    been rotated.</p></li></ul></div><div xmlns="" class="warning"><h3 class="admontitle">Warning: </h3><p xmlns="http://www.w3.org/1999/xhtml">Audit configuration files should be edited and
+	  maintained carefully, as errors in configuration may result
+	  in improper logging of events.</p></div><p>In most cases, administrators will only need to modify
+	<code class="filename">audit_control</code> and
+	<code class="filename">audit_user</code>.  The first file controls
+	system-wide audit properties and policies and the second file
+	may be used to fine-tune auditing by user.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="audit-auditcontrol"></a>16.3.2.1. The <code class="filename">audit_control</code> File</h4></div></div></div><p>A number of defaults for the audit subsystem are
+	  specified in <code class="filename">audit_control</code>:</p><pre class="programlisting">dir:/var/audit
+dist:off
+flags:lo,aa
+minfree:5
+naflags:lo,aa
+policy:cnt,argv
+filesz:2M
+expire-after:10M</pre><p>The <code class="option">dir</code> entry is used to set one or
+	  more directories where audit logs will be stored.  If more
+	  than one directory entry appears, they will be used in order
+	  as they fill.  It is common to configure audit so that audit
+	  logs are stored on a dedicated file system, in order to
+	  prevent interference between the audit subsystem and other
+	  subsystems if the file system fills.</p><p>If the <code class="option">dist</code> field is set to
+	  <code class="literal">on</code> or <code class="literal">yes</code>, hard links
+	  will be created to all trail files in
+	  <code class="filename">/var/audit/dist</code>.</p><p>The <code class="option">flags</code> field sets the system-wide
+	  default preselection mask for attributable events.  In the
+	  example above, successful and failed login/logout events as
+	  well as authentication and authorization are audited for all
+	  users.</p><p>The <code class="option">minfree</code> entry defines the minimum
+	  percentage of free space for the file system where the audit
+	  trail is stored.</p><p>The <code class="option">naflags</code> entry specifies audit
+	  classes to be audited for non-attributed events, such as the
+	  login/logout process and authentication and
+	  authorization.</p><p>The <code class="option">policy</code> entry specifies a
+	  comma-separated list of policy flags controlling various
+	  aspects of audit behavior.  The <code class="literal">cnt</code>
+	  indicates that the system should continue running despite an
+	  auditing failure (this flag is highly recommended).  The
+	  other flag, <code class="literal">argv</code>, causes command line
+	  arguments to the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=execve&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">execve</span>(2)</span></a> system call to be audited as
+	  part of command execution.</p><p>The <code class="option">filesz</code> entry specifies the maximum
+	  size for an audit trail before automatically terminating and
+	  rotating the trail file.  A value of <code class="literal">0</code>
+	  disables automatic log rotation.  If the requested file size
+	  is below the minimum of 512k, it will be ignored and a log
+	  message will be generated.</p><p>The <code class="option">expire-after</code> field specifies when
+	  audit log files will expire and be removed.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="audit-audituser"></a>16.3.2.2. The <code class="filename">audit_user</code> File</h4></div></div></div><p>The administrator can specify further audit requirements
+	  for specific users in <code class="filename">audit_user</code>.
+	  Each line configures auditing for a user via two fields:
+	  the <code class="literal">alwaysaudit</code> field specifies a set of
+	  events that should always be audited for the user, and the
+	  <code class="literal">neveraudit</code> field specifies a set of
+	  events that should never be audited for the user.</p><p>The following example entries audit login/logout events
+	  and successful command execution for <code class="systemitem">root</code> and file creation and
+	  successful command execution for <code class="systemitem">www</code>.  If used with the
+	  default <code class="filename">audit_control</code>, the
+	  <code class="literal">lo</code> entry for <code class="systemitem">root</code> is redundant, and
+	  login/logout events will also be audited for <code class="systemitem">www</code>.</p><pre class="programlisting">root:lo,+ex:no
+www:fc,+ex:no</pre></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="audit-inline-glossary.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="audit.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="audit-administration.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">16.2. Key Terms </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 16.4. Working with Audit Trails</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

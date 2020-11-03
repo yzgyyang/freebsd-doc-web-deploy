@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>5.2. Naming</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Porter's Handbook" /><link rel="up" href="makefiles.html" title="Chapter 5. Configuring the Makefile" /><link rel="prev" href="makefiles.html" title="Chapter 5. Configuring the Makefile" /><link rel="next" href="makefile-categories.html" title="5.3. Categorization" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5.2. Naming</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="makefiles.html">Prev</a> </td><th width="60%" align="center">Chapter 5. Configuring the Makefile</th><td width="20%" align="right"> <a accesskey="n" href="makefile-categories.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="makefile-naming"></a>5.2. Naming</h2></div></div></div><p>The first part of the port's <code class="filename">Makefile</code>
+      names the port, describes its version number, and lists it in
+      the correct category.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="makefile-portname"></a>5.2.1. <code class="varname">PORTNAME</code></h3></div></div></div><p>Set <code class="varname">PORTNAME</code> to the base name of the
+	software.  It is used as the base for the FreeBSD package, and
+	for <a class="link" href="makefile-distfiles.html#makefile-distname" title="5.4.1. DISTNAME"><code class="varname">DISTNAME</code></a>.</p><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">The package name must be unique across the entire ports
+	  tree.  Make sure that the <code class="varname">PORTNAME</code> is not
+	  already in use by an existing port, and that no other port
+	  already has the same <code class="varname">PKGBASE</code>.  If the
+	  name has already been used, add either <a class="link" href="makefile-naming.html#porting-pkgnameprefix-suffix" title="5.2.4. PKGNAMEPREFIX and PKGNAMESUFFIX"><code class="varname">PKGNAMEPREFIX</code>
+	    or <code class="varname">PKGNAMESUFFIX</code></a>.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="makefile-versions"></a>5.2.2. Versions, <code class="varname">DISTVERSION</code>
+	<span class="emphasis"><em>or</em></span> <code class="varname">PORTVERSION</code></h3></div></div></div><p>Set <code class="varname">DISTVERSION</code> to the version number
+	of the software.</p><p><code class="varname">PORTVERSION</code> is the version used for the
+	FreeBSD package.  It will be automatically derived from
+	<code class="varname">DISTVERSION</code> to be compatible with FreeBSD's
+	package versioning scheme.  If the version contains
+	<span class="emphasis"><em>letters</em></span>, it might be needed to set
+	<code class="varname">PORTVERSION</code> and not
+	<code class="varname">DISTVERSION</code>.</p><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">Only one of <code class="varname">PORTVERSION</code> and
+	  <code class="varname">DISTVERSION</code> can be set at a time.</p></div><p>From time to time, some software will use a version
+	scheme that is not compatible with how
+	<code class="varname">DISTVERSION</code> translates in
+	<code class="varname">PORTVERSION</code>.</p><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">When updating a port, it is possible to use
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pkg-version&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pkg-version</span>(8)</span></a>'s <code class="option">-t</code> argument to
+	  check if the new version is greater or lesser than before.
+	  See <a class="xref" href="makefile-naming.html#makefile-versions-ex-pkg-version" title="Example 5.1. Using pkg-version(8) to Compare Versions.">Example 5.1, &#8220;Using pkg-version(8) to Compare Versions.&#8221;</a>.</p></div><div class="example"><a id="makefile-versions-ex-pkg-version"></a><div class="example-title">Example 5.1. Using <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pkg-version&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pkg-version</span>(8)</span></a> to Compare Versions.</div><div class="example-contents"><p><code class="command">pkg version -t</code> takes two versions as
+	  arguments, it will respond with <code class="literal">&lt;</code>,
+	  <code class="literal">=</code> or <code class="literal">&gt;</code> if the first
+	  version is less, equal, or more than the second
+	  version, respectively.</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>pkg version -t 1.2 1.3</code></strong>
+&lt; <a id="makefile-versions-tip-co1"></a><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span>
+<code class="prompt">%</code> <strong class="userinput"><code>pkg version -t 1.2 1.2</code></strong>
+= <a id="makefile-versions-tip-co2"></a><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span>
+<code class="prompt">%</code> <strong class="userinput"><code>pkg version -t 1.2 1.2.0</code></strong>
+= <a id="makefile-versions-tip-co3"></a><span><img src="./imagelib/callouts/3.png" alt="3" border="0" /></span>
+<code class="prompt">%</code> <strong class="userinput"><code>pkg version -t 1.2 1.2.p1</code></strong>
+&gt; <a id="makefile-versions-tip-co4"></a><span><img src="./imagelib/callouts/4.png" alt="4" border="0" /></span>
+<code class="prompt">%</code> <strong class="userinput"><code>pkg version -t 1.2.a1 1.2.b1</code></strong>
+&lt; <a id="makefile-versions-tip-co5"></a><span><img src="./imagelib/callouts/5.png" alt="5" border="0" /></span>
+<code class="prompt">%</code> <strong class="userinput"><code>pkg version -t 1.2 1.2p1</code></strong>
+&lt; <a id="makefile-versions-tip-co6"></a><span><img src="./imagelib/callouts/6.png" alt="6" border="0" /></span></pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#makefile-versions-tip-co1"><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span></a> </p></td><td valign="top" align="left"><p><code class="literal">1.2</code> is before
+	      <code class="literal">1.3</code>.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#makefile-versions-tip-co3"><span><img src="./imagelib/callouts/3.png" alt="3" border="0" /></span></a> </p></td><td valign="top" align="left"><p><code class="literal">1.2</code> and <code class="literal">1.2</code>
+	      are equal as they have the same version.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#makefile-versions-tip-co3"><span><img src="./imagelib/callouts/3.png" alt="3" border="0" /></span></a> </p></td><td valign="top" align="left"><p><code class="literal">1.2</code> and <code class="literal">1.2.0</code>
+	      are equal as nothing equals zero.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#makefile-versions-tip-co4"><span><img src="./imagelib/callouts/4.png" alt="4" border="0" /></span></a> </p></td><td valign="top" align="left"><p><code class="literal">1.2</code> is after
+	      <code class="literal">1.2.p1</code> as <code class="literal">.p1</code>,
+	      think <span class="quote">&#8220;<span class="quote">pre-release 1</span>&#8221;</span>.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#makefile-versions-tip-co4"><span><img src="./imagelib/callouts/4.png" alt="4" border="0" /></span></a> </p></td><td valign="top" align="left"><p><code class="literal">1.2.a1</code> is before
+	      <code class="literal">1.2.b1</code>, think <span class="quote">&#8220;<span class="quote">alpha</span>&#8221;</span>
+	      and <span class="quote">&#8220;<span class="quote">beta</span>&#8221;</span>, and <code class="literal">a</code> is
+	      before <code class="literal">b</code>.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#makefile-versions-tip-co6"><span><img src="./imagelib/callouts/6.png" alt="6" border="0" /></span></a> </p></td><td valign="top" align="left"><p><code class="literal">1.2</code> is before
+	      <code class="literal">1.2p1</code> as <code class="literal">2p1</code>,
+	      think <span class="quote">&#8220;<span class="quote">2, patch level 1</span>&#8221;</span> which is a version
+	      after any <code class="literal">2.X</code> but before
+	      <code class="literal">3</code>.</p></td></tr></table></div><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">In here, the <code class="literal">a</code>,
+	    <code class="literal">b</code>, and <code class="literal">p</code> are used as
+	    if meaning <span class="quote">&#8220;<span class="quote">alpha</span>&#8221;</span>, <span class="quote">&#8220;<span class="quote">beta</span>&#8221;</span> or
+	    <span class="quote">&#8220;<span class="quote">pre-release</span>&#8221;</span> and <span class="quote">&#8220;<span class="quote">patch level</span>&#8221;</span>,
+	    but they are only letters and are sorted alphabetically,
+	    so any letter can be used, and they will be sorted
+	    appropriately.</p></div></div></div><br class="example-break" /><div class="table"><a id="idp47868792"></a><div class="table-title">Table 5.1. Examples of <code class="varname">DISTVERSION</code> and the
+	  Derived <code class="varname">PORTVERSION</code></div><div class="table-contents"><table class="table" summary="Examples of DISTVERSION and the&#10;&#9;  Derived PORTVERSION" border="0"><colgroup><col /><col /></colgroup><thead><tr><th><code class="varname">DISTVERSION</code></th><th><code class="varname">PORTVERSION</code></th></tr></thead><tbody><tr><td>0.7.1d</td><td>0.7.1.d</td></tr><tr><td>10Alpha3</td><td>10.a3</td></tr><tr><td>3Beta7-pre2</td><td>3.b7.p2</td></tr><tr><td>8:f_17</td><td>8f.17</td></tr></tbody></table></div></div><br class="table-break" /><div class="example"><a id="makefile-versions-ex1"></a><div class="example-title">Example 5.2. Using <code class="varname">DISTVERSION</code></div><div class="example-contents"><p>When the version only contains numbers separated by
+	  dots, dashes or underscores, use
+	  <code class="varname">DISTVERSION</code>.</p><pre class="programlisting">PORTNAME=   nekoto
+DISTVERSION=	1.2-4</pre><p>It will generate a <code class="varname">PORTVERSION</code> of
+	  <code class="literal">1.2.4</code>.</p></div></div><br class="example-break" /><div class="example"><a id="makefile-versions-ex2"></a><div class="example-title">Example 5.3. Using <code class="varname">DISTVERSION</code> When the Version
+	  Starts with a Letter or a Prefix</div><div class="example-contents"><p>When the version starts or ends with a letter, or a
+	  prefix or a suffix that is not part of the version, use
+	  <code class="varname">DISTVERSIONPREFIX</code>,
+	  <code class="varname">DISTVERSION</code>, and
+	  <code class="varname">DISTVERSIONSUFFIX</code>.</p><p>If the version is <code class="literal">v1.2-4</code>:</p><pre class="programlisting">PORTNAME=   nekoto
+DISTVERSIONPREFIX=  v
+DISTVERSION=	1_2_4</pre><p>Some of the time, projects using
+	    <span class="application">GitHub</span> will use their name in
+	    their versions.  For example, the version could be
+	    <code class="literal">nekoto-1.2-4</code>:</p><pre class="programlisting">PORTNAME=   nekoto
+DISTVERSIONPREFIX=  nekoto-
+DISTVERSION=	1.2_4</pre><p>Those projects also sometimes use some string at the end
+	  of the version, for example,
+	  <code class="literal">1.2-4_RELEASE</code>:</p><pre class="programlisting">PORTNAME=   nekoto
+DISTVERSION=	1.2-4
+DISTVERSIONSUFFIX=  _RELEASE</pre><p>Or they do both, for example,
+	  <code class="literal">nekoto-1.2-4_RELEASE</code>:</p><pre class="programlisting">PORTNAME=   nekoto
+DISTVERSIONPREFIX=  nekoto-
+DISTVERSION=	1.2-4
+DISTVERSIONSUFFIX=  _RELEASE</pre><p><code class="varname">DISTVERSIONPREFIX</code> and
+	  <code class="varname">DISTVERSIONSUFFIX</code> will not be used while
+	  constructing <code class="varname">PORTVERSION</code>, but only used
+	  in <code class="varname">DISTNAME</code>.</p><p>All will generate a <code class="varname">PORTVERSION</code> of
+	  <code class="literal">1.2.4</code>.</p></div></div><br class="example-break" /><div class="example"><a id="makefile-versions-ex3"></a><div class="example-title">Example 5.4. Using <code class="varname">DISTVERSION</code> When the Version
+	  Contains Letters Meaning <span class="quote">&#8220;<span class="quote">alpha</span>&#8221;</span>,
+	  <span class="quote">&#8220;<span class="quote">beta</span>&#8221;</span>, or <span class="quote">&#8220;<span class="quote">pre-release</span>&#8221;</span></div><div class="example-contents"><p>When the version contains numbers separated by dots,
+	  dashes or underscores, and letters are used to mean
+	  <span class="quote">&#8220;<span class="quote">alpha</span>&#8221;</span>, <span class="quote">&#8220;<span class="quote">beta</span>&#8221;</span> or
+	  <span class="quote">&#8220;<span class="quote">pre-release</span>&#8221;</span>, which is, before the version
+	  without the letters, use
+	  <code class="varname">DISTVERSION</code>.</p><pre class="programlisting">PORTNAME=   nekoto
+DISTVERSION=	1.2-pre4</pre><pre class="programlisting">PORTNAME=   nekoto
+DISTVERSION=	1.2p4</pre><p>Both will generate a <code class="varname">PORTVERSION</code> of
+	  <code class="literal">1.2.p4</code> which is before than 1.2.
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pkg-version&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pkg-version</span>(8)</span></a> can be used to check that fact:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>pkg version -t 1.2.p4 1.2</code></strong>
+&lt;</pre></div></div><br class="example-break" /><div class="example"><a id="makefile-versions-ex4"></a><div class="example-title">Example 5.5. Not Using <code class="varname">DISTVERSION</code> When the
+	  Version Contains Letters Meaning "Patch Level"</div><div class="example-contents"><p>When the version contains letters that are not meant as
+	  <span class="quote">&#8220;<span class="quote">alpha</span>&#8221;</span>, <span class="quote">&#8220;<span class="quote">beta</span>&#8221;</span>, or
+	  <span class="quote">&#8220;<span class="quote">pre</span>&#8221;</span>, but more in a <span class="quote">&#8220;<span class="quote">patch
+	    level</span>&#8221;</span>, and meaning after the version without the
+	  letters, use <code class="varname">PORTVERSION</code>.</p><pre class="programlisting">PORTNAME=   nekoto
+PORTVERSION=	1.2p4</pre><p>In this case, using <code class="varname">DISTVERSION</code> is
+	  not possible because it would generate a version of
+	  <code class="literal">1.2.p4</code> which would be before
+	  <code class="literal">1.2</code> and not after.  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pkg-version&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pkg-version</span>(8)</span></a>
+	  will verify this:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>pkg version -t 1.2 1.2.p4</code></strong>
+&gt; <a id="makefile-versions-ex4-co1"></a><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span>
+<code class="prompt">%</code> <strong class="userinput"><code>pkg version -t 1.2 1.2p4</code></strong>
+&lt; <a id="makefile-versions-ex4-co2"></a><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span></pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#makefile-versions-ex4-co1"><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span></a> </p></td><td valign="top" align="left"><p><code class="literal">1.2</code> is after
+	      <code class="literal">1.2.p4</code>, which is
+	      <span class="emphasis"><em>wrong</em></span> in this case.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#makefile-versions-ex4-co2"><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span></a> </p></td><td valign="top" align="left"><p><code class="literal">1.2</code> is before
+	      <code class="literal">1.2p4</code>, which is what was
+	      needed.</p></td></tr></table></div></div></div><br class="example-break" /><p>For some more advanced examples of setting
+	<code class="varname">PORTVERSION</code>, when the software's versioning
+	is really not compatible with FreeBSD's, or
+	<code class="varname">DISTNAME</code> when the distribution file does
+	not contain the version itself, see <a class="xref" href="makefile-distfiles.html#makefile-distname" title="5.4.1. DISTNAME">Section 5.4.1, &#8220;<code class="varname">DISTNAME</code>&#8221;</a>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="makefile-naming-revepoch"></a>5.2.3. <code class="varname">PORTREVISION</code> and
+	<code class="varname">PORTEPOCH</code></h3></div></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="makefile-portrevision"></a>5.2.3.1. <code class="varname">PORTREVISION</code></h4></div></div></div><p><code class="varname">PORTREVISION</code> is a
+	  monotonically increasing value which is reset to 0 with
+	  every increase of <code class="varname">DISTVERSION</code>, typically
+	  every time there is a new official vendor release.  If
+	  <code class="varname">PORTREVISION</code> is non-zero, the value is
+	  appended to the package name.  Changes to
+	  <code class="varname">PORTREVISION</code> are used by automated tools
+	  like <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pkg-version&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pkg-version</span>(8)</span></a> to determine that a new package is
+	  available.</p><p><code class="varname">PORTREVISION</code> must be increased each
+	  time a change is made to the port that changes the generated
+	  package in any way.  That includes changes that only affect
+	  a package built with non-default
+	  <a class="link" href="makefile-options.html" title="5.13. Makefile Options">options</a>.</p><p>Examples of when <code class="varname">PORTREVISION</code>
+	  must be bumped:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Addition of patches to correct security
+	      vulnerabilities, bugs, or to add new functionality to
+	      the port.</p></li><li class="listitem"><p>Changes to the port <code class="filename">Makefile</code> to
+	      enable or disable compile-time options in the
+	      package.</p></li><li class="listitem"><p>Changes in the packing list or the install-time
+	      behavior of the package.  For example, a change to a
+	      script which generates initial data for the package,
+	      like <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ssh&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ssh</span>(1)</span></a> host keys.</p></li><li class="listitem"><p>Version bump of a port's shared library dependency
+	      (in this case, someone trying to install the old package
+	      after installing a newer version of the dependency will
+	      fail since it will look for the old libfoo.x instead of
+	      libfoo.(x+1)).</p></li><li class="listitem"><p>Silent changes to the port distfile which have
+	      significant functional differences.  For example,
+	      changes to the distfile requiring a correction to
+	      <code class="filename">distinfo</code> with no corresponding
+	      change to <code class="varname">DISTVERSION</code>, where a
+	      <code class="command">diff -ru</code> of the old and new versions
+	      shows non-trivial changes to the code.</p></li></ul></div><p>Examples of changes which do not require a
+	  <code class="varname">PORTREVISION</code> bump:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Style changes to the port skeleton with no
+	      functional change to what appears in the resulting
+	      package.</p></li><li class="listitem"><p>Changes to <code class="varname">MASTER_SITES</code> or other
+	      functional changes to the port which do not affect the
+	      resulting package.</p></li><li class="listitem"><p>Trivial patches to the distfile such as correction
+	      of typos, which are not important enough that users of
+	      the package have to go to the trouble of
+	      upgrading.</p></li><li class="listitem"><p>Build fixes which cause a package to become
+	      compilable where it was previously failing.  As long as
+	      the changes do not introduce any functional change on
+	      any other platforms on which the port did previously
+	      build.  Since <code class="varname">PORTREVISION</code> reflects
+	      the content of the package, if the package was not
+	      previously buildable then there is no need to increase
+	      <code class="varname">PORTREVISION</code> to mark a change.</p></li></ul></div><p>A rule of thumb is to decide whether a change
+	  committed to a port is something which
+	  <span class="emphasis"><em>some</em></span> people would benefit from having.
+	  Either because of an enhancement, fix,
+	  or by virtue that the new package will actually work at
+	  all.  Then weigh that against that fact that it will cause
+	  everyone who regularly updates their ports tree to be
+	  compelled to update.  If yes,
+	  <code class="varname">PORTREVISION</code> must be bumped.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">People using binary packages will
+	    <span class="emphasis"><em>never</em></span> see the update if
+	    <code class="varname">PORTREVISION</code> is not bumped.  Without
+	    increasing <code class="varname">PORTREVISION</code>, the
+	    package builders have no way to detect the change and
+	    thus, will not rebuild the package.</p></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="makefile-portepoch"></a>5.2.3.2. <code class="varname">PORTEPOCH</code></h4></div></div></div><p>From time to time a software vendor or FreeBSD porter will
+	  do something silly and release a version of their software
+	  which is actually numerically less than the previous
+	  version.  An example of this is a port which goes from
+	  foo-20000801 to foo-1.0 (the former will be incorrectly
+	  treated as a newer version since 20000801 is a numerically
+	  greater value than 1).</p><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">The results of version number comparisons are not
+	    always obvious.  <code class="command">pkg version</code> (see
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pkg-version&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pkg-version</span>(8)</span></a>) can be used to test the comparison of
+	    two version number strings.  For example:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="screen"><code class="prompt">%</code> <strong class="userinput"><code>pkg version -t 0.031 0.29</code></strong>
+&gt;</pre><p xmlns="http://www.w3.org/1999/xhtml">The <code class="literal">&gt;</code> output indicates that
+	    version 0.031 is considered greater than version 0.29,
+	    which may not have been obvious to the porter.</p></div><p>In situations such as this,
+	  <code class="varname">PORTEPOCH</code> must be increased.
+	  If <code class="varname">PORTEPOCH</code> is nonzero it is appended to
+	  the package name as described in section 0 above.
+	  <code class="varname">PORTEPOCH</code> must never be decreased or
+	  reset to zero, because that would cause comparison to a
+	  package from an earlier epoch to fail.  For example, the
+	  package would not be detected as out of date.  The new
+	  version number, <code class="literal">1.0,1</code> in the above
+	  example, is still numerically less than the previous
+	  version, 20000801, but the <code class="literal">,1</code> suffix is
+	  treated specially by automated tools and found to be greater
+	  than the implied suffix <code class="literal">,0</code> on the earlier
+	  package.</p><p>Dropping or resetting <code class="varname">PORTEPOCH</code>
+	  incorrectly leads to no end of grief.  If the discussion
+	  above was not clear enough, please consult the
+	  <a class="link" href="http://lists.FreeBSD.org/mailman/listinfo/freebsd-ports" target="_top">FreeBSD ports mailing list</a>.</p><p>It is expected that <code class="varname">PORTEPOCH</code> will
+	  not be used for the majority of ports, and that sensible use
+	  of <code class="varname">DISTVERSION</code>, or that use
+	  <code class="varname">PORTVERSION</code> carefully, can often preempt
+	  it
+	  becoming necessary if a future release of the software
+	  changes the version structure.  However, care is
+	  needed by FreeBSD porters when a vendor release is made without
+	  an official version number &#8212; such as a code
+	  <span class="quote">&#8220;<span class="quote">snapshot</span>&#8221;</span> release.  The temptation is to label
+	  the release with the release date, which will cause problems
+	  as in the example above when a new <span class="quote">&#8220;<span class="quote">official</span>&#8221;</span>
+	  release is made.</p><p>For example, if a snapshot release is made on the date
+	  <code class="literal">20000917</code>, and the previous version of the
+	  software was version <code class="literal">1.2</code>, do not use
+	  <code class="literal">20000917</code> for
+	  <code class="varname">DISTVERSION</code>.  The correct way is a
+	  <code class="varname">DISTVERSION</code> of
+	  <code class="literal">1.2.20000917</code>, or similar, so that the
+	  succeeding release, say <code class="literal">1.3</code>, is still a
+	  numerically greater value.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="makefile-portrevision-example"></a>5.2.3.3. Example of <code class="varname">PORTREVISION</code> and
+	  <code class="varname">PORTEPOCH</code> Usage</h4></div></div></div><p>The <code class="literal">gtkmumble</code> port, version
+	  <code class="literal">0.10</code>, is committed to the ports
+	  collection:</p><pre class="programlisting">PORTNAME=	gtkmumble
+DISTVERSION=	0.10</pre><p><code class="varname">PKGNAME</code> becomes
+	  <code class="literal">gtkmumble-0.10</code>.</p><p>A security hole is discovered which requires a local
+	  FreeBSD patch.  <code class="varname">PORTREVISION</code> is bumped
+	  accordingly.</p><pre class="programlisting">PORTNAME=	gtkmumble
+DISTVERSION=	0.10
+PORTREVISION=	1</pre><p><code class="varname">PKGNAME</code> becomes
+	  <code class="literal">gtkmumble-0.10_1</code></p><p>A new version is released by the vendor, numbered
+	  <code class="literal">0.2</code> (it turns out the author actually
+	  intended <code class="literal">0.10</code> to actually mean
+	  <code class="literal">0.1.0</code>, not <span class="quote">&#8220;<span class="quote">what comes after
+	    0.9</span>&#8221;</span> - oops, too late now).  Since the new minor
+	  version <code class="literal">2</code> is numerically less than the
+	  previous version <code class="literal">10</code>,
+	  <code class="varname">PORTEPOCH</code> must be bumped to manually
+	  force the new package to be detected as
+	  <span class="quote">&#8220;<span class="quote">newer</span>&#8221;</span>.  Since it is a new vendor release of
+	  the code, <code class="varname">PORTREVISION</code> is reset to 0 (or
+	  removed from the <code class="filename">Makefile</code>).</p><pre class="programlisting">PORTNAME=	gtkmumble
+DISTVERSION=	0.2
+PORTEPOCH=	1</pre><p><code class="varname">PKGNAME</code> becomes
+	  <code class="literal">gtkmumble-0.2,1</code></p><p>The next release is 0.3.  Since
+	  <code class="varname">PORTEPOCH</code> never decreases, the version
+	  variables are now:</p><pre class="programlisting">PORTNAME=	gtkmumble
+DISTVERSION=	0.3
+PORTEPOCH=	1</pre><p><code class="varname">PKGNAME</code> becomes
+	  <code class="literal">gtkmumble-0.3,1</code></p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">If <code class="varname">PORTEPOCH</code> were reset to
+	    <code class="literal">0</code> with this upgrade, someone who had
+	    installed the <code class="literal">gtkmumble-0.10_1</code> package
+	    would not detect the <code class="literal">gtkmumble-0.3</code>
+	    package as newer, since <code class="literal">3</code> is still
+	    numerically less than <code class="literal">10</code>.  Remember,
+	    this is the whole point of <code class="varname">PORTEPOCH</code> in
+	    the first place.</p></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="porting-pkgnameprefix-suffix"></a>5.2.4. <code class="varname">PKGNAMEPREFIX</code> and
+	<code class="varname">PKGNAMESUFFIX</code></h3></div></div></div><p>Two optional variables, <code class="varname">PKGNAMEPREFIX</code>
+	and <code class="varname">PKGNAMESUFFIX</code>, are combined with
+	<code class="varname">PORTNAME</code> and <code class="varname">PORTVERSION</code>
+	to form <code class="varname">PKGNAME</code> as
+	<code class="literal">${PKGNAMEPREFIX}${PORTNAME}${PKGNAMESUFFIX}-${PORTVERSION}</code>.
+	Make sure this conforms to our
+	<a class="link" href="makefile-naming.html#porting-pkgname" title="5.2.5. Package Naming Conventions">guidelines for a good
+	  package name</a>.  In particular, the use of a
+	hyphen (<code class="literal">-</code>) in
+	<code class="varname">PORTVERSION</code> is <span class="emphasis"><em>not</em></span>
+	allowed.
+	Also, if the package name has the
+	<em class="replaceable"><code>language-</code></em> or the
+	<em class="replaceable"><code>-compiled.specifics</code></em> part (see
+	below), use <code class="varname">PKGNAMEPREFIX</code> and
+	<code class="varname">PKGNAMESUFFIX</code>, respectively.  Do not make
+	them part of <code class="varname">PORTNAME</code>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="porting-pkgname"></a>5.2.5. Package Naming Conventions</h3></div></div></div><p>These are the conventions to follow when
+	naming packages.  This is to make the package directory
+	easy to scan, as there are already thousands of packages and
+	users are going to turn away if they hurt their eyes!</p><p>Package names take the form of
+	<code class="filename"><em class="replaceable"><code>language_region-name-compiled.specifics-version.numbers</code></em></code>.</p><p>The package name is defined as
+	<code class="literal">${PKGNAMEPREFIX}${PORTNAME}${PKGNAMESUFFIX}-${PORTVERSION}</code>.
+	Make sure to set the variables to conform to that
+	format.</p><div class="variablelist"><a id="porting-pkgname-format"></a><dl class="variablelist"><dt><a id="porting-pkgname-language"></a><span class="term"><code class="filename"><em class="replaceable"><code>language_region-</code></em></code></span></dt><dd><p>FreeBSD strives to support the native language of its
+	      users.  The <em class="replaceable"><code>language-</code></em> part is
+	      a two letter abbreviation of the natural language
+	      defined by ISO-639 when the port is specific to a
+	      certain language.  Examples are <code class="literal">ja</code>
+	      for Japanese, <code class="literal">ru</code> for Russian,
+	      <code class="literal">vi</code> for Vietnamese,
+	      <code class="literal">zh</code> for Chinese, <code class="literal">ko</code>
+	      for Korean and <code class="literal">de</code> for German.</p><p>If the port is specific to a certain region within
+	      the language area, add the two letter country code as
+	      well.  Examples are <code class="literal">en_US</code> for US
+	      English and <code class="literal">fr_CH</code> for Swiss
+	      French.</p><p>The <em class="replaceable"><code>language-</code></em> part is
+	      set in <code class="varname">PKGNAMEPREFIX</code>.</p></dd><dt><a id="porting-pkgname-name"></a><span class="term"><code class="filename"><em class="replaceable"><code>name</code></em></code></span></dt><dd><p>Make sure that the port's name and version are
+	      clearly separated and placed into
+	      <code class="varname">PORTNAME</code> and
+	      <code class="varname">DISTVERSION</code>.  The only
+	      reason for <code class="varname">PORTNAME</code> to contain a
+	      version part is if the upstream distribution is really
+	      named that way, as in the
+	      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/textproc/libxml2/pkg-descr">textproc/libxml2</a> or
+	      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/japanese/kinput2-freewnn/pkg-descr">japanese/kinput2-freewnn</a>
+	      ports.  Otherwise, <code class="varname">PORTNAME</code> cannot
+	      contain any version-specific information.  It is quite
+	      normal for several ports to have the same
+	      <code class="varname">PORTNAME</code>, as the
+	      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/www/apache*/pkg-descr">www/apache*</a> ports do; in
+	      that case, different versions (and different index
+	      entries) are distinguished by
+	      <code class="varname">PKGNAMEPREFIX</code>
+	      and <code class="varname">PKGNAMESUFFIX</code> values.</p><p>There is a tradition of naming
+	      <code class="literal">Perl 5</code> modules by prepending
+	      <code class="literal">p5-</code> and converting the double-colon
+	      separator to a hyphen.  For example, the
+	      <code class="literal">Data::Dumper</code> module becomes
+	      <code class="literal">p5-Data-Dumper</code>.</p></dd><dt><a id="porting-pkgname-compiled-specifics"></a><span class="term"><code class="filename"><em class="replaceable"><code>-compiled.specifics</code></em></code></span></dt><dd><p>If the port can be built with different <a class="link" href="makefile-masterdir.html" title="5.10. Slave Ports and MASTERDIR">hardcoded defaults</a>
+	      (usually part of the directory name in a family of
+	      ports), the
+	      <em class="replaceable"><code>-compiled.specifics</code></em> part
+	      states the compiled-in defaults.  The hyphen is
+	      optional.  Examples are paper size and font
+	      units.</p><p>The <em class="replaceable"><code>-compiled.specifics</code></em>
+	      part is set in <code class="varname">PKGNAMESUFFIX</code>.</p></dd><dt><a id="porting-pkgname-version-numbers"></a><span class="term"><code class="filename"><em class="replaceable"><code>-version.numbers</code></em></code></span></dt><dd><p>The version string follows a dash
+	      (<code class="literal">-</code>) and is a period-separated list of
+	      integers and single lowercase alphabetics.  In
+	      particular, it is not permissible to have another dash
+	      inside the version string.  The only exception is the
+	      string <code class="literal">pl</code> (meaning
+	      <span class="quote">&#8220;<span class="quote">patchlevel</span>&#8221;</span>), which can be used
+	      <span class="emphasis"><em>only</em></span> when there are no major and
+	      minor version numbers in the software.  If the software
+	      version has strings like <span class="quote">&#8220;<span class="quote">alpha</span>&#8221;</span>,
+	      <span class="quote">&#8220;<span class="quote">beta</span>&#8221;</span>, <span class="quote">&#8220;<span class="quote">rc</span>&#8221;</span>, or
+	      <span class="quote">&#8220;<span class="quote">pre</span>&#8221;</span>, take the first letter and put it
+	      immediately after a period.  If the version string
+	      continues after those names, the numbers follow
+	      the single alphabet without an extra period between
+	      them (for example, <code class="literal">1.0b2</code>).</p><p>The idea is to make it easier to sort ports by
+	      looking at the version string.  In particular, make sure
+	      version number components are always delimited by a
+	      period, and if the date is part of the string, use the
+	      <code class="literal">d<em class="replaceable"><code>yyyy</code></em>.<em class="replaceable"><code>mm</code></em>.<em class="replaceable"><code>dd</code></em></code>
+	      format, not
+	      <code class="literal"><em class="replaceable"><code>dd</code></em>.<em class="replaceable"><code>mm</code></em>.<em class="replaceable"><code>yyyy</code></em></code>
+	      or the non-Y2K compliant
+	      <code class="literal"><em class="replaceable"><code>yy</code></em>.<em class="replaceable"><code>mm</code></em>.<em class="replaceable"><code>dd</code></em></code>
+	      format.  It is important to prefix the version with a
+	      letter, here <code class="literal">d</code> (for date), in case a
+	      release with an actual
+	      version number is made, which would be
+	      numerically less than
+	      <code class="literal"><em class="replaceable"><code>yyyy</code></em></code>.</p></dd></dl></div><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">Package name must be unique among all of the ports
+	  tree, check that there is not already a port with the same
+	  <code class="varname">PORTNAME</code> and if there is add one of <a class="link" href="makefile-naming.html#porting-pkgnameprefix-suffix" title="5.2.4. PKGNAMEPREFIX and PKGNAMESUFFIX"><code class="varname">PKGNAMEPREFIX</code>
+	    or <code class="varname">PKGNAMESUFFIX</code></a>.</p></div><p>Here are some (real) examples on how to convert the name
+	as called by the software authors to a suitable package name,
+	for each line, only one of <code class="varname">DISTVERSION</code> or
+	<code class="varname">PORTVERSION</code> is set in, depending on which
+	would be used in the port's
+	<code class="filename">Makefile</code>:</p><div class="table"><a id="idp50920312"></a><div class="table-title">Table 5.2. Package Naming Examples</div><div class="table-contents"><table class="table" summary="Package Naming Examples" width="100%" border="0"><colgroup><col /><col /><col /><col /><col /><col /><col /></colgroup><thead><tr><th>Distribution Name</th><th><code class="varname">PKGNAMEPREFIX</code></th><th><code class="varname">PORTNAME</code></th><th><code class="varname">PKGNAMESUFFIX</code></th><th><code class="varname">DISTVERSION</code></th><th><code class="varname">PORTVERSION</code></th><th>Reason or comment</th></tr></thead><tbody><tr><td>mule-2.2.2</td><td>(empty)</td><td>mule</td><td>(empty)</td><td>2.2.2</td><td> </td><td>No changes required</td></tr><tr><td>mule-1.0.1</td><td>(empty)</td><td>mule</td><td>1</td><td>1.0.1</td><td> </td><td>This is version 1 of
+		<span class="application">mule</span>, and version 2 already
+		exists</td></tr><tr><td>EmiClock-1.0.2</td><td>(empty)</td><td>emiclock</td><td>(empty)</td><td>1.0.2</td><td> </td><td>No uppercase names for single programs</td></tr><tr><td>rdist-1.3alpha</td><td>(empty)</td><td>rdist</td><td>(empty)</td><td>1.3alpha</td><td> </td><td>Version will be <code class="literal">1.3.a</code></td></tr><tr><td>es-0.9-beta1</td><td>(empty)</td><td>es</td><td>(empty)</td><td>0.9-beta1</td><td> </td><td>Version will be <code class="literal">0.9.b1</code></td></tr><tr><td>mailman-2.0rc3</td><td>(empty)</td><td>mailman</td><td>(empty)</td><td>2.0rc3</td><td> </td><td>Version will be <code class="varname">2.0.r3</code></td></tr><tr><td>v3.3beta021.src</td><td>(empty)</td><td>tiff</td><td>(empty)</td><td> </td><td>3.3</td><td>What the heck was that anyway?</td></tr><tr><td>tvtwm</td><td>(empty)</td><td>tvtwm</td><td>(empty)</td><td> </td><td>p11</td><td>No version in the filename, use what upstream
+		says it is</td></tr><tr><td>piewm</td><td>(empty)</td><td>piewm</td><td>(empty)</td><td>1.0</td><td> </td><td>No version in the filename, use what upstream
+		says it is</td></tr><tr><td>xvgr-2.10pl1</td><td>(empty)</td><td>xvgr</td><td>(empty)</td><td> </td><td>2.10.pl1</td><td>In that case, <code class="literal">pl1</code> means patch
+		level, so using DISTVERSION is not possible.</td></tr><tr><td>gawk-2.15.6</td><td>ja-</td><td>gawk</td><td>(empty)</td><td>2.15.6</td><td> </td><td>Japanese language version</td></tr><tr><td>psutils-1.13</td><td>(empty)</td><td>psutils</td><td>-letter</td><td>1.13</td><td> </td><td>Paper size hardcoded at package build
+		time</td></tr><tr><td>pkfonts</td><td>(empty)</td><td>pkfonts</td><td>300</td><td>1.0</td><td> </td><td>Package for 300dpi fonts</td></tr></tbody></table></div></div><br class="table-break" /><p>If there is absolutely no trace of version information in
+	the original source and it is unlikely that the original
+	author will ever release another version, just set the version
+	string to <code class="literal">1.0</code> (like the
+	<code class="literal">piewm</code> example above).  Otherwise, ask the
+	original author or use the date string the source file was
+	released on
+	(<code class="literal">d<em class="replaceable"><code>yyyy</code></em>.<em class="replaceable"><code>mm</code></em>.<em class="replaceable"><code>dd</code></em></code>,
+	or
+	<code class="literal">d<em class="replaceable"><code>yyyy</code></em><em class="replaceable"><code>mm</code></em><em class="replaceable"><code>dd</code></em></code>)
+	as the version.</p><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">Use any letter. Here, <code class="literal">d</code> here stands
+	  for date, if the source is a <span class="application">Git</span>
+	  repository, <code class="literal">g</code> followed by the commit date
+	  is commonly used, using <code class="literal">s</code> for snapshot is
+	  also common.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="makefiles.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="makefiles.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="makefile-categories.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 5. Configuring the Makefile </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 5.3. Categorization</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

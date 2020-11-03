@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>3. How to Mirror FreeBSD</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Mirroring FreeBSD" /><link rel="up" href="index.html" title="Mirroring FreeBSD" /><link rel="prev" href="mirror-requirements.html" title="2. Requirements for FreeBSD Mirrors" /><link rel="next" href="mirror-where.html" title="4. Where to Mirror From" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">3. How to Mirror FreeBSD</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="mirror-requirements.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="mirror-where.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="mirror-howto"></a>3. How to Mirror FreeBSD</h2></div></div></div><p>Ok, now you know the requirements and how to offer the
+      services, but not how to get it.  :-) This section explains how
+      to actually mirror the various parts of FreeBSD, what tools to
+      use, and where to mirror from.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-ftp-rsync"></a>3.1. Mirroring the FTP Site</h3></div></div></div><p>The FTP area is the largest amount of data that needs to
+	be mirrored.  It includes the <span class="emphasis"><em>distribution
+	  sets</em></span> required for network installation, the
+	<span class="emphasis"><em>branches</em></span> which are actually snapshots of
+	checked-out source trees, the <span class="emphasis"><em>ISO Images</em></span>
+	to write CD-ROMs with the installation distribution, a live
+	file system, and a snapshot of the ports tree.  All of course
+	for various FreeBSD versions, and various
+	architectures.</p><p>The best way to mirror the FTP area is
+	<span class="application">rsync</span>.  You can install the port
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/net/rsync/pkg-descr">net/rsync</a> and then use rsync to sync with
+	your upstream host.  <span class="application">rsync</span> is
+	already mentioned in <a class="xref" href="mirror-requirements.html#mirror-serv-rsync" title="2.4.2. Rsync (optional for FTP Fileset)">Section 2.4.2, &#8220;Rsync (optional for FTP Fileset)&#8221;</a>.
+	Since <span class="application">rsync</span> access is not required,
+	your preferred upstream site may not allow it.  You may need
+	to hunt around a little bit to find a site that allows
+	<span class="application">rsync</span> access.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Since the number of <span class="application">rsync</span>
+	  clients will have a significant impact on the server
+	  machine, most admins impose limitations on their server.
+	  For a mirror, you should ask the site maintainer you are
+	  syncing from about their policy, and maybe an exception for
+	  your host (since you are a mirror).</p></div><p>A command line to mirror FreeBSD might look like:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>rsync -vaHz --delete rsync://ftp4.de.FreeBSD.org/FreeBSD/ /pub/FreeBSD/</code></strong></pre><p>Consult the documentation for
+	<span class="application">rsync</span>, which is also available at
+	<a class="link" href="http://rsync.samba.org/" target="_top">http://rsync.samba.org/</a>,
+	about the various options to be used with rsync.  If you sync
+	the whole module (unlike subdirectories), be aware that the
+	module-directory (here "FreeBSD") will not be created, so you
+	cannot omit the target directory.  Also you might want to set
+	up a script framework that calls such a command via
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=cron&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">cron</span>(8)</span></a>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-www"></a>3.2. Mirroring the WWW Pages</h3></div></div></div><p>The FreeBSD website should only be mirrored via
+	<span class="application">rsync</span>.</p><p>A command line to mirror the FreeBSD web site might look
+	like:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>rsync -vaHz --delete rsync://bit0.us-west.freebsd.org/FreeBSD-www-data/ /usr/local/www/</code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-pkgs"></a>3.3. Mirroring Packages</h3></div></div></div><p>Due to very high requirements of bandwidth, storage and
+	adminstration the FreeBSD Project has decided not to allow public
+	mirrors of packages.  For sites with lots of machines, it
+	might be advantagous to run a caching HTTP proxy for the
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pkg&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pkg</span>(8)</span></a> process.  Alternatively specific packages and
+	their dependencies can be fetched by running something like
+	the following:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>pkg fetch -d -o <em class="replaceable"><code>/usr/local/mirror</code></em> <em class="replaceable"><code>vim</code></em></code></strong></pre><p>Once those packages have been fetched, the repository
+	metadata must be generated by running:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>pkg repo <em class="replaceable"><code>/usr/local/mirror</code></em></code></strong></pre><p>Once the packages have been fetched and the metadata for
+	the repository has been generated, serve the packages up to
+	the client machines via HTTP.  For additional information see
+	the man pages for <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pkg&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pkg</span>(8)</span></a>, specifically the
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pkg-repo&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pkg-repo</span>(8)</span></a> page.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="mirror-how-often"></a>3.4. How Often Should I Mirror?</h3></div></div></div><p>Every mirror should be updated at a minimum of once per
+	day.  Certainly a script with locking to prevent multiple runs
+	happening at the same time will be needed to run from
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=cron&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">cron</span>(8)</span></a>.  Since nearly every admin does this in their own
+	way, specific instructions cannot be provided.  It could work
+	something like this:</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p>Put the command to run your mirroring application in a
+	    script.  Use of a plain <code class="command">/bin/sh</code> script
+	    is recommended.</p></li><li class="step"><p>Add some output redirections so diagnostic messages
+	    are logged to a file.</p></li><li class="step"><p>Test if your script works.  Check the logs.</p></li><li class="step"><p>Use <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=crontab&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">crontab</span>(1)</span></a> to add the script to the
+	    appropriate user's <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=crontab&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">crontab</span>(5)</span></a>.  This should be a
+	    different user than what your FTP daemon runs as so that
+	    if file permissions inside your FTP area are not
+	    world-readable those files cannot be accessed by anonymous
+	    FTP.  This is used to <span class="quote">&#8220;<span class="quote">stage</span>&#8221;</span> releases
+	    &#8212; making sure all of the official mirror sites have
+	    all of the necessary release files on release day.</p></li></ol></div><p>Here are some recommended schedules:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>FTP fileset: daily</p></li><li class="listitem"><p>WWW pages: daily</p></li></ul></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="mirror-requirements.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="mirror-where.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2. Requirements for FreeBSD Mirrors </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 4. Where to Mirror From</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

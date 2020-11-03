@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>2.9. Network Interfaces</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="bsdinstall.html" title="Chapter 2. Installing FreeBSD" /><link rel="prev" href="bsdinstall-post.html" title="2.8. Accounts, Time Zone, Services and Hardening" /><link rel="next" href="bsdinstall-install-trouble.html" title="2.10. Troubleshooting" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">2.9. Network Interfaces</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="bsdinstall-post.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Installing FreeBSD</th><td width="20%" align="right"> <a accesskey="n" href="bsdinstall-install-trouble.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="bsdinstall-network"></a>2.9. Network Interfaces</h2></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="bsdinstall-config-network-dev"></a>2.9.1. Configuring Network Interfaces</h3></div></div></div><p>Next, a list of the network interfaces found on the
+	computer is shown.  Select the interface to configure.</p><div class="figure"><a id="bsdinstall-configure-net-interface"></a><div class="figure-title">Figure 2.49. Choose a Network Interface</div><div class="figure-contents"><div class="mediaobject"><img src="bsdinstall/bsdinstall-configure-network-interface.png" alt="Choose a Network Interface" /></div></div></div><br class="figure-break" /><p>If an Ethernet interface is selected, the installer will
+	skip ahead to the menu shown in <a class="xref" href="bsdinstall-network.html#bsdinstall-configure-net-ipv4" title="Figure 2.53. Choose IPv4 Networking">Figure 2.53, &#8220;Choose <acronym class="acronym">IPv4</acronym> Networking&#8221;</a>.  If a wireless
+	network interface is chosen, the system will instead scan for
+	wireless access points:</p><div class="figure"><a id="bsdinstall-wireless-scan"></a><div class="figure-title">Figure 2.50. Scanning for Wireless Access Points</div><div class="figure-contents"><div class="mediaobject"><img src="bsdinstall/bsdinstall-configure-wireless-scan.png" alt="Scanning for Wireless Access Points" /></div></div></div><br class="figure-break" /><p>Wireless networks are identified by a Service Set
+	Identifier (<acronym class="acronym">SSID</acronym>), a short, unique name
+	given to each network.  <acronym class="acronym">SSIDs</acronym> found during
+	the scan are listed, followed by a description of the
+	encryption types available for that network.  If the desired
+	<acronym class="acronym">SSID</acronym> does not appear in the list, select
+	<span class="guibutton">[ Rescan ]</span> to scan again.  If
+	the desired network still does not appear, check for problems
+	with antenna connections or try moving the computer closer to
+	the access point.  Rescan after each change is made.</p><div class="figure"><a id="bsdinstall-wireless-accesspoints"></a><div class="figure-title">Figure 2.51. Choosing a Wireless Network</div><div class="figure-contents"><div class="mediaobject"><img src="bsdinstall/bsdinstall-configure-wireless-accesspoints.png" alt="Choosing a Wireless Network" /></div></div></div><br class="figure-break" /><p>Next, enter the encryption information for connecting to
+	the selected wireless network.  <acronym class="acronym">WPA2</acronym>
+	encryption is strongly recommended as older encryption types,
+	like <acronym class="acronym">WEP</acronym>, offer little security.  If the
+	network uses <acronym class="acronym">WPA2</acronym>, input the password, also
+	known as the Pre-Shared Key (<acronym class="acronym">PSK</acronym>).  For
+	security reasons, the characters typed into the input box are
+	displayed as asterisks.</p><div class="figure"><a id="bsdinstall-wireless-wpa2"></a><div class="figure-title">Figure 2.52. WPA2 Setup</div><div class="figure-contents"><div class="mediaobject"><img src="bsdinstall/bsdinstall-configure-wireless-wpa2setup.png" alt="WPA2 Setup" /></div></div></div><br class="figure-break" /><p>Next, choose whether or not an <acronym class="acronym">IPv4</acronym>
+	address should be configured on the Ethernet or wireless
+	interface:</p><div class="figure"><a id="bsdinstall-configure-net-ipv4"></a><div class="figure-title">Figure 2.53. Choose <acronym class="acronym">IPv4</acronym> Networking</div><div class="figure-contents"><div class="mediaobject"><img src="bsdinstall/bsdinstall-configure-network-interface-ipv4.png" alt="Choose IPv4 Networking" /></div></div></div><br class="figure-break" /><p>There are two methods of <acronym class="acronym">IPv4</acronym>
+	configuration.  <acronym class="acronym">DHCP</acronym> will automatically
+	configure the network interface correctly and should be used
+	if the network provides a <acronym class="acronym">DHCP</acronym> server.
+	Otherwise, the addressing information needs to be input
+	manually as a static configuration.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Do not enter random network information as it will not
+	  work.  If a <acronym class="acronym">DHCP</acronym> server is not available,
+	  obtain the information listed in <a class="xref" href="bsdinstall-pre.html#bsdinstall-collect-network-information" title="Required Network Information">Required Network Information</a> from
+	  the network administrator or Internet service
+	  provider.</p></div><p>If a <acronym class="acronym">DHCP</acronym> server is available, select
+	<span class="guibutton">[ Yes ]</span> in the next menu to
+	automatically configure the network interface.  The installer
+	will appear to pause for a minute or so as it finds the
+	<acronym class="acronym">DHCP</acronym> server and obtains the addressing
+	information for the system.</p><div class="figure"><a id="bsdinstall-net-ipv4-dhcp"></a><div class="figure-title">Figure 2.54. Choose <acronym class="acronym">IPv4</acronym> <acronym class="acronym">DHCP</acronym>
+	  Configuration</div><div class="figure-contents"><div class="mediaobject"><img src="bsdinstall/bsdinstall-configure-network-interface-ipv4-dhcp.png" alt="Choose IPv4 DHCP Configuration" /></div></div></div><br class="figure-break" /><p>If a <acronym class="acronym">DHCP</acronym> server is not available,
+	select <span class="guibutton">[ No ]</span> and input the
+	following addressing information in this menu:</p><div class="figure"><a id="bsdinstall-net-ipv4-static"></a><div class="figure-title">Figure 2.55. <acronym class="acronym">IPv4</acronym> Static Configuration</div><div class="figure-contents"><div class="mediaobject"><img src="bsdinstall/bsdinstall-configure-network-interface-ipv4-static.png" alt="IPv4 Static Configuration" /></div></div></div><br class="figure-break" /><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="literal">IP Address</code> - The
+	    <acronym class="acronym">IPv4</acronym> address assigned to this computer.
+	    The address must be unique and not already in use by
+	    another piece of equipment on the local network.</p></li><li class="listitem"><p><code class="literal">Subnet Mask</code> - The subnet mask for
+	    the network.</p></li><li class="listitem"><p><code class="literal">Default Router</code> - The
+	    <acronym class="acronym">IP</acronym> address of the network's default
+	    gateway.</p></li></ul></div><p>The next screen will ask if the interface should be
+	configured for <acronym class="acronym">IPv6</acronym>.  If
+	<acronym class="acronym">IPv6</acronym> is available and desired, choose
+	<span class="guibutton">[ Yes ]</span> to select it.</p><div class="figure"><a id="bsdinstall-net-ipv6"></a><div class="figure-title">Figure 2.56. Choose IPv6 Networking</div><div class="figure-contents"><div class="mediaobject"><img src="bsdinstall/bsdinstall-configure-network-interface-ipv6.png" alt="Choose IPv6 Networking" /></div></div></div><br class="figure-break" /><p><acronym class="acronym">IPv6</acronym> also has two methods of
+	configuration.    StateLess Address AutoConfiguration
+	(<acronym class="acronym">SLAAC</acronym>) will automatically request the
+	correct configuration information from a local router.  Refer
+	to <a class="link" href="http://tools.ietf.org/html/rfc4862" target="_top">rfc4862</a>
+	for more information.  Static configuration requires manual
+	entry of network information.</p><p>If an <acronym class="acronym">IPv6</acronym> router is available, select
+	<span class="guibutton">[ Yes ]</span> in the next menu to
+	automatically configure the network interface.  The installer
+	will appear to pause for a minute or so as it finds the router
+	and obtains the addressing information for the system.</p><div class="figure"><a id="bsdinstall-net-ipv6-slaac"></a><div class="figure-title">Figure 2.57. Choose IPv6 SLAAC Configuration</div><div class="figure-contents"><div class="mediaobject"><img src="bsdinstall/bsdinstall-configure-network-interface-slaac.png" alt="Choose IPv6 SLAAC Configuration" /></div></div></div><br class="figure-break" /><p>If an <acronym class="acronym">IPv6</acronym> router is not available,
+	select <span class="guibutton">[ No ]</span> and input the
+	following addressing information in this menu:</p><div class="figure"><a id="bsdinstall-net-ipv6-static"></a><div class="figure-title">Figure 2.58. IPv6 Static Configuration</div><div class="figure-contents"><div class="mediaobject"><img src="bsdinstall/bsdinstall-configure-network-interface-ipv6-static.png" alt="IPv6 Static Configuration" /></div></div></div><br class="figure-break" /><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="literal">IPv6 Address</code> - The
+	    <acronym class="acronym">IPv6</acronym> address assigned to this computer.
+	    The address must be unique and not already in use by
+	    another piece of equipment on the local network.</p></li><li class="listitem"><p><code class="literal">Default Router</code> - The
+	    <acronym class="acronym">IPv6</acronym> address of the network's default
+	    gateway.</p></li></ul></div><p>The last network configuration menu is used to configure
+	the Domain Name System (<acronym class="acronym">DNS</acronym>) resolver,
+	which converts hostnames to and from network addresses.  If
+	<acronym class="acronym">DHCP</acronym> or <acronym class="acronym">SLAAC</acronym> was used
+	to autoconfigure the network interface, the <code class="literal">Resolver
+	  Configuration</code> values may already be filled in.
+	Otherwise, enter the local network's domain name in the
+	<code class="literal">Search</code> field.  <code class="literal">DNS #1</code>
+	and <code class="literal">DNS #2</code> are the <acronym class="acronym">IPv4</acronym>
+	and/or <acronym class="acronym">IPv6</acronym> addresses of the
+	<acronym class="acronym">DNS</acronym> servers.  At least one
+	<acronym class="acronym">DNS</acronym> server is required.</p><div class="figure"><a id="bsdinstall-net-dns-config"></a><div class="figure-title">Figure 2.59. DNS Configuration</div><div class="figure-contents"><div class="mediaobject"><img src="bsdinstall/bsdinstall-configure-network-ipv4-dns.png" alt="DNS Configuration" /></div></div></div><br class="figure-break" /><p>Once the interface is configured, select a mirror site
+	that is located in the same region of the world as the
+	computer on which FreeBSD is being installed.  Files can be
+	retrieved more quickly when the mirror is close to the
+	target computer, reducing installation time.</p><div class="figure"><a id="bsdinstall-netinstall-mirror"></a><div class="figure-title">Figure 2.60. Choosing a Mirror</div><div class="figure-contents"><div class="mediaobject"><img src="bsdinstall/bsdinstall-netinstall-mirrorselect.png" alt="Choosing a Mirror" /></div></div></div><br class="figure-break" /></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="bsdinstall-post.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="bsdinstall.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="bsdinstall-install-trouble.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2.8. Accounts, Time Zone, Services and Hardening </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 2.10. Troubleshooting</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

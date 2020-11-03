@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' site: www.FreeBSD.org site: docs.FreeBSD.org site: lists.FreeBSD.org site: wiki.FreeBSD.org site: forums.FreeBSD.org'">
                   <h2 class="blockhide">
                     <label for="words">Suche</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="//www.FreeBSD.org/cgi/man.cgi">Manualpages</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">Presentations and Papers</a>
                   </li>
                   <li>
                     <a href="../../doc/de_DE.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
@@ -247,7 +249,7 @@
           </div>
           <div id="contentwrap"><h1>FreeBSD Java® Project</h1>
 
-  <a href="http://java.sun.com" shape="rect"><img src="../../java/j2j.gif" hspace="10" border="0" alt="Offizielle Java®-Seite" align="right" /></a>
+  <a href="https://www.oracle.com/technetwork/java/index.html" shape="rect"><img src="../../java/j2j.gif" hspace="10" border="0" alt="Offizielle Java®-Seite" align="right" /></a>
 
   <h2>Java beziehen</h2>
 
@@ -259,56 +261,39 @@
 
     <p>Das OpenJDK® Project bietet ihnen eine native Open
       Source-Implementierung der Java® SE-Plattform und ist in den
-      Versionen 6, 7 und 8 für alle unterstützten FreeBSD-Versionen
+      Versionen 7 und 8 für alle unterstützten FreeBSD-Versionen
       auf den Plattformen i386 sowie amd64 verfügbar.</p>
 
-    <p>OpenJDK® 7 wird regelmäßig aktualisiert.  Lesen Sie das <a href="http://svnweb.freebsd.org/ports/head/java/openjdk7/Makefile?view=log" shape="rect">Revisionslog</a>,
+    <p>OpenJDK® 7 wird regelmäßig aktualisiert.  Lesen Sie das <a href="https://svnweb.freebsd.org/ports/head/java/openjdk7/Makefile?view=log" shape="rect">Revisionslog</a>,
       um sich über Änderungen zu informieren.  Weitere Informationen sind
-      auf <a href="http://www.freshports.org/java/openjdk7" shape="rect">FreshPorts</a>
+      auf <a href="https://www.freshports.org/java/openjdk7" shape="rect">FreshPorts</a>
       verfügbar.</p>
 
     <p>Verwenden Sie pkg(8), um OpenJDK® 7 zu installieren:</p>
 
     <p>
       <code>pkg install openjdk</code>
-      <br clear="none" /><br clear="none" />
+      <br clear="none" />
       oder nutzen Sie die Ports-Sammlung:
-      <br clear="none" /><br clear="none" />
+      <br clear="none" />
       <code>cd /usr/ports/java/openjdk7
       <br clear="none" />make install clean
       </code>
     </p>
 
-    <p>OpenJDK® 8 wird regelmäßig aktualisiert.  Lesen Sie das <a href="http://svnweb.freebsd.org/ports/head/java/openjdk8/Makefile?view=log" shape="rect">Revisionslog</a>,
+    <p>OpenJDK® 8 wird regelmäßig aktualisiert.  Lesen Sie das <a href="https://svnweb.freebsd.org/ports/head/java/openjdk8/Makefile?view=log" shape="rect">Revisionslog</a>,
       um sich über Änderungen zu informieren.  Weitere Informationen sind
-      auf <a href="http://www.freshports.org/java/openjdk8" shape="rect">FreshPorts</a>
+      auf <a href="https://www.freshports.org/java/openjdk8" shape="rect">FreshPorts</a>
       verfügbar.</p>
 
     <p>Verwenden Sie pkg(8), um OpenJDK® 8 zu installieren:</p>
 
     <p>
       <code>pkg install openjdk8</code>
-      <br clear="none" /><br clear="none" />
+      <br clear="none" />
       oder nutzen Sie die Ports-Sammlung:
-      <br clear="none" /><br clear="none" />
+      <br clear="none" />
       <code>cd /usr/ports/java/openjdk8
-      <br clear="none" />make install clean
-      </code>
-    </p>
-
-    <p>OpenJDK® 6 wird regelmäßig aktualisiert.  Lesen Sie das <a href="http://svnweb.freebsd.org/ports/head/java/openjdk6/Makefile?view=log" shape="rect">Revisionslog</a>,
-      um sich über Änderungen zu informieren.  Weitere Informationen sind
-      auf <a href="http://www.freshports.org/java/openjdk6" shape="rect">FreshPorts</a>
-      verfügbar.</p>
-
-    <p>Verwenden Sie pkg(8), um OpenJDK® 6 zu installieren:</p>
-
-    <p>
-      <code>pkg install openjdk6</code>
-      <br clear="none" /><br clear="none" />
-      oder nutzen Sie die Ports-Sammlung:
-      <br clear="none" /><br clear="none" />
-      <code>cd /usr/ports/java/openjdk6
       <br clear="none" />make install clean
       </code>
     </p>
@@ -331,15 +316,6 @@
       nur für den persönlichen Gebrauch einsetzen.  Aus diesem Grund
       muss auch der Quellcode vor der Installation manuell heruntergeladen
       werden.</p>
-    </li>
-
-    <li>
-    <h3>Natives JDK (nicht mehr unterstützt)</h3>
-
-    <p>Die FreeBSD Foundation stellt inzwischen keine (noch von Sun
-      lizenzierten) Java® JDK®- und JRE®-Binärpakete mehr bereit.
-      Veraltete Java® JDK®- und JRE®-Pakete der Versionen 5.0
-      sowie 6.0 werden ebenfalls nicht mehr angeboten.</p>
     </li>
   </ul>
 
@@ -395,7 +371,7 @@
           <br class="clearboth" />
         </div>
         <div id="footer">
-          <span><a href="../../search/index-site.html">Sitemap</a> | <a href="../../copyright/">Legal Notices</a> | © 1995&#8211;2018 The FreeBSD Project.  Alle Rechte vorbehalten.</span>
+          <span><a href="../../search/index-site.html">Sitemap</a> | <a href="../../copyright/">Legal Notices</a> | © 1995&#8211;2020 The FreeBSD Project.  Alle Rechte vorbehalten.</span>
           <br />
         </div>
       </div>

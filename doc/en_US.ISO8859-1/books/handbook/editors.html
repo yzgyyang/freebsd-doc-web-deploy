@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>3.10. Text Editors</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="basics.html" title="Chapter 3. FreeBSD Basics" /><link rel="prev" href="shells.html" title="3.9. Shells" /><link rel="next" href="basics-devices.html" title="3.11. Devices and Device Nodes" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">3.10. Text Editors</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="shells.html">Prev</a> </td><th width="60%" align="center">Chapter 3. FreeBSD Basics</th><td width="20%" align="right"> <a accesskey="n" href="basics-devices.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="editors"></a>3.10. Text Editors</h2></div></div></div><a id="idp53224312" class="indexterm"></a><a id="idp53225080" class="indexterm"></a><p>Most FreeBSD configuration is done by editing text files.
+      Because of this, it is a good idea to become familiar with a
+      text editor.  FreeBSD comes with a few as part of the base system,
+      and many more are available in the Ports Collection.</p><a id="idp53226232" class="indexterm"></a><a id="idp53227128" class="indexterm"></a><p>A simple editor to learn is <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ee&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ee</span>(1)</span></a>, which stands for
+      easy editor.  To start this editor, type <code class="command">ee
+	<em class="replaceable"><code>filename</code></em></code> where
+      <em class="replaceable"><code>filename</code></em> is the name of the file to
+      be edited.  Once inside the editor, all of the commands for
+      manipulating the editor's functions are listed at the top of the
+      display.  The caret (<code class="literal">^</code>) represents
+      <span class="keycap"><strong>Ctrl</strong></span>, so <code class="literal">^e</code> expands to
+      <span class="keycap"><strong>Ctrl</strong></span>+<span class="keycap"><strong>e</strong></span>.  To leave <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ee&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ee</span>(1)</span></a>, press <span class="keycap"><strong>Esc</strong></span>,
+      then choose the <span class="quote">&#8220;<span class="quote">leave editor</span>&#8221;</span> option from the main
+      menu.  The editor will prompt to save any changes if the file
+      has been modified.</p><a id="idp53017976" class="indexterm"></a><a id="idp53018872" class="indexterm"></a><a id="idp53019640" class="indexterm"></a><p>FreeBSD also comes with more powerful text editors, such as
+      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=vi&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">vi</span>(1)</span></a>, as part of the base system.  Other editors, like
+      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/editors/emacs/pkg-descr">editors/emacs</a> and
+      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/editors/vim/pkg-descr">editors/vim</a>, are part of the
+      FreeBSD Ports Collection.  These editors offer more functionality
+      at the expense of being more complicated to learn.  Learning a
+      more powerful editor such as <span class="application">vim</span> or
+      <span class="application">Emacs</span> can save more time in the long
+      run.</p><p>Many applications which modify files or require typed input
+      will automatically open a text editor.  To change the default
+      editor, set the <code class="envar">EDITOR</code> environment
+      variable as described in <a class="xref" href="shells.html" title="3.9. Shells">Section 3.9, &#8220;Shells&#8221;</a>.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="shells.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="basics.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="basics-devices.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">3.9. Shells </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 3.11. Devices and Device Nodes</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">検索</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="../../../cgi/man.cgi">マニュアルページ</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">プレゼンテーションと論文</a>
                   </li>
                   <li>
                     <a href="../../../doc/en_US.ISO8859-1/books/fdp-primer">新しい貢献者のためのドキュメンテーションプロジェクト入門</a>
@@ -270,17 +272,17 @@
   <ul>
     <li>Intel Software Developer's Manual, revision 2.1
       <ul>
-	<li><a href="http://people.FreeBSD.org/~marcel/refs/ia64/sdm-2.1/245317.pdf" shape="rect">Volume 1: Application Architecture [pdf]</a></li>
-	<li><a href="http://people.FreeBSD.org/~marcel/refs/ia64/sdm-2.1/245318.pdf" shape="rect">Volume 2: System Architecture [pdf]</a></li>
-	<li><a href="http://people.FreeBSD.org/~marcel/refs/ia64/sdm-2.1/245319.pdf" shape="rect">Volume 3: Instruction Set Reference [pdf]</a></li>
-	<li><a href="http://people.FreeBSD.org/~marcel/refs/ia64/sdm-2.1/24869909.pdf" shape="rect">Specification Update [pdf]</a></li>
+	<li><a href="https://people.FreeBSD.org/~marcel/refs/ia64/sdm-2.1/245317.pdf" shape="rect">Volume 1: Application Architecture [pdf]</a></li>
+	<li><a href="https://people.FreeBSD.org/~marcel/refs/ia64/sdm-2.1/245318.pdf" shape="rect">Volume 2: System Architecture [pdf]</a></li>
+	<li><a href="https://people.FreeBSD.org/~marcel/refs/ia64/sdm-2.1/245319.pdf" shape="rect">Volume 3: Instruction Set Reference [pdf]</a></li>
+	<li><a href="https://people.FreeBSD.org/~marcel/refs/ia64/sdm-2.1/24869909.pdf" shape="rect">Specification Update [pdf]</a></li>
       </ul>
     </li>
     <li>Intel Software Developer's Manual, revision 2.2
       <ul>
-        <li><a href="http://people.FreeBSD.org/~marcel/refs/ia64/sdm-2.2/24531705.pdf" shape="rect">Volume 1: Application Architecture [pdf]</a></li>
-        <li><a href="http://people.FreeBSD.org/~marcel/refs/ia64/sdm-2.2/24531805.pdf" shape="rect">Volume 2: System Architecture [pdf]</a></li>
-        <li><a href="http://people.FreeBSD.org/~marcel/refs/ia64/sdm-2.2/24531905.pdf" shape="rect">Volume 3: Instruction Set Reference [pdf]</a></li>
+        <li><a href="https://people.FreeBSD.org/~marcel/refs/ia64/sdm-2.2/24531705.pdf" shape="rect">Volume 1: Application Architecture [pdf]</a></li>
+        <li><a href="https://people.FreeBSD.org/~marcel/refs/ia64/sdm-2.2/24531805.pdf" shape="rect">Volume 2: System Architecture [pdf]</a></li>
+        <li><a href="https://people.FreeBSD.org/~marcel/refs/ia64/sdm-2.2/24531905.pdf" shape="rect">Volume 3: Instruction Set Reference [pdf]</a></li>
       </ul>
     </li>
   </ul>
@@ -290,12 +292,12 @@
   <ul>
     <li>Itanium (Merced)
       <ul>
-	<li><a href="http://people.FreeBSD.org/~marcel/refs/ia64/itanium/24532003.pdf" shape="rect">Processor Reference Manual [pdf]</a></li>
+	<li><a href="https://people.FreeBSD.org/~marcel/refs/ia64/itanium/24532003.pdf" shape="rect">Processor Reference Manual [pdf]</a></li>
       </ul>
     </li>
     <li>Itanium 2 (McKinley, Madison, Madison II)
       <ul>
-	<li><a href="http://people.FreeBSD.org/~marcel/refs/ia64/itanium2/25111003.pdf" shape="rect">Processor Reference Manual [pdf]</a></li>
+	<li><a href="https://people.FreeBSD.org/~marcel/refs/ia64/itanium2/25111003.pdf" shape="rect">Processor Reference Manual [pdf]</a></li>
       </ul>
     </li>
   </ul>
@@ -335,7 +337,7 @@
         </div>
         <div id="footer">
           <span><a href="../../search/index-site.html">サイトマップ</a> |
-  <a href="../../copyright/">知的財産権について</a> | (C) 1995〓2018 The FreeBSD Project.
+  <a href="../../copyright/">知的財産権について</a> | (C) 1995〓2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

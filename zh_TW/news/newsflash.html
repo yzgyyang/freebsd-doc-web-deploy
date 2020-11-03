@@ -44,11 +44,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">搜尋</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -291,9 +290,6 @@
             <p>下列的每項都有自己的新聞頁面，裡面有這些的更新細節。</p>
             <ul>
               <li>
-                <a href="../../java/newsflash.html">FreeBSD 上的 Java®</a>
-              </li>
-              <li>
                 <a href="http://freebsd.kde.org/">FreeBSD 上的 KDE</a>
               </li>
               <li>
@@ -302,12 +298,496 @@
             </ul>
             <p>更詳細的描述、介紹、和未來的發行版本，請看 <strong><a href="../../releases/index.html">Release 資訊</a></strong>這頁。</p>
             <p>對於 FreeBSD 的安全公告， 請查閱 <a href="../security/#adv">安全資訊</a> 頁面。</p>
+            <h1 xmlns="">2020 年 October</h1>
+            <ul xmlns="">
+              <li>
+                <p class="original"><a name="event20201003:01" id="event20201003:01"></a><b>October 3 日:</b> The first RC build for the FreeBSD 12.2 release cycle
+	    is now available.  ISO images for the amd64, armv6,
+	    armv7, arm64, i386, powerpc, powerpc64, powerpcspe, and
+	    sparc64 architectures are <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2020-October/092740.html">available</a>
+	    on most of our <a xmlns="http://www.w3.org/1999/xhtml" href="/doc/en_US.ISO8859-1/books/handbook/mirrors-ftp.html">FreeBSD
+	      mirror sites</a>.</p>
+              </li>
+            </ul>
+            <h1 xmlns="">2020 年 September</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20200926:01" id="event20200926:01"></a><b>September 26 日:</b>  FreeBSD 12.2 的第三個 BETA 版本現已發布。
+	    用於amd64、armv6、armv7、arm64、i386、powerpc、powerpc64、powerpcspe和sparc64
+	    的ISO 映像檔案已經<a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2020-September/092727.html">發布</a>
+	    ，可以在多數的<a xmlns="http://www.w3.org/1999/xhtml" href="/doc/en_US.ISO8859-1/books/handbook/mirrors-ftp.html">FreeBSD
+	      鏡像站</a>取得。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200918:01" id="event20200918:01"></a><b>September 18 日:</b>  FreeBSD 12.2 的第二個 BETA 版本現已發布。
+	    用於amd64、armv6、armv7、arm64、i386、powerpc、powerpc64、powerpcspe和sparc64
+	    的ISO 映像檔案已經<a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2020-September/092702.html">發布</a>
+	    ，可以在多數的<a xmlns="http://www.w3.org/1999/xhtml" href="/doc/en_US.ISO8859-1/books/handbook/mirrors-ftp.html">FreeBSD
+	      鏡像站</a>取得。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200912:01" id="event20200912:01"></a><b>September 12 日:</b>  FreeBSD 12.2 的第一個 BETA 版本現已發布。
+	    用於amd64、armv6、armv7、arm64、i386、powerpc、powerpc64、powerpcspe和sparc64
+	    的ISO 映像檔案已經<a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2020-September/092680.html">發布</a>
+	    ，可以在多數的<a xmlns="http://www.w3.org/1999/xhtml" href="/doc/en_US.ISO8859-1/books/handbook/mirrors-ftp.html">FreeBSD
+	      鏡像站</a>取得。</p>
+              </li>
+            </ul>
+            <h1 xmlns="">2020 年 August</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20200831:01" id="event20200831:01"></a><b>August 31 日:</b> 新任 committer:
+            <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:rhurlin@FreeBSD.org">Rainer Hurling</a>
+	    (ports)</p>
+              </li>
+            </ul>
+            <h1 xmlns="">2020 年 July</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20200726:01" id="event20200726:01"></a><b>July 26 日:</b> 新任 committer:
+            <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:debdrup@FreeBSD.org">Daniel Ebdrup Jensen</a>
+	    (doc)</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200723:01" id="event20200723:01"></a><b>July 23 日:</b> 新任 committer:
+           <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:rew@FreeBSD.org">Robert Wing</a>
+           (src)</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200715:01" id="event20200715:01"></a><b>July 15 日:</b> <a xmlns="http://www.w3.org/1999/xhtml" href="../../news/status/report-2020-04-2020-06.html">
+	      2020 第二季開發進度報告</a>51則條目現已發布。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200701:01" id="event20200701:01"></a><b>July 1 日:</b> 計畫的 active committers 已選出第十一屆的
+	    FreeBSD Core Team。詳情請見
+	    <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-announce/2020-July/001962.html">官方公告</a>。</p>
+              </li>
+            </ul>
+            <h1 xmlns="">2020 年 June</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20200616:01" id="event20200616:01"></a><b>June 16 日:</b> <a xmlns="http://www.w3.org/1999/xhtml" href="../../releases/11.4R/announce.html">FreeBSD
+	      11.4-RELEASE</a>現已發布了。安裝前，請查看<a xmlns="http://www.w3.org/1999/xhtml" href="../../releases/11.4R/relnotes.html">發布通知</a>和<a xmlns="http://www.w3.org/1999/xhtml" href="../../releases/11.4R/errata.html">發行勘誤</a>以了解 11.4 的最新消息和問題。更多資訊可查看<a xmlns="http://www.w3.org/1999/xhtml" href="../../releases/index.html">發行版資訊</a>頁面。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200609:01" id="event20200609:01"></a><b>June 9 日:</b> 修訂過的政策請見 <a xmlns="http://www.w3.org/1999/xhtml" href="https://www.freebsd.org/internal/code-of-conduct.html">Code
+           of Conduct</a> 。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200608:01" id="event20200608:01"></a><b>June 8 日:</b> 新任 committer:
+           <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:gbe@FreeBSD.org">Gordon Bergling</a>
+           (doc)
+         </p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200602:01" id="event20200602:01"></a><b>June 2 日:</b> <a xmlns="http://www.w3.org/1999/xhtml" href="https://www.research.net/r/freebsd-2020-community-survey">FreeBSD
+	     2020 社群調查</a> 開始了。歡迎將調查連結和您的雇主、同事、
+	       朋友或任何對 FreeBSD 有興趣的社群成員分享。
+	       調查將於 6月16日 17:00 UTC ( 周二 10am PDT ) 結束。</p>
+              </li>
+            </ul>
+            <h1 xmlns="">2020 年 May</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20200529:01" id="event20200529:01"></a><b>May 29 日:</b>  FreeBSD 11.4 的第二個候選發布版本現已發布。
+	    用於amd64、armv6、arm64、i386、powerpc、powerpc64和sparc64
+	    的ISO 映像檔案已經<a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2020-May/092320.html">發布</a>
+	    ，可以在多數的<a xmlns="http://www.w3.org/1999/xhtml" href="/doc/en_US.ISO8859-1/books/handbook/mirrors-ftp.html">FreeBSD
+	      鏡像站</a>取得。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200522:01" id="event20200522:01"></a><b>May 22 日:</b>  FreeBSD 11.4 的第一個候選發布版本現已發布。
+	    用於amd64、armv6、arm64、i386、powerpc、powerpc64和sparc64
+	    的ISO 映像檔案已經<a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2020-May/092304.html">發布</a>
+	    ，可以在多數的<a xmlns="http://www.w3.org/1999/xhtml" href="/doc/en_US.ISO8859-1/books/handbook/mirrors-ftp.html">FreeBSD
+	      鏡像站</a>取得。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200516:01" id="event20200516:01"></a><b>May 16 日:</b>  FreeBSD 11.4 的第二個 BETA 版本現已發布。
+	    用於amd64、armv6、arm64、i386、powerpc、powerpc64和sparc64
+	    的ISO 映像檔案已經<a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2020-May/092285.html">發布</a>
+	    ，可以在多數的<a xmlns="http://www.w3.org/1999/xhtml" href="/doc/en_US.ISO8859-1/books/handbook/mirrors-ftp.html">FreeBSD
+	      鏡像站</a>取得。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200516:02" id="event20200516:02"></a><b>May 16 日:</b> FreeBSD  計畫再次在 <a xmlns="http://www.w3.org/1999/xhtml" href="https://developers.google.com/season-of-docs">
+		Google Season of Docs</a> 計畫<a xmlns="http://www.w3.org/1999/xhtml" href="https://developers.google.com/season-of-docs/docs/participants/"> 擔任指導組織
+	      </a>。此計畫的目的是讓開源與技術作家們聚在一起，
+		技術作家會花三個月和開源社群緊密地一起工作，提供他們的專業給開源計畫的文件。
+	    任務與連絡資訊清單請洽 <a xmlns="http://www.w3.org/1999/xhtml" href="https://wiki.freebsd.org/GoogleSeasonOfDocs">FreeBSD wiki</a>。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200509:01" id="event20200509:01"></a><b>May 9 日:</b>  FreeBSD 11.4 的第一個 BETA 版本現已發布。
+	    用於amd64、armv6、arm64、i386、powerpc、powerpc64和sparc64
+	    的ISO 映像檔案已經<a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2020-May/092284.html">發布</a>
+	    ，可以在多數的<a xmlns="http://www.w3.org/1999/xhtml" href="/doc/en_US.ISO8859-1/books/handbook/mirrors-ftp.html">FreeBSD
+	      鏡像站</a>取得。</p>
+              </li>
+            </ul>
+            <h1 xmlns="">2020 年 April</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20200412:01" id="event20200412:01"></a><b>April 12 日:</b> <a xmlns="http://www.w3.org/1999/xhtml" href="../../news/status/report-2020-01-2020-03.html">
+	      2020 第一季開發進度報告</a>現已發布。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200406:01" id="event20200406:01"></a><b>April 6 日:</b> 新任 committer:
+          <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:rscheff@FreeBSD.org">Richard Scheffenegger</a>
+          (src)</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200401:01" id="event20200401:01"></a><b>April 1 日:</b> 新任 committer:
+          <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:tagattie@FreeBSD.org">Hiroki Tagato</a>
+          (ports)</p>
+              </li>
+            </ul>
+            <h1 xmlns="">2020 年 March</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20200310:01" id="event20200310:01"></a><b>March 10 日:</b> 新任 committer:
+           <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:afedorov@FreeBSD.org">Aleksandr Fedorov</a>
+           (src)</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200309:01" id="event20200309:01"></a><b>March 9 日:</b> 新任 committer:
+           <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:nick@FreeBSD.org">Nick O'Brien</a>
+           (src)</p>
+              </li>
+            </ul>
+            <h1 xmlns="">2020 年 February</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20200218:01" id="event20200218:01"></a><b>February 18 日:</b> 新任 committer:
+           <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:salvadore@FreeBSD.org">Lorenzo Salvadore</a>
+           (ports)</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200210:01" id="event20200210:01"></a><b>February 10 日:</b> 新任 committer:
+            <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:freqlabs@FreeBSD.org">Ryan Moeller</a>
+            (src)</p>
+              </li>
+            </ul>
+            <h1 xmlns="">2020 年 January</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20200127:01" id="event20200127:01"></a><b>January 27 日:</b> 新任 committer:
+	    <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:alfredo@FreeBSD.org">Alfredo Dal'Ava Júnior</a>
+	    (src)</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200127:02" id="event20200127:02"></a><b>January 27 日:</b> <a xmlns="http://www.w3.org/1999/xhtml" href="../../news/status/report-2019-10-2019-12.html">
+	      2019 第四季開發進度報告</a>現已發布。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200121:01" id="event20200121:01"></a><b>January 21 日:</b> 為了讓新貢獻者翻譯
+          <a xmlns="http://www.w3.org/1999/xhtml" href="https://www.freebsd.org/docs/books.html">FreeBSD
+	    官方文件與書籍 </a> 的過程更平易近人，本計畫採用
+	    <a xmlns="http://www.w3.org/1999/xhtml" href="https://weblate.org/">Weblate</a> 
+	    做為網頁翻譯平台。<br /><br />本工具已由部分翻譯團隊 (pt_BR、 es_ES 和 zh_CN) 使用數個月。
+	    由於有優異的成果和成熟的工作流程，我們決定採用它。
+	    我們相信我們已經準備好啟用此平台給新協同翻譯者使用。<br /><br />採用這個新工具後，翻譯過程變得很簡單，
+	      想貢獻的任何人都可以花個幾分鐘貢獻翻譯！<br /><br />如果您有興趣藉由翻譯官方文件貢獻文件計畫，您可以在
+            <a xmlns="http://www.w3.org/1999/xhtml" href="https://wiki.freebsd.org/DocTranslationOnWeblate">
+            wiki</a> 和 freebsd-translators 郵件論壇的 <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-translators/2019-December/000161.html">
+            公告</a> 獲得更多訊息。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200110:01" id="event20200110:01"></a><b>January 10 日:</b> 新任 committer:
+           <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:mikael@FreeBSD.org">Mikaël Urankar</a>
+           (ports)</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200102:01" id="event20200102:01"></a><b>January 2 日:</b> 新任 committer:
+           <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:lbartoletti@FreeBSD.org">Loïc Bartoletti</a>
+           (ports)</p>
+              </li>
+            </ul>
+            <h1 xmlns="">2019 年 November</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20191125:01" id="event20191125:01"></a><b>November 25 日:</b> <a xmlns="http://www.w3.org/1999/xhtml" href="../../news/status/report-2019-07-2019-09.html">
+	      2019 第三季開發進度報告</a>現已發布。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20191104:01" id="event20191104:01"></a><b>November 4 日:</b> <a xmlns="http://www.w3.org/1999/xhtml" href="../../releases/12.1R/announce.html">FreeBSD
+	      12.1-RELEASE</a>現已發布了。安裝前，請查看<a xmlns="http://www.w3.org/1999/xhtml" href="../../releases/12.1R/relnotes.html">發布通知</a>和<a xmlns="http://www.w3.org/1999/xhtml" href="../../releases/12.1R/errata.html">發行勘誤</a>以了解12.1的最新消息和問題。更多資訊可查看<a xmlns="http://www.w3.org/1999/xhtml" href="../../releases/index.html">發行版資訊</a>頁面。</p>
+              </li>
+            </ul>
+            <h1 xmlns="">2019 年 October</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20191018:01" id="event20191018:01"></a><b>October 18 日:</b>  FreeBSD 12.1 的第二個候選發布版本現已發布。
+	用於amd64、armv6、armv7、arm64、i386、powerpc、powerpc64、powerpcspe
+	    和sparc64 的ISO 映像檔案已經<a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2019-October/091616.html">發布</a>
+	    ，可以在多數的<a xmlns="http://www.w3.org/1999/xhtml" href="/doc/en_US.ISO8859-1/books/handbook/mirrors-ftp.html">FreeBSD
+	      鏡像站</a>取得。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20191011:01" id="event20191011:01"></a><b>October 11 日:</b>  FreeBSD 12.1 的第一個候選發布版本現已發布。
+	用於amd64、armv6、armv7、arm64、i386、powerpc、powerpc64、powerpcspe
+	    和sparc64 的ISO 映像檔案已經<a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2019-October/091599.html">發布</a>
+	    ，可以在多數的<a xmlns="http://www.w3.org/1999/xhtml" href="/doc/en_US.ISO8859-1/books/handbook/mirrors-ftp.html">FreeBSD
+	      鏡像站</a>取得。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20191011:02" id="event20191011:02"></a><b>October 11 日:</b> 新任 committer:
+	    <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:samm@FreeBSD.org">Alex Samorukov</a>
+	    (ports)</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20191004:01" id="event20191004:01"></a><b>October 4 日:</b>  FreeBSD 12.1 的第三個 BETA 版本現已發布。
+	    用於amd64、armv6、armv7、arm64、i386、powerpc、powerpc64、powerpcspe和sparc64
+	    的ISO 映像檔案已經<a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2019-October/091567.html">發布</a>
+	    ，可以在多數的<a xmlns="http://www.w3.org/1999/xhtml" href="/doc/en_US.ISO8859-1/books/handbook/mirrors-ftp.html">FreeBSD
+	      鏡像站</a>取得。</p>
+              </li>
+            </ul>
+            <h1 xmlns="">2019 年 September</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20190928:01" id="event20190928:01"></a><b>September 28 日:</b>  FreeBSD 12.1 的第二個 BETA 版本現已發布。
+	    用於amd64、armv6、armv7、arm64、i386、powerpc、powerpc64、powerpcspe和sparc64
+	    的ISO 映像檔案已經<a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2019-September/091555.html">發布</a>
+	    ，可以在多數的<a xmlns="http://www.w3.org/1999/xhtml" href="/doc/en_US.ISO8859-1/books/handbook/mirrors-ftp.html">FreeBSD
+	      鏡像站</a>取得。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190926:01" id="event20190926:01"></a><b>September 26 日:</b> 新任 committer:
+	    <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:kaktus@FreeBSD.org">Pawel Biernacki</a>
+	    (src)</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190920:01" id="event20190920:01"></a><b>September 20 日:</b>  FreeBSD 12.1 的第一個 BETA 版本現已發布。
+	    用於amd64、armv6、armv7、arm64、i386、powerpc、powerpc64、powerpcspe和sparc64
+	    的ISO 映像檔案已經<a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2019-September/091533.html">發布</a>
+	    ，可以在多數的<a xmlns="http://www.w3.org/1999/xhtml" href="/doc/en_US.ISO8859-1/books/handbook/mirrors-ftp.html">FreeBSD
+	      鏡像站</a>取得。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190915:01" id="event20190915:01"></a><b>September 15 日:</b> 新任 committer:
+	    <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:dmgk@FreeBSD.org">Dmitri Goutnik</a>
+	    (ports)</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190910:01" id="event20190910:01"></a><b>September 10 日:</b> 新任 committer:
+            <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:sg@FreeBSD.org">Stephen Gregoratto</a>
+	    (src). 從事
+	    <a xmlns="http://www.w3.org/1999/xhtml" href="https://developers.google.com/season-of-docs/">
+	    Google's Season of Docs</a> 之 FreeBSD 計畫使用者手冊的改善工作。</p>
+              </li>
+            </ul>
+            <h1 xmlns="">2019 年 August</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20190828:01" id="event20190828:01"></a><b>August 28 日:</b> 新任 committer:
+            <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:fox@FreeBSD.org">Santhosh Raju</a>
+            (ports)</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190825:01" id="event20190825:01"></a><b>August 25 日:</b> <a xmlns="http://www.w3.org/1999/xhtml" href="../../news/status/report-2019-04-2019-06.html">
+	      2019 第二季開發進度報告</a>現已發布。</p>
+              </li>
+            </ul>
+            <h1 xmlns="">2019 年 July</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20190716:01" id="event20190716:01"></a><b>July 16 日:</b> 由於我們無法控制的情況，我們需要變更
+	     FreeBSD.org 郵件的外寄 SMTP 伺服器位址。
+	    我們了解到會因為 SMTP 寄件者信譽系統而遭遇一些挑戰<br /><br />更多資訊，請見<a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-announce/2019-July/001892.html">
+	      此公告</a>。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190709:01" id="event20190709:01"></a><b>July 9 日:</b> <a xmlns="http://www.w3.org/1999/xhtml" href="../../releases/11.3R/announce.html">FreeBSD
+	      11.3-RELEASE</a>現已發布了。安裝前，請查看<a xmlns="http://www.w3.org/1999/xhtml" href="../../releases/11.3R/relnotes.html">發布通知</a>和<a xmlns="http://www.w3.org/1999/xhtml" href="../../releases/11.3R/errata.html">發行勘誤</a>以了解11.3的最新消息和問題。更多資訊可查看<a xmlns="http://www.w3.org/1999/xhtml" href="../../releases/index.html">發行版資訊</a>頁面。</p>
+              </li>
+            </ul>
+            <h1 xmlns="">2019 年 June</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20190628:01" id="event20190628:01"></a><b>June 28 日:</b>  FreeBSD 11.3 的第三個候選發布版本現已發布。
+	    用於amd64、armv6、arm64、i386、powerpc、powerpc64和sparc64
+	    的ISO 映像檔案已經<a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2019-June/091312.html">發布</a>
+	    ，可以在多數的<a xmlns="http://www.w3.org/1999/xhtml" href="/doc/en_US.ISO8859-1/books/handbook/mirrors-ftp.html">FreeBSD
+	      鏡像站</a>取得。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190621:01" id="event20190621:01"></a><b>June 21 日:</b>  FreeBSD 11.3 的第二個候選發布版本現已發布。
+	    用於amd64、armv6、arm64、i386、powerpc、powerpc64和sparc64
+	    的ISO 映像檔案已經<a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2019-June/091293.html">發布</a>
+	    ，可以在多數的<a xmlns="http://www.w3.org/1999/xhtml" href="/doc/en_US.ISO8859-1/books/handbook/mirrors-ftp.html">FreeBSD
+	      鏡像站</a>取得。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190614:01" id="event20190614:01"></a><b>June 14 日:</b>  FreeBSD 11.3 的第一個候選發布版本現已發布。
+	    用於amd64、armv6、arm64、i386、powerpc、powerpc64和sparc64
+	    的ISO 映像檔案已經<a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2019-June/091281.html">發布</a>
+	    ，可以在多數的<a xmlns="http://www.w3.org/1999/xhtml" href="/doc/en_US.ISO8859-1/books/handbook/mirrors-ftp.html">FreeBSD
+	      鏡像站</a>取得。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190607:01" id="event20190607:01"></a><b>June 7 日:</b>  FreeBSD 11.3 的第三個 BETA 版本現已發布。
+	    用於amd64、armv6、arm64、i386、powerpc、powerpc64和sparc64
+	    的ISO 映像檔案已經<a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2019-June/091257.html">發布</a>
+	    ，可以在多數的<a xmlns="http://www.w3.org/1999/xhtml" href="/doc/en_US.ISO8859-1/books/handbook/mirrors-ftp.html">FreeBSD
+	      鏡像站</a>取得。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190604:01" id="event20190604:01"></a><b>June 4 日:</b> <a xmlns="http://www.w3.org/1999/xhtml" href="../../news/status/report-2019-01-2019-03.html">
+	      2019 第一季開發進度報告</a>現已發布。</p>
+              </li>
+            </ul>
+            <h1 xmlns="">2019 年 May</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20190531:01" id="event20190531:01"></a><b>May 31 日:</b>  FreeBSD 11.3 的第二個 BETA 版本現已發布。
+	    用於amd64、armv6、arm64、i386、powerpc、powerpc64和sparc64
+	    的ISO 映像檔案已經<a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2019-May/091227.html">發布</a>
+	    ，可以在多數的<a xmlns="http://www.w3.org/1999/xhtml" href="/doc/en_US.ISO8859-1/books/handbook/mirrors-ftp.html">FreeBSD
+	      鏡像站</a>取得。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190531:02" id="event20190531:02"></a><b>May 31 日:</b> 新任 committer:
+            <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:bdragon@FreeBSD.org">Brandon Bergren</a>
+            (src)</p>
+              </li>
+              <li>
+                <p class="original"><a name="event20190529:01" id="event20190529:01"></a><b>May 29 日:</b> New committer:
+	    <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:chs@FreeBSD.org">Chuck Silvers</a>
+	    (src)</p>
+              </li>
+              <li>
+                <p class="original"><a name="event20190528:01" id="event20190528:01"></a><b>May 28 日:</b> New committer:
+	    <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:scottph@FreeBSD.org">D Scott Phillips</a>
+	    (src)</p>
+              </li>
+              <li>
+                <p class="original"><a name="event20190524:01" id="event20190524:01"></a><b>May 24 日:</b> The first BETA build for the FreeBSD 11.3 release cycle
+	    is now available.  ISO images for the amd64, armv6, arm64,
+	    i386, powerpc, powerpc64, and sparc64 architectures are <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2019-May/091210.html">available</a>
+	    on most of our <a xmlns="http://www.w3.org/1999/xhtml" href="/doc/en_US.ISO8859-1/books/handbook/mirrors-ftp.html">FreeBSD
+	      mirror sites</a>.</p>
+              </li>
+              <li>
+                <p class="original"><a name="event20190516:01" id="event20190516:01"></a><b>May 16 日:</b> New committer:
+            <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:carlavilla@FreeBSD.org">Sergio Carlavilla Delgado</a>
+            (docs, Spanish translator)
+          </p>
+              </li>
+            </ul>
+            <h1 xmlns="">2019 年 April</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20190430:01" id="event20190430:01"></a><b>April 30 日:</b> 新任 committer:
+	    <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:dougm@FreeBSD.org">Doug Moore</a>
+	    (src)</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190428:01" id="event20190428:01"></a><b>April 28 日:</b> FreeBSD 正在測試新的 pkgbase。詳情請見<a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-pkgbase/2019-April/000396.html">CFT
+            FreeBSD pkg base</a> 。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190427:01" id="event20190427:01"></a><b>April 27 日:</b> <a xmlns="http://www.w3.org/1999/xhtml" href="https://www.research.net/r/freebsd2019">FreeBSD 2019
+	  社群調查</a>現已公布。歡迎與您的雇主、同事、朋友或是任何對 FreeBSD 有興趣的社群成員分享調查連結。
+	     調查將於5月13日 UTC 時間午夜結束。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190419:01" id="event20190419:01"></a><b>April 19 日:</b> FreeBSD 正在測試新的 ZFS 實作的上游 - ZFS on Linux。
+	測試 FreeBSD + ZoL (ZFS on Linux) 的 FreeBSD 12-STABLE and 13-CURRENT 映像檔現已發布。
+           測試細節請見 
+           <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2019-April/090915.html">CFT
+           FreeBSD + ZoL</a>。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190414:01" id="event20190414:01"></a><b>April 14 日:</b> 新任 committer:
+             <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:pkubaj@FreeBSD.org">Piotr Kubaj</a>
+             (ports)</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190414:02" id="event20190414:02"></a><b>April 14 日:</b> 增加提交權限:
+             <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:pfg@FreeBSD.org">Pedro Giffuni</a>
+	    (ports, src)</p>
+              </li>
+            </ul>
+            <h1 xmlns="">2019 年 March</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20190320:01" id="event20190320:01"></a><b>March 20 日:</b> 新任 committer:
+	    <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:mhorne@FreeBSD.org">Mitchell Horne</a>
+	    (src)</p>
+              </li>
+            </ul>
+            <h1 xmlns="">2019 年 February</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20190201:01" id="event20190201:01"></a><b>February 1 日:</b> 新任 committer:
+            <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:kai@FreeBSD.org">Kai Knoblich</a>
+            (ports)</p>
+              </li>
+            </ul>
+            <h1 xmlns="">2019 年 January</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20190119:01" id="event20190119:01"></a><b>January 19 日:</b> 新任 committer:
+            <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:johalun@FreeBSD.org">Johannes Lundberg</a>
+            (src)</p>
+              </li>
+            </ul>
+            <h1 xmlns="">2018 年 December</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20181224:01" id="event20181224:01"></a><b>December 24 日:</b> <a xmlns="http://www.w3.org/1999/xhtml" href="../../news/status/report-2018-01-2018-09.html">
+	      2018 第一至三季開發進度報告</a>現已發布。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20181211:01" id="event20181211:01"></a><b>December 11 日:</b> <a xmlns="http://www.w3.org/1999/xhtml" href="../../releases/12.0R/announce.html">FreeBSD
+	      12.0-RELEASE</a>現已發布了。安裝前，請查看<a xmlns="http://www.w3.org/1999/xhtml" href="../../releases/12.0R/relnotes.html">發布通知</a>和<a xmlns="http://www.w3.org/1999/xhtml" href="../../releases/12.0R/errata.html">發行勘誤</a>以了解12.0的最新消息和問題。更多資訊可查看<a xmlns="http://www.w3.org/1999/xhtml" href="../../releases/index.html">發行版資訊</a>頁面。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20181211:02" id="event20181211:02"></a><b>December 11 日:</b> <a xmlns="http://www.w3.org/1999/xhtml" href="https://cirrus-ci.org/">Cirrus CI</a> 系統最近增加 FreeBSD 支援。
+	    Cirrus CI 藉由現代雲端技術使您的開發週期更快速、有效和安全。
+	    Cirrus CI 和您的團隊一起擴展，讓軟體的傳送更快速和經濟。
+	    更多詳情請參閱 <a xmlns="http://www.w3.org/1999/xhtml" href="https://cirrus-ci.org/guide/FreeBSD/">FreeBSD 虛擬機器
+	      </a> 指引。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20181201:01" id="event20181201:01"></a><b>December 1 日:</b>  FreeBSD 12.0 的第三個候選發布版本現已發布。
+	    用於amd64、armv6、armv7、arm64、
+	    i386、powerpc、powerpc64、powerpcspe和sparc64
+	    的ISO 映像檔案已經<a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2018-December/090138.html">發布</a>
+	    ，可以在多數的<a xmlns="http://www.w3.org/1999/xhtml" href="/doc/en_US.ISO8859-1/books/handbook/mirrors-ftp.html">FreeBSD
+	      鏡像站</a>取得。</p>
+              </li>
+            </ul>
             <h1 xmlns="">2018 年 November</h1>
             <ul xmlns="">
               <li>
+                <p class="localized"><a name="event20181125:01" id="event20181125:01"></a><b>November 25 日:</b>  FreeBSD 12.0 的第二個候選發布版本現已發布。
+	    用於amd64、armv6、armv7、arm64、
+	    i386、powerpc、powerpc64、powerpcspe和sparc64
+	    的ISO 映像檔案已經<a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2018-November/090068.html">發布</a>
+	    ，可以在多數的<a xmlns="http://www.w3.org/1999/xhtml" href="/doc/en_US.ISO8859-1/books/handbook/mirrors-ftp.html">FreeBSD
+	      鏡像站</a>取得。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20181117:01" id="event20181117:01"></a><b>November 17 日:</b>  FreeBSD 12.0 的第一個候選發布版本現已發布。
+	    用於amd64、armv6、armv7、arm64、
+	    i386、powerpc、powerpc64、powerpcspe和sparc64
+	    的ISO 映像檔案已經<a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2018-November/090020.html">發布</a>
+	    ，可以在多數的<a xmlns="http://www.w3.org/1999/xhtml" href="/doc/en_US.ISO8859-1/books/handbook/mirrors-ftp.html">FreeBSD
+	      鏡像站</a>取得。</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20181110:01" id="event20181110:01"></a><b>November 10 日:</b>  FreeBSD 12.0的第四個 BETA 版本現已發布。
+	    用於amd64、armv6、armv7、arm64、
+	    i386、powerpc、powerpc64、powerpcspe和sparc64
+	    的ISO 映像檔案已經<a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2018-November/089982.html">發布</a>
+	    ，可以在多數的<a xmlns="http://www.w3.org/1999/xhtml" href="/doc/en_US.ISO8859-1/books/handbook/mirrors-ftp.html">FreeBSD
+	      鏡像站</a>取得。</p>
+              </li>
+              <li>
                 <p class="localized"><a name="event20181103:01" id="event20181103:01"></a><b>November 3 日:</b>  FreeBSD 12.0的第三個 BETA 版本現已發布。
-	    用於amd64、armv6、arm64、
-	    i386、powerpc、powerpc64和sparc64
+	    用於amd64、armv6、armv7、arm64、
+	    i386、powerpc、powerpc64、powerpcspe和sparc64
 	    的ISO 映像檔案已經<a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2018-November/089945.html">發布</a>
 	    ，可以在多數的<a xmlns="http://www.w3.org/1999/xhtml" href="/doc/en_US.ISO8859-1/books/handbook/mirrors-ftp.html">FreeBSD
 	      鏡像站</a>取得。</p>
@@ -317,16 +797,16 @@
             <ul xmlns="">
               <li>
                 <p class="localized"><a name="event20181027:01" id="event20181027:01"></a><b>October 27 日:</b>  FreeBSD 12.0的第二個 BETA 版本現已發布。
-	    用於amd64、armv6、arm64、
-	    i386、powerpc、powerpc64和sparc64
+	    用於amd64、armv6、armv7、arm64、
+	    i386、powerpc、powerpc64、powerpcspe和sparc64
 	    的ISO 映像檔案已經<a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2018-October/089897.html">發布</a>
 	    ，可以在多數的<a xmlns="http://www.w3.org/1999/xhtml" href="/doc/en_US.ISO8859-1/books/handbook/mirrors-ftp.html">FreeBSD
 	      鏡像站</a>取得。</p>
               </li>
               <li>
                 <p class="localized"><a name="event20181020:01" id="event20181020:01"></a><b>October 20 日:</b>  FreeBSD 12.0的第一個 BETA 版本現已發布。
-	    用於amd64、armv6、arm64、
-	    i386、powerpc、powerpc64和sparc64
+	    用於amd64、armv6、armv7、arm64、
+	    i386、powerpc、powerpc64、powerpcspe和sparc64
 	    的ISO 映像檔案已經<a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2018-October/089821.html">發布</a>
 	    ，可以在多數的<a xmlns="http://www.w3.org/1999/xhtml" href="/doc/en_US.ISO8859-1/books/handbook/mirrors-ftp.html">FreeBSD
 	      鏡像站</a>取得。</p>
@@ -3317,7 +3797,7 @@
         </div>
         <div id="footer">
           <span><a href="../../search/index-site.html">Site Map</a> |
-  <a href="../../copyright/">法律聲明</a> | © 1995–2018 FreeBSD 計劃。
+  <a href="../../copyright/">法律聲明</a> | © 1995–2020 FreeBSD 計劃。
   保留所有權利。</span>
           <br />
         </div>

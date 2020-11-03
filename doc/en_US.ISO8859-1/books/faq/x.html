@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>Chapter 11. The X Window System and Virtual Consoles</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Frequently Asked Questions for FreeBSD 11.X and 12.X" /><link rel="up" href="index.html" title="Frequently Asked Questions for FreeBSD 11.X and 12.X" /><link rel="prev" href="admin.html" title="Chapter 10. System Administration" /><link rel="next" href="networking.html" title="Chapter 12. Networking" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 11. The X Window System and Virtual Consoles</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="admin.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="networking.html">Next</a></td></tr></table><hr /></div><div class="chapter"><div xmlns="" class="titlepage"><div><div><h1 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x"></a>Chapter 11. The X Window System and Virtual Consoles</h1></div></div></div><div class="qandaset"><a id="idp51364600"></a><dl><dt>11.1. <a href="x.html#idp51364856">What is the X Window System?</a></dt><dt>11.2. <a href="x.html#idp51690104">I want to run Xorg, how do I go about it?</a></dt><dt>11.3. <a href="x.html#idp51388536">I tried to run X, but I get a
+	    No devices detected. error when I
+	    type startx.  What do I do now?</a></dt><dt>11.4. <a href="x.html#idp51397752">Why does my mouse not work with X?</a></dt><dt>11.5. <a href="x.html#idp51714168">My mouse has a fancy wheel.  Can I use it in X?</a></dt><dt>11.6. <a href="x.html#idp51731960">My laptop has a Synaptics touchpad.  Can I use it in
+	    X?</a></dt><dt>11.7. <a href="x.html#idp51738616">How do I use remote X displays?</a></dt><dt>11.8. <a href="x.html#idp51763192">What is a virtual console and how do I make
+	    more?</a></dt><dt>11.9. <a href="x.html#idp51793656">How do I access the virtual consoles from X?</a></dt><dt>11.10. <a href="x.html#idp51805688">How do I start XDM on
+	    boot?</a></dt><dt>11.11. <a href="x.html#idp51845240">Why do I get Couldn't open
+	      console when I run
+	    xconsole?</a></dt><dt>11.12. <a href="x.html#idp51858296">Why does my PS/2 mouse misbehave under X?</a></dt><dt>11.13. <a href="x.html#idp51862392">How do I reverse the mouse buttons?</a></dt><dt>11.14. <a href="x.html#idp51865592">How do I install a splash screen and where do I find
+	    them?</a></dt><dt>11.15. <a href="x.html#idp51868152">Can I use the Windows keys on my
+	    keyboard in X?</a></dt><dt>11.16. <a href="x.html#idp51908984">How can I get 3D hardware acceleration for
+	    OpenGL®?</a></dt></dl><table border="0" style="width: 100%;"><colgroup><col align="left" width="1%" /><col /></colgroup><tbody><tr class="question"><td align="left" valign="top"><a id="idp51364856"></a><a id="whatis-X"></a><p><strong>11.1.</strong></p></td><td align="left" valign="top"><p>What is the X Window System?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>The X Window System (commonly <code class="literal">X11</code>)
+	    is the most widely available windowing system capable of
+	    running on <span class="trademark">UNIX</span>® or <span class="trademark">UNIX</span>® like systems, including
+	    FreeBSD.  <a class="link" href="http://www.x.org/wiki/" target="_top">The X.Org
+	      Foundation</a> administers the <a class="link" href="http://en.wikipedia.org/wiki/X_Window_System_core_protocol" target="_top">X
+	      protocol standards</a>, with the current reference
+	    implementation, version 11 release 7.7, so
+	    references are often shortened to
+	    <code class="literal">X11</code>.</p><p>Many implementations are available for different
+	    architectures and operating systems.  An implementation of
+	    the server-side code is properly known as an <code class="literal">X
+	      server</code>.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51690104"></a><a id="running-X"></a><p><strong>11.2.</strong></p></td><td align="left" valign="top"><p>I want to run Xorg, how do I go about it?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>To install Xorg do one of the following:</p><p>Use the <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/x11/xorg/pkg-descr">x11/xorg</a>
+	    meta-port, which builds and installs every Xorg
+	    component.</p><p>Use <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/x11/xorg-minimal/pkg-descr">x11/xorg-minimal</a>, which builds
+	    and installs only the necessary Xorg components.</p><p>Install Xorg from FreeBSD packages:</p><pre class="screen"><strong class="userinput"><code><code class="prompt">#</code> pkg install xorg</code></strong></pre><p>After the installation of Xorg, follow the
+	    instructions from the <a class="link" href="../../../../doc/en_US.ISO8859-1/books/handbook/x-config.html" target="_top">X11
+	      Configuration</a> section of the FreeBSD
+	    Handbook.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51388536"></a><a id="running-X-securelevels"></a><p><strong>11.3.</strong></p></td><td align="left" valign="top"><p>I <span class="emphasis"><em>tried</em></span> to run X, but I get a
+	    <span class="errorname">No devices detected.</span> error when I
+	    type <code class="command">startx</code>.  What do I do now?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>The system is probably running at a raised
+	    <code class="literal">securelevel</code>.  It is not possible to
+	    start X at a raised <code class="literal">securelevel</code> because
+	    X requires write access to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=io&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">io</span>(4)</span></a>.  For more
+	    information, see at the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=init&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">init</span>(8)</span></a> manual page.</p><p>There are two solutions to the problem: set the
+	    <code class="literal">securelevel</code> back down to zero or run
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=xdm&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">xdm</span>(1)</span></a> (or an alternative display manager) at boot
+	    time before the <code class="literal">securelevel</code> is
+	    raised.</p><p>See <a class="xref" href="x.html#xdm-boot" title="11.10.">Q: 11.10</a> for more information
+	    about running <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=xdm&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">xdm</span>(1)</span></a> at boot time.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51397752"></a><a id="x-and-moused"></a><p><strong>11.4.</strong></p></td><td align="left" valign="top"><p>Why does my mouse not work with X?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>When using <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=vt&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">vt</span>(4)</span></a>, the default console
+	    driver, FreeBSD can be configured to support a mouse pointer
+	    on each virtual screen.  To avoid conflicting with X,
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=vt&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">vt</span>(4)</span></a> supports a virtual device called
+	    <code class="filename">/dev/sysmouse</code>.  All mouse events
+	    received from the real mouse device are written to the
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sysmouse&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sysmouse</span>(4)</span></a> device via <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=moused&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">moused</span>(8)</span></a>.  To use the
+	    mouse on one or more virtual consoles,
+	    <span class="emphasis"><em>and</em></span> use X, see <a class="xref" href="compatibility-kbd-mice.html#moused" title="4.4.1.">Q: 4.4.1</a> and set up
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=moused&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">moused</span>(8)</span></a>.</p><p>Then edit <code class="filename">/etc/X11/xorg.conf</code> and
+	    make sure the following lines exist:</p><pre class="programlisting">Section "InputDevice"
+   Option          "Protocol" "SysMouse"
+   Option          "Device" "/dev/sysmouse"
+.....</pre><p>Starting with Xorg version 7.4, the
+	    <code class="literal">InputDevice</code> sections in
+	    <code class="filename">xorg.conf</code> are ignored in favor of
+	    autodetected devices.  To restore the old behavior, add
+	    the following line to the <code class="literal">ServerLayout</code>
+	    or <code class="literal">ServerFlags</code> section:</p><pre class="programlisting">Option "AutoAddDevices" "false"</pre><p>Some people prefer to use
+	    <code class="filename">/dev/mouse</code> under X.  To make this
+	    work, <code class="filename">/dev/mouse</code> should be linked
+	    to <code class="filename">/dev/sysmouse</code> (see
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sysmouse&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sysmouse</span>(4)</span></a>) by adding the following line to
+	    <code class="filename">/etc/devfs.conf</code> (see
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=devfs.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">devfs.conf</span>(5)</span></a>):</p><pre class="programlisting">link    sysmouse    mouse</pre><p>This link can be created by restarting <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=devfs&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">devfs</span>(5)</span></a>
+	    with the following command (as <code class="systemitem">root</code>):</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service devfs restart</code></strong></pre></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51714168"></a><a id="x-and-wheel"></a><p><strong>11.5.</strong></p></td><td align="left" valign="top"><p>My mouse has a fancy wheel.  Can I use it in X?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>Yes, if X is configured for a 5 button mouse.  To
+	    do this, add the lines <code class="literal">Buttons 5</code>
+	    and <code class="literal">ZAxisMapping 4 5</code> to the
+	    <span class="quote">&#8220;<span class="quote">InputDevice</span>&#8221;</span> section of
+	    <code class="filename">/etc/X11/xorg.conf</code>, as seen in this
+	    example:</p><pre class="programlisting">Section "InputDevice"
+   Identifier      "Mouse1"
+   Driver          "mouse"
+   Option          "Protocol" "auto"
+   Option          "Device" "/dev/sysmouse"
+   Option          "Buttons" "5"
+   Option          "ZAxisMapping" "4 5"
+EndSection</pre><p>The mouse can be enabled in
+	      <span class="application">Emacs</span> by adding these
+	      lines to <code class="filename">~/.emacs</code>:</p><pre class="programlisting">;; wheel mouse
+(global-set-key [mouse-4] 'scroll-down)
+(global-set-key [mouse-5] 'scroll-up)</pre></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51731960"></a><a id="x-and-synaptic"></a><p><strong>11.6.</strong></p></td><td align="left" valign="top"><p>My laptop has a Synaptics touchpad.  Can I use it in
+	    X?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>Yes, after configuring a few things to make
+	    it work.</p><p>In order to use the Xorg synaptics driver,
+	    first remove <code class="literal">moused_enable</code> from
+	    <code class="filename">rc.conf</code>.</p><p>To enable synaptics, add the following line to
+	    <code class="filename">/boot/loader.conf</code>:</p><pre class="programlisting">hw.psm.synaptics_support="1"</pre><p>Add the following to
+	    <code class="filename">/etc/X11/xorg.conf</code>:</p><pre class="programlisting">Section "InputDevice"
+Identifier  "Touchpad0"
+Driver      "synaptics"
+Option      "Protocol" "psm"
+Option      "Device" "/dev/psm0"
+EndSection</pre><p>And be sure to add the following into the
+	    <span class="quote">&#8220;<span class="quote">ServerLayout</span>&#8221;</span> section:</p><pre class="programlisting">InputDevice    "Touchpad0" "SendCoreEvents"</pre></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51738616"></a><a id="no-remote-x11"></a><p><strong>11.7.</strong></p></td><td align="left" valign="top"><p>How do I use remote X displays?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>For security reasons, the default setting is to not
+	    allow a machine to remotely open a window.</p><p>To enable this feature, start
+	    <span class="application">X</span> with the optional
+	    <code class="option">-listen_tcp</code> argument:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>startx -listen_tcp</code></strong></pre></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51763192"></a><a id="virtual-console"></a><p><strong>11.8.</strong></p></td><td align="left" valign="top"><p>What is a virtual console and how do I make
+	    more?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>Virtual consoles provide
+	    several simultaneous sessions on the same machine without
+	    doing anything complicated like setting up a network or
+	    running X.</p><p>When the system starts, it will display a login prompt
+	    on the monitor after displaying all the boot messages.
+	    Type in your login name and password to
+	    start working on the first virtual
+	    console.</p><p>To start another
+	    session, perhaps to look at documentation for a program
+	    or to read mail while waiting for an
+	    FTP transfer to finish,
+	    hold down <span class="keycap"><strong>Alt</strong></span> and press
+	    <span class="keycap"><strong>F2</strong></span>.  This will display the login prompt
+	    for the second virtual
+	      console.  To go back to the
+	    original session, press <span class="keycap"><strong>Alt</strong></span>+<span class="keycap"><strong>F1</strong></span>.</p><p>The default FreeBSD installation has eight virtual
+	    consoles enabled.  <span class="keycap"><strong>Alt</strong></span>+<span class="keycap"><strong>F1</strong></span>,
+	    <span class="keycap"><strong>Alt</strong></span>+<span class="keycap"><strong>F2</strong></span>,
+	    <span class="keycap"><strong>Alt</strong></span>+<span class="keycap"><strong>F3</strong></span>,
+	    and so on will switch between these virtual
+	    consoles.</p><p>To enable more of virtual consoles, edit
+	    <code class="filename">/etc/ttys</code> (see <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ttys&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ttys</span>(5)</span></a>) and add
+	    entries for <code class="filename">ttyv8</code> to
+	    <code class="filename">ttyvc</code>, after the comment on
+	    <span class="quote">&#8220;<span class="quote">Virtual terminals</span>&#8221;</span>:</p><pre class="programlisting"># Edit the existing entry for ttyv8 in /etc/ttys and change
+# "off" to "on".
+ttyv8   "/usr/libexec/getty Pc"         xterm  on secure
+ttyv9   "/usr/libexec/getty Pc"         xterm  on secure
+ttyva   "/usr/libexec/getty Pc"         xterm  on secure
+ttyvb   "/usr/libexec/getty Pc"         xterm  on secure</pre><p>The more virtual
+	    terminals, the more resources that are used.  This can be
+	    problematic on systems with 8 MB RAM or less.
+	    Consider changing <code class="literal">secure</code> to
+	    <code class="literal">insecure</code>.</p><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">In order to run an X server, at least one virtual
+	      terminal must be left to <code class="literal">off</code> for it
+	      to use.  This means that only eleven of the Alt-function
+	      keys can be used as virtual consoles so that one is left
+	      for the X server.</p></div><p>For example, to run X and eleven virtual consoles, the
+	    setting for virtual terminal 12 should be:</p><pre class="programlisting">ttyvb   "/usr/libexec/getty Pc"         xterm  off secure</pre><p>The easiest way to activate the
+	    virtual consoles is to reboot.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51793656"></a><a id="vty-from-x"></a><p><strong>11.9.</strong></p></td><td align="left" valign="top"><p>How do I access the virtual consoles from X?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>Use <span class="keycap"><strong>Ctrl</strong></span>+<span class="keycap"><strong>Alt</strong></span>+<span class="keycap"><strong>F<em class="replaceable"><code>n</code></em></strong></span>
+	    to switch back to a virtual console.  Press <span class="keycap"><strong>Ctrl</strong></span>+<span class="keycap"><strong>Alt</strong></span>+<span class="keycap"><strong>F1</strong></span>
+	    to return to the first virtual console.</p><p>Once at a text console, use
+	    <span class="keycap"><strong>Alt</strong></span>+<span class="keycap"><strong>F<em class="replaceable"><code>n</code></em></strong></span>
+	    to move between them.</p><p>To return to the X session, switch to the
+	    virtual console running X.  If X was started from the
+	    command line using <code class="command">startx</code>,
+	    the X session will attach to the next unused virtual
+	    console, not the text console from which it was invoked.
+	    For eight active virtual terminals, X will
+	    run on the ninth, so use <span class="keycap"><strong>Alt</strong></span>+<span class="keycap"><strong>F9</strong></span>.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51805688"></a><a id="xdm-boot"></a><p><strong>11.10.</strong></p></td><td align="left" valign="top"><p>How do I start <span class="application">XDM</span> on
+	    boot?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>There are two schools of thought on how to start
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=xdm&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">xdm</span>(1)</span></a>.  One school starts <code class="command">xdm</code>
+	    from <code class="filename">/etc/ttys</code> (see <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ttys&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ttys</span>(5)</span></a>)
+	    using the supplied example, while the other runs
+	    <code class="command">xdm</code> from
+	    <code class="filename">rc.local</code> (see <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rc&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rc</span>(8)</span></a>) or from an
+	    <code class="filename">X</code> script in
+	    <code class="filename">/usr/local/etc/rc.d</code>.  Both are
+	    equally valid, and one may work in situations where the
+	    other does not.  In both cases the result is the same: X
+	    will pop up a graphical login prompt.</p><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ttys&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ttys</span>(5)</span></a> method has the advantage of
+	    documenting which vty X will start on and passing the
+	    responsibility of restarting the X server on logout to
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=init&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">init</span>(8)</span></a>.  The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rc&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rc</span>(8)</span></a> method makes it easy to
+	    <code class="command">kill</code> <code class="command">xdm</code> if there is
+	    a problem starting the X server.</p><p>If loaded from <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rc&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rc</span>(8)</span></a>, <code class="command">xdm</code>
+	    should be started without any arguments.
+	    <code class="command">xdm</code> must start
+	    <span class="emphasis"><em>after</em></span> <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=getty&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">getty</span>(8)</span></a> runs, or else
+	    <code class="command">getty</code> and <code class="command">xdm</code> will
+	    conflict, locking out the console.  The best way around
+	    this is to have the script sleep 10 seconds or so then
+	    launch <code class="command">xdm</code>.</p><p>When starting <code class="command">xdm</code> from
+	    <code class="filename">/etc/ttys</code>, there still is a chance of
+	    conflict between <code class="command">xdm</code> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=getty&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">getty</span>(8)</span></a>.
+	    One way to avoid this is to add the <code class="literal">vt</code>
+	    number in
+	    <code class="filename">/usr/local/lib/X11/xdm/Xservers</code>:</p><pre class="programlisting">:0 local /usr/local/bin/X vt4</pre><p>The above example will direct the X server to run in
+	    <code class="filename">/dev/ttyv3</code>.  Note the number is
+	    offset by one.  The X server counts the vty from one,
+	    whereas the FreeBSD kernel numbers the vty from zero.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51845240"></a><a id="xconsole-failure"></a><p><strong>11.11.</strong></p></td><td align="left" valign="top"><p>Why do I get <span class="errorname">Couldn't open
+	      console</span> when I run
+	    <code class="command">xconsole</code>?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>When <span class="application">X</span> is started with
+	    <code class="command">startx</code>, the permissions on
+	    <code class="filename">/dev/console</code> will
+	    <span class="emphasis"><em>not</em></span> get changed, resulting in things
+	    like <code class="command">xterm -C</code> and
+	    <code class="command">xconsole</code> not working.</p><p>This is because of the way console permissions are set
+	    by default.  On a multi-user system, one does not
+	    necessarily want just any user to be able to write on the
+	    system console.  For users who are logging directly onto a
+	    machine with a VTY, the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=fbtab&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">fbtab</span>(5)</span></a> file exists to solve
+	    such problems.</p><p>In a nutshell, make sure an uncommented line of the
+	    form is in <code class="filename">/etc/fbtab</code> (see
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=fbtab&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">fbtab</span>(5)</span></a>):</p><pre class="programlisting">/dev/ttyv0 0600 /dev/console</pre><p>It will ensure that whomever logs in on
+	    <code class="filename">/dev/ttyv0</code> will own the
+	    console.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51858296"></a><a id="ps2-x"></a><p><strong>11.12.</strong></p></td><td align="left" valign="top"><p>Why does my PS/2 mouse misbehave under X?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>The mouse and the mouse driver may have become out of
+	    synchronization.  In rare cases, the driver may also
+	    erroneously report synchronization errors:</p><pre class="programlisting">psmintr: out of sync (xxxx != yyyy)</pre><p>If this happens, disable the synchronization check
+	    code by setting the driver flags for the PS/2 mouse driver
+	    to <code class="literal">0x100</code>.  This can be easiest achieved
+	    by adding <code class="literal">hint.psm.0.flags="0x100"</code> to
+	    <code class="filename">/boot/loader.conf</code> and
+	    rebooting.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51862392"></a><a id="mouse-button-reverse"></a><p><strong>11.13.</strong></p></td><td align="left" valign="top"><p>How do I reverse the mouse buttons?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>Type
+	    <code class="command">xmodmap -e "pointer = 3 2 1"</code>.  Add this
+	    command to <code class="filename">~/.xinitrc</code> or
+	    <code class="filename">~/.xsession</code> to make it happen
+	    automatically.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51865592"></a><a id="install-splash"></a><p><strong>11.14.</strong></p></td><td align="left" valign="top"><p>How do I install a splash screen and where do I find
+	    them?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>The detailed answer for this question can be found in
+	    the <a class="link" href="../../../../doc/en_US.ISO8859-1/books/handbook/boot-splash.html" target="_top">Boot
+	    Time Splash Screens</a> section of the FreeBSD
+	    Handbook.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51868152"></a><a id="windows-keys"></a><p><strong>11.15.</strong></p></td><td align="left" valign="top"><p>Can I use the <span class="keycap"><strong>Windows</strong></span> keys on my
+	    keyboard in X?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>Yes.  Use <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=xmodmap&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">xmodmap</span>(1)</span></a> to
+	    define which functions the keys should perform.</p><p>Assuming all Windows keyboards are
+	    standard, the keycodes for these three keys are the
+	    following:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><span class="keycode">115</span> &#8212;
+		<span class="keycap"><strong>Windows</strong></span> key, between the left-hand
+		<span class="keycap"><strong>Ctrl</strong></span> and <span class="keycap"><strong>Alt</strong></span>
+		keys</p></li><li class="listitem"><p><span class="keycode">116</span> &#8212;
+		<span class="keycap"><strong>Windows</strong></span> key, to the right of
+		<span class="keycap"><strong>AltGr</strong></span></p></li><li class="listitem"><p><span class="keycode">117</span> &#8212;
+		<span class="keycap"><strong>Menu</strong></span>, to the left of the right-hand
+		<span class="keycap"><strong>Ctrl</strong></span></p></li></ul></div><p>To have the left <span class="keycap"><strong>Windows</strong></span> key print a
+	    comma, try this.</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>xmodmap -e "keycode 115 = comma"</code></strong></pre><p>To have the <span class="keycap"><strong>Windows</strong></span> key-mappings
+	    enabled automatically every time X is started, either put
+	    the <code class="command">xmodmap</code> commands in
+	    <code class="filename">~/.xinitrc</code> or, preferably, create
+	    a <code class="filename">~/.xmodmaprc</code> and include the
+	    <code class="command">xmodmap</code> options, one per line, then add
+	    the following line to
+	    <code class="filename">~/.xinitrc</code>:</p><pre class="programlisting">xmodmap $HOME/.xmodmaprc</pre><p>For example, to map the 3 keys to be
+	    <span class="keycap"><strong>F13</strong></span>, <span class="keycap"><strong>F14</strong></span>, and
+	    <span class="keycap"><strong>F15</strong></span>, respectively.  This would make it
+	    easy to map them to useful functions within applications
+	    or the window manager.</p><p>To do this, put the following in
+	    <code class="filename">~/.xmodmaprc</code>.</p><pre class="programlisting">keycode 115 = F13
+keycode 116 = F14
+keycode 117 = F15</pre><p>For the <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/x11-wm/fvwm2/pkg-descr">x11-wm/fvwm2</a> desktop
+	    manager, one could map the keys so that
+	    <span class="keycap"><strong>F13</strong></span> iconifies or de-iconifies the
+	    window the cursor is in, <span class="keycap"><strong>F14</strong></span> brings the
+	    window the cursor is in to the front or, if it is already
+	    at the front, pushes it to the back, and
+	    <span class="keycap"><strong>F15</strong></span> pops up the main Workplace
+	    menu even if the cursor is not on the
+	    desktop, which is useful when no part of
+	    the desktop is visible.</p><p>The following entries in
+	    <code class="filename">~/.fvwmrc</code> implement the
+	    aforementioned setup:</p><pre class="programlisting">Key F13        FTIWS    A        Iconify
+Key F14        FTIWS    A        RaiseLower
+Key F15        A        A        Menu Workplace Nop</pre></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51908984"></a><a id="x-3d-acceleration"></a><p><strong>11.16.</strong></p></td><td align="left" valign="top"><p>How can I get 3D hardware acceleration for
+	    <span class="trademark">OpenGL</span>®?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>The availability of 3D acceleration depends on the
+	    version of Xorg and the type of video
+	    chip.  For an nVidia chip, use
+	    the binary drivers provided for FreeBSD by installing one of
+	    the following ports:</p><p>The latest versions of nVidia cards are supported
+	    by the <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/x11/nvidia-driver/pkg-descr">x11/nvidia-driver</a>
+	    port.</p><p>Older drivers are available as
+	    <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/x11/nvidia-driver-###/pkg-descr">x11/nvidia-driver-<em xmlns="http://www.w3.org/1999/xhtml" class="replaceable"><code>###</code></em></a></p><p>nVidia provides detailed information on which
+	    card is supported by which driver on their web site: <code class="uri"><a class="uri" href="http://www.nvidia.com/object/IO_32667.html" target="_top">http://www.nvidia.com/object/IO_32667.html</a></code>.</p><p>For Matrox G200/G400, check the
+	    <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/x11-drivers/xf86-video-mga/pkg-descr">x11-drivers/xf86-video-mga</a>
+	    port.</p><p>For ATI Rage 128 and Radeon see
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ati&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ati</span>(4)</span></a>, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=r128&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">r128</span>(4)</span></a> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=radeon&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">radeon</span>(4)</span></a>.</p></td></tr></tbody></table></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="admin.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="networking.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 10. System Administration </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 12. Networking</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

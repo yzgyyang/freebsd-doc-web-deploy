@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>6. Object Naming</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="The vinum Volume Manager" /><link rel="up" href="index.html" title="The vinum Volume Manager" /><link rel="prev" href="vinum-examples.html" title="5. Some Examples" /><link rel="next" href="vinum-config.html" title="7. Configuring vinum" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6. Object Naming</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="vinum-examples.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="vinum-config.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="vinum-object-naming"></a>6. Object Naming</h2></div></div></div><p><code class="filename">vinum</code> assigns default names to
+      plexes and subdisks, although they may be overridden.
+      Overriding the default names is not recommended as it does not
+      bring a significant advantage and it can cause
+      confusion.</p><p>Names may contain any non-blank character, but it is
+      recommended to restrict them to letters, digits and the
+      underscore characters.  The names of volumes, plexes, and
+      subdisks may be up to 64 characters long, and the names of
+      drives may be up to 32 characters long.</p><p><code class="filename">vinum</code> objects are assigned device
+      nodes in the hierarchy <code class="filename">/dev/gvinum</code>.  The configuration
+      shown above would cause <code class="filename">vinum</code> to create
+      the following device nodes:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Device entries for each volume.  These are the main
+	  devices used by <code class="filename">vinum</code>.  The
+	  configuration above would include the devices
+	  <code class="filename">/dev/gvinum/myvol</code>,
+	  <code class="filename">/dev/gvinum/mirror</code>,
+	  <code class="filename">/dev/gvinum/striped</code>,
+	  <code class="filename">/dev/gvinum/raid5</code>
+	  and <code class="filename">/dev/gvinum/raid10</code>.</p></li><li class="listitem"><p>All volumes get direct entries under
+	  <code class="filename">/dev/gvinum/</code>.</p></li><li class="listitem"><p>The directories
+	  <code class="filename">/dev/gvinum/plex</code>, and
+	  <code class="filename">/dev/gvinum/sd</code>, which
+	  contain device nodes for each plex and for each subdisk,
+	  respectively.</p></li></ul></div><p>For example, consider the following configuration
+      file:</p><pre class="programlisting">	drive drive1 device /dev/sd1h
+	drive drive2 device /dev/sd2h
+	drive drive3 device /dev/sd3h
+	drive drive4 device /dev/sd4h
+    volume s64 setupstate
+      plex org striped 64k
+        sd length 100m drive drive1
+        sd length 100m drive drive2
+        sd length 100m drive drive3
+        sd length 100m drive drive4</pre><p>After processing this file, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=gvinum&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">gvinum</span>(8)</span></a> creates the
+      following structure in <code class="filename">/dev/gvinum</code>:</p><pre class="programlisting">	drwxr-xr-x  2 root  wheel       512 Apr 13
+16:46 plex
+	crwxr-xr--  1 root  wheel   91,   2 Apr 13 16:46 s64
+	drwxr-xr-x  2 root  wheel       512 Apr 13 16:46 sd
+
+    /dev/vinum/plex:
+    total 0
+    crwxr-xr--  1 root  wheel   25, 0x10000002 Apr 13 16:46 s64.p0
+
+    /dev/vinum/sd:
+    total 0
+    crwxr-xr--  1 root  wheel   91, 0x20000002 Apr 13 16:46 s64.p0.s0
+    crwxr-xr--  1 root  wheel   91, 0x20100002 Apr 13 16:46 s64.p0.s1
+    crwxr-xr--  1 root  wheel   91, 0x20200002 Apr 13 16:46 s64.p0.s2
+    crwxr-xr--  1 root  wheel   91, 0x20300002 Apr 13 16:46 s64.p0.s3</pre><p>Although it is recommended that plexes and subdisks should
+      not be allocated specific names,
+      <code class="filename">vinum</code> drives must be named.  This makes
+      it possible to move a drive to a different location and still
+      recognize it automatically.  Drive names may be up to 32
+      characters long.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47303672"></a>6.1. Creating File Systems</h3></div></div></div><p>Volumes appear to the system to be identical to disks,
+	with one exception.  Unlike <span class="trademark">UNIX</span>® drives,
+	<code class="filename">vinum</code> does not partition volumes,
+	which thus do not contain a partition table.  This has
+	required modification to some disk utilities, notably
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=newfs&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">newfs</span>(8)</span></a>, so that it does not try to interpret the last
+	letter of a <code class="filename">vinum</code> volume name as a
+	partition identifier.  For example, a disk drive may have a
+	name like <code class="filename">/dev/ad0a</code>
+	or <code class="filename">/dev/da2h</code>.  These
+	names represent the first partition
+	(<code class="filename">a</code>) on the first (0) IDE disk
+	(<code class="filename">ad</code>) and the eighth partition
+	(<code class="filename">h</code>) on the third (2) SCSI disk
+	(<code class="filename">da</code>) respectively.  By contrast, a
+	<code class="filename">vinum</code> volume might be called
+	<code class="filename">/dev/gvinum/concat</code>,
+	which has no relationship with a partition name.</p><p>In order to create a file system on this volume, use
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=newfs&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">newfs</span>(8)</span></a>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>newfs /dev/gvinum/concat</code></strong></pre></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="vinum-examples.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="vinum-config.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">5. Some Examples </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 7. Configuring <code class="filename">vinum</code></td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

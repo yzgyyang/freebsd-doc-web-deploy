@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>6.7. Using GNU gettext</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Porter's Handbook" /><link rel="up" href="special.html" title="Chapter 6. Special Considerations" /><link rel="prev" href="using-autotools.html" title="6.6. Using GNU Autotools" /><link rel="next" href="using-perl.html" title="6.8. Using Perl" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.7. Using GNU <code class="literal">gettext</code></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="using-autotools.html">Prev</a> </td><th width="60%" align="center">Chapter 6. Special Considerations</th><td width="20%" align="right"> <a accesskey="n" href="using-perl.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="using-gettext"></a>6.7. Using GNU <code class="literal">gettext</code></h2></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="using-gettext-basic"></a>6.7.1. Basic Usage</h3></div></div></div><p>If the port requires <code class="literal">gettext</code>, set
+	<code class="literal">USES= gettext</code>, and the port will inherit
+	a dependency on <code class="filename">libintl.so</code> from
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/devel/gettext/pkg-descr">devel/gettext</a>.  Other
+	values for <code class="literal">gettext</code> usage are listed in
+	<a class="link" href="uses-gettext.html" title="17.27. gettext"><code class="literal">USES=gettext</code></a>.</p><p>A rather common case is a port using
+	<code class="literal">gettext</code> and <code class="command">configure</code>.
+	Generally, GNU <code class="command">configure</code> should be able
+	to locate <code class="literal">gettext</code> automatically.</p><pre class="programlisting">USES=	gettext
+GNU_CONFIGURE=	yes</pre><p>If it ever fails to, hints at the location of
+	<code class="literal">gettext</code> can be passed in
+	<code class="envar">CPPFLAGS</code> and <code class="envar">LDFLAGS</code> using
+	<code class="literal">localbase</code> as follows:</p><pre class="programlisting">USES=	gettext localbase:ldflags
+GNU_CONFIGURE=	yes</pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="using-gettext-optional"></a>6.7.2. Optional Usage</h3></div></div></div><p>Some software products allow for disabling
+	<acronym class="acronym">NLS</acronym>.  For example, through passing
+	<code class="option">--disable-nls</code> to
+	<code class="command">configure</code>.  In that case, the port must use
+	<code class="literal">gettext</code> conditionally, depending on the
+	status of the <code class="literal">NLS</code> option.  For ports of low
+	to medium complexity, use this idiom:</p><pre class="programlisting">GNU_CONFIGURE=		yes
+
+OPTIONS_DEFINE=		NLS
+OPTIONS_SUB=		yes
+
+NLS_USES=		gettext
+NLS_CONFIGURE_ENABLE=	nls
+
+.include &lt;bsd.port.mk&gt;</pre><p>Or using the older way of using options:</p><pre class="programlisting">GNU_CONFIGURE=		yes
+
+OPTIONS_DEFINE=		NLS
+
+.include &lt;bsd.port.options.mk&gt;
+
+.if ${PORT_OPTIONS:MNLS}
+USES+=			gettext
+PLIST_SUB+=		NLS=""
+.else
+CONFIGURE_ARGS+=	--disable-nls
+PLIST_SUB+=		NLS="@comment "
+.endif
+
+.include &lt;bsd.port.mk&gt;</pre><p>The next item on the to-do list is to arrange so that
+	the message catalog files are included in the packing list
+	conditionally.  The <code class="filename">Makefile</code> part of
+	this task is already provided by the idiom.  It is explained
+	in the section on <a class="link" href="plist.html#plist-sub" title="8.1. Changing pkg-plist Based on Make Variables">advanced
+	  <code class="filename">pkg-plist</code> practices</a>.  In a
+	nutshell, each occurrence of <code class="literal">%%NLS%%</code> in
+	<code class="filename">pkg-plist</code> will be replaced by
+	<span class="quote">&#8220;<span class="quote"><code class="literal">@comment </code></span>&#8221;</span> if NLS is
+	disabled, or by a null string if NLS is enabled.
+	Consequently, the lines prefixed by
+	<code class="literal">%%NLS%%</code> will become mere comments in the
+	final packing list if NLS is off; otherwise the prefix will
+	be just left out.  Then insert
+	<code class="literal">%%NLS%%</code> before each path to a message
+	catalog file in <code class="filename">pkg-plist</code>.  For
+	example:</p><pre class="programlisting">%%NLS%%share/locale/fr/LC_MESSAGES/foobar.mo
+%%NLS%%share/locale/no/LC_MESSAGES/foobar.mo</pre><p>In high complexity cases, more advanced techniques
+	may be needed, such as
+	<a class="link" href="plist-dynamic.html" title="8.4. Dynamic Versus Static Package List">dynamic packing list
+	  generation</a>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="using-gettext-catalog-directories"></a>6.7.3. Handling Message Catalog Directories</h3></div></div></div><p>There is a point to note about installing message
+	catalog files.  The target directories for them, which
+	reside under
+	<code class="filename">LOCALBASE/share/locale</code>,
+	must not be created and removed by a port.  The most
+	popular languages have their respective directories listed
+	in
+	<code class="filename">PORTSDIR/Templates/BSD.local.dist</code>.
+	The directories for many other languages are governed by the
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/devel/gettext/pkg-descr">devel/gettext</a> port.
+	Consult its <code class="filename">pkg-plist</code> and see whether
+	the port is going to install a message catalog file for a
+	unique language.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="using-autotools.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="special.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="using-perl.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">6.6. Using GNU Autotools </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 6.8. Using <span class="application">Perl</span></td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

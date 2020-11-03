@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>3. Steps During the Installation of FreeBSD</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Implementing UFS Journaling on a Desktop PC" /><link rel="up" href="index.html" title="Implementing UFS Journaling on a Desktop PC" /><link rel="prev" href="understanding-journaling.html" title="2. Understanding Journaling in FreeBSD" /><link rel="next" href="configure-journal.html" title="4. Setting Up Journaling" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">3. Steps During the Installation of FreeBSD</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="understanding-journaling.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="configure-journal.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="reserve-space"></a>3. Steps During the Installation of FreeBSD</h2></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp46943224"></a>3.1. Reserving Space for Journaling</h3></div></div></div><p>A typical desktop machine usually has one hard disk that stores
+	both the OS and user data.  Arguably, the default partitioning scheme
+	selected by <span class="application">sysinstall</span> is more or less
+	suitable:  A desktop machine does not need a large
+	<code class="filename">/var</code> partition, while <code class="filename">/usr</code>
+	is allocated the bulk of the disk space, since user data and a lot of
+	packages are installed into its subdirectories.</p><p>The default partitioning (the one obtained by pressing
+	<span class="keycap"><strong>A</strong></span> at the FreeBSD partition editor, called <span class="application">Disklabel</span>) does not leave any
+	unallocated space.  Each partition that will be journaled, requires
+	another	partition for the journal.  Since the <code class="filename">/usr</code>
+	partition is the largest, it makes sense to shrink this partition
+	slightly, to obtain the space required for journaling.</p><p>In our example, an 80 GB disk is used.  The following screenshot
+	shows the default partitions created by <span class="application">Disklabel</span> during
+	installation:</p><div class="mediaobject"><img src="disklabel1.png" /></div><p>If this is more or less what you need, it is very easy to adjust
+	for journaling.  Simply use the
+	arrow keys to move the highlight to the
+	<code class="filename">/usr</code> partition and press <span class="keycap"><strong>D</strong></span> to
+	delete it.</p><p>Now, move the highlight to the disk name at the top of the screen
+	and press <span class="keycap"><strong>C</strong></span> to create a new partition for
+	<code class="filename">/usr</code>.  This new partition should be smaller by
+	1 GB (if you intend to journal <code class="filename">/usr</code> only), or
+	2 GB (if you intend to journal both <code class="filename">/usr</code> and
+	<code class="filename">/var</code>).  From the pop-up that appears, opt to
+	create a file system, and type <code class="filename">/usr</code> as the mount
+	point.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Should you journal the <code class="filename">/var</code> partition?
+	  Normally, journaling makes sense on quite large partitions.  You may
+	  decide not to journal <code class="filename">/var</code>, although doing so
+	  on a typical desktop will cause no harm.  If the file system is
+	  lightly used (quite probable for a desktop) you may wish to
+	  allocate less disk space for its journal.</p><p xmlns="http://www.w3.org/1999/xhtml">In our example, we journal both <code class="filename">/usr</code> and
+	  <code class="filename">/var</code>.  You may of course adjust the procedure
+	  to your own needs.</p></div><p>To keep things as easy going as possible, we are going to use
+	<span class="application">sysinstall</span> to create the partitions
+	required for journaling.  However, during installation,
+	<span class="application">sysinstall</span> insists on asking a mount point
+	for each partition you create.  At this point, you do not have any
+	mount points for the partitions that will hold the journals, and in
+	reality you <span class="emphasis"><em>do not even need them</em></span>.  These are
+	not partitions that we are ever going to mount somewhere.</p><p>To avoid these problems with
+	<span class="application">sysinstall</span>, we are going to create the
+	journal partitions as swap space.  Swap is never mounted, and
+	<span class="application">sysinstall</span> has no problem creating as many
+	swap partitions as needed.  After the first reboot,
+	<code class="filename">/etc/fstab</code> will have to be edited, and the extra
+	swap space entries removed.</p><p>To create the swap, again use the
+	arrow keys to move the highlight to the top of
+	<span class="application">Disklabel</span> screen, so that the disk name itself is
+	highlighted.  Then press <span class="keycap"><strong>N</strong></span>, enter the desired size
+	(<em class="replaceable"><code>1024M</code></em>), and select
+	<span class="quote">&#8220;<span class="quote">swap space</span>&#8221;</span> from the pop-up menu that appears.  Repeat
+	for every journal you wish to create.  In our example, we create two
+	partitions to provide for the journals of <code class="filename">/usr</code> and
+	<code class="filename">/var</code>.  The final result is shown in the following
+	screenshot:</p><div class="mediaobject"><img src="disklabel2.png" /></div><p>When you have completed creating the partitions, we suggest you
+	write down the partition names, and mount points, so you can easily
+	refer to this information during the configuration phase.  This will
+	help alleviate mistakes that may damage your installation.  The
+	following table shows our notes for the sample configuration:</p><div class="table"><a id="idp47009656"></a><div class="table-title">Table 1. Partitions and Journals</div><div class="table-contents"><table class="table" summary="Partitions and Journals" width="100%" border="1"><colgroup><col /><col /><col /></colgroup><thead><tr><th>Partition</th><th>Mount Point</th><th>Journal</th></tr></thead><tbody><tr><td>ad0s1d</td><td>/var</td><td>ad0s1h</td></tr><tr><td>ad0s1f</td><td>/usr</td><td>ad0s1g</td></tr></tbody></table></div></div><br class="table-break" /><p>Continue the installation as you would normally do.  We would
+	however suggest you postpone installation of third party software
+	(packages) until you have completely setup journaling.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="first-boot"></a>3.2. Booting for the first time</h3></div></div></div><p>Your system will come up normally, but you will need to edit
+	<code class="filename">/etc/fstab</code> and remove the extra swap partitions
+	you created for the journals.  Normally, the swap partition you will
+	actually use is the one with the <span class="quote">&#8220;<span class="quote">b</span>&#8221;</span> suffix (i.e.
+	ad0s1b in our example).  Remove all other swap space entries and
+	reboot so that FreeBSD will stop using them.</p><p>When the system comes up again, we will be ready to configure
+	journaling.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="understanding-journaling.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="configure-journal.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2. Understanding Journaling in FreeBSD </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 4. Setting Up Journaling</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

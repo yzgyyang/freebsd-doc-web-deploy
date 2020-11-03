@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">検索</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="../../cgi/man.cgi">マニュアルページ</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">プレゼンテーションと論文</a>
                   </li>
                   <li>
                     <a href="../../doc/en_US.ISO8859-1/books/fdp-primer">新しい貢献者のためのドキュメンテーションプロジェクト入門</a>
@@ -224,7 +226,7 @@
                 <a href="../features.html">特徴</a>
                 <a href="../releases/index.html">リリース情報</a>
                 <a href="../../doc/en_US.ISO8859-1/books/handbook/install.html">インストール</a>
-                <a href="../../releases/11.2R/hardware.html">ハードウェアノート</a>
+                <a href="../../releases/12.0R/hardware.html">ハードウェアノート</a>
                 <a href="../../doc/ja_JP.eucJP/books/handbook/mirrors.html">ミラー</a>
                 <a href="../applications.html">アプリケーション</a>
                 <a href="../java/index.html">Java</a>
@@ -291,6 +293,7 @@
               </dt>
               <dd>
                 <a href="https://www.freebsdfoundation.org/">FreeBSD Foundation</a>
+                <a href="https://www.freebsdfoundation.org/news-and-events/">ニュースおよびイベント</a>
               </dd>
               <dt>
                 <strong>ニュース</strong>
@@ -321,9 +324,8 @@
                 <strong>プロジェクト</strong>
               </dt>
               <dd>
-                <a href="../../projects/acpi/index.html">ACPI</a>
+                <a href="https://wiki.freebsd.org/ACPI">ACPI</a>
                 <a href="../../projects/busdma/index.html">Busdma および SMPng ドライバの書き換え</a>
-                <a href="../projects/cvsweb.html">CVSweb</a>
                 <a href="https://wiki.freebsd.org/IdeasPage">FreeBSD プロジェクトアイディア</a>
                 <a href="../projects/mips/index.html">FreeBSD/MIPS</a>
                 <a href="../../projects/netperf/index.html">Network Performance (netperf)</a>
@@ -524,9 +526,6 @@
               </li>
               <li>
                 <a href="../../internal/bylaws.html">Bylaws, Core</a>
-              </li>
-              <li>
-                <a href="../../projects/busdma/index.html">busdma and SMPng driver conversion project</a>
               </li>
             </ul>
             <h2 xmlns="">
@@ -1103,9 +1102,6 @@
                 <a href="../docproj/docproj.html">SGML, Documentation Project</a>
               </li>
               <li>
-                <a href="../../projects/busdma/index.html">SMPng driver conversion</a>
-              </li>
-              <li>
                 <a href="search.html">Search Services</a>
               </li>
               <li>
@@ -1268,7 +1264,7 @@
         </div>
         <div id="footer">
           <span><a href="../search/index-site.html">サイトマップ</a> |
-  <a href="../copyright/">知的財産権について</a> | (C) 1995〓2018 The FreeBSD Project.
+  <a href="../copyright/">知的財産権について</a> | (C) 1995〓2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

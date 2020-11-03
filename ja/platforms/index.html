@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">検索</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="../../cgi/man.cgi">マニュアルページ</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">プレゼンテーションと論文</a>
                   </li>
                   <li>
                     <a href="../../doc/en_US.ISO8859-1/books/fdp-primer">新しい貢献者のためのドキュメンテーションプロジェクト入門</a>
@@ -247,106 +249,193 @@
           </div>
           <div id="contentwrap"><h1>プラットフォーム</h1>
 
-    <p>もし、移植に関して意見があるとか、
-      開発者にフィードバックしたい場合には、
-      関連するメーリングリストに投稿してください。</p>
-
     <h2>対応しているプラットフォーム</h2>
       
     <p>ここでは、FreeBSD
-      が現時点で対応しているプラットフォームに関する情報を提供しています。</p>
+      が対応しているプラットフォームに関する情報を提供します。</p>
 
-    <table>
+    <table class="tblbasic">
       <thead>
 	<tr>
-	  <td rowspan="1" colspan="1">プラットフォーム</td>
-	  <td rowspan="1" colspan="1">メーリングリスト</td>
-	  <td rowspan="1" colspan="1"><a href="https://www.freebsd.org/doc/en_US.ISO8859-1/articles/committers-guide/archs.html" shape="rect">Tier</a></td>
+	  <td rowspan="1" colspan="1">プラットフォーム名</td>
+	  <td rowspan="1" colspan="1">TARGET_ARCH</td>
+	  <td rowspan="1" colspan="1">11.x <a href="../doc/en_US.ISO8859-1/articles/committers-guide/archs.html" shape="rect">サポート Tier</a></td>
+	  <td rowspan="1" colspan="1">12.x <a href="../doc/en_US.ISO8859-1/articles/committers-guide/archs.html" shape="rect">サポート Tier</a></td>
+	  <td rowspan="1" colspan="1">Projected 13.x <a href="../doc/en_US.ISO8859-1/articles/committers-guide/archs.html" shape="rect">サポート Tier</a></td>
 	</tr>
       </thead>
 
       <tbody>
 	<tr>
-	  <td rowspan="1" colspan="1"><a href="amd64.html" shape="rect">amd64 (x86-64)</a></td>
-	  <td rowspan="1" colspan="1"><a href="mailto:freebsd-amd64@FreeBSD.org" shape="rect">freebsd-amd64@FreeBSD.org</a></td>
+	  <td rowspan="1" colspan="1">64-bit x86</td>
+	  <td rowspan="1" colspan="1"><a href="amd64.html" shape="rect">amd64</a></td>
+	  <td rowspan="1" colspan="1">Tier 1</td>
+	  <td rowspan="1" colspan="1">Tier 1</td>
 	  <td rowspan="1" colspan="1">Tier 1</td>
 	</tr>
 	<tr>
-	  <td rowspan="1" colspan="1"><a href="arm.html" shape="rect">ARM64</a></td>
-	  <td rowspan="1" colspan="1"><a href="mailto:freebsd-arm@FreeBSD.org" shape="rect">freebsd-arm@FreeBSD.org</a></td>
-	  <td rowspan="1" colspan="1">Tier 2</td>
-	</tr>
-	<tr>
-	  <td rowspan="1" colspan="1"><a href="arm.html" shape="rect">ARM</a></td>
-	  <td rowspan="1" colspan="1"><a href="mailto:freebsd-arm@FreeBSD.org" shape="rect">freebsd-arm@FreeBSD.org</a></td>
-	  <td rowspan="1" colspan="1">Tier 2</td>
-	</tr>
-	<tr>
-	  <td rowspan="1" colspan="1"><a href="../../platforms/i386.html" shape="rect">i386 (IA-32)</a></td>
-	  <td rowspan="1" colspan="1"><a href="mailto:freebsd-current@FreeBSD.org" shape="rect">freebsd-current@FreeBSD.org</a></td>
+	  <td rowspan="1" colspan="1">32-bit x86</td>
+	  <td rowspan="1" colspan="1"><a href="../../platforms/i386.html" shape="rect">i386</a></td>
+	  <td rowspan="1" colspan="1">Tier 1</td>
+	  <td rowspan="1" colspan="1">Tier 1</td>
 	  <td rowspan="1" colspan="1">Tier 1</td>
 	</tr>
 	<tr>
-	  <td rowspan="1" colspan="1"><a href="mips.html" shape="rect">MIPS</a></td>
-	  <td rowspan="1" colspan="1"><a href="mailto:freebsd-mips@FreeBSD.org" shape="rect">freebsd-mips@FreeBSD.org</a></td>
+	  <td rowspan="1" colspan="1">PC98</td>
+	  <td rowspan="1" colspan="1"><a href="pc98.html" shape="rect">pc98</a></td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
+	  <td rowspan="1" colspan="1">Tier 4</td>
+	  <td rowspan="1" colspan="1">Tier 4</td>
+	</tr>
+	<tr>
+	  <td rowspan="1" colspan="1">64-bit ARMv8</td>
+	  <td rowspan="1" colspan="1"><a href="arm.html" shape="rect">aarch64</a></td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
+	</tr>
+	<tr>
+	  <td rowspan="1" colspan="1">32-bit ARMv4/5</td>
+	  <td rowspan="1" colspan="1"><a href="arm.html" shape="rect">arm</a></td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
+	  <td rowspan="1" colspan="1">Tier 4</td>
+	</tr>
+	<tr>
+	  <td rowspan="1" colspan="1">32-bit big-endian ARM</td>
+	  <td rowspan="1" colspan="1"><a href="arm.html" shape="rect">armeb</a></td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
+	  <td rowspan="1" colspan="1">Tier 4</td>
+	  <td rowspan="1" colspan="1">Tier 4</td>
+	</tr>
+	<tr>
+	  <td rowspan="1" colspan="1">32-bit ARMv6</td>
+	  <td rowspan="1" colspan="1"><a href="arm.html" shape="rect">armv6</a></td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
+	</tr>
+	<tr>
+	  <td rowspan="1" colspan="1">32-bit ARMv7</td>
+	  <td rowspan="1" colspan="1"><a href="arm.html" shape="rect">armv7</a></td>
+	  <td rowspan="1" colspan="1"><a href="#n-armv7" shape="rect">*1</a></td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
+	</tr>
+	<tr>
+	  <td rowspan="1" colspan="1">32-bit MIPS soft-float</td>
+	  <td rowspan="1" colspan="1"><a href="mips.html" shape="rect">mips, mipsel</a></td>
 	  <td rowspan="1" colspan="1">Tier 3</td>
-	</tr>
-	<tr>
-	  <td rowspan="1" colspan="1"><a href="ppc.html" shape="rect">PowerPC (ppc)</a></td>
-	  <td rowspan="1" colspan="1"><a href="mailto:freebsd-ppc@FreeBSD.org" shape="rect">freebsd-ppc@FreeBSD.org</a></td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
 	  <td rowspan="1" colspan="1">Tier 2</td>
 	</tr>
 	<tr>
+	  <td rowspan="1" colspan="1">32-bit MIPS hard-float</td>
+	  <td rowspan="1" colspan="1"><a href="mips.html" shape="rect">mipshf, mipselhf</a></td>
+	  <td rowspan="1" colspan="1">N/A</td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
+	</tr>
+	<tr>
+	  <td rowspan="1" colspan="1">32-bit MIPS n32</td>
+	  <td rowspan="1" colspan="1"><a href="mips.html" shape="rect">mipsn32</a></td>
+	  <td rowspan="1" colspan="1">Tier 3</td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
+	</tr>
+	<tr>
+	  <td rowspan="1" colspan="1">64-bit MIPS soft-float</td>
+	  <td rowspan="1" colspan="1"><a href="mips.html" shape="rect">mips64, mips64el</a></td>
+	  <td rowspan="1" colspan="1">Tier 3</td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
+	</tr>
+	<tr>
+	  <td rowspan="1" colspan="1">64-bit MIPS hard-float</td>
+	  <td rowspan="1" colspan="1"><a href="mips.html" shape="rect">mips64hf, mips64elhf</a></td>
+	  <td rowspan="1" colspan="1">N/A</td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
+	</tr>
+	<tr>
+	  <td rowspan="1" colspan="1">32-bit PowerPC</td>
+	  <td rowspan="1" colspan="1"><a href="ppc.html" shape="rect">powerpc</a></td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
+	</tr>
+	<tr>
+	  <td rowspan="1" colspan="1">32-bit PowerPC with SPE</td>
+	  <td rowspan="1" colspan="1"><a href="ppc.html" shape="rect">powerpcspe</a></td>
+	  <td rowspan="1" colspan="1"></td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
+	</tr>
+	<tr>
+	  <td rowspan="1" colspan="1">64-bit PowerPC</td>
+	  <td rowspan="1" colspan="1"><a href="ppc.html" shape="rect">powerpc64</a></td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
+	</tr>
+	<tr>
+	  <td rowspan="1" colspan="1">64-bit RISC-V</td>
+	  <td rowspan="1" colspan="1"><a href="https://wiki.freebsd.org/riscv" shape="rect">riscv64,
+	    riscv64sf</a></td>
+	  <td rowspan="1" colspan="1"></td>
+	  <td rowspan="1" colspan="1">Tier 3</td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
+	</tr>
+	<tr>
+	  <td rowspan="1" colspan="1">64-bit SPARCv9</td>
 	  <td rowspan="1" colspan="1"><a href="sparc.html" shape="rect">sparc64</a></td>
-	  <td rowspan="1" colspan="1"><a href="mailto:freebsd-sparc@FreeBSD.org" shape="rect">freebsd-sparc@FreeBSD.org</a></td>
 	  <td rowspan="1" colspan="1">Tier 2</td>
+	  <td rowspan="1" colspan="1">Tier 2</td>
+	  <td rowspan="1" colspan="1">Tier 4</td>
 	</tr>
       </tbody>
     </table>
+
+    <h3>注釈</h3>
+    <ol>
+      <li><a name="n-armv7" shape="rect" id="n-armv7"></a>armv7 プラットフォームは、12.0 前は
+	armv6 がサポートしていました。</li>
+    </ol>
 
     <h2>対応していないプラットフォーム</h2>
 
-    <table>
+    <p>以下のプラットフォームは、古いバージョンの FreeBSD
+      でサポートされていました。</p>
+
+    <table class="tblbasic">
       <thead>
 	<tr>
-	  <td rowspan="1" colspan="1">プロジェクトのページ</td>
-	  <td rowspan="1" colspan="1">メーリングリスト</td>
-	  <td rowspan="1" colspan="1"><a href="https://www.freebsd.org/doc/en_US.ISO8859-1/articles/committers-guide/archs.html" shape="rect">Tier</a></td>
+	  <td rowspan="1" colspan="1">プラットフォーム名</td>
+	  <td rowspan="1" colspan="1">TARGET_ARCH</td>
+	  <td rowspan="1" colspan="1">最終サポートバージョン</td>
 	</tr>
       </thead>
 
       <tbody>
 	<tr>
-	  <td rowspan="1" colspan="1"><a href="alpha.html" shape="rect">FreeBSD/alpha プロジェクト</a></td>
-	  <td rowspan="1" colspan="1"><a href="mailto:freebsd-alpha@FreeBSD.org" shape="rect">freebsd-alpha@FreeBSD.org</a></td>
-	  <td rowspan="1" colspan="1">Tier 4 (7.0R でサポートは終了しました)</td>
+	  <td rowspan="1" colspan="1">Alpha</td>
+	  <td rowspan="1" colspan="1"><a href="alpha.html" shape="rect">alpha</a></td>
+	  <td rowspan="1" colspan="1"><a href="../releases/index.html#rel6-4" shape="rect">6.4</a></td>
 	</tr>
 	<tr>
-	  <td rowspan="1" colspan="1"><a href="ia64/index.html" shape="rect">FreeBSD/ia64 プロジェクト</a></td>
-	  <td rowspan="1" colspan="1"><a href="mailto:freebsd-ia64@FreeBSD.org" shape="rect">freebsd-ia64@FreeBSD.org</a></td>
-	  <td rowspan="1" colspan="1">FreeBSD 10 までは Tier 2。それ以降はサポートされません。</td>
-	</tr>
-	<tr>
-	  <td rowspan="1" colspan="1"><a href="https://wiki.freebsd.org/riscv" shape="rect">FreeBSD/RISC-V Project</a></td>
-	  <td rowspan="1" colspan="1"><a href="mailto:freebsd-riscv@FreeBSD.org" shape="rect">freebsd-riscv@FreeBSD.org</a></td>
-	  <td rowspan="1" colspan="1">FreeBSD 12 から Tier 3</td>
-	</tr>
-	<tr>
-	  <td rowspan="1" colspan="1"><a href="pc98.html" shape="rect">FreeBSD/pc98 プロジェクト</a></td>
-	  <td rowspan="1" colspan="1"><a href="mailto:re-pc98@FreeBSD.org" shape="rect">re-pc98@FreeBSD.org</a></td>
-	  <td rowspan="1" colspan="1">FreeBSD 11 までは Tier 2。それ以降はサポートされません。</td>
+	  <td rowspan="1" colspan="1">Intel IA-64</td>
+	  <td rowspan="1" colspan="1"><a href="ia64/index.html" shape="rect">ia64</a></td>
+	  <td rowspan="1" colspan="1"><a href="../releases/index.html#rel10-4" shape="rect">10.4</a></td>
 	</tr>
       </tbody>
     </table>
 
-    <p>アーキテクチャに関する一般的な質問については、<a href="mailto:freebsd-arch@FreeBSD.org" shape="rect">freebsd-arch@FreeBSD.org</a>
-      に投稿してください。</p>
   </div>
           <br class="clearboth" />
         </div>
         <div id="footer">
           <span><a href="../search/index-site.html">サイトマップ</a> |
-  <a href="../copyright/">知的財産権について</a> | (C) 1995〓2018 The FreeBSD Project.
+  <a href="../copyright/">知的財産権について</a> | (C) 1995〓2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

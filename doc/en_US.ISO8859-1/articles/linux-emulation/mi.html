@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>5. Linux® emulation layer -MI part</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Linux® emulation in FreeBSD" /><link rel="up" href="index.html" title="Linux® emulation in FreeBSD" /><link rel="prev" href="md.html" title="4. Linux® emulation layer -MD part" /><link rel="next" href="conclusion.html" title="6. Conclusion" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5. <span class="trademark">Linux</span>® emulation layer -MI part</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="md.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="conclusion.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="mi"></a>5. <span class="trademark">Linux</span>® emulation layer -MI part</h2></div></div></div><p>This section talks about machine independent part of the
+      Linuxulator.  It covers the emulation infrastructure needed for
+      <span class="trademark">Linux</span>® 2.6 emulation, the thread local storage (TLS)
+      implementation (on i386) and futexes.  Then we talk briefly
+      about some syscalls.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="nptl-desc"></a>5.1. Description of NPTL</h3></div></div></div><p>One of the major areas of progress in development of
+	<span class="trademark">Linux</span>® 2.6 was threading.  Prior to 2.6, the <span class="trademark">Linux</span>®
+	threading support was implemented in the
+	<span class="application">linuxthreads</span> library.  The library
+	was a partial implementation of <span class="trademark">POSIX</span>® threading.  The
+	threading was implemented using separate processes for each
+	thread using the <code class="function">clone</code> syscall to let
+	them share the address space (and other things).  The main
+	weaknesses of this approach was that every thread had a
+	different PID, signal handling was broken (from the pthreads
+	perspective), etc.  Also the performance was not very good
+	(use of <code class="literal">SIGUSR</code> signals for threads
+	synchronization, kernel resource consumption, etc.) so to
+	overcome these problems a new threading system was developed
+	and named NPTL.</p><p>The NPTL library focused on two things but a third thing
+	came along so it is usually considered a part of NPTL.  Those
+	two things were embedding of threads into a process structure
+	and futexes.  The additional third thing was TLS, which is not
+	directly required by NPTL but the whole NPTL userland library
+	depends on it.  Those improvements yielded in much improved
+	performance and standards conformance.  NPTL is a standard
+	threading library in <span class="trademark">Linux</span>® systems these days.</p><p>The FreeBSD Linuxulator implementation approaches the NPTL in
+	three main areas.  The TLS, futexes and PID mangling, which is
+	meant to simulate the <span class="trademark">Linux</span>® threads.  Further sections
+	describe each of these areas.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="linux26-emu"></a>5.2. <span class="trademark">Linux</span>® 2.6 emulation infrastructure</h3></div></div></div><p>These sections deal with the way <span class="trademark">Linux</span>® threads are
+	managed and how we simulate that in FreeBSD.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="linux26-runtime"></a>5.2.1. Runtime determining of 2.6 emulation</h4></div></div></div><p>The <span class="trademark">Linux</span>® emulation layer in FreeBSD supports runtime
+	  setting of the emulated version.  This is done via
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sysctl&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sysctl</span>(8)</span></a>, namely
+	  <code class="literal">compat.linux.osrelease</code>.  Setting this
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sysctl&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sysctl</span>(8)</span></a> affects runtime behavior of the emulation
+	  layer.  When set to 2.6.x it sets the value of
+	  <code class="literal">linux_use_linux26</code> while setting to
+	  something else keeps it unset.  This variable (plus
+	  per-prison variables of the very same kind) determines
+	  whether 2.6 infrastructure (mainly PID mangling) is used in
+	  the code or not.  The version setting is done system-wide
+	  and this affects all <span class="trademark">Linux</span>® processes.  The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sysctl&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sysctl</span>(8)</span></a>
+	  should not be changed when running any <span class="trademark">Linux</span>® binary as it
+	  might harm things.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="linux-proc-thread"></a>5.2.2. <span class="trademark">Linux</span>® processes and thread identifiers</h4></div></div></div><p>The semantics of <span class="trademark">Linux</span>® threading are a little
+	  confusing and uses entirely different nomenclature to FreeBSD.
+	  A process in <span class="trademark">Linux</span>® consists of a <code class="literal">struct
+	    task</code> embedding two identifier fields - PID and
+	  TGID.  PID is <span class="emphasis"><em>not</em></span> a process ID but it
+	  is a thread ID.  The TGID identifies a thread group in other
+	  words a process.  For single-threaded process the PID equals
+	  the TGID.</p><p>The thread in NPTL is just an ordinary process that
+	  happens to have TGID not equal to PID and have a group
+	  leader not equal to itself (and shared VM etc. of course).
+	  Everything else happens in the same way as to an ordinary
+	  process.  There is no separation of a shared status to some
+	  external structure like in FreeBSD.  This creates some
+	  duplication of information and possible data inconsistency.
+	  The <span class="trademark">Linux</span>® kernel seems to use task -&gt; group information
+	  in some places and task information elsewhere and it is
+	  really not very consistent and looks error-prone.</p><p>Every NPTL thread is created by a call to the
+	  <code class="function">clone</code> syscall with a specific set of
+	  flags (more in the next subsection).  The NPTL implements
+	  strict 1:1 threading.</p><p>In FreeBSD we emulate NPTL threads with ordinary FreeBSD
+	  processes that share VM space, etc. and the PID gymnastic is
+	  just mimicked in the emulation specific structure attached
+	  to the process.  The structure attached to the process looks
+	  like:</p><pre class="programlisting">struct linux_emuldata {
+  pid_t pid;
+
+  int *child_set_tid; /* in clone(): Child.s TID to set on clone */
+  int *child_clear_tid;/* in clone(): Child.s TID to clear on exit */
+
+  struct linux_emuldata_shared *shared;
+
+  int pdeath_signal; /* parent death signal */
+
+  LIST_ENTRY(linux_emuldata) threads; /* list of linux threads */
+};</pre><p>The PID is used to identify the FreeBSD process that
+	  attaches this structure.  The
+	  <code class="function">child_se_tid</code> and
+	  <code class="function">child_clear_tid</code> are used for TID
+	  address copyout when a process exits and is created.  The
+	  <code class="varname">shared</code> pointer points to a structure
+	  shared among threads.  The <code class="varname">pdeath_signal</code>
+	  variable identifies the parent death signal  and the
+	  <code class="varname">threads</code> pointer is used to link this
+	  structure to the list of threads.  The
+	  <code class="literal">linux_emuldata_shared</code> structure looks
+	  like:</p><pre class="programlisting">struct linux_emuldata_shared {
+
+  int refs;
+
+  pid_t group_pid;
+
+  LIST_HEAD(, linux_emuldata) threads; /* head of list of linux threads */
+};</pre><p>The <code class="varname">refs</code> is a reference counter being
+	  used to determine when we can free the structure to avoid
+	  memory leaks.  The <code class="varname">group_pid</code> is to
+	  identify PID ( = TGID) of the whole process ( = thread
+	  group).  The <code class="varname">threads</code> pointer is the head
+	  of the list of threads in the process.</p><p>The <code class="literal">linux_emuldata</code> structure can be
+	  obtained from the process using
+	  <code class="function">em_find</code>.  The prototype of the function
+	  is:</p><pre class="programlisting">struct linux_emuldata *em_find(struct proc *, int locked);</pre><p>Here, <code class="varname">proc</code> is the process we want the
+	  emuldata structure from and the locked parameter determines
+	  whether we want to lock or not.  The accepted values are
+	  <code class="literal">EMUL_DOLOCK</code> and
+	  <code class="literal">EMUL_DOUNLOCK</code>.  More about locking
+	  later.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="pid-mangling"></a>5.2.3. PID mangling</h4></div></div></div><p>Because of the described different view knowing what a
+	  process ID and thread ID is between FreeBSD and <span class="trademark">Linux</span>® we have
+	  to translate the view somehow.  We do it by PID mangling.
+	  This means that we fake what a PID (=TGID) and TID (=PID) is
+	  between kernel and userland.  The rule of thumb is that in
+	  kernel (in Linuxulator) PID = PID and TGID = shared -&gt;
+	  group pid and to userland we present <code class="literal">PID = shared
+	    -&gt; group_pid</code> and <code class="literal">TID = proc -&gt;
+	    p_pid</code>.  The PID member of
+	  <code class="literal">linux_emuldata structure</code> is a FreeBSD
+	  PID.</p><p>The above affects mainly getpid, getppid, gettid
+	  syscalls.  Where we use PID/TGID respectively.  In copyout
+	  of TIDs in <code class="function">child_clear_tid</code> and
+	  <code class="function">child_set_tid</code> we copy out FreeBSD
+	  PID.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="clone-syscall"></a>5.2.4. Clone syscall</h4></div></div></div><p>The <code class="function">clone</code> syscall is the way
+	  threads are created in <span class="trademark">Linux</span>®.  The syscall prototype looks
+	  like this:</p><pre class="programlisting">int linux_clone(l_int flags, void *stack, void *parent_tidptr, int dummy,
+void * child_tidptr);</pre><p>The <code class="varname">flags</code> parameter tells the syscall
+	  how exactly the processes should be cloned.  As described
+	  above, <span class="trademark">Linux</span>® can create processes sharing various things
+	  independently, for example two processes can share file
+	  descriptors but not VM, etc.  Last byte of the
+	  <code class="varname">flags</code> parameter is the exit signal of the
+	  newly created process.  The <code class="varname">stack</code>
+	  parameter if non-<code class="literal">NULL</code> tells, where the
+	  thread stack is and if it is <code class="literal">NULL</code> we are
+	  supposed to copy-on-write the calling process stack (i.e. do
+	  what normal <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=fork&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">fork</span>(2)</span></a> routine does).  The
+	  <code class="varname">parent_tidptr</code> parameter is used as an
+	  address for copying out process PID (i.e.  thread id) once
+	  the process is sufficiently instantiated but is not runnable
+	  yet.  The <code class="varname">dummy</code> parameter is here because
+	  of the very strange calling convention of this syscall on
+	  i386.  It uses the registers directly and does not let the
+	  compiler do it what results in the need of a dummy syscall.
+	  The <code class="varname">child_tidptr</code> parameter is used as an
+	  address for copying out PID once the process has finished
+	  forking and when the process exits.</p><p>The syscall itself proceeds by setting corresponding
+	  flags depending on the flags passed in.  For example,
+	  <code class="literal">CLONE_VM</code> maps to RFMEM (sharing of VM),
+	  etc.  The only nit here is <code class="literal">CLONE_FS</code> and
+	  <code class="literal">CLONE_FILES</code> because FreeBSD does not allow
+	  setting this separately so we fake it by not setting RFFDG
+	  (copying of fd table and other fs information) if either of
+	  these is defined.  This does not cause any problems, because
+	  those flags are always set together.  After setting the
+	  flags the process is forked using the internal
+	  <code class="function">fork1</code> routine, the process is
+	  instrumented not to be put on a run queue, i.e. not to be
+	  set runnable.  After the forking is done we possibly
+	  reparent the newly created process to emulate
+	  <code class="literal">CLONE_PARENT</code> semantics.  Next part is
+	  creating the emulation data.  Threads in <span class="trademark">Linux</span>® does not
+	  signal their parents so we set exit signal to be 0 to
+	  disable this.  After that setting of
+	  <code class="varname">child_set_tid</code> and
+	  <code class="varname">child_clear_tid</code> is performed enabling the
+	  functionality later in the code.  At this point we copy out
+	  the PID to the address specified by
+	  <code class="varname">parent_tidptr</code>.  The setting of process
+	  stack is done by simply rewriting thread frame
+	  <code class="varname">%esp</code> register (<code class="varname">%rsp</code> on
+	  amd64).  Next part is setting up TLS for the newly created
+	  process.  After this <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=vfork&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">vfork</span>(2)</span></a> semantics might be
+	  emulated and finally the newly created process is put on a
+	  run queue and copying out its PID to the parent process via
+	  <code class="function">clone</code> return value is done.</p><p>The <code class="function">clone</code> syscall is able and in
+	  fact is used for emulating classic <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=fork&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">fork</span>(2)</span></a> and
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=vfork&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">vfork</span>(2)</span></a> syscalls.  Newer glibc in a case of 2.6 kernel
+	  uses <code class="function">clone</code> to implement <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=fork&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">fork</span>(2)</span></a>
+	  and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=vfork&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">vfork</span>(2)</span></a> syscalls.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="locking"></a>5.2.5. Locking</h4></div></div></div><p>The locking is implemented to be per-subsystem because
+	  we do not expect a lot of contention on these.  There are
+	  two locks: <code class="literal">emul_lock</code> used to protect
+	  manipulating of <code class="literal">linux_emuldata</code> and
+	  <code class="literal">emul_shared_lock</code> used to manipulate
+	  <code class="literal">linux_emuldata_shared</code>.  The
+	  <code class="literal">emul_lock</code> is a nonsleepable blocking
+	  mutex while <code class="literal">emul_shared_lock</code> is a
+	  sleepable blocking <code class="literal">sx_lock</code>.  Because of
+	  the per-subsystem locking we can coalesce some locks and
+	  that is why the em find offers the non-locking
+	  access.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="tls"></a>5.3. TLS</h3></div></div></div><p>This section deals with TLS also known as thread local
+	storage.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="trheading-intro"></a>5.3.1. Introduction to threading</h4></div></div></div><p>Threads in computer science are entities within a
+	  process that can be scheduled independently from each other.
+	  The threads in the process share process wide data (file
+	  descriptors, etc.) but also have their own stack for their
+	  own data.  Sometimes there is a need for process-wide data
+	  specific to a given thread.  Imagine a name of the thread in
+	  execution or something like that.  The traditional <span class="trademark">UNIX</span>®
+	  threading API, <span class="application">pthreads</span> provides
+	  a way to do it via <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pthread_key_create&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pthread_key_create</span>(3)</span></a>,
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pthread_setspecific&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pthread_setspecific</span>(3)</span></a> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pthread_getspecific&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pthread_getspecific</span>(3)</span></a>
+	  where a thread can create a key to the thread local data and
+	  using <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pthread_getspecific&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pthread_getspecific</span>(3)</span></a> or
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pthread_getspecific&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pthread_getspecific</span>(3)</span></a> to manipulate those data.  You
+	  can easily see that this is not the most comfortable way
+	  this could be accomplished.  So various producers of C/C++
+	  compilers introduced a better way.  They defined a new
+	  modifier keyword thread that specifies that a variable is
+	  thread specific.  A new method of accessing such variables
+	  was developed as well (at least on i386).  The
+	  <span class="application">pthreads</span> method tends to be
+	  implemented in userspace as a trivial lookup table.  The
+	  performance of such a solution is not very good.  So the new
+	  method uses (on i386) segment registers to address a
+	  segment, where TLS area is stored so the actual accessing of
+	  a thread variable is just appending the segment register to
+	  the address thus addressing via it.  The segment registers
+	  are usually <code class="varname">%gs</code> and
+	  <code class="varname">%fs</code> acting like segment selectors.  Every
+	  thread has its own area where the thread local data are
+	  stored and the segment must be loaded on every context
+	  switch.  This method is very fast and used almost
+	  exclusively in the whole i386 <span class="trademark">UNIX</span>® world.  Both FreeBSD and
+	  <span class="trademark">Linux</span>® implement this approach and it yields very good
+	  results.  The only drawback is the need to reload the
+	  segment on every context switch which can slowdown context
+	  switches.  FreeBSD tries to avoid this overhead by using only 1
+	  segment descriptor for this while <span class="trademark">Linux</span>® uses 3.
+	  Interesting thing is that almost nothing uses more than 1
+	  descriptor (only <span class="application">Wine</span> seems to
+	  use 2) so <span class="trademark">Linux</span>® pays this unnecessary price for context
+	  switches.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="i386-segs"></a>5.3.2. Segments on i386</h4></div></div></div><p>The i386 architecture implements the so called segments.
+	  A segment is a description of an area of memory.  The base
+	  address (bottom) of the memory area, the end of it
+	  (ceiling), type, protection, etc.  The memory described by a
+	  segment can be accessed using segment selector registers
+	  (<code class="varname">%cs</code>, <code class="varname">%ds</code>,
+	  <code class="varname">%ss</code>, <code class="varname">%es</code>,
+	  <code class="varname">%fs</code>, <code class="varname">%gs</code>).  For
+	  example let us suppose we have a segment which base address
+	  is 0x1234 and length and this code:</p><pre class="programlisting">mov %edx,%gs:0x10</pre><p>This will load the content of the
+	  <code class="varname">%edx</code> register into memory location
+	  0x1244.  Some segment registers have a special use, for
+	  example <code class="varname">%cs</code> is used for code segment and
+	  <code class="varname">%ss</code> is used for stack segment but
+	  <code class="varname">%fs</code> and <code class="varname">%gs</code> are
+	  generally unused.  Segments are either stored in a global
+	  GDT table or in a local LDT table.  LDT is accessed via an
+	  entry in the GDT.  The LDT can store more types of segments.
+	  LDT can be per process.  Both tables define up to 8191
+	  entries.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="linux-i386"></a>5.3.3. Implementation on <span class="trademark">Linux</span>® i386</h4></div></div></div><p>There are two main ways of setting up TLS in <span class="trademark">Linux</span>®.
+	  It can be set when cloning a process using the
+	  <code class="function">clone</code> syscall or it can call
+	  <code class="function">set_thread_area</code>.  When a process passes
+	  <code class="literal">CLONE_SETTLS</code> flag to
+	  <code class="function">clone</code>, the kernel expects the memory
+	  pointed to by the <code class="varname">%esi</code> register a <span class="trademark">Linux</span>®
+	  user space representation of a segment, which gets
+	  translated to the machine representation of a segment and
+	  loaded into a GDT slot.  The GDT slot can be specified with
+	  a number or -1 can be used meaning that the system itself
+	  should choose the first free slot.  In practice, the vast
+	  majority of programs use only one TLS entry and does not
+	  care about the number of the entry.  We exploit this in the
+	  emulation and in fact depend on it.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="tls-emu"></a>5.3.4. Emulation of <span class="trademark">Linux</span>® TLS</h4></div></div></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="tls-i386"></a>5.3.4.1. i386</h5></div></div></div><p>Loading of TLS for the current thread happens by
+	    calling <code class="function">set_thread_area</code> while loading
+	    TLS for a second process in <code class="function">clone</code> is
+	    done in the separate block in <code class="function">clone</code>.
+	    Those two functions are very similar.  The only difference
+	    being the actual loading of the GDT segment, which happens
+	    on the next context switch for the newly created process
+	    while <code class="function">set_thread_area</code> must load this
+	    directly.  The code basically does this.  It copies the
+	    <span class="trademark">Linux</span>® form segment descriptor from the userland.  The
+	    code checks for the number of the descriptor but because
+	    this differs between FreeBSD and <span class="trademark">Linux</span>® we fake it a little.
+	    We only support indexes of 6, 3 and -1.  The 6 is genuine
+	    <span class="trademark">Linux</span>® number, 3 is genuine FreeBSD one and -1 means
+	    autoselection.  Then we set the descriptor number to
+	    constant 3 and copy out this to the userspace.  We rely on
+	    the userspace process using the number from the descriptor
+	    but this works most of the time (have never seen a case
+	    where this did not work) as the userspace process
+	    typically passes in 1.  Then we convert the descriptor
+	    from the <span class="trademark">Linux</span>® form to a machine dependant form (i.e.
+	    operating system independent form) and copy this to the
+	    FreeBSD defined segment descriptor.  Finally we can load it.
+	    We assign the descriptor to threads PCB (process control
+	    block) and load the <code class="varname">%gs</code> segment using
+	    <code class="function">load_gs</code>.  This loading must be done
+	    in a critical section so that nothing can interrupt us.
+	    The <code class="literal">CLONE_SETTLS</code> case works exactly
+	    like this just the loading using
+	    <code class="function">load_gs</code> is not performed.  The
+	    segment used for this (segment number 3) is shared for
+	    this use between FreeBSD processes and <span class="trademark">Linux</span>® processes so
+	    the <span class="trademark">Linux</span>® emulation layer does not add any overhead over
+	    plain FreeBSD.</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="tls-amd64"></a>5.3.4.2. amd64</h5></div></div></div><p>The amd64 implementation is similar to the i386 one
+	    but there was initially no 32bit segment descriptor used
+	    for this purpose (hence not even native 32bit TLS users
+	    worked) so we had to add such a segment and implement its
+	    loading on every context switch (when a flag signaling use
+	    of 32bit is set).  Apart from this the TLS loading is
+	    exactly the same just the segment numbers are different
+	    and the descriptor format and the loading differs
+	    slightly.</p></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="futexes"></a>5.4. Futexes</h3></div></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="sync-intro"></a>5.4.1. Introduction to synchronization</h4></div></div></div><p>Threads need some kind of synchronization and <span class="trademark">POSIX</span>®
+	  provides some of them: mutexes for mutual exclusion,
+	  read-write locks for mutual exclusion with biased ratio of
+	  reads and writes and condition variables for signaling a
+	  status change.  It is interesting to note that <span class="trademark">POSIX</span>®
+	  threading API lacks support for semaphores.  Those
+	  synchronization routines implementations are heavily
+	  dependant on the type threading support we have.  In pure
+	  1:M (userspace) model the implementation can be solely done
+	  in userspace and thus be very fast (the condition variables
+	  will probably end up being implemented using signals, i.e.
+	  not fast) and simple.  In 1:1 model, the situation is also
+	  quite clear - the threads must be synchronized using kernel
+	  facilities (which is very slow because a syscall must be
+	  performed).  The mixed M:N scenario just combines the first
+	  and second approach or rely solely on kernel.  Threads
+	  synchronization is a vital part of thread-enabled
+	  programming and its performance can affect resulting program
+	  a lot.  Recent benchmarks on FreeBSD operating system showed
+	  that an improved sx_lock implementation yielded 40% speedup
+	  in <em class="firstterm">ZFS</em> (a heavy sx user), this is
+	  in-kernel stuff but it shows clearly how important the
+	  performance of synchronization primitives is.</p><p>Threaded programs should be written with as little
+	  contention on locks as possible.  Otherwise, instead of
+	  doing useful work the thread just waits on a lock.  Because
+	  of this, the most well written threaded programs show little
+	  locks contention.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="futex-intro"></a>5.4.2. Futexes introduction</h4></div></div></div><p><span class="trademark">Linux</span>® implements 1:1 threading, i.e. it has to use
+	  in-kernel synchronization primitives.  As stated earlier,
+	  well written threaded programs have little lock contention.
+	  So a typical sequence could be performed as two atomic
+	  increase/decrease mutex reference counter, which is very
+	  fast, as presented by the following example:</p><pre class="programlisting">pthread_mutex_lock(&amp;mutex);
+....
+pthread_mutex_unlock(&amp;mutex);</pre><p>1:1 threading forces us to perform two syscalls for
+	  those mutex calls, which is very slow.</p><p>The solution <span class="trademark">Linux</span>® 2.6 implements is called
+	  futexes.  Futexes implement the check for contention in
+	  userspace and call kernel primitives only in a case of
+	  contention.  Thus the typical case takes place without any
+	  kernel intervention.  This yields reasonably fast and
+	  flexible synchronization primitives implementation.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="futex-api"></a>5.4.3. Futex API</h4></div></div></div><p>The futex syscall looks like this:</p><pre class="programlisting">int futex(void *uaddr, int op, int val, struct timespec *timeout, void *uaddr2, int val3);</pre><p>In this example <code class="varname">uaddr</code> is an address
+	  of the mutex in userspace, <code class="varname">op</code> is an
+	  operation we are about to perform and the other parameters
+	  have per-operation meaning.</p><p>Futexes implement the following operations:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="literal">FUTEX_WAIT</code></p></li><li class="listitem"><p><code class="literal">FUTEX_WAKE</code></p></li><li class="listitem"><p><code class="literal">FUTEX_FD</code></p></li><li class="listitem"><p><code class="literal">FUTEX_REQUEUE</code></p></li><li class="listitem"><p><code class="literal">FUTEX_CMP_REQUEUE</code></p></li><li class="listitem"><p><code class="literal">FUTEX_WAKE_OP</code></p></li></ul></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="futex-wait"></a>5.4.3.1. FUTEX_WAIT</h5></div></div></div><p>This operation verifies that on address
+	    <code class="varname">uaddr</code> the value <code class="varname">val</code>
+	    is written.  If not, <code class="literal">EWOULDBLOCK</code> is
+	    returned, otherwise the thread is queued on the futex and
+	    gets suspended.  If the argument
+	    <code class="varname">timeout</code> is non-zero it specifies the
+	    maximum time for the sleeping, otherwise the sleeping is
+	    infinite.</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="futex-wake"></a>5.4.3.2. FUTEX_WAKE</h5></div></div></div><p>This operation takes a futex at
+	    <code class="varname">uaddr</code> and wakes up
+	    <code class="varname">val</code> first futexes queued on this
+	    futex.</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="futex-fd"></a>5.4.3.3. FUTEX_FD</h5></div></div></div><p>This operations associates a file descriptor with a
+	    given futex.</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="futex-requeue"></a>5.4.3.4. FUTEX_REQUEUE</h5></div></div></div><p>This operation takes <code class="varname">val</code> threads
+	    queued on futex at <code class="varname">uaddr</code>, wakes them
+	    up, and takes <code class="varname">val2</code> next threads and
+	    requeues them on futex at
+	    <code class="varname">uaddr2</code>.</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="futex-cmp-requeue"></a>5.4.3.5. FUTEX_CMP_REQUEUE</h5></div></div></div><p>This operation does the same as
+	    <code class="literal">FUTEX_REQUEUE</code> but it checks that
+	    <code class="varname">val3</code> equals to <code class="varname">val</code>
+	    first.</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="futex-wake-op"></a>5.4.3.6. FUTEX_WAKE_OP</h5></div></div></div><p>This operation performs an atomic operation on
+	    <code class="varname">val3</code> (which contains coded some other
+	    value) and <code class="varname">uaddr</code>.  Then it wakes up
+	    <code class="varname">val</code> threads on futex at
+	    <code class="varname">uaddr</code> and if the atomic operation
+	    returned a positive number it wakes up
+	    <code class="varname">val2</code> threads on futex at
+	    <code class="varname">uaddr2</code>.</p><p>The operations implemented in
+	    <code class="literal">FUTEX_WAKE_OP</code>:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="literal">FUTEX_OP_SET</code></p></li><li class="listitem"><p><code class="literal">FUTEX_OP_ADD</code></p></li><li class="listitem"><p><code class="literal">FUTEX_OP_OR</code></p></li><li class="listitem"><p><code class="literal">FUTEX_OP_AND</code></p></li><li class="listitem"><p><code class="literal">FUTEX_OP_XOR</code></p></li></ul></div><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">There is no <code class="varname">val2</code> parameter in the
+	      futex prototype.  The <code class="varname">val2</code> is taken
+	      from the <code class="varname">struct timespec *timeout</code>
+	      parameter for operations
+	      <code class="literal">FUTEX_REQUEUE</code>,
+	      <code class="literal">FUTEX_CMP_REQUEUE</code> and
+	      <code class="literal">FUTEX_WAKE_OP</code>.</p></div></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="futex-emu"></a>5.4.4. Futex emulation in FreeBSD</h4></div></div></div><p>The futex emulation in FreeBSD is taken from NetBSD and
+	  further extended by us.  It is placed in
+	  <code class="filename">linux_futex.c</code> and
+	  <code class="filename">linux_futex.h</code> files.  The
+	  <code class="literal">futex</code> structure looks like:</p><pre class="programlisting">struct futex {
+  void *f_uaddr;
+  int f_refcount;
+
+  LIST_ENTRY(futex) f_list;
+
+  TAILQ_HEAD(lf_waiting_paroc, waiting_proc) f_waiting_proc;
+};</pre><p>And the structure <code class="literal">waiting_proc</code>
+	  is:</p><pre class="programlisting">struct waiting_proc {
+
+  struct thread *wp_t;
+
+  struct futex *wp_new_futex;
+
+  TAILQ_ENTRY(waiting_proc) wp_list;
+};</pre><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="futex-get"></a>5.4.4.1. futex_get / futex_put</h5></div></div></div><p>A futex is obtained using the
+	    <code class="function">futex_get</code> function, which searches a
+	    linear list of futexes and returns the found one or
+	    creates a new futex.  When releasing a futex from the use
+	    we call the <code class="function">futex_put</code> function, which
+	    decreases a reference counter of the futex and if the
+	    refcount reaches zero it is released.</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="futex-sleep"></a>5.4.4.2. futex_sleep</h5></div></div></div><p>When a futex queues a thread for sleeping it creates a
+	    <code class="literal">working_proc</code> structure and puts this
+	    structure to the list inside the futex structure then it
+	    just performs a <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=tsleep&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">tsleep</span>(9)</span></a> to suspend the thread.  The
+	    sleep can be timed out.  After <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=tsleep&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">tsleep</span>(9)</span></a> returns (the
+	    thread was woken up or it timed out) the
+	    <code class="literal">working_proc</code> structure is removed from
+	    the list and is destroyed.  All this is done in the
+	    <code class="function">futex_sleep</code> function.  If we got
+	    woken up from <code class="function">futex_wake</code> we have
+	    <code class="varname">wp_new_futex</code> set so we sleep on it.
+	    This way the actual requeueing is done in this
+	    function.</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="futex-wake-2"></a>5.4.4.3. futex_wake</h5></div></div></div><p>Waking up a thread sleeping on a futex is performed in
+	    the <code class="function">futex_wake</code> function.  First in
+	    this function we mimic the strange <span class="trademark">Linux</span>® behavior, where
+	    it wakes up N threads for all operations, the only
+	    exception is that the REQUEUE operations are performed on
+	    N+1 threads.  But this usually does not make any
+	    difference as we are waking up all threads.  Next in the
+	    function in the loop we wake up n threads, after this we
+	    check if there is a new futex for requeueing.  If so, we
+	    requeue up to n2 threads on the new futex.  This
+	    cooperates with <code class="function">futex_sleep</code>.</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="futex-wake-op-2"></a>5.4.4.4. futex_wake_op</h5></div></div></div><p>The <code class="literal">FUTEX_WAKE_OP</code> operation is
+	    quite complicated.  First we obtain two futexes at
+	    addresses <code class="varname">uaddr</code> and
+	    <code class="varname">uaddr2</code> then we perform the atomic
+	    operation using <code class="varname">val3</code> and
+	    <code class="varname">uaddr2</code>.  Then <code class="varname">val</code>
+	    waiters on the first futex is woken up and if the atomic
+	    operation condition holds we wake up
+	    <code class="varname">val2</code> (i.e.  <code class="varname">timeout</code>)
+	    waiter on the second futex.</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="futex-atomic-op"></a>5.4.4.5. futex atomic operation</h5></div></div></div><p>The atomic operation takes two parameters
+	    <code class="varname">encoded_op</code> and
+	    <code class="varname">uaddr</code>.  The encoded operation encodes
+	    the operation itself, comparing value, operation argument,
+	    and comparing argument.  The pseudocode for the operation
+	    is like this one:</p><pre class="programlisting">oldval = *uaddr2
+*uaddr2 = oldval OP oparg</pre><p>And this is done atomically.  First a copying in of
+	    the number at <code class="varname">uaddr</code> is performed and
+	    the operation is done.  The code handles page faults and
+	    if no page fault occurs <code class="varname">oldval</code> is
+	    compared to <code class="varname">cmparg</code> argument with cmp
+	    comparator.</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="futex-locking"></a>5.4.4.6. Futex locking</h5></div></div></div><p>Futex implementation uses two lock lists protecting
+	    <code class="function">sx_lock</code> and global locks (either
+	    Giant or another <code class="function">sx_lock</code>).  Every
+	    operation is performed locked from the start to the very
+	    end.</p></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="syscall-impl"></a>5.5. Various syscalls implementation</h3></div></div></div><p>In this section I am going to describe some smaller
+	syscalls that are worth mentioning because their
+	implementation is not obvious or those syscalls are
+	interesting from other point of view.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="syscall-at"></a>5.5.1. *at family of syscalls</h4></div></div></div><p>During development of <span class="trademark">Linux</span>® 2.6.16 kernel, the *at
+	  syscalls were added.  Those syscalls
+	  (<code class="function">openat</code> for example) work exactly like
+	  their at-less counterparts with the slight exception of the
+	  <code class="varname">dirfd</code> parameter.  This parameter changes
+	  where the given file, on which the syscall is to be
+	  performed, is.  When the <code class="varname">filename</code>
+	  parameter is absolute <code class="varname">dirfd</code> is ignored
+	  but when the path to the file is relative, it comes to the
+	  play.  The <code class="varname">dirfd</code> parameter is a directory
+	  relative to which the relative pathname is checked.  The
+	  <code class="varname">dirfd</code> parameter is a file descriptor of
+	  some directory or <code class="literal">AT_FDCWD</code>.  So for
+	  example the <code class="function">openat</code> syscall can be like
+	  this:</p><pre class="programlisting">file descriptor 123 = /tmp/foo/, current working directory = /tmp/
+
+openat(123, /tmp/bah\, flags, mode)	/* opens /tmp/bah */
+openat(123, bah\, flags, mode)		/* opens /tmp/foo/bah */
+openat(AT_FDWCWD, bah\, flags, mode)	/* opens /tmp/bah */
+openat(stdio, bah\, flags, mode)	/* returns error because stdio is not a directory */</pre><p>This infrastructure is necessary to avoid races when
+	  opening files outside the working directory.  Imagine that a
+	  process consists of two threads, thread A and
+	  thread B.  Thread A issues
+	  <code class="literal">open(./tmp/foo/bah., flags, mode)</code> and
+	  before returning it gets preempted and thread B runs.
+	  Thread B does not care about the needs of thread A
+	  and renames or removes <code class="filename">/tmp/foo/</code>.  We
+	  got a race.  To avoid this we can open
+	  <code class="filename">/tmp/foo</code> and use it as
+	  <code class="varname">dirfd</code> for <code class="function">openat</code>
+	  syscall.  This also enables user to implement per-thread
+	  working directories.</p><p><span class="trademark">Linux</span>® family of *at syscalls contains:
+	  <code class="function">linux_openat</code>,
+	  <code class="function">linux_mkdirat</code>,
+	  <code class="function">linux_mknodat</code>,
+	  <code class="function">linux_fchownat</code>,
+	  <code class="function">linux_futimesat</code>,
+	  <code class="function">linux_fstatat64</code>,
+	  <code class="function">linux_unlinkat</code>,
+	  <code class="function">linux_renameat</code>,
+	  <code class="function">linux_linkat</code>,
+	  <code class="function">linux_symlinkat</code>,
+	  <code class="function">linux_readlinkat</code>,
+	  <code class="function">linux_fchmodat</code> and
+	  <code class="function">linux_faccessat</code>.  All these are
+	  implemented using the modified <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=namei&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">namei</span>(9)</span></a> routine and
+	  simple wrapping layer.</p><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="implementation"></a>5.5.1.1. Implementation</h5></div></div></div><p>The implementation is done by altering the
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=namei&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">namei</span>(9)</span></a> routine (described above) to take additional
+	    parameter <code class="varname">dirfd</code> in its
+	    <code class="literal">nameidata</code> structure, which specifies
+	    the starting point of the pathname lookup instead of using
+	    the current working directory every time.  The resolution
+	    of <code class="varname">dirfd</code> from file descriptor number to
+	    a vnode is done in native *at syscalls.  When
+	    <code class="varname">dirfd</code> is <code class="literal">AT_FDCWD</code>
+	    the <code class="varname">dvp</code> entry in
+	    <code class="literal">nameidata</code> structure is
+	    <code class="literal">NULL</code> but when <code class="varname">dirfd</code>
+	    is a different number we obtain a file for this file
+	    descriptor, check whether this file is valid and if there
+	    is vnode attached to it then we get a vnode.  Then we
+	    check this vnode for being a directory.  In the actual
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=namei&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">namei</span>(9)</span></a> routine we simply substitute the
+	    <code class="varname">dvp</code> vnode for <code class="varname">dp</code>
+	    variable in the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=namei&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">namei</span>(9)</span></a> function, which determines
+	    the starting point.  The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=namei&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">namei</span>(9)</span></a> is not used
+	    directly but via a trace of different functions on various
+	    levels.  For example the <code class="function">openat</code> goes
+	    like this:</p><pre class="programlisting">openat() --&gt; kern_openat() --&gt; vn_open() -&gt; namei()</pre><p>For this reason <code class="function">kern_open</code> and
+	    <code class="function">vn_open</code> must be altered to
+	    incorporate the additional <code class="varname">dirfd</code>
+	    parameter.  No compat layer is created for those because
+	    there are not many users of this and the users can be
+	    easily converted.  This general implementation enables
+	    FreeBSD to implement their own *at syscalls.  This is being
+	    discussed right now.</p></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="ioctl"></a>5.5.2. Ioctl</h4></div></div></div><p>The ioctl interface is quite fragile due to its
+	  generality.  We have to bear in mind that devices differ
+	  between <span class="trademark">Linux</span>® and FreeBSD so some care must be applied to do
+	  ioctl emulation work right.  The ioctl handling is
+	  implemented in <code class="filename">linux_ioctl.c</code>, where
+	  <code class="function">linux_ioctl</code> function is defined.  This
+	  function simply iterates over sets of ioctl handlers to find
+	  a handler that implements a given command.  The ioctl
+	  syscall has three parameters, the file descriptor, command
+	  and an argument.  The command is a 16-bit number, which in
+	  theory is divided into high 8 bits determining class of
+	  the ioctl command and low 8 bits, which are the actual
+	  command within the given set.  The emulation takes advantage
+	  of this division.  We implement handlers for each set, like
+	  <code class="function">sound_handler</code> or
+	  <code class="function">disk_handler</code>.  Each handler has a
+	  maximum command and a minimum command defined, which is used
+	  for determining what handler is used.  There are slight
+	  problems with this approach because <span class="trademark">Linux</span>® does not use the
+	  set division consistently so sometimes ioctls for a
+	  different set are inside a set they should not belong to
+	  (SCSI generic ioctls inside cdrom set, etc.).  FreeBSD
+	  currently does not implement many <span class="trademark">Linux</span>® ioctls (compared
+	  to NetBSD, for example) but the plan is to port those from
+	  NetBSD.  The trend is to use <span class="trademark">Linux</span>® ioctls even in the
+	  native FreeBSD drivers because of the easy porting of
+	  applications.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="debugging"></a>5.5.3. Debugging</h4></div></div></div><p>Every syscall should be debuggable.  For this purpose we
+	  introduce a small infrastructure.  We have the ldebug
+	  facility, which tells whether a given syscall should be
+	  debugged (settable via a sysctl).  For printing we have LMSG
+	  and ARGS macros.  Those are used for altering a printable
+	  string for uniform debugging messages.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="md.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="conclusion.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">4. <span class="trademark">Linux</span>® emulation layer -MD part </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 6. Conclusion</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>Chapter 4. The Jail Subsystem</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Architecture Handbook" /><link rel="up" href="kernel.html" title="Part I. Kernel" /><link rel="prev" href="kernel-objects-using.html" title="3.3. Using Kobj" /><link rel="next" href="jail-restrictions.html" title="4.2. Restrictions" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 4. The Jail Subsystem</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="kernel-objects-using.html">Prev</a> </td><th width="60%" align="center">Part I. Kernel</th><td width="20%" align="right"> <a accesskey="n" href="jail-restrictions.html">Next</a></td></tr></table><hr /></div><div class="chapter"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="jail"></a>Chapter 4. The Jail Subsystem</h2></div><div><span xmlns="http://www.w3.org/1999/xhtml" class="personname"><span class="firstname">Evan</span> <span class="surname">Sarmiento</span></span><span xmlns="http://www.w3.org/1999/xhtml" class="affiliation"></span></div><div><p xmlns="http://www.w3.org/1999/xhtml" class="copyright">Copyright © 2001 Evan Sarmiento</p></div></div></div><div class="toc"><div class="toc-title">Table of Contents</div><dl class="toc"><dt><span class="sect1"><a href="jail.html#jail-arch">4.1. Architecture</a></span></dt><dt><span class="sect1"><a href="jail-restrictions.html">4.2. Restrictions</a></span></dt></dl></div><a id="idp51332344" class="indexterm"></a><a id="idp51332856" class="indexterm"></a><a id="idp51333368" class="indexterm"></a><p>On most <span class="trademark">UNIX</span>® systems, <code class="literal">root</code> has omnipotent
+    power.  This promotes insecurity.  If an attacker gained
+    <code class="literal">root</code> on a system, he would have every function
+    at his fingertips.  In FreeBSD there are sysctls which dilute the
+    power of <code class="literal">root</code>, in order to minimize the damage
+    caused by an attacker.  Specifically, one of these functions is
+    called <code class="literal">secure levels</code>.  Similarly, another
+    function which is present from FreeBSD 4.0 and onward, is a
+    utility called <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jail&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jail</span>(8)</span></a>.  <span class="application">Jail</span>
+    chroots an environment and sets certain restrictions on processes
+    which are forked within the <span class="application">jail</span>.  For
+    example, a jailed process cannot affect processes outside the
+    <span class="application">jail</span>, utilize certain system calls, or
+    inflict any damage on the host environment.</p><p><span class="application">Jail</span> is becoming the new security
+    model.  People are running potentially vulnerable servers such as
+    <span class="application">Apache</span>,
+    <span class="application">BIND</span>, and
+    <span class="application">sendmail</span> within jails, so that if an
+    attacker gains <code class="literal">root</code> within the
+    <span class="application">jail</span>, it is only an annoyance, and not
+    a devastation.  This article mainly focuses on the internals
+    (source code) of <span class="application">jail</span>.  For information
+    on how to set up a jail see the <a class="link" href="../../../../doc/en_US.ISO8859-1/books/handbook/jails.html" target="_top">handbook entry on
+      jails</a>.</p><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="jail-arch"></a>4.1. Architecture</h2></div></div></div><p><span class="application">Jail</span> consists of two realms: the
+      userland program, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jail&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jail</span>(8)</span></a>, and the code implemented within
+      the kernel: the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jail&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jail</span>(2)</span></a> system call and associated
+      restrictions.  I will be discussing the userland program and
+      then how <span class="application">jail</span> is implemented within
+      the kernel.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp51349496"></a>4.1.1. Userland Code</h3></div></div></div><a id="idp51350136" class="indexterm"></a><p>The source for the userland
+	<span class="application">jail</span> is located in
+	<code class="filename">/usr/src/usr.sbin/jail</code>, consisting of one
+	file, <code class="filename">jail.c</code>.  The program takes these
+	arguments: the path of the <span class="application">jail</span>,
+	hostname, IP address, and the command to be executed.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp51352952"></a>4.1.1.1. Data Structures</h4></div></div></div><p>In <code class="filename">jail.c</code>, the first thing I would
+	  note is the declaration of an important structure
+	  <code class="literal">struct jail j;</code> which was included from
+	  <code class="filename">/usr/include/sys/jail.h</code>.</p><p>The definition of the <code class="literal">jail</code> structure
+	  is:</p><pre class="programlisting"><code class="filename">/usr/include/sys/jail.h</code>:
+
+struct jail {
+        u_int32_t       version;
+        char            *path;
+        char            *hostname;
+        u_int32_t       ip_number;
+};</pre><p>As you can see, there is an entry for each of the
+	  arguments passed to the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jail&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jail</span>(8)</span></a> program, and indeed,
+	  they are set during its execution.</p><pre class="programlisting"><code class="filename">/usr/src/usr.sbin/jail/jail.c</code>
+char path[PATH_MAX];
+...
+if (realpath(argv[0], path) == NULL)
+    err(1, "realpath: %s", argv[0]);
+if (chdir(path) != 0)
+    err(1, "chdir: %s", path);
+memset(&amp;j, 0, sizeof(j));
+j.version = 0;
+j.path = path;
+j.hostname = argv[1];</pre></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp51358456"></a>4.1.1.2. Networking</h4></div></div></div><p>One of the arguments passed to the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jail&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jail</span>(8)</span></a> program
+	  is an IP address with which the
+	  <span class="application">jail</span> can be accessed over the
+	  network.  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jail&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jail</span>(8)</span></a> translates the IP address given into
+	  host byte order and then stores it in <code class="literal">j</code>
+	  (the <code class="literal">jail</code> structure).</p><pre class="programlisting"><code class="filename">/usr/src/usr.sbin/jail/jail.c</code>:
+struct in_addr in;
+...
+if (inet_aton(argv[2], &amp;in) == 0)
+    errx(1, "Could not make sense of ip-number: %s", argv[2]);
+j.ip_number = ntohl(in.s_addr);</pre><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=inet_aton&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">inet_aton</span>(3)</span></a> function "interprets the specified
+	  character string as an Internet address, placing the address
+	  into the structure provided." The
+	  <code class="literal">ip_number</code> member in the
+	  <code class="literal">jail</code> structure is set only when the IP
+	  address placed onto the <code class="literal">in</code> structure by
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=inet_aton&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">inet_aton</span>(3)</span></a> is translated into host byte order by
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ntohl&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ntohl</span>(3)</span></a>.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp51383160"></a>4.1.1.3. Jailing the Process</h4></div></div></div><p>Finally, the userland program jails the process.
+	  <span class="application">Jail</span> now becomes an imprisoned
+	  process itself and then executes the command given using
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=execv&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">execv</span>(3)</span></a>.</p><pre class="programlisting"><code class="filename">/usr/src/usr.sbin/jail/jail.c</code>
+i = jail(&amp;j);
+...
+if (execv(argv[3], argv + 3) != 0)
+    err(1, "execv: %s", argv[3]);</pre><p>As you can see, the <code class="literal">jail()</code> function
+	  is called, and its argument is the <code class="literal">jail</code>
+	  structure which has been filled with the arguments given to
+	  the program.  Finally, the program you specify is executed.
+	  I will now discuss how <span class="application">jail</span> is
+	  implemented within the kernel.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp51387768"></a>4.1.2. Kernel Space</h3></div></div></div><a id="idp51388408" class="indexterm"></a><p>We will now be looking at the file
+	<code class="filename">/usr/src/sys/kern/kern_jail.c</code>.  This is
+	the file where the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jail&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jail</span>(2)</span></a> system call, appropriate
+	sysctls, and networking functions are defined.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp51390840"></a>4.1.2.1. Sysctls</h4></div></div></div><a id="idp51395576" class="indexterm"></a><p>In <code class="filename">kern_jail.c</code>, the following
+	  sysctls are defined:</p><pre class="programlisting"><code class="filename">/usr/src/sys/kern/kern_jail.c:</code>
+int     jail_set_hostname_allowed = 1;
+SYSCTL_INT(_security_jail, OID_AUTO, set_hostname_allowed, CTLFLAG_RW,
+    &amp;jail_set_hostname_allowed, 0,
+    "Processes in jail can set their hostnames");
+
+int     jail_socket_unixiproute_only = 1;
+SYSCTL_INT(_security_jail, OID_AUTO, socket_unixiproute_only, CTLFLAG_RW,
+    &amp;jail_socket_unixiproute_only, 0,
+    "Processes in jail are limited to creating UNIX/IPv4/route sockets only");
+
+int     jail_sysvipc_allowed = 0;
+SYSCTL_INT(_security_jail, OID_AUTO, sysvipc_allowed, CTLFLAG_RW,
+    &amp;jail_sysvipc_allowed, 0,
+    "Processes in jail can use System V IPC primitives");
+
+static int jail_enforce_statfs = 2;
+SYSCTL_INT(_security_jail, OID_AUTO, enforce_statfs, CTLFLAG_RW,
+    &amp;jail_enforce_statfs, 0,
+    "Processes in jail cannot see all mounted file systems");
+
+int    jail_allow_raw_sockets = 0;
+SYSCTL_INT(_security_jail, OID_AUTO, allow_raw_sockets, CTLFLAG_RW,
+    &amp;jail_allow_raw_sockets, 0,
+    "Prison root can create raw sockets");
+
+int    jail_chflags_allowed = 0;
+SYSCTL_INT(_security_jail, OID_AUTO, chflags_allowed, CTLFLAG_RW,
+    &amp;jail_chflags_allowed, 0,
+    "Processes in jail can alter system file flags");
+
+int     jail_mount_allowed = 0;
+SYSCTL_INT(_security_jail, OID_AUTO, mount_allowed, CTLFLAG_RW,
+    &amp;jail_mount_allowed, 0,
+    "Processes in jail can mount/unmount jail-friendly file systems");</pre><p>Each of these sysctls can be accessed by the user
+	  through the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sysctl&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sysctl</span>(8)</span></a> program.  Throughout the kernel,
+	  these specific sysctls are recognized by their name.  For
+	  example, the name of the first sysctl is
+	  <code class="literal">security.jail.set_hostname_allowed</code>.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp51399160"></a>4.1.2.2. <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jail&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jail</span>(2)</span></a> System Call</h4></div></div></div><p>Like all system calls, the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jail&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jail</span>(2)</span></a> system call
+	  takes two arguments, <code class="literal">struct thread *td</code>
+	  and <code class="literal">struct jail_args *uap</code>.
+	  <code class="literal">td</code> is a pointer to the
+	  <code class="literal">thread</code> structure which describes the
+	  calling thread.  In this context, <code class="literal">uap</code> is
+	  a pointer to the structure in which a pointer to the
+	  <code class="literal">jail</code> structure passed by the userland
+	  <code class="filename">jail.c</code> is contained.  When I described
+	  the userland program before, you saw that the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jail&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jail</span>(2)</span></a>
+	  system call was given a <code class="literal">jail</code> structure as
+	  its own argument.</p><pre class="programlisting"><code class="filename">/usr/src/sys/kern/kern_jail.c:</code>
+/*
+ * struct jail_args {
+ *  struct jail *jail;
+ * };
+ */
+int
+jail(struct thread *td, struct jail_args *uap)</pre><p>Therefore, <code class="literal">uap-&gt;jail</code> can be used
+	  to access the <code class="literal">jail</code> structure which was
+	  passed to the system call.  Next, the system call copies the
+	  <code class="literal">jail</code> structure into kernel space using
+	  the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=copyin&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">copyin</span>(9)</span></a> function.  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=copyin&amp;sektion=9&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">copyin</span>(9)</span></a> takes three
+	  arguments: the address of the data which is to be copied
+	  into kernel space, <code class="literal">uap-&gt;jail</code>, where to
+	  store it, <code class="literal">j</code> and the size of the storage.
+	  The <code class="literal">jail</code> structure pointed by
+	  <code class="literal">uap-&gt;jail</code> is copied into kernel space
+	  and is stored in another <code class="literal">jail</code> structure,
+	  <code class="literal">j</code>.</p><pre class="programlisting"><code class="filename">/usr/src/sys/kern/kern_jail.c:</code>
+error = copyin(uap-&gt;jail, &amp;j, sizeof(j));</pre><p>There is another important structure defined in
+	  <code class="filename">jail.h</code>.  It is the
+	  <code class="literal">prison</code> structure.  The
+	  <code class="literal">prison</code> structure is used exclusively
+	  within kernel space.  Here is the definition of the
+	  <code class="literal">prison</code> structure.</p><pre class="programlisting"><code class="filename">/usr/include/sys/jail.h</code>:
+struct prison {
+        LIST_ENTRY(prison) pr_list;                     /* (a) all prisons */
+        int              pr_id;                         /* (c) prison id */
+        int              pr_ref;                        /* (p) refcount */
+        char             pr_path[MAXPATHLEN];           /* (c) chroot path */
+        struct vnode    *pr_root;                       /* (c) vnode to rdir */
+        char             pr_host[MAXHOSTNAMELEN];       /* (p) jail hostname */
+        u_int32_t        pr_ip;                         /* (c) ip addr host */
+        void            *pr_linux;                      /* (p) linux abi */
+        int              pr_securelevel;                /* (p) securelevel */
+        struct task      pr_task;                       /* (d) destroy task */
+        struct mtx       pr_mtx;
+      void            **pr_slots;                     /* (p) additional data */
+};</pre><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jail&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jail</span>(2)</span></a> system call then allocates memory for a
+	  <code class="literal">prison</code> structure and copies data between
+	  the <code class="literal">jail</code> and <code class="literal">prison</code>
+	  structure.</p><pre class="programlisting"><code class="filename">/usr/src/sys/kern/kern_jail.c</code>:
+MALLOC(pr, struct prison *, sizeof(*pr), M_PRISON, M_WAITOK | M_ZERO);
+...
+error = copyinstr(j.path, &amp;pr-&gt;pr_path, sizeof(pr-&gt;pr_path), 0);
+if (error)
+    goto e_killmtx;
+...
+error = copyinstr(j.hostname, &amp;pr-&gt;pr_host, sizeof(pr-&gt;pr_host), 0);
+if (error)
+     goto e_dropvnref;
+pr-&gt;pr_ip = j.ip_number;</pre><p>Next, we will discuss another important system call
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jail_attach&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jail_attach</span>(2)</span></a>, which implements the function to put a
+	  process into the <span class="application">jail</span>.</p><pre class="programlisting"><code class="filename">/usr/src/sys/kern/kern_jail.c</code>:
+/*
+ * struct jail_attach_args {
+ *      int jid;
+ * };
+ */
+int
+jail_attach(struct thread *td, struct jail_attach_args *uap)</pre><p>This system call makes the changes that can distinguish
+	  a jailed process from those unjailed ones.  To understand
+	  what <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jail_attach&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jail_attach</span>(2)</span></a> does for us, certain background
+	  information is needed.</p><p>On FreeBSD, each kernel visible thread is identified by
+	  its <code class="literal">thread</code> structure, while the processes
+	  are described by their <code class="literal">proc</code> structures.
+	  You can find the definitions of the
+	  <code class="literal">thread</code> and <code class="literal">proc</code>
+	  structure in <code class="filename">/usr/include/sys/proc.h</code>.
+	  For example, the <code class="literal">td</code> argument in any
+	  system call is actually a pointer to the calling thread's
+	  <code class="literal">thread</code> structure, as stated before.  The
+	  <code class="literal">td_proc</code> member in the
+	  <code class="literal">thread</code> structure pointed by
+	  <code class="literal">td</code> is a pointer to the
+	  <code class="literal">proc</code> structure which represents the
+	  process that contains the thread represented by
+	  <code class="literal">td</code>.  The <code class="literal">proc</code>
+	  structure contains members which can describe the owner's
+	  identity(<code class="literal">p_ucred</code>), the process resource
+	  limits(<code class="literal">p_limit</code>), and so on.  In the
+	  <code class="literal">ucred</code> structure pointed by
+	  <code class="literal">p_ucred</code> member in the
+	  <code class="literal">proc</code> structure, there is a pointer to the
+	  <code class="literal">prison</code>
+	  structure(<code class="literal">cr_prison</code>).</p><pre class="programlisting"><code class="filename">/usr/include/sys/proc.h:</code>
+struct thread {
+    ...
+    struct proc *td_proc;
+    ...
+};
+struct proc {
+    ...
+    struct ucred *p_ucred;
+    ...
+};
+<code class="filename">/usr/include/sys/ucred.h</code>
+struct ucred {
+    ...
+    struct prison *cr_prison;
+    ...
+};</pre><p>In <code class="filename">kern_jail.c</code>, the function
+	  <code class="literal">jail()</code> then calls function
+	  <code class="literal">jail_attach()</code> with a given
+	  <code class="literal">jid</code>.  And
+	  <code class="literal">jail_attach()</code> calls function
+	  <code class="literal">change_root()</code> to change the root
+	  directory of the calling process.  The
+	  <code class="literal">jail_attach()</code> then creates a new
+	  <code class="literal">ucred</code> structure, and attaches the newly
+	  created <code class="literal">ucred</code> structure to the calling
+	  process after it has successfully attached the
+	  <code class="literal">prison</code> structure to the
+	  <code class="literal">ucred</code> structure.  From then on, the
+	  calling process is recognized as jailed.  When the kernel
+	  routine <code class="literal">jailed()</code> is called in the kernel
+	  with the newly created <code class="literal">ucred</code> structure as
+	  its argument, it returns 1 to tell that the credential is
+	  connected with a <span class="application">jail</span>.  The
+	  public ancestor process of all the process forked within the
+	  <span class="application">jail</span>, is the process which runs
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jail&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jail</span>(8)</span></a>, as it calls the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=jail&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">jail</span>(2)</span></a> system call.
+	  When a program is executed through <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=execve&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">execve</span>(2)</span></a>, it
+	  inherits the jailed property of its parent's
+	  <code class="literal">ucred</code> structure, therefore it has a
+	  jailed <code class="literal">ucred</code> structure.</p><pre class="programlisting"><code class="filename">/usr/src/sys/kern/kern_jail.c</code>
+int
+jail(struct thread *td, struct jail_args *uap)
+{
+...
+    struct jail_attach_args jaa;
+...
+    error = jail_attach(td, &amp;jaa);
+    if (error)
+        goto e_dropprref;
+...
+}
+
+int
+jail_attach(struct thread *td, struct jail_attach_args *uap)
+{
+    struct proc *p;
+    struct ucred *newcred, *oldcred;
+    struct prison *pr;
+...
+    p = td-&gt;td_proc;
+...
+    pr = prison_find(uap-&gt;jid);
+...
+    change_root(pr-&gt;pr_root, td);
+...
+    newcred-&gt;cr_prison = pr;
+    p-&gt;p_ucred = newcred;
+...
+}</pre><p>When a process is forked from its parent process, the
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=fork&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">fork</span>(2)</span></a> system call uses <code class="literal">crhold()</code> to
+	  maintain the credential for the newly forked process.  It
+	  inherently keep the newly forked child's credential
+	  consistent with its parent, so the child process is also
+	  jailed.</p><pre class="programlisting"><code class="filename">/usr/src/sys/kern/kern_fork.c</code>:
+p2-&gt;p_ucred = crhold(td-&gt;td_ucred);
+...
+td2-&gt;td_ucred = crhold(p2-&gt;p_ucred);</pre></div></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="kernel-objects-using.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="kernel.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="jail-restrictions.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">3.3. Using Kobj </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 4.2. Restrictions</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

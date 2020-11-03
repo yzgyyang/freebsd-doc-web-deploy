@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>11.3. System Calls</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Developers' Handbook" /><link rel="up" href="x86.html" title="Chapter 11. x86 Assembly Language Programming" /><link rel="prev" href="x86-the-tools.html" title="11.2. The Tools" /><link rel="next" href="x86-return-values.html" title="11.4. Return Values" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">11.3. System Calls</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="x86-the-tools.html">Prev</a> </td><th width="60%" align="center">Chapter 11. x86 Assembly Language Programming</th><td width="20%" align="right"> <a accesskey="n" href="x86-return-values.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="x86-system-calls"></a>11.3. System Calls</h2></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-default-calling-convention"></a>11.3.1. Default Calling Convention</h3></div></div></div><p>By default, the FreeBSD kernel uses the C calling
+	convention.  Further, although the kernel is accessed using
+	<code class="function">int 80h</code>, it is assumed the
+	program will call a function that issues <code class="function">int 80h</code>, rather than issuing
+	<code class="function">int 80h</code> directly.</p><p>This convention is very convenient, and quite superior to
+	the <span class="trademark">Microsoft</span>® convention used by
+	<acronym class="acronym"><span class="trademark">MS-DOS</span>®</acronym>.  Why? Because the <span class="trademark">UNIX</span>®
+	convention allows any program written in any language to
+	access the kernel.</p><p>An assembly language program can do that as well.  For
+	example, we could open a file:</p><pre class="programlisting">kernel:
+	int	80h	; Call kernel
+	ret
+
+open:
+	push	dword mode
+	push	dword flags
+	push	dword path
+	mov	eax, 5
+	call	kernel
+	add	esp, byte 12
+	ret</pre><p>This is a very clean and portable way of coding.  If you
+	need to port the code to a <span class="trademark">UNIX</span>® system which uses a
+	different interrupt, or a different way of passing parameters,
+	all you need to change is the kernel procedure.</p><p>But assembly language programmers like to shave off
+	cycles.  The above example requires a <code class="function">call/ret</code> combination.  We can
+	eliminate it by <code class="function">push</code>ing an
+	extra dword:</p><pre class="programlisting">open:
+	push	dword mode
+	push	dword flags
+	push	dword path
+	mov	eax, 5
+	push	eax		; Or any other dword
+	int	80h
+	add	esp, byte 16</pre><p>The <code class="constant">5</code> that we have placed in <code class="varname">EAX</code> identifies the kernel
+	function, in this case <code class="function">open</code>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-alternate-calling-convention"></a>11.3.2. Alternate Calling Convention</h3></div></div></div><p>FreeBSD is an extremely flexible system.  It offers other
+	ways of calling the kernel.  For it to work, however, the
+	system must have Linux emulation installed.</p><p>Linux is a <span class="trademark">UNIX</span>® like system.  However, its kernel uses
+	the same system-call convention of passing parameters in
+	registers <acronym class="acronym"><span class="trademark">MS-DOS</span>®</acronym> does.  As with the
+	<span class="trademark">UNIX</span>® convention, the function number is placed in <code class="varname">EAX</code>.  The parameters, however, are
+	not passed on the stack but in <code class="varname">EBX,
+	  ECX, EDX, ESI, EDI, EBP</code>:</p><pre class="programlisting">open:
+	mov	eax, 5
+	mov	ebx, path
+	mov	ecx, flags
+	mov	edx, mode
+	int	80h</pre><p>This convention has a great disadvantage over the <span class="trademark">UNIX</span>®
+	way, at least as far as assembly language programming is
+	concerned: Every time you make a kernel call you must
+	<code class="function">push</code> the registers, then
+	<code class="function">pop</code> them later.  This makes
+	your code bulkier and slower.  Nevertheless, FreeBSD gives you
+	a choice.</p><p>If you do choose the Linux convention, you must let the
+	system know about it.  After your program is assembled and
+	linked, you need to brand the executable:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>brandelf -t Linux <em class="replaceable"><code>filename</code></em></code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-use-geneva"></a>11.3.3. Which Convention Should You Use?</h3></div></div></div><p>If you are coding specifically for FreeBSD, you should
+	always use the <span class="trademark">UNIX</span>® convention: It is faster, you can store
+	global variables in registers, you do not have to brand the
+	executable, and you do not impose the installation of the
+	Linux emulation package on the target system.</p><p>If you want to create portable code that can also run on
+	Linux, you will probably still want to give the FreeBSD users
+	as efficient a code as possible.  I will show you how you can
+	accomplish that after I have explained the basics.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-call-numbers"></a>11.3.4. Call Numbers</h3></div></div></div><p>To tell the kernel which system service you are calling,
+	place its number in <code class="varname">EAX</code>.
+	Of course, you need to know what the number is.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-the-syscalls-file"></a>11.3.4.1. The <code class="filename">syscalls</code> File</h4></div></div></div><p>The numbers are listed in <code class="filename">syscalls</code>.
+	  <code class="command">locate syscalls</code> finds this file in
+	  several different formats, all produced automatically from
+	  <code class="filename">syscalls.master</code>.</p><p>You can find the master file for the default <span class="trademark">UNIX</span>®
+	  calling convention in
+	  <code class="filename">/usr/src/sys/kern/syscalls.master</code>.  If
+	  you need to use the other convention implemented in the
+	  Linux emulation mode, read
+	  <code class="filename">/usr/src/sys/i386/linux/syscalls.master</code>.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Not only do FreeBSD and Linux use different calling
+	    conventions, they sometimes use different numbers for the
+	    same functions.</p></div><p><code class="filename">syscalls.master</code> describes how the
+	  call is to be made:</p><pre class="programlisting">0	STD	NOHIDE	{ int nosys(void); } syscall nosys_args int
+1	STD	NOHIDE	{ void exit(int rval); } exit rexit_args void
+2	STD	POSIX	{ int fork(void); }
+3	STD	POSIX	{ ssize_t read(int fd, void *buf, size_t nbyte); }
+4	STD	POSIX	{ ssize_t write(int fd, const void *buf, size_t nbyte); }
+5	STD	POSIX	{ int open(char *path, int flags, int mode); }
+6	STD	POSIX	{ int close(int fd); }
+etc...</pre><p>It is the leftmost column that tells us the number to
+	place in <code class="varname">EAX</code>.</p><p>The rightmost column tells us what parameters to <code class="function">push</code>.  They are <code class="function">push</code>ed <span class="emphasis"><em>from right to
+	  left</em></span>.</p><div class="informalexample"><p>For example, to <code class="function">open</code> a file, we
+	  need to <code class="function">push</code> the
+	  <code class="varname">mode</code> first, then
+	  <code class="varname">flags</code>, then the address at which the
+	  <code class="varname">path</code> is stored.</p></div></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="x86-the-tools.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="x86.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="x86-return-values.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">11.2. The Tools </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 11.4. Return Values</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

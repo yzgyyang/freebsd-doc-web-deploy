@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">検索</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="../../cgi/man.cgi">マニュアルページ</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">プレゼンテーションと論文</a>
                   </li>
                   <li>
                     <a href="../../doc/en_US.ISO8859-1/books/fdp-primer">新しい貢献者のためのドキュメンテーションプロジェクト入門</a>
@@ -296,56 +298,6 @@
             <h2>Internet Service Providers</h2>
             <dl>
               <dt>
-                <a name="activedomain" href="http://www.active-domain.com" id="activedomain">Active Domain</a>
-              </dt>
-              <dd>
-      Active-Domain.com has been providing domain name registration
-      service since 2001.  We are utilizing FreeBSD exclusively on all
-      our mail, web and DNS servers.  The stability and security of
-      FreeBSD has enabled us to provide consistently DNS service for
-      over hundred thousand domain names.  We fully recommend and
-      support the development of FreeBSD.
-    </dd>
-              <dt>
-                <a name="activeventure" href="http://www.active-venture.com" id="activeventure">Active Venture Pte Ltd</a>
-              </dt>
-              <dd>
-      Active-Venture.com strives to provide one of the most
-      feature-packed and affordable web hosting services on the market.
-      We offer an extensive range of FreeBSD-based virtual hosting
-      plans to meet the needs of any webmaster for personal,
-      professional, or ecommerce web hosting requirements.
-    </dd>
-              <dt>
-                <a name="Aplus" href="http://www.aplus.net/" id="Aplus">Aplus.Net</a>
-              </dt>
-              <dd>
-      Aplus.Net is a facilities based provider located in San Diego, CA
-      since 1995.  We provide Web Hosting, Dedicated Servers, Domain
-      Names, Web Design, and E-Commerce solutions.  We offer to our
-      customers the power and stability of the FreeBSD Operating System
-      with our Web Hosting and Dedicated Servers.  Aplus.Net, everything
-      for your online business.
-    </dd>
-              <dt>
-                <a name="argentina" href="http://www.argentina.com" id="argentina">Argentina.com</a>
-              </dt>
-              <dd>
-      <a href="http://www.argentina.com" shape="rect">Argentina.com</a> is an Argentina
-      based Hosting and e-mail provider with FreeBSD infrastructure and
-      Globalcrossing connectivity.  We offer FreeBSD-stable dedicated
-      servers with great connectivity, Shared hosting on Plesk for FreeBSD,
-      and Corporate FreeBSD based email hosting.
-    </dd>
-              <dt>
-                <a name="argeweb" href="http://www.argeweb.nl" id="argeweb">Argeweb Hosting</a>
-              </dt>
-              <dd>
-      Argeweb is one of the largest hosting providers in the Netherlands.
-      Most of our shared hosting platforms are running on servers powered
-      by FreeBSD for years.
-    </dd>
-              <dt>
                 <a name="arpnetworks" href="http://www.arpnetworks.com" id="arpnetworks">ARP Networks</a>
               </dt>
               <dd>
@@ -353,6 +305,15 @@
       servers, private cloud, colocation, and IP transit.  FreeBSD has
       been supported on all our offerings since 2008, as well as
       OpenBSD.
+    </dd>
+              <dt>
+                <a name="asergo" href="https://asergo.com" id="asergo">Asergo</a>
+              </dt>
+              <dd>
+      EasySpeedy provides dedicated servers with colocation benefits,
+      and a flexible self-service environment.  We're dedicated to
+      bringing our customers a wide range of automatically installed
+      Linux and BSD-systems, all available at the click of a button.
     </dd>
               <dt>
                 <a name="astute" href="http://www.astutehosting.com" id="astute">Astute Hosting Incorporated</a>
@@ -383,19 +344,16 @@
       servers, and customer's own local &amp; ISP hosted servers.
     </dd>
               <dt>
-                <a name="bewide" href="http://www.bewide.com" id="bewide">Bewide Internet Service Provider</a>
+                <a name="bestbuyrdp" href="https://bestbuyrdp.com/" id="bestbuyrdp">Bestbuyrdp</a>
               </dt>
-              <dd>
-      Bewide is an Internet Service Provider focussing on all forms
-      of hosting, domain registration and development of internet
-      applications.  We are a company demanding a high level of
-      quality, using high quality hardware.  FreeBSD is the operating
-      system of our choice, powering our systems with a high quality
-      operating system, perfectly suited for our company.  For more
-      information about Bewide, please visit our website <a href="http://www.bewide.com" shape="rect">http://www.bewide.com</a>
-    </dd>
+              <dd>Bestbuyrdp was eastablished in 2015 and offers FreeBSD
+      virtual private servers (Droplets) from Five data centers around
+      the world.  Droplets range in size and price, supporting hourly
+      or monthly billing with snapshot functionality.  All Droplets
+      are created on SSD drives for ideal performance.  FreeBSD support
+      was added in the fourth quarter of 2015.</dd>
               <dt>
-                <a name="bpa" href="http://www.bpanet.de/" id="bpa">Black Point Arts Internet Solutions GmbH</a>
+                <a name="bpa" href="https://www.blackpoint.de/" id="bpa">Black Point GmbH</a>
               </dt>
               <dd>
       We offer flexible solutions and serve our customers needs with
@@ -420,41 +378,6 @@
       personal family web sites to full blown online e-commerce solutions.
     </dd>
               <dt>
-                <a name="cari" href="http://www.cari.net/" id="cari">CARI.net</a>
-              </dt>
-              <dd>
-      CARI.net provides FreeBSD as a hosting platform for clusters,
-      clouds, and stand-alone dedicated servers.  We have been
-      supporting the Open Source community for over seventeen years.
-    </dd>
-              <dt>
-                <a name="centrixtechgroup" href="http://www.networkinformation.com/" id="centrixtechgroup">Centrix Technology Group Inc.</a>
-              </dt>
-              <dd>
-      Centrix Technology Group provides support for FreeBSD, NetBSD,
-      and OpenBSD.  Our forte is server management and remote SSH
-      administration.  We offer specialized support for BIND 8 and 9
-      DNS, Apache PHP, and MySQL Database Servers (FAMP).  Providing
-      support on a global scale from our facility located in
-      Vancouver, British Columbia, Canada.  Onsite service available
-      throughout North America and Asia.
-    </dd>
-              <dt>
-                <a name="CloudSigma" href="http://cloudsigma.com/en" id="CloudSigma">CloudSigma</a>
-              </dt>
-              <dd>
-      As a public cloud provider we pride ourselves on offering the
-      latest operating system releases via our public library of
-      instantly deployable images.  FreeBSD is a popular distribution
-      and we have a loyal following of FreeBSD users.  Especially as we
-      are one of the few public clouds that natively supports FreeBSD
-      without modification.  We are very pleased to offer version 9.0
-      with a 7 day free trial as an ideal opportunity for new customers
-      to discover as well what the latest version has to offer.  Please
-      visit our <a href="http://cloudsigma.com/en" shape="rect">website</a> to get
-      more information.
-    </dd>
-              <dt>
                 <a name="colocationamerica" href="http://www.colocationamerica.com/" id="colocationamerica">Colocation America</a>
               </dt>
               <dd>
@@ -474,26 +397,6 @@
       Colocrossing provides FreeBSD powered colocation services in 6
       locations in the US.  From managed hosting to colocation, we are
       here for you.
-    </dd>
-              <dt>
-                <a name="crucialservers" href="http://www.crucialservers.net" id="crucialservers">Crucial Servers LLC</a>
-              </dt>
-              <dd>
-      Crucial Servers LLC uses FreeBSD to the fullest controlling our
-      hosting network behind PC FreeBSD based routers that control
-      ipv4 and ipv6 connectivity, traffic shapping and advanced
-      firewall tactics all currently use FreeBSD.  All our public and
-      private web servers all run FreeBSD 4.9 or higher and have
-      uptimes over 400 days.  We are a FreeBSD friendly provider and
-      offer Free consulting for colocation and server customers.
-    </dd>
-              <dt>
-                <a name="dbi" href="http://www.dbihosting.com" id="dbi">DBI Hosting</a>
-              </dt>
-              <dd>
-      DBI Hosting offers a cost effective <a href="http://www.dbihosting.com/bsd-vps-hosting.html" shape="rect">BSD VPS</a> product
-      based on the FreeBSD platform in a secure and stable environment.
-      We guarantee our resources and our support team is second to none.
     </dd>
               <dt>
                 <a name="delimiter" href="https://www.delimiter.com/" id="delimiter">Delimiter</a>
@@ -519,65 +422,20 @@
       of 2015.
     </dd>
               <dt>
-                <a name="easyname" href="http://www.easyname.ch" id="easyname">EasyName</a>
+                <a name="elmotaheda" href="https://www.elmotaheda-web.com" id="elmotaheda">El Motaheda</a>
               </dt>
-              <dd>
-      EasyName.ch and our sister company Nessus.at are managing
-      FreeBSD Servers for KURIER, one of the largest newspapers in
-      Europe.  We offer managed servers of all varieties and operating
-      systems, real time domain name registration services, and shared
-      web hosting services.
-    </dd>
+              <dd>El Motaheda are specialized in providing local (Egypt)
+      solutions for businesses and organizations totally centered on
+      open source. We provide FreeBSD based firewalls and storage
+      solutions.</dd>
               <dt>
-                <a name="easyspeedy" href="http://www.easyspeedy.com" id="easyspeedy">EasySpeedy</a>
-              </dt>
-              <dd>
-      EasySpeedy provides dedicated servers with colocation benefits,
-      and a flexible self-service environment.  We're dedicated to
-      bringing our customers a wide range of automatically installed
-      Linux and BSD-systems, all available at the click of a button.
-    </dd>
-              <dt>
-                <a name="emuadmin" href="http://www.emuadmin.com/" id="emuadmin">EmuAdmin</a>
-              </dt>
-              <dd>
-      Emuadmin is offering a full range of services supporting the FreeBSD
-      operating system. Security, customized firewalls, full server management,
-      custom programming, performance tuning, network management solutions.
-    </dd>
-              <dt>
-                <a name="ermis" href="http://www.ermis.nl" id="ermis">Ermis | Domeinruimte</a>
-              </dt>
-              <dd>
-      Ermis | Domeinruimte has been hosting websites since 2004 on FreeBSD
-      servers, but also offer anti-spam services, backup MX, handle domain
-      name registrations and offer IT services to our corporate clients.
-      We strive to bring the best service for the lowest price.  Since we
-      are based in Rotterdam (the Netherlands) all our services are
-      available primarily in Dutch, where possible but also offer services
-      in English for our international clients.  We colocated our
-      infrastructure in a climate neutral datacenter and our servers'
-      energy consumption is remarkably low but retain performance.
-    </dd>
-              <dt>
-                <a name="eserver" href="http://www.eServer.ru" id="eserver">eServer.ru</a>
+                <a name="eserver" href="https://www.eserver.ru/" id="eserver">eServer.ru</a>
               </dt>
               <dd>
       We provide high quality web-hosting and VIP-hosting services in
       Russia and CIS based only on FreeBSD systems customized for
       hosting needs, dedicated servers with support of all currently
       available FreeBSD distributions.
-    </dd>
-              <dt>
-                <a name="Exonetric" href="http://www.exonetric.com/" id="Exonetric">Exonetric</a>
-              </dt>
-              <dd>
-      Exonetric Consulting Ltd is a UK based specialist in FreeBSD hosting,
-      offering both individual jails and managed or unmanaged systems on
-      dedicated hardware.  In addition we provide BSD-aware colocation
-      services in our London datacentre and are also able to offer
-      assistance with capacity planning and recommendations for best-fit
-      software components for larger systems.
     </dd>
               <dt>
                 <a name="fastpcnet" href="http://www.fastpcnet.net" id="fastpcnet">Fast PC Networks</a>
@@ -600,21 +458,6 @@
       FreeBSD was added as a supported operating system starting in January 2016.
     </dd>
               <dt>
-                <a name="gecadtech" href="http://www.axigen.com" id="gecadtech">Gecad Technologies</a>
-              </dt>
-              <dd>
-      Gecad Technologies develops an innovative messaging solution
-      available for Linux and BSD Platforms - AXIGEN Mail Server.
-      This highly configurable MTA offers (E)SMTP, POP3, IMAP4 and
-      Webmail SSL/TLS secured services.  It includes an integrated list
-      server and connectors for Antivirus and Antispam applications.
-      AXIGEN provides several administration tools, including an
-      intuitive Web configuration interface, granting system
-      administrators full control of the email traffic.  AXIGEN works
-      on FreeBSD, NetBSD and OpenBSD.  For more information, please see
-      <a href="http://www.axigen.com/" shape="rect">http://www.axigen.com</a>.
-    </dd>
-              <dt>
                 <a name="gigenet" href="https://www.gigenet.com/" id="gigenet">GigeNET</a>
               </dt>
               <dd>
@@ -635,17 +478,6 @@
       a comprehensive and easy-to-use cloud portal. 
     </dd>
               <dt>
-                <a name="gradwell" href="http://www.gradwell.com/" id="gradwell">gradwell dot com Ltd</a>
-              </dt>
-              <dd>
-      gradwell dot com Ltd is a UK Internet Email and Webhosting
-      provider offering UNIX shell accounts, web hosting, mailman
-      and ezmlm, pop3, imap, webmail (squirrelmail), mysql, php,
-      fastcgi and mod_perl hosting on FreeBSD servers in London.
-      Our site is <a href="http://www.gradwell.com/" shape="rect">
-      http://www.gradwell.com</a>. Phone: 0870 787 9129.
-    </dd>
-              <dt>
                 <a name="hamburgnet" href="http://www.hamburgnet.de" id="hamburgnet">Hamburgnet</a>
               </dt>
               <dd>
@@ -655,15 +487,6 @@
       You can visit our <a href="http://www.hamburgnet.de" shape="rect">website</a>,
       <a href="mailto:info@hamburgnet.de" shape="rect">mail us</a>, phone us at
       +49 (40) 73672322 or contact us via fax at +49 (40) 73672321.
-    </dd>
-              <dt>
-                <a name="highspeedhostingsolutions" href="http://www.highspeedhostingsolutions.com/" id="highspeedhostingsolutions">Highspeedhostingsolutions.com</a>
-              </dt>
-              <dd>
-      Highspeedhostingsolutions.com offers high speed website hosting
-      with free domain names, no data transfer charges, no setup fees
-      and spam solutions.  Virtual Host accounts and Virtual Servers
-      with FreeBSD as the operating system.
     </dd>
               <dt>
                 <a name="hivelocity" href="https://www.hivelocity.net/" id="hivelocity">Hivelocity</a>
@@ -679,14 +502,12 @@
       for thousands of businesses big and small.
     </dd>
               <dt>
-                <a name="HostDepartment" href="http://www.hostdepartment.com/" id="HostDepartment">Host Department</a>
+                <a name="hostcolor" href="https://www.hostcolor.com" id="hostcolor">Host Color</a>
               </dt>
-              <dd>
-      Host Department provides FreeBSD-based web hosting, reseller
-      hosting, domain name registration, and free web hosting services
-      for personal, small and medium enterprise businesses, government,
-      and also non-profit organizations.
-    </dd>
+              <dd>Host Color (HC) provides High Performance Web Hosting
+      and Cloud services with Freebsd Ceph based storage area network.
+      Accounts and Cloud servers also feature High Availability and
+      Automated Fault-Tolerance.</dd>
               <dt>
                 <a name="host1" href="https://host1.no/" id="host1">Host1</a>
               </dt>
@@ -740,32 +561,6 @@
       FreeBSD based solutions for web/email and video.
     </dd>
               <dt>
-                <a name="improware" href="http://www.imp.ch/" id="improware">ImproWare AG</a>
-              </dt>
-              <dd>
-      ImproWare AG focuses on Internet and Networking Services
-      as well as System Integration and Consulting.
-      ImproWare runs its own swiss-wide Multiservice-Backbones.
-      It offers internet access via cable and leased lines.
-      Serverhousing with 24/7 access to the server-room is
-      also a service ImproWare offers.
-    </dd>
-              <dt>
-                <a name="infotime" href="http://www.infotime.net" id="infotime">Infotime Internet</a>
-              </dt>
-              <dd>
-      Infotime offers shared hosting, domain name registrations and dedicated
-      servers.  We have been using FreeBSD for most of our services for
-      the last 4 years.
-    </dd>
-              <dt>
-                <a name="ingate" href="http://www.ingate.de" id="ingate">INGATE GmbH</a>
-              </dt>
-              <dd>
-      Located in Germany, INGATE GmbH provides managed and unmanaged
-      dedicated servers with FreeBSD preinstalled.
-    </dd>
-              <dt>
                 <a name="IntegrityHost" href="http://www.integrityhost.com" id="IntegrityHost">Integrity Host</a>
               </dt>
               <dd>
@@ -773,40 +568,6 @@
       Servers), and fully managed dedicated servers that run on
       multiple versions of FreeBSD.  cPanel and Fantastico are
       available and bandwidth allocation is generous.
-    </dd>
-              <dt>
-                <a name="interouteger" href="http://www.interoute-deutschland.de/" id="interouteger">Interoute Deutschland GmbH</a>
-              </dt>
-              <dd>
-      Interoute Deutschland is located in Duesseldorf, Germany.  As full
-      service provider we deliver a large range of services including
-      leased lines, (S)DSL, virtual and dedicated hosting.  Using
-      FreeBSD since years for internal purposes and customer solutions
-      we are sure to meet your requirements.
-    </dd>
-              <dt>
-                <a name="ipglobal" href="http://www.ipglobal.net/" id="ipglobal">IP Global.net</a>
-              </dt>
-              <dd>
-      IP Global is the leading Texas Internet Service Provider offering
-      data transport services to all major cities as well as hosting and
-      colocation solutions to businesses and groups around the globe.
-      We specialize in carrier grade transport circuits for Houston,
-      Austin, Dallas / Fort Worth, and San Antonio ranging in
-      connections from Fractional T1, Integrated T1,
-      Full Unmetered T1 Service, and bundled T1's up to Burstable
-      and Full T3 packages. IP Global also delivers Highspeed DSL
-      and Local 56K Dialup Internet to the Houston area.
-    </dd>
-              <dt>
-                <a name="iweb" href="http://iweb.com/dedicated/server-deal/" id="iweb">iWeb Technologies Inc.</a>
-              </dt>
-              <dd>
-      iWeb has been providing reliable and scalable Internet hosting
-      infrastructure solutions with its shared web hosting, dedicated
-      servers, managed hosting and colocation services for over a
-      decade.  Power your valuable online web presence with an iWeb
-      Dedicated Server running FreeBSD.
     </dd>
               <dt>
                 <a name="JohnCompanies" href="http://www.johncompanies.com" id="JohnCompanies">JohnCompanies</a>
@@ -842,25 +603,6 @@
       Our operating system of choice is FreeBSD.
     </dd>
               <dt>
-                <a name="kwshell" href="http://www.kwshell.com" id="kwshell">KwShell Internet Services</a>
-              </dt>
-              <dd>
-      KwShell Internet Services is an Arabic based company, which
-      provides hosting solutions like shared and dedicated Servers.
-      KwShell Internet Services is also able to provide management and
-      support for a variety of BSD and Linux systems.
-    </dd>
-              <dt>
-                <a name="LayeredTech" href="http://www.layeredtech.com/" id="LayeredTech">Layered Technologies</a>
-              </dt>
-              <dd>
-      Layered Technologies provides enterprise level, dedicated self
-      managed hosting solutions to our clients at the best, very
-      affordable prices.  The self-managed dedicated servers are hosted
-      on tier-1 bandwidth.  FreeBSD is our no. 1 supported OS.  We have
-      a local FreeBSD/CVSup mirror for customers.
-    </dd>
-              <dt>
                 <a name="lf" href="http://www.LF.net/" id="lf">LF.net Netzwerksysteme GmbH</a>
               </dt>
               <dd>
@@ -875,6 +617,13 @@
       solutions, virus and spam checking, screen design and
       programming as well as consulting and training.
     </dd>
+              <dt>
+                <a name="linevast" href="https://linevast.de/" id="linevast">Linevast</a>
+              </dt>
+              <dd>Linevast has been providing reliable dedicated-server
+      and vps products since 2013. The provider offers various FreeBSD
+      templates for their server-products. Each product comes with free
+      ddos-protection and unmetered traffic.</dd>
               <dt>
                 <a name="M5Hosting" href="http://www.m5hosting.com/" id="M5Hosting">M5 Hosting</a>
               </dt>
@@ -905,42 +654,17 @@
       mirrors.
     </dd>
               <dt>
-                <a name="midlandcomputers" href="http://www.midlandcomputers.com/" id="midlandcomputers">Midland Computers</a>
+                <a name="netactuate" href="https://www.netactuate.com/" id="netactuate">NetActuate</a>
               </dt>
               <dd>
-      Midland Computers is a UK based FreeBSD hosting provider.  We
-      offer hosting solutions ranging from shared hosting to
-      dedicated servers, all running FreeBSD and we run our own secure
-      data center.
-    </dd>
-              <dt>
-                <a name=" mindsalt" href="http://www.mindsalt.com" id=" mindsalt">MindSalt Timesheet and Expense</a>
-              </dt>
-              <dd>
-      MindSalt Time &amp; Expense is a 100% Web-based application that allows
-      you and your employees to access your timesheets and expenses from
-      anywhere in the world through an intuitive, easy to use interface.
-      All you need is an Internet connection to track time and expenses,
-      monitor projects in real-time, and manage and approve timesheets and
-      expense reports. The powerful reporting options in MindSalt
-      Time &amp; Expense supply the vital information that you need. Cost and
-      billing, profitability, client billing, and project budgets are just
-      a few of the types of information you will find in the flexible reports.
-      With over 100 combinations of reports for Administrators, Managers, and
-      Employees, you are sure to find the report you need. Start your free trial
-      today.
-    </dd>
-              <dt>
-                <a name="MultaCom" href="http://www.multacom.com/" id="MultaCom">MultaCom Corporation</a>
-              </dt>
-              <dd>
-      MultaCom Offers a full line of internet services including
-      Colocation, Dedicated Servers, Web development, Bandwidth and IP
-      services, Virtual Private Networks and Shared hosting based on
-      FreeBSD and on site 24/7 FreeBSD System Engineers.  FreeBSD is
-      widely used in our organization and our shared hosting is FreeBSD
-      based.  We provide FreeBSD servers as dedicated and also install
-      for free on servers we sell to others.
+      NetActuate is a hosting company specializing in virtual FreeBSD
+      hosting and managed services.  The FreeBSD Virtual Private
+      Servers allow users to modify the kernel, setup a firewall and
+      many more options.  Each VPS includes root access and a web-based
+      control panel for managing the virtual environment.  Technical
+      support is handled in-house by FreeBSD experts who can diagnose
+      problems and help you get up and running quickly. NetActuate has
+      donated services to FreeBSD developers to support the community.
     </dd>
               <dt>
                 <a name="netcup" href="http://www.netcup.de/" id="netcup">netcup GmbH</a>
@@ -978,16 +702,6 @@
       is SSAE 16-, PCI and HIPPA-compliant. For more information
       please visit our <a href="http://www.nyi.net" shape="rect">website</a>.
      </dd>
-              <dt>
-                <a name="oberon" href="http://www.oberon.net/" id="oberon">Oberon.net Netzwerksysteme GmbH</a>
-              </dt>
-              <dd>
-      Oberon.net Netzwerksysteme GmbH is one of the biggest Internet
-      Service Provider for japanese customers in Germany. We
-      deliver services like WWW-housing, E-Mail gates, Highspeed
-      DSL and PPP Dialup. With our Germany-wide dialin-infrastructure
-      we try to satisfy all of our customers needs.
-    </dd>
               <dt>
                 <a name="oph" href="http://www.oph.net/" id="oph">OPH</a>
               </dt>
@@ -1049,7 +763,7 @@
       and OPENSTEP).
     </dd>
               <dt>
-                <a name="Quonix" href="http://www.quonix.net/products/dia.html" id="Quonix">Quonix Networks</a>
+                <a name="Quonix" href="http://www.quonix.net/" id="Quonix">Quonix Networks</a>
               </dt>
               <dd>
       Quonix Networks provides a variety of personal and enterprise
@@ -1067,87 +781,20 @@
       <a href="http://www.reliableservers.com/" shape="rect">www.ReliableServers.Com</a>
     </dd>
               <dt>
-                <a name="rootbsd" href="http://www.rootbsd.net" id="rootbsd">RootBSD</a>
+                <a name="routerhosting" href="https://www.routerhosting.com" id="routerhosting">RouterHosting</a>
               </dt>
-              <dd>
-      RootBSD is a hosting company specializing in virtual FreeBSD
-      hosting and managed services.  The FreeBSD Virtual Private
-      Servers allow users to modify the kernel, setup a firewall and
-      many more options.  Each VPS includes root access and a web-based
-      control panel for managing the virtual environment.  Technical
-      support is handled in-house by FreeBSD experts who can diagnose
-      problems and help you get up and running quickly.  RootBSD has
-      donated services to FreeBSD developers to support the community.
-    </dd>
+              <dd>RouterHosting, provides NVMe SSD cloud VPS servers in
+      many locations around the globe. RouterHosting is established
+      since 2008 and one of our main Operating Systems is
+      FreeBSD.</dd>
               <dt>
-                <a name="sagonetworks" href="http://sagonet.com" id="sagonetworks">Sago Networks</a>
+                <a name="serveria" href="https://serveria.com/" id="serveria">Serveria</a>
               </dt>
-              <dd>
-      <a href="http://sagonet.com" shape="rect">Sago Networks</a> was founded as an
-      alternative to the telephone and cable company monopolies and
-      inefficient Internet companies.  Its mission is to be a one-stop
-      shop for all of its customers' bandwidth and custom
-      telecommunications needs.  The company also believes in providing
-      a laser-like focus on customer service and, from its headquarters
-      in the Tampa Bay area and satellite offices in Miami and Atlanta,
-      has implemented multiple rapidly deployable, high-speed fiber and
-      wireless networks and maintains one of the largest bandwidth
-      datacenters in the country.
-    </dd>
-              <dt>
-                <a name="ServePath" href="http://www.servepath.com/" id="ServePath">ServePath</a>
-              </dt>
-              <dd>
-      ServePath is a managed server hosting and data center provider
-      located in San Francisco.  We deliver powerful, affordable FreeBSD
-      dedicated server hosting, custom-built to meet your requirements.
-      On the network side, all of our servers include full 100Mbps
-      burstable connections to the Internet, with HSRP protected private
-      VLANs.  All ServePath FreeBSD dedicated servers give you full root
-      access, and you can choose from multiple FreeBSD release versions.
-      Check our <a href="http://www.servepath.com/" shape="rect">web site</a>, or call
-      us at 866-321-PATH.
-    </dd>
-              <dt>
-                <a name="ServerBeach" href="http://www.serverbeach.com" id="ServerBeach">ServerBeach</a>
-              </dt>
-              <dd>
-      Founded in 2002, ServerBeach was launched to serve the market's
-      thirst for self-managed servers equipped with powerful hardware,
-      fast and reliable bandwidth, convenient automation tools, and
-      first-class support - all at an affordable price.  Self-managed
-      servers are not an afterthought at the Beach, it's our business.
-      And we do whatever we can to satisfy the needs of our core
-      customers, the "Geeks" - people like you.  People like us. In 2004,
-      the picture improved even more when ServerBeach was acquired by
-      PEER 1.  This allowed us to connect our data centers to the
-      rock-solid, ultra-fast PEER 1 network with our 100% Uptime
-      Guarantee.  ServerBeach is the only self-managed hosting company
-      in the world that offers servers in three geographically diverse
-      locations:  WEST COAST, CENTRAL US, and EAST COAST.  Now offering
-      FreeBSD, Ubuntu, and other Linux Operating Systems.
-    </dd>
-              <dt>
-                <a name="serverssale" href="http://www.serverssale.com" id="serverssale">ServersSale</a>
-              </dt>
-              <dd>
-      <a href="http://www.serverssale.com" shape="rect">ServersSale</a> provides
-      dedicated servers as well as VPS hosting services.  Both can be
-      based on FreeBSD.  Our servers can optionally be offshored or
-      protected against DDOS attacks.  The company was established in
-      2014 but has been in the hosting industry since 2003.
-    </dd>
-              <dt>
-                <a name="shockmedia" href="http://www.shockmedia.nl" id="shockmedia">Shockmedia</a>
-              </dt>
-              <dd>
-      Shock Media is a web- and serverhosting company located in the
-      Netherlands.  We sell high quality hosting products with Service
-      Level Agreements for affordable prices.  We install FreeBSD with
-      or without webhosting control panel.  Feel free to contact us or
-      to check out our website if you are interested in our hosting
-      products.
-    </dd>
+              <dd>Serveria offers shared hosting, cloud VPS,
+      dedicated servers, colocation, domain registration, SSL
+      certificates etc.  All of their services are 100% confidential.
+      They support FreeBSD and offer FreeBSD services since
+      2009.</dd>
               <dt>
                 <a name="SimpleRezo" href="http://www.simplerezo.com" id="SimpleRezo">SimpleRezo</a>
               </dt>
@@ -1161,27 +808,6 @@
       to get more information.
     </dd>
               <dt>
-                <a name="skiltech" href="http://www.skiltech.com" id="skiltech">SkilTech, Inc.</a>
-              </dt>
-              <dd>
-      SkilTech Web Design and Hosting, based in Elkton, MD, has been
-      offering FreeBSD based hosting since 1998. Both shared and dedicated
-      web hosting solutions are available, and unlike many larger firms,
-      we can work with our customers to address their individual hosting
-      needs.
-    </dd>
-              <dt>
-                <a name="SmartServ" href="http://www.smart-serv.net/" id="SmartServ">SmartServ Hosting</a>
-              </dt>
-              <dd>
-      Based in Britsh Columbia, Canada, SmartServ Hosting offers a wide
-      range of shared website hosting and shell hosting packages at an
-      affordable price and rock solid stability.  Using FreeBSD servers,
-      SmartServ offers a variety of unique features including your
-      choice of PHP version, web serving software, and native IPv6
-      presence.
-    </dd>
-              <dt>
                 <a name="SolutionPoint" href="http://www.solutionpoint.in/" id="SolutionPoint">Solution Point</a>
               </dt>
               <dd>
@@ -1190,6 +816,13 @@
       various capacities to serve most demanding requirements of
       full dedicated servers.
     </dd>
+              <dt>
+                <a name="surelinebroadband" href="http://www.surelinebroadband.com" id="surelinebroadband">Sureline Broadband</a>
+              </dt>
+              <dd>Sureline Broadband provides Carrier class internet
+      services in Oregon. We also provide Consulting Services World
+      Wide for Networking and FreeBSD and we provide Cloud Services,
+      including FreeBSD systems.</dd>
               <dt>
                 <a name="swishmail" href="http://www.swishmail.com/" id="swishmail">Swishmail</a>
               </dt>
@@ -1213,46 +846,12 @@
       Foundation.
     </dd>
               <dt>
-                <a name="tier1hosting" href="http://www.tier1hosting.net/" id="tier1hosting">Tier1 Hosting Solutions</a>
-              </dt>
-              <dd>
-      Tier1 Hosting Solutions provides Fast VPS (Virtual Private Server
-      Hosting for FreeBSD-AMD/64.  All Fibre Backbone Network, running
-      on <strong>Enterprise <a href="http://www.servaris.com/" shape="rect">Servaris Servers</a></strong>. We
-      use only official FreeBSD Released ISO's for all versions of
-      FreeBSD.  The FreeBSD VPS offered is <a href="https://www.tier1hosting.net/client/cart.php?gid=6#tab-comparison" shape="rect">
-      KVM Full Virtualization</a>.  Tier1 Hosting offers various
-      capacities to serve most requirements.  Tier1 Hosting Solutions
-      also provides full Dedicated Servers with FreeBSD.
-    </dd>
-              <dt>
                 <a name="transip" href="http://www.transip.nl" id="transip">TransIP</a>
               </dt>
               <dd>
       Transip B.V. is a top 5 domain registrar in the Netherlands.
       TransIP uses FreeBSD exclusively on its own servers and offers
       virtual hosting and dedicated servers based on FreeBSD.
-    </dd>
-              <dt>
-                <a name="Vellance" href="http://www.vellance.com/" id="Vellance">Vellance B.V.</a>
-              </dt>
-              <dd>
-      Vellance B.V. is a Dutch managed hosting provider located in
-      Amsterdam.  Our core-business is delivering advanced <a href="http://www.vellance.com" shape="rect">Managed hosting</a> platforms.
-      Vellance primarily works with FreeBSD (since the 90's), so it is
-      not a surprise our managed hosting platforms and Virtual
-      Enterprise Cloud environment is completely based on a FreeBSD
-      infrastructure.  Next to Virtual Dedicated Servers we offer many
-      products like Private Cloud infrastructures, Media hosting,
-      datacentre facilities and hosting consultancy.
-    </dd>
-              <dt>
-                <a name="velocity" href="http://velocity-servers.net/" id="velocity">Velocity Servers</a>
-              </dt>
-              <dd>
-      Velocity Servers provides game server hosting and webhosting on
-      FreeBSD.  We can host any specific games that are designed to run
-      on Linux.
     </dd>
               <dt>
                 <a name="Venigo" href="http://www.venigo.fr/" id="Venigo">Venigo Internet Services</a>
@@ -1264,6 +863,13 @@
       able to provide management and support for variety of BSD &amp;
       Linux systems.
     </dd>
+              <dt>
+                <a name="vstack" href="https://vstack.com" id="vstack">vStack</a>
+              </dt>
+              <dd>vStack builds hyper-converged infrastructure
+      providing unified cluster space, software defined computing,
+      storage and networking capabilities, redundancy and failover
+      features.</dd>
               <dt>
                 <a name="vultr" href="https://www.vultr.com/" id="vultr">Vultr.com</a>
               </dt>
@@ -1289,7 +895,7 @@
         </div>
         <div id="footer">
           <span><a href="../search/index-site.html">サイトマップ</a> |
-  <a href="../copyright/">知的財産権について</a> | (C) 1995〓2018 The FreeBSD Project.
+  <a href="../copyright/">知的財産権について</a> | (C) 1995〓2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

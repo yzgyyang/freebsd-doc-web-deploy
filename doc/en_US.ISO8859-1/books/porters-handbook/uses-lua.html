@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>17.50. lua</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Porter's Handbook" /><link rel="up" href="uses.html" title="Chapter 17. Using USES Macros" /><link rel="prev" href="uses-localbase.html" title="17.49. localbase" /><link rel="next" href="uses-lxqt.html" title="17.51. lxqt" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">17.50. <code class="literal">lua</code></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="uses-localbase.html">Prev</a> </td><th width="60%" align="center">Chapter 17. Using <code class="varname">USES</code> Macros</th><td width="20%" align="right"> <a accesskey="n" href="uses-lxqt.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="uses-lua"></a>17.50. <code class="literal">lua</code></h2></div></div></div><p>Possible arguments: (none),
+      <code class="literal"><em class="replaceable"><code>XY</code></em></code>,
+      <code class="literal"><em class="replaceable"><code>XY</code></em>+</code>,
+      <code class="literal">-<em class="replaceable"><code>XY</code></em></code>,
+      <code class="literal"><em class="replaceable"><code>XY</code></em>-<em class="replaceable"><code>ZA</code></em></code>,
+      <code class="literal">module</code>, <code class="literal">flavors</code>,
+      <code class="literal">build</code>, <code class="literal">run</code>,
+      <code class="literal">env</code></p><p>Adds a dependency on <span class="application">Lua</span>.  By
+      default this is a library dependency, unless overridden by the
+      <code class="literal">build</code> and/or <code class="literal">run</code> option.
+      The <code class="literal">env</code> option prevents the addition of any
+      dependency, while still defining all the usual variables.</p><p>The default version is set by the usual
+      <code class="literal">DEFAULT_VERSIONS</code> mechanism, unless a version or
+      range of versions is specified as an argument, for
+      example, <code class="literal">51</code> or <code class="literal">51-53</code>.</p><p>Applications using <span class="application">Lua</span> are
+      normally built for only a single <span class="application">Lua</span>
+      version.  However, library modules intended to be loaded by
+      <span class="application">Lua</span> code should use the
+      <code class="literal">module</code> option to build with multiple
+      flavors.</p><p>For more information see <a class="xref" href="using-lua.html" title="6.22. Using Lua">Section 6.22, &#8220;Using <span class="application">Lua</span>&#8221;</a>.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="uses-localbase.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="uses.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="uses-lxqt.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">17.49. <code class="literal">localbase</code> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 17.51. <code class="literal">lxqt</code></td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

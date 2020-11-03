@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>3. The rc Subsystem and Read-Only Filesystems</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD and Solid State Devices" /><link rel="up" href="index.html" title="FreeBSD and Solid State Devices" /><link rel="prev" href="kernel.html" title="2. Kernel Options" /><link rel="next" href="ar01s04.html" title="4. Building a File System from Scratch" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">3. The <code class="literal">rc</code> Subsystem and Read-Only
+      Filesystems</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="kernel.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ar01s04.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="ro-fs"></a>3. The <code class="literal">rc</code> Subsystem and Read-Only
+      Filesystems</h2></div></div></div><p>The post-boot initialization of an embedded FreeBSD system is
+      controlled by <code class="filename">/etc/rc.initdiskless</code>.</p><p><code class="filename">/etc/rc.d/var</code> mounts
+      <code class="filename">/var</code> as a memory filesystem, makes a
+      configurable list of directories in <code class="filename">/var</code>
+      with the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mkdir&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mkdir</span>(1)</span></a> command, and changes modes on some of
+      those directories.  In the execution of
+      <code class="filename">/etc/rc.d/var</code>, one other
+      <code class="filename">rc.conf</code> variable comes into play &#8211;
+      <code class="literal">varsize</code>.  A <code class="filename">/var</code>
+      partition is created by <code class="filename">/etc/rc.d/var</code> based
+      on the value of this variable in
+      <code class="filename">rc.conf</code>:</p><pre class="programlisting">varsize=8192</pre><p>Remember that this value is in sectors by default.</p><p>The fact that <code class="filename">/var</code> is a read-write
+      filesystem is an important distinction, as the
+      <code class="filename">/</code> partition (and any other partitions you
+      may have on your flash media) should be mounted read-only.
+      Remember that in <a class="xref" href="index.html#intro" title="1. Solid State Disk Devices">Section 1, &#8220;Solid State Disk Devices&#8221;</a> we detailed the
+      limitations of flash memory - specifically the limited write
+      capability.  The importance of not mounting filesystems on flash
+      media read-write, and the importance of not using a swap file,
+      cannot be overstated.  A swap file on a busy system can burn
+      through a piece of flash media in less than one year.  Heavy
+      logging or temporary file creation and destruction can do the
+      same.  Therefore, in addition to removing the
+      <code class="literal">swap</code> entry from your
+      <code class="filename">/etc/fstab</code>, you should also change the
+      Options field for each filesystem to <code class="literal">ro</code> as
+      follows:</p><pre class="programlisting"># Device                Mountpoint      FStype  Options         Dump    Pass#
+/dev/ad0s1a             /               ufs     ro              1       1</pre><p>A few applications in the average system will immediately
+      begin to fail as a result of this change.  For instance, cron
+      will not run properly as a result of missing cron tabs in the
+      <code class="filename">/var</code> created by
+      <code class="filename">/etc/rc.d/var</code>, and syslog and dhcp will
+      encounter problems as well as a result of the read-only
+      filesystem and missing items in the <code class="filename">/var</code>
+      that <code class="filename">/etc/rc.d/var</code> has created.  These are
+      only temporary problems though, and are addressed, along with
+      solutions to the execution of other common software packages in
+      <a class="xref" href="strategies.html" title="5. System Strategies for Small and Read Only Environments">Section 5, &#8220;System Strategies for Small and Read Only
+      Environments&#8221;</a>.</p><p>An important thing to remember is that a filesystem that was
+      mounted read-only with <code class="filename">/etc/fstab</code> can be
+      made read-write at any time by issuing the command:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>/sbin/mount -uw <em class="replaceable"><code>partition</code></em></code></strong></pre><p>and can be toggled back to read-only with the
+      command:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>/sbin/mount -ur <em class="replaceable"><code>partition</code></em></code></strong></pre></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="kernel.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ar01s04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2. Kernel Options </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 4. Building a File System from Scratch</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

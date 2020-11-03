@@ -39,7 +39,7 @@
    claim, the designations have been followed by the "(TM)" or the "(R)"
    symbol.
 
-   Last modified on 2018-11-06 21:55:58 +0000 by rene.
+   Last modified on 2020-11-03 01:10:13 +0800 by Guangyuan Yang.
 
      ----------------------------------------------------------------------
 
@@ -170,8 +170,7 @@
    power management, and PCCARD expansion slots. These features tend to vary
    in idiosyncratic ways between machines, and frequently require
    special-case support in FreeBSD to work around hardware bugs or other
-   oddities. When in doubt, a search of the archives of the FreeBSD laptop
-   computer mailing list may be useful.
+   oddities.
 
    Most modern laptops (as well as many desktops) use the Advanced
    Configuration and Power Management (ACPI) standard. FreeBSD supports ACPI
@@ -4003,7 +4002,7 @@
 
      * Sweex LW053
 
-     * TP-LINK TL-WN321G
+     * TP-LINK TL-WN321G v1/v2/v3
 
    The run(4) driver supports the following wireless adapters:
 
@@ -4114,6 +4113,8 @@
      * Sweex LW313
 
      * TP-LINK TL-WDN3200
+
+     * TP-LINK TL-WN321G v4
 
      * TP-LINK TL-WN727N v3
 

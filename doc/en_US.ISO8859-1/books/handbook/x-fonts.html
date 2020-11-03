@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>5.5. Using Fonts in Xorg</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="x11.html" title="Chapter 5. The X Window System" /><link rel="prev" href="x-config.html" title="5.4. Xorg Configuration" /><link rel="next" href="x-xdm.html" title="5.6. The X Display Manager" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5.5. Using Fonts in <span class="application">Xorg</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="x-config.html">Prev</a> </td><th width="60%" align="center">Chapter 5. The X Window System</th><td width="20%" align="right"> <a accesskey="n" href="x-xdm.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="x-fonts"></a>5.5. Using Fonts in <span class="application">Xorg</span></h2></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="type1"></a>5.5.1. Type1 Fonts</h3></div></div></div><p>The default fonts that ship with
+	<span class="application">Xorg</span> are less than ideal for
+	typical desktop publishing applications.  Large presentation
+	fonts show up jagged and unprofessional looking, and small
+	fonts are almost completely unintelligible.  However, there
+	are several free, high quality Type1 (<span class="trademark">PostScript</span>®) fonts
+	available which can be readily used with
+	<span class="application">Xorg</span>.  For instance, the URW font
+	collection (<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/x11-fonts/urwfonts/pkg-descr">x11-fonts/urwfonts</a>) includes
+	high quality versions of standard type1 fonts (<span class="trademark">Times Roman</span>®, <span class="trademark">Helvetica</span>®, <span class="trademark">Palatino</span>® and others).  The
+	Freefonts collection (<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/x11-fonts/freefonts/pkg-descr">x11-fonts/freefonts</a>)
+	includes many more fonts, but most of them are intended for
+	use in graphics software such as the
+	<span class="application">Gimp</span>, and are not complete enough
+	to serve as screen fonts.  In addition,
+	<span class="application">Xorg</span> can be configured to use
+	<span class="trademark">TrueType</span>® fonts with a minimum of effort.  For more details
+	on this, see the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=X&amp;sektion=7&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">X</span>(7)</span></a> manual page or <a class="xref" href="x-fonts.html#truetype" title="5.5.2. TrueType® Fonts">Section 5.5.2, &#8220;<span class="trademark">TrueType</span>® Fonts&#8221;</a>.</p><p>To install the above Type1 font collections from binary packages,
+	run the following commands:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg install urwfonts</code></strong></pre><p>Alternatively, to build from the Ports Collection, run the following
+	commands:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/ports/x11-fonts/urwfonts</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make install clean</code></strong></pre><p>And likewise with the freefont or other collections.  To
+	have the X server detect these fonts, add an appropriate line
+	to the X server configuration file
+	(<code class="filename">/etc/X11/xorg.conf</code>), which reads:</p><pre class="programlisting">FontPath "/usr/local/share/fonts/urwfonts/"</pre><p>Alternatively, at the command line in the X session
+	run:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>xset fp+ /usr/local/share/fonts/urwfonts</code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>xset fp rehash</code></strong></pre><p>This will work but will be lost when the X session is
+	closed, unless it is added to the startup file
+	(<code class="filename">~/.xinitrc</code> for a normal
+	<code class="command">startx</code> session, or
+	<code class="filename">~/.xsession</code> when logging in through a
+	graphical login manager like <span class="application">XDM</span>).
+	A third way is to use the new
+	<code class="filename">/usr/local/etc/fonts/local.conf</code> as
+	demonstrated in <a class="xref" href="x-fonts.html#antialias" title="5.5.3. Anti-Aliased Fonts">Section 5.5.3, &#8220;Anti-Aliased Fonts&#8221;</a>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="truetype"></a>5.5.2. <span class="trademark">TrueType</span>® Fonts</h3></div></div></div><a id="idp53933048" class="indexterm"></a><a id="idp53933816" class="indexterm"></a><p><span class="application">Xorg</span> has built in support for
+	rendering <span class="trademark">TrueType</span>® fonts.  There are two different modules
+	that can enable this functionality.  The freetype module is
+	used in this example because it is more consistent with the
+	other font rendering back-ends.  To enable the freetype module
+	just add the following line to the <code class="literal">"Module"</code>
+	section of <code class="filename">/etc/X11/xorg.conf</code>.</p><pre class="programlisting">Load  "freetype"</pre><p>Now make a directory for the <span class="trademark">TrueType</span>® fonts (for
+	example, <code class="filename">/usr/local/share/fonts/TrueType</code>)
+	and copy all of the <span class="trademark">TrueType</span>® fonts into this directory.
+	Keep in mind that <span class="trademark">TrueType</span>® fonts cannot be directly taken
+	from an <span class="trademark">Apple</span>® <span class="trademark">Mac</span>®; they must be in
+	<span class="trademark">UNIX</span>®/<span class="trademark">MS-DOS</span>®/<span class="trademark">Windows</span>® format for use by
+	<span class="application">Xorg</span>.  Once the files have been
+	copied into this directory, use
+	<span class="application">mkfontscale</span> to create a
+	<code class="filename">fonts.dir</code>, so that the X font renderer
+	knows that these new files have been installed.
+	<code class="command">mkfontscale</code> can be installed as a
+	package:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg install mkfontscale</code></strong></pre><p>Then create an index of X font files in a
+	directory:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/local/share/fonts/TrueType</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>mkfontscale</code></strong></pre><p>Now add the <span class="trademark">TrueType</span>® directory to the font path.  This
+	is just the same as described in <a class="xref" href="x-fonts.html#type1" title="5.5.1. Type1 Fonts">Section 5.5.1, &#8220;Type1 Fonts&#8221;</a>:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>xset fp+ /usr/local/share/fonts/TrueType</code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>xset fp rehash</code></strong></pre><p>or add a <code class="literal">FontPath</code> line to
+	<code class="filename">xorg.conf</code>.</p><p>Now <span class="application">Gimp</span>,
+	<span class="application">Apache OpenOffice</span>, and all of the
+	other X applications should now recognize the installed
+	<span class="trademark">TrueType</span>® fonts.  Extremely small fonts (as with text in a
+	high resolution display on a web page) and extremely large
+	fonts (within <span class="application"><span class="trademark">StarOffice</span>&#8482;</span>) will
+	look much better now.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="antialias"></a>5.5.3. Anti-Aliased Fonts</h3></div></div></div><a id="idp54363768" class="indexterm"></a><a id="idp54364536" class="indexterm"></a><p>All fonts in <span class="application">Xorg</span> that are
+	found in <code class="filename">/usr/local/share/fonts/</code> and
+	<code class="filename">~/.fonts/</code> are automatically made
+	available for anti-aliasing to Xft-aware applications.  Most
+	recent applications are Xft-aware, including
+	<span class="application">KDE</span>,
+	<span class="application">GNOME</span>, and
+	<span class="application">Firefox</span>.</p><p>To control which fonts are anti-aliased, or to
+	configure anti-aliasing properties, create (or edit, if it
+	already exists) the file
+	<code class="filename">/usr/local/etc/fonts/local.conf</code>.  Several
+	advanced features of the Xft font system can be tuned using
+	this file; this section describes only some simple
+	possibilities.  For more details, please see
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=fonts-conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">fonts-conf</span>(5)</span></a>.</p><a id="idp54394616" class="indexterm"></a><p>This file must be in XML format.  Pay careful attention to
+	case, and make sure all tags are properly closed.  The file
+	begins with the usual XML header followed by a DOCTYPE
+	definition, and then the <code class="literal">&lt;fontconfig&gt;</code>
+	tag:</p><pre class="programlisting">&lt;?xml version="1.0"?&gt;
+      &lt;!DOCTYPE fontconfig SYSTEM "fonts.dtd"&gt;
+      &lt;fontconfig&gt;</pre><p>As previously stated, all fonts in
+	<code class="filename">/usr/local/share/fonts/</code> as well as
+	<code class="filename">~/.fonts/</code> are already made available to
+	Xft-aware applications.  To add another directory
+	outside of these two directory trees, add a line like
+	this to
+	<code class="filename">/usr/local/etc/fonts/local.conf</code>:</p><pre class="programlisting">&lt;dir&gt;/path/to/my/fonts&lt;/dir&gt;</pre><p>After adding new fonts, and especially new font
+	directories, rebuild
+	the font caches:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>fc-cache -f</code></strong></pre><p>Anti-aliasing makes borders slightly fuzzy, which makes
+	very small text more readable and removes
+	<span class="quote">&#8220;<span class="quote">staircases</span>&#8221;</span> from large text, but can cause
+	eyestrain if applied to normal text.  To exclude font sizes
+	smaller than 14 point from anti-aliasing, include these
+	lines:</p><pre class="programlisting">        &lt;match target="font"&gt;
+	    &lt;test name="size" compare="less"&gt;
+		&lt;double&gt;14&lt;/double&gt;
+	    &lt;/test&gt;
+	    &lt;edit name="antialias" mode="assign"&gt;
+		&lt;bool&gt;false&lt;/bool&gt;
+	    &lt;/edit&gt;
+	&lt;/match&gt;
+	&lt;match target="font"&gt;
+	    &lt;test name="pixelsize" compare="less" qual="any"&gt;
+		&lt;double&gt;14&lt;/double&gt;
+	    &lt;/test&gt;
+	    &lt;edit mode="assign" name="antialias"&gt;
+		&lt;bool&gt;false&lt;/bool&gt;
+	    &lt;/edit&gt;
+	&lt;/match&gt;</pre><a id="idp54412920" class="indexterm"></a><p>Spacing for some monospaced fonts might also be
+	inappropriate with anti-aliasing.  This seems to be an issue
+	with <span class="application">KDE</span>, in particular.  One
+	possible fix is to force the spacing for such fonts
+	to be 100. Add these lines:</p><pre class="programlisting">	&lt;match target="pattern" name="family"&gt;
+	   &lt;test qual="any" name="family"&gt;
+	       &lt;string&gt;fixed&lt;/string&gt;
+	   &lt;/test&gt;
+	   &lt;edit name="family" mode="assign"&gt;
+	       &lt;string&gt;mono&lt;/string&gt;
+	   &lt;/edit&gt;
+	&lt;/match&gt;
+	&lt;match target="pattern" name="family"&gt;
+	    &lt;test qual="any" name="family"&gt;
+		&lt;string&gt;console&lt;/string&gt;
+	    &lt;/test&gt;
+	    &lt;edit name="family" mode="assign"&gt;
+		&lt;string&gt;mono&lt;/string&gt;
+	    &lt;/edit&gt;
+	&lt;/match&gt;</pre><p>(this aliases the other common names for fixed fonts as
+	<code class="literal">"mono"</code>), and then add:</p><pre class="programlisting">         &lt;match target="pattern" name="family"&gt;
+	     &lt;test qual="any" name="family"&gt;
+		 &lt;string&gt;mono&lt;/string&gt;
+	     &lt;/test&gt;
+	     &lt;edit name="spacing" mode="assign"&gt;
+		 &lt;int&gt;100&lt;/int&gt;
+	     &lt;/edit&gt;
+	 &lt;/match&gt;      </pre><p>Certain fonts, such as Helvetica, may have a problem when
+	anti-aliased.  Usually this manifests itself as a font that
+	seems cut in half vertically.  At worst, it may cause
+	applications to crash.  To avoid this, consider adding the
+	following to <code class="filename">local.conf</code>:</p><pre class="programlisting">         &lt;match target="pattern" name="family"&gt;
+	     &lt;test qual="any" name="family"&gt;
+		 &lt;string&gt;Helvetica&lt;/string&gt;
+	     &lt;/test&gt;
+	     &lt;edit name="family" mode="assign"&gt;
+		 &lt;string&gt;sans-serif&lt;/string&gt;
+	     &lt;/edit&gt;
+	 &lt;/match&gt;        </pre><p>After editing
+	<code class="filename">local.conf</code>, make certain to end the file
+	with the <code class="literal">&lt;/fontconfig&gt;</code> tag.  Not
+	doing this will cause changes to be ignored.</p><p>Users can add personalized settings by creating their own
+	<code class="filename">~/.config/fontconfig/fonts.conf</code>.  This
+	file uses the same <acronym class="acronym">XML</acronym> format described
+	above.</p><a id="idp54428152" class="indexterm"></a><a id="idp54428664" class="indexterm"></a><p>One last point: with an LCD screen, sub-pixel sampling may
+	be desired.  This basically treats the (horizontally
+	separated) red, green and blue components separately to
+	improve the horizontal resolution; the results can be
+	dramatic.  To enable this, add the line somewhere in
+	<code class="filename">local.conf</code>:</p><pre class="programlisting">	 &lt;match target="font"&gt;
+	     &lt;test qual="all" name="rgba"&gt;
+		 &lt;const&gt;unknown&lt;/const&gt;
+	     &lt;/test&gt;
+	     &lt;edit name="rgba" mode="assign"&gt;
+		 &lt;const&gt;rgb&lt;/const&gt;
+	     &lt;/edit&gt;
+	 &lt;/match&gt;</pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Depending on the sort of display,
+	  <code class="literal">rgb</code> may need to be changed to
+	  <code class="literal">bgr</code>, <code class="literal">vrgb</code> or
+	  <code class="literal">vbgr</code>: experiment and see which works
+	  best.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="x-config.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="x11.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="x-xdm.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">5.4. <span class="application">Xorg</span> Configuration </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 5.6. The X Display Manager</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

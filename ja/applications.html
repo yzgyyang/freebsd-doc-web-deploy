@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">検索</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="./../cgi/man.cgi">マニュアルページ</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">プレゼンテーションと論文</a>
                   </li>
                   <li>
                     <a href="./../doc/en_US.ISO8859-1/books/fdp-primer">新しい貢献者のためのドキュメンテーションプロジェクト入門</a>
@@ -345,13 +347,13 @@
 	Java® や Tcl/Tk もまた開発可能で、
 	Icon のようにより深遠なプログラミング言語も快適に動きます。
 	そして、FreeBSD の共有ライブラリは常に作成と使用を容易にしています。
-	また、XEmacs や Vim といったポピュラーでパワフルなエディタも利用できます。</li>
+	また、Emacs や Vim
+	といったポピュラーでパワフルなエディタも利用できます。</li>
 
       <li><b>ウェブブラウジング。</b>
 	本物の UNIX ワークステーションは、
 	インターネットを楽しむためのすばらしい道具を提供します。
-	真剣なウェブユーザのために、FreeBSD 版の <a href="http://www.chromium.org/Home" shape="rect">Chromium</a>, <a href="http://www.mozilla.org/firefox/" shape="rect">Firefox</a>
-	や <a href="http://www.opera.com/" shape="rect">Opera</a>
+	真剣なウェブユーザのために、FreeBSD 版の <a href="http://www.chromium.org/Home" shape="rect">Chromium</a> や <a href="http://www.mozilla.org/firefox/" shape="rect">Firefox</a>
 	が用意されています。
 	あなたのデスクトップ上の FreeBSD でウェブブラウジングを楽しみ、
 	あなた自身のウェブページを公開し、Usenet news を読み、email
@@ -398,7 +400,7 @@
         </div>
         <div id="footer">
           <span><a href="./search/index-site.html">サイトマップ</a> |
-  <a href="./copyright/">知的財産権について</a> | (C) 1995〓2018 The FreeBSD Project.
+  <a href="./copyright/">知的財産権について</a> | (C) 1995〓2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

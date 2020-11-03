@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>31.11. VLANs</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="advanced-networking.html" title="Chapter 31. Advanced Networking" /><link rel="prev" href="carp.html" title="31.10. Common Address Redundancy Protocol (CARP)" /><link rel="next" href="appendices.html" title="Part V. Appendices" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">31.11. VLANs</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="carp.html">Prev</a> </td><th width="60%" align="center">Chapter 31. Advanced Networking</th><td width="20%" align="right"> <a accesskey="n" href="appendices.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="network-vlan"></a>31.11. VLANs</h2></div></div></div><a id="idp74852856" class="indexterm"></a><a id="idp74853752" class="indexterm"></a><p><acronym class="acronym">VLANs</acronym> are a way of virtually dividing up
+      a network into many different subnetworks, also referred
+      to as segmenting.  Each segment will have its
+      own broadcast domain and be isolated from other
+      <acronym class="acronym">VLANs</acronym>.</p><p>On FreeBSD, <acronym class="acronym">VLANs</acronym> must be supported by the
+      network card driver.  To see which drivers support vlans, refer
+      to the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=vlan&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">vlan</span>(4)</span></a> manual page.</p><p>When configuring a <acronym class="acronym">VLAN</acronym>, a couple pieces
+      of information must be known.  First, which network interface?
+      Second, what is the <acronym class="acronym">VLAN</acronym> tag?</p><p>To configure <acronym class="acronym">VLANs</acronym> at run time, with a
+      <acronym class="acronym">NIC</acronym> of <code class="literal">em0</code> and a
+      <acronym class="acronym">VLAN</acronym> tag of <code class="systemitem">5</code> the
+      command would look like this:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ifconfig <em class="replaceable"><code>em0.5</code></em> create vlan <em class="replaceable"><code>5</code></em> vlandev <em class="replaceable"><code>em0</code></em> inet 192.168.20.20/24</code></strong></pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">See how the interface name includes the
+	<acronym class="acronym">NIC</acronym> driver name and the
+	<acronym class="acronym">VLAN</acronym> tag, separated by a period?  This is a
+	best practice to make maintaining the <acronym class="acronym">VLAN</acronym>
+	configuration easy when many <acronym class="acronym">VLANs</acronym> are
+	present on a machine.</p></div><p>To configure <acronym class="acronym">VLANs</acronym> at boot time,
+      <code class="filename">/etc/rc.conf</code> must be updated.  To duplicate
+      the configuration above, the following will need to be
+      added:</p><pre class="programlisting">vlans_<em class="replaceable"><code>em0</code></em>="<em class="replaceable"><code>5</code></em>"
+ifconfig_<em class="replaceable"><code>em0</code></em>_<em class="replaceable"><code>5</code></em>="inet 192.168.20.20/24"</pre><p>Additional <acronym class="acronym">VLANs</acronym> may be added, by simply
+      adding the tag to the
+      <code class="literal">vlans_<em class="replaceable"><code>em0</code></em></code>
+      field and adding an additional line configuring the network on
+      that <acronym class="acronym">VLAN</acronym> tag's interface.</p><p>It is useful to assign a symbolic name to an interface so
+      that when the associated hardware is changed, only a few
+      configuration variables need to be updated.  For example,
+      security cameras need to be run over VLAN 1 on
+      <code class="literal">em0</code>.  Later, if the <code class="literal">em0</code>
+      card is replaced with a card that uses the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ixgb&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ixgb</span>(4)</span></a> driver,
+      all references to <code class="literal">em0.1</code> will not have to
+      change to <code class="literal">ixgb0.1</code>.</p><p>To configure <acronym class="acronym">VLAN</acronym>
+      <code class="systemitem">5</code>, on the
+      <acronym class="acronym">NIC</acronym> <code class="literal">em0</code>, assign the
+      interface name <code class="literal">cameras</code>, and assign the
+      interface an IP address of <code class="systemitem"><em class="replaceable"><code>192.168.20.20</code></em></code>
+      with a <code class="systemitem">24</code>-bit prefix,
+      use this command:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ifconfig <em class="replaceable"><code>em0.5</code></em> create vlan <em class="replaceable"><code>5</code></em> vlandev <em class="replaceable"><code>em0</code></em> name <em class="replaceable"><code>cameras</code></em> inet <em class="replaceable"><code>192.168.20.20/24</code></em></code></strong></pre><p>For an interface named <code class="literal">video</code>, use the
+    following:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ifconfig <em class="replaceable"><code>video.5</code></em> create vlan <em class="replaceable"><code>5</code></em> vlandev <em class="replaceable"><code>video</code></em> name <em class="replaceable"><code>cameras inet 192.168.20.20/24</code></em></code></strong></pre><p>To apply the changes at boot time, add the following lines to
+  <code class="filename">/etc/rc.conf</code>:</p><pre class="programlisting">vlans_<em class="replaceable"><code>video</code></em>="<em class="replaceable"><code>cameras</code></em>"
+create_args_<em class="replaceable"><code>cameras</code></em>="vlan <em class="replaceable"><code>5</code></em>"
+ifconfig_<em class="replaceable"><code>cameras</code></em>="inet <em class="replaceable"><code>192.168.20.20/24</code></em>"</pre></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="carp.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="advanced-networking.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="appendices.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">31.10. Common Address Redundancy Protocol
+	(<acronym class="acronym">CARP</acronym>) </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Part V. Appendices</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

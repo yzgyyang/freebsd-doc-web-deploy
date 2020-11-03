@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>17.13. Encrypting Swap</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="disks.html" title="Chapter 17. Storage" /><link rel="prev" href="disks-encrypting.html" title="17.12. Encrypting Disk Partitions" /><link rel="next" href="disks-hast.html" title="17.14. Highly Available Storage (HAST)" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">17.13. Encrypting Swap</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="disks-encrypting.html">Prev</a> </td><th width="60%" align="center">Chapter 17. Storage</th><td width="20%" align="right"> <a accesskey="n" href="disks-hast.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="swap-encrypting"></a>17.13. Encrypting Swap</h2></div><div><span class="authorgroup">Written by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Christian</span> <span class="surname">Brueffer</span></span>. </span></div></div></div><a id="idp62960632" class="indexterm"></a><p>Like the encryption of disk partitions, encryption of swap
+      space is used to protect sensitive information.  Consider an
+      application that deals with passwords.  As long as these
+      passwords stay in physical memory, they are not written to disk
+      and will be cleared after a reboot.  However, if FreeBSD starts
+      swapping out memory pages to free space, the passwords may be
+      written to the disk unencrypted.  Encrypting swap space can be a
+      solution for this scenario.</p><p>This section demonstrates how to configure an encrypted
+      swap partition using <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=gbde&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">gbde</span>(8)</span></a> or <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=geli&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">geli</span>(8)</span></a> encryption.
+      It assumes that
+      <code class="filename">/dev/ada0s1b</code> is the swap partition.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp62964472"></a>17.13.1. Configuring Encrypted Swap</h3></div></div></div><p>Swap partitions are not encrypted by default and should be
+	cleared of any sensitive data before continuing.  To overwrite
+	the current swap partition with random garbage, execute the
+	following command:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>dd if=/dev/random of=/dev/<em class="replaceable"><code>ada0s1b</code></em> bs=1m</code></strong></pre><p>To encrypt the swap partition using <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=gbde&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">gbde</span>(8)</span></a>, add the
+	<code class="literal">.bde</code> suffix to the swap line in
+	<code class="filename">/etc/fstab</code>:</p><pre class="programlisting"># Device		Mountpoint	FStype	Options		Dump	Pass#
+/dev/ada0s1b.bde	none		swap	sw		0	0</pre><p>To instead encrypt the swap partition using <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=geli&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">geli</span>(8)</span></a>,
+	use the
+	<code class="literal">.eli</code> suffix:</p><pre class="programlisting"># Device		Mountpoint	FStype	Options		Dump	Pass#
+/dev/ada0s1b.eli	none		swap	sw		0	0</pre><p>By default, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=geli&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">geli</span>(8)</span></a> uses the <acronym class="acronym">AES</acronym>
+	algorithm with a key length of 128 bits.  Normally the default
+	settings will suffice.  If desired, these defaults can be
+	altered in the options field in
+	<code class="filename">/etc/fstab</code>.  The possible flags
+	are:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">aalgo</span></dt><dd><p>Data integrity verification algorithm used to ensure
+	      that the encrypted data has not been tampered with.  See
+	      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=geli&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">geli</span>(8)</span></a> for a list of supported algorithms.</p></dd><dt><span class="term">ealgo</span></dt><dd><p>Encryption algorithm used to protect the data.  See
+	      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=geli&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">geli</span>(8)</span></a> for a list of supported algorithms.</p></dd><dt><span class="term">keylen</span></dt><dd><p>The length of the key used for the encryption
+	      algorithm.  See <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=geli&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">geli</span>(8)</span></a> for the key lengths that
+	      are supported by each encryption algorithm.</p></dd><dt><span class="term">sectorsize</span></dt><dd><p>The size of the blocks data is broken into before
+	      it is encrypted.  Larger sector sizes increase
+	      performance at the cost of higher storage
+	      overhead.  The recommended size is 4096 bytes.</p></dd></dl></div><p>This example configures an encrypted swap partition using
+	the Blowfish algorithm with a key length of 128 bits and a
+	sectorsize of 4 kilobytes:</p><pre class="programlisting"># Device		Mountpoint	FStype	Options				Dump	Pass#
+/dev/ada0s1b.eli	none		swap	sw,ealgo=blowfish,keylen=128,sectorsize=4096	0	0</pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp62987000"></a>17.13.2. Encrypted Swap Verification</h3></div></div></div><p>Once the system has rebooted, proper operation of the
+	encrypted swap can be verified using
+	<code class="command">swapinfo</code>.</p><p>If <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=gbde&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">gbde</span>(8)</span></a> is being used:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>swapinfo</code></strong>
+Device          1K-blocks     Used    Avail Capacity
+/dev/ada0s1b.bde   542720        0   542720     0%</pre><p>If <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=geli&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">geli</span>(8)</span></a> is being used:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>swapinfo</code></strong>
+Device          1K-blocks     Used    Avail Capacity
+/dev/ada0s1b.eli   542720        0   542720     0%</pre></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="disks-encrypting.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="disks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="disks-hast.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">17.12. Encrypting Disk Partitions </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 17.14. Highly Available Storage
+	(<acronym class="acronym">HAST</acronym>)</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

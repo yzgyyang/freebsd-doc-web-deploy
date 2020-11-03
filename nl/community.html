@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">Zoeken</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -238,8 +237,8 @@
             <p>Er zijn meer dan honderd <a href="./../community/mailinglists.html">mailinglijsten</a>,
 		tientallen webgebaseerde <a href="http://forums.FreeBSD.org/">fora</a>, en
 		verschillende <a href="./../community/newsgroups.html">niewsgroepen</a>
-		beschikbaar.  Er zijn meer dan 93 <a href="./usergroups.html">gebruikersgroepen</a> in
-		41
+		beschikbaar.  Er zijn meer dan 77 <a href="./usergroups.html">gebruikersgroepen</a> in
+		36
 		unieke landen wereldwijd.  Er is ook een
 		actieve <a href="./../community/irc.html">IRC</a>
 		gemeenschap.  Veel ontwikkelaars houden ook <a href="http://planet.freebsdish.org">blogs</a> bij over
@@ -248,8 +247,8 @@
 		informatie over FreeBSD-ontwikkeling en gerelateerde projecten
 		bevat.  U vindt FreeBSD ook vertegenwoordigd op verschillende <a href="./../community/social.html">sociale
 		netwerksites</a>.</p>
-            <p>Vorig jaar waren er 9 FreeBSD-evenementen in
-		9 verschillende landen. Een <a href="./../events/events.ics">kalender</a> en
+            <p>Vorig jaar waren er 19 FreeBSD-evenementen in
+		12 verschillende landen. Een <a href="./../events/events.ics">kalender</a> en
 		<a href="./../events/rss.xml">RSS feed</a> van aanstaande
 		FreeBSD-gerelateerde evenementen worden bijgehouden op onze
 		<a href="./../events/events.html">evenementenpagina</a>.

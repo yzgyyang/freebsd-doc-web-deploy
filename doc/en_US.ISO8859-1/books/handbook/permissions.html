@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>3.4. Permissions</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="basics.html" title="Chapter 3. FreeBSD Basics" /><link rel="prev" href="users-synopsis.html" title="3.3. Users and Basic Account Management" /><link rel="next" href="dirstructure.html" title="3.5. Directory Structure" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">3.4. Permissions</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="users-synopsis.html">Prev</a> </td><th width="60%" align="center">Chapter 3. FreeBSD Basics</th><td width="20%" align="right"> <a accesskey="n" href="dirstructure.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="permissions"></a>3.4. Permissions</h2></div></div></div><a id="idp52351736" class="indexterm"></a><p>In FreeBSD, every file and directory has an associated set of
+      permissions and several utilities are available for viewing
+      and modifying these permissions.  Understanding how permissions
+      work is necessary to make sure that users are able to access
+      the files that they need and are unable to improperly access
+      the files used by the operating system or owned by other
+      users.</p><p>This section discusses the traditional <span class="trademark">UNIX</span>® permissions
+      used in FreeBSD.  For finer grained file system access control,
+      refer to <a class="xref" href="fs-acl.html" title="13.9. Access Control Lists">Section 13.9, &#8220;Access Control Lists&#8221;</a>.</p><p>In <span class="trademark">UNIX</span>®, basic permissions are assigned using
+      three types of access: read, write, and execute.  These access
+      types are used to determine file access to the file's owner,
+      group, and others (everyone else).  The read, write, and execute
+      permissions can be represented as the letters
+      <code class="literal">r</code>, <code class="literal">w</code>, and
+      <code class="literal">x</code>.  They can also be represented as binary
+      numbers as each permission is either on or off
+      (<code class="literal">0</code>).  When represented as a number, the
+      order is always read as <code class="literal">rwx</code>, where
+      <code class="literal">r</code> has an on value of <code class="literal">4</code>,
+      <code class="literal">w</code> has an on value of <code class="literal">2</code>
+      and <code class="literal">x</code> has an on value of
+      <code class="literal">1</code>.</p><p>Table 4.1 summarizes the possible numeric and alphabetic
+      possibilities.  When reading the <span class="quote">&#8220;<span class="quote">Directory
+	Listing</span>&#8221;</span> column, a <code class="literal">-</code> is used to
+      represent a permission that is set to off.</p><a id="idp52364536" class="indexterm"></a><a id="idp52365304" class="indexterm"></a><div class="table"><a id="idp52366072"></a><div class="table-title">Table 3.2. <span class="trademark">UNIX</span>® Permissions</div><div class="table-contents"><table class="table" summary="UNIX Permissions" width="100%" border="0"><colgroup><col /><col /><col /></colgroup><thead><tr><th>Value</th><th>Permission</th><th>Directory Listing</th></tr></thead><tbody><tr><td>0</td><td>No read, no write, no execute</td><td><code class="literal">---</code></td></tr><tr><td>1</td><td>No read, no write, execute</td><td><code class="literal">--x</code></td></tr><tr><td>2</td><td>No read, write, no execute</td><td><code class="literal">-w-</code></td></tr><tr><td>3</td><td>No read, write, execute</td><td><code class="literal">-wx</code></td></tr><tr><td>4</td><td>Read, no write, no execute</td><td><code class="literal">r--</code></td></tr><tr><td>5</td><td>Read, no write, execute</td><td><code class="literal">r-x</code></td></tr><tr><td>6</td><td>Read, write, no execute</td><td><code class="literal">rw-</code></td></tr><tr><td>7</td><td>Read, write, execute</td><td><code class="literal">rwx</code></td></tr></tbody></table></div></div><br class="table-break" /><a id="idp52395896" class="indexterm"></a><a id="idp52397176" class="indexterm"></a><p>Use the <code class="option">-l</code> argument to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ls&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ls</span>(1)</span></a> to view a
+      long directory listing that includes a column of information
+      about a file's permissions for the owner, group, and everyone
+      else.  For example, a <code class="command">ls -l</code> in an arbitrary
+      directory may show:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>ls -l</code></strong>
+total 530
+-rw-r--r--  1 root  wheel     512 Sep  5 12:31 myfile
+-rw-r--r--  1 root  wheel     512 Sep  5 12:31 otherfile
+-rw-r--r--  1 root  wheel    7680 Sep  5 12:31 email.txt</pre><p>The first (leftmost) character in the first column indicates
+      whether this file is a regular file, a directory, a special
+      character device, a socket, or any other special pseudo-file
+      device.  In this example, the <code class="literal">-</code> indicates a
+      regular file.  The next three characters, <code class="literal">rw-</code>
+      in this example, give the permissions for the owner of the file.
+      The next three characters, <code class="literal">r--</code>, give the
+      permissions for the group that the file belongs to.  The final
+      three characters, <code class="literal">r--</code>, give the permissions
+      for the rest of the world.  A dash means that the permission is
+      turned off.  In this example, the permissions are set so the
+      owner can read and write to the file, the group can read the
+      file, and the rest of the world can only read the file.
+      According to the table above, the permissions for this file
+      would be <code class="literal">644</code>, where each digit represents the
+      three parts of the file's permission.</p><p>How does the system control permissions on devices? FreeBSD
+      treats most hardware devices as a file that programs can open,
+      read, and write data to.  These special device files are
+      stored in <code class="filename">/dev/</code>.</p><p>Directories are also treated as files.  They have read,
+      write, and execute permissions.  The executable bit for a
+      directory has a slightly different meaning than that of files.
+      When a directory is marked executable, it means it is possible
+      to change into that directory using <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=cd&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">cd</span>(1)</span></a>.  This also
+      means that it is possible to access the files within that
+      directory, subject to the permissions on the files
+      themselves.</p><p>In order to perform a directory listing, the read permission
+      must be set on the directory.  In order to delete a file that
+      one knows the name of, it is necessary to have write
+      <span class="emphasis"><em>and</em></span> execute permissions to the directory
+      containing the file.</p><p>There are more permission bits, but they are primarily used
+      in special circumstances such as setuid binaries and sticky
+      directories.  For more information on file permissions and how
+      to set them, refer to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=chmod&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">chmod</span>(1)</span></a>.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp52411128"></a>3.4.1. Symbolic Permissions</h3></div><div><span class="authorgroup">Contributed by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Tom</span> <span class="surname">Rhodes</span></span>. </span></div></div></div><a id="idp52414456" class="indexterm"></a><p>Symbolic permissions use characters instead of octal
+	values to assign permissions to files or directories.
+	Symbolic permissions use the syntax of (who) (action)
+	(permissions), where the following values are
+	available:</p><div class="informaltable"><table class="informaltable" width="100%" border="0"><colgroup><col /><col /><col /></colgroup><thead><tr><th>Option</th><th>Letter</th><th>Represents</th></tr></thead><tbody><tr><td>(who)</td><td>u</td><td>User</td></tr><tr><td>(who)</td><td>g</td><td>Group owner</td></tr><tr><td>(who)</td><td>o</td><td>Other</td></tr><tr><td>(who)</td><td>a</td><td>All (<span class="quote">&#8220;<span class="quote">world</span>&#8221;</span>)</td></tr><tr><td>(action)</td><td>+</td><td>Adding permissions</td></tr><tr><td>(action)</td><td>-</td><td>Removing permissions</td></tr><tr><td>(action)</td><td>=</td><td>Explicitly set permissions</td></tr><tr><td>(permissions)</td><td>r</td><td>Read</td></tr><tr><td>(permissions)</td><td>w</td><td>Write</td></tr><tr><td>(permissions)</td><td>x</td><td>Execute</td></tr><tr><td>(permissions)</td><td>t</td><td>Sticky bit</td></tr><tr><td>(permissions)</td><td>s</td><td>Set UID or GID</td></tr></tbody></table></div><p>These values are used with <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=chmod&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">chmod</span>(1)</span></a>, but with
+	letters instead of numbers.  For example, the following
+	command would block other users from accessing
+	<em class="replaceable"><code>FILE</code></em>:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>chmod go= FILE</code></strong></pre><p>A comma separated list can be provided when more than one
+	set of changes to a file must be made.  For example, the
+	following command removes the group and
+	<span class="quote">&#8220;<span class="quote">world</span>&#8221;</span> write permission on
+	<em class="replaceable"><code>FILE</code></em>, and adds the execute
+	permissions for everyone:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>chmod go-w,a+x <em class="replaceable"><code>FILE</code></em></code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp52463992"></a>3.4.2. FreeBSD File Flags</h3></div><div><span class="authorgroup">Contributed by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Tom</span> <span class="surname">Rhodes</span></span>. </span></div></div></div><p>In addition to file permissions, FreeBSD supports the use of
+	<span class="quote">&#8220;<span class="quote">file flags</span>&#8221;</span>.  These flags add an additional
+	level of security and control over files, but not directories.
+	With file flags, even
+	<code class="systemitem">root</code> can be
+	prevented from removing or altering files.</p><p>File flags are modified using <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=chflags&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">chflags</span>(1)</span></a>.  For
+	example, to enable the system undeletable flag on the file
+	<code class="filename">file1</code>, issue the following
+	command:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>chflags sunlink file1</code></strong></pre><p>To disable the system undeletable flag, put a
+	<span class="quote">&#8220;<span class="quote">no</span>&#8221;</span> in front of the
+	<code class="option">sunlink</code>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>chflags nosunlink file1</code></strong></pre><p>To view the flags of a file, use <code class="option">-lo</code> with
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ls&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ls</span>(1)</span></a>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ls -lo file1</code></strong></pre><pre class="programlisting">-rw-r--r--  1 trhodes  trhodes  sunlnk 0 Mar  1 05:54 file1</pre><p>Several file flags may only be added or removed by the
+	<code class="systemitem">root</code> user.  In other
+	cases, the file owner may set its file flags.  Refer to
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=chflags&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">chflags</span>(1)</span></a> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=chflags&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">chflags</span>(2)</span></a> for more
+	information.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp52499064"></a>3.4.3. The <code class="literal">setuid</code>,
+	  <code class="literal">setgid</code>, and <code class="literal">sticky</code>
+	  Permissions</h3></div><div><span class="authorgroup">Contributed by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Tom</span> <span class="surname">Rhodes</span></span>. </span></div></div></div><p>Other than the permissions already discussed, there are
+	three other specific settings that all administrators should
+	know about.  They are the <code class="literal">setuid</code>,
+	<code class="literal">setgid</code>, and <code class="literal">sticky</code>
+	permissions.</p><p>These settings are important for some <span class="trademark">UNIX</span>® operations
+	as they provide functionality not normally granted to normal
+	users.  To understand them, the difference between the real
+	user ID and effective user ID must be noted.</p><p>The real user ID is the <acronym class="acronym">UID</acronym> who owns
+	or starts the process.  The effective <acronym class="acronym">UID</acronym>
+	is the user ID the process runs as.  As an example,
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=passwd&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">passwd</span>(1)</span></a> runs with the real user ID when a user changes
+	their password.  However, in order to update the password
+	database, the command runs as the effective ID of the
+	<code class="systemitem">root</code> user.  This
+	allows users to change their passwords without seeing a
+	<span class="errorname">Permission Denied</span> error.</p><p>The setuid permission may be set by prefixing a permission
+	set with the number four (4) as shown in the following
+	example:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>chmod 4755 suidexample.sh</code></strong></pre><p>The permissions on
+	<code class="filename"><em class="replaceable"><code>suidexample.sh</code></em></code>
+	now look like the following:</p><pre class="programlisting">-rwsr-xr-x   1 trhodes  trhodes    63 Aug 29 06:36 suidexample.sh</pre><p>Note that a <code class="literal">s</code> is now part of the
+	permission set designated for the file owner, replacing the
+	executable bit.  This allows utilities which need elevated
+	permissions, such as <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=passwd&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">passwd</span>(1)</span></a>.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">The <code class="literal">nosuid</code> <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mount&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mount</span>(8)</span></a> option will
+	  cause such binaries to silently fail without alerting
+	  the user.  That option is not completely reliable as a
+	  <code class="literal">nosuid</code> wrapper may be able to circumvent
+	  it.</p></div><p>To view this in real time, open two terminals.  On
+	one, type <code class="command">passwd</code> as a normal user.
+	While it waits for a new password, check the process
+	table and look at the user information for
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=passwd&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">passwd</span>(1)</span></a>:</p><p>In terminal A:</p><pre class="screen">Changing local password for trhodes
+Old Password:</pre><p>In terminal B:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ps aux | grep passwd</code></strong></pre><pre class="screen">trhodes  5232  0.0  0.2  3420  1608   0  R+    2:10AM   0:00.00 grep passwd
+root     5211  0.0  0.2  3620  1724   2  I+    2:09AM   0:00.01 passwd</pre><p>Although <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=passwd&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">passwd</span>(1)</span></a> is run as a normal user, it is
+	using the effective <acronym class="acronym">UID</acronym> of
+	<code class="systemitem">root</code>.</p><p>The <code class="literal">setgid</code> permission performs the
+	same function as the <code class="literal">setuid</code> permission;
+	except that it alters the group settings.  When an application
+	or utility executes with this setting, it will be granted the
+	permissions based on the group that owns the file, not the
+	user who started the process.</p><p>To set the <code class="literal">setgid</code> permission on a
+	file, provide <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=chmod&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">chmod</span>(1)</span></a> with a leading two (2):</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>chmod 2755 sgidexample.sh</code></strong></pre><p>In the following listing, notice that the
+	<code class="literal">s</code> is now in the field designated for the
+	group permission settings:</p><pre class="screen">-rwxr-sr-x   1 trhodes  trhodes    44 Aug 31 01:49 sgidexample.sh</pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">In these examples, even though the shell script in
+	  question is an executable file, it will not run with
+	  a different <acronym class="acronym">EUID</acronym> or effective user ID.
+	  This is because shell scripts may not access the
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=setuid&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">setuid</span>(2)</span></a> system calls.</p></div><p>The <code class="literal">setuid</code> and
+	<code class="literal">setgid</code> permission bits may lower system
+	security, by allowing for elevated permissions.  The third
+	special permission, the <code class="literal">sticky bit</code>, can
+	strengthen the security of a system.</p><p>When the <code class="literal">sticky bit</code> is set on a
+	directory, it allows file deletion only by the file owner.
+	This is useful to prevent file deletion in public directories,
+	such as <code class="filename">/tmp</code>, by users
+	who do not own the file.  To utilize this permission, prefix
+	the permission set with a one (1):</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>chmod 1777 /tmp</code></strong></pre><p>The <code class="literal">sticky bit</code> permission will display
+	as a <code class="literal">t</code> at the very end of the permission
+	set:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ls -al / | grep tmp</code></strong></pre><pre class="screen">drwxrwxrwt  10 root  wheel         512 Aug 31 01:49 tmp</pre></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="users-synopsis.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="basics.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="dirstructure.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">3.3. Users and Basic Account Management </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 3.5. Directory Structure</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

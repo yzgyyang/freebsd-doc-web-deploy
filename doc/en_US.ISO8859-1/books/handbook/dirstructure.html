@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>3.5. Directory Structure</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="basics.html" title="Chapter 3. FreeBSD Basics" /><link rel="prev" href="permissions.html" title="3.4. Permissions" /><link rel="next" href="disk-organization.html" title="3.6. Disk Organization" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">3.5. Directory Structure</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="permissions.html">Prev</a> </td><th width="60%" align="center">Chapter 3. FreeBSD Basics</th><td width="20%" align="right"> <a accesskey="n" href="disk-organization.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="dirstructure"></a>3.5. Directory Structure</h2></div></div></div><a id="idp52547704" class="indexterm"></a><p>The FreeBSD directory hierarchy is fundamental to obtaining
+      an overall understanding of the system.  The most important
+      directory is root or, <span class="quote">&#8220;<span class="quote">/</span>&#8221;</span>.  This directory is the
+      first one mounted at boot time and it contains the base system
+      necessary to prepare the operating system for multi-user
+      operation.  The root directory also contains mount points for
+      other file systems that are mounted during the transition to
+      multi-user operation.</p><p>A mount point is a directory where additional file systems
+      can be grafted onto a parent file system (usually the root file
+      system).  This is further described in
+      <a class="xref" href="disk-organization.html" title="3.6. Disk Organization">Section 3.6, &#8220;Disk Organization&#8221;</a>.  Standard mount points
+      include <code class="filename">/usr/</code>, <code class="filename">/var/</code>,
+      <code class="filename">/tmp/</code>, <code class="filename">/mnt/</code>, and
+      <code class="filename">/cdrom/</code>.  These directories are usually
+      referenced to entries in <code class="filename">/etc/fstab</code>.  This
+      file is a table of various file systems and mount points and is
+      read by the system.  Most of the file systems in
+      <code class="filename">/etc/fstab</code> are mounted automatically at
+      boot time from the script <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rc&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rc</span>(8)</span></a> unless their entry includes
+      <code class="option">noauto</code>.  Details can be found in
+      <a class="xref" href="mount-unmount.html#disks-fstab" title="3.7.1. The fstab File">Section 3.7.1, &#8220;The <code class="filename">fstab</code> File&#8221;</a>.</p><p>A complete description of the file system hierarchy is
+      available in <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=hier&amp;sektion=7&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">hier</span>(7)</span></a>.  The following table provides a brief
+      overview of the most common directories.</p><p>
+      </p><div class="informaltable"><table class="informaltable" width="100%" border="0"><colgroup><col /><col /></colgroup><thead><tr><th>Directory</th><th>Description</th></tr></thead><tbody valign="top"><tr><td valign="top"><code class="filename">/</code></td><td valign="top">Root directory of the file system.</td></tr><tr><td valign="top"><code class="filename">/bin/</code></td><td valign="top">User utilities fundamental to both single-user
+		and multi-user environments.</td></tr><tr><td valign="top"><code class="filename">/boot/</code></td><td valign="top">Programs and configuration files used during
+		operating system bootstrap.</td></tr><tr><td valign="top"><code class="filename">/boot/defaults/</code></td><td valign="top">Default boot configuration files.  Refer to
+		<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=loader.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">loader.conf</span>(5)</span></a> for details.</td></tr><tr><td valign="top"><code class="filename">/dev/</code></td><td valign="top">Device nodes.  Refer to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=intro&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">intro</span>(4)</span></a> for
+		details.</td></tr><tr><td valign="top"><code class="filename">/etc/</code></td><td valign="top">System configuration files and scripts.</td></tr><tr><td valign="top"><code class="filename">/etc/defaults/</code></td><td valign="top">Default system configuration files.  Refer to
+		<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rc&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rc</span>(8)</span></a> for details.</td></tr><tr><td valign="top"><code class="filename">/etc/mail/</code></td><td valign="top">Configuration files for mail transport agents
+		such as <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sendmail&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sendmail</span>(8)</span></a>.</td></tr><tr><td valign="top"><code class="filename">/etc/periodic/</code></td><td valign="top">Scripts that run daily, weekly, and monthly,
+		via <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=cron&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">cron</span>(8)</span></a>.  Refer to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=periodic&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">periodic</span>(8)</span></a> for
+		details.</td></tr><tr><td valign="top"><code class="filename">/etc/ppp/</code></td><td valign="top"><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ppp&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ppp</span>(8)</span></a> configuration files.</td></tr><tr><td valign="top"><code class="filename">/mnt/</code></td><td valign="top">Empty directory commonly used by system
+		administrators as a temporary mount point.</td></tr><tr><td valign="top"><code class="filename">/proc/</code></td><td valign="top">Process file system.  Refer to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=procfs&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">procfs</span>(5)</span></a>,
+		<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mount_procfs&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mount_procfs</span>(8)</span></a> for details.</td></tr><tr><td valign="top"><code class="filename">/rescue/</code></td><td valign="top">Statically linked programs for emergency
+		recovery as described in <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rescue&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rescue</span>(8)</span></a>.</td></tr><tr><td valign="top"><code class="filename">/root/</code></td><td valign="top">Home directory for the
+		<code class="systemitem">root</code>
+		account.</td></tr><tr><td valign="top"><code class="filename">/sbin/</code></td><td valign="top">System programs and administration utilities
+		fundamental to both single-user and multi-user
+		environments.</td></tr><tr><td valign="top"><code class="filename">/tmp/</code></td><td valign="top">Temporary files which are usually
+		<span class="emphasis"><em>not</em></span> preserved across a system
+		reboot.  A memory-based file system is often mounted
+		at <code class="filename">/tmp</code>.  This can be automated
+		using the tmpmfs-related variables of <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rc.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rc.conf</span>(5)</span></a>
+		or with an entry in <code class="filename">/etc/fstab</code>;
+		refer to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mdmfs&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mdmfs</span>(8)</span></a> for details.</td></tr><tr><td valign="top"><code class="filename">/usr/</code></td><td valign="top">The majority of user utilities and
+		applications.</td></tr><tr><td valign="top"><code class="filename">/usr/bin/</code></td><td valign="top">Common utilities, programming tools, and
+		applications.</td></tr><tr><td valign="top"><code class="filename">/usr/include/</code></td><td valign="top">Standard C include files.</td></tr><tr><td valign="top"><code class="filename">/usr/lib/</code></td><td valign="top">Archive libraries.</td></tr><tr><td valign="top"><code class="filename">/usr/libdata/</code></td><td valign="top">Miscellaneous utility data files.</td></tr><tr><td valign="top"><code class="filename">/usr/libexec/</code></td><td valign="top">System daemons and system utilities executed
+		by other programs.</td></tr><tr><td valign="top"><code class="filename">/usr/local/</code></td><td valign="top">Local executables and libraries.  Also used as
+		the default destination for the FreeBSD ports framework.
+		Within
+		<code class="filename">/usr/local</code>, the
+		general layout sketched out by <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=hier&amp;sektion=7&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">hier</span>(7)</span></a> for
+		<code class="filename">/usr</code> should be
+		used.  Exceptions are the man directory, which is
+		directly under <code class="filename">/usr/local</code> rather than
+		under <code class="filename">/usr/local/share</code>, and
+		the ports documentation is in <code class="filename">share/doc/<em class="replaceable"><code>port</code></em></code>.</td></tr><tr><td valign="top"><code class="filename">/usr/obj/</code></td><td valign="top">Architecture-specific target tree produced by
+		building the <code class="filename">/usr/src</code>
+		tree.</td></tr><tr><td valign="top"><code class="filename">/usr/ports/</code></td><td valign="top">The FreeBSD Ports Collection (optional).</td></tr><tr><td valign="top"><code class="filename">/usr/sbin/</code></td><td valign="top">System daemons and system utilities executed
+		by users.</td></tr><tr><td valign="top"><code class="filename">/usr/share/</code></td><td valign="top">Architecture-independent files.</td></tr><tr><td valign="top"><code class="filename">/usr/src/</code></td><td valign="top">BSD and/or local source files.</td></tr><tr><td valign="top"><code class="filename">/var/</code></td><td valign="top">Multi-purpose log, temporary, transient, and
+		spool files.  A memory-based file system is sometimes
+		mounted at
+		<code class="filename">/var</code>.  This can
+		be automated using the varmfs-related variables in
+		<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rc.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rc.conf</span>(5)</span></a> or with an entry in
+		<code class="filename">/etc/fstab</code>; refer to
+		<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mdmfs&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mdmfs</span>(8)</span></a> for details.</td></tr><tr><td valign="top"><code class="filename">/var/log/</code></td><td valign="top">Miscellaneous system log files.</td></tr><tr><td valign="top"><code class="filename">/var/mail/</code></td><td valign="top">User mailbox files.</td></tr><tr><td valign="top"><code class="filename">/var/spool/</code></td><td valign="top">Miscellaneous printer and mail system spooling
+		directories.</td></tr><tr><td valign="top"><code class="filename">/var/tmp/</code></td><td valign="top">Temporary files which are usually preserved
+		across a system reboot, unless
+		<code class="filename">/var</code> is a
+		memory-based file system.</td></tr><tr><td valign="top"><code class="filename">/var/yp/</code></td><td valign="top">NIS maps.</td></tr></tbody></table></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="permissions.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="basics.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="disk-organization.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">3.4. Permissions </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 3.6. Disk Organization</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

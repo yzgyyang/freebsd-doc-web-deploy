@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>9.4. Document Structure</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Documentation Project Primer for New Contributors" /><link rel="up" href="docbook-markup.html" title="Chapter 9. DocBook Markup" /><link rel="prev" href="docbook-markup-fpi.html" title="9.3. Formal Public Identifier (FPI)" /><link rel="next" href="docbook-markup-block-elements.html" title="9.5. Block Elements" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">9.4. Document Structure</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="docbook-markup-fpi.html">Prev</a> </td><th width="60%" align="center">Chapter 9. DocBook Markup</th><td width="20%" align="right"> <a accesskey="n" href="docbook-markup-block-elements.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="docbook-markup-document-structure"></a>9.4. Document Structure</h2></div></div></div><p>DocBook allows structuring documentation in several ways.
+      The FreeBSD Documentation Project uses two primary types of DocBook
+      document: the book and the article.</p><p>Books are organized into <code class="sgmltag-element">chapter</code>s.
+      This is a mandatory requirement.  There may be
+      <code class="sgmltag-element">part</code>s between the book and the chapter to
+      provide another layer of organization.  For example, the
+      Handbook is arranged in this way.</p><p>A chapter may (or may not) contain one or more sections.
+      These are indicated with the <code class="sgmltag-element">sect1</code> element.
+      If a section contains another section then use the
+      <code class="sgmltag-element">sect2</code> element, and so on, up to
+      <code class="sgmltag-element">sect5</code>.</p><p>Chapters and sections contain the remainder of the
+      content.</p><p>An article is simpler than a book, and does not use
+      chapters.  Instead, the content of an article is organized into
+      one or more sections, using the same <code class="sgmltag-element">sect1</code>
+      (and <code class="sgmltag-element">sect2</code> and so on) elements that are used
+      in books.</p><p>The nature of the document being written should be used to
+      determine whether it is best marked up as a book or an article.
+      Articles are well suited to information that does not need to be
+      broken down into several chapters, and that is, relatively
+      speaking, quite short, at up to 20-25 pages of content.  Books
+      are best suited to information that can be broken up into
+      several chapters, possibly with appendices and similar content
+      as well.</p><p>The <a class="link" href="../../../../docs.html" target="_top">FreeBSD
+	tutorials</a> are all marked up as articles, while this
+      document, the <a class="link" href="../../../../doc/en_US.ISO8859-1/books/faq/index.html" target="_top">FAQ</a>, and the
+      <a class="link" href="../../../../doc/en_US.ISO8859-1/books/handbook/index.html" target="_top">Handbook</a>
+      are all marked up as books, for example.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="docbook-markup-starting-a-book"></a>9.4.1. Starting a Book</h3></div></div></div><p>The content of a book is contained within the
+	<code class="sgmltag-element">book</code> element.  As well as containing
+	structural markup, this element can contain elements that
+	include additional information about the book.  This is either
+	meta-information, used for reference purposes, or additional
+	content used to produce a title page.</p><p>This additional information is contained within
+	<code class="sgmltag-element">info</code>.</p><div class="example"><a id="idp51921784"></a><div class="example-title">Example 9.1. Boilerplate <code class="sgmltag-element">book</code> with
+	  <code class="sgmltag-element">info</code></div><div class="example-contents"><pre class="programlisting"><code class="sgmltag-starttag">&lt;book&gt;</code>
+  <code class="sgmltag-starttag">&lt;info&gt;</code>
+    <code class="sgmltag-starttag">&lt;title&gt;</code><em class="replaceable"><code>Your Title Here</code></em><code class="sgmltag-endtag">&lt;/title&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;author&gt;</code>
+      <code class="sgmltag-starttag">&lt;personname&gt;</code>
+        <code class="sgmltag-starttag">&lt;firstname&gt;</code><em class="replaceable"><code>Your first name</code></em><code class="sgmltag-endtag">&lt;/firstname&gt;</code>
+        <code class="sgmltag-starttag">&lt;surname&gt;</code><em class="replaceable"><code>Your surname</code></em><code class="sgmltag-endtag">&lt;/surname&gt;</code>
+      <code class="sgmltag-endtag">&lt;/personname&gt;</code>
+
+      <code class="sgmltag-starttag">&lt;affiliation&gt;</code>
+	<code class="sgmltag-starttag">&lt;address&gt;</code>
+          <code class="sgmltag-starttag">&lt;email&gt;</code><em class="replaceable"><code>Your email address</code></em><code class="sgmltag-endtag">&lt;/email&gt;</code>
+	<code class="sgmltag-endtag">&lt;/address&gt;</code>
+      <code class="sgmltag-endtag">&lt;/affiliation&gt;</code>
+    <code class="sgmltag-endtag">&lt;/author&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;copyright&gt;</code>
+      <code class="sgmltag-starttag">&lt;year&gt;</code><em class="replaceable"><code>1998</code></em><code class="sgmltag-endtag">&lt;/year&gt;</code>
+      <code class="sgmltag-starttag">&lt;holder role="mailto:<em class="replaceable"><code>your email address</code></em>"&gt;</code><em class="replaceable"><code>Your name</code></em><code class="sgmltag-endtag">&lt;/holder&gt;</code>
+    <code class="sgmltag-endtag">&lt;/copyright&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;releaseinfo&gt;</code>$FreeBSD$<code class="sgmltag-endtag">&lt;/releaseinfo&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;abstract&gt;</code>
+      <code class="sgmltag-starttag">&lt;para&gt;</code><em class="replaceable"><code>Include an abstract of the book's contents here.</code></em><code class="sgmltag-endtag">&lt;/para&gt;</code>
+    <code class="sgmltag-endtag">&lt;/abstract&gt;</code>
+  <code class="sgmltag-endtag">&lt;/info&gt;</code>
+
+  &#8230;
+
+<code class="sgmltag-endtag">&lt;/book&gt;</code></pre></div></div><br class="example-break" /></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="docbook-markup-starting-an-article"></a>9.4.2. Starting an Article</h3></div></div></div><p>The content of the article is contained within the
+	<code class="sgmltag-element">article</code> element.  As well as containing
+	structural markup, this element can contain elements that
+	include additional information about the article.  This is
+	either meta-information, used for reference purposes, or
+	additional content used to produce a title page.</p><p>This additional information is contained within
+	<code class="sgmltag-element">info</code>.</p><div class="example"><a id="idp51972344"></a><div class="example-title">Example 9.2. Boilerplate <code class="sgmltag-element">article</code> with
+	  <code class="sgmltag-element">info</code></div><div class="example-contents"><pre class="programlisting"><code class="sgmltag-starttag">&lt;article&gt;</code>
+  <code class="sgmltag-starttag">&lt;info&gt;</code>
+    <code class="sgmltag-starttag">&lt;title&gt;</code><em class="replaceable"><code>Your title here</code></em><code class="sgmltag-endtag">&lt;/title&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;author&gt;</code>
+      <code class="sgmltag-starttag">&lt;personname&gt;</code>
+	<code class="sgmltag-starttag">&lt;firstname&gt;</code><em class="replaceable"><code>Your first name</code></em><code class="sgmltag-endtag">&lt;/firstname&gt;</code>
+	<code class="sgmltag-starttag">&lt;surname&gt;</code><em class="replaceable"><code>Your surname</code></em><code class="sgmltag-endtag">&lt;/surname&gt;</code>
+      <code class="sgmltag-endtag">&lt;/personname&gt;</code>
+
+      <code class="sgmltag-starttag">&lt;affiliation&gt;</code>
+	<code class="sgmltag-starttag">&lt;address&gt;</code>
+	  <code class="sgmltag-starttag">&lt;email&gt;</code><em class="replaceable"><code>Your email address</code></em><code class="sgmltag-endtag">&lt;/email&gt;</code><code class="sgmltag-endtag">&lt;/address&gt;</code>
+	<code class="sgmltag-endtag">&lt;/address&gt;</code>
+      <code class="sgmltag-endtag">&lt;/affiliation&gt;</code>
+    <code class="sgmltag-endtag">&lt;/author&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;copyright&gt;</code>
+      <code class="sgmltag-starttag">&lt;year&gt;</code><em class="replaceable"><code>1998</code></em><code class="sgmltag-endtag">&lt;/year&gt;</code>
+      <code class="sgmltag-starttag">&lt;holder role="mailto:<em class="replaceable"><code>your email address</code></em>"&gt;</code><em class="replaceable"><code>Your name</code></em><code class="sgmltag-endtag">&lt;/holder&gt;</code>
+    <code class="sgmltag-endtag">&lt;/copyright&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;releaseinfo&gt;</code>$FreeBSD$<code class="sgmltag-endtag">&lt;/releaseinfo&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;abstract&gt;</code>
+      <code class="sgmltag-starttag">&lt;para&gt;</code><em class="replaceable"><code>Include an abstract of the article's contents here.</code></em><code class="sgmltag-endtag">&lt;/para&gt;</code>
+    <code class="sgmltag-endtag">&lt;/abstract&gt;</code>
+  <code class="sgmltag-endtag">&lt;/info&gt;</code>
+
+  &#8230;
+
+<code class="sgmltag-endtag">&lt;/article&gt;</code></pre></div></div><br class="example-break" /></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="docbook-markup-indicating-chapters"></a>9.4.3. Indicating Chapters</h3></div></div></div><p>Use <code class="sgmltag-element">chapter</code> to mark up your chapters.
+	Each chapter has a mandatory <code class="sgmltag-element">title</code>.
+	Articles do not contain chapters, they are reserved for
+	books.</p><div class="example"><a id="idp51990136"></a><div class="example-title">Example 9.3. A Simple Chapter</div><div class="example-contents"><pre class="programlisting"><code class="sgmltag-starttag">&lt;chapter&gt;</code>
+  <code class="sgmltag-starttag">&lt;title&gt;</code>The Chapter's Title<code class="sgmltag-endtag">&lt;/title&gt;</code>
+
+  ...
+<code class="sgmltag-endtag">&lt;/chapter&gt;</code></pre></div></div><br class="example-break" /><p>A chapter cannot be empty; it must contain elements in
+	  addition to <code class="sgmltag-element">title</code>.  If you need to
+	  include an empty chapter then just use an empty
+	  paragraph.</p><div class="example"><a id="idp51993848"></a><div class="example-title">Example 9.4. Empty Chapters</div><div class="example-contents"><pre class="programlisting"><code class="sgmltag-starttag">&lt;chapter&gt;</code>
+  <code class="sgmltag-starttag">&lt;title&gt;</code>This is An Empty Chapter<code class="sgmltag-endtag">&lt;/title&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;para&gt;</code><code class="sgmltag-endtag">&lt;/para&gt;</code>
+<code class="sgmltag-endtag">&lt;/chapter&gt;</code></pre></div></div><br class="example-break" /></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="docbook-markup-sections-below-chapters"></a>9.4.4. Sections Below Chapters</h3></div></div></div><p>In books, chapters may (but do not need to) be broken up
+	into sections, subsections, and so on.  In articles, sections
+	are the main structural element, and each article must contain
+	at least one section.  Use the
+	<code class="sgmltag-element">sect<em class="replaceable"><code>n</code></em></code> element.
+	The <em class="replaceable"><code>n</code></em> indicates the section number,
+	which identifies the section level.</p><p>The first
+	<code class="sgmltag-element">sect<em class="replaceable"><code>n</code></em></code> is
+	<code class="sgmltag-element">sect1</code>.  You can have one or more of these
+	in a chapter.  They can contain one or more
+	<code class="sgmltag-element">sect2</code> elements, and so on, down to
+	<code class="sgmltag-element">sect5</code>.</p><div class="example"><a id="idp52006264"></a><div class="example-title">Example 9.5. Sections in Chapters</div><div class="example-contents"><pre class="programlisting"><code class="sgmltag-starttag">&lt;chapter&gt;</code>
+  <code class="sgmltag-starttag">&lt;title&gt;</code>A Sample Chapter<code class="sgmltag-endtag">&lt;/title&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;para&gt;</code>Some text in the chapter.<code class="sgmltag-endtag">&lt;/para&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;sect1&gt;</code>
+    <code class="sgmltag-starttag">&lt;title&gt;</code>First Section<code class="sgmltag-endtag">&lt;/title&gt;</code>
+
+    &#8230;
+  <code class="sgmltag-endtag">&lt;/sect1&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;sect1&gt;</code>
+    <code class="sgmltag-starttag">&lt;title&gt;</code>Second Section<code class="sgmltag-endtag">&lt;/title&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;sect2&gt;</code>
+      <code class="sgmltag-starttag">&lt;title&gt;</code>First Sub-Section<code class="sgmltag-endtag">&lt;/title&gt;</code>
+
+      <code class="sgmltag-starttag">&lt;sect3&gt;</code>
+	<code class="sgmltag-starttag">&lt;title&gt;</code>First Sub-Sub-Section<code class="sgmltag-endtag">&lt;/title&gt;</code>
+
+	&#8230;
+      <code class="sgmltag-endtag">&lt;/sect3&gt;</code>
+    <code class="sgmltag-endtag">&lt;/sect2&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;sect2&gt;</code>
+      <code class="sgmltag-starttag">&lt;title&gt;</code>Second Sub-Section (1.2.2)<code class="sgmltag-endtag">&lt;/title&gt;</code>
+
+      &#8230;
+    <code class="sgmltag-endtag">&lt;/sect2&gt;</code>
+  <code class="sgmltag-endtag">&lt;/sect1&gt;</code>
+<code class="sgmltag-endtag">&lt;/chapter&gt;</code></pre></div></div><br class="example-break" /><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Section numbers are automatically generated and
+	  prepended to titles when the document is rendered to an
+	  output format.  The generated section numbers and titles
+	  from the example above will be:</p><div xmlns="http://www.w3.org/1999/xhtml" class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>1.1. First Section</p></li><li class="listitem"><p>1.2. Second Section</p></li><li class="listitem"><p>1.2.1. First Sub-Section</p></li><li class="listitem"><p>1.2.1.1. First Sub-Sub-Section</p></li><li class="listitem"><p>1.2.2. Second Sub-Section</p></li></ul></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="docbook-markup-subdividing-part"></a>9.4.5. Subdividing Using <code class="sgmltag-element">part</code>
+	Elements</h3></div></div></div><p><code class="sgmltag-element">part</code>s introduce another level of
+	organization between <code class="sgmltag-element">book</code> and
+	<code class="sgmltag-element">chapter</code> with one or more
+	<code class="sgmltag-element">part</code>s.  This cannot be done in an
+	<code class="sgmltag-element">article</code>.</p><pre class="programlisting"><code class="sgmltag-starttag">&lt;part&gt;</code>
+  <code class="sgmltag-starttag">&lt;title&gt;</code>Introduction<code class="sgmltag-endtag">&lt;/title&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;chapter&gt;</code>
+    <code class="sgmltag-starttag">&lt;title&gt;</code>Overview<code class="sgmltag-endtag">&lt;/title&gt;</code>
+
+    ...
+  <code class="sgmltag-endtag">&lt;/chapter&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;chapter&gt;</code>
+    <code class="sgmltag-starttag">&lt;title&gt;</code>What is FreeBSD?<code class="sgmltag-endtag">&lt;/title&gt;</code>
+
+    ...
+  <code class="sgmltag-endtag">&lt;/chapter&gt;</code>
+
+  <code class="sgmltag-starttag">&lt;chapter&gt;</code>
+    <code class="sgmltag-starttag">&lt;title&gt;</code>History<code class="sgmltag-endtag">&lt;/title&gt;</code>
+
+    ...
+  <code class="sgmltag-endtag">&lt;/chapter&gt;</code>
+<code class="sgmltag-endtag">&lt;/part&gt;</code></pre></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="docbook-markup-fpi.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="docbook-markup.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="docbook-markup-block-elements.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">9.3. Formal Public Identifier (FPI) </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 9.5. Block Elements</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

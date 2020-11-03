@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>11.8. Configuration Files</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="config-tuning.html" title="Chapter 11. Configuration and Tuning" /><link rel="prev" href="configtuning-syslog.html" title="11.7. Configuring System Logging" /><link rel="next" href="configtuning-sysctl.html" title="11.9. Tuning with sysctl(8)" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">11.8. Configuration Files</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="configtuning-syslog.html">Prev</a> </td><th width="60%" align="center">Chapter 11. Configuration and Tuning</th><td width="20%" align="right"> <a accesskey="n" href="configtuning-sysctl.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="configtuning-configfiles"></a>11.8. Configuration Files</h2></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57430520"></a>11.8.1. <code class="filename">/etc</code>
+	Layout</h3></div></div></div><p>There are a number of directories in which configuration
+	information is kept.  These include:</p><div class="informaltable"><table class="informaltable" width="100%" border="0"><colgroup><col /><col /></colgroup><tbody><tr><td><code class="filename">/etc</code></td><td>Generic system-specific configuration
+		information.</td></tr><tr><td><code class="filename">/etc/defaults</code></td><td>Default versions of system configuration
+		files.</td></tr><tr><td><code class="filename">/etc/mail</code></td><td>Extra <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sendmail&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sendmail</span>(8)</span></a> configuration and other
+		<acronym class="acronym">MTA</acronym> configuration files.</td></tr><tr><td><code class="filename">/etc/ppp</code></td><td>Configuration for both user- and kernel-ppp
+		programs.</td></tr><tr><td><code class="filename">/usr/local/etc</code></td><td>Configuration files for installed applications.
+		May contain per-application subdirectories.</td></tr><tr><td><code class="filename">/usr/local/etc/rc.d</code></td><td><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rc&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rc</span>(8)</span></a> scripts for installed
+		applications.</td></tr><tr><td><code class="filename">/var/db</code></td><td>Automatically generated system-specific database
+		files, such as the package database and the
+		<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=locate&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">locate</span>(1)</span></a> database.</td></tr></tbody></table></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57449848"></a>11.8.2. Hostnames</h3></div></div></div><a id="idp57450488" class="indexterm"></a><a id="idp57451000" class="indexterm"></a><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp57451512"></a>11.8.2.1. <code class="filename">/etc/resolv.conf</code></h4></div></div></div><a id="idp57452280" class="indexterm"></a><p>How a FreeBSD system accesses the Internet Domain Name
+	  System (<acronym class="acronym">DNS</acronym>) is controlled by
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=resolv.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">resolv.conf</span>(5)</span></a>.</p><p>The most common entries to
+	  <code class="filename">/etc/resolv.conf</code> are:</p><div class="informaltable"><table class="informaltable" width="100%" border="0"><colgroup><col /><col /></colgroup><tbody><tr><td><code class="literal">nameserver</code></td><td>The <acronym class="acronym">IP</acronym> address of a name
+		  server the resolver should query.  The servers are
+		  queried in the order listed with a maximum of
+		  three.</td></tr><tr><td><code class="literal">search</code></td><td>Search list for hostname lookup.  This is
+		  normally determined by the domain of the local
+		  hostname.</td></tr><tr><td><code class="literal">domain</code></td><td>The local domain name.</td></tr></tbody></table></div><p>A typical <code class="filename">/etc/resolv.conf</code> looks
+	  like this:</p><pre class="programlisting">search example.com
+nameserver 147.11.1.11
+nameserver 147.11.100.30</pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Only one of the <code class="literal">search</code> and
+	    <code class="literal">domain</code> options should be used.</p></div><p>When using <acronym class="acronym">DHCP</acronym>, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=dhclient&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">dhclient</span>(8)</span></a>
+	  usually rewrites <code class="filename">/etc/resolv.conf</code>
+	  with information received from the <acronym class="acronym">DHCP</acronym>
+	  server.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp56721656"></a>11.8.2.2. <code class="filename">/etc/hosts</code></h4></div></div></div><a id="idp56722424" class="indexterm"></a><p><code class="filename">/etc/hosts</code> is a simple text
+	  database which works in conjunction with
+	  <acronym class="acronym">DNS</acronym> and
+	  <acronym class="acronym">NIS</acronym> to provide host name to
+	  <acronym class="acronym">IP</acronym> address mappings.  Entries for local
+	  computers connected via a <acronym class="acronym">LAN</acronym> can be
+	  added to this file for simplistic naming purposes instead
+	  of setting up a <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=named&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">named</span>(8)</span></a> server.  Additionally,
+	  <code class="filename">/etc/hosts</code> can be used to provide a
+	  local record of Internet names, reducing the need to query
+	  external <acronym class="acronym">DNS</acronym> servers for commonly
+	  accessed names.</p><pre class="programlisting"># <span translate="no" class="phrase">$FreeBSD$</span>
+#
+#
+# Host Database
+#
+# This file should contain the addresses and aliases for local hosts that
+# share this file.  Replace 'my.domain' below with the domainname of your
+# machine.
+#
+# In the presence of the domain name service or NIS, this file may
+# not be consulted at all; see /etc/nsswitch.conf for the resolution order.
+#
+#
+::1			localhost localhost.my.domain
+127.0.0.1		localhost localhost.my.domain
+#
+# Imaginary network.
+#10.0.0.2		myname.my.domain myname
+#10.0.0.3		myfriend.my.domain myfriend
+#
+# According to RFC 1918, you can use the following IP networks for
+# private nets which will never be connected to the Internet:
+#
+#	10.0.0.0	-   10.255.255.255
+#	172.16.0.0	-   172.31.255.255
+#	192.168.0.0	-   192.168.255.255
+#
+# In case you want to be able to connect to the Internet, you need
+# real official assigned numbers.  Do not try to invent your own network
+# numbers but instead get one from your network provider (if any) or
+# from your regional registry (ARIN, APNIC, LACNIC, RIPE NCC, or AfriNIC.)
+#</pre><p>The format of <code class="filename">/etc/hosts</code> is as
+	  follows:</p><pre class="programlisting">[Internet address] [official hostname] [alias1] [alias2] ...</pre><p>For example:</p><pre class="programlisting">10.0.0.1 myRealHostname.example.com myRealHostname foobar1 foobar2</pre><p>Consult <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=hosts&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">hosts</span>(5)</span></a> for more information.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="configtuning-syslog.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="config-tuning.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="configtuning-sysctl.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">11.7. Configuring System Logging </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 11.9. Tuning with sysctl(8)</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

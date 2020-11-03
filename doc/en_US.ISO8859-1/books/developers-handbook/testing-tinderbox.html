@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>6.2. The FreeBSD Source Tinderbox</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Developers' Handbook" /><link rel="up" href="testing.html" title="Chapter 6. Regression and Performance Testing" /><link rel="prev" href="testing.html" title="Chapter 6. Regression and Performance Testing" /><link rel="next" href="ipc.html" title="Part II. Interprocess Communication" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.2. The FreeBSD Source Tinderbox</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="testing.html">Prev</a> </td><th width="60%" align="center">Chapter 6. Regression and Performance Testing</th><td width="20%" align="right"> <a accesskey="n" href="ipc.html">Next</a></td></tr></table><hr /></div><div class="section"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="testing-tinderbox"></a>6.2. The FreeBSD Source Tinderbox</h2></div></div></div><p>The source Tinderbox consists of:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>A build script, <code class="filename">tinderbox</code>, that
+	  automates checking out a specific version of the FreeBSD source
+	  tree and building it.</p></li><li class="listitem"><p>A supervisor script, <code class="filename">tbmaster</code>, that
+	  monitors individual Tinderbox instances, logs their output,
+	  and emails failure notices.</p></li><li class="listitem"><p>A <acronym class="acronym">CGI</acronym> script named
+	  <code class="filename">index.cgi</code> that reads a set of tbmaster
+	  logs and presents an easy-to-read <acronym class="acronym">HTML</acronym>
+	  summary of them.</p></li><li class="listitem"><p>A set of build servers that continually test the tip of
+	  the most important FreeBSD code branches.</p></li><li class="listitem"><p>A webserver that keeps a complete set of Tinderbox logs
+	  and displays an up-to-date summary.</p></li></ul></div><p>The scripts are maintained and were developed by
+      Dag-Erling Smørgrav <code class="email">&lt;<a xmlns="" class="email" href="mailto:des@FreeBSD.org">des@FreeBSD.org</a>&gt;</code>, and are now written in Perl, a move on from their
+      original incarnation as shell scripts.  All scripts and
+      configuration files are kept in <a class="link" href="https://www.freebsd.org/cgi/cvsweb.cgi/projects/tinderbox/" target="_top">/projects/tinderbox/</a>.</p><p>For more information about the tinderbox and tbmaster
+      scripts at this stage, see their respective man pages:
+      tinderbox(1) and tbmaster(1).</p><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp51734648"></a>6.2.1. The <code class="filename">index.cgi</code> Script</h3></div></div></div><p>The <code class="filename">index.cgi</code> script generates the
+	<acronym class="acronym">HTML</acronym> summary of tinderbox and tbmaster
+	logs.  Although originally intended to be used as a
+	<acronym class="acronym">CGI</acronym> script, as indicated by its name, this
+	script can also be run from the command line or from a
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=cron&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">cron</span>(8)</span></a> job, in which case it will look for logs in the
+	directory where the script is located.  It will automatically
+	detect context, generating <acronym class="acronym">HTTP</acronym> headers
+	when it is run as a <acronym class="acronym">CGI</acronym> script.  It
+	conforms to <acronym class="acronym">XHTML</acronym> standards and is styled
+	using <acronym class="acronym">CSS</acronym>.</p><p>The script starts in the <code class="function">main()</code> block
+	by attempting to verify that it is running on the official
+	Tinderbox website.  If it is not, a page indicating it is not
+	an official website is produced, and a <acronym class="acronym">URL</acronym>
+	to the official site is provided.</p><p>Next, it scans the log directory to get an inventory of
+	configurations, branches and architectures for which log files
+	exist, to avoid hard-coding a list into the script and
+	potentially ending up with blank rows or columns.  This
+	information is derived from the names of the log files
+	matching the following pattern:</p><pre class="programlisting">tinderbox-$config-$branch-$arch-$machine.{brief,full}</pre><p>The configurations used on the official Tinderbox build
+	servers are named for the branches they build.  For example,
+	the <code class="literal">releng_8</code> configuration is used to build
+	<code class="literal">RELENG_8</code> as well as all still-supported
+	release branches.</p><p>Once all of this startup procedure has been successfully
+	completed, <code class="function">do_config()</code> is called for each
+	configuration.</p><p>The <code class="function">do_config()</code> function generates
+	<acronym class="acronym">HTML</acronym> for a single Tinderbox
+	configuration.</p><p>It works by first generating a header row, then iterating
+	over each branch build with the specified configuration,
+	producing a single row of results for each in the following
+	manner:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>For each item:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem"><p>For each machine within that architecture:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: square; "><li class="listitem"><p>If a brief log file exists, then:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Call <code class="function">success()</code> to
+			determine the outcome of the build.</p></li><li class="listitem"><p>Output the modification size.</p></li><li class="listitem"><p>Output the size of the brief log file with
+			a link to the log file itself.</p></li><li class="listitem"><p>If a full log file also exists,
+			then:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem"><p>Output the size of the full log file
+			    with a link to the log file itself.</p></li></ul></div></li></ul></div></li><li class="listitem"><p>Otherwise:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>No output.</p></li></ul></div></li></ul></div></li></ul></div></li></ul></div><p>The <code class="function">success()</code> function mentioned
+	above scans a brief log file for the string <span class="quote">&#8220;<span class="quote">tinderbox
+	  run completed</span>&#8221;</span> in order to determine whether the
+	build was successful.</p><p>Configurations and branches are sorted according to their
+	branch rank.  This is computed as follows:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="literal">HEAD</code> and <code class="literal">CURRENT</code>
+	    have rank 9999.</p></li><li class="listitem"><p><code class="literal">RELENG_<em class="replaceable"><code>x</code></em></code>
+	    has rank <em class="replaceable"><code>xx</code></em>99.</p></li><li class="listitem"><p><code class="literal">RELENG_<em class="replaceable"><code>x</code></em>_<em class="replaceable"><code>y</code></em></code>
+	    has rank <em class="replaceable"><code>xxyy</code></em>.</p></li></ul></div><p>This means that <code class="literal">HEAD</code> always ranks
+	highest, and <code class="literal">RELENG</code> branches are ranked in
+	numerical order, with each <code class="literal">STABLE</code> branch
+	ranking higher than the release branches forked off of it.
+	For instance, for FreeBSD 8, the order from highest to
+	lowest would be:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="literal">RELENG_8</code> (branch rank 899).</p></li><li class="listitem"><p><code class="literal">RELENG_8_3</code> (branch rank
+	    803).</p></li><li class="listitem"><p><code class="literal">RELENG_8_2</code> (branch rank
+	    802).</p></li><li class="listitem"><p><code class="literal">RELENG_8_1</code> (branch rank
+	    801).</p></li><li class="listitem"><p><code class="literal">RELENG_8_0</code> (branch rank
+	    800).</p></li></ul></div><p>The colors that Tinderbox uses for each cell in the table
+	are defined by <acronym class="acronym">CSS</acronym>.  Successful builds are
+	displayed with green text; unsuccessful builds are displayed
+	with red text.  The color fades as time passes since the
+	corresponding build, with every half an hour bringing the
+	color closer to grey.</p></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp51786744"></a>6.2.2. Official Build Servers</h3></div></div></div><p>The official Tinderbox build servers are hosted by <a class="link" href="http://www.sentex.ca" target="_top">Sentex Data
+	  Communications</a>, who also host the FreeBSD
+	  Netperf Cluster.</p><p>Three build servers currently exist:</p><p><span class="emphasis"><em>freebsd-current.sentex.ca</em></span>
+	builds:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="literal">HEAD</code> for amd64, arm, i386,
+	    i386/pc98, ia64, mips, powerpc, powerpc64, and
+	    sparc64.</p></li><li class="listitem"><p><code class="literal">RELENG_9</code> and supported
+	    9.<em class="replaceable"><code>X</code></em> branches for amd64, arm,
+	    i386, i386/pc98, ia64, mips, powerpc, powerpc64, and
+	    sparc64.</p></li></ul></div><p><span class="emphasis"><em>freebsd-stable.sentex.ca</em></span>
+	builds:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="literal">RELENG_8</code> and supported
+	    8.<em class="replaceable"><code>X</code></em> branches for amd64, i386,
+	    i386/pc98, ia64, mips, powerpc and sparc64.</p></li></ul></div><p><span class="emphasis"><em>freebsd-legacy.sentex.ca</em></span>
+	builds:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="literal">RELENG_7</code> and supported
+	    7.<em class="replaceable"><code>X</code></em> branches for amd64, i386,
+	    i386/pc98, ia64, powerpc, and sparc64.</p></li></ul></div></div><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp51801208"></a>6.2.3. Official Summary Site</h3></div></div></div><p>Summaries and logs from the official build servers are
+	available online at <a class="link" href="http://tinderbox.FreeBSD.org" target="_top">http://tinderbox.FreeBSD.org</a>,
+	hosted by Dag-Erling Smørgrav <code class="email">&lt;<a xmlns="" class="email" href="mailto:des@FreeBSD.org">des@FreeBSD.org</a>&gt;</code> and set up as follows:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>A <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=cron&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">cron</span>(8)</span></a> job checks the build servers at regular
+	    intervals and downloads any new log files using
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rsync&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rsync</span>(1)</span></a>.</p></li><li class="listitem"><p>Apache is set up to use <code class="filename">index.cgi</code>
+	    as <code class="literal">DirectoryIndex</code>.</p></li></ul></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="testing.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="testing.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ipc.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 6. Regression and Performance Testing </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Part II. Interprocess Communication</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

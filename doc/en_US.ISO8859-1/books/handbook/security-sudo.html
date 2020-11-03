@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>13.14. Shared Administration with Sudo</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="security.html" title="Chapter 13. Security" /><link rel="prev" href="security-resourcelimits.html" title="13.13. Resource Limits" /><link rel="next" href="jails.html" title="Chapter 14. Jails" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">13.14. Shared Administration with Sudo</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="security-resourcelimits.html">Prev</a> </td><th width="60%" align="center">Chapter 13. Security</th><td width="20%" align="right"> <a accesskey="n" href="jails.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="security-sudo"></a>13.14. Shared Administration with Sudo</h2></div><div><span class="authorgroup">Contributed
+	  by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Tom</span> <span class="surname">Rhodes</span></span>. </span></div></div></div><a id="idp60021880" class="indexterm"></a><p>System administrators often need the ability to grant
+      enhanced permissions to users so they may perform privileged
+      tasks.  The idea that team members are provided access
+      to a FreeBSD system to perform their specific tasks opens up unique
+      challenges to every administrator.  These team members only
+      need a subset of access beyond normal end user levels; however,
+      they almost always tell management they are unable to
+      perform their tasks without superuser access.  Thankfully, there
+      is no reason to provide such access to end users because tools
+      exist to manage this exact requirement.</p><p>Up to this point, the security chapter has covered
+      permitting access to authorized users and attempting to prevent
+      unauthorized access.  Another problem arises once authorized
+      users have access to the system resources.  In many cases, some
+      users may need access to application startup scripts, or a team
+      of administrators need to maintain the system.  Traditionally,
+      the standard users and groups, file permissions, and even the
+      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=su&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">su</span>(1)</span></a> command would manage this access.  And as
+      applications required more access, as more users needed to use
+      system resources, a better solution was required.  The most used
+      application is currently <span class="application">Sudo</span>.</p><p><span class="application">Sudo</span> allows administrators
+      to configure more rigid access to system commands
+      and provide for some advanced logging features.
+      As a tool, it is available from the Ports Collection as
+      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/security/sudo/pkg-descr">security/sudo</a> or by use of
+      the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pkg&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pkg</span>(8)</span></a> utility.  To use the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pkg&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pkg</span>(8)</span></a> tool:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg install sudo</code></strong></pre><p>After the installation is complete, the installed
+      <code class="command">visudo</code> will open the configuration file with
+      a text editor.  Using <code class="command">visudo</code> is highly
+      recommended as it comes with a built in syntax checker to verify
+      there are no errors before the file is saved.</p><p>The configuration file is made up of several small sections
+      which allow for extensive configuration.  In the following
+      example, web application maintainer, user1, needs to start,
+      stop, and restart the web application known as
+      <em class="replaceable"><code>webservice</code></em>.  To
+      grant this user permission to perform these tasks, add
+      this line to the end of
+      <code class="filename">/usr/local/etc/sudoers</code>:</p><pre class="programlisting">user1   ALL=(ALL)       /usr/sbin/service webservice *</pre><p>The user may now start <em class="replaceable"><code>webservice</code></em>
+      using this command:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>sudo /usr/sbin/service <em class="replaceable"><code>webservice</code></em> start</code></strong></pre><p>While this configuration allows a single user access to the
+      <span class="application">webservice</span> service; however, in most
+      organizations, there is an entire web team in charge of managing
+      the service.  A single line can also give access to an entire
+      group.  These steps will create a web group, add a user to this
+      group, and allow all members of the group to manage the
+      service:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pw groupadd -g 6001 -n webteam</code></strong></pre><p>Using the same <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pw&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pw</span>(8)</span></a> command, the user is added to
+      the webteam group:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pw groupmod -m user1 -n webteam</code></strong></pre><p>Finally, this line in
+      <code class="filename">/usr/local/etc/sudoers</code> allows any
+      member of the webteam group to manage
+      <em class="replaceable"><code>webservice</code></em>:</p><pre class="programlisting">%webteam   ALL=(ALL)       /usr/sbin/service webservice *</pre><p>Unlike <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=su&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">su</span>(1)</span></a>, <span class="application">Sudo</span> only
+      requires the end user password.  This adds an advantage where
+      users will not need shared passwords, a finding in most security
+      audits and just bad all the way around.</p><p>Users permitted to run applications with
+      <span class="application">Sudo</span> only enter their own passwords.
+      This is more secure and gives better control than <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=su&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">su</span>(1)</span></a>,
+      where the <code class="systemitem">root</code>
+      password is entered and the user acquires all
+      <code class="systemitem">root</code>
+      permissions.</p><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">Most organizations are moving or have moved toward a two
+	factor authentication model.  In these cases, the user may not
+	have a password to enter.  <span class="application">Sudo</span>
+	provides for these cases with the <code class="literal">NOPASSWD</code>
+	variable.  Adding it to the configuration above will allow all
+	members of the <em class="replaceable"><code>webteam</code></em> group to
+	manage the service without the password requirement:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="programlisting">%webteam   ALL=(ALL)       NOPASSWD: /usr/sbin/service webservice *</pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="security-sudo-loggin"></a>13.14.1. Logging Output</h3></div></div></div><p>An advantage to implementing
+	<span class="application">Sudo</span> is the ability to enable
+	session logging.  Using the built in log mechanisms
+	and the included <span class="application">sudoreplay</span>
+	command, all commands initiated through
+	<span class="application">Sudo</span> are logged for later
+	verification.  To enable this feature, add a default log
+	directory entry, this example uses a user variable.
+	Several other log filename conventions exist, consult the
+	manual page for <span class="application">sudoreplay</span> for
+	additional information.</p><pre class="programlisting">Defaults iolog_dir=/var/log/sudo-io/%{user}</pre><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">This directory will be created automatically after the
+	  logging is configured.  It is best to let the system create
+	  directory with default permissions just to be safe.  In
+	  addition, this entry will also log administrators who use
+	  the <span class="application">sudoreplay</span> command.  To
+	  change this behavior, read and uncomment the logging options
+	  inside <code class="filename">sudoers</code>.</p></div><p>Once this directive has been added to the
+	<code class="filename">sudoers</code> file, any user configuration can
+	be updated with the request to log access.  In the example
+	shown, the updated <em class="replaceable"><code>webteam</code></em> entry
+	would have the following additional changes:</p><pre class="programlisting">%webteam ALL=(ALL) NOPASSWD: LOG_INPUT: LOG_OUTPUT: /usr/sbin/service webservice *</pre><p>From this point on, all <em class="replaceable"><code>webteam</code></em>
+	members altering the status of the
+	<em class="replaceable"><code>webservice</code></em> application
+	will be logged.  The list of previous and current sessions
+	can be displayed with:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>sudoreplay -l</code></strong></pre><p>In the output, to replay a specific session, search for
+	the <code class="literal">TSID=</code> entry, and pass that to
+	<span class="application">sudoreplay</span> with no other options to
+	replay the session at normal speed.  For example:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>sudoreplay user1/00/00/02</code></strong></pre><div xmlns="" class="warning"><h3 class="admontitle">Warning: </h3><p xmlns="http://www.w3.org/1999/xhtml">While sessions are logged, any administrator is able to
+	  remove sessions and leave only a question of why they had
+	  done so.  It is worthwhile to add a daily check through an
+	  intrusion detection system (<acronym class="acronym">IDS</acronym>) or
+	  similar software so that other administrators are alerted to
+	  manual alterations.</p></div><p>The <code class="command">sudoreplay</code> is extremely extendable.
+	Consult the documentation for more information.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="security-resourcelimits.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="security.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="jails.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">13.13. Resource Limits </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 14. Jails</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

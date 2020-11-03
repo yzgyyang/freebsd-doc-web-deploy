@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>28.7. Setting Up to Send Only</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="mail.html" title="Chapter 28. Electronic Mail" /><link rel="prev" href="mail-advanced.html" title="28.6. Advanced Topics" /><link rel="next" href="SMTP-dialup.html" title="28.8. Using Mail with a Dialup Connection" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">28.7. Setting Up to Send Only</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="mail-advanced.html">Prev</a> </td><th width="60%" align="center">Chapter 28. Electronic Mail</th><td width="20%" align="right"> <a accesskey="n" href="SMTP-dialup.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="outgoing-only"></a>28.7. Setting Up to Send Only</h2></div><div><span class="authorgroup">Contributed by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Bill</span> <span class="surname">Moran</span></span>. </span></div></div></div><p>There are many instances where one may only want to send
+      mail through a relay.  Some examples are:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>The computer is a desktop machine that needs to use
+	  programs such as <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mail&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mail</span>(1)</span></a>, using the
+	  <acronym class="acronym">ISP</acronym>'s mail relay.</p></li><li class="listitem"><p>The computer is a server that does not handle mail
+	  locally, but needs to pass off all mail to a relay for
+	  processing.</p></li></ul></div><p>While any <acronym class="acronym">MTA</acronym> is capable of filling
+      this particular niche, it can be difficult to properly configure
+      a full-featured <acronym class="acronym">MTA</acronym> just to handle offloading
+      mail.  Programs such as <span class="application">Sendmail</span> and
+      <span class="application">Postfix</span> are overkill for this
+      use.</p><p>Additionally, a typical Internet access service agreement
+      may forbid one from running a <span class="quote">&#8220;<span class="quote">mail server</span>&#8221;</span>.</p><p>The easiest way to fulfill those needs is to install the
+      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/mail/ssmtp/pkg-descr">mail/ssmtp</a> port:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/ports/mail/ssmtp</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make install replace clean</code></strong></pre><p>Once installed, <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/mail/ssmtp/pkg-descr">mail/ssmtp</a> can be
+      configured with
+      <code class="filename">/usr/local/etc/ssmtp/ssmtp.conf</code>:</p><pre class="programlisting">root=yourrealemail@example.com
+mailhub=mail.example.com
+rewriteDomain=example.com
+hostname=_HOSTNAME_</pre><p>Use the real email address for <code class="systemitem">root</code>.  Enter the
+      <acronym class="acronym">ISP</acronym>'s outgoing mail relay in place of
+      <code class="systemitem">mail.example.com</code>.
+      Some <acronym class="acronym">ISP</acronym>s call this the <span class="quote">&#8220;<span class="quote">outgoing mail
+	server</span>&#8221;</span> or <span class="quote">&#8220;<span class="quote">SMTP server</span>&#8221;</span>.</p><p>Make sure to disable <span class="application">Sendmail</span>,
+      including the outgoing mail service.  See <a class="xref" href="mail-changingmta.html#mail-disable-sendmail" title="28.4.1. Disable Sendmail">Section 28.4.1, &#8220;Disable <span class="application">Sendmail</span>&#8221;</a> for details.</p><p><a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/mail/ssmtp/pkg-descr">mail/ssmtp</a> has some other options
+      available.  Refer to the examples in
+      <code class="filename">/usr/local/etc/ssmtp</code> or the manual page
+      of <span class="application">ssmtp</span> for more information.</p><p>Setting up <span class="application">ssmtp</span> in this manner
+      allows any software on the computer that needs to send mail to
+      function properly, while not violating the
+      <acronym class="acronym">ISP</acronym>'s usage policy or allowing the computer
+      to be hijacked for spamming.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="mail-advanced.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="mail.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SMTP-dialup.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">28.6. Advanced Topics </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 28.8. Using Mail with a Dialup Connection</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

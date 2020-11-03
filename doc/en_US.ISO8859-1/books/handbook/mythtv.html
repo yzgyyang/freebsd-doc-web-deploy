@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>7.6. MythTV</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="multimedia.html" title="Chapter 7. Multimedia" /><link rel="prev" href="tvcard.html" title="7.5. TV Cards" /><link rel="next" href="scanners.html" title="7.7. Image Scanners" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">7.6. MythTV</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="tvcard.html">Prev</a> </td><th width="60%" align="center">Chapter 7. Multimedia</th><td width="20%" align="right"> <a accesskey="n" href="scanners.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="mythtv"></a>7.6. MythTV</h2></div></div></div><p>MythTV is a popular, open source Personal Video Recorder
+      (<acronym class="acronym">PVR</acronym>) application.  This section demonstrates
+      how to install and setup MythTV on FreeBSD.  Refer to <a class="link" href="http://www.mythtv.org/wiki/" target="_top">mythtv.org/wiki</a>
+      for more information on how to use MythTV.</p><p>MythTV requires a frontend and a backend.  These components
+      can either be installed on the same system or on different
+      machines.</p><p>The frontend can be installed on FreeBSD using the
+      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/multimedia/mythtv-frontend/pkg-descr">multimedia/mythtv-frontend</a> package or port.
+      <span class="application">Xorg</span> must also be installed and
+      configured as described in <a class="xref" href="x11.html" title="Chapter 5. The X Window System">Chapter 5, <em>The X Window System</em></a>.  Ideally, this
+      system has a video card that supports X-Video Motion
+      Compensation (<acronym class="acronym">XvMC</acronym>) and, optionally, a Linux
+      Infrared Remote Control (<acronym class="acronym">LIRC</acronym>)-compatible
+      remote.</p><p>To install both the backend and the frontend on FreeBSD, use
+      the <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/multimedia/mythtv/pkg-descr">multimedia/mythtv</a> package or port.  A
+      <span class="trademark">MySQL</span>&#8482; database server is also required and should
+      automatically be installed as a dependency.  Optionally, this
+      system should have a tuner card and sufficient storage to hold
+      recorded data.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp55651832"></a>7.6.1. Hardware</h3></div></div></div><p>MythTV uses Video for Linux (<acronym class="acronym">V4L</acronym>) to
+	access video input devices such as encoders and tuners.  In
+	FreeBSD, MythTV works best with <acronym class="acronym">USB</acronym> DVB-S/C/T
+	cards as they are well supported by the
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/multimedia/webcamd/pkg-descr">multimedia/webcamd</a> package or port which
+	provides a <acronym class="acronym">V4L</acronym> userland application.  Any
+	Digital Video Broadcasting (<acronym class="acronym">DVB</acronym>) card
+	supported by <span class="application">webcamd</span> should work
+	with MythTV.  A list of known working cards can be found at
+	<a class="link" href="https://wiki.freebsd.org/WebcamCompat" target="_top">wiki.freebsd.org/WebcamCompat</a>.
+	Drivers are also available for Hauppauge cards in the
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/multimedia/pvr250/pkg-descr">multimedia/pvr250</a> and
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/multimedia/pvrxxx/pkg-descr">multimedia/pvrxxx</a> ports, but they provide a
+	non-standard driver interface that does not work with versions
+	of MythTV greater than 0.23.  Due to licensing restrictions,
+	no packages are available and these two ports must be
+	compiled.</p><p>The <a class="link" href="https://wiki.freebsd.org/HTPC" target="_top">wiki.freebsd.org/HTPC</a>
+	page contains a list of all available <acronym class="acronym">DVB</acronym>
+	drivers.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp55657848"></a>7.6.2. Setting up the MythTV Backend</h3></div></div></div><p>To install MythTV using binary packages:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg install mythtv</code></strong></pre><p>Alternatively, to install from the Ports Collection:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/ports/multimedia/mythtv</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make install</code></strong></pre><p>Once installed, set up the MythTV database:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>mysql -uroot -p &lt; /usr/local/share/mythtv/database/mc.sql</code></strong></pre><p>Then, configure the backend:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>mythtv-setup</code></strong></pre><p>Finally, start the backend:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>sysrc mythbackend_enable=yes</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>service mythbackend start</code></strong></pre></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="tvcard.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="multimedia.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="scanners.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">7.5. TV Cards </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 7.7. Image Scanners</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>7.8. Marked Sections</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Documentation Project Primer for New Contributors" /><link rel="up" href="xml-primer.html" title="Chapter 7. XML Primer" /><link rel="prev" href="xml-primer-include.html" title="7.7. Using Entities to Include Files" /><link rel="next" href="xml-primer-conclusion.html" title="7.9. Conclusion" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">7.8. Marked Sections</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="xml-primer-include.html">Prev</a> </td><th width="60%" align="center">Chapter 7. XML Primer</th><td width="20%" align="right"> <a accesskey="n" href="xml-primer-conclusion.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="xml-primer-marked-sections"></a>7.8. Marked Sections</h2></div></div></div><p><acronym class="acronym">XML</acronym> provides a mechanism to indicate that
+      particular pieces of the document should be processed in a
+      special way.  These are called
+      <span class="quote">&#8220;<span class="quote">marked sections</span>&#8221;</span>.</p><div class="example"><a id="idp51393656"></a><div class="example-title">Example 7.12. Structure of a Marked Section</div><div class="example-contents"><pre class="programlisting">&lt;![<em class="replaceable"><code>KEYWORD</code></em>[
+  Contents of marked section
+]]&gt;</pre></div></div><br class="example-break" /><p>As expected of an <acronym class="acronym">XML</acronym> construct, a marked
+      section starts with <code class="literal">&lt;!</code>.</p><p>The first square bracket begins the marked section.</p><p><em class="replaceable"><code>KEYWORD</code></em> describes how this marked
+      section is to be processed by the parser.</p><p>The second square bracket indicates the start of the
+      marked section's content.</p><p>The marked section is finished by closing the two square
+      brackets, and then returning to the document context from the
+      <acronym class="acronym">XML</acronym> context with
+      <code class="literal">&gt;</code>.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="xml-primer-marked-section-keywords"></a>7.8.1. Marked Section Keywords</h3></div></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="xml-primer-cdata"></a>7.8.1.1. <code class="literal">CDATA</code></h4></div></div></div><p>These keywords denote the marked sections
+	  <span class="emphasis"><em>content model</em></span>, and allow you to change
+	  it from the default.</p><p>When an <acronym class="acronym">XML</acronym> parser is processing a
+	  document, it keeps track of the
+	  <span class="quote">&#8220;<span class="quote">content model</span>&#8221;</span>.</p><p>The content model describes the
+	  content the parser is expecting to see and what it will do
+	  with that content.</p><p>The <code class="literal">CDATA</code> content model is one of the
+	  most useful.</p><p><code class="literal">CDATA</code> is for
+	  <span class="quote">&#8220;<span class="quote">Character Data</span>&#8221;</span>.  When the parser is in this
+	  content model, it expects to see only characters.  In this
+	  model the <code class="literal">&lt;</code> and
+	  <code class="literal">&amp;</code> symbols lose their special status,
+	  and will be treated as ordinary characters.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">When using <code class="literal">CDATA</code> in examples of
+	    text marked up in <acronym class="acronym">XML</acronym>, remember that
+	    the content of <code class="literal">CDATA</code> is not validated.
+	    The included text must be check with other means.  For
+	    example, the content could be written in another document,
+	    validated, and then pasted into the
+	    <code class="literal">CDATA</code> section.</p></div><div class="example"><a id="idp51424248"></a><div class="example-title">Example 7.13. Using a <code class="literal">CDATA</code> Marked
+	    Section</div><div class="example-contents"><pre class="programlisting"><code class="sgmltag-starttag">&lt;para&gt;</code>Here is an example of how to include some text that contains
+  many <code class="sgmltag-starttag">&lt;literal&gt;</code>&amp;lt;<code class="sgmltag-endtag">&lt;/literal&gt;</code> and <code class="sgmltag-starttag">&lt;literal&gt;</code>&amp;amp;<code class="sgmltag-endtag">&lt;/literal&gt;</code>
+  symbols.  The sample text is a fragment of
+  <code class="sgmltag-starttag">&lt;acronym&gt;</code>XHTML<code class="sgmltag-endtag">&lt;/acronym&gt;</code>.  The surrounding text (<code class="sgmltag-starttag">&lt;para&gt;</code> and
+  <code class="sgmltag-starttag">&lt;programlisting&gt;</code>) are from DocBook.<code class="sgmltag-endtag">&lt;/para&gt;</code>
+
+<code class="sgmltag-starttag">&lt;programlisting&gt;</code>&lt;![CDATA[<code class="sgmltag-starttag">&lt;p&gt;</code>This is a sample that shows some of the
+  elements within <code class="sgmltag-starttag">&lt;acronym&gt;</code>XHTML<code class="sgmltag-endtag">&lt;/acronym&gt;</code>.  Since the angle
+  brackets are used so many times, it is simpler to say the whole
+  example is a CDATA marked section than to use the entity names for
+  the left and right angle brackets throughout.<code class="sgmltag-endtag">&lt;/p&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;ul&gt;</code>
+      <code class="sgmltag-starttag">&lt;li&gt;</code>This is a listitem<code class="sgmltag-endtag">&lt;/li&gt;</code>
+      <code class="sgmltag-starttag">&lt;li&gt;</code>This is a second listitem<code class="sgmltag-endtag">&lt;/li&gt;</code>
+      <code class="sgmltag-starttag">&lt;li&gt;</code>This is a third listitem<code class="sgmltag-endtag">&lt;/li&gt;</code>
+    <code class="sgmltag-endtag">&lt;/ul&gt;</code>
+
+    <code class="sgmltag-starttag">&lt;p&gt;</code>This is the end of the example.<code class="sgmltag-endtag">&lt;/p&gt;</code>]]&gt;<code class="sgmltag-endtag">&lt;/programlisting&gt;</code></pre></div></div><br class="example-break" /></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="xml-primer-include-ignore"></a>7.8.1.2. <code class="literal">INCLUDE</code> and
+	  <code class="literal">IGNORE</code></h4></div></div></div><p>When the keyword is <code class="literal">INCLUDE</code>, then the
+	  contents of the marked section will be processed.  When the
+	  keyword is <code class="literal">IGNORE</code>, the marked section
+	  is ignored and will not be processed.  It will not appear in
+	  the output.</p><div class="example"><a id="idp51441400"></a><div class="example-title">Example 7.14. Using <code class="literal">INCLUDE</code> and
+	    <code class="literal">IGNORE</code> in Marked Sections</div><div class="example-contents"><pre class="programlisting">&lt;![INCLUDE[
+  This text will be processed and included.
+]]&gt;
+
+&lt;![IGNORE[
+  This text will not be processed or included.
+]]&gt;</pre></div></div><br class="example-break" /><p>By itself, this is not too useful.  Text to be
+	  removed from the document could be cut out, or wrapped
+	  in comments.</p><p>It becomes more useful when controlled by
+	  <a class="link" href="xml-primer-entities.html#xml-primer-parameter-entities" title="7.6.2. Parameter Entities">parameter
+	    entities</a>, yet this usage is limited
+	  to entity files.</p><p>For example, suppose that documentation was produced in
+	  a hard-copy version and an electronic version.  Some extra
+	  text is desired in the electronic version content that was
+	  not to appear in the hard-copy.</p><p>Create an entity file that defines general entities to
+	  include each chapter and guard these definitions with a
+	  parameter entity that can be set to either
+	  <code class="literal">INCLUDE</code> or <code class="literal">IGNORE</code> to
+	  control whether the entity is defined.  After these
+	  conditional general entity definitions, place one more
+	  definition for each general entity to set them to an empty
+	  value.  This technique makes use of the fact that entity
+	  definitions cannot be overridden but the first definition
+	  always takes effect.  So the inclusion of the chapter is
+	  controlled with the corresponding parameter entity.  Set to
+	  <code class="literal">INCLUDE</code>, the first general entity
+	  definition will be read and the second one will be ignored.
+	  Set to <code class="literal">IGNORE</code>, the first definition will
+	  be ignored and the second one will take effect.</p><div class="example"><a id="idp51455224"></a><div class="example-title">Example 7.15. Using a Parameter Entity to Control a Marked
+	    Section</div><div class="example-contents"><pre class="programlisting">&lt;!ENTITY % electronic.copy "INCLUDE"&gt;
+
+&lt;![%electronic.copy;[
+&lt;!ENTITY chap.preface	SYSTEM "preface.xml"&gt;
+]]&gt;
+
+&lt;!ENTITY chap.preface ""&gt;</pre><p>When producing the hard-copy version, change the
+	    parameter entity's definition to:</p><pre class="programlisting">&lt;!ENTITY % electronic.copy "IGNORE"&gt;</pre></div></div><br class="example-break" /></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="xml-primer-marked-section-keywords-to-do"></a>7.8.2. To Do&#8230;</h3></div></div></div><div class="procedure"><ol class="procedure" type="1"><li class="step"><p>Modify <code class="filename">entities.ent</code> to
+	    contain the following:</p><pre class="programlisting">&lt;!ENTITY version "1.1"&gt;
+&lt;!ENTITY % conditional.text "IGNORE"&gt;
+
+&lt;![%conditional.text;[
+&lt;!ENTITY para1 SYSTEM "para1.xml"&gt;
+]]&gt;
+
+&lt;!ENTITY para1 ""&gt;
+
+&lt;!ENTITY para2 SYSTEM "para2.xml"&gt;
+&lt;!ENTITY para3 SYSTEM "para3.xml"&gt;</pre></li><li class="step"><p>Normalize <code class="filename">example.xml</code>
+	    and notice that the conditional text is not present in the
+	    output document.  Set the parameter entity
+	    guard to <code class="literal">INCLUDE</code> and regenerate the
+	    normalized document and the text will appear again.
+	    This method makes sense if there are more
+	    conditional chunks depending on the same condition.  For
+	    example, to control generating printed or online
+	    text.</p></li></ol></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="xml-primer-include.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="xml-primer.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="xml-primer-conclusion.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">7.7. Using Entities to Include Files </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 7.9. Conclusion</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">Search</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="//www.FreeBSD.org/cgi/man.cgi">Manual Pages</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">Presentations and Papers</a>
                   </li>
                   <li>
                     <a href="../doc/en_US.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
@@ -225,7 +227,7 @@
                 <a href="../features.html">Features</a>
                 <a href="../releases/index.html">Releases</a>
                 <a href="../doc/en_US.ISO8859-1/books/handbook/install.html">Installation</a>
-                <a href="../releases/11.2R/hardware.html">Supported Hardware</a>
+                <a href="../releases/12.0R/hardware.html">Supported Hardware</a>
                 <a href="../doc/en_US.ISO8859-1/books/handbook/mirrors.html">Mirrors</a>
                 <a href="../applications.html">Applications</a>
                 <a href="../java/index.html">Java</a>
@@ -292,6 +294,7 @@
               </dt>
               <dd>
                 <a href="https://www.freebsdfoundation.org/">The FreeBSD Foundation</a>
+                <a href="https://www.freebsdfoundation.org/news-and-events/">News And Events</a>
               </dd>
               <dt>
                 <strong>News</strong>
@@ -322,12 +325,9 @@
                 <strong>Projects</strong>
               </dt>
               <dd>
-                <a href="../projects/acpi/index.html">ACPI</a>
-                <a href="../projects/busdma/index.html">Busdma and SMPng driver conversion</a>
-                <a href="../projects/cvsweb.html">CVSweb</a>
+                <a href="https://wiki.freebsd.org/ACPI">ACPI</a>
                 <a href="https://wiki.freebsd.org/IdeasPage">FreeBSD Project Ideas</a>
                 <a href="../projects/mips/index.html">FreeBSD/MIPS</a>
-                <a href="../projects/netperf/index.html">Network Performance (netperf)</a>
               </dd>
             </dl>
             <h2>Meta homepages</h2>
@@ -525,9 +525,6 @@
               </li>
               <li>
                 <a href="../internal/bylaws.html">Bylaws, Core</a>
-              </li>
-              <li>
-                <a href="../projects/busdma/index.html">busdma and SMPng driver conversion project</a>
               </li>
             </ul>
             <h2 xmlns="">
@@ -1104,9 +1101,6 @@
                 <a href="../docproj/docproj.html">SGML, Documentation Project</a>
               </li>
               <li>
-                <a href="../projects/busdma/index.html">SMPng driver conversion</a>
-              </li>
-              <li>
                 <a href="search.html">Search Services</a>
               </li>
               <li>
@@ -1269,7 +1263,7 @@
         </div>
         <div id="footer">
           <span><a href="../search/index-site.html">Site Map</a> |
-  <a href="../copyright/">Legal Notices</a> | © 1995&#8211;2018 The FreeBSD Project.
+  <a href="../copyright/">Legal Notices</a> | © 1995&#8211;2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

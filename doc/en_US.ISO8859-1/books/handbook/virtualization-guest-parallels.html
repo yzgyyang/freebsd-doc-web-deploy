@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>21.2. FreeBSD as a Guest on Parallels for Mac OS® X</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="virtualization.html" title="Chapter 21. Virtualization" /><link rel="prev" href="virtualization.html" title="Chapter 21. Virtualization" /><link rel="next" href="virtualization-guest-virtualpc.html" title="21.3. FreeBSD as a Guest on Virtual PC for Windows®" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">21.2. FreeBSD as a Guest on <span class="application">Parallels</span> for
+      <span class="trademark">Mac OS</span>® X</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="virtualization.html">Prev</a> </td><th width="60%" align="center">Chapter 21. Virtualization</th><td width="20%" align="right"> <a accesskey="n" href="virtualization-guest-virtualpc.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="virtualization-guest-parallels"></a>21.2. FreeBSD as a Guest on <span class="application">Parallels</span> for
+      <span class="trademark">Mac OS</span>® X</h2></div></div></div><p><span class="application">Parallels Desktop</span> for <span class="trademark">Mac</span>® is
+      a commercial software product available for <span class="trademark">Intel</span>® based
+      <span class="trademark">Apple</span>® <span class="trademark">Mac</span>® computers running <span class="trademark">Mac OS</span>® 10.4.6 or higher.  FreeBSD
+      is a fully supported guest operating system.  Once
+      <span class="application">Parallels</span> has been installed on
+      <span class="trademark">Mac OS</span>® X, the user must configure a virtual machine and then
+      install the desired guest operating system.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="virtualization-guest-parallels-install"></a>21.2.1. Installing FreeBSD on Parallels/<span class="trademark">Mac OS</span>® X</h3></div></div></div><p>The first step in installing FreeBSD on
+	<span class="application">Parallels</span> is to create a new
+	virtual machine for installing FreeBSD.  Select
+	<span class="guimenuitem">FreeBSD</span> as the
+	<span class="guimenu">Guest OS Type</span> when prompted:</p><div class="mediaobject"><img src="virtualization/parallels-freebsd1.png" /></div><p>Choose a reasonable amount of disk and memory
+	depending on the plans for this virtual FreeBSD instance.
+	4GB of disk space and 512MB of RAM work well for most uses
+	of FreeBSD under <span class="application">Parallels</span>:</p><div class="mediaobject"><img src="virtualization/parallels-freebsd2.png" /></div><div class="mediaobject"><img src="virtualization/parallels-freebsd3.png" /></div><div class="mediaobject"><img src="virtualization/parallels-freebsd4.png" /></div><div class="mediaobject"><img src="virtualization/parallels-freebsd5.png" /></div><p>Select the type of networking and a network
+	interface:</p><div class="mediaobject"><img src="virtualization/parallels-freebsd6.png" /></div><div class="mediaobject"><img src="virtualization/parallels-freebsd7.png" /></div><p>Save and finish the configuration:</p><div class="mediaobject"><img src="virtualization/parallels-freebsd8.png" /></div><div class="mediaobject"><img src="virtualization/parallels-freebsd9.png" /></div><p>After the FreeBSD virtual machine has been created, FreeBSD
+	can be installed on it.  This is best done with an official
+	FreeBSD <acronym class="acronym">CD</acronym>/<acronym class="acronym">DVD</acronym> or with an
+	<acronym class="acronym">ISO</acronym> image downloaded from an official
+	<acronym class="acronym">FTP</acronym> site.  Copy the appropriate
+	<acronym class="acronym">ISO</acronym> image to the local <span class="trademark">Mac</span>® filesystem or
+	insert a <acronym class="acronym">CD</acronym>/<acronym class="acronym">DVD</acronym> in the
+	<span class="trademark">Mac</span>®'s <acronym class="acronym">CD-ROM</acronym> drive.  Click on the disc
+	icon in the bottom right corner of the FreeBSD
+	<span class="application">Parallels</span> window.  This will bring
+	up a window that can be used to associate the
+	<acronym class="acronym">CD-ROM</acronym> drive in the virtual machine with
+	the <acronym class="acronym">ISO</acronym> file on disk or with the real
+	<acronym class="acronym">CD-ROM</acronym> drive.</p><div class="mediaobject"><img src="virtualization/parallels-freebsd11.png" /></div><p>Once this association with the <acronym class="acronym">CD-ROM</acronym>
+	source has been made, reboot the FreeBSD virtual machine by
+	clicking the reboot icon.
+	<span class="application">Parallels</span> will reboot with a
+	special <acronym class="acronym">BIOS</acronym> that first checks if there is
+	a <acronym class="acronym">CD-ROM</acronym>.</p><div class="mediaobject"><img src="virtualization/parallels-freebsd10.png" /></div><p>In this case it will find the FreeBSD installation media and
+	begin a normal FreeBSD installation.  Perform the installation,
+	but do not attempt to configure
+	<span class="application">Xorg</span> at this time.</p><div class="mediaobject"><img src="virtualization/parallels-freebsd12.png" /></div><p>When the installation is finished, reboot into the newly
+	installed FreeBSD virtual machine.</p><div class="mediaobject"><img src="virtualization/parallels-freebsd13.png" /></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="virtualization-guest-parallels-configure"></a>21.2.2. Configuring FreeBSD on
+	<span class="application">Parallels</span></h3></div></div></div><p>After FreeBSD has been successfully installed on <span class="trademark">Mac OS</span>® X
+	with <span class="application">Parallels</span>, there are a number
+	of configuration steps that can be taken to optimize the
+	system for virtualized operation.</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p class="title"><strong>Set Boot Loader Variables</strong></p><p>The most important step is to reduce the
+	    <code class="option">kern.hz</code> tunable to reduce the CPU
+	    utilization of FreeBSD under the
+	    <span class="application">Parallels</span> environment.  This is
+	    accomplished by adding the following line to
+	    <code class="filename">/boot/loader.conf</code>:</p><pre class="programlisting">kern.hz=100</pre><p>Without this setting, an idle FreeBSD
+	    <span class="application">Parallels</span> guest will use
+	    roughly 15% of the CPU of a single processor <span class="trademark">iMac</span>®.
+	    After this change the usage will be closer to 5%.</p></li><li class="step"><p class="title"><strong>Create a New Kernel Configuration File</strong></p><p>All of the SCSI, FireWire, and USB device drivers
+	    can be removed from a custom kernel configuration file.
+	    <span class="application">Parallels</span> provides a virtual
+	    network adapter used by the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ed&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ed</span>(4)</span></a> driver, so all
+	    network devices except for <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ed&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ed</span>(4)</span></a> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=miibus&amp;sektion=4&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">miibus</span>(4)</span></a>
+	    can be removed from the kernel.</p></li><li class="step"><p class="title"><strong>Configure Networking</strong></p><p>The most basic networking setup uses DHCP to connect
+	    the virtual machine to the same local area network as the
+	    host <span class="trademark">Mac</span>®.  This can be accomplished by adding
+	    <code class="literal">ifconfig_ed0="DHCP"</code> to
+	    <code class="filename">/etc/rc.conf</code>.  More advanced
+	    networking setups are described in
+	    <a class="xref" href="advanced-networking.html" title="Chapter 31. Advanced Networking">Chapter 31, <em>Advanced Networking</em></a>.</p></li></ol></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="virtualization.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="virtualization.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="virtualization-guest-virtualpc.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 21. Virtualization </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 21.3. FreeBSD as a Guest on <span class="application">Virtual PC</span>
+      for <span class="trademark">Windows</span>®</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

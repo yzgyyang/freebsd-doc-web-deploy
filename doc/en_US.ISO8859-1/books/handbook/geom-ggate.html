@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>18.6. GEOM Gate Network</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="geom.html" title="Chapter 18. GEOM: Modular Disk Transformation Framework" /><link rel="prev" href="geom-graid.html" title="18.5. Software RAID Devices" /><link rel="next" href="geom-glabel.html" title="18.7. Labeling Disk Devices" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">18.6. <acronym class="acronym">GEOM</acronym> Gate Network</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="geom-graid.html">Prev</a> </td><th width="60%" align="center">Chapter 18. GEOM: Modular Disk Transformation Framework</th><td width="20%" align="right"> <a accesskey="n" href="geom-glabel.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="geom-ggate"></a>18.6. <acronym class="acronym">GEOM</acronym> Gate Network</h2></div></div></div><p><acronym class="acronym">GEOM</acronym> provides a simple mechanism for
+      providing remote access to devices such as disks,
+      <acronym class="acronym">CD</acronym>s, and file systems through the use of the
+      <acronym class="acronym">GEOM</acronym> Gate network daemon,
+      <span class="application">ggated</span>.  The system with the device
+      runs the server daemon which handles requests made by clients
+      using <span class="application">ggatec</span>.  The devices should not
+      contain any sensitive data as the connection between the client
+      and the server is not encrypted.</p><p>Similar to <acronym class="acronym">NFS</acronym>, which is discussed in
+      <a class="xref" href="network-nfs.html" title="29.3. Network File System (NFS)">Section 29.3, &#8220;Network File System (NFS)&#8221;</a>, <span class="application">ggated</span>
+      is configured using an exports file.  This file specifies which
+      systems are permitted to access the exported resources and what
+      level of access they are offered.  For example, to give the
+      client <code class="systemitem">192.168.1.5</code>
+      read and write access to the fourth slice on the first
+      <acronym class="acronym">SCSI</acronym> disk, create
+      <code class="filename">/etc/gg.exports</code> with this line:</p><pre class="programlisting">192.168.1.5 RW /dev/da0s4d</pre><p>Before exporting the device, ensure it is not currently
+      mounted.  Then, start <span class="application">ggated</span>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ggated</code></strong></pre><p>Several options are available for specifying an alternate
+      listening port or changing the default location of the exports
+      file.  Refer to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ggated&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ggated</span>(8)</span></a> for details.</p><p>To access the exported device on the client machine, first
+      use <code class="command">ggatec</code> to specify the
+      <acronym class="acronym">IP</acronym> address of the server and the device name
+      of the exported device.  If successful, this command will
+      display a <code class="literal">ggate</code> device name to mount.  Mount
+      that specified device name on a free mount point.  This example
+      connects to the <code class="filename">/dev/da0s4d</code> partition on
+      <code class="literal">192.168.1.1</code>, then mounts
+      <code class="filename">/dev/ggate0</code> on
+      <code class="filename">/mnt</code>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ggatec create -o rw 192.168.1.1 /dev/da0s4d</code></strong>
+ggate0
+<code class="prompt">#</code> <strong class="userinput"><code>mount /dev/ggate0 /mnt</code></strong></pre><p>The device on the server may now be accessed through
+      <code class="filename">/mnt</code> on the client.  For more details about
+      <code class="command">ggatec</code> and a few usage examples, refer to
+      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ggatec&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ggatec</span>(8)</span></a>.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">The mount will fail if the device is currently mounted on
+	either the server or any other client on the network.  If
+	simultaneous access is needed to network resources, use
+	<acronym class="acronym">NFS</acronym> instead.</p></div><p>When the device is no longer needed, unmount it with
+      <code class="command">umount</code> so that the resource is available to
+      other clients.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="geom-graid.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="geom.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="geom-glabel.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">18.5. Software <acronym class="acronym">RAID</acronym> Devices </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 18.7. Labeling Disk Devices</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

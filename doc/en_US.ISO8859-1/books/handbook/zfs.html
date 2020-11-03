@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>Chapter 19. The Z File System (ZFS)</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="system-administration.html" title="Part III. System Administration" /><link rel="prev" href="geom-gjournal.html" title="18.8. UFS Journaling Through GEOM" /><link rel="next" href="zfs-quickstart.html" title="19.2. Quick Start Guide" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 19. The Z File System (<acronym class="acronym">ZFS</acronym>)</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="geom-gjournal.html">Prev</a> </td><th width="60%" align="center">Part III. System Administration</th><td width="20%" align="right"> <a accesskey="n" href="zfs-quickstart.html">Next</a></td></tr></table><hr /></div><div class="chapter"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="zfs"></a>Chapter 19. The Z File System (<acronym class="acronym">ZFS</acronym>)</h2></div><div><span class="authorgroup">Written by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Tom</span> <span class="surname">Rhodes</span></span>, <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Allan</span> <span class="surname">Jude</span></span>, <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Benedict</span> <span class="surname">Reuschling</span></span> and <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Warren</span> <span class="surname">Block</span></span>. </span></div></div></div><div class="toc"><div class="toc-title">Table of Contents</div><dl class="toc"><dt><span class="sect1"><a href="zfs.html#zfs-differences">19.1. What Makes <acronym class="acronym">ZFS</acronym> Different</a></span></dt><dt><span class="sect1"><a href="zfs-quickstart.html">19.2. Quick Start Guide</a></span></dt><dt><span class="sect1"><a href="zfs-zpool.html">19.3. <code class="command">zpool</code> Administration</a></span></dt><dt><span class="sect1"><a href="zfs-zfs.html">19.4. <code class="command">zfs</code> Administration</a></span></dt><dt><span class="sect1"><a href="zfs-zfs-allow.html">19.5. Delegated Administration</a></span></dt><dt><span class="sect1"><a href="zfs-advanced.html">19.6. Advanced Topics</a></span></dt><dt><span class="sect1"><a href="zfs-links.html">19.7. Additional Resources</a></span></dt><dt><span class="sect1"><a href="zfs-term.html">19.8. <acronym class="acronym">ZFS</acronym> Features and Terminology</a></span></dt></dl></div><p>The <span class="emphasis"><em>Z File System</em></span>, or
+    <acronym class="acronym">ZFS</acronym>, is an advanced file system designed to
+    overcome many of the major problems found in previous
+    designs.</p><p>Originally developed at <span class="trademark">Sun</span>&#8482;, ongoing open source
+    <acronym class="acronym">ZFS</acronym> development has moved to the <a class="link" href="http://open-zfs.org" target="_top">OpenZFS Project</a>.</p><p><acronym class="acronym">ZFS</acronym> has three major design goals:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Data integrity: All data includes a
+	<a class="link" href="zfs-term.html#zfs-term-checksum">checksum</a> of the data.
+	When data is written, the checksum is calculated and written
+	along with it.  When that data is later read back, the
+	checksum is calculated again.  If the checksums do not match,
+	a data error has been detected.  <acronym class="acronym">ZFS</acronym> will
+	attempt to automatically correct errors when data redundancy
+	is available.</p></li><li class="listitem"><p>Pooled storage: physical storage devices are added to a
+	pool, and storage space is allocated from that shared pool.
+	Space is available to all file systems, and can be increased
+	by adding new storage devices to the pool.</p></li><li class="listitem"><p>Performance: multiple caching mechanisms provide increased
+	performance.  <a class="link" href="zfs-term.html#zfs-term-arc">ARC</a> is an
+	advanced memory-based read cache.  A second level of
+	disk-based read cache can be added with
+	<a class="link" href="zfs-term.html#zfs-term-l2arc">L2ARC</a>, and disk-based
+	synchronous write cache is available with
+	<a class="link" href="zfs-term.html#zfs-term-zil">ZIL</a>.</p></li></ul></div><p>A complete list of features and terminology is shown in
+    <a class="xref" href="zfs-term.html" title="19.8. ZFS Features and Terminology">Section 19.8, &#8220;<acronym class="acronym">ZFS</acronym> Features and Terminology&#8221;</a>.</p><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="zfs-differences"></a>19.1. What Makes <acronym class="acronym">ZFS</acronym> Different</h2></div></div></div><p><acronym class="acronym">ZFS</acronym> is significantly different from any
+      previous file system because it is more than just a file system.
+      Combining the traditionally separate roles of volume manager and
+      file system provides <acronym class="acronym">ZFS</acronym> with unique
+      advantages.  The file system is now aware of the underlying
+      structure of the disks.  Traditional file systems could only be
+      created on a single disk at a time.  If there were two disks
+      then two separate file systems would have to be created.  In a
+      traditional hardware <acronym class="acronym">RAID</acronym> configuration, this
+      problem was avoided by presenting the operating system with a
+      single logical disk made up of the space provided by a number of
+      physical disks, on top of which the operating system placed a
+      file system.  Even in the case of software
+      <acronym class="acronym">RAID</acronym> solutions like those provided by
+      <acronym class="acronym">GEOM</acronym>, the <acronym class="acronym">UFS</acronym> file system
+      living on top of the <acronym class="acronym">RAID</acronym> transform believed
+      that it was dealing with a single device.
+      <acronym class="acronym">ZFS</acronym>'s combination of the volume manager and
+      the file system solves this and allows the creation of many file
+      systems all sharing a pool of available storage.  One of the
+      biggest advantages to <acronym class="acronym">ZFS</acronym>'s awareness of the
+      physical layout of the disks is that existing file systems can
+      be grown automatically when additional disks are added to the
+      pool.  This new space is then made available to all of the file
+      systems.  <acronym class="acronym">ZFS</acronym> also has a number of different
+      properties that can be applied to each file system, giving many
+      advantages to creating a number of different file systems and
+      datasets rather than a single monolithic file system.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="geom-gjournal.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="system-administration.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="zfs-quickstart.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">18.8. UFS Journaling Through <acronym class="acronym">GEOM</acronym> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 19.2. Quick Start Guide</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>2.12. Network Communication</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="The Design and Implementation of the 4.4BSD Operating System" /><link rel="up" href="overview.html" title="Chapter 2. Design Overview of 4.4BSD" /><link rel="prev" href="overview-ipc.html" title="2.11. Interprocess Communication" /><link rel="next" href="overview-network-implementation.html" title="2.13. Network Implementation" /><link rel="copyright" href="legalnotice.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">2.12. Network Communication</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="overview-ipc.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Design Overview of 4.4BSD</th><td width="20%" align="right"> <a accesskey="n" href="overview-network-implementation.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="overview-network-communication"></a>2.12. Network Communication</h2></div></div></div><p>Some of the communication domains supported by the
+	<span class="emphasis"><em>socket</em></span>
+	IPC
+	mechanism provide access to network protocols.
+	These protocols are implemented as a separate software
+	layer logically below the socket software in the kernel.
+	The kernel provides many ancillary services, such as
+    buffer management, message routing, standardized interfaces
+    to the protocols, and interfaces to the network interface drivers
+    for the use of the various network protocols.</p><p>At the time that 4.2BSD was being implemented,
+    there were many networking protocols in use or under development,
+    each with its own strengths and weaknesses.
+    There was no clearly superior protocol or protocol suite.
+    By supporting multiple protocols, 4.2BSD
+    could provide interoperability and resource sharing
+    among the diverse set of machines that was available
+    in the Berkeley environment.
+    Multiple-protocol support also provides for future changes.
+    Today's protocols designed for 10- to 100-Mbit-per-second
+    Ethernets are likely to be inadequate for
+    tomorrow's 1- to 10-Gbit-per-second fiber-optic networks.
+    Consequently, the network-communication layer is
+    designed to support multiple protocols.
+    New protocols are added to the kernel without
+    the support for older protocols being affected.
+    Older applications can continue to operate using the old protocol
+    over the same physical network as is used by newer applications
+    running with a newer network protocol.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="overview-ipc.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="overview.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="overview-network-implementation.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2.11. Interprocess Communication </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 2.13. Network Implementation</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>12.2. FreeBSD Boot Process</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="boot.html" title="Chapter 12. The FreeBSD Booting Process" /><link rel="prev" href="boot.html" title="Chapter 12. The FreeBSD Booting Process" /><link rel="next" href="boot-splash.html" title="12.3. Configuring Boot Time Splash Screens" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">12.2. FreeBSD Boot Process</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="boot.html">Prev</a> </td><th width="60%" align="center">Chapter 12. The FreeBSD Booting Process</th><td width="20%" align="right"> <a accesskey="n" href="boot-splash.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="boot-introduction"></a>12.2. FreeBSD Boot Process</h2></div></div></div><p>Turning on a computer and starting the operating system
+      poses an interesting dilemma.  By definition, the computer does
+      not know how to do anything until the operating system is
+      started.  This includes running programs from the disk.  If the
+      computer can not run a program from the disk without the
+      operating system, and the operating system programs are on the
+      disk, how is the operating system started?</p><p>This problem parallels one in the book <em class="citetitle">The
+	Adventures of Baron Munchausen</em>.  A character had
+      fallen part way down a manhole, and pulled himself out by
+      grabbing his bootstraps and lifting.  In the early days of
+      computing, the term <em class="firstterm">bootstrap</em> was applied
+      to the mechanism used to load the operating system.  It has
+      since become shortened to <span class="quote">&#8220;<span class="quote">booting</span>&#8221;</span>.</p><a id="idp57792888" class="indexterm"></a><a id="idp58125304" class="indexterm"></a><p>On x86 hardware, the Basic Input/Output System
+      (<acronym class="acronym">BIOS</acronym>) is responsible for loading the
+      operating system.  The <acronym class="acronym">BIOS</acronym> looks on the hard
+      disk for the Master Boot Record (<acronym class="acronym">MBR</acronym>), which
+      must be located in a specific place on the disk.  The
+      <acronym class="acronym">BIOS</acronym> has enough knowledge to load and run the
+      <acronym class="acronym">MBR</acronym>, and assumes that the
+      <acronym class="acronym">MBR</acronym> can then carry out the rest of the tasks
+      involved in loading the operating system, possibly with the help
+      of the <acronym class="acronym">BIOS</acronym>.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">FreeBSD provides for booting from both the older
+	<acronym class="acronym">MBR</acronym> standard, and the newer GUID Partition
+	Table (<acronym class="acronym">GPT</acronym>).  <acronym class="acronym">GPT</acronym>
+	partitioning is often found on computers with the Unified
+	Extensible Firmware Interface (<acronym class="acronym">UEFI</acronym>).
+	However, FreeBSD can boot from <acronym class="acronym">GPT</acronym> partitions
+	even on machines with only a legacy <acronym class="acronym">BIOS</acronym>
+	with <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=gptboot&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">gptboot</span>(8)</span></a>.  Work is under way to provide direct
+	<acronym class="acronym">UEFI</acronym> booting.</p></div><a id="idp58137720" class="indexterm"></a><a id="idp58138616" class="indexterm"></a><a id="idp58139128" class="indexterm"></a><p>The code within the <acronym class="acronym">MBR</acronym> is typically
+      referred to as a <span class="emphasis"><em>boot manager</em></span>, especially
+      when it interacts with the user.  The boot manager usually has
+      more code in the first track of the disk or within the file
+      system.  Examples of boot managers include the standard FreeBSD
+      boot manager <span class="application">boot0</span>, also called
+      <span class="application">Boot Easy</span>, and
+      <span class="application">Grub</span>, which is used by many <span class="trademark">Linux</span>®
+      distributions.</p><p>If only one operating system is installed, the
+      <acronym class="acronym">MBR</acronym> searches for the first bootable (active)
+      slice on the disk, and then runs the code on that slice to load
+      the remainder of the operating system.  When multiple operating
+      systems are present, a different boot manager can be installed
+      to display a list of operating systems so the user
+      can select one to boot.</p><p>The remainder of the FreeBSD bootstrap system is divided into
+      three stages.  The first stage knows just enough to get the
+      computer into a specific state and run the second stage.  The
+      second stage can do a little bit more, before running the third
+      stage.  The third stage finishes the task of loading the
+      operating system.  The work is split into three stages because
+      the <acronym class="acronym">MBR</acronym> puts limits on the size of the
+      programs that can be run at stages one and two.  Chaining the
+      tasks together allows FreeBSD to provide a more flexible
+      loader.</p><a id="idp58143992" class="indexterm"></a><a id="idp58144504" class="indexterm"></a><p>The kernel is then started and begins to probe for devices
+      and initialize them for use.  Once the kernel boot process is
+      finished, the kernel passes control to the user process
+      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=init&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">init</span>(8)</span></a>, which makes sure the disks are in a usable state,
+      starts the user-level resource configuration which mounts file
+      systems, sets up network cards to communicate on the network,
+      and starts the processes which have been configured to run at
+      startup.</p><p>This section describes these stages in more detail and
+      demonstrates how to interact with the FreeBSD boot process.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="boot-boot0"></a>12.2.1. The Boot Manager</h3></div></div></div><a id="idp58160248" class="indexterm"></a><a id="idp58160760" class="indexterm"></a><p>The boot manager code in the <acronym class="acronym">MBR</acronym> is
+	sometimes referred to as <span class="emphasis"><em>stage zero</em></span> of
+	the boot process.  By default, FreeBSD uses the
+	<span class="application">boot0</span> boot manager.</p><p>The <acronym class="acronym">MBR</acronym> installed by the FreeBSD installer
+	is based on <code class="filename">/boot/boot0</code>.  The size and
+	capability of <span class="application">boot0</span> is restricted
+	to 446 bytes due to the slice table and
+	<code class="literal">0x55AA</code> identifier at the end of the
+	<acronym class="acronym">MBR</acronym>.  If <span class="application">boot0</span>
+	and multiple operating systems are installed, a message
+	similar to this example will be displayed at boot time:</p><div class="example"><a id="boot-boot0-example"></a><div class="example-title">Example 12.1. <code class="filename">boot0</code> Screenshot</div><div class="example-contents"><pre class="screen">F1 Win
+F2 FreeBSD
+
+Default: F2</pre></div></div><br class="example-break" /><p>Other operating systems will overwrite an existing
+	<acronym class="acronym">MBR</acronym> if they are installed after FreeBSD.  If
+	this happens, or to replace the existing
+	<acronym class="acronym">MBR</acronym> with the FreeBSD <acronym class="acronym">MBR</acronym>,
+	use the following command:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>fdisk -B -b /boot/boot0 <em class="replaceable"><code>device</code></em></code></strong></pre><p>where <em class="replaceable"><code>device</code></em> is the boot disk,
+	such as <code class="filename">ad0</code> for the first
+	<acronym class="acronym">IDE</acronym> disk, <code class="filename">ad2</code> for the
+	first <acronym class="acronym">IDE</acronym> disk on a second
+	<acronym class="acronym">IDE</acronym> controller, or <code class="filename">da0</code>
+	for the first <acronym class="acronym">SCSI</acronym> disk.  To create a
+	custom configuration of the <acronym class="acronym">MBR</acronym>, refer to
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=boot0cfg&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">boot0cfg</span>(8)</span></a>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="boot-boot1"></a>12.2.2. Stage One and Stage Two</h3></div></div></div><p>Conceptually, the first and second stages are part of the
+	same program on the same area of the disk.  Because of space
+	constraints, they have been split into two, but are always
+	installed together.  They are copied from the combined
+	<code class="filename">/boot/boot</code> by the FreeBSD installer or
+	<code class="command">bsdlabel</code>.</p><p>These two stages are located outside file systems, in the
+	first track of the boot slice, starting with the first sector.
+	This is where <span class="application">boot0</span>, or any other
+	boot manager, expects to find a program to run which will
+	continue the boot process.</p><p>The first stage, <code class="filename">boot1</code>, is very
+	simple, since it can only be 512 bytes in size.  It knows just
+	enough about the FreeBSD <em class="firstterm">bsdlabel</em>, which
+	stores information about the slice, to find and execute
+	<code class="filename">boot2</code>.</p><p>Stage two, <code class="filename">boot2</code>, is slightly more
+	sophisticated, and understands the FreeBSD file system enough to
+	find files.  It can provide a simple interface to choose the
+	kernel or loader to run.  It runs
+	<span class="application">loader</span>, which is much more
+	sophisticated and provides a boot configuration file.  If the
+	boot process is interrupted at stage two, the following
+	interactive screen is displayed:</p><div class="example"><a id="boot-boot2-example"></a><div class="example-title">Example 12.2. <code class="filename">boot2</code> Screenshot</div><div class="example-contents"><pre class="screen">&gt;&gt; FreeBSD/i386 BOOT
+Default: 0:ad(0,a)/boot/loader
+boot:</pre></div></div><br class="example-break" /><p>To replace the installed <code class="filename">boot1</code> and
+	<code class="filename">boot2</code>, use <code class="command">bsdlabel</code>,
+	where <em class="replaceable"><code>diskslice</code></em> is the disk and
+	slice to boot from, such as <code class="filename">ad0s1</code> for the
+	first slice on the first <acronym class="acronym">IDE</acronym> disk:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>bsdlabel -B <em class="replaceable"><code>diskslice</code></em></code></strong></pre><div xmlns="" class="warning"><h3 class="admontitle">Warning: </h3><p xmlns="http://www.w3.org/1999/xhtml">If just the disk name is used, such as
+	  <code class="filename">ad0</code>, <code class="command">bsdlabel</code> will
+	  create the disk in <span class="quote">&#8220;<span class="quote">dangerously dedicated
+	    mode</span>&#8221;</span>, without slices.  This is probably not the
+	  desired action, so double check the
+	  <em class="replaceable"><code>diskslice</code></em> before pressing
+	  <span class="keycap"><strong>Return</strong></span>.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="boot-loader"></a>12.2.3. Stage Three</h3></div></div></div><a id="idp58365560" class="indexterm"></a><p>The <span class="application">loader</span> is the final stage
+	of the three-stage bootstrap process.  It is located on the
+	file system, usually as
+	<code class="filename">/boot/loader</code>.</p><p>The <span class="application">loader</span> is intended as an
+	interactive method for configuration, using a built-in command
+	set, backed up by a more powerful interpreter which has a more
+	complex command set.</p><p>During initialization, <span class="application">loader</span>
+	will probe for a console and for disks, and figure out which
+	disk it is booting from.  It will set variables accordingly,
+	and an interpreter is started where user commands can be
+	passed from a script or interactively.</p><a id="idp58368760" class="indexterm"></a><a id="idp58369272" class="indexterm"></a><p>The <span class="application">loader</span> will then read
+	<code class="filename">/boot/loader.rc</code>, which by default reads
+	in <code class="filename">/boot/defaults/loader.conf</code> which sets
+	reasonable defaults for variables and reads
+	<code class="filename">/boot/loader.conf</code> for local changes to
+	those variables.  <code class="filename">loader.rc</code> then acts on
+	these variables, loading whichever modules and kernel are
+	selected.</p><p>Finally, by default, <span class="application">loader</span>
+	issues a 10 second wait for key presses, and boots the kernel
+	if it is not interrupted.  If interrupted, the user is
+	presented with a prompt which understands the command set,
+	where the user may adjust variables, unload all modules, load
+	modules, and then finally boot or reboot.  <a class="xref" href="boot-introduction.html#boot-loader-commands" title="Table 12.1. Loader Built-In Commands">Table 12.1, &#8220;Loader Built-In Commands&#8221;</a> lists the most commonly
+	used <span class="application">loader</span> commands.  For a
+	complete discussion of all available commands, refer to
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=loader&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">loader</span>(8)</span></a>.</p><div class="table"><a id="boot-loader-commands"></a><div class="table-title">Table 12.1. Loader Built-In Commands</div><div class="table-contents"><table class="table" summary="Loader Built-In Commands" width="100%" border="0"><colgroup><col /><col /></colgroup><thead><tr><th>Variable</th><th>Description</th></tr></thead><tbody><tr><td>autoboot
+		<em class="replaceable"><code>seconds</code></em></td><td>Proceeds to boot the kernel if not interrupted
+		within the time span given, in seconds.  It displays a
+		countdown, and the default time span is 10
+		seconds.</td></tr><tr><td>boot
+		[<span class="optional"><em class="replaceable"><code>-options</code></em></span>]
+		[<span class="optional"><em class="replaceable"><code>kernelname</code></em></span>]</td><td>Immediately proceeds to boot the kernel, with
+		any specified options or kernel name.  Providing a
+		kernel name on the command-line is only applicable
+		after an <code class="command">unload</code> has been issued.
+		Otherwise, the previously-loaded kernel will be
+		used.  If <span class="emphasis"><em>kernelname</em></span> is not
+		qualified, it will be searched under
+		<span class="emphasis"><em>/boot/kernel</em></span> and
+		<span class="emphasis"><em>/boot/modules</em></span>.</td></tr><tr><td>boot-conf</td><td>Goes through the same automatic configuration of
+		modules based on specified variables, most commonly
+		<code class="envar">kernel</code>.  This only makes sense if
+		<code class="command">unload</code> is used first, before
+		changing some variables.</td></tr><tr><td>help
+		[<span class="optional"><em class="replaceable"><code>topic</code></em></span>]</td><td>Shows help messages read from
+		<code class="filename">/boot/loader.help</code>.  If the topic
+		given is <code class="literal">index</code>, the list of
+		available topics is displayed.</td></tr><tr><td>include <em class="replaceable"><code>filename</code></em>
+		&#8230;</td><td>Reads the specified file and interprets it line
+		by line.  An error immediately stops the
+		<code class="command">include</code>.</td></tr><tr><td>load [<span class="optional">-t
+		  <em class="replaceable"><code>type</code></em></span>]
+		<em class="replaceable"><code>filename</code></em></td><td>Loads the kernel, kernel module, or file of the
+		type given, with the specified filename.  Any
+		arguments after <em class="replaceable"><code>filename</code></em>
+		are passed to the file.  If
+		<span class="emphasis"><em>filename</em></span> is not qualified, it
+		will be searched under
+		<span class="emphasis"><em>/boot/kernel</em></span>
+		and <span class="emphasis"><em>/boot/modules</em></span>.</td></tr><tr><td>ls [<span class="optional">-l</span>]
+		[<span class="optional"><em class="replaceable"><code>path</code></em></span>]</td><td>Displays a listing of files in the given path, or
+		the root directory, if the path is not specified.  If
+		<code class="option">-l</code> is specified, file sizes will
+		also be shown.</td></tr><tr><td>lsdev [<span class="optional">-v</span>]</td><td>Lists all of the devices from which it may be
+		possible to load modules.  If <code class="option">-v</code> is
+		specified, more details are printed.</td></tr><tr><td>lsmod [<span class="optional">-v</span>]</td><td>Displays loaded modules.  If <code class="option">-v</code>
+		is specified, more details are shown.</td></tr><tr><td>more <em class="replaceable"><code>filename</code></em></td><td>Displays the files specified, with a pause at
+		each <code class="varname">LINES</code> displayed.</td></tr><tr><td>reboot</td><td>Immediately reboots the system.</td></tr><tr><td>set <em class="replaceable"><code>variable</code></em>, set
+		<em class="replaceable"><code>variable</code></em>=<em class="replaceable"><code>value</code></em></td><td>Sets the specified environment variables.</td></tr><tr><td>unload</td><td>Removes all loaded modules.</td></tr></tbody></table></div></div><br class="table-break" /><p>Here are some practical examples of loader usage.  To boot
+	the usual kernel in single-user mode
+	<a id="idp58442104" class="indexterm"></a>:</p><pre class="screen"><strong class="userinput"><code>boot -s</code></strong></pre><p>To unload the usual kernel and modules and then load the
+	previous or another, specified kernel:</p><pre class="screen"><strong class="userinput"><code>unload</code></strong>
+<strong class="userinput"><code>load <em class="replaceable"><code>kernel.old</code></em></code></strong></pre><p>Use <code class="filename">kernel.GENERIC</code> to refer to the
+	default kernel that comes with an installation, or
+	<code class="filename">kernel.old</code>, to refer to the previously
+	installed kernel before a system upgrade or before configuring
+	a custom kernel.</p><p>Use the following to load the usual modules with another
+	kernel:</p><pre class="screen"><strong class="userinput"><code>unload</code></strong>
+<strong class="userinput"><code>set kernel="<em class="replaceable"><code>kernel.old</code></em>"</code></strong>
+<strong class="userinput"><code>boot-conf</code></strong></pre><p>To load an automated kernel configuration script:</p><pre class="screen"><strong class="userinput"><code>load -t userconfig_script <em class="replaceable"><code>/boot/kernel.conf</code></em></code></strong></pre><a id="idp58453240" class="indexterm"></a></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="boot-init"></a>12.2.4. Last Stage</h3></div></div></div><a id="idp58455288" class="indexterm"></a><p>Once the kernel is loaded by either
+	<span class="application">loader</span> or by
+	<span class="application">boot2</span>, which bypasses
+	<span class="application">loader</span>, it examines any boot flags
+	and adjusts its behavior as necessary.  <a class="xref" href="boot-introduction.html#boot-kernel" title="Table 12.2. Kernel Interaction During Boot">Table 12.2, &#8220;Kernel Interaction During Boot&#8221;</a> lists the commonly used boot flags.
+	Refer to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=boot&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">boot</span>(8)</span></a> for more information on the other boot
+	flags.</p><a id="idp58471544" class="indexterm"></a><div class="table"><a id="boot-kernel"></a><div class="table-title">Table 12.2. Kernel Interaction During Boot</div><div class="table-contents"><table class="table" summary="Kernel Interaction During Boot" width="100%" border="0"><colgroup><col /><col /></colgroup><thead><tr><th>Option</th><th>Description</th></tr></thead><tbody><tr><td><code class="option">-a</code></td><td>During kernel initialization, ask for the device
+		to mount as the root file system.</td></tr><tr><td><code class="option">-C</code></td><td>Boot the root file system from a
+		<acronym class="acronym">CDROM</acronym>.</td></tr><tr><td><code class="option">-s</code></td><td>Boot into single-user mode.</td></tr><tr><td><code class="option">-v</code></td><td>Be more verbose during kernel startup.</td></tr></tbody></table></div></div><br class="table-break" /><p>Once the kernel has finished booting, it passes control to
+	the user process <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=init&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">init</span>(8)</span></a>, which is located at
+	<code class="filename">/sbin/init</code>, or the program path specified
+	in the <code class="envar">init_path</code> variable in
+	<code class="command">loader</code>.  This is the last stage of the boot
+	process.</p><p>The boot sequence makes sure that the file systems
+	available on the system are consistent.  If a
+	<acronym class="acronym">UFS</acronym> file system is not, and
+	<code class="command">fsck</code> cannot fix the inconsistencies,
+	<span class="application">init</span> drops the system into
+	single-user mode so that the system administrator can resolve
+	the problem directly.  Otherwise, the system boots into
+	multi-user mode.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="boot-singleuser"></a>12.2.4.1. Single-User Mode</h4></div></div></div><a id="idp58510968" class="indexterm"></a><a id="idp58511480" class="indexterm"></a><p>A user can specify this mode by booting with
+	  <code class="option">-s</code> or by setting the
+	  <code class="envar">boot_single</code> variable in
+	  <span class="application">loader</span>.  It can also be reached
+	  by running <code class="command">shutdown now</code> from multi-user
+	  mode.  Single-user mode begins with this message:</p><pre class="programlisting">Enter full pathname of shell or RETURN for /bin/sh:</pre><p>If the user presses <span class="keycap"><strong>Enter</strong></span>, the system
+	  will enter the default Bourne shell.  To specify a different
+	  shell, input the full path to the shell.</p><p>Single-user mode is usually used to repair a system that
+	  will not boot due to an inconsistent file system or an error
+	  in a boot configuration file.  It can also be used to reset
+	  the <code class="systemitem">root</code> password
+	  when it is unknown.  These actions are possible as the
+	  single-user mode prompt gives full, local access to the
+	  system and its configuration files.  There is no networking
+	  in this mode.</p><p>While single-user mode is useful for repairing a system,
+	  it poses a security risk unless the system is in a
+	  physically secure location.  By default, any user who can
+	  gain physical access to a system will have full control of
+	  that system after booting into single-user mode.</p><p>If the system <code class="literal">console</code> is changed to
+	  <code class="literal">insecure</code> in
+	  <code class="filename">/etc/ttys</code>, the system will first prompt
+	  for the <code class="systemitem">root</code>
+	  password before initiating single-user mode.  This adds a
+	  measure of security while removing the ability to reset the
+	  <code class="systemitem">root</code> password when
+	  it is unknown.</p><div class="example"><a id="boot-insecure-console"></a><div class="example-title">Example 12.3. Configuring an Insecure Console in
+	    <code class="filename">/etc/ttys</code></div><div class="example-contents"><pre class="programlisting"># name  getty                           type    status          comments
+#
+# If console is marked "insecure", then init will ask for the root password
+# when going to single-user mode.
+console none                            unknown off <em class="replaceable"><code>insecure</code></em></pre></div></div><br class="example-break" /><p>An <code class="literal">insecure</code> console means that
+	  physical security to the console is considered to be
+	  insecure, so only someone who knows the <code class="systemitem">root</code> password may use
+	  single-user mode.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="boot-multiuser"></a>12.2.4.2. Multi-User Mode</h4></div></div></div><a id="idp58527224" class="indexterm"></a><p>If <span class="application">init</span> finds the file
+	  systems to be in order, or once the user has finished their
+	  commands in single-user mode and has typed
+	  <code class="command">exit</code> to leave single-user mode, the
+	  system enters multi-user mode, in which it starts the
+	  resource configuration of the system.</p><a id="idp58528888" class="indexterm"></a><p>The resource configuration system reads in configuration
+	  defaults from <code class="filename">/etc/defaults/rc.conf</code> and
+	  system-specific details from
+	  <code class="filename">/etc/rc.conf</code>.  It then proceeds to
+	  mount the system file systems listed in
+	  <code class="filename">/etc/fstab</code>.  It starts up networking
+	  services, miscellaneous system daemons, then the startup
+	  scripts of locally installed packages.</p><p>To learn more about the resource configuration system,
+	  refer to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rc&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rc</span>(8)</span></a> and examine the scripts located in
+	  <code class="filename">/etc/rc.d</code>.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="boot.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="boot.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="boot-splash.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 12. The FreeBSD Booting Process </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 12.3. Configuring Boot Time Splash Screens</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>6. Using Type 1 Fonts with Ghostscript</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Fonts and FreeBSD" /><link rel="up" href="index.html" title="Fonts and FreeBSD" /><link rel="prev" href="type1-fonts-x11.html" title="5. Using Type 1 Fonts with X11" /><link rel="next" href="type1-fonts-groff.html" title="7. Using Type 1 Fonts with Groff" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6. Using Type 1 Fonts with Ghostscript</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="type1-fonts-x11.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="type1-fonts-groff.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="type1-fonts-ghostscript"></a>6. Using Type 1 Fonts with Ghostscript</h2></div></div></div><p><span class="application">Ghostscript</span> references a font via
+      its <code class="filename">Fontmap</code>.  This must be modified in
+      a similar way to the <span class="application">X11</span>
+      <code class="filename">fonts.dir</code>.
+      <span class="application">Ghostscript</span> can use either the
+      <code class="filename">.pfa</code> or the <code class="filename">.pfb</code>
+      format fonts.  Using the font from the previous example, here is
+      how to use it with
+      <span class="application">Ghostscript</span>:</p><div class="informalexample"><pre class="screen"><em class="lineannotation"><span class="lineannotation">Put the font in Ghostscript's font directory</span></em>
+<code class="prompt">%</code> <strong class="userinput"><code>cd /usr/local/share/ghostscript/fonts</code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>ln -s /usr/local/share/fonts/type1/showboat.pfb .</code></strong>
+
+<em class="lineannotation"><span class="lineannotation">Edit Fontmap so Ghostscript knows about the font</span></em>
+<code class="prompt">%</code> <strong class="userinput"><code>cd /usr/local/share/ghostscript/4.01</code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>ex Fontmap
+:$a
+/Showboat        (showboat.pfb) ; % From CICA /fonts/atm/showboat
+.
+:wq</code></strong>
+
+<em class="lineannotation"><span class="lineannotation">Use Ghostscript to examine the font</span></em>
+<code class="prompt">%</code> <strong class="userinput"><code>gs prfont.ps</code></strong>
+Aladdin Ghostscript 4.01 (1996-7-10)
+Copyright (C) 1996 Aladdin Enterprises, Menlo Park, CA.  All rights
+reserved.
+This software comes with NO WARRANTY: see the file PUBLIC for details.
+Loading Times-Roman font from /usr/local/share/ghostscript/fonts/tir_____.pfb...
+ /1899520 581354 1300084 13826 0 done.
+GS&gt;<strong class="userinput"><code>Showboat DoFont</code></strong>
+Loading Showboat font from /usr/local/share/ghostscript/fonts/showboat.pfb...
+ 1939688 565415 1300084 16901 0 done.
+&gt;&gt;showpage, press &lt;return&gt; to continue&lt;&lt;
+&gt;&gt;showpage, press &lt;return&gt; to continue&lt;&lt;
+&gt;&gt;showpage, press &lt;return&gt; to continue&lt;&lt;
+GS&gt;<strong class="userinput"><code>quit</code></strong></pre></div><p>References: <code class="filename">fonts.txt</code> in the
+      <span class="application">Ghostscript 4.01</span> distribution</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="type1-fonts-x11.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="type1-fonts-groff.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">5. Using Type 1 Fonts with
+      <span class="application">X11</span> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 7. Using Type 1 Fonts with Groff</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>2. A look inside&#8230;</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Linux® emulation in FreeBSD" /><link rel="up" href="index.html" title="Linux® emulation in FreeBSD" /><link rel="prev" href="index.html" title="Linux® emulation in FreeBSD" /><link rel="next" href="freebsd-emulation.html" title="3. Emulation" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">2. A look inside&#8230;</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="index.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="freebsd-emulation.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="inside"></a>2. A look inside&#8230;</h2></div></div></div><p>In this section we are going to describe every operating
+      system in question.  How they deal with syscalls, trapframes
+      etc., all the low-level stuff.  We also describe the way they
+      understand common <span class="trademark">UNIX</span>® primitives like what a PID is, what a
+      thread is, etc.  In the third subsection we talk about how
+      <span class="trademark">UNIX</span>® on <span class="trademark">UNIX</span>® emulation could be done in general.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="what-is-unix"></a>2.1. What is <span class="trademark">UNIX</span>®</h3></div></div></div><p><span class="trademark">UNIX</span>® is an operating system with a long history that has
+	influenced almost every other operating system currently in
+	use.  Starting in the 1960s, its development continues to this
+	day (although in different projects).  <span class="trademark">UNIX</span>® development soon
+	forked into two main ways: the BSDs and System III/V families.
+	They mutually influenced themselves by growing a common <span class="trademark">UNIX</span>®
+	standard.  Among the contributions originated in BSD we can
+	name virtual memory, TCP/IP networking, FFS, and many others.
+	The System V branch contributed to SysV interprocess
+	communication primitives, copy-on-write, etc. <span class="trademark">UNIX</span>® itself
+	does not exist any more but its ideas have been used by many
+	other operating systems world wide thus forming the so called
+	<span class="trademark">UNIX</span>®-like operating systems.  These days the most
+	influential ones are <span class="trademark">Linux</span>®, Solaris, and possibly (to some
+	extent) FreeBSD.  There are in-company <span class="trademark">UNIX</span>® derivatives (AIX,
+	HP-UX etc.), but these have been more and more migrated to the
+	aforementioned systems.  Let us summarize typical <span class="trademark">UNIX</span>®
+	characteristics.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="tech-details"></a>2.2. Technical details</h3></div></div></div><p>Every running program constitutes a process that
+	represents a state of the computation.  Running process is
+	divided between kernel-space and user-space.  Some operations
+	can be done only from kernel space (dealing with hardware
+	etc.), but the process should spend most of its lifetime in
+	the user space.  The kernel is where the management of the
+	processes, hardware, and low-level details take place.  The
+	kernel provides a standard unified <span class="trademark">UNIX</span>® API to the user
+	space.  The most important ones are covered below.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="kern-proc-comm"></a>2.2.1. Communication between kernel and user space
+	  process</h4></div></div></div><p>Common <span class="trademark">UNIX</span>® API defines a syscall as a way to issue
+	  commands from a user space process to the kernel.  The most
+	  common implementation is either by using an interrupt or
+	  specialized instruction (think of
+	  <code class="literal">SYSENTER</code>/<code class="literal">SYSCALL</code>
+	  instructions for ia32).  Syscalls are defined by a number.
+	  For example in FreeBSD, the syscall number 85 is the
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=swapon&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">swapon</span>(2)</span></a> syscall and the syscall number 132 is
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mkfifo&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mkfifo</span>(2)</span></a>.  Some syscalls need parameters, which are
+	  passed from the user-space to the kernel-space in various
+	  ways (implementation dependant).  Syscalls are
+	  synchronous.</p><p>Another possible way to communicate is by using a
+	  <em class="firstterm">trap</em>.  Traps occur asynchronously
+	  after some event occurs (division by zero, page fault etc.).
+	  A trap can be transparent for a process (page fault) or can
+	  result in a reaction like sending a
+	  <em class="firstterm">signal</em> (division by zero).</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="proc-proc-comm"></a>2.2.2. Communication between processes</h4></div></div></div><p>There are other APIs (System V IPC, shared memory etc.)
+	  but the single most important API is signal.  Signals are
+	  sent by processes or by the kernel and received by
+	  processes.  Some signals can be ignored or handled by a user
+	  supplied routine, some result in a predefined action that
+	  cannot be altered or ignored.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="proc-mgmt"></a>2.2.3. Process management</h4></div></div></div><p>Kernel instances are processed first in the system (so
+	  called init).  Every running process can create its
+	  identical copy using the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=fork&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">fork</span>(2)</span></a> syscall.  Some
+	  slightly modified versions of this syscall were introduced
+	  but the basic semantic is the same.  Every running process
+	  can morph into some other process using the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=exec&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">exec</span>(3)</span></a>
+	  syscall.  Some modifications of this syscall were introduced
+	  but all serve the same basic purpose.  Processes end their
+	  lives by calling the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=exit&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">exit</span>(2)</span></a> syscall.  Every process is
+	  identified by a unique number called PID.  Every process has
+	  a defined parent (identified by its PID).</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="thread-mgmt"></a>2.2.4. Thread management</h4></div></div></div><p>Traditional <span class="trademark">UNIX</span>® does not define any API nor
+	  implementation for threading, while  <span class="trademark">POSIX</span>® defines its
+	  threading API but the implementation is undefined.
+	  Traditionally there were two ways of implementing threads.
+	  Handling them as separate processes (1:1 threading) or
+	  envelope the whole thread group in one process and managing
+	  the threading in userspace (1:N threading).  Comparing main
+	  features of each approach:</p><p>1:1 threading</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>- heavyweight threads</p></li><li class="listitem"><p>- the scheduling cannot be altered by the user
+	      (slightly mitigated by the <span class="trademark">POSIX</span>® API)</p></li><li class="listitem"><p>+ no syscall wrapping necessary</p></li><li class="listitem"><p>+ can utilize multiple CPUs</p></li></ul></div><p>1:N threading</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>+ lightweight threads</p></li><li class="listitem"><p>+ scheduling can be easily altered by the
+	      user</p></li><li class="listitem"><p>- syscalls must be wrapped</p></li><li class="listitem"><p>- cannot utilize more than one CPU</p></li></ul></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="what-is-freebsd"></a>2.3. What is FreeBSD?</h3></div></div></div><p>The FreeBSD project is one of the oldest open source
+	operating systems currently available for daily use.  It is a
+	direct descendant of the genuine <span class="trademark">UNIX</span>® so it could be claimed
+	that it is a true <span class="trademark">UNIX</span>® although licensing issues do not
+	permit that.  The start of the project dates back to the early
+	1990's when a crew of fellow BSD users patched the 386BSD
+	operating system.  Based on this patchkit a new operating
+	system arose named FreeBSD for its liberal license.  Another
+	group created the NetBSD operating system with different goals
+	in mind.  We will focus on FreeBSD.</p><p>FreeBSD is a modern <span class="trademark">UNIX</span>®-based operating system with all
+	the features of <span class="trademark">UNIX</span>®.  Preemptive multitasking, multiuser
+	facilities, TCP/IP networking, memory protection, symmetric
+	multiprocessing support, virtual memory with merged VM and
+	buffer cache, they are all there.  One of the interesting and
+	extremely useful features is the ability to emulate other
+	<span class="trademark">UNIX</span>®-like operating systems.  As of December 2006 and
+	7-CURRENT development, the following emulation functionalities
+	are supported:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>FreeBSD/i386 emulation on FreeBSD/amd64</p></li><li class="listitem"><p>FreeBSD/i386 emulation on FreeBSD/ia64</p></li><li class="listitem"><p><span class="trademark">Linux</span>®-emulation of <span class="trademark">Linux</span>® operating system on
+	    FreeBSD</p></li><li class="listitem"><p>NDIS-emulation of Windows networking drivers
+	    interface</p></li><li class="listitem"><p>NetBSD-emulation of NetBSD operating system</p></li><li class="listitem"><p>PECoff-support for PECoff FreeBSD executables</p></li><li class="listitem"><p>SVR4-emulation of System V revision 4 <span class="trademark">UNIX</span>®</p></li></ul></div><p>Actively developed emulations are the <span class="trademark">Linux</span>® layer and
+	various FreeBSD-on-FreeBSD layers.  Others are not supposed to work
+	properly nor be usable these days.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="freebsd-tech-details"></a>2.3.1. Technical details</h4></div></div></div><p>FreeBSD is traditional flavor of <span class="trademark">UNIX</span>® in the sense of
+	  dividing the run of processes into two halves: kernel space
+	  and user space run.  There are two types of process entry to
+	  the kernel: a syscall and a trap.  There is only one way to
+	  return.  In the subsequent sections we will describe the
+	  three gates to/from the kernel.  The whole description
+	  applies to the i386 architecture as the Linuxulator only
+	  exists there but the concept is similar on other
+	  architectures.  The information was taken from [1] and the
+	  source code.</p><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="freebsd-sys-entries"></a>2.3.1.1. System entries</h5></div></div></div><p>FreeBSD has an abstraction called an execution class
+	    loader, which is a wedge into the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=execve&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">execve</span>(2)</span></a> syscall.
+	    This employs a structure <code class="literal">sysentvec</code>,
+	    which describes an executable ABI.  It contains things
+	    like errno translation table, signal translation table,
+	    various functions to serve syscall needs (stack fixup,
+	    coredumping, etc.).  Every ABI the FreeBSD kernel wants to
+	    support must define this structure, as it is used later in
+	    the syscall processing code and at some other places.
+	    System entries are handled by trap handlers, where we can
+	    access both the kernel-space and the user-space at
+	    once.</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="freebsd-syscalls"></a>2.3.1.2. Syscalls</h5></div></div></div><p>Syscalls on FreeBSD are issued by executing interrupt
+	    <code class="literal">0x80</code> with register
+	    <code class="varname">%eax</code> set to a desired syscall number
+	    with arguments passed on the stack.</p><p>When a process issues an interrupt
+	    <code class="literal">0x80</code>, the <code class="literal">int0x80</code>
+	    syscall trap handler is issued (defined in
+	    <code class="filename">sys/i386/i386/exception.s</code>), which
+	    prepares arguments (i.e. copies them on to the stack) for
+	    a call to a C function <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=syscall&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">syscall</span>(2)</span></a> (defined in
+	    <code class="filename">sys/i386/i386/trap.c</code>), which
+	    processes the passed in trapframe.  The processing
+	    consists of preparing the syscall (depending on the
+	    <code class="literal">sysvec</code> entry), determining if the
+	    syscall is 32-bit or 64-bit one (changes size of the
+	    parameters), then the parameters are copied, including the
+	    syscall.  Next, the actual syscall function is executed
+	    with processing of the return code (special cases for
+	    <code class="literal">ERESTART</code> and
+	    <code class="literal">EJUSTRETURN</code> errors).  Finally an
+	    <code class="literal">userret()</code> is scheduled, switching the
+	    process back to the users-pace.  The parameters to the
+	    actual syscall handler are passed in the form of
+	    <code class="literal">struct thread *td</code>, <code class="literal">struct
+	      syscall args *</code> arguments where the second
+	    parameter is a pointer to the copied in structure of
+	    parameters.</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="freebsd-traps"></a>2.3.1.3. Traps</h5></div></div></div><p>Handling of traps in FreeBSD is similar to the handling
+	    of syscalls.  Whenever a trap occurs, an assembler handler
+	    is called.  It is chosen between alltraps, alltraps with
+	    regs pushed or calltrap depending on the type of the trap.
+	    This handler prepares arguments for a call to a C function
+	    <code class="literal">trap()</code> (defined in
+	    <code class="filename">sys/i386/i386/trap.c</code>), which then
+	    processes the occurred trap.  After the processing it
+	    might send a signal to the process and/or exit to userland
+	    using <code class="literal">userret()</code>.</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="freebsd-exits"></a>2.3.1.4. Exits</h5></div></div></div><p>Exits from kernel to userspace happen using the
+	    assembler routine <code class="literal">doreti</code> regardless of
+	    whether the kernel was entered via a trap or via a
+	    syscall.  This restores the program status from the stack
+	    and returns to the userspace.</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="freebsd-unix-primitives"></a>2.3.1.5. <span class="trademark">UNIX</span>® primitives</h5></div></div></div><p>FreeBSD operating system adheres to the traditional
+	    <span class="trademark">UNIX</span>® scheme, where every process has a unique
+	    identification number, the so called
+	    <em class="firstterm">PID</em> (Process ID).  PID numbers are
+	    allocated either linearly or randomly ranging from
+	    <code class="literal">0</code> to <code class="literal">PID_MAX</code>.  The
+	    allocation of PID numbers is done using linear searching
+	    of PID space.  Every thread in a process receives the same
+	    PID number as result of the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=getpid&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">getpid</span>(2)</span></a> call.</p><p>There are currently two ways to implement threading in
+	    FreeBSD.  The first way is M:N threading followed by the 1:1
+	    threading model.  The default library used is M:N
+	    threading (<code class="literal">libpthread</code>) and you can
+	    switch at runtime to 1:1 threading
+	    (<code class="literal">libthr</code>).  The plan is to switch to 1:1
+	    library by default soon.  Although those two libraries use
+	    the same kernel primitives, they are accessed through
+	    different API(es).  The M:N library uses the
+	    <code class="literal">kse_*</code> family of syscalls while the 1:1
+	    library uses the <code class="literal">thr_*</code> family of
+	    syscalls.  Because of this, there is no general concept of
+	    thread ID shared between kernel and userspace.  Of course,
+	    both threading libraries implement the pthread thread ID
+	    API.  Every kernel thread (as described by <code class="literal">struct
+	      thread</code>) has td tid identifier but this is not
+	    directly accessible from userland and solely serves the
+	    kernel's needs.  It is also used for 1:1 threading library
+	    as pthread's thread ID but handling of this is internal to
+	    the library and cannot be relied on.</p><p>As stated previously there are two implementations of
+	    threading in FreeBSD.  The M:N library divides the work
+	    between kernel space and userspace.  Thread is an entity
+	    that gets scheduled in the kernel but it can represent
+	    various number of userspace threads.  M userspace threads
+	    get mapped to N kernel threads thus saving resources while
+	    keeping the ability to exploit multiprocessor parallelism.
+	    Further information about the implementation can be
+	    obtained from the man page or [1].  The 1:1 library
+	    directly maps a userland thread to a kernel thread thus
+	    greatly simplifying the scheme.  None of these designs
+	    implement a fairness mechanism (such a mechanism was
+	    implemented but it was removed recently because it caused
+	    serious slowdown and made the code more difficult to deal
+	    with).</p></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="what-is-linux"></a>2.4. What is <span class="trademark">Linux</span>®</h3></div></div></div><p><span class="trademark">Linux</span>® is a <span class="trademark">UNIX</span>®-like kernel originally developed by
+	Linus Torvalds, and now being contributed to by a massive
+	crowd of programmers all around the world.  From its mere
+	beginnings to today, with wide support from companies such as
+	IBM or Google, <span class="trademark">Linux</span>® is being associated with its fast
+	development pace, full hardware support and benevolent
+	dictator model of organization.</p><p><span class="trademark">Linux</span>® development started in 1991 as a hobbyist project
+	at University of Helsinki in Finland.  Since then it has
+	obtained all the features of a modern <span class="trademark">UNIX</span>®-like OS:
+	multiprocessing, multiuser support, virtual memory,
+	networking, basically everything is there.  There are also
+	highly advanced features like virtualization etc.</p><p>As of 2006 <span class="trademark">Linux</span>® seems to be the most widely used open
+	source operating system with support from independent software
+	vendors like Oracle, RealNetworks, Adobe, etc.  Most of the
+	commercial software distributed for <span class="trademark">Linux</span>® can only be
+	obtained in a binary form so recompilation for other operating
+	systems is impossible.</p><p>Most of the <span class="trademark">Linux</span>® development happens in a
+	<span class="application">Git</span> version control system.
+	<span class="application">Git</span> is a distributed system so
+	there is no central source of the <span class="trademark">Linux</span>® code, but some
+	branches are considered prominent and official.  The version
+	number scheme implemented by <span class="trademark">Linux</span>® consists of four numbers
+	A.B.C.D.  Currently development happens in 2.6.C.D, where C
+	represents major version, where new features are added or
+	changed while D is a minor version for bugfixes only.</p><p>More information can be obtained from [3].</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="linux-tech-details"></a>2.4.1. Technical details</h4></div></div></div><p><span class="trademark">Linux</span>® follows the traditional <span class="trademark">UNIX</span>® scheme of
+	  dividing the run of a process in two halves: the kernel and
+	  user space.  The kernel can be entered in two ways: via a
+	  trap or via a syscall.  The return is handled only in one
+	  way.  The further description applies to <span class="trademark">Linux</span>® 2.6 on
+	  the <span class="trademark">i386</span>&#8482; architecture.  This information was taken from
+	  [2].</p><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="linux-syscalls"></a>2.4.1.1. Syscalls</h5></div></div></div><p>Syscalls in <span class="trademark">Linux</span>® are performed (in userspace) using
+	    <code class="literal">syscallX</code> macros where X substitutes a
+	    number representing the number of parameters of the given
+	    syscall.  This macro translates to a code that loads
+	    <code class="varname">%eax</code> register with a number of the
+	    syscall and executes interrupt <code class="literal">0x80</code>.
+	    After this syscall return is called, which translates
+	    negative return values to positive
+	    <code class="literal">errno</code> values and sets
+	    <code class="literal">res</code> to <code class="literal">-1</code> in case of
+	    an error.  Whenever the interrupt <code class="literal">0x80</code>
+	    is called the process enters the kernel in system call
+	    trap handler.  This routine saves all registers on the
+	    stack and calls the selected syscall entry.  Note that the
+	    <span class="trademark">Linux</span>® calling convention expects parameters to the
+	    syscall to be passed via registers as shown here:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>parameter -&gt; <code class="varname">%ebx</code></p></li><li class="listitem"><p>parameter -&gt; <code class="varname">%ecx</code></p></li><li class="listitem"><p>parameter -&gt; <code class="varname">%edx</code></p></li><li class="listitem"><p>parameter -&gt; <code class="varname">%esi</code></p></li><li class="listitem"><p>parameter -&gt; <code class="varname">%edi</code></p></li><li class="listitem"><p>parameter -&gt; <code class="varname">%ebp</code></p></li></ol></div><p>There are some exceptions to this, where <span class="trademark">Linux</span>® uses
+	    different calling convention (most notably the
+	    <code class="literal">clone</code> syscall).</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="linux-traps"></a>2.4.1.2. Traps</h5></div></div></div><p>The trap handlers are introduced in
+	    <code class="filename">arch/i386/kernel/traps.c</code> and most of
+	    these handlers live in
+	    <code class="filename">arch/i386/kernel/entry.S</code>, where
+	    handling of the traps happens.</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="linux-exits"></a>2.4.1.3. Exits</h5></div></div></div><p>Return from the syscall is managed by syscall
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=exit&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">exit</span>(3)</span></a>, which checks for the process having
+	    unfinished work, then checks whether we used user-supplied
+	    selectors.  If this happens stack fixing is applied and
+	    finally the registers are restored from the stack and the
+	    process returns to the userspace.</p></div><div class="sect4"><div xmlns="" class="titlepage"><div><div><h5 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="linux-unix-primitives"></a>2.4.1.4. <span class="trademark">UNIX</span>® primitives</h5></div></div></div><p>In the 2.6 version, the <span class="trademark">Linux</span>® operating system
+	    redefined some of the traditional <span class="trademark">UNIX</span>® primitives,
+	    notably PID, TID and thread.  PID is defined not to be
+	    unique for every process, so for some processes (threads)
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=getppid&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">getppid</span>(2)</span></a> returns the same value.  Unique
+	    identification of process is provided by TID.  This is
+	    because <em class="firstterm">NPTL</em> (New <span class="trademark">POSIX</span>® Thread
+	    Library) defines threads to be normal processes (so called
+	    1:1 threading).  Spawning a new process in
+	    <span class="trademark">Linux</span>® 2.6 happens using the
+	    <code class="literal">clone</code> syscall (fork variants are
+	    reimplemented using it).  This clone syscall defines a set
+	    of flags that affect behavior of the cloning process
+	    regarding thread implementation.  The semantic is a bit
+	    fuzzy as there is no single flag telling the syscall to
+	    create a thread.</p><p>Implemented clone flags are:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="literal">CLONE_VM</code> - processes share
+		their memory space</p></li><li class="listitem"><p><code class="literal">CLONE_FS</code> - share umask, cwd and
+		namespace</p></li><li class="listitem"><p><code class="literal">CLONE_FILES</code> - share open
+		files</p></li><li class="listitem"><p><code class="literal">CLONE_SIGHAND</code> - share signal
+		handlers and blocked signals</p></li><li class="listitem"><p><code class="literal">CLONE_PARENT</code> - share
+		parent</p></li><li class="listitem"><p><code class="literal">CLONE_THREAD</code> - be thread
+		(further explanation below)</p></li><li class="listitem"><p><code class="literal">CLONE_NEWNS</code> - new
+		namespace</p></li><li class="listitem"><p><code class="literal">CLONE_SYSVSEM</code> - share SysV undo
+		structures</p></li><li class="listitem"><p><code class="literal">CLONE_SETTLS</code> - setup TLS at
+		supplied address</p></li><li class="listitem"><p><code class="literal">CLONE_PARENT_SETTID</code> - set TID
+		in the parent</p></li><li class="listitem"><p><code class="literal">CLONE_CHILD_CLEARTID</code> - clear
+		TID in the child</p></li><li class="listitem"><p><code class="literal">CLONE_CHILD_SETTID</code> - set TID in
+		the child</p></li></ul></div><p><code class="literal">CLONE_PARENT</code> sets the real parent
+	    to the parent of the caller.  This is useful for threads
+	    because if thread A creates thread B we want thread B to
+	    be parented to the parent of the whole thread group.
+	    <code class="literal">CLONE_THREAD</code> does exactly the same
+	    thing as <code class="literal">CLONE_PARENT</code>,
+	    <code class="literal">CLONE_VM</code> and
+	    <code class="literal">CLONE_SIGHAND</code>, rewrites PID to be the
+	    same as PID of the caller, sets exit signal to be none and
+	    enters the thread group.  <code class="literal">CLONE_SETTLS</code>
+	    sets up GDT entries for TLS handling.  The
+	    <code class="literal">CLONE_*_*TID</code> set of flags sets/clears
+	    user supplied address to TID or 0.</p><p>As you can see the <code class="literal">CLONE_THREAD</code>
+	    does most of the work and does not seem to fit the scheme
+	    very well.  The original intention is unclear (even for
+	    authors, according to comments in the code) but I think
+	    originally there was one threading flag, which was then
+	    parcelled among many other flags but this separation was
+	    never fully finished.  It is also unclear what this
+	    partition is good for as glibc does not use that so only
+	    hand-written use of the clone permits a programmer to
+	    access this features.</p><p>For non-threaded programs the PID and TID are the
+	    same.  For threaded programs the first thread PID and TID
+	    are the same and every created thread shares the same PID
+	    and gets assigned a unique TID (because
+	    <code class="literal">CLONE_THREAD</code> is passed in) also parent
+	    is shared for all processes forming this threaded
+	    program.</p><p>The code that implements <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pthread_create&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pthread_create</span>(3)</span></a> in
+	    NPTL defines the clone flags like this:</p><pre class="programlisting">int clone_flags = (CLONE_VM | CLONE_FS | CLONE_FILES | CLONE_SIGNAL
+
+ | CLONE_SETTLS | CLONE_PARENT_SETTID
+
+| CLONE_CHILD_CLEARTID | CLONE_SYSVSEM
+#if __ASSUME_NO_CLONE_DETACHED == 0
+
+| CLONE_DETACHED
+#endif
+
+| 0);</pre><p>The <code class="literal">CLONE_SIGNAL</code> is defined
+	    like</p><pre class="programlisting">#define CLONE_SIGNAL (CLONE_SIGHAND | CLONE_THREAD)</pre><p>the last 0 means no signal is sent when any of the
+	    threads exits.</p></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="what-is-emu"></a>2.5. What is emulation</h3></div></div></div><p>According to a dictionary definition, emulation is the
+	ability of a program or device to imitate another program or
+	device.  This is achieved by providing the same reaction to a
+	given stimulus as the emulated object.  In practice, the
+	software world mostly sees three types of emulation - a
+	program used to emulate a machine (QEMU, various game console
+	emulators etc.), software emulation of a hardware facility
+	(OpenGL emulators, floating point units emulation etc.) and
+	operating system emulation (either in kernel of the operating
+	system or as a userspace program).</p><p>Emulation is usually used in a place, where using the
+	original component is not feasible nor possible at all.  For
+	example someone might want to use a program developed for a
+	different operating system than they use.  Then emulation
+	comes in handy.  Sometimes there is no other way but to use
+	emulation - e.g. when the hardware device you try to use does
+	not exist (yet/anymore) then there is no other way but
+	emulation.  This happens often when porting an operating
+	system to a new (non-existent) platform.  Sometimes it is just
+	cheaper to emulate.</p><p>Looking from an implementation point of view, there are
+	two main approaches to the implementation of emulation.  You
+	can either emulate the whole thing - accepting possible inputs
+	of the original object, maintaining inner state and emitting
+	correct output based on the state and/or input.  This kind of
+	emulation does not require any special conditions and
+	basically can be implemented anywhere for any device/program.
+	The drawback is that implementing such emulation is quite
+	difficult, time-consuming and error-prone.  In some cases we
+	can use a simpler approach.  Imagine you want to emulate a
+	printer that prints from left to right on a printer that
+	prints from right to left.  It is obvious that there is no
+	need for a complex emulation layer but simply reversing of the
+	printed text is sufficient.  Sometimes the
+	emulating environment is very similar to the emulated one so
+	just a thin layer of some translation is necessary to provide
+	fully working emulation!  As you can see this is much less
+	demanding to implement, so less time-consuming and error-prone
+	than the previous approach.  But the necessary condition is
+	that the two environments must be similar enough.  The third
+	approach combines the two previous.  Most of the time the
+	objects do not provide the same capabilities so in a case of
+	emulating the more powerful one on the less powerful we have
+	to emulate the missing features with full emulation described
+	above.</p><p>This master thesis deals with emulation of <span class="trademark">UNIX</span>® on
+	<span class="trademark">UNIX</span>®, which is exactly the case, where only a thin layer of
+	translation is sufficient to provide full emulation.  The
+	<span class="trademark">UNIX</span>® API consists of a set of syscalls, which are usually
+	self contained and do not affect some global kernel
+	state.</p><p>There are a few syscalls that affect inner state but this
+	can be dealt with by providing some structures that maintain
+	the extra state.</p><p>No emulation is perfect and emulations tend to lack some
+	parts but this usually does not cause any serious drawbacks.
+	Imagine a game console emulator that emulates everything but
+	music output.  No doubt that the games are playable and one
+	can use the emulator.  It might not be that comfortable as the
+	original game console but its an acceptable compromise between
+	price and comfort.</p><p>The same goes with the <span class="trademark">UNIX</span>® API.  Most programs can live
+	with a very limited set of syscalls working.  Those syscalls
+	tend to be the oldest ones (<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=read&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">read</span>(2)</span></a>/<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=write&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">write</span>(2)</span></a>,
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=fork&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">fork</span>(2)</span></a> family, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=signal&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">signal</span>(3)</span></a> handling, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=exit&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">exit</span>(3)</span></a>,
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=socket&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">socket</span>(2)</span></a> API) hence it is easy to emulate because their
+	semantics is shared among all <span class="trademark">UNIX</span>®es, which exist
+	todays.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="index.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="freebsd-emulation.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"><span class="trademark">Linux</span>® emulation in FreeBSD </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 3. Emulation</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

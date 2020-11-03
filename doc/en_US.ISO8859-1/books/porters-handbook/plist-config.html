@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>8.3. Configuration Files</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Porter's Handbook" /><link rel="up" href="plist.html" title="Chapter 8. Advanced pkg-plist Practices" /><link rel="prev" href="plist-cleaning.html" title="8.2. Empty Directories" /><link rel="next" href="plist-dynamic.html" title="8.4. Dynamic Versus Static Package List" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">8.3. Configuration Files</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="plist-cleaning.html">Prev</a> </td><th width="60%" align="center">Chapter 8. Advanced <code class="filename">pkg-plist</code> Practices</th><td width="20%" align="right"> <a accesskey="n" href="plist-dynamic.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="plist-config"></a>8.3. Configuration Files</h2></div></div></div><p>If the port installs configuration files to
+      <code class="filename">PREFIX/etc</code> (or elsewhere) do
+      <span class="emphasis"><em>not</em></span> list them in
+      <code class="filename">pkg-plist</code>.  That will cause
+      <code class="command">pkg delete</code> to remove files that have been
+      carefully edited by the user, and a re-installation will wipe
+      them out.</p><p>Instead, install sample files with a
+      <code class="filename"><em class="replaceable"><code>filename</code></em>.sample</code>
+      extension.  The <code class="literal">@sample</code> macro automates this,
+      see <a class="xref" href="plist-keywords.html#plist-keywords-sample" title="8.6.9. @sample file [file]">Section 8.6.9, &#8220;<code class="literal">@sample</code>
+	<em class="replaceable"><code>file</code></em>
+	[<em class="replaceable"><code>file</code></em>]&#8221;</a> for what it does
+      exactly.  For each sample file, add a line to
+      <code class="filename">pkg-plist</code>:</p><pre class="programlisting">@sample etc/orbit.conf.sample</pre><p>If there is a very good reason not to install a working
+      configuration file by default, only list the sample filename in
+      <code class="filename">pkg-plist</code>, without the
+      <code class="literal">@sample</code> followed by a space part, and add a
+      <a class="link" href="pkg-files.html#porting-message" title="9.1. pkg-message">message</a> pointing out that the
+      user must copy and edit the file before the software will
+      work.</p><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">When a port installs its configuration in a subdirectory
+	of <code class="filename">${PREFIX}/etc</code>, use
+	<code class="varname">ETCDIR</code>, which defaults to
+	<code class="literal">${PREFIX}/etc/${PORTNAME}</code>, it can be
+	overridden in the ports <code class="filename">Makefile</code> if there
+	is a convention for the port to use some other directory.  The
+	<code class="literal">%%ETCDIR%%</code> macro will be used in its
+	stead in <code class="filename">pkg-plist</code>.</p></div><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">The sample configuration files should always have the
+	<code class="filename">.sample</code> suffix.  If for some historical
+	reason using the standard suffix is not possible, or if the
+	sample files come from some other directory, use
+	this construct:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="programlisting">@sample etc/orbit.conf-dist etc/orbit.conf</pre><p xmlns="http://www.w3.org/1999/xhtml">or</p><pre xmlns="http://www.w3.org/1999/xhtml" class="programlisting">@sample %%EXAMPLESDIR%%/orbit.conf etc/orbit.conf</pre><p xmlns="http://www.w3.org/1999/xhtml">The format is <code class="literal">@sample
+	  <em class="replaceable"><code>sample-file</code></em>
+	  <em class="replaceable"><code>actual-config-file</code></em></code>.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="plist-cleaning.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="plist.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="plist-dynamic.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">8.2. Empty Directories </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 8.4. Dynamic Versus Static Package List</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

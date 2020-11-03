@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>12.2. Fixing Security Vulnerabilities</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Porter's Handbook" /><link rel="up" href="security.html" title="Chapter 12. Security" /><link rel="prev" href="security.html" title="Chapter 12. Security" /><link rel="next" href="security-notify.html" title="12.3. Keeping the Community Informed" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">12.2. Fixing Security Vulnerabilities</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="security.html">Prev</a> </td><th width="60%" align="center">Chapter 12. Security</th><td width="20%" align="right"> <a accesskey="n" href="security-notify.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="security-fix"></a>12.2. Fixing Security Vulnerabilities</h2></div></div></div><p>While on the subject of ports and packages, a security
+      vulnerability may initially appear in the original distribution
+      or in the port files.  In the former case, the original software
+      developer is likely to release a patch or a new version
+      instantly.  Update the port promptly
+      with respect to the author's fix.  If the fix is delayed for
+      some reason, either
+      <a class="link" href="dads-noinstall.html" title="13.13. Marking a Port Not Installable with BROKEN, FORBIDDEN, or IGNORE">mark the port as
+      <code class="varname">FORBIDDEN</code></a> or introduce a patch file
+      to the port.  In the case of a vulnerable port, just
+      fix the port as soon as possible.  In either case, follow
+      <a class="link" href="port-upgrading.html" title="Chapter 11. Upgrading a Port">the standard procedure for
+      submitting changes</a> unless having
+      rights to commit it directly to the ports tree.</p><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">Being a ports committer is not enough to commit to an
+	arbitrary port.  Remember that ports usually have maintainers,
+	must be respected.</p></div><p>Please make sure that the port's revision is bumped as soon
+      as the vulnerability has been closed.  That is how the users who
+      upgrade installed packages on a regular basis will see they need
+      to run an update.  Besides, a new package will be built and
+      distributed over FTP and WWW mirrors, replacing the vulnerable
+      one.  Bump <code class="varname">PORTREVISION</code> unless
+      <code class="varname">DISTVERSION</code> has changed in the course of
+      correcting the vulnerability.  That is, bump
+      <code class="varname">PORTREVISION</code> if adding a patch file
+      to the port, but do not bump it if updating the port to
+      the latest software version and thus already touched
+      <code class="varname">DISTVERSION</code>.  Please refer to the
+      <a class="link" href="makefile-naming.html#makefile-naming-revepoch" title="5.2.3. PORTREVISION and PORTEPOCH">corresponding
+	section</a> for more information.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="security.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="security.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="security-notify.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 12. Security </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 12.3. Keeping the Community Informed</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

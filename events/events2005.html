@@ -44,11 +44,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">Search</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -120,6 +119,9 @@
                   </li>
                   <li>
                     <a href="//www.FreeBSD.org/cgi/man.cgi">Manual Pages</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">Presentations and Papers</a>
                   </li>
                   <li>
                     <a href="../doc/en_US.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
@@ -238,9 +240,6 @@
                   <a href="../usergroups.html">User Groups</a>
                 </li>
                 <li>
-                  <a href="https://planet.FreeBSD.org/">Blogs</a>
-                </li>
-                <li>
                   <a href="../events/events.html">Events</a>
                 </li>
                 <li>
@@ -263,7 +262,7 @@
           </div>
           <div id="contentwrap">
             <h1>FreeBSD Past Events</h1>
-<!--Generated on: 20181107-->
+<!--Generated on: 20201103-->
             <p xmlns="">Please send details of any FreeBSD related events or events that
       are of interest for FreeBSD users which are not listed here
       to <a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>.</p>
@@ -276,11 +275,11 @@
       have hosted FreeBSD-related events in the past show up in yellow
       or orange, with darker colors representing a larger number of
       previous events.</p>
-            <img xmlns="" src="https://chart.googleapis.com/chart?cht=t&amp;chs=400x200&amp;chtm=world&amp;chco=ffffff,ffbe38,600000&amp;chf=bg,s,4D89F9&amp;chd=t:33.0,31.0,100.0,100.0,16.0,100.0,12.0,9.0,5.0,5.0,5.0,100.0,4.0,4.0,4.0,4.0,3.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0&amp;chld=DEUSJPCAUSBEFRCHARUAPLGBITATTWDKNLTWBRRUNLUKAUTRROAMRSSEBGMTSKHUINESPTCLCOKRCN" />
+            <img xmlns="" src="https://chart.googleapis.com/chart?cht=t&amp;chs=400x200&amp;chtm=world&amp;chco=ffffff,ffbe38,600000&amp;chf=bg,s,4D89F9&amp;chd=t:34.0,31.0,24.0,22.0,19.0,14.0,12.0,9.0,6.0,5.0,5.0,5.0,4.0,4.0,4.0,4.0,3.0,3.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0&amp;chld=DEUSCAUSJPBEFRCHARATUAPLGBITTWDKTWNLSEINBRRUNLUKAUTRNOROAMRSBGMTSKHUESPTCLCOKRCN" />
             <h2 xmlns="" id="past">Past Events:</h2>
             <h3 id="month:200512">December 2005</h3>
             <ul>
-              <li id="event:176">
+              <li id="event:213">
                 <p><b><a href="http://www.gufi.org/guficon/">GUFICon #6</a></b>, Perugia, Italy<br /><em>3 - 4 December, 2005</em><br />The Italian FreeBSD users group (G.U.F.I. - Gruppo
       Utenti FreeBSD Italia) is proud to announce the 6th annual
       GUFICon.  It will be held in Perugia, Italy on December 3-4,
@@ -295,14 +294,14 @@
             </ul>
             <h3 id="month:200511">November 2005</h3>
             <ul>
-              <li id="event:177">
+              <li id="event:214">
                 <p><b><a href="http://2005.eurobsdcon.org/">EuroBSDCon 2005</a></b>, University of Basel, Basel, Switzerland<br /><em>25 - 27 November, 2005</em><br />The fourth annual European BSD Conference.  It is
       oriented to developers and users of all BSD flavors, including
       FreeBSD of course.</p>
                 <p>Social links: <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=EuroBSDCon 2005&amp;m=text">
       Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=EuroBSDCon 2005">Blog Search</a>.</p>
               </li>
-              <li id="event:178">
+              <li id="event:215">
                 <p><b><a href="http://www.usenix.org/events/baysug05/">USENIX Bay Area Super User Group Meeting (BaySUG '05)</a></b>, Computer History Museum, Mountain View, CA, USA<br /><em>12 November, 2005</em><br />Join USENIX and BayLISA for the first Bay Area Super
       User Group Meeting (BaySUG '05) followed by a reception hosted
       by Google.  We're looking for more FreeBSD representation.
@@ -315,13 +314,13 @@
             </ul>
             <h3 id="month:200510">October 2005</h3>
             <ul>
-              <li id="event:179">
+              <li id="event:216">
                 <p><b><a href="http://seminar.freebsdcity.org">Korean FreeBSD users group Conference 2005</a></b>, HP Korea Conference Room 20th floor, Seoul, Korea<br /><em>29 October, 2005</em><br />A Conference for Everyone Who is interested in
     FreeBSD in Korea.</p>
                 <p>Social links: <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=Korean FreeBSD users group Conference 2005&amp;m=text">
       Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=Korean FreeBSD users group Conference 2005">Blog Search</a>.</p>
               </li>
-              <li id="event:180">
+              <li id="event:217">
                 <p><b><a href="http://conferences.oreillynet.com/eurooscon/">O'Reilly European Open Source Convention</a></b>, NH Grand Hotel Krasnapolsky, Amsterdam, The Netherlands<br /><em>17 - 20 October, 2005</em><br />The popular O'Reilly Open Source Conference is coming
       to Europe in October.  There will be FreeBSD related talks, BoF
       sessions, and opportunities for general advocacy.</p>
@@ -331,7 +330,7 @@
             </ul>
             <h3 id="month:200509">September 2005</h3>
             <ul>
-              <li id="event:181">
+              <li id="event:218">
                 <p><b><a href="http://www.nycbsdcon.org/2005/">New York City BSD Conference (NYCBSDCon)</a></b>, Columbia University, New York City, USA<br /><em>17 September, 2005</em><br />New York City BSD Conference (NYCBSDCon) is a one day
       technical conference hosted by the New York City <a href="http://www.nycbug.org">*BSD User Group</a>.  The all day
       conference will include a variety of speakers representing the
@@ -343,7 +342,7 @@
             </ul>
             <h3 id="month:200508">August 2005</h3>
             <ul>
-              <li id="event:182">
+              <li id="event:219">
                 <p><b><a href="http://conferences.oreillynet.com/os2005/">O'Reilly Open Source Conference 2005</a></b>, Oregon Convention Center, Portland, Oregon, USA<br /><em>1 - 5 August, 2005</em><br />The annual O'Reilly Open Source Conference had a
       larger BSD presence this year.  Matt Olander, Dru Lavigne, and
       others helped spread the word about FreeBSD.  A press release
@@ -355,7 +354,7 @@
             </ul>
             <h3 id="month:200507">July 2005</h3>
             <ul>
-              <li id="event:183">
+              <li id="event:220">
                 <p><b><a href="http://bsdcon.jp/">BSDCon Japan 2005</a></b>, NADYA PARK, Nagoya, Japan<br /><em>23 July, 2005</em><br />BSD Conference Japan 2005, the fourth conference
       concerning *BSD in Japan, will be held in Nagoya
       on July 23th, 2005.</p>
@@ -365,14 +364,14 @@
             </ul>
             <h3 id="month:200506">June 2005</h3>
             <ul>
-              <li id="event:184">
+              <li id="event:221">
                 <p><b><a href="http://www.linuxtag.org/2005/">Linuxtag 2005</a></b>, Kongresszentrum, Karlsruhe, Germany<br /><em>22 - 25 June, 2005</em><br />The Linuxtag is one of Europe's biggest Linux and Open Source
       related tradeshows and conferences. As in previous years, FreeBSD will be
       present with a booth.</p>
                 <p>Social links: <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=Linuxtag 2005&amp;m=text">
       Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=Linuxtag 2005">Blog Search</a>.</p>
               </li>
-              <li id="event:185">
+              <li id="event:222">
                 <p><b><a href="http://2005.meetbsd.org/">MeetBSD 2005</a></b>, Hotel Chopin, Kraków, Poland<br /><em>17 - 19 June, 2005</em><br />The second annual MeetBSD conference will be held in
       Poland to bring together BSD experts from around Europe.
       Poul-Henning Kamp and others will be presenting on FreeBSD
@@ -384,7 +383,7 @@
             </ul>
             <h3 id="month:200505">May 2005</h3>
             <ul>
-              <li id="event:186">
+              <li id="event:223">
                 <p><b><a href="http://www.bsdcan.org/">BSDCan 2005</a></b>, University of Ottawa, Ottawa, Canada<br /><em>13 - 14 May, 2005</em><br />BSDCan is a developers conference with a strong focus
       on emerging technologies, research projects, and works in
       progress. It also features Userland infrastructure projects and
@@ -396,7 +395,7 @@
             </ul>
             <h3 id="month:200504">April 2005</h3>
             <ul>
-              <li id="event:187">
+              <li id="event:224">
                 <p><b><a href="http://www.opensource-forum.ru/">Open Source Forum Russia 2005</a></b>, Radisson SAS Hotel, Moscow, Russia<br /><em>27 - 29 April, 2005</em><br />Open Source Forum Russia is the first conference and
       exhibition which will bring together Russian, American and
       European leaders of the OS industry, customers interested in
@@ -408,7 +407,7 @@
                 <p>Social links: <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=Open Source Forum Russia 2005&amp;m=text">
       Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=Open Source Forum Russia 2005">Blog Search</a>.</p>
               </li>
-              <li id="event:188">
+              <li id="event:225">
                 <p><b><a href="http://www.usenix.org/events/usenix05/">2005 USENIX Annual Technical Conference</a></b>, Anaheim, California, USA<br /><em>10 - 15 April, 2005</em><br />The 2005 USENIX ATC will have FREENIX and general
       refereed paper sessions.  This is THE big conference of the year
       for BSD enthusiasts in the U.S.</p>
@@ -418,7 +417,7 @@
             </ul>
             <h3 id="month:200503">March 2005</h3>
             <ul>
-              <li id="event:189">
+              <li id="event:226">
                 <p><b><a href="http://www.linuxforum.dk/">LinuxForum 2005</a></b>, Kunstakademiets Arkitektskole, Copenhagen, Denmark<br /><em>4 - 5 March, 2005</em><br />Annual Danish Open Source conference.  The Danish BSD
       user group <a href="http://www.bsd-dk.dk">BSD-DK</a> will present
       the BSD's.</p>
@@ -428,14 +427,14 @@
             </ul>
             <h3 id="month:200502">February 2005</h3>
             <ul>
-              <li id="event:190">
+              <li id="event:227">
                 <p><b><a href="http://www.fosdem.org/">Fosdem 2005</a></b>, Universite Libre de Bruxelles, Brussels, Belgium<br /><em>26 - 27 February, 2005</em><br />A 2 day event to promote the widespread use of Free
       and Open Source software. Among the projects present at the event
       will be Mozilla, KDE and, of course, FreeBSD.</p>
                 <p>Social links: <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=Fosdem 2005&amp;m=text">
       Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=Fosdem 2005">Blog Search</a>.</p>
               </li>
-              <li id="event:191">
+              <li id="event:228">
                 <p><b><a href="http://www.guug.de/veranstaltungen/ffg2005/index.html">GUUG-Frühjahrsfachgespräch 2005</a></b>, Munich University of Applied Sciences, Munich, Germany<br /><em>22 - 25 February, 2005</em><br />
       The Frühjahrsfachgespräch is an annual event on
       practical Linux/UNIX topics.  Most of the talks are in
@@ -445,7 +444,7 @@
                 <p>Social links: <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=GUUG-Frühjahrsfachgespräch 2005&amp;m=text">
       Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=GUUG-Frühjahrsfachgespräch 2005">Blog Search</a>.</p>
               </li>
-              <li id="event:192">
+              <li id="event:229">
                 <p><b><a href="http://www.socallinuxexpo.org/">SCALE: Southern California Linux Expo 2005</a></b>, Los Angeles Convention Center, Los Angeles, California, USA<br /><em>12 - 13 February, 2005</em><br />The third Southern California Linux Expo will have
       an <a href="http://www.socallinuxexpo.org/exhibitions/freebsd.php">
       exhibition booth</a> on FreeBSD.  A computer will be available
@@ -460,6 +459,9 @@
             </p>
             <p>Events from past years:</p>
             <ul id="events-past-years">
+              <li>
+                <a href="events2018.html">2018</a>
+              </li>
               <li>
                 <a href="events2017.html">2017</a>
               </li>
@@ -511,7 +513,7 @@
         </div>
         <div id="footer">
           <span><a href="../search/index-site.html">Site Map</a> |
-  <a href="../copyright/">Legal Notices</a> | © 1995&#8211;2018 The FreeBSD Project.
+  <a href="../copyright/">Legal Notices</a> | © 1995&#8211;2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

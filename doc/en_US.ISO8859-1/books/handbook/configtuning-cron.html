@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>11.3. Configuring cron(8)</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="config-tuning.html" title="Chapter 11. Configuration and Tuning" /><link rel="prev" href="configtuning-starting-services.html" title="11.2. Starting Services" /><link rel="next" href="configtuning-rcd.html" title="11.4. Managing Services in FreeBSD" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">11.3. Configuring cron(8)</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="configtuning-starting-services.html">Prev</a> </td><th width="60%" align="center">Chapter 11. Configuration and Tuning</th><td width="20%" align="right"> <a accesskey="n" href="configtuning-rcd.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="configtuning-cron"></a>11.3. Configuring <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=cron&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">cron</span>(8)</span></a></h2></div><div><span class="authorgroup">Contributed by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Tom</span> <span class="surname">Rhodes</span></span>. </span></div></div></div><a id="idp57027832" class="indexterm"></a><p>One of the most useful utilities in FreeBSD is
+      <span class="application">cron</span>.  This utility runs in the
+      background and regularly checks
+      <code class="filename">/etc/crontab</code> for tasks to execute and
+      searches <code class="filename">/var/cron/tabs</code> for custom crontab
+      files.  These files are used to schedule tasks which
+      <span class="application">cron</span> runs at the specified times.
+      Each entry in a crontab defines a task to run and is known as a
+      <em class="firstterm">cron job</em>.</p><p>Two different types of configuration files are used: the
+      system crontab, which should not be modified, and user crontabs,
+      which can be created and edited as needed.  The format used by
+      these files is documented in <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=crontab&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">crontab</span>(5)</span></a>.  The format of the
+      system crontab, <code class="filename">/etc/crontab</code> includes a
+      <code class="literal">who</code> column which does not exist in user
+      crontabs.  In the system crontab,
+      <span class="application">cron</span> runs the command as the user
+      specified in this column.  In a user crontab, all commands run
+      as the user who created the crontab.</p><p>User crontabs allow individual users to schedule their own
+      tasks.  The <code class="systemitem">root</code> user
+      can also have a user <code class="filename">crontab</code> which can be
+      used to schedule tasks that do not exist in the system
+      <code class="filename">crontab</code>.</p><p>Here is a sample entry from the system crontab,
+      <code class="filename">/etc/crontab</code>:</p><pre class="programlisting"># /etc/crontab - root's crontab for FreeBSD
+#
+# <span translate="no" class="phrase">$FreeBSD$</span>
+# <a id="co-comments"></a><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span>
+SHELL=/bin/sh
+PATH=/etc:/bin:/sbin:/usr/bin:/usr/sbin <a id="co-env"></a><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span>
+#
+#minute	hour	mday	month	wday	who	command <a id="co-field-descr"></a><span><img src="./imagelib/callouts/3.png" alt="3" border="0" /></span>
+#
+*/5	*	*	*	*	root	/usr/libexec/atrun <a id="co-main"></a><span><img src="./imagelib/callouts/4.png" alt="4" border="0" /></span></pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#co-comments"><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span></a> </p></td><td valign="top" align="left"><p>Lines that begin with the <code class="literal">#</code> character
+	  are comments.  A comment can be placed in the file as a
+	  reminder of what and why a desired action is performed.
+	  Comments cannot be on the same line as a command or else
+	  they will be interpreted as part of the command; they must
+	  be on a new line.  Blank lines are ignored.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#co-env"><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span></a> </p></td><td valign="top" align="left"><p>The equals (<code class="literal">=</code>) character is used to
+	  define any environment settings.  In this example, it is
+	  used to define the <code class="envar">SHELL</code> and
+	  <code class="envar">PATH</code>.  If the <code class="envar">SHELL</code> is
+	  omitted, <span class="application">cron</span> will use the
+	  default Bourne shell.  If the <code class="envar">PATH</code> is
+	  omitted, the full path must be given to the command or
+	  script to run.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#co-field-descr"><span><img src="./imagelib/callouts/3.png" alt="3" border="0" /></span></a> </p></td><td valign="top" align="left"><p>This line defines the seven fields used in a system
+	  crontab: <code class="literal">minute</code>, <code class="literal">hour</code>,
+	  <code class="literal">mday</code>, <code class="literal">month</code>,
+	  <code class="literal">wday</code>, <code class="literal">who</code>, and
+	  <code class="literal">command</code>.  The <code class="literal">minute</code>
+	  field is the time in minutes when the specified command will
+	  be run, the <code class="literal">hour</code> is the hour when the
+	  specified command will be run, the <code class="literal">mday</code>
+	  is the day of the month, <code class="literal">month</code> is the
+	  month, and <code class="literal">wday</code> is the day of the week.
+	  These fields must be numeric values, representing the
+	  twenty-four hour clock, or a <code class="literal">*</code>,
+	  representing all values for that field.  The
+	  <code class="literal">who</code> field only exists in the system
+	  crontab and specifies which user the command should be run
+	  as.  The last field is the command to be executed.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#co-main"><span><img src="./imagelib/callouts/4.png" alt="4" border="0" /></span></a> </p></td><td valign="top" align="left"><p>This entry defines the values for this cron job.  The
+	  <code class="literal">*/5</code>, followed by several more
+	  <code class="literal">*</code> characters, specifies that
+	  <code class="command">/usr/libexec/atrun</code> is invoked by
+	  <code class="systemitem">root</code> every five
+	  minutes of every hour, of every day and day of the week, of
+	  every month.</p><p>Commands can include any number of switches.  However,
+	  commands which extend to multiple lines need to be broken
+	  with the backslash <span class="quote">&#8220;<span class="quote">\</span>&#8221;</span> continuation
+	  character.</p></td></tr></table></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="configtuning-installcrontab"></a>11.3.1. Creating a User Crontab</h3></div></div></div><p>To create a user crontab, invoke
+	<code class="command">crontab</code> in editor mode:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>crontab -e</code></strong></pre><p>This will open the user's crontab using the default text
+	editor.  The first time a user runs this command, it will open
+	an empty file.  Once a user creates a crontab, this command
+	will open that file for editing.</p><p>It is useful to add these lines to the top of the crontab
+	file in order to set the environment variables and to remember
+	the meanings of the fields in the crontab:</p><pre class="programlisting">SHELL=/bin/sh
+PATH=/etc:/bin:/sbin:/usr/bin:/usr/sbin
+# Order of crontab fields
+# minute	hour	mday	month	wday	command</pre><p>Then add a line for each command or script to run,
+	specifying the time to run the command.  This example runs the
+	specified custom Bourne shell script every day at two in the
+	afternoon.  Since the path to the script is not specified in
+	<code class="literal">PATH</code>, the full path to the script is
+	given:</p><pre class="programlisting">0	14	*	*	*	/usr/home/dru/bin/mycustomscript.sh</pre><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">Before using a custom script, make sure it is executable
+	  and test it with the limited set of environment variables
+	  set by cron.  To replicate the environment that would be
+	  used to run the above cron entry, use:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="programlisting">env -i SHELL=/bin/sh PATH=/etc:/bin:/sbin:/usr/bin:/usr/sbin HOME=/home/<em class="replaceable"><code>dru</code></em> LOGNAME=<em class="replaceable"><code>dru</code></em> <em class="replaceable"><code>/usr/home/dru/bin/mycustomscript.sh</code></em></pre><p xmlns="http://www.w3.org/1999/xhtml">The environment set by cron is discussed in
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=crontab&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">crontab</span>(5)</span></a>.  Checking that scripts operate correctly in
+	  a cron environment is especially important if they include
+	  any commands that delete files using wildcards.</p></div><p>When finished editing the crontab, save the file.  It
+	will automatically be installed and
+	<span class="application">cron</span> will read the crontab and run
+	its cron jobs at their specified times.  To list the cron jobs
+	in a crontab, use this command:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>crontab -l</code></strong>
+0	14	*	*	*	/usr/home/dru/bin/mycustomscript.sh</pre><p>To remove all of the cron jobs in a user crontab:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>crontab -r</code></strong>
+remove crontab for dru? <strong class="userinput"><code>y</code></strong></pre></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="configtuning-starting-services.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="config-tuning.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="configtuning-rcd.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">11.2. Starting Services </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 11.4. Managing Services in FreeBSD</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

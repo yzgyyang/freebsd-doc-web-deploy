@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>27.3. Troubleshooting PPP Connections</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="ppp-and-slip.html" title="Chapter 27. PPP" /><link rel="prev" href="userppp.html" title="27.2. Configuring PPP" /><link rel="next" href="pppoe.html" title="27.4. Using PPP over Ethernet (PPPoE)" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">27.3. Troubleshooting <acronym class="acronym">PPP</acronym> Connections</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="userppp.html">Prev</a> </td><th width="60%" align="center">Chapter 27. <acronym class="acronym">PPP</acronym></th><td width="20%" align="right"> <a accesskey="n" href="pppoe.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="ppp-troubleshoot"></a>27.3. Troubleshooting <acronym class="acronym">PPP</acronym> Connections</h2></div></div></div><a id="idp68576120" class="indexterm"></a><p>This section covers a few issues which may arise when
+      using <acronym class="acronym">PPP</acronym> over a modem connection.  Some
+      <acronym class="acronym">ISP</acronym>s present the
+      <code class="literal">ssword</code> prompt while others present
+      <code class="literal">password</code>.  If the <code class="command">ppp</code>
+      script is not written accordingly, the login attempt will
+      fail.  The most common way to debug <code class="command">ppp</code>
+      connections is by connecting manually as described in this
+      section.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp68580088"></a>27.3.1. Check the Device Nodes</h3></div></div></div><p>When using a custom kernel, make sure to include the
+	following line in the kernel configuration file:</p><pre class="programlisting">device   uart</pre><p>The <code class="filename">uart</code> device is already
+	included in the <code class="literal">GENERIC</code> kernel, so no
+	additional steps are necessary in this case.  Just
+	check the <code class="command">dmesg</code> output for the modem
+	device with:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>dmesg | grep uart</code></strong></pre><p>This should display some pertinent output about the
+	<code class="filename">uart</code> devices.  These are the COM
+	ports we need.  If the modem acts like a standard serial port,
+	it should be listed on <code class="filename">uart1</code>, or
+	<code class="filename">COM2</code>.  If so, a kernel rebuild is not
+	required.  When matching up, if the modem is on
+	<code class="filename">uart1</code>, the modem device would be
+	<code class="filename">/dev/cuau1</code>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp68590584"></a>27.3.2. Connecting Manually</h3></div></div></div><p>Connecting to the Internet by manually controlling
+	<code class="command">ppp</code> is quick, easy, and a great way to
+	debug a connection or just get information on how the
+	<acronym class="acronym">ISP</acronym> treats <code class="command">ppp</code> client
+	connections.  Lets start <span class="application">PPP</span> from
+	the command line.  Note that in all of our examples we will
+	use <span class="emphasis"><em>example</em></span> as the hostname of the
+	machine running <span class="application">PPP</span>.  To start
+	<code class="command">ppp</code>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ppp</code></strong></pre><pre class="screen">ppp ON example&gt; <strong class="userinput"><code>set device /dev/cuau1</code></strong></pre><p>This second command sets the modem device to
+	<code class="filename">cuau1</code>.</p><pre class="screen">ppp ON example&gt; <strong class="userinput"><code>set speed 115200</code></strong></pre><p>This sets the connection speed to
+	115,200 <acronym class="acronym">kbps</acronym>.</p><pre class="screen">ppp ON example&gt; <strong class="userinput"><code>enable dns</code></strong></pre><p>This tells <code class="command">ppp</code> to configure the
+	resolver and add the nameserver lines to
+	<code class="filename">/etc/resolv.conf</code>.  If
+	<code class="command">ppp</code> cannot determine the hostname, it can
+	manually be set later.</p><pre class="screen">ppp ON example&gt; <strong class="userinput"><code>term</code></strong></pre><p>This switches to <span class="quote">&#8220;<span class="quote">terminal</span>&#8221;</span> mode in order to
+	manually control the modem.</p><pre class="programlisting">deflink: Entering terminal mode on <code class="filename">/dev/cuau1</code>
+type '~h' for help</pre><pre class="screen"><strong class="userinput"><code>at</code></strong>
+OK
+<strong class="userinput"><code>atdt<em class="replaceable"><code>123456789</code></em></code></strong></pre><p>Use <code class="command">at</code> to initialize the modem, then
+	use <code class="command">atdt</code> and the number for the
+	<acronym class="acronym">ISP</acronym> to begin the dial in process.</p><pre class="screen">CONNECT</pre><p>Confirmation of the connection, if we are going to have
+	any connection problems, unrelated to hardware, here is where
+	we will attempt to resolve them.</p><pre class="screen">ISP Login:<strong class="userinput"><code>myusername</code></strong></pre><p>At this prompt, return the prompt with the username that
+	was provided by the <acronym class="acronym">ISP</acronym>.</p><pre class="screen">ISP Pass:<strong class="userinput"><code>mypassword</code></strong></pre><p>At this prompt, reply with the password that was provided
+	by the <acronym class="acronym">ISP</acronym>.  Just like logging into FreeBSD,
+	the password will not echo.</p><pre class="screen">Shell or PPP:<strong class="userinput"><code>ppp</code></strong></pre><p>Depending on the <acronym class="acronym">ISP</acronym>, this prompt
+	might not appear.  If it does, it is asking whether to use a
+	shell on the provider or to start
+	<code class="command">ppp</code>.  In this example,
+	<code class="command">ppp</code> was selected in order to establish an
+	Internet connection.</p><pre class="screen">Ppp ON example&gt;</pre><p>Notice that in this example the first <code class="option">p</code>
+	has been capitalized.  This shows that we have successfully
+	connected to the <acronym class="acronym">ISP</acronym>.</p><pre class="screen">PPp ON example&gt;</pre><p>We have successfully authenticated with our
+	<acronym class="acronym">ISP</acronym> and are waiting for the assigned
+	<acronym class="acronym">IP</acronym> address.</p><pre class="screen">PPP ON example&gt;</pre><p>We have made an agreement on an <acronym class="acronym">IP</acronym>
+	address and successfully completed our connection.</p><pre class="screen">PPP ON example&gt;<strong class="userinput"><code>add default HISADDR</code></strong></pre><p>Here we add our default route, we need to do this before
+	we can talk to the outside world as currently the only
+	established connection is with the peer.  If this fails due to
+	existing routes, put a bang character
+	<code class="literal">!</code> in front of the <code class="option">add</code>.
+	Alternatively, set this before making the actual
+	connection and it will negotiate a new route
+	accordingly.</p><p>If everything went good we should now have an active
+	connection to the Internet, which could be thrown into the
+	background using <span class="keycap"><strong>CTRL</strong></span>+<span class="keycap"><strong>z</strong></span> If <code class="command">PPP</code>
+	returns to <code class="command">ppp</code> then the connection has bee
+	lost.  This is good to know because it shows the connection
+	status.  Capital P's represent a connection to the
+	<acronym class="acronym">ISP</acronym> and lowercase p's show that the
+	connection has been lost.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp68632056"></a>27.3.3. Debugging</h3></div></div></div><p>If a connection cannot be established, turn hardware
+	  flow <acronym class="acronym">CTS/RTS</acronym> to off using <code class="option">set
+	    ctsrts off</code>.  This is mainly the case when
+	  connected to some <span class="application">PPP</span>-capable
+	  terminal servers, where <span class="application">PPP</span> hangs
+	  when it tries to write data to the communication link, and
+	  waits for a Clear To Send (<acronym class="acronym">CTS</acronym>) signal
+	  which may never come.  When using this option, include
+	  <code class="option">set accmap</code> as it may be required to defeat
+	  hardware dependent on passing certain characters from end to
+	  end, most of the time XON/XOFF.  Refer to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ppp&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ppp</span>(8)</span></a> for
+	  more information on this option and how it is used.</p><p>An older modem may need <code class="option">set parity
+	    even</code>.  Parity is set at none be default, but is
+	  used for error checking with a large increase in traffic,
+	  on older modems.</p><p><span class="application">PPP</span> may not return to the
+	  command mode, which is usually a negotiation error where the
+	  <acronym class="acronym">ISP</acronym> is waiting for negotiating to begin.
+	  At this point, using  <code class="command">~p</code> will force ppp
+	  to start sending the configuration information.</p><p>If a login prompt never appears, <acronym class="acronym">PAP</acronym>
+	  or <acronym class="acronym">CHAP</acronym> authentication is most likely
+	  required.  To use <acronym class="acronym">PAP</acronym> or
+	  <acronym class="acronym">CHAP</acronym>, add the following options to
+	  <span class="application">PPP</span> before going into terminal
+	  mode:</p><pre class="screen">ppp ON example&gt; <strong class="userinput"><code>set authname <em class="replaceable"><code>myusername</code></em></code></strong></pre><p>Where <em class="replaceable"><code>myusername</code></em> should be
+	  replaced with the username that was assigned by the
+	  <acronym class="acronym">ISP</acronym>.</p><pre class="screen">ppp ON example&gt; <strong class="userinput"><code>set authkey <em class="replaceable"><code>mypassword</code></em></code></strong></pre><p>Where <em class="replaceable"><code>mypassword</code></em> should be
+	  replaced with the password that was assigned by the
+	  <acronym class="acronym">ISP</acronym>.</p><p>If a connection is established, but cannot seem to find
+	  any domain name,  try to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ping&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ping</span>(8)</span></a> an
+	  <acronym class="acronym">IP</acronym> address.  If there is 100 percent
+	  (100%) packet loss, it is likely that a default route was
+	  not assigned.  Double check that <code class="option">add default
+	    HISADDR</code> was set during the connection.  If a
+	  connection can be made to a remote <acronym class="acronym">IP</acronym>
+	  address, it is possible that a resolver address has not been
+	  added to <code class="filename">/etc/resolv.conf</code>.  This file
+	  should look like:</p><pre class="programlisting">domain <em class="replaceable"><code>example.com</code></em>
+nameserver <em class="replaceable"><code>x.x.x.x</code></em>
+nameserver <em class="replaceable"><code>y.y.y.y</code></em></pre><p>Where <em class="replaceable"><code>x.x.x.x</code></em> and
+	  <em class="replaceable"><code>y.y.y.y</code></em> should be replaced with
+	  the <acronym class="acronym">IP</acronym> address of the
+	  <acronym class="acronym">ISP</acronym>'s DNS servers.</p><p>To configure <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=syslog&amp;sektion=3&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">syslog</span>(3)</span></a> to provide logging for the
+	  <span class="application">PPP</span> connection, make sure this
+	  line exists in <code class="filename">/etc/syslog.conf</code>:</p><pre class="programlisting">!ppp
+*.*     /var/log/ppp.log</pre></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="userppp.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ppp-and-slip.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="pppoe.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">27.2. Configuring <acronym class="acronym">PPP</acronym> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 27.4. Using <acronym class="acronym">PPP</acronym> over Ethernet (PPPoE)</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

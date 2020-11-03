@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>14.6. Managing Jails with ezjail</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="jails.html" title="Chapter 14. Jails" /><link rel="prev" href="jails-application.html" title="14.5. Updating Multiple Jails" /><link rel="next" href="mac.html" title="Chapter 15. Mandatory Access Control" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">14.6. Managing Jails with
+	<span class="application">ezjail</span></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="jails-application.html">Prev</a> </td><th width="60%" align="center">Chapter 14. Jails</th><td width="20%" align="right"> <a accesskey="n" href="mac.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="jails-ezjail"></a>14.6. Managing Jails with
+	<span class="application">ezjail</span></h2></div><div><span class="authorgroup">Originally contributed by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Warren</span> <span class="surname">Block</span></span>. </span></div></div></div><p>Creating and managing multiple jails can quickly become
+      tedious and error-prone.  Dirk Engling's
+      <span class="application">ezjail</span> automates and greatly
+      simplifies many jail tasks.  A <span class="emphasis"><em>basejail</em></span> is
+      created as a template.  Additional jails use
+      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mount_nullfs&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mount_nullfs</span>(8)</span></a> to share many of the basejail directories
+      without using additional disk space.  Each additional jail takes
+      only a few megabytes of disk space before applications are
+      installed.  Upgrading the copy of the userland in the basejail
+      automatically upgrades all of the other jails.</p><p>Additional benefits and features are described in detail on
+      the <span class="application">ezjail</span> web site, <a class="link" href="https://erdgeist.org/arts/software/ezjail/" target="_top">https://erdgeist.org/arts/software/ezjail/</a>.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="jails-ezjail-install"></a>14.6.1. Installing <span class="application">ezjail</span></h3></div></div></div><p>Installing <span class="application">ezjail</span> consists of
+	adding a loopback interface for use in jails, installing the
+	port or package, and enabling the service.</p><div class="procedure"><a id="jails-ezjail-install-procedure"></a><ol class="procedure" type="1"><li class="step"><p>To keep jail loopback traffic off the host's loopback
+	    network interface <code class="literal">lo0</code>, a second
+	    loopback interface is created by adding an entry to
+	    <code class="filename">/etc/rc.conf</code>:</p><pre class="programlisting">cloned_interfaces="lo1"</pre><p>The second loopback interface <code class="literal">lo1</code>
+	    will be created when the system starts.  It can also be
+	    created manually without a restart:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service netif cloneup</code></strong>
+Created clone interfaces: lo1.</pre><p>Jails can be allowed to use aliases of this secondary
+	    loopback interface without interfering with the
+	    host.</p><p>Inside a jail, access to the loopback address
+	    <code class="systemitem">127.0.0.1</code> is
+	    redirected to the first <acronym class="acronym">IP</acronym> address
+	    assigned to the jail.  To make the jail loopback
+	    correspond with the new <code class="literal">lo1</code> interface,
+	    that interface must be specified first in the list of
+	    interfaces and <acronym class="acronym">IP</acronym> addresses given when
+	    creating a new jail.</p><p>Give each jail a unique loopback address in the
+	    <code class="systemitem">127.0.0.0</code><code class="systemitem">/8</code> netblock.</p></li><li class="step"><p>Install
+	    <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/sysutils/ezjail/pkg-descr">sysutils/ezjail</a>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/ports/sysutils/ezjail</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make install clean</code></strong></pre></li><li class="step"><p>Enable <span class="application">ezjail</span> by adding
+	    this line to <code class="filename">/etc/rc.conf</code>:</p><pre class="programlisting">ezjail_enable="YES"</pre></li><li class="step"><p>The service will automatically start on system boot.
+	    It can be started immediately for the current
+	    session:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service ezjail start</code></strong></pre></li></ol></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="jails-ezjail-initialsetup"></a>14.6.2. Initial Setup</h3></div></div></div><p>With <span class="application">ezjail</span> installed, the
+	basejail directory structure can be created and populated.
+	This step is only needed once on the jail host
+	computer.</p><p>In both of these examples, <code class="option">-p</code> causes the
+	ports tree to be retrieved with <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=portsnap&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">portsnap</span>(8)</span></a> into the
+	basejail.  That single copy of the ports directory will be
+	shared by all the jails.  Using a separate copy of the ports
+	directory for jails isolates them from the host.  The
+	<span class="application">ezjail</span> <acronym class="acronym">FAQ</acronym>
+	explains in more detail: <a class="link" href="http://erdgeist.org/arts/software/ezjail/#FAQ" target="_top">http://erdgeist.org/arts/software/ezjail/#FAQ</a>.</p><div class="procedure"><a id="jails-ezjail-initialsetup-procedure"></a><ul class="procedure"><li class="step"><ul class="stepalternatives">
+	    <li class="step"><p class="title"><strong>To Populate the Jail with FreeBSD-RELEASE</strong></p><p>For a basejail based on the FreeBSD RELEASE matching
+		that of the host computer, use
+		<code class="command">install</code>.  For example, on a host
+		computer running FreeBSD 10-STABLE, the latest
+		RELEASE version of FreeBSD -10 will be installed in
+		the jail):</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ezjail-admin install -p</code></strong></pre></li>
+
+	    <li class="step"><p class="title"><strong>To Populate the Jail with
+		<code class="command">installworld</code></strong></p><p>The basejail can be installed from binaries
+		created by <code class="buildtarget">buildworld</code> on
+		the host with
+		<code class="command">ezjail-admin update</code>.</p><p>In this example, FreeBSD 10-STABLE has been
+		built from source.  The jail directories are created.
+		Then <code class="buildtarget">installworld</code> is
+		executed, installing the host's
+		<code class="filename">/usr/obj</code> into the
+		basejail.</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ezjail-admin update -i -p</code></strong></pre><p>The host's <code class="filename">/usr/src</code> is used
+		by default.  A different source directory on the host
+		can be specified with <code class="option">-s</code> and a path,
+		or set with <code class="varname">ezjail_sourcetree</code> in
+		<code class="filename">/usr/local/etc/ezjail.conf</code>.</p></li>
+	  </ul></li></ul></div><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">The basejail's ports tree is shared by other jails.
+	  However, downloaded distfiles are stored in the jail that
+	  downloaded them.  By default, these files are stored in
+	  <code class="filename">/var/ports/distfiles</code> within each
+	  jail.  <code class="filename">/var/ports</code> inside each jail is
+	  also used as a work directory when building ports.</p></div><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">The <acronym class="acronym">FTP</acronym> protocol is used by default
+	  to download packages for the installation of the basejail.
+	  Firewall or proxy configurations can prevent or interfere
+	  with <acronym class="acronym">FTP</acronym> transfers.  The
+	  <acronym class="acronym">HTTP</acronym> protocol works differently and
+	  avoids these problems.  It can be chosen by specifying a
+	  full <acronym class="acronym">URL</acronym> for a particular download mirror
+	  in <code class="filename">/usr/local/etc/ezjail.conf</code>:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="programlisting">ezjail_ftphost=http://<em class="replaceable"><code>ftp.FreeBSD.org</code></em></pre><p xmlns="http://www.w3.org/1999/xhtml">See <a class="xref" href="mirrors-ftp.html" title="A.2. FTP Sites">Section A.2, &#8220;<acronym class="acronym">FTP</acronym> Sites&#8221;</a> for a list of
+	  sites.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="jails-ezjail-create"></a>14.6.3. Creating and Starting a New Jail</h3></div></div></div><p>New jails are created with
+	<code class="command">ezjail-admin create</code>.  In these examples,
+	the <code class="literal">lo1</code> loopback interface is used as
+	described above.</p><div class="procedure"><a id="jails-ezjail-create-steps"></a><div class="procedure-title">Procedure 14.1. Create and Start a New Jail</div><ol class="procedure" type="1"><li class="step"><p>Create the jail, specifying a name and the loopback
+	    and network interfaces to use, along with their
+	    <acronym class="acronym">IP</acronym> addresses.  In this example, the
+	    jail is named <code class="literal">dnsjail</code>.</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ezjail-admin create <em class="replaceable"><code>dnsjail</code></em> '<em class="replaceable"><code>lo1|127.0.1.1</code></em>,<em class="replaceable"><code>em0</code></em>|<em class="replaceable"><code>192.168.1.50</code></em>'</code></strong></pre><div xmlns="" class="tip"><h3 class="admontitle"><a xmlns="http://www.w3.org/1999/xhtml" id="jails-ezjail-raw-network-sockets"></a>Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">Most network services run in jails without
+	      problems.  A few network services, most notably
+	      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ping&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ping</span>(8)</span></a>, use
+	      <span class="emphasis"><em>raw network sockets</em></span>.  In jails, raw
+	      network sockets are disabled by default for security.
+	      Services that require them will not work.</p><p xmlns="http://www.w3.org/1999/xhtml">Occasionally, a jail genuinely needs raw sockets.
+	      For example, network monitoring applications often use
+	      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ping&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ping</span>(8)</span></a> to check the availability of other
+	      computers.  When raw network sockets are actually needed
+	      in a jail, they can be enabled by editing the
+	      <span class="application">ezjail</span>
+	      configuration file for the individual jail,
+	      <code class="filename">/usr/local/etc/ezjail/<em class="replaceable"><code>jailname</code></em></code>.
+	      Modify the <code class="literal">parameters</code>
+	      entry:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="programlisting">export jail_<em class="replaceable"><code>jailname</code></em>_parameters="allow.raw_sockets=1"</pre><p xmlns="http://www.w3.org/1999/xhtml">Do not enable raw network sockets unless services in
+	      the jail actually require them.</p></div></li><li class="step"><p>Start the jail:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ezjail-admin start <em class="replaceable"><code>dnsjail</code></em></code></strong></pre></li><li class="step"><p>Use a console on the jail:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ezjail-admin console <em class="replaceable"><code>dnsjail</code></em></code></strong></pre></li></ol></div><p>The jail is operating and additional configuration can be
+	completed.  Typical settings added at this point
+	include:</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p class="title"><strong>Set the
+	    <code class="systemitem">root</code>
+	    Password</strong></p><p>Connect to the jail and set the
+	    <code class="systemitem">root</code> user's
+	    password:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ezjail-admin console <em class="replaceable"><code>dnsjail</code></em></code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>passwd</code></strong>
+Changing local password for root
+New Password:
+Retype New Password:</pre></li><li class="step"><p class="title"><strong>Time Zone Configuration</strong></p><p>The jail's time zone can be set with <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=tzsetup&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">tzsetup</span>(8)</span></a>.
+	    To avoid spurious error messages, the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=adjkerntz&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">adjkerntz</span>(8)</span></a>
+	    entry in <code class="filename">/etc/crontab</code> can be
+	    commented or removed.  This job attempts to update the
+	    computer's hardware clock with time zone changes, but
+	    jails are not allowed to access that hardware.</p></li><li class="step"><p class="title"><strong><acronym class="acronym">DNS</acronym> Servers</strong></p><p>Enter domain name server lines in
+	    <code class="filename">/etc/resolv.conf</code> so
+	    <acronym class="acronym">DNS</acronym> works in the jail.</p></li><li class="step"><p class="title"><strong>Edit <code class="filename">/etc/hosts</code></strong></p><p>Change the address and add the jail name to the
+	    <code class="literal">localhost</code> entries in
+	    <code class="filename">/etc/hosts</code>.</p></li><li class="step"><p class="title"><strong>Configure <code class="filename">/etc/rc.conf</code></strong></p><p>Enter configuration settings in
+	    <code class="filename">/etc/rc.conf</code>.  This is much like
+	    configuring a full computer.  The host name and
+	    <acronym class="acronym">IP</acronym> address are not set here.  Those
+	    values are already provided by the jail
+	    configuration.</p></li></ol></div><p>With the jail configured, the applications for which the
+	jail was created can be installed.</p><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">Some ports must be built with special options to be used
+	  in a jail.  For example, both of the network monitoring
+	  plugin packages
+	  <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/net-mgmt/nagios-plugins/pkg-descr">net-mgmt/nagios-plugins</a> and
+	  <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/net-mgmt/monitoring-plugins/pkg-descr">net-mgmt/monitoring-plugins</a>
+	  have a <code class="literal">JAIL</code> option which must be enabled
+	  for them to work correctly inside a jail.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="jails-ezjail-update"></a>14.6.4. Updating Jails</h3></div></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="jails-ezjail-update-os"></a>14.6.4.1. Updating the Operating System</h4></div></div></div><p>Because the basejail's copy of the userland is shared by
+	  the other jails, updating the basejail automatically updates
+	  all of the other jails.  Either source or binary updates can
+	  be used.</p><p>To build the world from source on the host, then
+	  install it in the basejail, use:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ezjail-admin update -b</code></strong></pre><p>If the world has already been compiled on the host,
+	  install it in the basejail with:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ezjail-admin update -i</code></strong></pre><p>Binary updates use <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=freebsd-update&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">freebsd-update</span>(8)</span></a>.  These
+	  updates have the same limitations as if
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=freebsd-update&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">freebsd-update</span>(8)</span></a> were being run directly.  The most
+	  important one is that only -RELEASE versions of FreeBSD are
+	  available with this method.</p><p>Update the basejail to the latest patched release of
+	  the version of FreeBSD on the host.  For example, updating from
+	  RELEASE-p1 to RELEASE-p2.</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ezjail-admin update -u</code></strong></pre><p>To upgrade the basejail to a new version, first
+	  upgrade the host system as described in <a class="xref" href="updating-upgrading-freebsdupdate.html#freebsdupdate-upgrade" title="23.2.3. Performing Major and Minor Version Upgrades">Section 23.2.3, &#8220;Performing Major and Minor Version Upgrades&#8221;</a>.  Once the host has
+	  been upgraded and rebooted, the basejail can then be
+	  upgraded.  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=freebsd-update&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">freebsd-update</span>(8)</span></a> has no way of determining
+	  which version is currently installed in the basejail, so the
+	  original version must be specified.  Use <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=file&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">file</span>(1)</span></a> to
+	  determine the original version in the basejail:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>file /usr/jails/basejail/bin/sh</code></strong>
+/usr/jails/basejail/bin/sh: ELF 64-bit LSB executable, x86-64, version 1 (FreeBSD), dynamically linked (uses shared libs), for FreeBSD 9.3, stripped</pre><p>Now use this information to perform the upgrade from
+	  <code class="literal">9.3-RELEASE</code> to the current version of
+	  the host system:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ezjail-admin update -U -s <em class="replaceable"><code>9.3-RELEASE</code></em></code></strong></pre><p>After updating the basejail, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mergemaster&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mergemaster</span>(8)</span></a> must
+	  be run to update each jail's configuration files.</p><p>How to use <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mergemaster&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mergemaster</span>(8)</span></a> depends on the purpose
+	  and trustworthiness of a jail.  If a jail's services or
+	  users are not trusted, then <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mergemaster&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mergemaster</span>(8)</span></a> should only
+	  be run from within that jail:</p><div class="example"><a id="jails-ezjail-update-mergemaster-untrusted"></a><div class="example-title">Example 14.1. <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mergemaster&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mergemaster</span>(8)</span></a> on Untrusted Jail</div><div class="example-contents"><p>Delete the link from the jail's
+	    <code class="filename">/usr/src</code> into the basejail and
+	    create a new <code class="filename">/usr/src</code> in the jail
+	    as a mountpoint.  Mount the host computer's
+	    <code class="filename">/usr/src</code> read-only on the jail's
+	    new <code class="filename">/usr/src</code> mountpoint:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>rm /usr/jails/<em class="replaceable"><code>jailname</code></em>/usr/src</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>mkdir /usr/jails/<em class="replaceable"><code>jailname</code></em>/usr/src</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>mount -t nullfs -o ro /usr/src /usr/jails/<em class="replaceable"><code>jailname</code></em>/usr/src</code></strong></pre><p>Get a console in the jail:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ezjail-admin console <em class="replaceable"><code>jailname</code></em></code></strong></pre><p>Inside the jail, run <code class="command">mergemaster</code>.
+	    Then exit the jail console:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/src</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>mergemaster -U</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>exit</code></strong></pre><p>Finally, unmount the jail's
+	    <code class="filename">/usr/src</code>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>umount /usr/jails/<em class="replaceable"><code>jailname</code></em>/usr/src</code></strong></pre></div></div><br class="example-break" /><div class="example"><a id="jails-ezjail-update-mergemaster-trusted"></a><div class="example-title">Example 14.2. <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mergemaster&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mergemaster</span>(8)</span></a> on Trusted Jail</div><div class="example-contents"><p>If the users and services in a jail are trusted,
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mergemaster&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mergemaster</span>(8)</span></a> can be run from the host:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>mergemaster -U -D /usr/jails/<em class="replaceable"><code>jailname</code></em></code></strong></pre></div></div><br class="example-break" /><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">After a major version update it is recommended by
+	    <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/sysutils/ezjail/pkg-descr">sysutils/ezjail</a> to make sure your
+	    <code class="command">pkg</code> is of the correct version.
+	    Therefore enter:</p><pre xmlns="http://www.w3.org/1999/xhtml" class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg-static upgrade -f pkg</code></strong></pre><p xmlns="http://www.w3.org/1999/xhtml">to upgrade or downgrade to the appropriate
+	    version.</p></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="jails-ezjail-update-ports"></a>14.6.4.2. Updating Ports</h4></div></div></div><p>The ports tree in the basejail is shared by the other
+	  jails.  Updating that copy of the ports tree gives the other
+	  jails the updated version also.</p><p>The basejail ports tree is updated with
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=portsnap&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">portsnap</span>(8)</span></a>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ezjail-admin update -P</code></strong></pre></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="jails-ezjail-control"></a>14.6.5. Controlling Jails</h3></div></div></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="jails-ezjail-control-stop-start"></a>14.6.5.1. Stopping and Starting Jails</h4></div></div></div><p><span class="application">ezjail</span> automatically starts
+	  jails when the computer is started.  Jails can be manually
+	  stopped and restarted with <code class="command">stop</code> and
+	  <code class="command">start</code>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ezjail-admin stop <em class="replaceable"><code>sambajail</code></em></code></strong>
+Stopping jails: sambajail.</pre><p>By default, jails are started automatically when the
+	  host computer starts.  Autostarting can be disabled
+	  with <code class="command">config</code>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ezjail-admin config -r norun <em class="replaceable"><code>seldomjail</code></em></code></strong></pre><p>This takes effect the next time the host computer is
+	  started.  A jail that is already running will not be
+	  stopped.</p><p>Enabling autostart is very similar:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ezjail-admin config -r run <em class="replaceable"><code>oftenjail</code></em></code></strong></pre></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="jails-ezjail-control-backup"></a>14.6.5.2. Archiving and Restoring Jails</h4></div></div></div><p>Use <code class="command">archive</code> to create a
+	  <code class="filename">.tar.gz</code> archive of a jail.  The file
+	  name is composed from the name of the jail and the current
+	  date.  Archive files are written to the archive directory,
+	  <code class="filename">/usr/jails/ezjail_archives</code>.  A
+	  different archive directory can be chosen by setting
+	  <code class="varname">ezjail_archivedir</code> in the configuration
+	  file.</p><p>The archive file can be copied elsewhere as a backup, or
+	  an existing jail can be restored from it with
+	  <code class="command">restore</code>.  A new jail can be created from
+	  the archive, providing a convenient way to clone existing
+	  jails.</p><p>Stop and archive a jail named
+	  <code class="literal">wwwserver</code>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ezjail-admin stop <em class="replaceable"><code>wwwserver</code></em></code></strong>
+Stopping jails: wwwserver.
+<code class="prompt">#</code> <strong class="userinput"><code>ezjail-admin archive <em class="replaceable"><code>wwwserver</code></em></code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>ls /usr/jails/ezjail-archives/</code></strong>
+wwwserver-201407271153.13.tar.gz</pre><p>Create a new jail named
+	  <code class="literal">wwwserver-clone</code> from the archive created
+	  in the previous step.  Use the <code class="filename">em1</code>
+	  interface and assign a new <acronym class="acronym">IP</acronym> address to
+	  avoid conflict with the original:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ezjail-admin create -a /usr/jails/ezjail_archives/wwwserver-201407271153.13.tar.gz <em class="replaceable"><code>wwwserver-clone</code></em> 'lo1|127.0.3.1,em1|192.168.1.51'</code></strong></pre></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="jails-ezjail-example-bind"></a>14.6.6. Full Example: <span class="application">BIND</span> in a
+	Jail</h3></div></div></div><p>Putting the <span class="application">BIND</span>
+	<acronym class="acronym">DNS</acronym> server in a jail improves security by
+	isolating it.  This example creates a simple caching-only name
+	server.</p><div class="itemizedlist"><a id="jails-ezjail-example-bind-assumptions"></a><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>The jail will be called
+	    <code class="literal">dns1</code>.</p></li><li class="listitem"><p>The jail will use <acronym class="acronym">IP</acronym> address
+	    <code class="literal">192.168.1.240</code> on the host's
+	    <code class="literal">re0</code> interface.</p></li><li class="listitem"><p>The upstream <acronym class="acronym">ISP</acronym>'s DNS servers are
+	    at <code class="literal">10.0.0.62</code> and
+	    <code class="literal">10.0.0.61</code>.</p></li><li class="listitem"><p>The basejail has already been created and a ports tree
+	    installed as shown in
+	    <a class="xref" href="jails-ezjail.html#jails-ezjail-initialsetup" title="14.6.2. Initial Setup">Section 14.6.2, &#8220;Initial Setup&#8221;</a>.</p></li></ul></div><div class="example"><a id="jails-ezjail-example-bind-steps"></a><div class="example-title">Example 14.3. Running BIND in a Jail</div><div class="example-contents"><p>Create a cloned loopback interface by adding a line to
+	  <code class="filename">/etc/rc.conf</code>:</p><pre class="programlisting">cloned_interfaces="lo1"</pre><p>Immediately create the new loopback interface:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service netif cloneup</code></strong>
+Created clone interfaces: lo1.</pre><p>Create the jail:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ezjail-admin create dns1 'lo1|127.0.2.1,re0|192.168.1.240'</code></strong></pre><p>Start the jail, connect to a console running on it, and
+	  perform some basic configuration:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ezjail-admin start dns1</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>ezjail-admin console dns1</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>passwd</code></strong>
+Changing local password for root
+New Password:
+Retype New Password:
+<code class="prompt">#</code> <strong class="userinput"><code>tzsetup</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>sed -i .bak -e '/adjkerntz/ s/^/#/' /etc/crontab</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>sed -i .bak -e 's/127.0.0.1/127.0.2.1/g; s/localhost.my.domain/dns1.my.domain dns1/' /etc/hosts</code></strong></pre><p>Temporarily set the upstream <acronym class="acronym">DNS</acronym>
+	  servers in <code class="filename">/etc/resolv.conf</code> so ports
+	  can be downloaded:</p><pre class="programlisting">nameserver 10.0.0.62
+nameserver 10.0.0.61</pre><p>Still using the jail console, install
+	  <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/dns/bind99/pkg-descr">dns/bind99</a>.</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>make -C /usr/ports/dns/bind99 install clean</code></strong></pre><p>Configure the name server by editing
+	  <code class="filename">/usr/local/etc/namedb/named.conf</code>.</p><p>Create an Access Control List (<acronym class="acronym">ACL</acronym>)
+	  of addresses and networks that are permitted to send
+	  <acronym class="acronym">DNS</acronym> queries to this name server.  This
+	  section is added just before the <code class="literal">options</code>
+	  section already in the file:</p><pre class="programlisting">...
+// or cause huge amounts of useless Internet traffic.
+
+acl "trusted" {
+	192.168.1.0/24;
+	localhost;
+	localnets;
+};
+
+options {
+...</pre><p>Use the jail <acronym class="acronym">IP</acronym> address in the
+	  <code class="literal">listen-on</code> setting to accept
+	  <acronym class="acronym">DNS</acronym> queries from other computers on the
+	  network:</p><pre class="programlisting">	listen-on	{ 192.168.1.240; };</pre><p>A simple caching-only <acronym class="acronym">DNS</acronym> name server
+	  is created by changing the <code class="literal">forwarders</code>
+	  section.  The original file contains:</p><pre class="programlisting">/*
+	forwarders {
+		127.0.0.1;
+	};
+*/</pre><p>Uncomment the section by removing the
+	  <code class="literal">/*</code> and <code class="literal">*/</code> lines.
+	  Enter the <acronym class="acronym">IP</acronym> addresses of the upstream
+	  <acronym class="acronym">DNS</acronym> servers.  Immediately after the
+	  <code class="literal">forwarders</code> section, add references to the
+	  <code class="literal">trusted</code> <acronym class="acronym">ACL</acronym> defined
+	  earlier:</p><pre class="programlisting">	forwarders {
+		10.0.0.62;
+		10.0.0.61;
+	};
+
+	allow-query       { any; };
+	allow-recursion   { trusted; };
+	allow-query-cache { trusted; };</pre><p>Enable the service in
+	  <code class="filename">/etc/rc.conf</code>:</p><pre class="programlisting">named_enable="YES"</pre><p>Start and test the name server:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service named start</code></strong>
+wrote key file "/usr/local/etc/namedb/rndc.key"
+Starting named.
+<code class="prompt">#</code> <strong class="userinput"><code>/usr/local/bin/dig @192.168.1.240 freebsd.org</code></strong></pre><p>A response that includes</p><pre class="screen">;; Got answer;</pre><p>shows that the new <acronym class="acronym">DNS</acronym> server is
+	  working.  A long delay followed by a response
+	  including</p><pre class="screen">;; connection timed out; no servers could be reached</pre><p>shows a problem.  Check the configuration settings and
+	  make sure any local firewalls allow the new
+	  <acronym class="acronym">DNS</acronym> access to the upstream
+	  <acronym class="acronym">DNS</acronym> servers.</p><p>The new <acronym class="acronym">DNS</acronym> server can use itself for
+	  local name resolution, just like other local computers.  Set
+	  the address of the <acronym class="acronym">DNS</acronym> server in the
+	  client computer's
+	  <code class="filename">/etc/resolv.conf</code>:</p><pre class="programlisting">nameserver 192.168.1.240</pre><p>A local <acronym class="acronym">DHCP</acronym> server can be configured
+	  to provide this address for a local <acronym class="acronym">DNS</acronym>
+	  server, providing automatic configuration on
+	  <acronym class="acronym">DHCP</acronym> clients.</p></div></div><br class="example-break" /></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="jails-application.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="jails.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="mac.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">14.5. Updating Multiple Jails </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 15. Mandatory Access Control</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

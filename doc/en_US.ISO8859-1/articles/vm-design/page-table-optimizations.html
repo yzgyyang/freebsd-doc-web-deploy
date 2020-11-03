@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>6. Page Table Optimizations</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Design elements of the FreeBSD VM system" /><link rel="up" href="index.html" title="Design elements of the FreeBSD VM system" /><link rel="prev" href="prefault-optimizations.html" title="5. Pre-Faulting and Zeroing Optimizations" /><link rel="next" href="page-coloring-optimizations.html" title="7. Page Coloring" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6. Page Table Optimizations</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="prefault-optimizations.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="page-coloring-optimizations.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="page-table-optimizations"></a>6. Page Table Optimizations</h2></div></div></div><p>The page table optimizations make up the most contentious part of
+      the FreeBSD VM design and they have shown some strain with the advent of
+      serious use of <code class="function">mmap()</code>.  I think this is actually a
+      feature of most BSDs though I am not sure when it was first introduced.
+      There are two major optimizations.  The first is that hardware page
+      tables do not contain persistent state but instead can be thrown away at
+      any time with only a minor amount of management overhead.  The second is
+      that every active page table entry in the system has a governing
+      <code class="literal">pv_entry</code> structure which is tied into the
+      <code class="literal">vm_page</code> structure.  FreeBSD can simply iterate
+      through those mappings that are known to exist while Linux must check
+      all page tables that <span class="emphasis"><em>might</em></span> contain a specific
+      mapping to see if it does, which can achieve O(n^2) overhead in certain
+      situations.  It is because of this that FreeBSD tends to make better
+      choices on which pages to reuse or swap when memory is stressed, giving
+      it better performance under load. However, FreeBSD requires kernel
+      tuning to accommodate large-shared-address-space situations such as
+      those that can occur in a news system because it may run out of
+      <code class="literal">pv_entry</code> structures.</p><p>Both Linux and FreeBSD need work in this area.  FreeBSD is trying to
+      maximize the advantage of a potentially sparse active-mapping model (not
+      all processes need to map all pages of a shared library, for example),
+      whereas Linux is trying to simplify its algorithms.  FreeBSD generally
+      has the performance advantage here at the cost of wasting a little extra
+      memory, but FreeBSD breaks down in the case where a large file is
+      massively shared across hundreds of processes.  Linux, on the other hand,
+      breaks down in the case where many processes are sparsely-mapping the
+      same shared library and also runs non-optimally when trying to determine
+      whether a page can be reused or not.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="prefault-optimizations.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="page-coloring-optimizations.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">5. Pre-Faulting and Zeroing Optimizations </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 7. Page Coloring</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

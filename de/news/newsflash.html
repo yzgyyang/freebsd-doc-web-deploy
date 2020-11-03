@@ -44,11 +44,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' site: www.FreeBSD.org site: docs.FreeBSD.org site: lists.FreeBSD.org site: wiki.FreeBSD.org site: forums.FreeBSD.org'">
                   <h2 class="blockhide">
                     <label for="words">Suche</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -120,6 +119,9 @@
                   </li>
                   <li>
                     <a href="//www.FreeBSD.org/cgi/man.cgi">Manualpages</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">Presentations and Papers</a>
                   </li>
                   <li>
                     <a href="../../doc/de_DE.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
@@ -311,15 +313,507 @@
             <p>Die FreeBSD Sicherheitshinweise finden Sie auf der Seite
       <a href="../../security/advisories.html">FreeBSD Security
       Advisories</a>.</p>
+            <h1 xmlns="">Oktober 2020</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20201003:01" id="event20201003:01"></a><b>3 Oktober:</b> Der erste Release Candidate aus dem FreeBSD 12.2-Releasezyklus
+	    ist <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2020-October/092740.html">verfügbar</a>.
+	    ISO-Images für die Architekturen amd64, armv6, armv7, arm64, i386,
+	    powerpc, powerpc64, powerpcspe sowie sparc64 sind
+	    inzwischen auf den meisten <a xmlns="http://www.w3.org/1999/xhtml" href="../../doc/de_DE.ISO8859-1/books/handbook/mirrors-ftp.html">
+	    FreeBSD-Spiegelservern</a> vorhanden.</p>
+              </li>
+            </ul>
+            <h1 xmlns="">September 2020</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20200926:01" id="event20200926:01"></a><b>26 September:</b> Die dritte BETA-Version aus dem FreeBSD 12.2-Releasezyklus
+	    ist <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2020-September/092727.html">verfügbar</a>.
+	    ISO-Images für die Architekturen amd64, armv6,
+	    armv7, arm64, i386, powerpc, powerpc64 sowie powerpcspe sind
+	    inzwischen auf den meisten <a xmlns="http://www.w3.org/1999/xhtml" href="../../doc/de_DE.ISO8859-1/books/handbook/mirrors-ftp.html">
+	    FreeBSD-Spiegelservern</a> vorhanden.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200918:01" id="event20200918:01"></a><b>18 September:</b> Die zweite BETA-Version aus dem FreeBSD 12.2-Releasezyklus
+	    ist <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2020-September/092702.html">verfügbar</a>.
+	    ISO-Images für die Architekturen amd64, armv6,
+	    armv7, arm64, i386, powerpc, powerpc64, powerpcspe sowie
+	    sparc64 sind inzwischen auf den meisten <a xmlns="http://www.w3.org/1999/xhtml" href="../../doc/de_DE.ISO8859-1/books/handbook/mirrors-ftp.html">
+	    FreeBSD-Spiegelservern</a> vorhanden.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200912:01" id="event20200912:01"></a><b>12 September:</b> Die erste BETA-Version aus dem FreeBSD 12.2-Releasezyklus
+	    ist <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2020-September/092680.html">verfügbar</a>.
+	    ISO-Images für die Architekturen amd64, armv6,
+	    armv7, arm64, i386, powerpc, powerpc64, powerpcspe sowie
+	    sparc64 sind inzwischen auf den meisten <a xmlns="http://www.w3.org/1999/xhtml" href="../../doc/de_DE.ISO8859-1/books/handbook/mirrors-ftp.html">
+	    FreeBSD-Spiegelservern</a> vorhanden.</p>
+              </li>
+            </ul>
+            <h1 xmlns="">August 2020</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20200831:01" id="event20200831:01"></a><b>31 August:</b> Neuer Committer: <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:rhurlin@FreeBSD.org">Rainer Hurling</a>(ports)</p>
+              </li>
+            </ul>
+            <h1 xmlns="">Juli 2020</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20200726:01" id="event20200726:01"></a><b>26 Juli:</b> Neuer Committer: <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:debdrup@FreeBSD.org">Daniel Ebdrup Jensen</a> (doc)</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200723:01" id="event20200723:01"></a><b>23 Juli:</b> Neuer Committer: <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:rew@FreeBSD.org">Robert Wing</a> (src)</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200715:01" id="event20200715:01"></a><b>15 Juli:</b> Der <a xmlns="http://www.w3.org/1999/xhtml" href="../../news/status/report-2020-04-2020-06.html">Statusreport April-Juni 2020</a> 
+            mit 51 Einträgen ist nun verfügbar.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200701:01" id="event20200701:01"></a><b>1 Juli:</b> Die derzeit aktiven FreeBSD-Committer haben das elfte FreeBSD Core Team
+	    gewählt.  Weitere Informationen finden Sie in der <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-announce/2020-July/001962.html">offiziellen
+	    Ankündigung</a>.</p>
+              </li>
+            </ul>
+            <h1 xmlns="">Juni 2020</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20200616:01" id="event20200616:01"></a><b>16 Juni:</b> <a xmlns="http://www.w3.org/1999/xhtml" href="../../releases/11.4R/announce.html">FreeBSD
+	    11.4-RELEASE</a> ist ab sofort verfügbar.  Lesen Sie
+	    bitte die <a xmlns="http://www.w3.org/1999/xhtml" href="../../releases/11.4R/relnotes.html">Release
+	    Notes</a> sowie die <a xmlns="http://www.w3.org/1999/xhtml" href="../../releases/11.4R/errata.html">Release
+	    Errata</a>, bevor Sie mit der Installation beginnen,
+	    um sich über Änderungen und eventuelle Probleme mit 11.4
+	    zu informieren.  Weitere Informationen zu den
+	    verschiedenen FreeBSD-Versionen finden Sie auf der
+	    Seite <a xmlns="http://www.w3.org/1999/xhtml" href="../releases/index.html">Release
+	    Information</a>.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200609:01" id="event20200609:01"></a><b>9 Juni:</b> Den aktuelle Version des Verhaltenskodex finden Sie <a xmlns="http://www.w3.org/1999/xhtml" href="https://www.freebsd.org/internal/code-of-conduct.html">hier</a>.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200608:01" id="event20200608:01"></a><b>8 Juni:</b> Neuer Committer: <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:gbe@FreeBSD.org">Gordon Bergling</a> (doc)</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200602:01" id="event20200602:01"></a><b>2 Juni:</b> Die <a xmlns="http://www.w3.org/1999/xhtml" href="https://www.research.net/r/freebsd-2020-community-survey">FreeBSD
+           Community-Umfrage 2020</a> hat begonnen. Teilen Sie diese Information
+	   bitte mit ihrem Arbeitgeber, Ihren Kollegen, Freunden und allen
+	   an FreeBSD interessierten Personen.  Die Umfrage läuft noch bis
+	   16. Juni 2020 17:00 UTC (18:00 MESZ).</p>
+              </li>
+            </ul>
+            <h1 xmlns="">Mai 2020</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20200529:01" id="event20200529:01"></a><b>29 Mai:</b> Der zweite Release Candidate aus dem FreeBSD 11.4-Releasezyklus
+	    ist <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2020-May/092320.html">verfügbar</a>.
+	    ISO-Images für die Architekturen amd64, armv6, arm64,
+	    i386, powerpc, powerpc64 sowie sparc64 sind
+	    inzwischen auf den meisten <a xmlns="http://www.w3.org/1999/xhtml" href="../../doc/de_DE.ISO8859-1/books/handbook/mirrors-ftp.html">
+	    FreeBSD-Spiegelservern</a> vorhanden.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200522:01" id="event20200522:01"></a><b>22 Mai:</b> Der erste Release Candidate aus dem FreeBSD 11.4-Releasezyklus
+	    ist <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2020-May/092304.html">verfügbar</a>.
+	    ISO-Images für die Architekturen amd64, armv6, arm64,
+	    i386, powerpc, powerpc64 sowie sparc64 sind
+	    inzwischen auf den meisten <a xmlns="http://www.w3.org/1999/xhtml" href="../../doc/de_DE.ISO8859-1/books/handbook/mirrors-ftp.html">
+	    FreeBSD-Spiegelservern</a> vorhanden.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200516:01" id="event20200516:01"></a><b>16 Mai:</b> Die zweite BETA-Version aus dem FreeBSD 11.4-Releasezyklus
+	    ist nun <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2020-May/092285.html">verfügbar</a>.
+	    ISO-Images für die Architekturen amd64, armv6, arm64, i386,
+	    powerpc, powerpc64 sowie sparc64 sind inzwischen auf den
+	    meisten <a xmlns="http://www.w3.org/1999/xhtml" href="../../doc/de_DE.ISO8859-1/books/handbook/mirrors-ftp.html">
+	    FreeBSD-Spiegelservern</a> vorhanden.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200516:02" id="event20200516:02"></a><b>16 Mai:</b> Das FreeBSD Project nimmt erneut als <a xmlns="http://www.w3.org/1999/xhtml" href="https://developers.google.com/season-of-docs/docs/participants/">
+	    Mentoren-Organisation</a> an <a xmlns="http://www.w3.org/1999/xhtml" href="https://developers.google.com/season-of-docs">Google's
+	    Season of Docs</a> teil.  Ziel dieses Programms ist es,
+	    Open Source-Entwickler und technische Autoren zusammen zu bringen.
+	    Die Autoren arbeiten dabei für drei Monate eng mit den Entwicklern
+	    zusammen, um diese bei der Erstellung hochwertiger Dokumentation
+	    zu unterstützen.  Die Liste der geplanten Aufgaben sowie
+	    Kontaktinformationen sind im <a xmlns="http://www.w3.org/1999/xhtml" href="https://wiki.freebsd.org/GoogleSeasonOfDocs">FreeBSD Wiki</a>
+	    verfügbar.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200509:01" id="event20200509:01"></a><b>9 Mai:</b> Die erste BETA-Version aus dem FreeBSD 11.4-Releasezyklus
+	    ist nun <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2020-May/092284.html">verfügbar</a>.
+	    ISO-Images für die Architekturen amd64, armv6, arm64, i386,
+	    powerpc, powerpc64 sowie sparc64 sind inzwischen auf den
+	    meisten <a xmlns="http://www.w3.org/1999/xhtml" href="../../doc/de_DE.ISO8859-1/books/handbook/mirrors-ftp.html">
+	    FreeBSD-Spiegelservern</a> vorhanden.</p>
+              </li>
+            </ul>
+            <h1 xmlns="">April 2020</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20200412:01" id="event20200412:01"></a><b>12 April:</b> Der <a xmlns="http://www.w3.org/1999/xhtml" href="../../news/status/report-2020-01-2020-03.html">Statusreport
+	    Januar-März 2020</a> ist verfügbar.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200406:01" id="event20200406:01"></a><b>6 April:</b> Neuer Committer: <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:rscheff@FreeBSD.org">Richard Scheffenegger</a> (src)</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200401:01" id="event20200401:01"></a><b>1 April:</b> Neuer Committer: <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:tagattie@FreeBSD.org">Hiroki Tagato</a> (ports)</p>
+              </li>
+            </ul>
+            <h1 xmlns="">März 2020</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20200310:01" id="event20200310:01"></a><b>10 März:</b> Neuer Committer: <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:afedorov@FreeBSD.org">Aleksandr Fedorov</a> (src)</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200309:01" id="event20200309:01"></a><b>9 März:</b> Neuer Committer: <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:nick@FreeBSD.org">Nick O'Brien</a> (src)</p>
+              </li>
+            </ul>
+            <h1 xmlns="">Februar 2020</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20200218:01" id="event20200218:01"></a><b>18 Februar:</b> Neuer Committer: <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:salvadore@FreeBSD.org">Lorenzo Salvadore</a> (ports)</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200210:01" id="event20200210:01"></a><b>10 Februar:</b> Neuer Committer: <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:freqlabs@FreeBSD.org">Ryan Moeller</a> (src)</p>
+              </li>
+            </ul>
+            <h1 xmlns="">Januar 2020</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20200127:01" id="event20200127:01"></a><b>27 Januar:</b> Neuer Committer: <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:alfredo@FreeBSD.org">Alfredo Dal'Ava Júnior</a> (src)</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200127:02" id="event20200127:02"></a><b>27 Januar:</b> Der <a xmlns="http://www.w3.org/1999/xhtml" href="../../news/status/report-2019-10-2019-12.html">Statusreport
+	    Oktober bis Dezember 2019</a> ist nun verfügbar.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200121:01" id="event20200121:01"></a><b>21 Januar:</b> Um neuen Unterstützern die Übersetzung der offizielllen <a xmlns="http://www.w3.org/1999/xhtml" href="https://www.freebsd.org/de/docs/books.html">FreeBSD
+	    Handbücher und Artikel</a> zu erleichtern, wird das FreeBSD
+	    Project künftig <a xmlns="http://www.w3.org/1999/xhtml" href="https://weblate.org/">Weblate</a>
+	    als web-basierte Lokalisierungsplattform einsetzen.<br /><br />Diese Plattform wird bereits seit mehreren Monaten von
+	    einigen unserer Übersetzerteams (pt_BR, es_ES und zh_CN)
+	    verwendet.  Aufgrund der exzellenten Resultate
+	    und des inzwischen ausgereiften Workflows sind
+	    wir nun bereit, diese Plattform auch neuen Unterstützern
+	    zugänglich zu machen.<br /><br />Durch den Einsatz dieses neuen Werkzeugs hat sich die
+	    Arbeit an der Dokumentation drastisch vereinfacht.  Auch
+	    wenn jemand nur ein paar Minuten zur Verfügung hat, kann
+	    er nun an der Verbesserung der Dokumentation mitarbeiten!<br /><br />Wenn Sie daran interessiert sind, bei der Übersetzung der
+	    offiziellen Dokumentation zu helfen, können Sie sich in 
+	    unserem <a xmlns="http://www.w3.org/1999/xhtml" href="https://wiki.freebsd.org/DocTranslationOnWeblate">
+            Wiki</a> sowie über die offizielle <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-translators/2019-December/000161.html">
+            Ankündigung</a> auf der freebsd-translators-Mailingliste
+	    über weitere Details informieren.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200110:01" id="event20200110:01"></a><b>10 Januar:</b> Neuer Committer: <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:mikael@FreeBSD.org">Mikaël Urankar</a> (ports)</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20200102:01" id="event20200102:01"></a><b>2 Januar:</b> Neuer Committer: <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:lbartoletti@FreeBSD.org">Loïc Bartoletti</a> (ports)</p>
+              </li>
+            </ul>
+            <h1 xmlns="">November 2019</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20191125:01" id="event20191125:01"></a><b>25 November:</b> Der <a xmlns="http://www.w3.org/1999/xhtml" href="../../news/status/report-2019-07-2019-09.html">Statusreport
+	    Juli-September 2019</a> ist verfügbar.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20191104:01" id="event20191104:01"></a><b>4 November:</b> <a xmlns="http://www.w3.org/1999/xhtml" href="../../releases/12.1R/announce.html">FreeBSD
+	    12.1-RELEASE</a> ist ab sofort verfügbar.  Lesen Sie
+	    bitte die <a xmlns="http://www.w3.org/1999/xhtml" href="../../releases/12.1R/relnotes.html">Release
+	    Notes</a> sowie die <a xmlns="http://www.w3.org/1999/xhtml" href="../../releases/12.1R/errata.html">Release
+	    Errata</a>, bevor Sie mit der Installation beginnen,
+	    um sich über Änderungen und eventuelle Probleme mit 12.1
+	    zu informieren.  Weitere Informationen zu den
+	    verschiedenen FreeBSD-Versionen finden Sie auf der
+	    Seite <a xmlns="http://www.w3.org/1999/xhtml" href="../releases/index.html">Release
+	    Information</a>.</p>
+              </li>
+            </ul>
+            <h1 xmlns="">Oktober 2019</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20191018:01" id="event20191018:01"></a><b>18 Oktober:</b> Der zweite Release Candidate aus dem FreeBSD 12.1-Releasezyklus
+	    ist <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2019-October/091616.html">verfügbar</a>.
+	    ISO-Images für die Architekturen amd64, armv6, armv7, arm64,
+	    i386, powerpc, powerpc64, powerpcspe sowie sparc64 sind
+	    inzwischen auf den meisten <a xmlns="http://www.w3.org/1999/xhtml" href="../../doc/de_DE.ISO8859-1/books/handbook/mirrors-ftp.html">
+	    FreeBSD-Spiegelservern</a> vorhanden.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20191011:01" id="event20191011:01"></a><b>11 Oktober:</b> Der erste Release Candidate aus dem FreeBSD 12.1-Releasezyklus
+	    ist <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2019-October/091599.html">verfügbar</a>.
+	    ISO-Images für die Architekturen amd64, armv6, armv7, arm64,
+	    i386, powerpc, powerpc64, powerpcspe sowie sparc64 sind
+	    inzwischen auf den meisten <a xmlns="http://www.w3.org/1999/xhtml" href="../../doc/de_DE.ISO8859-1/books/handbook/mirrors-ftp.html">
+	    FreeBSD-Spiegelservern</a> vorhanden.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20191011:02" id="event20191011:02"></a><b>11 Oktober:</b> Neuer Committer: <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:samm@FreeBSD.org">Alex Samorukov</a> (ports)</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20191004:01" id="event20191004:01"></a><b>4 Oktober:</b> Die dritte BETA-Version aus dem FreeBSD 12.1-Releasezyklus
+	    ist <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2019-October/091567.html">verfügbar</a>.
+	    ISO-Images für die Architekturen amd64, armv6, armv7, arm64,
+	    i386, powerpc, powerpc64, powerpcspe sowie sparc64 sind
+	    inzwischen auf den meisten <a xmlns="http://www.w3.org/1999/xhtml" href="../../doc/de_DE.ISO8859-1/books/handbook/mirrors-ftp.html">
+	    FreeBSD-Spiegelservern</a> vorhanden.</p>
+              </li>
+            </ul>
+            <h1 xmlns="">September 2019</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20190928:01" id="event20190928:01"></a><b>28 September:</b> Die zweite BETA-Version aus dem FreeBSD 12.1-Releasezyklus
+	    ist <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2019-September/091555.html">verfügbar</a>.
+	    ISO-Images für die Architekturen amd64, armv6, armv7, arm64,
+	    i386, powerpc, powerpc64, powerpcspe sowie sparc64 sind
+	    inzwischen auf den meisten <a xmlns="http://www.w3.org/1999/xhtml" href="../../doc/de_DE.ISO8859-1/books/handbook/mirrors-ftp.html">
+	    FreeBSD-Spiegelservern</a> vorhanden.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190926:01" id="event20190926:01"></a><b>26 September:</b> Neuer Committer: <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:kaktus@FreeBSD.org">Pawel Biernacki</a> (src)</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190920:01" id="event20190920:01"></a><b>20 September:</b> Die erste BETA-Version aus dem FreeBSD 12.1-Releasezyklus
+	    ist <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2019-September/091533.html">verfügbar</a>.
+	    ISO-Images für die Architekturen amd64, armv6, armv7, arm64,
+	    i386, powerpc, powerpc64, powerpcspe sowie sparc64 sind
+	    inzwischen auf den meisten <a xmlns="http://www.w3.org/1999/xhtml" href="../../doc/de_DE.ISO8859-1/books/handbook/mirrors-ftp.html">
+	    FreeBSD-Spiegelservern</a> vorhanden.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190915:01" id="event20190915:01"></a><b>15 September:</b> Neuer Committer: <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:dmgk@FreeBSD.org">Dmitri Goutnik</a> (ports)</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190910:01" id="event20190910:01"></a><b>10 September:</b> Neuer Committer: <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:sg@FreeBSD.org">Stephen Gregoratto</a> (src).
+	    Arbeitet an der Verbesserung der FreeBSD-Handbücher zu <a xmlns="http://www.w3.org/1999/xhtml" href="https://developers.google.com/season-of-docs/">
+	    Google's Season of Docs</a>.</p>
+              </li>
+            </ul>
+            <h1 xmlns="">August 2019</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20190828:01" id="event20190828:01"></a><b>28 August:</b> Neuer Committer: <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:fox@FreeBSD.org">Santhosh Raju</a> (ports)</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190825:01" id="event20190825:01"></a><b>25 August:</b> Der <a xmlns="http://www.w3.org/1999/xhtml" href="../../news/status/report-2019-04-2019-06.html">Statusreport
+	    April-Juni 2019</a> ist verfügbar.</p>
+              </li>
+            </ul>
+            <h1 xmlns="">Juli 2019</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20190716:01" id="event20190716:01"></a><b>16 Juli:</b> Aufgrund von Umständen, auf die wir keinen Einfluss haben,
+	    müssen wir die SMTP-Server-Adresse für FreeBSD.org-E-Mails
+	    ändern.  Wir sind uns bewusst, dass es durch diese
+	    Umstellung vorübergehend zu Problemen bei der
+	    STMP-Server-Reputation kommen wird.<br /><br />Lesen Sie bitte die <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-announce/2019-July/001892.html">Ankündigung</a>
+	    für weitere Informationen.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190709:01" id="event20190709:01"></a><b>9 Juli:</b> <a xmlns="http://www.w3.org/1999/xhtml" href="../../releases/11.3R/announce.html">FreeBSD
+	    11.3-RELEASE</a> ist ab sofort verfügbar.  Lesen Sie
+	    bitte die <a xmlns="http://www.w3.org/1999/xhtml" href="../../releases/11.3R/relnotes.html">Release
+	    Notes</a> sowie die <a xmlns="http://www.w3.org/1999/xhtml" href="../../releases/11.3R/errata.html">Release
+	    Errata</a>, bevor Sie mit der Installation beginnen,
+	    um sich über Änderungen und eventuelle Probleme mit 11.3
+	    zu informieren.  Weitere Informationen zu den
+	    verschiedenen FreeBSD-Versionen finden Sie auf der
+	    Seite <a xmlns="http://www.w3.org/1999/xhtml" href="../releases/index.html">Release
+	    Information</a>.</p>
+              </li>
+            </ul>
+            <h1 xmlns="">Juni 2019</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20190628:01" id="event20190628:01"></a><b>28 Juni:</b> Der dritte Release Candidate aus dem FreeBSD 11.3-Releasezyklus
+	    ist <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2019-June/091312.html">verfügbar</a>. 
+	    ISO-Images für die Architekturen amd64, armv6, arm64, i386,
+	    powerpc, powerpc64 sowie sparc64 sind inzwischen auf den
+	    meisten <a xmlns="http://www.w3.org/1999/xhtml" href="../../doc/de_DE.ISO8859-1/books/handbook/mirrors-ftp.html">
+	    FreeBSD-Spiegelservern</a> vorhanden.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190621:01" id="event20190621:01"></a><b>21 Juni:</b> Der zweite Release Candidate aus dem FreeBSD 11.3-Releasezyklus
+	    ist <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2019-June/091293.html">verfügbar</a>. 
+	    ISO-Images für die Architekturen amd64, armv6, arm64, i386,
+	    powerpc, powerpc64 sowie sparc64 sind inzwischen auf den
+	    meisten <a xmlns="http://www.w3.org/1999/xhtml" href="../../doc/de_DE.ISO8859-1/books/handbook/mirrors-ftp.html">
+	    FreeBSD-Spiegelservern</a> vorhanden.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190614:01" id="event20190614:01"></a><b>14 Juni:</b> Der erste Release Candidate aus dem FreeBSD 11.3-Releasezyklus
+	    ist <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2019-June/091281.html">verfügbar</a>. 
+	    ISO-Images für die Architekturen amd64, armv6, arm64, i386,
+	    powerpc, powerpc64 sowie sparc64 sind inzwischen auf den
+	    meisten <a xmlns="http://www.w3.org/1999/xhtml" href="../../doc/de_DE.ISO8859-1/books/handbook/mirrors-ftp.html">
+	    FreeBSD-Spiegelservern</a> vorhanden.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190607:01" id="event20190607:01"></a><b>7 Juni:</b> Die dritte BETA-Version aus dem FreeBSD 11.3-Releasezyklus
+	    ist <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2019-June/091257.html">verfügbar</a>.
+	    ISO-Images für die Architekturen amd64, armv6, arm64, i386,
+	    powerpc, powerpc64 sowie sparc64 sind inzwischen auf den
+	    meisten <a xmlns="http://www.w3.org/1999/xhtml" href="../../doc/de_DE.ISO8859-1/books/handbook/mirrors-ftp.html">
+	    FreeBSD-Spiegelservern</a> vorhanden.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190604:01" id="event20190604:01"></a><b>4 Juni:</b> Der <a xmlns="http://www.w3.org/1999/xhtml" href="../../news/status/report-2019-01-2019-03.html">Statusreport
+	    Januar bis März 2019</a> ist verfügbar.</p>
+              </li>
+            </ul>
+            <h1 xmlns="">Mai 2019</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20190531:01" id="event20190531:01"></a><b>31 Mai:</b> Die zweite BETA-Version aus dem FreeBSD 11.3-Releasezyklus
+	    ist <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2019-May/091227.html">verfügbar</a>.
+	    ISO-Images für die Architekturen amd64, armv6, arm64, i386,
+	    powerpc, powerpc64 sowie sparc64 sind inzwischen auf den
+	    meisten <a xmlns="http://www.w3.org/1999/xhtml" href="../../doc/de_DE.ISO8859-1/books/handbook/mirrors-ftp.html">
+	    FreeBSD-Spiegelservern</a> vorhanden.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190531:02" id="event20190531:02"></a><b>31 Mai:</b> Neuer Committer: <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:bdragon@FreeBSD.org">Brandon Bergren</a> (src)</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190529:01" id="event20190529:01"></a><b>29 Mai:</b> Neuer Committer: <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:chs@FreeBSD.org">Chuck Silvers</a> (src)</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190528:01" id="event20190528:01"></a><b>28 Mai:</b> Neuer Committer: <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:scottph@FreeBSD.org">D Scott Phillips</a> (src)</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190524:01" id="event20190524:01"></a><b>24 Mai:</b> Die erste BETA-Version aus dem FreeBSD 11.3-Releasezyklus
+	    ist <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2019-May/091210.html">verfügbar</a>.
+	    ISO-Images für die Architekturen amd64, armv6, arm64, i386,
+	    powerpc, powerpc64 sowie sparc64 sind inzwischen auf den
+	    meisten <a xmlns="http://www.w3.org/1999/xhtml" href="../../doc/de_DE.ISO8859-1/books/handbook/mirrors-ftp.html">
+	    FreeBSD-Spiegelservern</a> vorhanden.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190516:01" id="event20190516:01"></a><b>16 Mai:</b> Neuer Committer: <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:carlavilla@FreeBSD.org">Sergio Carlavilla Delgado</a>
+            (docs, Spanish Translation Team)</p>
+              </li>
+            </ul>
+            <h1 xmlns="">April 2019</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20190430:01" id="event20190430:01"></a><b>30 April:</b> Neuer Committer: <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:dougm@FreeBSD.org">Doug Moore</a> (src)</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190428:01" id="event20190428:01"></a><b>28 April:</b> Das FreeBSD Project hat damit begonnen, einen neuen Ansatz für
+	    pkgbase zu testen.  Lesen Sie bitte die offizielle <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-pkgbase/2019-April/000396.html">
+	    Ankündigung</a> für weitere Informationen.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190427:01" id="event20190427:01"></a><b>27 April:</b> Die FreeBSD 2019 Community-Umfrage wurde durchgeführt
+	   (Teilnahmeschluß war der 13. Mai 2019).  Teilen Sie diese Information
+	   bitte mit allen Kollegen, Freunden und anderen Personen, die an
+	   FreeBSD interessiert sind.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190419:01" id="event20190419:01"></a><b>19 April:</b> FreeBSD hat damit begonnen, einen neuen Upstream seiner ZFS-Implementierung
+	    zu testen - ZFS on Linux (ZoL).  Dazu wurden entsprechende Images für FreeBSD
+	    12-STABLE sowie 13-CURRENT bereitgestellt.  Lesen Sie bitte die offizielle <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2019-April/090915.html">CFT
+           FreeBSD + ZoL</a>-Ankündigung für weitere Informationen.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190414:01" id="event20190414:01"></a><b>14 April:</b> Neuer Committer: <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:pkubaj@FreeBSD.org">Piotr Kubaj</a> (ports)</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20190414:02" id="event20190414:02"></a><b>14 April:</b> Erweiterte Commit-Privilegien: <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:pfg@FreeBSD.org">Pedro Giffuni</a> (ports, src)</p>
+              </li>
+            </ul>
+            <h1 xmlns="">März 2019</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20190320:01" id="event20190320:01"></a><b>20 März:</b> Neuer Committer: <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:mhorne@FreeBSD.org">Mitchell Horne</a>(src)</p>
+              </li>
+            </ul>
+            <h1 xmlns="">Februar 2019</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20190201:01" id="event20190201:01"></a><b>1 Februar:</b> Neuer Committer: <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:kai@FreeBSD.org">Kai Knoblich</a> (ports)</p>
+              </li>
+            </ul>
+            <h1 xmlns="">Januar 2019</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20190119:01" id="event20190119:01"></a><b>19 Januar:</b> Neuer Committer: <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:johalun@FreeBSD.org">Johannes Lundberg</a> (src)</p>
+              </li>
+            </ul>
+            <h1 xmlns="">Dezember 2018</h1>
+            <ul xmlns="">
+              <li>
+                <p class="localized"><a name="event20181224:01" id="event20181224:01"></a><b>24 Dezember:</b> Der Statusreport für die Monate <a xmlns="http://www.w3.org/1999/xhtml" href="../../news/status/report-2018-01-2018-09.html">Januar
+	    bis September 2018</a> ist verfügbar.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20181211:01" id="event20181211:01"></a><b>11 Dezember:</b> <a xmlns="http://www.w3.org/1999/xhtml" href="../../releases/12.0R/announce.html">FreeBSD
+	    12.0-RELEASE</a> ist ab sofort verfügbar.  Lesen Sie
+	    bitte die <a xmlns="http://www.w3.org/1999/xhtml" href="../../releases/12.0R/relnotes.html">Release
+	    Notes</a> sowie die <a xmlns="http://www.w3.org/1999/xhtml" href="../../releases/12.0R/errata.html">Release
+	    Errata</a>, bevor Sie mit der Installation beginnen,
+	    um sich über Änderungen und eventuelle Probleme mit 12.0
+	    zu informieren.  Weitere Informationen zu den
+	    verschiedenen FreeBSD-Versionen finden Sie auf der
+	    Seite <a xmlns="http://www.w3.org/1999/xhtml" href="../releases/index.html">Release
+	    Information</a>.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20181211:02" id="event20181211:02"></a><b>11 Dezember:</b> Das <a xmlns="http://www.w3.org/1999/xhtml" href="https://cirrus-ci.org/">Cirrus CI</a>-System
+	    unterstützt seit Kurzem auch FreeBSD.  Cirrus CI beschleunigt
+	    Ihren Entwicklungszyklus und macht ihn durch den Einsatz
+	    moderner Cloud-Technien effizienter und sicherer.  Cirrus CI
+	    skaliert mit Ihrem Team und macht den Vertrieb von Software
+	    einfacher und kostengünstiger.  Lesen Sie den <a xmlns="http://www.w3.org/1999/xhtml" href="https://cirrus-ci.org/guide/FreeBSD/">FreeBSD Virtual
+	    Machines</a>-Guide für weitere Informationen.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20181201:01" id="event20181201:01"></a><b>1 Dezember:</b> Der dritte Release Candidate aus dem FreeBSD 12.0-Releasezyklus
+	    ist <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2018-December/090138.html">verfügbar</a>.
+	    ISO-Images für die Architekturen amd64, armv6,
+	    armv7, arm64, i386, powerpc, powerpc64, powerpcspe sowie
+	    sparc64 sind inzwischen auf den meisten <a xmlns="http://www.w3.org/1999/xhtml" href="../../doc/de_DE.ISO8859-1/books/handbook/mirrors-ftp.html">
+	    FreeBSD-Spiegelservern</a> vorhanden.</p>
+              </li>
+            </ul>
             <h1 xmlns="">November 2018</h1>
             <ul xmlns="">
               <li>
-                <p class="original"><a name="event20181103:01" id="event20181103:01"></a><b>3 November:</b> The third BETA build for the FreeBSD 12.0 release
-	    cycle is now available.  ISO images for the amd64, armv6,
-	    armv7, arm64, i386, powerpc, powerpc64, and sparc64
-	    architectures are <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2018-November/089945.html">available</a>
-	    on most of our <a xmlns="http://www.w3.org/1999/xhtml" href="/doc/en_US.ISO8859-1/books/handbook/mirrors-ftp.html">FreeBSD
-	      mirror sites</a>.</p>
+                <p class="localized"><a name="event20181125:01" id="event20181125:01"></a><b>25 November:</b> Der zweite Release Candidate aus dem FreeBSD 12.0-Releasezyklus
+	    ist <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2018-November/090068.html">verfügbar</a>.
+	    ISO-Images für die Architekturen amd64, armv6,
+	    armv7, arm64, i386, powerpc, powerpc64, powerpcspe sowie
+	    sparc64 sind inzwischen auf den meisten <a xmlns="http://www.w3.org/1999/xhtml" href="../../doc/de_DE.ISO8859-1/books/handbook/mirrors-ftp.html">
+	    FreeBSD-Spiegelservern</a> vorhanden.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20181117:01" id="event20181117:01"></a><b>17 November:</b> Der erste Release Candidate aus dem FreeBSD 12.0-Releasezyklus
+	    ist <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2018-November/090020.html">verfügbar</a>.
+	    ISO-Images für die Architekturen amd64, armv6,
+	    armv7, arm64, i386, powerpc, powerpc64, powerpcspe sowie
+	    sparc64 sind inzwischen auf den meisten <a xmlns="http://www.w3.org/1999/xhtml" href="../../doc/de_DE.ISO8859-1/books/handbook/mirrors-ftp.html">
+	    FreeBSD-Spiegelservern</a> vorhanden.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20181110:01" id="event20181110:01"></a><b>10 November:</b> Die vierte BETA-Version aus dem FreeBSD 12.0-Releasezyklus
+	    ist <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2018-November/089982.html">verfügbar</a>.
+	    ISO-Images für die Architekturen amd64, armv6,
+	    armv7, arm64, i386, powerpc, powerpc64, powerpcspe sowie
+	    sparc64 sind inzwischen auf den meisten <a xmlns="http://www.w3.org/1999/xhtml" href="../../doc/de_DE.ISO8859-1/books/handbook/mirrors-ftp.html">
+	    FreeBSD-Spiegelservern</a> vorhanden.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20181103:01" id="event20181103:01"></a><b>3 November:</b> Die dritte BETA-Version aus dem FreeBSD 12.0-Releasezyklus
+	    ist <a xmlns="http://www.w3.org/1999/xhtml" href="https://lists.freebsd.org/pipermail/freebsd-stable/2018-November/089945.html">verfügbar</a>.
+	    ISO-Images für die Architekturen amd64, armv6,
+	    armv7, arm64, i386, powerpc, powerpc64 sowie
+	    sparc64 sind inzwischen auf den meisten <a xmlns="http://www.w3.org/1999/xhtml" href="../../doc/de_DE.ISO8859-1/books/handbook/mirrors-ftp.html">
+	    FreeBSD-Spiegelservern</a> vorhanden.</p>
               </li>
             </ul>
             <h1 xmlns="">Oktober 2018</h1>
@@ -398,6 +892,9 @@
 	    verschiedenen FreeBSD-Versionen finden Sie auf der
 	    Seite <a xmlns="http://www.w3.org/1999/xhtml" href="../releases/index.html">Release
 	    Information</a>.</p>
+              </li>
+              <li>
+                <p class="localized"><a name="event20180627:02" id="event20180627:02"></a><b>27 Juni:</b> Neuer Committer: <a xmlns="http://www.w3.org/1999/xhtml" href="mailto:bwidawsk@FreeBSD.org">Ben Widawsky</a> (src)</p>
               </li>
               <li>
                 <p class="localized"><a name="event20180619:01" id="event20180619:01"></a><b>19 Juni:</b> Am 19. Juni 1993 wurde entschieden, das Projekt künftig
@@ -3076,7 +3573,7 @@
           <br class="clearboth" />
         </div>
         <div id="footer">
-          <span><a href="../../search/index-site.html">Sitemap</a> | <a href="../../copyright/">Legal Notices</a> | © 1995&#8211;2018 The FreeBSD Project.  Alle Rechte vorbehalten.</span>
+          <span><a href="../../search/index-site.html">Sitemap</a> | <a href="../../copyright/">Legal Notices</a> | © 1995&#8211;2020 The FreeBSD Project.  Alle Rechte vorbehalten.</span>
           <br />
         </div>
       </div>

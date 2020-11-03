@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>4.3. Finding Software</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="ports.html" title="Chapter 4. Installing Applications: Packages and Ports" /><link rel="prev" href="ports-overview.html" title="4.2. Overview of Software Installation" /><link rel="next" href="pkgng-intro.html" title="4.4. Using pkg for Binary Package Management" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">4.3. Finding Software</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ports-overview.html">Prev</a> </td><th width="60%" align="center">Chapter 4. Installing Applications: Packages and Ports</th><td width="20%" align="right"> <a accesskey="n" href="pkgng-intro.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="ports-finding-applications"></a>4.3. Finding Software</h2></div></div></div><p>FreeBSD's list of available applications is growing all the
+      time.  There are a number of ways to find software to
+      install:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>The FreeBSD web site maintains an up-to-date searchable
+	  list of all the available applications, at <a class="link" href="../../../../ports/index.html" target="_top">https://www.FreeBSD.org/ports/</a>.
+	  The ports can be searched by application name or by
+	  software category.</p></li><li class="listitem"><a id="idp53388408" class="indexterm"></a><p>Dan Langille maintains <a class="link" href="http://www.FreshPorts.org/" target="_top">FreshPorts.org</a>
+	  which provides a comprehensive search utility and also
+	  tracks changes to the applications in the Ports Collection.
+	  Registered users can create a customized watch list in order
+	  to receive an automated email when their watched ports are
+	  updated.</p></li><li class="listitem"><a id="idp53390200" class="indexterm"></a><p>If finding a particular application becomes challenging,
+	  try searching a site like <a class="link" href="http://www.sourceforge.net/" target="_top">SourceForge.net</a>
+	  or <a class="link" href="http://www.github.com/" target="_top">GitHub.com</a> then
+	  check back at the <a class="link" href="../../../../ports/index.html" target="_top">FreeBSD site</a>
+	  to see if the application has been ported.</p></li><li class="listitem"><a id="idp53393016" class="indexterm"></a><p><a id="pkg-search"></a>To search the binary package
+	  repository for an application:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg search <em class="replaceable"><code>subversion</code></em></code></strong>
+git-subversion-<em class="replaceable"><code>1.9.2</code></em>
+java-subversion-<em class="replaceable"><code>1.8.8_2</code></em>
+p5-subversion-<em class="replaceable"><code>1.8.8_2</code></em>
+py27-hgsubversion-<em class="replaceable"><code>1.6</code></em>
+py27-subversion-<em class="replaceable"><code>1.8.8_2</code></em>
+ruby-subversion-<em class="replaceable"><code>1.8.8_2</code></em>
+subversion-<em class="replaceable"><code>1.8.8_2</code></em>
+subversion-book-<em class="replaceable"><code>4515</code></em>
+subversion-static-<em class="replaceable"><code>1.8.8_2</code></em>
+subversion16-<em class="replaceable"><code>1.6.23_4</code></em>
+subversion17-<em class="replaceable"><code>1.7.16_2</code></em></pre><p>Package names include the version number and, in the
+	  case of ports based on python, the version number of the
+	  version of python the package was built with.  Some ports
+	  also have multiple versions available.  In the case of
+	  <span class="application">Subversion</span>, there are different
+	  versions available, as well as different compile options.
+	  In this case, the statically linked version of
+	  <span class="application">Subversion</span>.  When indicating
+	  which package to install, it is best to specify the
+	  application by the port origin, which is the path in the
+	  ports tree.  Repeat the <code class="command">pkg search</code> with
+	  <code class="option">-o</code> to list the origin of each
+	  package:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg search -o <em class="replaceable"><code>subversion</code></em></code></strong>
+devel/git-subversion
+java/java-subversion
+devel/p5-subversion
+devel/py-hgsubversion
+devel/py-subversion
+devel/ruby-subversion
+devel/subversion16
+devel/subversion17
+devel/subversion
+devel/subversion-book
+devel/subversion-static</pre><p>Searching by shell globs, regular expressions, exact
+	  match, by description, or any other field in the repository
+	  database is also supported by <code class="command">pkg search</code>.
+	  After installing <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/ports-mgmt/pkg/pkg-descr">ports-mgmt/pkg</a> or
+	  <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/ports-mgmt/pkg-devel/pkg-descr">ports-mgmt/pkg-devel</a>, see
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pkg-search&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pkg-search</span>(8)</span></a> for more details.</p></li><li class="listitem"><p>If the Ports Collection is already installed, there are
+	  several methods to query the local version of the ports
+	  tree.  To find out which category a port is in, type
+	  <code class="command">whereis <em class="replaceable"><code>file</code></em></code>,
+	  where <em class="replaceable"><code>file</code></em> is the program to be
+	  installed:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>whereis lsof</code></strong>
+lsof: /usr/ports/sysutils/lsof</pre><p>Alternately, an <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=echo&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">echo</span>(1)</span></a> statement can be
+	  used:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>echo /usr/ports/*/*lsof*</code></strong>
+/usr/ports/sysutils/lsof</pre><p>Note that this will also return any matched files
+	  downloaded into the
+	  <code class="filename">/usr/ports/distfiles</code> directory.</p></li><li class="listitem"><p>Another way to find software is by using the Ports
+	  Collection's built-in search mechanism.  To use the search
+	  feature, <span class="application">cd</span> to
+	  <code class="filename">/usr/ports</code> then run <code class="command">make
+	    search name=program-name</code> where
+	  <em class="replaceable"><code>program-name</code></em> is the name of the
+	  software.  For example, to search for
+	  <code class="command">lsof</code>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/ports</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make search name=lsof</code></strong>
+Port:   lsof-4.88.d,8
+Path:   /usr/ports/sysutils/lsof
+Info:   Lists information about open files (similar to fstat(1))
+Maint:  ler@lerctr.org
+Index:  sysutils
+B-deps:
+R-deps: </pre><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">The built-in search mechanism uses a file
+	    of index information.  If a message indicates that the
+	    <code class="filename">INDEX</code> is required, run
+	    <code class="command">make fetchindex</code> to download the current
+	    index file.  With the <code class="filename">INDEX</code> present,
+	    <code class="command">make search</code> will be able to perform the
+	    requested search.</p></div><p>The <span class="quote">&#8220;<span class="quote">Path:</span>&#8221;</span> line indicates where to find
+	  the port.</p><p>To receive less information, use the
+	  <code class="command">quicksearch</code> feature:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/ports</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make quicksearch name=lsof</code></strong>
+Port:   lsof-4.88.d,8
+Path:   /usr/ports/sysutils/lsof
+Info:   Lists information about open files (similar to fstat(1))</pre><p>For more in-depth searching, use
+	  <code class="command">make search
+	  key=<em class="replaceable"><code>string</code></em></code> or
+	  <code class="command">make quicksearch
+	  key=<em class="replaceable"><code>string</code></em></code>, where
+	  <em class="replaceable"><code>string</code></em> is some text to search
+	  for.  The text can be in comments, descriptions, or
+	  dependencies in order to find ports which relate to a
+	  particular subject when the name of the program is
+	  unknown.</p><p>When using <code class="buildtarget">search</code> or
+	  <code class="buildtarget">quicksearch</code>, the search string
+	  is case-insensitive.  Searching for <span class="quote">&#8220;<span class="quote">LSOF</span>&#8221;</span> will
+	  yield the same results as searching for
+	  <span class="quote">&#8220;<span class="quote">lsof</span>&#8221;</span>.</p></li></ul></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ports-overview.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ports.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="pkgng-intro.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">4.2. Overview of Software Installation </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 4.4. Using <span class="application">pkg</span> for Binary Package
+      Management</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

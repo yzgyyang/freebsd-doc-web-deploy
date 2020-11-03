@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>6.3. Shared Libraries</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Porter's Handbook" /><link rel="up" href="special.html" title="Chapter 6. Special Considerations" /><link rel="prev" href="bundled-libs.html" title="6.2. Bundled Libraries" /><link rel="next" href="porting-restrictions.html" title="6.4. Ports with Distribution Restrictions or Legal Concerns" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.3. Shared Libraries</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="bundled-libs.html">Prev</a> </td><th width="60%" align="center">Chapter 6. Special Considerations</th><td width="20%" align="right"> <a accesskey="n" href="porting-restrictions.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="porting-shlibs"></a>6.3. Shared Libraries</h2></div></div></div><p>If the port installs one or more shared libraries, define
+      a <code class="varname">USE_LDCONFIG</code> make variable, which will
+      instruct a <code class="filename">bsd.port.mk</code> to run
+      <code class="literal">${LDCONFIG} -m</code> on the directory
+      where the new library is installed (usually
+      <code class="filename">PREFIX/lib</code>) during
+      <code class="buildtarget">post-install</code> target to register it
+      into the shared library cache.  This variable, when defined,
+      will also facilitate addition of an appropriate
+      <code class="literal">@exec /sbin/ldconfig -m</code> and
+      <code class="literal">@unexec /sbin/ldconfig -R</code> pair into
+      <code class="filename">pkg-plist</code>, so that a user who
+      installed the package can start using the shared library
+      immediately and de-installation will not cause the system to
+      still believe the library is there.</p><pre class="programlisting">USE_LDCONFIG=	yes</pre><p>The default directory can be overridden by
+      setting <code class="varname">USE_LDCONFIG</code> to a list of
+      directories into which shared libraries are to be installed.
+      For example, if the port installs shared libraries into
+      <code class="filename">PREFIX/lib/foo</code> and
+      <code class="filename">PREFIX/lib/bar</code>
+      use this in
+      <code class="filename">Makefile</code>:</p><pre class="programlisting">USE_LDCONFIG=	${PREFIX}/lib/foo ${PREFIX}/lib/bar</pre><p>Please double-check, often this is not necessary at all or
+      can be avoided through <code class="literal">-rpath</code> or setting
+      <code class="envar">LD_RUN_PATH</code> during linking (see
+      <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/lang/mosml/pkg-descr">lang/mosml</a> for an
+      example), or through a shell-wrapper which sets
+      <code class="varname">LD_LIBRARY_PATH</code> before invoking the binary,
+      like <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/www/seamonkey/pkg-descr">www/seamonkey</a>
+      does.</p><p>When installing 32-bit libraries on 64-bit system, use
+      <code class="varname">USE_LDCONFIG32</code> instead.</p><p>If the software uses <a class="link" href="using-autotools.html" title="6.6. Using GNU Autotools">autotools</a>, and specifically
+      <code class="command">libtool</code>, add <a class="link" href="uses-libtool.html" title="17.47. libtool"><code class="literal">USES=libtool</code></a>.</p><p>When the major library version number increments in the
+      update to the new port version, all other ports that link to
+      the affected library must have their
+      <code class="varname">PORTREVISION</code> incremented, to force
+      recompilation with the new library version.</p></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="bundled-libs.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="special.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="porting-restrictions.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">6.2. Bundled Libraries </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 6.4. Ports with Distribution Restrictions or Legal
+      Concerns</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

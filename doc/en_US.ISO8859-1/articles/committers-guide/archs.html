@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>19. Support for Multiple Architectures</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Committer's Guide" /><link rel="up" href="index.html" title="Committer's Guide" /><link rel="prev" href="rules.html" title="18. The FreeBSD Committers' Big List of Rules" /><link rel="next" href="ports.html" title="20. Ports Specific FAQ" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">19. Support for Multiple Architectures</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="rules.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ports.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="archs"></a>19. Support for Multiple Architectures</h2></div></div></div><p>FreeBSD is a highly portable operating system intended to
+      function on many different types of hardware architectures.
+      Maintaining clean separation of Machine Dependent (MD) and
+      Machine Independent (MI) code, as well as minimizing MD code, is
+      an important part of our strategy to remain agile with regards
+      to current hardware trends.  Each new hardware architecture
+      supported by FreeBSD adds substantially to the cost of code
+      maintenance, toolchain support, and release engineering.  It
+      also dramatically increases the cost of effective testing of
+      kernel changes.  As such, there is strong motivation to
+      differentiate between classes of support for various
+      architectures while remaining strong in a few key architectures
+      that are seen as the FreeBSD <span class="quote">&#8220;<span class="quote">target audience</span>&#8221;</span>.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp51658616"></a>19.1. Statement of General Intent</h3></div></div></div><p>The FreeBSD Project targets "production quality commercial
+	off-the-shelf (COTS) workstation, server, and high-end
+	embedded systems".  By retaining a focus on a narrow set of
+	architectures of interest in these environments, the FreeBSD
+	Project is able to maintain high levels of quality, stability,
+	and performance, as well as minimize the load on various
+	support teams on the project, such as the ports team,
+	documentation team, security officer, and release engineering
+	teams.  Diversity in hardware support broadens the options for
+	FreeBSD consumers by offering new features and usage
+	opportunities, but these benefits must always
+	be carefully considered in terms of the real-world maintenance
+	cost associated with additional platform support.</p><p>The FreeBSD Project differentiates platform targets into four
+	tiers.  Each tier includes a list of guarantees consumers may
+	rely on as well as obligations by the Project and developers
+	to fulfill those guarantees.  These lists define the minimum
+	guarantees for each tier.  The Project and developers may
+	provide additional levels of support beyond the minimum
+	guarantees for a given tier, but such additional support is
+	not guaranteed.  Each platform target is assigned to a
+	specific tier for each stable branch.  As a result, a platform
+	target might be assigned to different tiers on concurrent
+	stable branches.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp51660152"></a>19.2. Platform Targets</h3></div></div></div><p>Support for a hardware platform consists of two
+	components: kernel support and userland Application Binary
+	Interfaces (ABIs).  Kernel platform support includes things
+	needed to run a FreeBSD kernel on a hardware platform such as
+	machine-dependent virtual memory management and device
+	drivers.  A userland ABI specifies an interface for user
+	processes to interact with a FreeBSD kernel and base system
+	libraries.  A userland ABI includes system call interfaces,
+	the layout and semantics of public data structures, and the
+	layout and semantics of arguments passed to subroutines.  Some
+	components of an ABI may be defined by specifications such as
+	the layout of C++ exception objects or calling conventions for
+	C functions.</p><p>A FreeBSD kernel also uses an ABI (sometimes referred to as
+	the Kernel Binary Interface (KBI)) which includes the
+	semantics and layouts of public data structures and the layout
+	and semantics of arguments to public functions within the
+	kernel itself.</p><p>A FreeBSD kernel may support multiple userland ABIs.  For
+	example, FreeBSD's amd64 kernel supports FreeBSD amd64 and i386
+	userland ABIs as well as Linux x86_64 and i386 userland ABIs.
+	A FreeBSD kernel should support a <span class="quote">&#8220;<span class="quote">native</span>&#8221;</span> ABI as
+	the default ABI.  The native <span class="quote">&#8220;<span class="quote">ABI</span>&#8221;</span> generally
+	shares certain properties with the kernel ABI such as the C
+	calling convention, sizes of basic types, etc.</p><p>Tiers are defined for both kernels and userland ABIs.  In
+	the common case, a platform's kernel and FreeBSD ABIs are
+	assigned to the same tier.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp51667448"></a>19.3. Tier 1: Fully-Supported Architectures</h3></div></div></div><p>Tier 1 platforms are the most mature FreeBSD platforms.
+	They are supported by the security officer, release
+	engineering, and port management teams.  Tier 1 architectures
+	are expected to be Production Quality with respect to all
+	aspects of the FreeBSD operating system, including installation
+	and development environments.</p><p>The FreeBSD Project provides the following guarantees to
+	consumers of Tier 1 platforms:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Official FreeBSD release images will be provided by the
+	    release engineering team.</p></li><li class="listitem"><p>Binary updates and source patches for Security
+	    Advisories and Errata Notices will be provided for
+	    supported releases.</p></li><li class="listitem"><p>Source patches for Security Advisories will be
+	    provided for supported branches.</p></li><li class="listitem"><p>Binary updates and source patches for cross-platform
+	    Security Advisories will typically be provided at the time
+	    of the announcement.</p></li><li class="listitem"><p>Changes to userland ABIs will generally include
+	    compatibility shims to ensure correct operation of
+	    binaries compiled against any stable branch where the
+	    platform is Tier 1.  These shims might not be enabled in
+	    the default install.  If compatibility shims are not
+	    provided for an ABI change, the lack of shims will be
+	    clearly documented in the release notes.</p></li><li class="listitem"><p>Changes to certain portions of the kernel ABI will
+	    include compatibility shims to ensure correct operation of
+	    kernel modules compiled against the oldest supported
+	    release on the branch.  Note that not all parts of the
+	    kernel ABI are protected.</p></li><li class="listitem"><p>Official binary packages for third party software will
+	    be provided by the ports team.  For embedded
+	    architectures, these packages may be cross-built from a
+	    different architecture.</p></li><li class="listitem"><p>Most relevant ports should either build or have the
+	    appropriate filters to prevent inappropriate ones from
+	    building.</p></li><li class="listitem"><p>New features which are not inherently
+	    platform-specific will be fully functional on all Tier 1
+	    architectures.</p></li><li class="listitem"><p>Features and compatibility shims used by binaries
+	    compiled against older stable branches may be removed in
+	    newer major versions.  Such removals will be clearly
+	    documented in the release notes.</p></li><li class="listitem"><p>Tier 1 platforms should be fully documented.  Basic
+	    operations will be documented in the FreeBSD Handbook.</p></li><li class="listitem"><p>Tier 1 platforms will be included in the source
+	    tree.</p></li><li class="listitem"><p>Tier 1 platforms should be self-hosting either via the
+	    in-tree toolchain or an external toolchain.  If an
+	    external toolchain is required, official binary packages
+	    for an external toolchain will be provided.</p></li></ul></div><p>To maintain maturity of Tier 1 platforms, the FreeBSD Project
+	will maintain the following resources to support
+	development:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Build and test automation support either in the
+	    FreeBSD.org cluster or some other location easily
+	    available for all developers.  Embedded platforms may
+	    substitute an emulator available in the FreeBSD.org
+	    cluster for actual hardware.</p></li><li class="listitem"><p>Inclusion in the <strong class="userinput"><code>make universe</code></strong>
+	    and <strong class="userinput"><code>make tinderbox</code></strong> targets.</p></li><li class="listitem"><p>Dedicated hardware in one of the FreeBSD clusters for
+	    package building (either natively or via
+	    qemu-user).</p></li></ul></div><p>Collectively, developers are required to provide the
+	following to maintain the Tier 1 status of a platform:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Changes to the source tree should not knowingly break
+	    the build of a Tier 1 platform.</p></li><li class="listitem"><p>Tier 1 architectures must have a mature, healthy
+	    ecosystem of users and active developers.</p></li><li class="listitem"><p>Developers should be able to build packages on
+	    commonly available, non-embedded Tier 1 systems.  This can
+	    mean either native builds if non-embedded systems are
+	    commonly available for the platform in question, or it can
+	    mean cross-builds hosted on some other Tier 1
+	    architecture.</p></li><li class="listitem"><p>Changes cannot break the userland ABI.  If an ABI
+	    change is required, ABI compatibility for existing
+	    binaries should be provided via use of symbol versioning
+	    or shared library version bumps.</p></li><li class="listitem"><p>Changes merged to stable branches cannot break the
+	    protected portions of the kernel ABI.  If a kernel ABI
+	    change is required, the change should be modified to
+	    preserve functionality of existing kernel modules.</p></li></ul></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp51696632"></a>19.4. Tier 2: Developmental and Niche Architectures</h3></div></div></div><p>Tier 2 platforms are functional, but less mature FreeBSD
+	platforms.  They are not supported by the security officer,
+	release engineering, and port management teams.</p><p>Tier 2 platforms may be Tier 1 platform candidates that
+	are still under active development.  Architectures reaching
+	end of life may also be moved from Tier 1 status to Tier 2
+	status as the availability of resources to continue to
+	maintain the system in a Production Quality state diminishes.
+	Well-supported niche architectures may also be Tier 2.</p><p>The FreeBSD Project provides the following guarantees to
+	consumers of Tier 2 platforms:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>The ports infrastructure should include basic support
+	    for Tier 2 architectures sufficient to support building
+	    ports and packages.  This includes support for basic
+	    packages such as ports-mgmt/pkg, but there is no guarantee
+	    that arbitrary ports will be buildable or
+	    functional.</p></li><li class="listitem"><p>New features which are not inherently
+	    platform-specific should be feasible on all Tier 2
+	    architectures if not implemented.</p></li><li class="listitem"><p>Tier 2 platforms will be included in the source
+	    tree.</p></li><li class="listitem"><p>Tier 2 platforms should be self-hosting either via the
+	    in-tree toolchain or an external toolchain.  If an
+	    external toolchain is required, official binary packages
+	    for an external toolchain will be provided.</p></li><li class="listitem"><p>Tier 2 platforms should provide functional kernels and
+	    userlands even if an official release distribution is not
+	    provided.</p></li></ul></div><p>To maintain maturity of Tier 2 platforms, the FreeBSD Project
+	will maintain the following resources to support
+	development:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Inclusion in the <strong class="userinput"><code>make universe</code></strong>
+	    and <strong class="userinput"><code>make tinderbox</code></strong> targets.</p></li></ul></div><p>Collectively, developers are required to provide the
+	following to maintain the Tier 2 status of a platform:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Changes to the source tree should not knowingly break
+	    the build of a Tier 2 platform.</p></li><li class="listitem"><p>Tier 2 architectures must have an active ecosystem of
+	    users and developers.</p></li><li class="listitem"><p>While changes are permitted to break the userland ABI,
+	    the ABI should not be broken gratuitously.  Significant
+	    userland ABI changes should be restricted to major
+	    versions.</p></li><li class="listitem"><p>New features that are not yet implemented on Tier 2
+	    architectures should provide a means of disabling them on
+	    those architectures.</p></li></ul></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp51725432"></a>19.5. Tier 3: Experimental Architectures</h3></div></div></div><p>Tier 3 platforms have at least partial FreeBSD support.  They
+	are <span class="emphasis"><em>not</em></span> supported by the security
+	officer, release engineering, and port management
+	teams.</p><p>Tier 3 platforms are architectures in the early stages of
+	development, for non-mainstream hardware platforms, or which
+	are considered legacy systems unlikely to see broad future
+	use.  Initial support for Tier 3 platforms may exist in a
+	separate repository rather than the main source
+	repository.</p><p>The FreeBSD Project provides no guarantees to consumers of
+	Tier 3 platforms and is not committed to maintaining resources
+	to support development.  Tier 3 platforms may not always be
+	buildable, nor are any kernel or userland ABIs considered
+	stable.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp51727736"></a>19.6. Tier 4: Unsupported Architectures</h3></div></div></div><p>Tier 4 platforms are not supported in any form by the
+	project.</p><p>All systems not otherwise classified are Tier 4 systems.
+	When a platform transitions to Tier 4, all support for the
+	platform is removed from the source and ports trees.  Note
+	that ports support should remain as long as the platform is
+	supported in a branch supported by ports.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp51729272"></a>19.7. Policy on Changing the Tier of an Architecture</h3></div></div></div><p>Systems may only be moved from one tier to another by
+	approval of the FreeBSD Core Team, which shall make that decision
+	in collaboration with the Security Officer, Release
+	Engineering, and ports management teams.  For a platform to be
+	promoted to a higher tier, any missing support guarantees must
+	be satisfied before the promotion is completed.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="rules.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ports.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">18. The FreeBSD Committers' Big List of Rules </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 20. Ports Specific FAQ</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

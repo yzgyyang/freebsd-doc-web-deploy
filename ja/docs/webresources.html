@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">検索</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="../../cgi/man.cgi">マニュアルページ</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">プレゼンテーションと論文</a>
                   </li>
                   <li>
                     <a href="../../doc/en_US.ISO8859-1/books/fdp-primer">新しい貢献者のためのドキュメンテーションプロジェクト入門</a>
@@ -231,6 +233,9 @@
                   <a href="//www.FreeBSD.org/cgi/man.cgi">マニュアルページ</a>
                 </li>
                 <li>
+                  <a href="https://papers.FreeBSD.org">プレゼンテーションと論文</a>
+                </li>
+                <li>
                   <a href="../docs/books.html">Books と Articles</a>
                 </li>
                 <li>
@@ -281,20 +286,34 @@
 
 	    <h2>その他のリソース</h2>
 
+	    <h3><a href="https://www.freebsdnews.com/" shape="rect">FreeBSDNews.com</a></h3>
+
+	    <p>FreeBSDNews.com は、FreeBSD
+	      コミュニティにおける最新の出来事が書かれているブログです。
+	      投稿される記事は、ニュース、チュートリアルなどです。</p>
+
+	    <h3><a href="https://www.bsdnow.tv/" shape="rect">BSD Now</a></h3>
+
+	    <p>BSD Now は、BSD
+	      ファミリのオペレーティングシステムについて、
+	      世界に毎週配信しているビデオポッドキャストです。
+	      最新の開発の概要だけでなく、機能についてのインタビュー、
+	      チュートリアルそして、
+	      リスナーから寄せられた問題に対するヘルプも提供します。</p>
+
+	    <h3><a href="https://bsdmag.org/" shape="rect">BSD MAG</a></h3>
+
+	    <p>BSD MAG は、BSD
+	      およびオープンソースのソリューションについて、
+	      初心者および経験豊かなユーザ両方を対象としています。
+	      無料で毎月発行されています。</p>
+
 	    <h3><a href="http://fxr.watson.org/" shape="rect">ソースコード</a></h3>
 
 	    <p>ソースコードに手を入れてみたいという方のために、ここに
 	      FreeBSD <em>カーネル</em>
 	      のソースコードをハイパーテキスト化したものがあります。
 	      これは、Robert Watson の好意により提供されています。</p>
-
-	    <h3><a name="diary" href="http://www.freebsddiary.org/" shape="rect" id="diary">FreeBSD
-	      Diary</a></h3>
-
-	    <p>FreeBSD Diary は、UNIX 初心者を対象とした
-	      "how-to" 形式の情報を集めたものです。
-	      さまざまな ports をインストールしたり設定するための、
-	      順を追ったガイド集を提供するのが目的です。</p>
 
 	    <h3><a href="https://forums.freebsd.org" shape="rect">FreeBSD フォーラム</a></h3>
 
@@ -305,7 +324,7 @@
         </div>
         <div id="footer">
           <span><a href="../search/index-site.html">サイトマップ</a> |
-  <a href="../copyright/">知的財産権について</a> | (C) 1995〓2018 The FreeBSD Project.
+  <a href="../copyright/">知的財産権について</a> | (C) 1995〓2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

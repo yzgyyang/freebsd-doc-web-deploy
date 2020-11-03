@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>11.2. The Tools</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Developers' Handbook" /><link rel="up" href="x86.html" title="Chapter 11. x86 Assembly Language Programming" /><link rel="prev" href="x86.html" title="Chapter 11. x86 Assembly Language Programming" /><link rel="next" href="x86-system-calls.html" title="11.3. System Calls" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">11.2. The Tools</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="x86.html">Prev</a> </td><th width="60%" align="center">Chapter 11. x86 Assembly Language Programming</th><td width="20%" align="right"> <a accesskey="n" href="x86-system-calls.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="x86-the-tools"></a>11.2. The Tools</h2></div></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-the-assembler"></a>11.2.1. The Assembler</h3></div></div></div><p>The most important tool for assembly language programming
+	is the assembler, the software that converts assembly language
+	code into machine language.</p><p>Two very different assemblers are available for FreeBSD.
+	One is
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=as&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">as</span>(1)</span></a>,
+	which uses the traditional <span class="trademark">UNIX</span>® assembly language syntax.
+	It comes with the system.</p><p>The other is
+	<span class="application">/usr/ports/devel/nasm</span>.  It uses the
+	Intel syntax.  Its main advantage is that it can assemble code
+	for many operating systems.  It needs to be installed
+	separately, but is completely free.</p><p>This chapter uses <span class="application">nasm</span> syntax
+	because most assembly language programmers coming to FreeBSD
+	from other operating systems will find it easier to
+	understand.  And, because, quite frankly, that is what I am
+	used to.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-the-linker"></a>11.2.2. The Linker</h3></div></div></div><p>The output of the assembler, like that of any compiler,
+	needs to be linked to form an executable file.</p><p>The standard
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ld&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ld</span>(1)</span></a>
+	linker comes with FreeBSD.  It works with the code assembled
+	with either assembler.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="x86.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="x86.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="x86-system-calls.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 11. x86 Assembly Language Programming </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 11.3. System Calls</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

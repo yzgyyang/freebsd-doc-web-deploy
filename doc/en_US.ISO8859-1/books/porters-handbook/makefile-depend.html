@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>5.9. Dependencies</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Porter's Handbook" /><link rel="up" href="makefiles.html" title="Chapter 5. Configuring the Makefile" /><link rel="prev" href="makefile-portscout.html" title="5.8. PORTSCOUT" /><link rel="next" href="makefile-masterdir.html" title="5.10. Slave Ports and MASTERDIR" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5.9. Dependencies</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="makefile-portscout.html">Prev</a> </td><th width="60%" align="center">Chapter 5. Configuring the Makefile</th><td width="20%" align="right"> <a accesskey="n" href="makefile-masterdir.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="makefile-depend"></a>5.9. Dependencies</h2></div></div></div><p>Many ports depend on other ports.  This is a very convenient
+      feature of most Unix-like operating systems, including FreeBSD.
+      Multiple ports can share a common dependency, rather than
+      bundling that dependency with every port or package that needs
+      it.  There are seven variables that can be used to ensure that
+      all the required bits will be on the user's machine.  There are
+      also some pre-supported dependency variables for common cases,
+      plus a few more to control the behavior of dependencies.</p><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">When software has extra dependencies that provide extra
+	features, the base dependencies listed in
+	<code class="varname"><em class="replaceable"><code>*</code></em>_DEPENDS</code> should
+	include the extra dependencies that would benefit most users.
+	The base dependencies should never be a <span class="quote">&#8220;<span class="quote">minimal</span>&#8221;</span>
+	dependency set.  The goal is not to include every dependency
+	possible.  Only include those that will benefit most
+	people.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="makefile-lib_depends"></a>5.9.1. <code class="varname">LIB_DEPENDS</code></h3></div></div></div><p>This variable specifies the shared libraries this port
+	depends on.  It is a list of
+	<em class="replaceable"><code>lib</code></em>:<em class="replaceable"><code>dir</code></em>
+	tuples where <em class="replaceable"><code>lib</code></em> is the name of
+	the shared library, <em class="replaceable"><code>dir</code></em> is the
+	directory in which to find it in case it is not available.
+	For example,</p><pre class="programlisting">LIB_DEPENDS=   libjpeg.so:graphics/jpeg</pre><p>will check for a shared jpeg library with any version, and
+	descend into the <code class="filename">graphics/jpeg</code>
+	subdirectory of the ports tree to build and install it if it
+	is not found.</p><p>The dependency is checked twice, once from within the
+	<code class="buildtarget">build</code> target and then from within
+	the <code class="buildtarget">install</code> target.  Also, the name
+	of the dependency is put into the package so that
+	<code class="command">pkg install</code> (see <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pkg-install&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pkg-install</span>(8)</span></a>) will
+	automatically install it if it is not on the user's
+	system.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="makefile-run_depends"></a>5.9.2. <code class="varname">RUN_DEPENDS</code></h3></div></div></div><p>This variable specifies executables or files this port
+	depends on during run-time.  It is a list of
+	<em class="replaceable"><code>path</code></em>:<em class="replaceable"><code>dir</code></em>[<span class="optional">:<em class="replaceable"><code>target</code></em></span>]
+	tuples where <em class="replaceable"><code>path</code></em> is the name of
+	the executable or file, <em class="replaceable"><code>dir</code></em> is the
+	directory in which to find it in case it is not available, and
+	<em class="replaceable"><code>target</code></em> is the target to call in
+	that directory.  If <em class="replaceable"><code>path</code></em> starts
+	with a slash (<code class="literal">/</code>), it is treated as a file
+	and its existence is tested with <code class="command">test -e</code>;
+	otherwise, it is assumed to be an executable, and
+	<code class="command">which -s</code> is used to determine if the
+	program exists in the search path.</p><p>For example,</p><pre class="programlisting">RUN_DEPENDS=	${LOCALBASE}/news/bin/innd:news/inn \
+		xmlcatmgr:textproc/xmlcatmgr</pre><p>will check if the file or directory
+	<code class="filename">/usr/local/news/bin/innd</code> exists, and
+	build and install it from the <code class="filename">news/inn</code>
+	subdirectory of the ports tree if it is not found.  It will
+	also see if an executable called <code class="command">xmlcatmgr</code>
+	is in the search path, and descend into
+	<code class="filename">textproc/xmlcatmgr</code>
+	to build and install it if it is not found.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">In this case, <code class="command">innd</code> is actually an
+	  executable; if an executable is in a place that is not
+	  expected to be in the search path, use the full
+	  pathname.</p></div><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">The official search <code class="envar">PATH</code> used on the
+	  ports build cluster is</p><pre xmlns="http://www.w3.org/1999/xhtml" class="programlisting">/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin</pre></div><p>The dependency is checked from within the
+	<code class="buildtarget">install</code> target.  Also, the name of
+	the dependency is put into the package so that
+	<code class="command">pkg install</code> (see <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pkg-install&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pkg-install</span>(8)</span></a>) will
+	automatically install it if it is not on the user's system.
+	The <em class="replaceable"><code>target</code></em> part can be omitted if
+	it is the same as <code class="varname">DEPENDS_TARGET</code>.</p><p>A quite common situation is when
+	<code class="varname">RUN_DEPENDS</code> is literally the same as
+	<code class="varname">BUILD_DEPENDS</code>, especially if ported
+	software is written in a scripted language or if it requires
+	the same build and run-time environment.  In this case, it is
+	both tempting and intuitive to directly assign one to the
+	other:</p><pre class="programlisting">RUN_DEPENDS=	${BUILD_DEPENDS}</pre><p>However, such assignment can pollute run-time
+	dependencies with entries not defined in the port's original
+	<code class="varname">BUILD_DEPENDS</code>.  This happens because of
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=make&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">make</span>(1)</span></a>'s lazy evaluation of variable assignment.
+	Consider a <code class="filename">Makefile</code> with
+	<code class="varname">USE_<em class="replaceable"><code>*</code></em></code>,
+	which are processed by <code class="filename">ports/Mk/bsd.*.mk</code>
+	to augment initial build dependencies.  For example,
+	<code class="literal">USES= gmake</code> adds
+	<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/devel/gmake/pkg-descr">devel/gmake</a> to
+	<code class="varname">BUILD_DEPENDS</code>.  To prevent such additional
+	dependencies from polluting <code class="varname">RUN_DEPENDS</code>,
+	create another variable with the current content of
+	<code class="varname">BUILD_DEPENDS</code> and assign it to both
+	<code class="varname">BUILD_DEPENDS</code> and
+	<code class="varname">RUN_DEPENDS</code>:</p><pre class="programlisting">MY_DEPENDS=	some:devel/some \
+		other:lang/other
+BUILD_DEPENDS=	${MY_DEPENDS}
+RUN_DEPENDS=	${MY_DEPENDS}</pre><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml"><span class="emphasis"><em>Do not</em></span> use <code class="literal">:=</code>
+	  to assign <code class="varname">BUILD_DEPENDS</code> to
+	  <code class="varname">RUN_DEPENDS</code> or vice-versa.  All
+	  variables are expanded immediately, which is exactly the
+	  wrong thing to do and almost always a failure.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="makefile-build_depends"></a>5.9.3. <code class="varname">BUILD_DEPENDS</code></h3></div></div></div><p>This variable specifies executables or files this port
+	requires to build.  Like <code class="varname">RUN_DEPENDS</code>, it
+	is a list of
+	<em class="replaceable"><code>path</code></em>:<em class="replaceable"><code>dir</code></em>[<span class="optional">:<em class="replaceable"><code>target</code></em></span>]
+	tuples.  For example,</p><pre class="programlisting">BUILD_DEPENDS=	unzip:archivers/unzip</pre><p>will check for an executable called
+	<code class="command">unzip</code>, and descend into the
+	<code class="filename">archivers/unzip</code> subdirectory of the
+	ports tree to build and install it if it is not found.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml"><span class="quote">&#8220;<span class="quote">build</span>&#8221;</span> here means everything from
+	  extraction to compilation.  The dependency is checked from
+	  within the <code class="buildtarget">extract</code> target.  The
+	  <em class="replaceable"><code>target</code></em> part can be omitted if it
+	  is the same as <code class="varname">DEPENDS_TARGET</code></p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="makefile-fetch_depends"></a>5.9.4. <code class="varname">FETCH_DEPENDS</code></h3></div></div></div><p>This variable specifies executables or files this port
+	requires to fetch.  Like the previous two, it is a list of
+	<em class="replaceable"><code>path</code></em>:<em class="replaceable"><code>dir</code></em>[<span class="optional">:<em class="replaceable"><code>target</code></em></span>]
+	tuples.  For example,</p><pre class="programlisting">FETCH_DEPENDS=	ncftp2:net/ncftp2</pre><p>will check for an executable called
+	<code class="command">ncftp2</code>, and descend into the
+	<code class="filename">net/ncftp2</code> subdirectory of the ports
+	tree to build and install it if it is not found.</p><p>The dependency is checked from within the
+	<code class="buildtarget">fetch</code> target.  The
+	<em class="replaceable"><code>target</code></em> part can be omitted if it is
+	the same as <code class="varname">DEPENDS_TARGET</code>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="makefile-extract_depends"></a>5.9.5. <code class="varname">EXTRACT_DEPENDS</code></h3></div></div></div><p>This variable specifies executables or files this port
+	requires for extraction.  Like the previous, it is a list of
+	<em class="replaceable"><code>path</code></em>:<em class="replaceable"><code>dir</code></em>[<span class="optional">:<em class="replaceable"><code>target</code></em></span>]
+	tuples.  For example,</p><pre class="programlisting">EXTRACT_DEPENDS=	unzip:archivers/unzip</pre><p>will check for an executable called
+	<code class="command">unzip</code>, and descend into the
+	<code class="filename">archivers/unzip</code> subdirectory of the
+	ports tree to build and install it if it is not found.</p><p>The dependency is checked from within the
+	<code class="buildtarget">extract</code> target.  The
+	<em class="replaceable"><code>target</code></em> part can be omitted if it
+	is the same as <code class="varname">DEPENDS_TARGET</code>.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Use this variable only if the extraction does not
+	  already work (the default assumes <code class="command">tar</code>)
+	  and cannot be made to work using
+	  <code class="literal">USES=tar</code>, <code class="literal">USES=lha</code> or
+	  <code class="literal">USES=zip</code> described in <a class="xref" href="uses.html" title="Chapter 17. Using USES Macros">Chapter 17, <em>Using <code class="varname">USES</code> Macros</em></a>.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="makefile-patch_depends"></a>5.9.6. <code class="varname">PATCH_DEPENDS</code></h3></div></div></div><p>This variable specifies executables or files this port
+	requires to patch.  Like the previous, it is a list of
+	<em class="replaceable"><code>path</code></em>:<em class="replaceable"><code>dir</code></em>[<span class="optional">:<em class="replaceable"><code>target</code></em></span>]
+	tuples.  For example,</p><pre class="programlisting">PATCH_DEPENDS=	${NONEXISTENT}:java/jfc:extract</pre><p>will descend into the <code class="filename">java/jfc</code>
+	subdirectory of the ports tree to extract it.</p><p>The dependency is checked from within the
+	<code class="buildtarget">patch</code> target.  The
+	<em class="replaceable"><code>target</code></em> part can be omitted if it
+	is the same as <code class="varname">DEPENDS_TARGET</code>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="makefile-uses"></a>5.9.7. <code class="varname">USES</code></h3></div></div></div><p>Parameters can be added to define different features and
+	dependencies used by the port.  They are specified by adding
+	this line to the <code class="filename">Makefile</code>:</p><pre class="programlisting">USES= feature[:arguments]</pre><p>For the complete list of values, please see
+	<a class="xref" href="uses.html" title="Chapter 17. Using USES Macros">Chapter 17, <em>Using <code class="varname">USES</code> Macros</em></a>.</p><div xmlns="" class="warning"><h3 class="admontitle">Warning: </h3><p xmlns="http://www.w3.org/1999/xhtml"><code class="varname">USES</code> cannot be assigned after
+	  inclusion of <code class="filename">bsd.port.pre.mk</code>.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="makefile-use-vars"></a>5.9.8. <code class="varname">USE_<em class="replaceable"><code>*</code></em></code></h3></div></div></div><p>Several variables exist to define common dependencies
+	shared by many ports.  Their use is optional, but helps to
+	reduce the verbosity of the port
+	<code class="filename">Makefile</code>s.  Each of them is styled as
+	<code class="varname">USE_<em class="replaceable"><code>*</code></em></code>.  These
+	variables may be used only in the port
+	<code class="filename">Makefile</code>s and
+	<code class="filename">ports/Mk/bsd.*.mk</code>.  They are not meant
+	for user-settable options &#8212; use
+	<code class="varname">PORT_OPTIONS</code> for that purpose.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">It is <span class="emphasis"><em>always</em></span> incorrect to set any
+	  <code class="varname">USE_<em class="replaceable"><code>*</code></em></code> in
+	  <code class="filename">/etc/make.conf</code>.  For instance,
+	  setting</p><pre xmlns="http://www.w3.org/1999/xhtml" class="programlisting">USE_GCC=X.Y</pre><p xmlns="http://www.w3.org/1999/xhtml">(where X.Y is version number) would add a dependency
+	  on gccXY for every port, including
+	  <code class="literal">lang/gccXY</code> itself!</p></div><div class="table"><a id="makefile-use-vars-table"></a><div class="table-title">Table 5.8. <code class="varname">USE_<em class="replaceable"><code>*</code></em></code></div><div class="table-contents"><table class="table" summary="USE_*" border="0"><colgroup><col /><col /></colgroup><thead><tr><th>Variable</th><th>Means</th></tr></thead><tbody><tr><td><code class="varname">USE_GCC</code></td><td>
+		<p>The port requires GCC (<code class="command">gcc</code> or
+		  <code class="command">g++</code>) to build.  Some ports need any
+		  GCC version, some require modern, recent versions.  It
+		  is typically set to <code class="literal">any</code> (in this
+		  case, GCC from base would be used on versions of FreeBSD
+		  that still have it, or <code class="literal">lang/gcc</code>
+		  port would be installed when default C/C++ compiler is
+		  Clang); or <code class="literal">yes</code> (means always use
+		  stable, modern GCC from <code class="literal">lang/gcc</code>
+		  port).  The exact version can also be specified, with
+		  a value such as <code class="literal">4.7</code>.  The minimal
+		  required version can be specified as
+		  <code class="literal">4.6+</code>.  The GCC from the base system
+		  is used when it satisfies the requested version,
+		  otherwise an appropriate compiler is built from the
+		  port, and <code class="varname">CC</code> and
+		  <code class="varname">CXX</code> are adjusted
+		  accordingly.</p>
+
+		<div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml"><code class="varname">USE_GCC</code> will register a
+		    build-time and a run-time dependency.</p></div>
+	      </td></tr></tbody></table></div></div><br class="table-break" /><p>Variables related to <span class="application">gmake</span> and
+	<code class="filename">configure</code> are described in
+	<a class="xref" href="building.html" title="6.5. Building Mechanisms">Section 6.5, &#8220;Building Mechanisms&#8221;</a>, while
+	<span class="application">autoconf</span>,
+	<span class="application">automake</span> and
+	<span class="application">libtool</span> are described in
+	<a class="xref" href="using-autotools.html" title="6.6. Using GNU Autotools">Section 6.6, &#8220;Using GNU Autotools&#8221;</a>.
+	<span class="application">Perl</span> related variables are
+	described in <a class="xref" href="using-perl.html" title="6.8. Using Perl">Section 6.8, &#8220;Using <span class="application">Perl</span>&#8221;</a>.  X11 variables are
+	listed in <a class="xref" href="using-x11.html" title="6.9. Using X11">Section 6.9, &#8220;Using X11&#8221;</a>.
+	<a class="xref" href="using-gnome.html" title="6.10. Using GNOME">Section 6.10, &#8220;Using GNOME&#8221;</a> deals with GNOME and
+	<a class="xref" href="using-kde.html" title="6.13. Using KDE">Section 6.13, &#8220;Using KDE&#8221;</a> with KDE related variables.
+	<a class="xref" href="using-java.html" title="6.15. Using Java">Section 6.15, &#8220;Using Java&#8221;</a> documents Java variables, while
+	<a class="xref" href="using-php.html" title="6.16. Web Applications, Apache and PHP">Section 6.16, &#8220;Web Applications, Apache and PHP&#8221;</a> contains information on
+	<span class="application">Apache</span>,
+	<span class="application">PHP</span> and PEAR modules.
+	<span class="application">Python</span> is discussed in
+	<a class="xref" href="using-python.html" title="6.17. Using Python">Section 6.17, &#8220;Using Python&#8221;</a>, while
+	<span class="application">Ruby</span> in
+	<a class="xref" href="using-ruby.html" title="6.19. Using Ruby">Section 6.19, &#8220;Using Ruby&#8221;</a>.  <a class="xref" href="using-sdl.html" title="6.20. Using SDL">Section 6.20, &#8220;Using SDL&#8221;</a>
+	provides variables used for <span class="application">SDL</span>
+	applications and finally, <a class="xref" href="using-xfce.html" title="6.24. Using Xfce">Section 6.24, &#8220;Using Xfce&#8221;</a>
+	contains information on
+	<span class="application">Xfce</span>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="makefile-version-dependency"></a>5.9.9. Minimal Version of a Dependency</h3></div></div></div><p>A minimal version of a dependency can be specified in any
+	<code class="varname"><em class="replaceable"><code>*</code></em>_DEPENDS</code>
+	except <code class="varname">LIB_DEPENDS</code> using this
+	syntax:</p><pre class="programlisting">p5-Spiffy&gt;=0.26:devel/p5-Spiffy</pre><p>The first field contains a dependent package name, which
+	must match the entry in the package database, a comparison
+	sign, and a package version.  The dependency is satisfied if
+	p5-Spiffy-0.26 or newer is installed on the machine.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="makefile-note-on-dependencies"></a>5.9.10. Notes on Dependencies</h3></div></div></div><p>As mentioned above, the default target to call when a
+	dependency is required is
+	<code class="buildtarget">DEPENDS_TARGET</code>.  It defaults to
+	<code class="literal">install</code>.  This is a user variable; it is
+	never defined in a port's <code class="filename">Makefile</code>.  If
+	the port needs a special way to handle a dependency, use the
+	<code class="literal">:target</code> part of
+	<code class="varname"><em class="replaceable"><code>*</code></em>_DEPENDS</code>
+	instead of redefining
+	<code class="varname">DEPENDS_TARGET</code>.</p><p>When running <code class="command">make clean</code>, the port
+	dependencies are automatically cleaned too.  If this is not
+	desirable, define
+	<code class="varname">NOCLEANDEPENDS</code> in the environment.  This
+	may be particularly desirable if the port has something that
+	takes a long time to rebuild in its dependency list, such as
+	KDE, GNOME or Mozilla.</p><p>To depend on another port unconditionally, use the
+	variable <code class="literal">${NONEXISTENT}</code> as the first field
+	of <code class="varname">BUILD_DEPENDS</code> or
+	<code class="varname">RUN_DEPENDS</code>.  Use this only when
+	the source of the other port is needed.  Compilation time can
+	be saved by specifying the target too.  For
+	instance</p><pre class="programlisting">BUILD_DEPENDS=	${NONEXISTENT}:graphics/jpeg:extract</pre><p>will always descend to the <code class="literal">jpeg</code> port
+	and extract it.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="makefile-circular-dependencies"></a>5.9.11. Circular Dependencies Are Fatal</h3></div></div></div><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">Do not introduce any circular dependencies into the
+	  ports tree!</p></div><p>The ports building technology does not tolerate circular
+	dependencies.  If one is introduced, someone, somewhere in the
+	world, will have their FreeBSD installation broken
+	almost immediately, with many others quickly to follow.  These
+	can really be hard to detect.  If in doubt, before making
+	that change, make sure to run:
+	<code class="command">cd /usr/ports; make index</code>.  That process
+	can be quite slow on older machines, but it may be able to
+	save a large number of people, including yourself,
+	a lot of grief in the process.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="makefile-automatic-dependencies"></a>5.9.12. Problems Caused by Automatic Dependencies</h3></div></div></div><p>Dependencies must be declared either explicitly or by
+	using the
+	<a class="link" href="makefile-options.html" title="5.13. Makefile Options">OPTIONS framework</a>.
+	Using other methods like automatic detection complicates
+	indexing, which causes problems for port and package
+	management.</p><div class="example"><a id="makefile-automatic-dependencies-bad"></a><div class="example-title">Example 5.37. Wrong Declaration of an Optional Dependency</div><div class="example-contents"><pre class="programlisting">.include &lt;bsd.port.pre.mk&gt;
+
+.if exists(${LOCALBASE}/bin/foo)
+LIB_DEPENDS=	libbar.so:foo/bar
+.endif</pre></div></div><br class="example-break" /><p>The problem with trying to automatically add dependencies
+	is that files and settings outside an individual port can
+	change at any time.  For example: an index is built, then a
+	batch of ports are installed.  But one of the ports installs
+	the tested file.  The index is now incorrect, because an
+	installed port unexpectedly has a new dependency.  The index
+	may still be wrong even after rebuilding if other ports also
+	determine their need for dependencies based on the existence
+	of other files.</p><div class="example"><a id="makefile-automatic-dependencies-good"></a><div class="example-title">Example 5.38. Correct Declaration of an Optional Dependency</div><div class="example-contents"><pre class="programlisting">OPTIONS_DEFINE=	BAR
+BAR_DESC=	Calling cellphones via bar
+
+BAR_LIB_DEPENDS=	libbar.so:foo/bar</pre></div></div><br class="example-break" /><p>Testing option variables is the correct method.  It will
+	not cause inconsistencies in the index of a batch of ports,
+	provided the options were defined prior to the index build.
+	Simple scripts can then be used to automate the building,
+	installation, and updating of these ports and their
+	packages.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="makefile-portscout.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="makefiles.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="makefile-masterdir.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">5.8. <code class="varname">PORTSCOUT</code> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 5.10. Slave Ports and <code class="varname">MASTERDIR</code></td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

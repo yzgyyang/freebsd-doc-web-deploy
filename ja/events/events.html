@@ -44,11 +44,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">検索</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -120,6 +119,9 @@
                   </li>
                   <li>
                     <a href="../../cgi/man.cgi">マニュアルページ</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">プレゼンテーションと論文</a>
                   </li>
                   <li>
                     <a href="../../doc/en_US.ISO8859-1/books/fdp-primer">新しい貢献者のためのドキュメンテーションプロジェクト入門</a>
@@ -238,9 +240,6 @@
                   <a href="../usergroups.html">ユーザグループ</a>
                 </li>
                 <li>
-                  <a href="https://planet.FreeBSD.org/">ブログ</a>
-                </li>
-                <li>
                   <a href="../events/events.html">イベント</a>
                 </li>
                 <li>
@@ -261,7 +260,7 @@
           </div>
           <div id="contentwrap">
             <h1>FreeBSD 関連イベント</h1>
-<!--Generated on: 20181107-->
+<!--Generated on: 20201103-->
             <p xmlns="">ここに掲載されていない FreeBSD に関連したイベントや、
       FreeBSD ユーザが興味をもちそうなイベント詳細をご存知でしたら、
       <a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>
@@ -274,26 +273,411 @@
       以下の地図において暗赤色に塗られています。
       過去に FreeBSD に関連したイベントを開催した国は黄色やオレンジ色で塗られています。
       より暗い色で塗られた地域ほど過去に多くのイベントを開催しています。</p>
-            <img xmlns="" src="https://chart.googleapis.com/chart?cht=t&amp;chs=400x200&amp;chtm=world&amp;chco=ffffff,ffbe38,600000&amp;chf=bg,s,4D89F9&amp;chd=t:33.0,31.0,100.0,100.0,16.0,100.0,12.0,9.0,5.0,5.0,5.0,100.0,4.0,4.0,4.0,4.0,3.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0&amp;chld=DEUSJPCAUSBEFRCHARUAPLGBITATTWDKNLTWBRRUNLUKAUTRROAMRSSEBGMTSKHUINESPTCLCOKRCN" />
+            <img xmlns="" src="https://chart.googleapis.com/chart?cht=t&amp;chs=400x200&amp;chtm=world&amp;chco=ffffff,ffbe38,600000&amp;chf=bg,s,4D89F9&amp;chd=t:34.0,31.0,24.0,22.0,19.0,14.0,12.0,9.0,6.0,5.0,5.0,5.0,4.0,4.0,4.0,4.0,3.0,3.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0&amp;chld=DEUSCAUSJPBEFRCHARATUAPLGBITTWDKTWNLSEINBRRUNLUKAUTRNOROAMRSBGMTSKHUESPTCLCOKRCN" />
             <h2 xmlns="" id="upcoming">現在開催中、または今後開催予定のイベント</h2>
-            <h3 id="month:201902">2019 年 02 月</h3>
+            <h3 id="month:202011">2020 年 11 月</h3>
+            <ul>
+              <li id="event:21">
+                <p><b><a href="https://live.freebsd.org/FreeBSD/freebsdfriday/">FreeBSD Friday: Intro to DTrace</a></b>, live.FreeBSD.org<br /><em>2020 年 11 月 20 日</em><br />On November 20th 2020 from 17:00 UTC there will be an 1 hour live
+      streaming session of the FreeBSD Fridays. The topic of this week is:
+      Intro to DTrace by Mark Johnston</p>
+              </li>
+            </ul>
+            <h2 xmlns="" id="past">過去のイベント</h2>
+            <h3 id="month:202010">2020 年 10 月</h3>
+            <ul>
+              <li id="event:20">
+                <p><b><a href="https://live.freebsd.org/FreeBSD/freebsdfriday/">FreeBSD Friday: Intro to Bhyve</a></b>, live.FreeBSD.org<br /><em>2020 年 10 月 23 日</em><br />On October 23rd 2020 from 17:00 UTC there will be an 1 hour live
+      streaming session of the FreeBSD Fridays. The topic of this week is:
+      Intro to Bhyve by Peter Grehan</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=FreeBSD Friday: Intro to Bhyve&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=FreeBSD Friday: Intro to Bhyve">Blog Search</a>.</p>
+              </li>
+              <li id="event:19">
+                <p><b><a href="https://live.freebsd.org/FreeBSD/freebsdfriday/">FreeBSD Friday: Intro to CheriBSD</a></b>, live.FreeBSD.org<br /><em>2020 年 10 月 09 日</em><br />On October 9th 2020 from 17:00 UTC there will be an 1 hour live
+      streaming session of the FreeBSD Fridays. The topic of this week is:
+      Intro to CheriBSD by Dr. Robert N. M. Watson</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=FreeBSD Friday: Intro to CheriBSD&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=FreeBSD Friday: Intro to CheriBSD">Blog Search</a>.</p>
+              </li>
+            </ul>
+            <h3 id="month:202009">2020 年 09 月</h3>
+            <ul>
+              <li id="event:18">
+                <p><b><a href="https://live.freebsd.org/FreeBSD/freebsdfriday/">FreeBSD Friday: Intro to Jails</a></b>, live.FreeBSD.org<br /><em>2020 年 09 月 25 日</em><br />On September 25th 2020 from 17:00 UTC there will be an 1 hour live
+      streaming session of the FreeBSD Fridays. The topic of this week is:
+      Intro to Jails by Michael W. Lucas</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=FreeBSD Friday: Intro to Jails&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=FreeBSD Friday: Intro to Jails">Blog Search</a>.</p>
+              </li>
+              <li id="event:17">
+                <p><b><a href="https://live.freebsd.org/FreeBSD/officehours/">FreeBSD Office Hours</a></b>, live.FreeBSD.org<br /><em>2020 年 09 月 23 日</em><br />On September 23rd at 18:00 UTC we will hold a
+      "FreeBSD Office Hours", an interactive online event
+      where users, contributors, and developers
+      can ask questions and get advice. The event will be recorded and
+      posted to Youtube after its conclusion. For more information see
+      the <a xmlns:xi="http://www.w3.org/2001/XInclude" xmlns="" href="https://wiki.freebsd.org/OfficeHours">Office Hours</a>
+      page on the FreeBSD wiki.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=FreeBSD Office Hours&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=FreeBSD Office Hours">Blog Search</a>.</p>
+              </li>
+              <li id="event:16">
+                <p><b><a href="https://wiki.freebsd.org/Bugathons">FreeBSD Bug Squash</a></b>, live.FreeBSD.org, Online, Canada<br /><em>2020 年 09 月 19 日</em><br />On September 19th 2020 from 1400-2100 UTC we will be
+      running a coordinated virtual Bug Squash. FreeBSD has a Problem
+      Report (PR) database where users and developers are encouraged
+      to file issues and regressions they find in both the base system
+      and ports tree. A Bug Squash is a focused session where we try to
+      triage, process, fix and close as many reports as we can from the
+      PR database. This September 11th Bug Squash we will focus on closing
+      as many PRs with patches as we can. Both users and developers are
+      invited to attend and participate via the live video stream and
+      IRC channel.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=FreeBSD Bug Squash&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=FreeBSD Bug Squash">Blog Search</a>.</p>
+              </li>
+              <li id="event:15">
+                <p><b><a href="https://live.freebsd.org/FreeBSD/freebsdfriday/">FreeBSD Friday: Introduction to Hardware Hacking on Raspberry Pi</a></b>, live.FreeBSD.org<br /><em>2020 年 09 月 11 日</em><br />On September 11th 2020 from 17:00 UTC there will be an 1 hour live
+      streaming session of the FreeBSD Fridays. The topic of this week is:
+      Introduction to Hardware Hacking on Raspberry Pi by Tom Jones</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=FreeBSD Friday: Introduction to Hardware Hacking on Raspberry Pi&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=FreeBSD Friday: Introduction to Hardware Hacking on Raspberry Pi">Blog Search</a>.</p>
+              </li>
+            </ul>
+            <h3 id="month:202008">2020 年 08 月</h3>
+            <ul>
+              <li id="event:14">
+                <p><b><a href="https://live.freebsd.org/FreeBSD/freebsdfriday/">FreeBSD Friday: Intro to FreeBSD Security</a></b>, live.FreeBSD.org<br /><em>2020 年 08 月 28 日</em><br />On August 28th 2020 from 17:00 UTC there will be an 1 hour live
+      streaming session of the FreeBSD Fridays. The topic of this week is:
+      Intro to FreeBSD Security by Antranig Vartanian</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=FreeBSD Friday: Intro to FreeBSD Security&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=FreeBSD Friday: Intro to FreeBSD Security">Blog Search</a>.</p>
+              </li>
+              <li id="event:13">
+                <p><b><a href="https://live.freebsd.org/FreeBSD/officehours/">FreeBSD Office Hours</a></b>, live.FreeBSD.org<br /><em>2020 年 08 月 19 日</em><br />On August 19th at 18:00 UTC we will hold a
+      "FreeBSD Office Hours", an interactive online event
+      where users, contributors, and developers
+      can ask questions and get advice. The event will be recorded and
+      posted to Youtube after its conclusion. For more information see
+      the <a xmlns:xi="http://www.w3.org/2001/XInclude" xmlns="" href="https://wiki.freebsd.org/OfficeHours">Office Hours</a>
+      page on the FreeBSD wiki.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=FreeBSD Office Hours&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=FreeBSD Office Hours">Blog Search</a>.</p>
+              </li>
+              <li id="event:12">
+                <p><b><a href="https://live.freebsd.org/FreeBSD/freebsdfriday/">FreeBSD Friday: Introduction to ZFS</a></b>, live.FreeBSD.org<br /><em>2020 年 08 月 14 日</em><br />On August 14th 2020 from 17:00 UTC there will be an 1 hour live
+      streaming session of the FreeBSD Fridays. The topic of this week is:
+      Introduction to ZFS by Dan Langille</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=FreeBSD Friday: Introduction to ZFS&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=FreeBSD Friday: Introduction to ZFS">Blog Search</a>.</p>
+              </li>
+              <li id="event:11">
+                <p><b><a href="https://live.freebsd.org/FreeBSD/freebsdfriday/">FreeBSD Friday: History of BSD Fast Filesystem</a></b>, live.FreeBSD.org<br /><em>2020 年 08 月 07 日</em><br />On August 7th 2020 from 17:00 UTC there will be an 1 hour live
+      streaming session of the FreeBSD Fridays. The topic of this week is:
+      History of BSD Fast Filesystem by Dr. Marshall Kirk McKusick</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=FreeBSD Friday: History of BSD Fast Filesystem&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=FreeBSD Friday: History of BSD Fast Filesystem">Blog Search</a>.</p>
+              </li>
+            </ul>
+            <h3 id="month:202007">2020 年 07 月</h3>
+            <ul>
+              <li id="event:10">
+                <p><b><a href="https://live.freebsd.org/FreeBSD/freebsdfriday/">FreeBSD Friday: FreeBSD Installfest Pt 2</a></b>, live.FreeBSD.org<br /><em>2020 年 07 月 31 日</em><br />On July 31st 2020 from 17:00 UTC there will be an 1 hour live
+      streaming session of the FreeBSD Fridays. The topic of this week is:
+      FreeBSD Installfest Pt 2 by Roller Angel.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=FreeBSD Friday: FreeBSD Installfest Pt 2&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=FreeBSD Friday: FreeBSD Installfest Pt 2">Blog Search</a>.</p>
+              </li>
+              <li id="event:9">
+                <p><b><a href="https://live.freebsd.org/FreeBSD/freebsdfriday/">FreeBSD Friday: FreeBSD Installfest Pt 1</a></b>, live.FreeBSD.org<br /><em>2020 年 07 月 24 日</em><br />On July 24th 2020 from 17:00 UTC there will be an 1 hour live
+      streaming session of the FreeBSD Fridays. The topic of this week is:
+      FreeBSD Installfest Pt 1 by Roller Angel.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=FreeBSD Friday: FreeBSD Installfest Pt 1&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=FreeBSD Friday: FreeBSD Installfest Pt 1">Blog Search</a>.</p>
+              </li>
+              <li id="event:8">
+                <p><b><a href="https://live.freebsd.org/FreeBSD/officehours/">FreeBSD Office Hours</a></b>, live.FreeBSD.org, Online, Canada<br /><em>2020 年 07 月 22 日</em><br />On July 22nd at 18:00 UTC we will hold a
+      "FreeBSD Office Hours", an interactive online event
+      where users, contributors, and developers
+      can ask questions and get advice. The event will be recorded and
+      posted to Youtube after its conclusion. For more information see
+      the <a xmlns:xi="http://www.w3.org/2001/XInclude" xmlns="" href="https://wiki.freebsd.org/OfficeHours">Office Hours</a>
+      page on the FreeBSD wiki.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=FreeBSD Office Hours&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=FreeBSD Office Hours">Blog Search</a>.</p>
+              </li>
+              <li id="event:7">
+                <p><b><a href="https://live.freebsd.org/FreeBSD/freebsdfriday/">FreeBSD Friday: Intro to FreeBSD</a></b>, live.FreeBSD.org<br /><em>2020 年 07 月 17 日</em><br />On July 17th 2020 from 17:00 UTC there will be an 1 hour live
+      streaming session of the FreeBSD Fridays. The topic of this week is:
+      Intro to FreeBSD by Deb Goodkin.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=FreeBSD Friday: Intro to FreeBSD&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=FreeBSD Friday: Intro to FreeBSD">Blog Search</a>.</p>
+              </li>
+            </ul>
+            <h3 id="month:202006">2020 年 06 月</h3>
+            <ul>
+              <li id="event:6">
+                <p><b><a href="https://live.freebsd.org/FreeBSD/officehours/">FreeBSD Office Hours</a></b>, live.FreeBSD.org, Online, Canada<br /><em>2020 年 06 月 24 日</em><br />On June 24th at 18:00 UTC we will hold the fifth
+      "FreeBSD Office Hours", an interactive online event
+      where users, contributors, and developers
+      can ask questions and get advice. The event will be recorded and
+      posted to Youtube after its conclusion. For more information see
+      the <a xmlns:xi="http://www.w3.org/2001/XInclude" xmlns="" href="https://wiki.freebsd.org/OfficeHours">Office Hours</a>
+      page on the FreeBSD wiki.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=FreeBSD Office Hours&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=FreeBSD Office Hours">Blog Search</a>.</p>
+              </li>
+              <li id="event:5">
+                <p><b><a href="https://www.bsdcan.org">BSDCan 2020</a></b>, University of Ottawa, Ottawa, Canada<br /><em>2020 年 06 月 03 -  06 日</em><br />A four day BSD conference held in Ottawa, Canada.
+      BSDCan hosts talks and tutorials on a range of topics based
+      around the BSD family of operating systems.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=BSDCan 2020&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=BSDCan 2020">Blog Search</a>.</p>
+              </li>
+            </ul>
+            <h3 id="month:202004">2020 年 04 月</h3>
+            <ul>
+              <li id="event:4">
+                <p><b><a href="https://live.freebsd.org/FreeBSD/officehours/">FreeBSD Office Hours</a></b>, live.FreeBSD.org, Online, Canada<br /><em>2020 年 04 月 15 -  16 日</em><br />On April 16th at 02:00 UTC (April 15th in North America)
+      we will hold the second "FreeBSD Office Hours", an
+      interactive online event where users, contributors, and developers
+      can ask questions and get advice. The event will be recorded and
+      posted to Youtube after its conclusion.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=FreeBSD Office Hours&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=FreeBSD Office Hours">Blog Search</a>.</p>
+              </li>
+              <li id="event:3">
+                <p><b><a href="https://www.youtube.com/watch?v=6qBm5NM3zTQ">FreeBSD Office Hours</a></b>, Online, Google Hangout, Canada<br /><em>2020 年 04 月 01 日</em><br />On April 1st at 18:00 UTC we will hold the first
+      "FreeBSD Office Hours", an interactive online event
+      where users, contributors, and developers can ask questions
+      and get advice. The event will be recorded and posted to Youtube
+      after its conclusion.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=FreeBSD Office Hours&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=FreeBSD Office Hours">Blog Search</a>.</p>
+              </li>
+            </ul>
+            <h3 id="month:202003">2020 年 03 月</h3>
+            <ul>
+              <li id="event:2">
+                <p><b><a href="https://2020.asiabsdcon.org/">AsiaBSDCon 2020</a></b>, Tokyo University of Science, Tokyo, Japan<br /><em>2020 年 03 月 19 -  22 日</em><br />AsiaBSDCon is a conference for users and developers
+      on BSD based systems.  The conference is for anyone developing,
+      deploying and using systems based on FreeBSD, NetBSD, OpenBSD,
+      DragonFlyBSD, Darwin and MacOS X.  AsiaBSDCon is a technical
+      conference and aims to collect the best technical papers and
+      presentations available to ensure that the latest developments
+      in our open source community are shared with the widest possible
+      audience.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=AsiaBSDCon 2020&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=AsiaBSDCon 2020">Blog Search</a>,
+	<a rel="nofollow" href="http://www.youtube.com/results?search_query=bsdconferences+AsiaBSDCon 2020">YouTube</a>.</p>
+              </li>
+            </ul>
+            <h3 id="month:202002">2020 年 02 月</h3>
+            <ul>
+              <li id="event:1">
+                <p><b><a href="https://fosdem.org/2020/">FOSDEM 2020</a></b>, ULB Solbosch Campus, Brussels, Belgium<br /><em>2020 年 02 月 01 -  02 日</em><br />FOSDEM is a free event for software developers to
+      meet, share ideas and collaborate.  Every year, thousands of
+      developers of free and open source software from all over the
+      world gather at the event in Brussels.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=FOSDEM 2020&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=FOSDEM 2020">Blog Search</a>.</p>
+              </li>
+            </ul>
+            <h3 id="month:202001">2020 年 01 月</h3>
             <ul>
               <li id="event:0">
-                <p><b><a href="https://fosdem.org/2019/">FOSDEM 2019</a></b>, Free University of Brussels, Solbosch Campus, Brussels, Belgium<br /><em>2019 年 02 月 02 -  03 日</em><br />The Free and Open Source Software Developers'
-      European Meeting (FOSDEM) is a free event for software hackers
-      to meet, share ideas and collaborate.  Every year 8000+ open
-      source developers from all over the world gather at the event in
-      Brussels, Belgium. During the FOSDEM, developer rooms (devrooms)
-      are assigned to self organized open source groups and projects
-      to meet together and showcase their projects; a <a xmlns:xi="http://www.w3.org/2001/XInclude" xmlns="" href="https://fosdem.org/2019/schedule/track/bsd/">BSD
-	devroom</a> will host talks about BSD operating systems and
-      projects. If you want to submit a talk, see <a xmlns:xi="http://www.w3.org/2001/XInclude" xmlns="" href="http://blog.osorio.me/post.php?idpost=1">the
-	CfP</a>.</p>
+                <p><b><a href="https://wiki.freebsd.org/DevSummit/202002">FreeBSD mini-DevSummit FOSDEM 2020</a></b>, Hotel NH Brussels Carrefour de l'Europe, Brussels, Belgium<br /><em>2020 年 01 月 31 日</em><br />Join FreeBSD Developers and Vendors for a one-day
+      summit to be held in conjunction with FOSDEM '20 in Brussels,
+      Belgium.  The summit will consist of discussion sessions and is
+      by-invitation only.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=FreeBSD mini-DevSummit FOSDEM 2020&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=FreeBSD mini-DevSummit FOSDEM 2020">Blog Search</a>.</p>
+              </li>
+            </ul>
+            <h3 id="month:201910">2019 年 10 月</h3>
+            <ul>
+              <li id="event:40">
+                <p><b><a href="https://www.usenix.org/conference/lisa19">LISA19</a></b>, Portland Marriott Downtown Waterfront, Portland, United States<br /><em>2019 年 10 月 28 -  30 日</em><br />LISA is the premier conference for operations
+       professionals, where sysadmins, systems engineers, IT
+       operations professionals, SRE practitioners, developers, IT
+       managers, and academic researchers share real-world knowledge
+       about designing, building, securing, and maintaining the
+       critical systems of our interconnected world.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=LISA19&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=LISA19">Blog Search</a>.</p>
+              </li>
+              <li id="event:39">
+                <p><b><a href="https://wiki.freebsd.org/DevSummit/201910">Bay Area FreeBSD Vendor and Developer Summit</a></b>, Intel Campus, SC12 building, 3600 Juliette Lane, Santa Clara, CA, United States<br /><em>2019 年 10 月 11 -  12 日</em><br />This by-invitation event wants to bring together
+     FreeBSD developers and vendors to talk about common goals.
+     We will determine things we have, need, and want from each
+     other to improve FreeBSD.  Talks about latest developments in
+     companies and in FreeBSD will provide insights into future
+     directions.  The event is also a great opportunity for
+     networking within the industry.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=Bay Area FreeBSD Vendor and Developer Summit&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=Bay Area FreeBSD Vendor and Developer Summit">Blog Search</a>.</p>
+              </li>
+            </ul>
+            <h3 id="month:201909">2019 年 09 月</h3>
+            <ul>
+              <li id="event:38">
+                <p><b><a href="https://2019.eurobsdcon.org">EuroBSDcon 2019</a></b>, Scandic Lillehammer Hotel, Lillehammer, Norway<br /><em>2019 年 09 月 19 -  22 日</em><br />EuroBSDcon is the European annual technical
+      conference gathering users and developers working on and with
+      4.4BSD (Berkeley Software Distribution) based operating systems
+      family and related projects.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=EuroBSDcon 2019&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=EuroBSDcon 2019">Blog Search</a>.</p>
+              </li>
+              <li id="event:37">
+                <p><b><a href="https://vbsdcon.com">vBSDcon 2019</a></b>, Hyatt Regency, Reston, United States<br /><em>2019 年 09 月 05 -  07 日</em><br />vBSDCon will bring together members of the BSD
+      community for a series of roundtable discussions, educational
+      sessions, best practice conversations and exclusive networking
+      opportunities.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=vBSDcon 2019&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=vBSDcon 2019">Blog Search</a>.</p>
+              </li>
+            </ul>
+            <h3 id="month:201908">2019 年 08 月</h3>
+            <ul>
+              <li id="event:36">
+                <p><b><a href="https://events.linuxfoundation.org/events/open-source-summit-north-america-2019/">Open Source Summit North America</a></b>, San Diego, United States<br /><em>2019 年 08 月 21 -  23 日</em><br />Join over 2,000 developers, technologists, and
+      industry experts in an exchange of ideas on the latest trends in
+      open source and open collaboration, how to navigate the open
+      source landscape, and how open source is shaping innovation.
+      There will be a <a xmlns:xi="http://www.w3.org/2001/XInclude" xmlns="" href="https://sched.co/PUU8">presentation on
+      FreeBSD.</a></p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=Open Source Summit North America&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=Open Source Summit North America">Blog Search</a>.</p>
+              </li>
+              <li id="event:35">
+                <p><b><a href="https://coscup.org/2019">COSCUP 2019</a></b>, Taipei, Taiwan<br /><em>2019 年 08 月 17 -  18 日</em><br />COSCUP is an annual conference held by Taiwanese Open
+      Source community participants since 2006.  FreeBSD will be well
+      represented with both talks and a table to educate people about
+      FreeBSD.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=COSCUP 2019&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=COSCUP 2019">Blog Search</a>.</p>
+              </li>
+            </ul>
+            <h3 id="month:201907">2019 年 07 月</h3>
+            <ul>
+              <li id="event:34">
+                <p><b><a href="https://conferences.oreilly.com/oscon/oscon-or">OSCON 2019</a></b>, Portland, United States<br /><em>2019 年 07 月 15 -  18 日</em><br />The FreeBSD Foundation will have a table in the expo
+      hall to promote FreeBSD.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=OSCON 2019&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=OSCON 2019">Blog Search</a>.</p>
+              </li>
+            </ul>
+            <h3 id="month:201906">2019 年 06 月</h3>
+            <ul>
+              <li id="event:33">
+                <p><b><a href="https://rootconf.in/2019/">Rootconf 2019</a></b>, Bangalore, India<br /><em>2019 年 06 月 21 -  22 日</em><br />Join members of the FreeBSD community at Rootconf
+      2019!  Rootconf is India’s most well-known conference on
+      DevOps and IT infrastructure.  Rootconf attracts systems and
+      operations engineers, and decision-makers in IT to share real
+      world knowledge about building reliable systems.  Rootconf 2019
+      will focus on infrastructure security, cost optimization, and
+      distributed systems.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=Rootconf 2019&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=Rootconf 2019">Blog Search</a>.</p>
+              </li>
+              <li id="event:32">
+                <p><b><a href="https://www.comcastlabsconnect.com/open-source-2019">Comcast Labs Connect 2nd Annual Open Source
+      Conference</a></b>, Hyatt Regency Denver, Denver, United States<br /><em>2019 年 06 月 20 日</em><br />Comcast Labs Connect in partnership with the Comcast
+      Open Source Program Office is proud to announce the 2nd Annual
+      Open Source Conference.  This conference aims to connect open
+      source developers, leaders, technologists, and community
+      leaders to collaborate on the latest in open source innovation
+      in the broadband, media, entertainment, and connected home
+      space.  This is an ideal forum for cross-collaboration between
+      developers, operators, architects, leaders and others who are
+      driving the technology forward.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=Comcast Labs Connect 2nd Annual Open Source&#10;      Conference&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=Comcast Labs Connect 2nd Annual Open Source&#10;      Conference">Blog Search</a>.</p>
+              </li>
+              <li id="event:31">
+                <p><b><a href="https://wiki.freebsd.org/DevSummit/201906">Berlin FreeBSD DevSummit</a></b>, Bally Wulff Games &amp; Entertainment GmbH, Berlin, Germany<br /><em>2019 年 06 月 15 -  16 日</em><br />This devsummit will be run "un-conference" style,
+      meaning that the agenda is made by the participants.  People can
+      give talks or form working groups around a topic of interest.
+      Developers can invite guests by adding them to the wiki page.
+      You do not have to have a commit bit to contribute to this
+      event.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=Berlin FreeBSD DevSummit&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=Berlin FreeBSD DevSummit">Blog Search</a>.</p>
+              </li>
+              <li id="event:30">
+                <p><b><a href="https://hkoscon.org/2019">HKOSCON 2019</a></b>, Convention Centre 2, Hong Kong Science Park, Shatin<br /><em>2019 年 06 月 14 -  15 日</em><br />Hong Kong Open Source Conference is one of the major
+      open source conferences in Hong Kong since its first
+      commencement in 2013, bringing an international crowd of
+      developers, contributors, users, IT managers, and students.
+      There will be a FreeBSD table and talk to promote
+      FreeBSD.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=HKOSCON 2019&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=HKOSCON 2019">Blog Search</a>.</p>
+              </li>
+              <li id="event:29">
+                <p><b><a href="https://wiki.freebsd.org/Hackathon/201906">Vienna Security Hackathon 2019</a></b>, SBA Research, Vienna, Austria<br /><em>2019 年 06 月 8 -  9 日</em><br />This hackathon in Vienna is focused on security, but
+      this is not a strict requirement.  The basic idea is to get
+      together with FreeBSD hackers to discuss and work directly on
+      issues resolving as many as we can over the long weekend.
+      Fixing bugs, writing code, adding features, improving the
+      documentation, working on ports, and such are all welcome
+      activities at the event.  There is also a sightseeing tour
+      planned on the Monday after.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=Vienna Security Hackathon 2019&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=Vienna Security Hackathon 2019">Blog Search</a>.</p>
+              </li>
+            </ul>
+            <h3 id="month:201905">2019 年 05 月</h3>
+            <ul>
+              <li id="event:28">
+                <p><b><a href="http://bsdday.com.ar/">BSDday Argentina 2019</a></b>, Departamento de Computacion de la Facultad de Ciencias
+	Exactas y Naturales de la Universidad de Buenos Aires, Buenos Aires, Argentina<br /><em>2019 年 05 月 29 -  30 日</em><br />The BSDday is an event where users, administrators
+      and developers of operating systems of type BSD come together to
+      share knowledge, talks, contacts and get to know each other.  In
+      the event lectures, debates, courses and installations of the
+      systems will be exposed.  The event is also a great entry for
+      Linux users, Unix and other operating systems to the BSD
+      world.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=BSDday Argentina 2019&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=BSDday Argentina 2019">Blog Search</a>.</p>
+              </li>
+              <li id="event:27">
+                <p><b><a href="https://wiki.freebsd.org/Hackathon/201905">Waterloo Hackathon 2019</a></b>, University of Waterloo, Kitchener-Waterloo, Canada<br /><em>2019 年 05 月 20 -  22 日</em><br />Join fellow FreeBSD developers for a few days of collaborative
+      software development or hardware hacking in Kitchener-Waterloo, Ontario,
+      after BSDCan.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=Waterloo Hackathon 2019&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=Waterloo Hackathon 2019">Blog Search</a>.</p>
+              </li>
+              <li id="event:26">
+                <p><b><a href="https://www.bsdcan.org/2019/">BSDCan 2019</a></b>, University of Ottawa, Ottawa, Canada<br /><em>2019 年 05 月 15 -  18 日</em><br />A four day BSD conference held in Ottawa, Canada.
+      BSDCan hosts talks and tutorials on a range of topics based
+      around the BSD family of operating systems.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=BSDCan 2019&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=BSDCan 2019">Blog Search</a>.</p>
+              </li>
+            </ul>
+            <h3 id="month:201904">2019 年 04 月</h3>
+            <ul>
+              <li id="event:25">
+                <p><b><a href="https://wiki.freebsd.org/Hackathon/201904">Hackathon 201904</a></b>, University of Aberdeen, Fraser Noble Building,
+	Room 213, Aberdeen, United Kingdom<br /><em>2019 年 04 月 17 -  19 日</em><br />The Aberdeen hackathon is placed at the half way
+      point between AsiaBSDCon and BSDCan to give ardent hackers
+      something to fill their time.  Deadline for registration is
+      March 31st, 2019.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=Hackathon 201904&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=Hackathon 201904">Blog Search</a>.</p>
+              </li>
+              <li id="event:24">
+                <p><b><a href="https://wiki.freebsd.org/DevSummit/201904">FreeBSD Community Day</a></b>, B3 Consulting Group, Kämpegatan 6, Gothenburg, Sweden<br /><em>2019 年 04 月 07 日</em><br />The FreeBSD Community Day in Gothenburg is hosted in
+      connection with the <a xmlns:xi="http://www.w3.org/2001/XInclude" xmlns="" href="https://foss-north.se/2019/">FOSS-north</a>
+      conference.  It is a public event for users, developers, and anyone with
+      an interest in FreeBSD, who wants to learn more about the project.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=FreeBSD Community Day&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=FreeBSD Community Day">Blog Search</a>.</p>
               </li>
             </ul>
             <h3 id="month:201903">2019 年 03 月</h3>
             <ul>
-              <li id="event:1">
+              <li id="event:23">
                 <p><b><a href="https://2019.asiabsdcon.org/">AsiaBSDCon 2019</a></b>, Tokyo University of Science, Tokyo, Japan<br /><em>2019 年 03 月 21 -  24 日</em><br />AsiaBSDCon is a conference for users and developers
       on BSD based systems.  The conference is for anyone developing,
       deploying and using systems based on FreeBSD, NetBSD, OpenBSD,
@@ -302,30 +686,31 @@
       presentations available to ensure that the latest developments
       in our open source community are shared with the widest possible
       audience.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=AsiaBSDCon 2019&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=AsiaBSDCon 2019">Blog Search</a>,
+	<a rel="nofollow" href="http://www.youtube.com/results?search_query=bsdconferences+AsiaBSDCon 2019">YouTube</a>.</p>
               </li>
             </ul>
-            <h3 id="month:201904">2019 年 04 月</h3>
+            <h3 id="month:201902">2019 年 02 月</h3>
             <ul>
-              <li id="event:2">
-                <p><b><a href="https://wiki.freebsd.org/Hackathon/201904">Hackathon 201904</a></b>, University of Aberdeen, Fraser Noble Building, 
-        Room 213, Aberdeen, United Kingdom<br /><em>2019 年 04 月 17 -  19 日</em><br />The Aberdeen hackathon is placed at the half way
-      point between AsiaBSDCon and BSDCan to give ardent hackers
-      something to fill their time.  Deadline for registration is
-      March 31st, 2019.</p>
+              <li id="event:22">
+                <p><b><a href="https://fosdem.org/2019/">FOSDEM 2019</a></b>, Free University of Brussels, Solbosch Campus, Brussels, Belgium<br /><em>2019 年 02 月 02 -  03 日</em><br />The Free and Open Source Software Developers'
+      European Meeting (FOSDEM) is a free event for software hackers
+      to meet, share ideas and collaborate.  Every year 8000+ open
+      source developers from all over the world gather at the event in
+      Brussels, Belgium.  During the FOSDEM, developer rooms
+      (devrooms) are assigned to self organized open source groups and
+      projects to meet together and showcase their projects; a <a xmlns:xi="http://www.w3.org/2001/XInclude" xmlns="" href="https://fosdem.org/2019/schedule/track/bsd/">BSD
+	devroom</a> will host talks about BSD operating systems and
+      projects.  If you want to submit a talk, see <a xmlns:xi="http://www.w3.org/2001/XInclude" xmlns="" href="http://blog.osorio.me/post.php?idpost=1">the
+	CfP</a>.</p>
+                <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=FOSDEM 2019&amp;m=text">
+      Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=FOSDEM 2019">Blog Search</a>.</p>
               </li>
             </ul>
-            <h3 id="month:201905">2019 年 05 月</h3>
-            <ul>
-              <li id="event:3">
-                <p><b><a href="https://www.bsdcan.org/2019/">BSDCan 2019</a></b>, University of Ottawa, Ottawa, Canada<br /><em>2019 年 05 月 15 -  18 日</em><br />A four day BSD conference held in Ottawa, Canada.
-      BSDCan hosts talks and tutorials on a range of topics based
-      around the BSD family of operating systems.</p>
-              </li>
-            </ul>
-            <h2 xmlns="" id="past">過去のイベント</h2>
             <h3 id="month:201810">2018 年 10 月</h3>
             <ul>
-              <li id="event:10">
+              <li id="event:47">
                 <p><b><a href="https://www.meetbsd.com/">MeetBSD 2018</a></b>, Intel Campus, Santa Clara, CA, United States<br /><em>2018 年 10 月 19 -  20 日</em><br />MeetBSD 2018 is a mixed unConference format event
       featuring both scheduled talks and community-driven events such
       as birds-of-a-feather meetings and speed geeking
@@ -337,7 +722,7 @@
             </ul>
             <h3 id="month:201809">2018 年 09 月</h3>
             <ul>
-              <li id="event:9">
+              <li id="event:46">
                 <p><b><a href="https://2018.eurobsdcon.org">EuroBSDcon 2018</a></b>, University Politehnica of Bucharest, Bucharest, Romania<br /><em>2018 年 09 月 20 -  23 日</em><br />EuroBSDcon is the European annual technical
       conference gathering users and developers working on and with
       4.4BSD (Berkeley Software Distribution) based operating systems
@@ -360,7 +745,7 @@
             </ul>
             <h3 id="month:201808">2018 年 08 月</h3>
             <ul>
-              <li id="event:8">
+              <li id="event:45">
                 <p><b><a href="https://bsdcam.cl.cam.ac.uk">2018 Cambridge Devsummit (BSDCam)</a></b>, University of Cambridge Computer Laboratory, Cambridge, United Kingdom<br /><em>2018 年 08 月 15 -  17 日</em><br />An unconference style developer summit with a focus
       on interactive topics and sessions that reflect the interests of
       the attendees. The Cambridge devsummit is a slightly longer
@@ -374,7 +759,7 @@
                 <p>ソーシャルリンク : <a rel="nofollow" href="http://www.flickr.com/search/?w=all&amp;q=2018 Cambridge Devsummit (BSDCam)&amp;m=text">
       Flickr</a>, <a rel="nofollow" href="http://blogsearch.google.com/blogsearch?q=2018 Cambridge Devsummit (BSDCam)">Blog Search</a>.</p>
               </li>
-              <li id="event:7">
+              <li id="event:44">
                 <p><b><a href="https://wiki.freebsd.org/DevSummit/201808Hackathon">Essen Hackathon 2018</a></b>, Linuxhotel Villa Vogelsang, Essen, Germany<br /><em>2018 年 08 月 10 -  12 日</em><br />A weekend hackathon at the Linuxhotel in Essen,
       Germany. A great opportunity to fix bugs, commit code, tinker
       with devices, discuss new ideas, try out new things, and improve
@@ -385,7 +770,7 @@
             </ul>
             <h3 id="month:201806">2018 年 06 月</h3>
             <ul>
-              <li id="event:6">
+              <li id="event:43">
                 <p><b><a href="https://www.bsdcan.org/2018/">BSDCan 2018</a></b>, University of Ottawa, Ottawa, Canada<br /><em>2018 年 06 月 06 -  09 日</em><br />A four day BSD conference held in Ottawa, Canada.
       BSDCan hosts talks and tutorials on a range of topics based
       around the BSD family of operating systems.</p>
@@ -395,7 +780,7 @@
             </ul>
             <h3 id="month:201803">2018 年 03 月</h3>
             <ul>
-              <li id="event:5">
+              <li id="event:42">
                 <p><b><a href="https://2018.asiabsdcon.org/">AsiaBSDCon 2018</a></b>, Tokyo University of Science, Tokyo, Japan<br /><em>2018 年 03 月 08 -  11 日</em><br />AsiaBSDCon is a conference for users and developers
       on BSD based systems.  The conference is for anyone developing,
       deploying and using systems based on FreeBSD, NetBSD, OpenBSD,
@@ -411,7 +796,7 @@
             </ul>
             <h3 id="month:201802">2018 年 02 月</h3>
             <ul>
-              <li id="event:4">
+              <li id="event:41">
                 <p><b><a href="https://fosdem.org/2018/">FOSDEM 2018</a></b>, Free University of Brussels, Solbosch Campus, Brussels, Belgium<br /><em>2018 年 02 月 03 -  04 日</em><br />FOSDEM is an event centered on free and open-source
       software development.  As with many other communities, the BSDs
       feature an alloted room for giving talks at the event.  See
@@ -475,7 +860,7 @@
         </div>
         <div id="footer">
           <span><a href="../search/index-site.html">サイトマップ</a> |
-  <a href="../copyright/">知的財産権について</a> | (C) 1995〓2018 The FreeBSD Project.
+  <a href="../copyright/">知的財産権について</a> | (C) 1995〓2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

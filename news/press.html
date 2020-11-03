@@ -44,11 +44,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">Search</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -120,6 +119,9 @@
                   </li>
                   <li>
                     <a href="//www.FreeBSD.org/cgi/man.cgi">Manual Pages</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">Presentations and Papers</a>
                   </li>
                   <li>
                     <a href="../doc/en_US.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
@@ -280,10 +282,95 @@
             <h1>FreeBSD in the Press</h1>
             <p xmlns="">Please send details of any news stories featuring FreeBSD
       to <a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>.</p>
+            <h1 xmlns="">February 2020</h1>
+            <ul xmlns="">
+              <li>
+                <p><a name="story202002:01" id="story202002:01"></a><a href="https://itsfoss.com/freebsd-interview-deb-goodkin/"><b>Discussing Past, Present and Future of FreeBSD Project</b></a><br /><a href="https://itsfoss.com">itsfoss.com</a>,
+		      Abhishek Prakash<br />FreeBSD is one of the most popular BSD distributions. It is
+	  used on desktop, servers and embedded devices for more than
+	  two decades. We talked to Deb Goodkin, executive director,
+	  FreeBSD Foundation and discussed the past, present and
+	  future of FreeBSD project.</p>
+              </li>
+              <li>
+                <p><a name="story202002:02" id="story202002:02"></a><a href="https://www.techradar.com/news/supporting-an-open-source-operating-system-a-qanda-with-the-freebsd-foundation"><b>Supporting an open source operating system: a Q&amp;A
+	  with the FreeBSD Foundation</b></a><br /><a href="https://techradar.com">techradar.com</a>,
+		      <br />When discussing alternative operating systems to
+	  Microsoft&#8217;s Windows or Apple&#8217;s macOS, Linux often comes to
+	  mind. However, while Linux is a recreation of UNIX, FreeBSD
+	  is more of a continuation. The free and open source
+	  operating system was initially developed by students at the
+	  University of California at Berkeley which is why the BSD in
+	  its name stands for Berkeley Software Distribution.</p>
+              </li>
+            </ul>
+            <h1 xmlns="">August 2019</h1>
+            <ul xmlns="">
+              <li>
+                <p><a name="story201908:01" id="story201908:01"></a><a href="https://hub.pfind.com/meet-freebsd-project/"><b>Meet FreeBSD Project &#8211; A Journey of 26 Years and
+	  Beyond</b></a><br /><a href="https://hub.pfind.com">pfind.com</a>,
+		      William Chapman<br />When talking about operating systems or platforms to run
+	  the whole computing processes for various devices, you might
+	  have heard about FreeBSD quite often.  However, today&#8217;s
+	  implementations of this operating system are apparently not
+	  too well-known, and many people don&#8217;t know the contributions
+	  of FreeBSD in today&#8217;s computing technology.  Since this
+	  operating system is not generally available for the average
+	  users, FreeBSD remains to be something that many people
+	  nowadays are not well-acquainted with.  Yet, it has been
+	  used in various hardware and online platforms today, and it
+	  has been actively used for more than 26 years now.</p>
+              </li>
+            </ul>
+            <h1 xmlns="">June 2019</h1>
+            <ul xmlns="">
+              <li>
+                <p><a name="story201906:01" id="story201906:01"></a><a href="https://lwn.net/Articles/791609/"><b>FreeBSD Turns 26</b></a><br /><a href="https://lwn.net">LWN.net</a>,
+		      Sean Kerner<br />The FreeBSD operating system is continuing to make
+	  progress, 26 years after it got its name.  Among the areas
+	  where work is being done is on improved support for RISC-V,
+	  FUSE filesystem updates, C runtime changes, and security
+	  improvements.  FreeBSD Day is celebrated on June 19, in
+	  recognition of the date in 1993 when the name FreeBSD was
+	  coined for a fork of the 386BSD project.  The first official
+	  release of FreeBSD did not occur until November 1, 1993,
+	  however.</p>
+              </li>
+              <li>
+                <p><a name="story201906:02" id="story201906:02"></a><a href="https://www.designnews.com/design-hardware-software/8-popular-products-you-didnt-know-were-built-open-source"><b>8 Popular Products You Didn't Know Were Built with Open
+	  Source</b></a><br /><a href="https://www.designnews.com">DesignNews</a>,
+		      Chris Wiltz<br />A popular streaming service, video games consoles, and
+	  mobile messaging all owe a debt to FreeBSD.</p>
+              </li>
+              <li>
+                <p><a name="story201906:03" id="story201906:03"></a><a href="http://brilliancesecuritymagazine.com/press-release/freebsd-foundation-announces-freebsd-day-on-june-19-2019/"><b>FreeBSD Foundation Announces FreeBSD Day on June 19,
+	  2019</b></a><br /><a href="https://www.brilliancesecuritymagazine.com">Brilliance Security Magazine</a>,
+		      Editorial Staff<br />The FreeBSD Foundation, supporters of FreeBSD, one of the
+	  oldest and largest open source computer operating systems in
+	  the world and used by many top corporations, has announced
+	  that June 19, 2019 is FreeBSD Day.  FreeBSD Day marks the
+	  date in 1993 that developers named the new open source
+	  operating system and celebrates the impact FreeBSD has had
+	  on open source computing.</p>
+              </li>
+            </ul>
+            <h1 xmlns="">April 2019</h1>
+            <ul xmlns="">
+              <li>
+                <p><a name="story201904:01" id="story201904:01"></a><a href="https://www.phoronix.com/scan.php?page=article&amp;item=freebsd-zol-april"><b>FreeBSD ZFS vs. ZoL Performance, Ubuntu ZFS On Linux Reference</b></a><br /><a href="https://www.phoronix.com">Phoronix</a>,
+		      Michael Larabel<br />Overall, the FreeBSD ZFS On Linux port is looking good so far and we
+	  are looking forward to it hopefully maturing in time for FreeBSD
+	  13.0. Nice job to iX Systems and all of those involved, especially the
+	  ZFS On Linux project. Those wanting to help in testing can try the
+	  FreeBSD ZoL spins. Stay tuned for more benchmarks and on more diverse
+	  hardware as time allows and the FreeBSD ZoL support further matures,
+	  but so far at least the performance numbers are in good shape.</p>
+              </li>
+            </ul>
             <h1 xmlns="">November 2017</h1>
             <ul xmlns="">
               <li>
-                <p><a name="story201711:01" id="story201711:01"></a><a href="http://blog.synergysky.com/whydidwebuildoursolutionontopof_freebsd"><b>Why did we build our solution on top of FreeBSD?</b></a><br /><a href="http://synergysky.com">Synergy SKY</a>,
+                <p><a name="story201711:01" id="story201711:01"></a><a href="https://www.synergysky.com/blog/whydidwebuildoursolutionontopof_freebsd"><b>Why did we build our solution on top of FreeBSD?</b></a><br /><a href="http://synergysky.com">Synergy SKY</a>,
 		      Egil Hasting<br />FreeBSD has given us the "it just works" experience,
 	  without sacrificing the full control.  It feels and behaves
 	  mature and stable with great performance!</p>
@@ -657,7 +744,7 @@
         </div>
         <div id="footer">
           <span><a href="../search/index-site.html">Site Map</a> |
-  <a href="../copyright/">Legal Notices</a> | © 1995&#8211;2018 The FreeBSD Project.
+  <a href="../copyright/">Legal Notices</a> | © 1995&#8211;2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

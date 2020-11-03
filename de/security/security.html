@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' site: www.FreeBSD.org site: docs.FreeBSD.org site: lists.FreeBSD.org site: wiki.FreeBSD.org site: forums.FreeBSD.org'">
                   <h2 class="blockhide">
                     <label for="words">Suche</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="//www.FreeBSD.org/cgi/man.cgi">Manualpages</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">Presentations and Papers</a>
                   </li>
                   <li>
                     <a href="../../doc/de_DE.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
@@ -292,6 +294,7 @@
 
   <ul>
     <li><a href="#reporting" shape="rect">FreeBSD Sicherheitsprobleme melden</a></li>
+    <li><a href="#when-reporting" shape="rect">Wann wird ein Security Advisory erstellt?</a></li>
     <li><a href="#recent" shape="rect">Aktuelle FreeBSD Sicherheitslücken</a></li>
     <li><a href="#advisories" shape="rect">FreeBSD Sicherheitshinweise verstehen</a></li>
     <li><a href="#how" shape="rect">Wie Sie Ihr System aktualisieren können</a></li>
@@ -308,6 +311,49 @@
     (verwenden Sie dazu den öffentlichen <a href="../../security/so_public_key.asc" shape="rect">PGP-Schlüssel des
     Security Officers</a>).  Weitere Informationen finden Sie auf der
     Seite <a href="reporting.html" shape="rect">FreeBSD Sicherheitsprobleme melden</a>.</p>
+
+ <a name="when-reporting" shape="rect" id="when-reporting"></a>
+  <h2>Wann wird ein Security Advisory erstellt?</h2>
+
+  <p>Für jedes gemeldete Problem wird eine interne Trackingnummer
+    erzeugt.  Es sei denn, es handelt sich eindeutig nicht um ein
+    Sicherheitsproblem.  Wir verwenden die folgende Checkliste, um
+    zu entscheiden, ob ein Security Advisory nötig ist (oder nicht):</p>
+
+  <ul>
+    <li>Ist es dadurch möglich, erweiterte Rechte zu erhalten (<q>Privilege
+      escalation vulnerability</q>)?</li>
+    <li>Handelt es sich um ein Code Injection-Problem?</li>
+    <li>Handelt sich es um ein Datenleck?
+      <ul>
+	<li>Des Kernels?</li>
+	<li>Eines privilegierten Prozesses?</li>
+	<li>Eines Prozesses eines anderen Benutzers?</li>
+      </ul>
+    </li>
+    <li>Ist das System dadurch über Denial of Service-Attacken
+      verwundbar?
+      <ul>
+	<li>Dies gilt nur, wenn der Angriff remote erfolgt.  Remote heißt
+	  dabei, dass der Angriff aus einer unterschiedlichen Broadcast
+	  Domain kommt.  ARP und NDP-basierende Attacken fallen also nicht
+	  unter diese Kategorie.</li>
+      </ul>
+    </li>
+    <li>Ist es dadurch möglich, aus einem Jail zu entkommen (<q>unassisted
+      jailbreak vulnerability</q>)?</li>
+    <li>Handelt es sich um eine Fehlfunktion, durch die unsichere Crypo-Keys
+      generiert werden könnten (wie beispielsweise beim PRNG-Bug)?</li>
+  </ul>
+
+  <p>Für Probleme, die unter eine dieser Kategorien fallen, wird vermutlich
+    ein Security Advisory veröffentlicht werden.  Sonstige Probleme werden
+    weiter analysiert, um zu entscheiden, ob ein Security Advisory oder ein
+    Errata Notice veröffentlicht wird (oder nicht).</p>
+
+  <p>Nachdem entschieden wurde, dass ein Security Advisory erforderlich ist,
+    wird eine CVE-Nummer zugewiesen.  Falls diese noch nicht exisitiert, wird
+    eine Nummer aus dem für FreeBSD bereitstehenden Pool dafür verwendet.</p>
 
   <a name="recent" shape="rect" id="recent"></a>
   <h2>Aktuelle FreeBSD Sicherheitslücken</h2>
@@ -366,7 +412,7 @@
   <h2>Wie Sie Ihr System aktualisieren können</h2>
 
   <p>Benutzer, die eine Binärversion von FreeBSD (beispielsweise
-    11.2 oder 10.4) installiert haben, können
+    12.0 oder 11.2) installiert haben, können
     ihr System einfach wie folgt aktualisieren:</p>
 
   <tt># freebsd-update fetch<br clear="none" />
@@ -404,24 +450,33 @@
     <tr>
       <th rowspan="1" colspan="1">Zweig</th>
       <th rowspan="1" colspan="1">Release</th>
-      <th rowspan="1" colspan="1">Typ</th>
       <th rowspan="1" colspan="1">Releasedatum</th>
       <th rowspan="1" colspan="1">Erwartetes EoL</th>
-    </tr>   
+    </tr>
+   <tr>
+      <td rowspan="1" colspan="1">stable/12</td>
+      <td rowspan="1" colspan="1">n/a</td>
+      <td rowspan="1" colspan="1">n/a</td>
+      <td rowspan="1" colspan="1">30. Juni 2024</td>
+    </tr>
+    <tr>
+      <td rowspan="1" colspan="1">releng/12.1</td>
+      <td rowspan="1" colspan="1">12.1-RELEASE</td>
+      <td rowspan="1" colspan="1">4. November 2019</td>
+      <td rowspan="1" colspan="1">12.2-RELEASE + 3 months</td>
+    </tr>
     <tr>
       <td rowspan="1" colspan="1">stable/11</td>
-      <td rowspan="1" colspan="1">n/a</td>
       <td rowspan="1" colspan="1">n/a</td>
       <td rowspan="1" colspan="1">n/a</td>
       <td rowspan="1" colspan="1">30. September 2021</td>
     </tr>
     <tr>
-      <td rowspan="1" colspan="1">releng/11.2</td>
-      <td rowspan="1" colspan="1">11.2-RELEASE</td>
-      <td rowspan="1" colspan="1">n/a</td>
-      <td rowspan="1" colspan="1">28. Juni 2018</td>
-      <td rowspan="1" colspan="1">11.3-RELEASE + 3 Monate</td>
-    </tr>    
+      <td rowspan="1" colspan="1">releng/11.4</td>
+      <td rowspan="1" colspan="1">11.4-RELEASE</td>
+      <td rowspan="1" colspan="1">16. Juni 2020</td>
+      <td rowspan="1" colspan="1">30. September 2021</td>
+    </tr>
   </table>
 
   <p>Während der Entwicklung eines 
@@ -434,46 +489,19 @@
   <a name="model" shape="rect" id="model"></a>
   <h2>Das FreeBSD-Supportmodell</h2>
 
-  <p>Beginnend mit FreeBSD 11.0-RELEASE wurde das Supportmodell
-    angepasst, um einerseits eine schnellere Entwicklung zu ermöglichen
-    und andererseits weiterhin zeitnahe Sicherheitsupdates für alle
-    unterstützten Versionen bereitstellen zu können.</p>
-
-  <p>Unter dem neuen Supportmodell wird jede Hauptversion explizit für
+  <p>Unter dem aktuellen Supportmodell wird jede Hauptversion explizit für
     5 Jahre unterstützt, während jede Unterversion nur noch 3 Monate
     nach Erscheinen der folgenden Unterversion unterstützt wird.</p>
-
+ 
   <p>Diese Entscheidung wurde im Februar 2015 getroffen.  Die Gründe
     dafür können in der <a href="https://lists.freebsd.org/pipermail/freebsd-announce/2015-February/001624.html" shape="rect">
     offiziellen Ankündigung</a> nachgelesen werden.</p>
 
-  <p>Davor wurden Zweige entweder als <em>Normal</em> oder als
-    <em>Extended</em> eingestuft.  Diese Einstufung diente dazu,
-    die Lebenszeit des Zweiges zu bestimmen:</p>
-
-  <dl>
-    <dt>Normal</dt>
-    <dd>Releases aus einem -STABLE-Zweig werden für mindestens
-      12 Monate nach Erscheinen des Releases gewartet.  Dieser
-      Zeitraum wird gegebenfalls verlängert, um sicherzustellen,
-      dass ein neues normales Release mindestens 3 Monate verfügbar
-      ist, bevor die Unterstützung für das alte normale
-      Release ausläuft.</dd>
-    <dt>Extended</dt>
-    <dd>Ausgewählte Releases (in der Regel jedes zweite Release
-      sowie zusätzlich das letzte Release eines -STABLE-Zweiges)
-      werden für mindestens 24 Monate nach Erscheinen des
-      Releases gewartet.  Dieser Zeitraum wird gegebenfalls
-      verlängert, um sicherzustellen, dass ein neues erweitertes
-      Release mindestens 3 Monate verfügbar ist, bevor die
-      Unterstützung für das alte erweiterte Release
-      ausläuft.</dd>
-  </dl>
   </div>
           <br class="clearboth" />
         </div>
         <div id="footer">
-          <span><a href="../../search/index-site.html">Sitemap</a> | <a href="../../copyright/">Legal Notices</a> | © 1995&#8211;2018 The FreeBSD Project.  Alle Rechte vorbehalten.</span>
+          <span><a href="../../search/index-site.html">Sitemap</a> | <a href="../../copyright/">Legal Notices</a> | © 1995&#8211;2020 The FreeBSD Project.  Alle Rechte vorbehalten.</span>
           <br />
         </div>
       </div>

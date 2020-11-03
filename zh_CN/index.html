@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">搜索</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -252,10 +251,8 @@
                         <a href="./releases/">支持的版本</a>
                       </h2>
                       <ul id="frontreleaseslist">
-                        <li>生产环境适用: <a href="./../releases/11.2R/announce.html">11.2</a>,
-				<a href="./../releases/11.1R/announce.html">11.1</a>,
-				<a href="./../releases/10.4R/announce.html">10.4</a></li>
-                        <li>即将发布: <a href="./../releases/12.0R/schedule.html">12.0</a></li>
+                        <li>生产环境适用: <a href="./../releases/12.0R/announce.html">12.0</a>,
+				<a href="./../releases/11.2R/announce.html">11.2</a></li>
                         <li>
                           <a href="./security/security.html#sup">支持生命周期</a>
                         </li>
@@ -333,40 +330,38 @@
                     <h2>最新动态</h2>
                     <div class="newseventswrap">
                       <p xmlns="">
-                        <span class="txtdate">2018-11-03</span>
+                        <span class="txtdate">2020-10-03</span>
                         <br />
-                        <a href="news/newsflash.html#event20181103:01">FreeBSD 12.0-BETA3 Available<br /></a>
+                        <a href="news/newsflash.html#event20201003:01">FreeBSD 12.2-RC1 Available<br /></a>
                       </p>
                       <p xmlns="">
-                        <span class="txtdate">2018-10-27</span>
+                        <span class="txtdate">2020-09-26</span>
                         <br />
-                        <a href="news/newsflash.html#event20181027:01">FreeBSD 12.0-BETA2 Available<br /></a>
+                        <a href="news/newsflash.html#event20200926:01">FreeBSD 12.2-BETA3 Available<br /></a>
                       </p>
                       <p xmlns="">
-                        <span class="txtdate">2018-10-20</span>
+                        <span class="txtdate">2020-09-18</span>
                         <br />
-                        <a href="news/newsflash.html#event20181020:01">FreeBSD 12.0-BETA1 Available<br /></a>
+                        <a href="news/newsflash.html#event20200918:01">FreeBSD 12.2-BETA2 Available<br /></a>
                       </p>
                       <p xmlns="">
-                        <span class="txtdate">2018-10-16</span>
+                        <span class="txtdate">2020-09-12</span>
                         <br />
-                        <a href="news/newsflash.html#event20181016:01">New committer:
-            Thomas Munro
-            (src)<br /></a>
+                        <a href="news/newsflash.html#event20200912:01">FreeBSD 12.2-BETA1 Available<br /></a>
                       </p>
                       <p xmlns="">
-                        <span class="txtdate">2018-10-09</span>
+                        <span class="txtdate">2020-08-31</span>
                         <br />
-                        <a href="news/newsflash.html#event20181009:01">New committer:
-            Yuri Pankov
-            (src)<br /></a>
+                        <a href="news/newsflash.html#event20200831:01">New committer:
+            Rainer Hurling
+	    (ports)<br /></a>
                       </p>
                       <p xmlns="">
-                        <span class="txtdate">2018-10-08</span>
+                        <span class="txtdate">2020-07-26</span>
                         <br />
-                        <a href="news/newsflash.html#event20181008:01">New committer:
-            Vinícius Zavam
-            (ports)<br /></a>
+                        <a href="news/newsflash.html#event20200726:01">New committer:
+            Daniel Ebdrup Jensen
+	    (doc)<br /></a>
                       </p>
                       <div>
                         <ul class="newseventslist">
@@ -391,32 +386,9 @@
                     <h2>近期活动</h2>
                     <div class="newseventswrap">
                       <p xmlns="">
-                        <span class="txtdate">2019-02-02 -  2019-02-03</span>
+                        <span class="txtdate">2020-11-20 -  2020-11-20</span>
                         <br />
-                        <a href="./../events/#event:0">FOSDEM 2019<br />
-	  (Brussels, Belgium)
-	</a>
-                      </p>
-                      <p xmlns="">
-                        <span class="txtdate">2019-03-21 -  2019-03-24</span>
-                        <br />
-                        <a href="./../events/#event:1">AsiaBSDCon 2019<br />
-	  (Tokyo, Japan)
-	</a>
-                      </p>
-                      <p xmlns="">
-                        <span class="txtdate">2019-04-17 -  2019-04-19</span>
-                        <br />
-                        <a href="./../events/#event:2">Hackathon 201904<br />
-	  (Aberdeen, United Kingdom)
-	</a>
-                      </p>
-                      <p xmlns="">
-                        <span class="txtdate">2019-05-15 -  2019-05-18</span>
-                        <br />
-                        <a href="./../events/#event:3">BSDCan 2019<br />
-	  (Ottawa, Canada)
-	</a>
+                        <a href="./../events/#event:21">FreeBSD Friday: Intro to DTrace<br /></a>
                       </p>
                       <div>
                         <ul class="newseventslist">
@@ -436,36 +408,38 @@
                     <h2>媒体报道</h2>
                     <div class="newseventswrap">
                       <p xmlns="">
-                        <span class="txtdate">2017-11</span>
+                        <span class="txtdate">2020-02</span>
                         <br />
-                        <a href="./news/press.html#story201711:01">Why did we build our solution on top of FreeBSD?</a>
+                        <a href="./news/press.html#story202002:01">Discussing Past, Present and Future of FreeBSD Project</a>
                       </p>
                       <p xmlns="">
-                        <span class="txtdate">2016-06</span>
+                        <span class="txtdate">2020-02</span>
                         <br />
-                        <a href="./news/press.html#story201606:01">FreeBSD Project: Under the Hood</a>
+                        <a href="./news/press.html#story202002:02">Supporting an open source operating system: a Q&amp;A
+	  with the FreeBSD Foundation</a>
                       </p>
                       <p xmlns="">
-                        <span class="txtdate">2016-06</span>
+                        <span class="txtdate">2019-08</span>
                         <br />
-                        <a href="./news/press.html#story201606:02">FreeBSD now available in Azure Marketplace</a>
+                        <a href="./news/press.html#story201908:01">Meet FreeBSD Project – A Journey of 26 Years and
+	  Beyond</a>
                       </p>
                       <p xmlns="">
-                        <span class="txtdate">2015-10</span>
+                        <span class="txtdate">2019-06</span>
                         <br />
-                        <a href="./news/press.html#story201510:01">Cascadia Community Builder Award recognizes FreeBSD
-	  contributor Michael Dexter</a>
+                        <a href="./news/press.html#story201906:01">FreeBSD Turns 26</a>
                       </p>
                       <p xmlns="">
-                        <span class="txtdate">2015-07</span>
+                        <span class="txtdate">2019-06</span>
                         <br />
-                        <a href="./news/press.html#story201507:01">Enabling FreeBSD on AArch64</a>
+                        <a href="./news/press.html#story201906:02">8 Popular Products You Didn't Know Were Built with Open
+	  Source</a>
                       </p>
                       <p xmlns="">
-                        <span class="txtdate">2015-03</span>
+                        <span class="txtdate">2019-06</span>
                         <br />
-                        <a href="./news/press.html#story201503:01">Running FreeBSD on the server: a sysadmin
-	  speaks</a>
+                        <a href="./news/press.html#story201906:03">FreeBSD Foundation Announces FreeBSD Day on June 19,
+	  2019</a>
                       </p>
                       <div>
                         <ul class="newseventslist">
@@ -485,24 +459,24 @@
                     <h2>安全公告</h2>
                     <div class="newseventswrap">
                       <p xmlns="">
-                        <span class="txtdate">2018-09-12</span>
+                        <span class="txtdate">2020-09-15</span>
                         <br />
-                        <a href="//security.FreeBSD.org/advisories/FreeBSD-SA-18:12.elf.asc">FreeBSD-SA-18:12.elf</a>
+                        <a href="//security.FreeBSD.org/advisories/FreeBSD-SA-20:30.ftpd.asc">FreeBSD-SA-20:30.ftpd</a>
                       </p>
                       <p xmlns="">
-                        <span class="txtdate">2018-08-14</span>
+                        <span class="txtdate">2020-09-15</span>
                         <br />
-                        <a href="//security.FreeBSD.org/advisories/FreeBSD-SA-18:11.hostapd.asc">FreeBSD-SA-18:11.hostapd</a>
+                        <a href="//security.FreeBSD.org/advisories/FreeBSD-SA-20:29.bhyve_svm.asc">FreeBSD-SA-20:29.bhyve_svm</a>
                       </p>
                       <p xmlns="">
-                        <span class="txtdate">2018-08-14</span>
+                        <span class="txtdate">2020-09-15</span>
                         <br />
-                        <a href="//security.FreeBSD.org/advisories/FreeBSD-SA-18:10.ip.asc">FreeBSD-SA-18:10.ip</a>
+                        <a href="//security.FreeBSD.org/advisories/FreeBSD-SA-20:28.bhyve_vmcs.asc">FreeBSD-SA-20:28.bhyve_vmcs</a>
                       </p>
                       <p xmlns="">
-                        <span class="txtdate">2018-08-14</span>
+                        <span class="txtdate">2020-09-15</span>
                         <br />
-                        <a href="//security.FreeBSD.org/advisories/FreeBSD-SA-18:09.l1tf.asc">FreeBSD-SA-18:09.l1tf</a>
+                        <a href="//security.FreeBSD.org/advisories/FreeBSD-SA-20:27.ure.asc">FreeBSD-SA-20:27.ure</a>
                       </p>
                       <div>
                         <ul class="newseventslist">
@@ -521,14 +495,14 @@
                     <h2>勘误公告</h2>
                     <div class="newseventswrap">
                       <p xmlns="">
-                        <span class="txtdate">2018-09-27</span>
+                        <span class="txtdate">2020-09-02</span>
                         <br />
-                        <a href="//security.FreeBSD.org/advisories/FreeBSD-EN-18:12.mem.asc">FreeBSD-EN-18:12.mem</a>
+                        <a href="//security.FreeBSD.org/advisories/FreeBSD-EN-20:18.getfsstat.asc">FreeBSD-EN-20:18.getfsstat</a>
                       </p>
                       <p xmlns="">
-                        <span class="txtdate">2018-09-27</span>
+                        <span class="txtdate">2020-09-02</span>
                         <br />
-                        <a href="//security.FreeBSD.org/advisories/FreeBSD-EN-18:11.listen.asc">FreeBSD-EN-18:11.listen</a>
+                        <a href="//security.FreeBSD.org/advisories/FreeBSD-EN-20:17.linuxthread.asc">FreeBSD-EN-20:17.linuxthread</a>
                       </p>
                       <div>
                         <ul class="newseventslist">

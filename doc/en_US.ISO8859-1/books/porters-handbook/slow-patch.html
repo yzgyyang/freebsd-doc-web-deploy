@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>4.4. Patching</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Porter's Handbook" /><link rel="up" href="slow-porting.html" title="Chapter 4. Slow Porting" /><link rel="prev" href="slow-modifying.html" title="4.3. Modifying the Port" /><link rel="next" href="slow-configure.html" title="4.5. Configuring" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">4.4. Patching</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="slow-modifying.html">Prev</a> </td><th width="60%" align="center">Chapter 4. Slow Porting</th><td width="20%" align="right"> <a accesskey="n" href="slow-configure.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="slow-patch"></a>4.4. Patching</h2></div></div></div><p>In the preparation of the port, files that have been added
+      or changed can be recorded with <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=diff&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">diff</span>(1)</span></a> for later feeding
+      to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=patch&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">patch</span>(1)</span></a>.  Doing this with a typical file involves
+      saving a copy of the original file before making any changes
+      using a <code class="filename">.orig</code> suffix.</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>cp <em class="replaceable"><code>file</code></em> <em class="replaceable"><code>file</code></em>.orig</code></strong></pre><p>After all changes have been made, <code class="command">cd</code> back
+      to the port directory.  Use <code class="command">make makepatch</code> to
+      generate updated patch files in the <code class="filename">files</code>
+      directory.</p><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">Use <code class="varname">BINARY_ALIAS</code> to substitute
+	hardcoded commands during the build and avoid patching
+	build files.  See <a class="xref" href="binary-alias.html" title="5.17. Use BINARY_ALIAS to Rename Commands Instead of Patching the Build">Section 5.17, &#8220;Use <code class="varname">BINARY_ALIAS</code> to Rename Commands
+      Instead of Patching the Build&#8221;</a> for
+	more information.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="slow-patch-rules"></a>4.4.1. General Rules for Patching</h3></div></div></div><p>Patch files are stored in <code class="varname">PATCHDIR</code>,
+	usually <code class="filename">files/</code>, from where they will be
+	automatically applied.  All patches must be relative to
+	<code class="varname">WRKSRC</code>.  Typically
+	<code class="varname">WRKSRC</code> is a subdirectory of
+	<code class="varname">WRKDIR</code>, the directory where the distfile is
+	extracted.  Use <code class="command">make -V WRKSRC</code> to see the
+	actual path.  The patch names are to follow these
+	rules:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>Avoid having more than one patch modify the same file.
+	    For example, having both
+	    <code class="filename">patch-foobar.c</code> and
+	    <code class="filename">patch-foobar.c2</code> making changes to
+	    <code class="filename">${WRKSRC}/foobar.c</code> makes them fragile
+	    and difficult to debug.</p></li><li class="listitem"><p>When creating names for patch files, replace each
+	    underscore (<code class="literal">_</code>) with two underscores
+	    (<code class="literal">__</code>) and each slash
+	    (<code class="literal">/</code>) with one underscore
+	    (<code class="literal">_</code>).  For example, to patch a file
+	    named <code class="filename">src/freeglut_joystick.c</code>, name
+	    the corresponding patch
+	    <code class="filename">patch-src_freeglut__joystick.c</code>.  Do
+	    not name patches like <code class="filename">patch-aa</code> or
+	    <code class="filename">patch-ab</code>.  Always use the path and
+	    file name in patch names.  Using <code class="command">make
+	      makepatch</code> automatically generates the correct
+	    names.</p></li><li class="listitem"><p>A patch may modify multiple files if the changes are
+	    related and the patch is named appropriately.  For
+	    example,
+	    <code class="filename">patch-add-missing-stdlib.h</code>.</p></li><li class="listitem"><p>Only use characters <code class="literal">[-+._a-zA-Z0-9]</code>
+	    for naming patches.  In particular, <span class="emphasis"><em>do not use
+	      <code class="literal">::</code> as a path separator,</em></span>
+	    use <code class="literal">_</code> instead.</p></li></ul></div><p>Minimize the amount of non-functional whitespace changes
+	in patches.  It is common in the Open Source world for
+	projects to share large amounts of a code base, but obey
+	different style and indenting rules.  When taking a working
+	piece of functionality from one project to fix similar areas
+	in another, please be careful: the resulting patch may be full
+	of non-functional changes.  It not only increases the size of
+	the ports repository but makes it hard to find out what
+	exactly caused the problem and what was changed at all.</p><p>If a file must be deleted, do it in the
+	<code class="buildtarget">post-extract</code> target rather than as
+	part of the patch.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="slow-patch-manual"></a>4.4.2. Manual Patch Generation</h3></div></div></div><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Manual patch creation is usually not necessary.
+	  Automatic patch generation as described earlier in this
+	  section is the preferred method.  However, manual patching
+	  may be required occasionally.</p></div><p>Patches are saved into files named
+	<code class="filename">patch-*</code> where
+	<em class="replaceable"><code>*</code></em> indicates the pathname of the
+	file that is patched, such as
+	<code class="filename">patch-Imakefile</code> or
+	<code class="filename">patch-src-config.h</code>.</p><p>After the file has been modified, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=diff&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">diff</span>(1)</span></a> is used to
+	record the differences between the original and the modified
+	version.  <code class="option">-u</code> causes <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=diff&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">diff</span>(1)</span></a> to produce
+	<span class="quote">&#8220;<span class="quote">unified</span>&#8221;</span> diffs, the preferred form.</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>diff -u <em class="replaceable"><code>file</code></em>.orig <em class="replaceable"><code>file</code></em> &gt; patch-<em class="replaceable"><code>pathname-file</code></em></code></strong></pre><p>When generating patches for new, added files,
+	<code class="option">-N</code> is used to tell <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=diff&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">diff</span>(1)</span></a> to treat the
+	non-existent original file as if it existed but was
+	empty:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>diff -u -N <em class="replaceable"><code>newfile</code></em>.orig <em class="replaceable"><code>newfile</code></em> &gt; patch-<em class="replaceable"><code>pathname-newfile</code></em></code></strong></pre><p>Do not add <code class="literal">$FreeBSD$</code> RCS
+	strings in patches.  When patches are added to the
+	<span class="application">Subversion</span> repository with
+	<code class="command">svn add</code>, the
+	<code class="literal">fbsd:nokeywords</code> property is set to
+	<code class="literal">yes</code> automatically so keywords in the patch
+	are not modified when committed.  The property can be added
+	manually with <code class="command">svn propset fbsd:nokeywords yes
+	  <em class="replaceable"><code>files...</code></em></code>.</p><p>Using the recurse (<code class="option">-r</code>) option to
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=diff&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">diff</span>(1)</span></a> to generate patches is fine, but please look at
+	the resulting patches to make sure there is no unnecessary
+	junk in there.  In particular, diffs between two backup files,
+	<code class="filename">Makefile</code>s when the port uses
+	<code class="command">Imake</code> or GNU <code class="command">configure</code>,
+	etc., are unnecessary and have to be deleted.  If it was
+	necessary to edit <code class="filename">configure.in</code> and run
+	<code class="command">autoconf</code> to regenerate
+	<code class="command">configure</code>, do not take the diffs of
+	<code class="command">configure</code> (it often grows to a few thousand
+	lines!).  Instead, define
+	<code class="literal">USES=autoreconf</code> and take the
+	diffs of <code class="filename">configure.in</code>.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="slow-patch-automatic-replacements"></a>4.4.3. Simple Automatic Replacements</h3></div></div></div><p>Simple replacements can be performed directly from the
+	port <code class="filename">Makefile</code> using the in-place mode of
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sed&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sed</span>(1)</span></a>.  This is useful when changes use the value of a
+	variable:</p><pre class="programlisting">post-patch:
+	@${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|g' ${WRKSRC}/Makefile</pre><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">Only use <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sed&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sed</span>(1)</span></a> to replace variable content.  You
+	  must use patch files instead of <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sed&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sed</span>(1)</span></a> to replace
+	  static content.</p></div><p>Quite often, software being ported uses the CR/LF
+	convention in source files.  This may cause problems with
+	further patching, compiler warnings, or script execution (like
+	<code class="literal">/bin/sh^M not found</code>.)  To quickly convert
+	all files from CR/LF to just LF, add this entry to the port
+	<code class="filename">Makefile</code>:</p><pre class="programlisting">USES=	dos2unix</pre><p>A list of specific files to convert can be given:</p><pre class="programlisting">USES=	dos2unix
+DOS2UNIX_FILES=	util.c util.h</pre><p>Use <code class="varname">DOS2UNIX_REGEX</code> to convert a group
+	of files across subdirectories.  Its argument is a
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=find&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">find</span>(1)</span></a>-compatible regular expression.  More on the
+	format is in <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=re_format&amp;sektion=7&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">re_format</span>(7)</span></a>.  This option is useful for
+	converting all files of a given extension.  For example,
+	convert all source code files, leaving binary files
+	intact:</p><pre class="programlisting">USES=	dos2unix
+DOS2UNIX_REGEX=	.*\.([ch]|cpp)</pre><p>A similar option is <code class="varname">DOS2UNIX_GLOB</code>,
+	which runs <code class="command">find</code> for each element listed
+	in it.</p><pre class="programlisting">USES=	dos2unix
+DOS2UNIX_GLOB=	*.c *.cpp *.h</pre><p>The base directory for the conversion can be set.  This
+	is useful when there are multiple distfiles and several
+	contain files which require line-ending conversion.</p><pre class="programlisting">USES=	dos2unix
+DOS2UNIX_WRKSRC=	${WRKDIR}</pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="slow-patch-extra"></a>4.4.4. Patching Conditionally</h3></div></div></div><p>Some ports need patches that are only applied for specific
+	FreeBSD versions or when a particular option is enabled or
+	disabled.  Conditional patches are specified by placing the
+	full paths to the patch files in
+	<code class="varname">EXTRA_PATCHES</code>.</p><div class="example"><a id="slow-patch-extra-ex1"></a><div class="example-title">Example 4.1. Applying a Patch for a Specific FreeBSD Version</div><div class="example-contents"><pre class="programlisting">.include &lt;bsd.port.options.mk&gt;
+
+# Patch in the iconv const qualifier before this
+.if ${OPSYS} == FreeBSD &amp;&amp; ${OSVERSION} &lt; 1100069
+EXTRA_PATCHES=	${PATCHDIR}/extra-patch-fbsd10
+.endif
+
+.include &lt;bsd.port.mk&gt;</pre></div></div><br class="example-break" /><div class="example"><a id="slow-patch-extra-ex2"></a><div class="example-title">Example 4.2. Optionally Applying a Patch</div><div class="example-contents"><p>When an <a class="link" href="makefile-options.html" title="5.13. Makefile Options">option</a>
+	  requires a patch, use
+	  <code class="varname"><em class="replaceable"><code>opt</code></em>_EXTRA_PATCHES</code>
+	  and
+	  <code class="varname"><em class="replaceable"><code>opt</code></em>_EXTRA_PATCHES_OFF</code>
+	  to make the patch conditional on the
+	  <code class="literal"><em class="replaceable"><code>opt</code></em></code> option.
+	  See <a class="xref" href="makefile-options.html#options-variables" title="5.13.3.11. Generic Variables Replacement, OPT_VARIABLE and OPT_VARIABLE_OFF">Section 5.13.3.11, &#8220;Generic Variables Replacement,
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_<em class="replaceable"><code>VARIABLE</code></em></code>
+	  and
+	  <code class="varname"><em class="replaceable"><code>OPT</code></em>_<em class="replaceable"><code>VARIABLE</code></em>_OFF</code>&#8221;</a> for more
+	  information.</p><pre class="programlisting">OPTIONS_DEFINE=	  FOO BAR
+FOO_EXTRA_PATCHES=  ${PATCHDIR}/extra-patch-foo
+BAR_EXTRA_PATCHES_OFF=	${PATCHDIR}/extra-patch-bar.c \
+		${PATCHDIR}/extra-patch-bar.h</pre></div></div><br class="example-break" /><div class="example"><a id="slow-patch-extra-ex-dirs"></a><div class="example-title">Example 4.3. Using <code class="varname">EXTRA_PATCHES</code> With a
+	  Directory</div><div class="example-contents"><p>Sometime, there are many patches that are needed for a
+	  feature, in this case, it is possible to point
+	  <code class="varname">EXTRA_PATCHES</code> to a directory, and it will
+	  automatically apply all files named
+	  <code class="filename">patch-<em class="replaceable"><code>*</code></em></code> in
+	  it.</p><p>Create a subdirectory in
+	  <code class="filename">${PATCHDIR}</code>, and move the patches in
+	  it.  For example:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>ls -l <em class="replaceable"><code>files/foo-patches</code></em></code></strong>
+-rw-r--r--  1 root  wheel    350 Jan 16 01:27 patch-Makefile.in
+-rw-r--r--  1 root  wheel   3084 Jan 18 15:37 patch-configure</pre><p>Then add this to the <code class="filename">Makefile</code>:</p><pre class="programlisting">OPTIONS_DEFINE=	FOO
+FOO_EXTRA_PATCHES=	${PATCHDIR}/foo-patches</pre><p>The framework will then use all the files named
+	  <code class="filename">patch-<em class="replaceable"><code>*</code></em></code> in
+	  that directory.</p></div></div><br class="example-break" /></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="slow-modifying.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="slow-porting.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="slow-configure.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">4.3. Modifying the Port </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 4.5. Configuring</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

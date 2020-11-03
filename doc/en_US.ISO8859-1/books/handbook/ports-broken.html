@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>4.8. Dealing with Broken Ports</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="ports.html" title="Chapter 4. Installing Applications: Packages and Ports" /><link rel="prev" href="ports-nextsteps.html" title="4.7. Post-Installation Considerations" /><link rel="next" href="x11.html" title="Chapter 5. The X Window System" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">4.8. Dealing with Broken Ports</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ports-nextsteps.html">Prev</a> </td><th width="60%" align="center">Chapter 4. Installing Applications: Packages and Ports</th><td width="20%" align="right"> <a accesskey="n" href="x11.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="ports-broken"></a>4.8. Dealing with Broken Ports</h2></div></div></div><p>When a port does not build or
+      install, try the following:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>Search to see if there is a fix pending for the port in
+	  the <a class="link" href="../../../../support.html" target="_top">Problem
+	    Report database</a>.  If so, implementing the proposed
+	  fix may fix the issue.</p></li><li class="listitem"><p>Ask the maintainer of the port for help.  Type
+	  <code class="command">make maintainer</code>
+	  in the ports skeleton or read the port's
+	  <code class="filename">Makefile</code> to find the maintainer's
+	  email address.  Remember to include the
+	  <code class="literal">$FreeBSD:</code> line from the port's
+	  <code class="filename">Makefile</code> and the output leading up to
+	  the error in the email to the maintainer.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Some ports are not maintained by an individual but
+	    instead by a group maintainer represented by a <a class="link" href="../../../../doc/en_US.ISO8859-1/articles/mailing-list-faq/article.html" target="_top">mailing
+	      list</a>.  Many, but not all, of these addresses look
+	    like <code class="email">&lt;freebsd-<em class="replaceable"><code>listname</code></em>@FreeBSD.org&gt;</code>.
+	    Please take this into account when sending an
+	    email.</p><p xmlns="http://www.w3.org/1999/xhtml">In particular, ports maintained by
+	    <code class="email">&lt;ports@FreeBSD.org&gt;</code> are not
+	    maintained by a specific individual.  Instead, any fixes
+	    and support come from the general community who subscribe
+	    to that mailing list.  More volunteers are always
+	    needed!</p></div><p>If there is no response to the email, use
+	  Bugzilla to submit a bug report using the
+	  instructions in <a class="link" href="../../../../doc/en_US.ISO8859-1/articles/problem-reports/article.html" target="_top">Writing
+	    FreeBSD Problem Reports</a>.</p></li><li class="listitem"><p>Fix it!  The <a class="link" href="../../../../doc/en_US.ISO8859-1/books/porters-handbook/index.html" target="_top">Porter's
+	    Handbook</a> includes detailed information on the
+	  ports infrastructure so that you can fix the occasional
+	  broken port or even submit your own!</p></li><li class="listitem"><p>Install the package instead of the port using the
+	  instructions in <a class="xref" href="pkgng-intro.html" title="4.4. Using pkg for Binary Package Management">Section 4.4, &#8220;Using <span class="application">pkg</span> for Binary Package
+      Management&#8221;</a>.</p></li></ol></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ports-nextsteps.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ports.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="x11.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">4.7. Post-Installation Considerations </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 5. The X Window System</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

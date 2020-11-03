@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>8. Giving more flexibility to an rc.d script</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Practical rc.d scripting in BSD" /><link rel="up" href="index.html" title="Practical rc.d scripting in BSD" /><link rel="prev" href="rcng-hookup.html" title="7. Connecting a script to the rc.d framework" /><link rel="next" href="rcng-furthur.html" title="9. Further reading" /><link rel="copyright" href="trademarks.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">8. Giving more flexibility to an rc.d script</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="rcng-hookup.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="rcng-furthur.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="rcng-args"></a>8. Giving more flexibility to an rc.d script</h2></div></div></div><p>When invoked during startup or shutdown, an
+      <code class="filename">rc.d</code> script is supposed to act on the
+      entire subsystem it is responsible for.  E.g.,
+      <code class="filename">/etc/rc.d/netif</code> should start or stop all
+      network interfaces described by <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rc.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rc.conf</span>(5)</span></a>.  Either task
+      can be uniquely indicated by a single command argument such
+      as <code class="option">start</code> or <code class="option">stop</code>.  Between
+      startup and shutdown, <code class="filename">rc.d</code> scripts help
+      the admin to control the running system, and it is when the
+      need for more flexibility and precision arises.  For instance,
+      the admin may want to add the settings of a new network
+      interface to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rc.conf&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rc.conf</span>(5)</span></a> and then to start it without
+      interfering with the operation of the existing interfaces.
+      Next time the admin may need to shut down a single network
+      interface.  In the spirit of the command line, the respective
+      <code class="filename">rc.d</code> script calls for an extra argument,
+      the interface name.</p><p>Fortunately, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rc.subr&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rc.subr</span>(8)</span></a> allows for passing any number
+      of arguments to script's methods (within the system limits).
+      Due to that, the changes in the script itself can be minimal.</p><p>How can <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rc.subr&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rc.subr</span>(8)</span></a> gain
+      access to the extra command-line arguments.  Should it just
+      grab them directly?  Not by any means.  Firstly, an <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sh&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sh</span>(1)</span></a>
+      function has no access to the positional parameters of
+      its caller, but <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rc.subr&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rc.subr</span>(8)</span></a> is just a sack of such
+      functions.  Secondly, the good manner of
+      <code class="filename">rc.d</code> dictates that it is for the
+      main script to decide which arguments are to be passed
+      to its methods.</p><p>So the approach adopted by <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=rc.subr&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">rc.subr</span>(8)</span></a> is as follows:
+      <code class="function">run_rc_command</code> passes on all its
+      arguments but the first one to the respective method verbatim.
+      The first, omitted, argument is the name of the method itself:
+      <code class="option">start</code>, <code class="option">stop</code>, etc.  It will
+      be shifted out by <code class="function">run_rc_command</code>,
+      so what is <code class="envar">$2</code> in the original command line will
+      be presented as <code class="envar">$1</code> to the method, and so on.</p><p>To illustrate this opportunity, let us modify the primitive
+      dummy script so that its messages depend on the additional
+      arguments supplied.  Here we go:</p><div class="informalexample"><pre class="programlisting">#!/bin/sh
+
+. /etc/rc.subr
+
+name="dummy"
+start_cmd="${name}_start"
+stop_cmd=":"
+kiss_cmd="${name}_kiss"
+extra_commands="kiss"
+
+dummy_start()
+{
+        if [ $# -gt 0 ]; then<a id="rcng-args-start"></a><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span>
+                echo "Greeting message: $*"
+        else
+                echo "Nothing started."
+        fi
+}
+
+dummy_kiss()
+{
+        echo -n "A ghost gives you a kiss"
+        if [ $# -gt 0 ]; then<a id="rcng-args-kiss"></a><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span>
+                echo -n " and whispers: $*"
+        fi
+        case "$*" in
+        *[.!?])
+                echo
+                ;;
+        *)
+                echo .
+                ;;
+        esac
+}
+
+load_rc_config $name
+run_rc_command "$@"<a id="rcng-args-all"></a><span><img src="./imagelib/callouts/3.png" alt="3" border="0" /></span></pre></div><p>What essential changes can we notice in the script?</p><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#rcng-args-start"><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span></a> </p></td><td valign="top" align="left"><p>All arguments you type after <code class="option">start</code>
+	  can end up as positional parameters to the respective
+	  method.  We can use them in any way according to our
+	  task, skills, and fancy.  In the current example, we just
+	  pass all of them to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=echo&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">echo</span>(1)</span></a> as one string in the
+	  next line &#8212; note <code class="envar">$*</code> within the double
+	  quotes.  Here is how the script can be invoked now:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>/etc/rc.d/dummy start</code></strong>
+Nothing started.
+<code class="prompt">#</code> <strong class="userinput"><code>/etc/rc.d/dummy start Hello world!</code></strong>
+Greeting message: Hello world!</pre></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#rcng-args-kiss"><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span></a> </p></td><td valign="top" align="left"><p>The same applies to any method our script provides,
+	  not only to a standard one.  We have added a custom method
+	  named <code class="option">kiss</code>, and it can take advantage of
+	  the extra arguments not less than <code class="option">start</code>
+	  does.  E.g.:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>/etc/rc.d/dummy kiss</code></strong>
+A ghost gives you a kiss.
+<code class="prompt">#</code> <strong class="userinput"><code>/etc/rc.d/dummy kiss Once I was Etaoin Shrdlu...</code></strong>
+A ghost gives you a kiss and whispers: Once I was Etaoin Shrdlu...</pre></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#rcng-args-all"><span><img src="./imagelib/callouts/3.png" alt="3" border="0" /></span></a> </p></td><td valign="top" align="left"><p>If we want just to pass all extra arguments to
+	  any method, we can merely substitute <code class="literal">"$@"</code>
+	  for <code class="literal">"$1"</code> in the last line of our script,
+	  where we invoke <code class="function">run_rc_command</code>.</p><div xmlns="" class="important"><h3 class="admontitle">Important: </h3><p xmlns="http://www.w3.org/1999/xhtml">An <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sh&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sh</span>(1)</span></a> programmer ought to understand the
+	    subtle difference between <code class="envar">$*</code> and
+	    <code class="envar">$@</code> as the ways to designate all positional
+	    parameters.  For its in-depth discussion, refer to a
+	    good handbook on <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sh&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sh</span>(1)</span></a> scripting.  <span class="emphasis"><em>Do
+	    not</em></span> use the expressions until you fully
+	    understand them because their misuse will result in
+	    buggy and insecure scripts.</p></div><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">Currently <code class="function">run_rc_command</code> may
+	    have a bug that prevents it from keeping the original
+	    boundaries between arguments.  That is, arguments with
+	    embedded whitespace may not be processed correctly.
+	    The bug stems from <code class="envar">$*</code> misuse.</p></div></td></tr></table></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="rcng-hookup.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="rcng-furthur.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">7. Connecting a script to the rc.d framework </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 9. Further reading</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

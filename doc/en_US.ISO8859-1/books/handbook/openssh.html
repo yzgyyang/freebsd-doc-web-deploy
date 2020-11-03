@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>13.8. OpenSSH</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="security.html" title="Chapter 13. Security" /><link rel="prev" href="ipsec.html" title="13.7. VPN over IPsec" /><link rel="next" href="fs-acl.html" title="13.9. Access Control Lists" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">13.8. OpenSSH</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ipsec.html">Prev</a> </td><th width="60%" align="center">Chapter 13. Security</th><td width="20%" align="right"> <a accesskey="n" href="fs-acl.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="openssh"></a>13.8. OpenSSH</h2></div><div><span class="authorgroup">Contributed
+	  by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Chern</span> <span class="surname">Lee</span></span>. </span></div></div></div><a id="idp59489016" class="indexterm"></a><a id="idp59489528" class="indexterm"></a><p><span class="application">OpenSSH</span> is a set of network
+      connectivity tools used to provide secure access to remote
+      machines.  Additionally, <acronym class="acronym">TCP/IP</acronym> connections
+      can be tunneled or forwarded securely through
+      <acronym class="acronym">SSH</acronym> connections.
+      <span class="application">OpenSSH</span> encrypts all traffic to
+      effectively eliminate eavesdropping, connection hijacking, and
+      other network-level attacks.</p><p><span class="application">OpenSSH</span> is maintained by the
+      OpenBSD project and is installed by default in FreeBSD.  It is
+      compatible with both <acronym class="acronym">SSH</acronym> version 1 and 2
+      protocols.</p><p>When data is sent over the network in an unencrypted form,
+      network sniffers anywhere in between the client and server can
+      steal user/password information or data transferred during the
+      session.  <span class="application">OpenSSH</span> offers a variety of
+      authentication and encryption methods to prevent this from
+      happening.  More information about
+      <span class="application">OpenSSH</span> is available from <a class="link" href="http://www.openssh.com/" target="_top">http://www.openssh.com/</a>.</p><p>This section provides an overview of the built-in client
+      utilities to securely access other systems and securely transfer
+      files from a FreeBSD system.  It then describes how to configure a
+      <acronym class="acronym">SSH</acronym> server on a FreeBSD system.  More
+      information is available in the man pages mentioned in this
+      chapter.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp59496312"></a>13.8.1. Using the SSH Client Utilities</h3></div></div></div><a id="idp59496952" class="indexterm"></a><p>To log into a <acronym class="acronym">SSH</acronym> server, use
+	<code class="command">ssh</code> and specify a username that exists on
+	that server and the <acronym class="acronym">IP</acronym> address or hostname
+	of the server.  If this is the first time a connection has
+	been made to the specified server, the user will be prompted
+	to first verify the server's fingerprint:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ssh <em class="replaceable"><code>user@example.com</code></em></code></strong>
+The authenticity of host 'example.com (10.0.0.1)' can't be established.
+ECDSA key fingerprint is 25:cc:73:b5:b3:96:75:3d:56:19:49:d2:5c:1f:91:3b.
+Are you sure you want to continue connecting (yes/no)? <strong class="userinput"><code>yes</code></strong>
+Permanently added 'example.com' (ECDSA) to the list of known hosts.
+Password for user@example.com: <strong class="userinput"><code><em class="replaceable"><code>user_password</code></em></code></strong></pre><p><acronym class="acronym">SSH</acronym> utilizes a key fingerprint system
+	to verify the authenticity of the server when the client
+	connects.  When the user accepts the key's fingerprint by
+	typing <code class="literal">yes</code> when connecting for the first
+	time, a copy of the key is saved to
+	<code class="filename">.ssh/known_hosts</code> in the user's home
+	directory.  Future attempts to login are verified against the
+	saved key and <code class="command">ssh</code> will display an alert if
+	the server's key does not match the saved key.  If this
+	occurs, the user should first verify why the key has changed
+	before continuing with the connection.</p><p>By default, recent versions of
+	<span class="application">OpenSSH</span> only accept
+	<acronym class="acronym">SSH</acronym>v2 connections.  By default, the client
+	will use version 2 if possible and will fall back to version 1
+	if the server does not support version 2.  To force
+	<code class="command">ssh</code> to only use the specified protocol,
+	include <code class="option">-1</code> or <code class="option">-2</code>.
+	Additional options are described in <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ssh&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ssh</span>(1)</span></a>.</p><a id="idp59522936" class="indexterm"></a><a id="idp59524088" class="indexterm"></a><p>Use <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=scp&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">scp</span>(1)</span></a> to securely copy a file to or from a
+	remote machine.  This example copies
+	<code class="filename">COPYRIGHT</code> on the remote system to a file
+	of the same name in the current directory of the local
+	system:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>scp <em class="replaceable"><code>user@example.com:/COPYRIGHT COPYRIGHT</code></em></code></strong>
+Password for user@example.com: <strong class="userinput"><code><em class="replaceable"><code>*******</code></em></code></strong>
+COPYRIGHT            100% |*****************************|  4735
+00:00
+<code class="prompt">#</code></pre><p>Since the fingerprint was already verified for this host,
+	the server's key is automatically checked before prompting for
+	the user's password.</p><p>The arguments passed to <code class="command">scp</code> are similar
+	to <code class="command">cp</code>.  The file or files to copy is the
+	first argument and the destination to copy to is the second.
+	Since the file is fetched over the network, one or more of the
+	file arguments takes the form
+	<code class="option">user@host:&lt;path_to_remote_file&gt;</code>.  Be
+	aware when copying directories recursively that
+	<code class="command">scp</code> uses <code class="option">-r</code>, whereas
+	<code class="command">cp</code> uses <code class="option">-R</code>.</p><p>To open an interactive session for copying files, use
+	<code class="command">sftp</code>.  Refer to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sftp&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sftp</span>(1)</span></a> for a list of
+	available commands while in an <code class="command">sftp</code>
+	session.</p><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="security-ssh-keygen"></a>13.8.1.1. Key-based Authentication</h4></div></div></div><p>Instead of using passwords, a client can be configured
+	  to connect to the remote machine using keys.  To generate
+	  <acronym class="acronym">RSA</acronym>
+	  authentication keys, use <code class="command">ssh-keygen</code>.  To
+	  generate a public and private key pair, specify the type of
+	  key and follow the prompts.  It is recommended to protect
+	  the keys with a memorable, but hard to guess
+	  passphrase.</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>ssh-keygen -t rsa</code></strong>
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/user/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):  <a id="co-ssh-keygen-passphrase1"></a><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span>
+Enter same passphrase again:                 <a id="co-ssh-keygen-passphrase2"></a><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span>
+Your identification has been saved in /home/user/.ssh/id_rsa.
+Your public key has been saved in /home/user/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:54Xm9Uvtv6H4NOo6yjP/YCfODryvUU7yWHzMqeXwhq8 user@host.example.com
+The key's randomart image is:
++---[RSA 2048]----+
+|                 |
+|                 |
+|                 |
+|        . o..    |
+|       .S*+*o    |
+|      . O=Oo . . |
+|       = Oo= oo..|
+|      .oB.* +.oo.|
+|       =OE**.o..=|
++----[SHA256]-----+</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#co-ssh-keygen-passphrase1"><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span></a> </p></td><td valign="top" align="left"><p>Type a passphrase here.  It can contain spaces and
+	      symbols.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#co-ssh-keygen-passphrase2"><span><img src="./imagelib/callouts/2.png" alt="2" border="0" /></span></a> </p></td><td valign="top" align="left"><p>Retype the passphrase to verify it.</p></td></tr></table></div><p>The private key
+	  is stored in <code class="filename">~/.ssh/id_rsa</code>
+	  and the public key
+	  is stored in <code class="filename">~/.ssh/id_rsa.pub</code>.
+	  The
+	  <span class="emphasis"><em>public</em></span> key must be copied to
+	  <code class="filename">~/.ssh/authorized_keys</code> on the remote
+	  machine for key-based authentication to
+	  work.</p><div xmlns="" class="warning"><h3 class="admontitle">Warning: </h3><p xmlns="http://www.w3.org/1999/xhtml">Many users believe that keys are secure by design and
+	    will use a key without a passphrase.  This is
+	    <span class="emphasis"><em>dangerous</em></span> behavior.  An
+	    administrator can verify that a key pair is protected by a
+	    passphrase by viewing the private key manually.  If the
+	    private key file contains the word
+	    <code class="literal">ENCRYPTED</code>, the key owner is using a
+	    passphrase.  In addition, to better secure end users,
+	    <code class="literal">from</code> may be placed in the public key
+	    file.  For example, adding
+	    <code class="literal">from="192.168.10.5"</code> in front of the
+	    <code class="literal">ssh-rsa</code>
+	    prefix will only allow that specific user to log in from
+	    that <acronym class="acronym">IP</acronym> address.</p></div><p>The options and files vary with different versions of
+	  <span class="application">OpenSSH</span>.
+	  To avoid problems, consult <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ssh-keygen&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ssh-keygen</span>(1)</span></a>.</p><p>If a passphrase is used, the user is prompted for
+	  the passphrase each time a connection is made to the server.
+	  To load <acronym class="acronym">SSH</acronym> keys into memory and remove
+	  the need to type the passphrase each time, use
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ssh-agent&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ssh-agent</span>(1)</span></a> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ssh-add&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ssh-add</span>(1)</span></a>.</p><p>Authentication is handled by
+	  <code class="command">ssh-agent</code>, using the private keys that
+	  are loaded into it.  <code class="command">ssh-agent</code>
+	  can be used to launch another application like a
+	  shell or a window manager.</p><p>To use <code class="command">ssh-agent</code> in a shell, start it
+	  with a shell as an argument.  Add the identity by
+	  running <code class="command">ssh-add</code> and entering the
+	  passphrase for the private key.
+	  The user will then be able to <code class="command">ssh</code>
+	  to any host that has the corresponding public key installed.
+	  For example:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>ssh-agent <em class="replaceable"><code>csh</code></em></code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>ssh-add</code></strong>
+Enter passphrase for key '/usr/home/user/.ssh/id_rsa':  <a id="co-ssh-agent-passphrase"></a><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span>
+Identity added: /usr/home/user/.ssh/id_rsa (/usr/home/user/.ssh/id_rsa)
+<code class="prompt">%</code></pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#co-ssh-agent-passphrase"><span><img src="./imagelib/callouts/1.png" alt="1" border="0" /></span></a> </p></td><td valign="top" align="left"><p>Enter the passphrase for the key.</p></td></tr></table></div><p>To use <code class="command">ssh-agent</code> in
+	  <span class="application">Xorg</span>, add an entry for it in
+	  <code class="filename">~/.xinitrc</code>.  This provides the
+	  <code class="command">ssh-agent</code> services to all programs
+	  launched in <span class="application">Xorg</span>.  An example
+	  <code class="filename">~/.xinitrc</code> might look like this:</p><pre class="programlisting">exec ssh-agent <em class="replaceable"><code>startxfce4</code></em></pre><p>This launches <code class="command">ssh-agent</code>, which in
+	  turn launches <span class="application">XFCE</span>, every time
+	  <span class="application">Xorg</span> starts.  Once
+	  <span class="application">Xorg</span> has been restarted so that
+	  the changes can take effect, run <code class="command">ssh-add</code>
+	  to load all of the <acronym class="acronym">SSH</acronym> keys.</p></div><div class="sect3"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="security-ssh-tunneling"></a>13.8.1.2. <acronym class="acronym">SSH</acronym> Tunneling</h4></div></div></div><a id="idp59591800" class="indexterm"></a><p><span class="application">OpenSSH</span> has the ability to
+	  create a tunnel to encapsulate another protocol in an
+	  encrypted session.</p><p>The following command tells <code class="command">ssh</code> to
+	  create a tunnel for
+	  <span class="application">telnet</span>:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>ssh -2 -N -f -L <em class="replaceable"><code>5023:localhost:23 user@foo.example.com</code></em></code></strong>
+<code class="prompt">%</code></pre><p>This example uses the following options:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="option">-2</code></span></dt><dd><p>Forces <code class="command">ssh</code> to use version 2 to
+		connect to the server.</p></dd><dt><span class="term"><code class="option">-N</code></span></dt><dd><p>Indicates no command, or tunnel only.  If omitted,
+		<code class="command">ssh</code> initiates a normal
+		session.</p></dd><dt><span class="term"><code class="option">-f</code></span></dt><dd><p>Forces <code class="command">ssh</code> to run in the
+		background.</p></dd><dt><span class="term"><code class="option">-L</code></span></dt><dd><p>Indicates a local tunnel in
+		<em class="replaceable"><code>localport:remotehost:remoteport</code></em>
+		format.</p></dd><dt><span class="term"><code class="option">user@foo.example.com</code></span></dt><dd><p>The login name to use on the specified remote
+		<acronym class="acronym">SSH</acronym> server.</p></dd></dl></div><p>An <acronym class="acronym">SSH</acronym> tunnel works by creating a
+	  listen socket on <code class="systemitem">localhost</code> on the
+	  specified <code class="literal">localport</code>.  It then forwards
+	  any connections received on <code class="literal">localport</code> via
+	  the <acronym class="acronym">SSH</acronym> connection to the specified
+	  <code class="literal">remotehost:remoteport</code>.  In the example,
+	  port <code class="literal">5023</code> on the client is forwarded to
+	  port <code class="literal">23</code> on the remote machine.  Since
+	  port 23 is used by <span class="application">telnet</span>, this
+	  creates an encrypted <span class="application">telnet</span>
+	  session through an <acronym class="acronym">SSH</acronym> tunnel.</p><p>This method can be used to wrap any number of insecure
+	  <acronym class="acronym">TCP</acronym> protocols such as
+	  <acronym class="acronym">SMTP</acronym>, <acronym class="acronym">POP3</acronym>, and
+	  <acronym class="acronym">FTP</acronym>, as seen in the following
+	  examples.</p><div class="example"><a id="idp59613816"></a><div class="example-title">Example 13.1. Create a Secure Tunnel for
+	    <acronym class="acronym">SMTP</acronym></div><div class="example-contents"><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>ssh -2 -N -f -L <em class="replaceable"><code>5025:localhost:25 user@mailserver.example.com</code></em></code></strong>
+user@mailserver.example.com's password: <strong class="userinput"><code>*****</code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>telnet localhost 5025</code></strong>
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+220 mailserver.example.com ESMTP</pre><p>This can be used in conjunction with
+	    <code class="command">ssh-keygen</code> and additional user accounts
+	    to create a more seamless <acronym class="acronym">SSH</acronym> tunneling
+	    environment.  Keys can be used in place of typing a
+	    password, and the tunnels can be run as a separate
+	    user.</p></div></div><br class="example-break" /><div class="example"><a id="idp59618424"></a><div class="example-title">Example 13.2. Secure Access of a <acronym class="acronym">POP3</acronym>
+	    Server</div><div class="example-contents"><p>In this example, there is an <acronym class="acronym">SSH</acronym>
+	    server that accepts connections from the outside.  On the
+	    same network resides a mail server running a
+	    <acronym class="acronym">POP3</acronym> server.  To check email in a
+	    secure manner, create an <acronym class="acronym">SSH</acronym> connection
+	    to the <acronym class="acronym">SSH</acronym> server and tunnel through to
+	    the mail server:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>ssh -2 -N -f -L <em class="replaceable"><code>2110:mail.example.com:110 user@ssh-server.example.com</code></em></code></strong>
+user@ssh-server.example.com's password: <strong class="userinput"><code>******</code></strong></pre><p>Once the tunnel is up and running, point the email
+	    client to send <acronym class="acronym">POP3</acronym> requests to
+	    <code class="systemitem">localhost</code> on port 2110.  This
+	    connection will be forwarded securely across the tunnel to
+	    <code class="systemitem">mail.example.com</code>.</p></div></div><br class="example-break" /><div class="example"><a id="idp59632888"></a><div class="example-title">Example 13.3. Bypassing a Firewall</div><div class="example-contents"><p>Some firewalls
+	    filter both incoming and outgoing connections.  For
+	    example, a firewall might limit access from remote
+	    machines to ports 22 and 80 to only allow
+	    <acronym class="acronym">SSH</acronym> and web surfing.  This prevents
+	    access to any other service which uses a port other than
+	    22 or 80.</p><p>The solution is to create an <acronym class="acronym">SSH</acronym>
+	    connection to a machine outside of the network's firewall
+	    and use it to tunnel to the desired service:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>ssh -2 -N -f -L <em class="replaceable"><code>8888:music.example.com:8000 user@unfirewalled-system.example.org</code></em></code></strong>
+user@unfirewalled-system.example.org's password: <strong class="userinput"><code>*******</code></strong></pre><p>In this example, a streaming Ogg Vorbis client can now
+	    be pointed to <code class="systemitem">localhost</code> port
+	    8888, which will be forwarded over to
+	    <code class="systemitem">music.example.com</code> on port 8000,
+	    successfully bypassing the firewall.</p></div></div><br class="example-break" /></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp59650552"></a>13.8.2. Enabling the SSH Server</h3></div></div></div><a id="idp59651192" class="indexterm"></a><p>In addition to providing built-in <acronym class="acronym">SSH</acronym>
+	client utilities, a FreeBSD system can be configured as an
+	<acronym class="acronym">SSH</acronym> server, accepting connections from
+	other <acronym class="acronym">SSH</acronym> clients.</p><p>To see if <span class="application">sshd</span> is operating,
+	use the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=service&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">service</span>(8)</span></a> command:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service sshd status</code></strong></pre><p>If the service is not running, add the following line to
+	<code class="filename">/etc/rc.conf</code>.</p><pre class="programlisting">sshd_enable="YES"</pre><p>This will start <span class="application">sshd</span>, the
+	daemon program for <span class="application">OpenSSH</span>, the
+	next time the system boots.  To start it now:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service sshd start</code></strong></pre><p>The first time <span class="application">sshd</span> starts on a
+	FreeBSD system, the system's host keys will be automatically
+	created and the fingerprint will be displayed on the console.
+	Provide users with the fingerprint so that they can verify it
+	the first time they connect to the server.</p><p>Refer to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sshd&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sshd</span>(8)</span></a> for the list of available options
+	when starting <span class="application">sshd</span> and a more
+	complete discussion about authentication, the login process,
+	and the various configuration files.</p><p>At this point, the <span class="application">sshd</span> should
+	be available to all users with a username and password on
+	the system.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp59666808"></a>13.8.3. SSH Server Security</h3></div></div></div><p>While <span class="application">sshd</span> is the most widely
+	used remote administration facility for FreeBSD, brute force
+	and drive by attacks are common to any system exposed to
+	public networks.  Several additional parameters are available
+	to prevent the success of these attacks and will be described
+	in this section.</p><p>It is a good idea to limit which users can log into the
+	<acronym class="acronym">SSH</acronym> server and from where using the
+	<code class="literal">AllowUsers</code> keyword in the
+	<span class="application">OpenSSH</span> server configuration file.
+	For example, to only allow <code class="systemitem">root</code> to log in from
+	<code class="systemitem">192.168.1.32</code>, add
+	this line to <code class="filename">/etc/ssh/sshd_config</code>:</p><pre class="programlisting">AllowUsers root@192.168.1.32</pre><p>To allow <code class="systemitem">admin</code>
+	to log in from anywhere, list that user without specifying an
+	<acronym class="acronym">IP</acronym> address:</p><pre class="programlisting">AllowUsers admin</pre><p>Multiple users should be listed on the same line, like
+	so:</p><pre class="programlisting">AllowUsers root@192.168.1.32 admin</pre><p>After making changes to
+	<code class="filename">/etc/ssh/sshd_config</code>,
+	tell <span class="application">sshd</span> to reload its
+	configuration file by running:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>service sshd reload</code></strong></pre><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">When this keyword is used, it is important to list each
+	  user that needs to log into this machine.  Any user that is
+	  not specified in that line will be locked out.  Also, the
+	  keywords used in the <span class="application">OpenSSH</span>
+	  server configuration file are case-sensitive.  If the
+	  keyword is not spelled correctly, including its case, it
+	  will be ignored.  Always test changes to this file to make
+	  sure that the edits are working as expected.  Refer to
+	  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sshd_config&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sshd_config</span>(5)</span></a> to verify the spelling and use of the
+	  available keywords.</p></div><p>In addition, users may be forced to use two factor
+	authentication via the use of a public and private key.  When
+	required, the user may generate a key pair through the use
+	of <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ssh-keygen&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ssh-keygen</span>(1)</span></a> and send the administrator the public
+	key.  This key file will be placed in the
+	<code class="filename">authorized_keys</code> as described above in
+	the client section.  To force the users to use keys only,
+	the following option may be configured:</p><pre class="programlisting">AuthenticationMethods publickey</pre><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">Do not confuse <code class="filename">/etc/ssh/sshd_config</code>
+	  with <code class="filename">/etc/ssh/ssh_config</code> (note the
+	  extra <code class="literal">d</code> in the first filename).  The
+	  first file configures the server and the second file
+	  configures the client.  Refer to <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ssh_config&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ssh_config</span>(5)</span></a> for a
+	  listing of the available client settings.</p></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ipsec.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="security.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="fs-acl.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">13.7. <acronym class="acronym">VPN</acronym> over
+	<acronym class="acronym">IPsec</acronym> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 13.9. Access Control Lists</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

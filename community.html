@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">Search</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="//www.FreeBSD.org/cgi/man.cgi">Manual Pages</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">Presentations and Papers</a>
                   </li>
                   <li>
                     <a href="./doc/en_US.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
@@ -237,9 +239,6 @@
                   <a href="./usergroups.html">User Groups</a>
                 </li>
                 <li>
-                  <a href="https://planet.FreeBSD.org/">Blogs</a>
-                </li>
-                <li>
                   <a href="./events/events.html">Events</a>
                 </li>
                 <li>
@@ -255,17 +254,16 @@
             <p>There are more than one hundred <a href="./community/mailinglists.html">mailing
 		lists</a>, dozens of web-based <a href="https://forums.FreeBSD.org/">forums</a>, and
 		several <a href="./doc/en_US.ISO8859-1/books/handbook/eresources-news.html">newsgroups</a>
-		available.  There are over 93 <a href="./usergroups.html">user groups</a> in
-		41
+		available.  There are over 77 <a href="./usergroups.html">user groups</a> in
+		36
 		unique countries around the world.  There is also an
 		active <a href="./community/irc.html">IRC</a>
-		community.  Many developers also maintain <a href="https://planet.freebsd.org">blogs</a> about
-	      	their FreeBSD work.  Developers and key contributors
+		community.  Developers and key contributors
 		also maintain a <a href="https://wiki.FreeBSD.org/">wiki</a>, which
 		contains information about FreeBSD development
 		and related projects.</p>
-            <p>Last year there were 9 FreeBSD events in
-		9 different countries
+            <p>Last year there were 19 FreeBSD events in
+		12 different countries
 		around the world.  A <a href="./events/events.ics">calendar</a> and
 		<a href="./events/rss.xml">RSS feed</a> of
 		upcoming FreeBSD-related events are maintained on our
@@ -330,12 +328,14 @@
               <li>There are hundreds of videos from conferences,
 		screencasts, and demonstrations relating to <a href="https://www.youtube.com/results?search_query=freebsd">FreeBSD</a>
 		on <a href="https://www.youtube.com">YouTube</a>.  In particular, there is a new <a href="https://www.youtube.com/bsdconferences">BSD Conferences</a> channel with full length 1 hour taped presentations from FreeBSD technical conferences.</li>
-              <li>There is a <a href="https://www.facebook.com/groups/FreeSBD/">FreeBSD
-		Users Group</a> on <a href="https://www.facebook.com">Facebook</a> and a <a href="https://www.linkedin.com/groups?gid=47628">FreeBSD Group</a> on <a href="https://www.linkedin.com">LinkedIn</a>.</li>
+              <li>There is a
+                  <a href="https://www.facebook.com/groups/FreeSBD/" target="_blank" rel="noopener">FreeBSD Users Group</a> on
+                  <a href="https://www.facebook.com" target="_blank" rel="noopener">Facebook</a> and a
+                  <a href="https://www.linkedin.com/groups/47628/" target="_blank" rel="noopener">FreeBSD Group</a> on
+                  <a href="https://www.linkedin.com" target="_blank" rel="noopener">LinkedIn</a>.</li>
               <li>You can follow
 		<a href="https://twitter.com/freebsd">@freebsd</a>,
-		<a href="https://twitter.com/freebsdhelp">@freebsdhelp</a>,
-		<a href="https://twitter.com/freebsdblogs">@freebsdblogs</a>, or
+		<a href="https://twitter.com/freebsdhelp">@freebsdhelp</a>, or
 		<a href="https://twitter.com/freebsdcore">@freebsdcore</a>
 		on <a href="https://twitter.com">Twitter</a>.</li>
             </ul>
@@ -344,7 +344,7 @@
         </div>
         <div id="footer">
           <span><a href="./search/index-site.html">Site Map</a> |
-  <a href="./copyright/">Legal Notices</a> | © 1995&#8211;2018 The FreeBSD Project.
+  <a href="./copyright/">Legal Notices</a> | © 1995&#8211;2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

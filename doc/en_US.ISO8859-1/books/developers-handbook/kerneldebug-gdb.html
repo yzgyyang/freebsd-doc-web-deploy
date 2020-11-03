@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>10.2. Debugging a Kernel Crash Dump with kgdb</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Developers' Handbook" /><link rel="up" href="kerneldebug.html" title="Chapter 10. Kernel Debugging" /><link rel="prev" href="kerneldebug.html" title="Chapter 10. Kernel Debugging" /><link rel="next" href="kerneldebug-online-ddb.html" title="10.3. On-Line Kernel Debugging Using DDB" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">10.2. Debugging a Kernel Crash Dump with <code class="command">kgdb</code></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="kerneldebug.html">Prev</a> </td><th width="60%" align="center">Chapter 10. Kernel Debugging</th><td width="20%" align="right"> <a accesskey="n" href="kerneldebug-online-ddb.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="kerneldebug-gdb"></a>10.2. Debugging a Kernel Crash Dump with <code class="command">kgdb</code></h2></div></div></div><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">This section covers <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=kgdb&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">kgdb</span>(1)</span></a>.  The latest version is
+        included in the <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/devel/gdb/pkg-descr">devel/gdb</a>.  An older version
+        is also present in FreeBSD 11 and earlier.</p></div><p>To enter into the debugger and begin getting information
+      from the dump, start kgdb:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>kgdb -n <em class="replaceable"><code>N</code></em></code></strong></pre><p>Where <em class="replaceable"><code>N</code></em> is the suffix of the
+     <code class="filename">vmcore.<em class="replaceable"><code>N</code></em></code> to
+     examine.  To open the most recent dump use:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>kgdb -n last</code></strong></pre><p>Normally, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=kgdb&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">kgdb</span>(1)</span></a> should be able to locate the kernel
+     running at the time the dump was generated.  If it is not able to
+     locate the correct kernel, pass the pathname of the kernel and
+     dump as two arguments to kgdb:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>kgdb /boot/kernel/kernel /var/crash/vmcore.0</code></strong></pre><p>You can debug the crash dump using the kernel sources just like
+      you can for any other program.</p><p>This dump is from a 5.2-BETA kernel and the crash
+      comes from deep within the kernel.  The output below has been
+      modified to include line numbers on the left.  This first trace
+      inspects the instruction pointer and obtains a back trace.  The
+      address that is used on line 41 for the <code class="command">list</code>
+      command is the instruction pointer and can be found on line
+      17.  Most developers will request having at least this
+      information sent to them if you are unable to debug the problem
+      yourself.  If, however, you do solve the problem, make sure that
+      your patch winds its way into the source tree via a problem
+      report, mailing lists, or by being able to commit it!</p><pre class="screen"> 1:<code class="prompt">#</code> <strong class="userinput"><code>cd /usr/obj/usr/src/sys/<em class="replaceable"><code>KERNCONF</code></em></code></strong>
+ 2:<code class="prompt">#</code> <strong class="userinput"><code>kgdb kernel.debug /var/crash/vmcore.0</code></strong>
+ 3:GNU gdb 5.2.1 (FreeBSD)
+ 4:Copyright 2002 Free Software Foundation, Inc.
+ 5:GDB is free software, covered by the GNU General Public License, and you are
+ 6:welcome to change it and/or distribute copies of it under certain conditions.
+ 7:Type "show copying" to see the conditions.
+ 8:There is absolutely no warranty for GDB.  Type "show warranty" for details.
+ 9:This GDB was configured as "i386-undermydesk-freebsd"...
+10:panic: page fault
+11:panic messages:
+12:---
+13:Fatal trap 12: page fault while in kernel mode
+14:cpuid = 0; apic id = 00
+15:fault virtual address   = 0x300
+16:fault code:             = supervisor read, page not present
+17:instruction pointer     = 0x8:0xc0713860
+18:stack pointer           = 0x10:0xdc1d0b70
+19:frame pointer           = 0x10:0xdc1d0b7c
+20:code segment            = base 0x0, limit 0xfffff, type 0x1b
+21:                        = DPL 0, pres 1, def32 1, gran 1
+22:processor eflags        = resume, IOPL = 0
+23:current process         = 14394 (uname)
+24:trap number             = 12
+25:panic: page fault
+26      cpuid = 0;
+27:Stack backtrace:
+28
+29:syncing disks, buffers remaining... 2199 2199 panic: mi_switch: switch in a critical section
+30:cpuid = 0;
+31:Uptime: 2h43m19s
+32:Dumping 255 MB
+33: 16 32 48 64 80 96 112 128 144 160 176 192 208 224 240
+34:---
+35:Reading symbols from /boot/kernel/snd_maestro3.ko...done.
+36:Loaded symbols for /boot/kernel/snd_maestro3.ko
+37:Reading symbols from /boot/kernel/snd_pcm.ko...done.
+38:Loaded symbols for /boot/kernel/snd_pcm.ko
+39:#0  doadump () at /usr/src/sys/kern/kern_shutdown.c:240
+40:240             dumping++;
+41:<code class="prompt">(kgdb)</code> <strong class="userinput"><code>list *0xc0713860</code></strong>
+42:0xc0713860 is in lapic_ipi_wait (/usr/src/sys/i386/i386/local_apic.c:663).
+43:658                     incr = 0;
+44:659                     delay = 1;
+45:660             } else
+46:661                     incr = 1;
+47:662             for (x = 0; x &lt; delay; x += incr) {
+48:663                     if ((lapic-&gt;icr_lo &amp; APIC_DELSTAT_MASK) == APIC_DELSTAT_IDLE)
+49:664                             return (1);
+50:665                     ia32_pause();
+51:666             }
+52:667             return (0);
+53:<code class="prompt">(kgdb)</code> <strong class="userinput"><code>backtrace</code></strong>
+54:#0  doadump () at /usr/src/sys/kern/kern_shutdown.c:240
+55:#1  0xc055fd9b in boot (howto=260) at /usr/src/sys/kern/kern_shutdown.c:372
+56:#2  0xc056019d in panic () at /usr/src/sys/kern/kern_shutdown.c:550
+57:#3  0xc0567ef5 in mi_switch () at /usr/src/sys/kern/kern_synch.c:470
+58:#4  0xc055fa87 in boot (howto=256) at /usr/src/sys/kern/kern_shutdown.c:312
+59:#5  0xc056019d in panic () at /usr/src/sys/kern/kern_shutdown.c:550
+60:#6  0xc0720c66 in trap_fatal (frame=0xdc1d0b30, eva=0)
+61:    at /usr/src/sys/i386/i386/trap.c:821
+62:#7  0xc07202b3 in trap (frame=
+63:      {tf_fs = -1065484264, tf_es = -1065484272, tf_ds = -1065484272, tf_edi = 1, tf_esi = 0, tf_ebp = -602076292, tf_isp = -602076324, tf_ebx = 0, tf_edx = 0, tf_ecx = 1000000, tf_eax = 243, tf_trapno = 12, tf_err = 0, tf_eip = -1066321824, tf_cs = 8, tf_eflags = 65671, tf_esp = 243, tf_ss = 0})
+64:    at /usr/src/sys/i386/i386/trap.c:250
+65:#8  0xc070c9f8 in calltrap () at {standard input}:94
+66:#9  0xc07139f3 in lapic_ipi_vectored (vector=0, dest=0)
+67:    at /usr/src/sys/i386/i386/local_apic.c:733
+68:#10 0xc0718b23 in ipi_selected (cpus=1, ipi=1)
+69:    at /usr/src/sys/i386/i386/mp_machdep.c:1115
+70:#11 0xc057473e in kseq_notify (ke=0xcc05e360, cpu=0)
+71:    at /usr/src/sys/kern/sched_ule.c:520
+72:#12 0xc0575cad in sched_add (td=0xcbcf5c80)
+73:    at /usr/src/sys/kern/sched_ule.c:1366
+74:#13 0xc05666c6 in setrunqueue (td=0xcc05e360)
+75:    at /usr/src/sys/kern/kern_switch.c:422
+76:#14 0xc05752f4 in sched_wakeup (td=0xcbcf5c80)
+77:    at /usr/src/sys/kern/sched_ule.c:999
+78:#15 0xc056816c in setrunnable (td=0xcbcf5c80)
+79:    at /usr/src/sys/kern/kern_synch.c:570
+80:#16 0xc0567d53 in wakeup (ident=0xcbcf5c80)
+81:    at /usr/src/sys/kern/kern_synch.c:411
+82:#17 0xc05490a8 in exit1 (td=0xcbcf5b40, rv=0)
+83:    at /usr/src/sys/kern/kern_exit.c:509
+84:#18 0xc0548011 in sys_exit () at /usr/src/sys/kern/kern_exit.c:102
+85:#19 0xc0720fd0 in syscall (frame=
+86:      {tf_fs = 47, tf_es = 47, tf_ds = 47, tf_edi = 0, tf_esi = -1, tf_ebp = -1077940712, tf_isp = -602075788, tf_ebx = 672411944, tf_edx = 10, tf_ecx = 672411600, tf_eax = 1, tf_trapno = 12, tf_err = 2, tf_eip = 671899563, tf_cs = 31, tf_eflags = 642, tf_esp = -1077940740, tf_ss = 47})
+87:    at /usr/src/sys/i386/i386/trap.c:1010
+88:#20 0xc070ca4d in Xint0x80_syscall () at {standard input}:136
+89:---Can't read userspace from dump, or kernel process---
+90:<code class="prompt">(kgdb)</code> <strong class="userinput"><code>quit</code></strong></pre><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">If your system is crashing regularly and you are running
+      out of disk space, deleting old <code class="filename">vmcore</code>
+      files in <code class="filename">/var/crash</code> could save a
+      considerable amount of disk space!</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="kerneldebug.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="kerneldebug.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="kerneldebug-online-ddb.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 10. Kernel Debugging </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 10.3. On-Line Kernel Debugging Using DDB</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

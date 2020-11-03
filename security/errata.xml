@@ -16,64 +16,64 @@
     </image>
     <atom:link type="application/rss+xml" href="https://www.FreeBSD.org/security/rss.xml"/>
     <item>
-      <title>FreeBSD-EN-18:12.mem</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:12.mem.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:12.mem.asc</guid>
-      <pubDate>Thu, 27 Sep 2018 00:00:00 PST</pubDate>
+      <title>FreeBSD-EN-20:18.getfsstat</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:18.getfsstat.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:18.getfsstat.asc</guid>
+      <pubDate>Wed, 2 Sep 2020 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>FreeBSD-EN-18:11.listen</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:11.listen.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:11.listen.asc</guid>
-      <pubDate>Thu, 27 Sep 2018 00:00:00 PST</pubDate>
+      <title>FreeBSD-EN-20:17.linuxthread</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:17.linuxthread.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:17.linuxthread.asc</guid>
+      <pubDate>Wed, 2 Sep 2020 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>FreeBSD-EN-18:10.syscall</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:10.syscall.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:10.syscall.asc</guid>
-      <pubDate>Thu, 27 Sep 2018 00:00:00 PST</pubDate>
+      <title>FreeBSD-EN-20:16.vmx</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:16.vmx.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:16.vmx.asc</guid>
+      <pubDate>Wed, 5 Aug 2020 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>FreeBSD-EN-18:09.ip</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:09.ip.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:09.ip.asc</guid>
-      <pubDate>Thu, 27 Sep 2018 00:00:00 PST</pubDate>
+      <title>FreeBSD-EN-20:15.mps</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:15.mps.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:15.mps.asc</guid>
+      <pubDate>Wed, 8 Jul 2020 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>FreeBSD-EN-18:08.lazyfpu</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:08.lazyfpu.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:08.lazyfpu.asc</guid>
-      <pubDate>Wed, 12 Sep 2018 00:00:00 PST</pubDate>
+      <title>FreeBSD-EN-20:14.linuxkpi</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:14.linuxkpi.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:14.linuxkpi.asc</guid>
+      <pubDate>Wed, 8 Jul 2020 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>FreeBSD-EN-18:07.pmap</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:07.pmap.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:07.pmap.asc</guid>
-      <pubDate>Thu, 21 Jun 2018 00:00:00 PST</pubDate>
+      <title>FreeBSD-EN-20:13.bhyve</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:13.bhyve.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:13.bhyve.asc</guid>
+      <pubDate>Wed, 8 Jul 2020 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>FreeBSD-EN-18:06.tzdata</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:06.tzdata.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:06.tzdata.asc</guid>
-      <pubDate>Tue, 8 May 2018 00:00:00 PST</pubDate>
+      <title>FreeBSD-EN-20:12.iflib</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:12.iflib.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:12.iflib.asc</guid>
+      <pubDate>Tue, 9 Jun 2020 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>FreeBSD-EN-18:05.mem</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:05.mem.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:05.mem.asc</guid>
-      <pubDate>Tue, 8 May 2018 00:00:00 PST</pubDate>
+      <title>FreeBSD-EN-20:11.ena</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:11.ena.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:11.ena.asc</guid>
+      <pubDate>Tue, 9 Jun 2020 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>FreeBSD-EN-18:04.mem</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:04.mem.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:04.mem.asc</guid>
-      <pubDate>Wed, 4 Apr 2018 00:00:00 PST</pubDate>
+      <title>FreeBSD-EN-20:10.build</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:10.build.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:10.build.asc</guid>
+      <pubDate>Tue, 12 May 2020 00:00:00 PST</pubDate>
     </item>
     <item>
-      <title>FreeBSD-EN-18:03.tzdata</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:03.tzdata.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-18:03.tzdata.asc</guid>
-      <pubDate>Wed, 4 Apr 2018 00:00:00 PST</pubDate>
+      <title>FreeBSD-EN-20:09.igb</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:09.igb.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:09.igb.asc</guid>
+      <pubDate>Tue, 12 May 2020 00:00:00 PST</pubDate>
     </item>
   </channel>
 </rss>

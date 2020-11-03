@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>Chapter 8. Disks, File Systems, and Boot Loaders</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="Frequently Asked Questions for FreeBSD 11.X and 12.X" /><link rel="up" href="index.html" title="Frequently Asked Questions for FreeBSD 11.X and 12.X" /><link rel="prev" href="kernelconfig.html" title="Chapter 7. Kernel Configuration" /><link rel="next" href="all-about-zfs.html" title="Chapter 9. ZFS" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 8. Disks, File Systems, and Boot Loaders</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="kernelconfig.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="all-about-zfs.html">Next</a></td></tr></table><hr /></div><div class="chapter"><div xmlns="" class="titlepage"><div><div><h1 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="disks"></a>Chapter 8. Disks, File Systems, and Boot Loaders</h1></div></div></div><div class="qandaset"><a id="idp51073784"></a><dl><dt>8.1. <a href="disks.html#idp51074040">How can I add my new hard disk to my FreeBSD
+	    system?</a></dt><dt>8.2. <a href="disks.html#idp51076600">How do I move my system over to my huge new
+	    disk?</a></dt><dt>8.3. <a href="disks.html#idp51130104">Which partitions can safely use Soft Updates?  I have
+	    heard that Soft Updates on / can
+	    cause problems.  What about Journaled Soft Updates?</a></dt><dt>8.4. <a href="disks.html#idp51142264">Can I mount other foreign file systems under
+	    FreeBSD?</a></dt><dt>8.5. <a href="disks.html#idp51161848">How do I mount a secondary DOS partition?</a></dt><dt>8.6. <a href="disks.html#idp51178616">Is there a cryptographic file system for FreeBSD?</a></dt><dt>8.7. <a href="disks.html#idp51182712">How do I boot FreeBSD and Linux® using
+	    GRUB?</a></dt><dt>8.8. <a href="disks.html#idp51194232">How do I boot FreeBSD and Linux® using
+	    BootEasy?</a></dt><dt>8.9. <a href="disks.html#idp51200376">How do I change the boot prompt from
+	    ??? to something more
+	    meaningful?</a></dt><dt>8.10. <a href="disks.html#idp51203192">How do I use a new removable drive?</a></dt><dt>8.11. <a href="disks.html#idp51230968">Why do I get Incorrect super
+	      block when mounting a CD?</a></dt><dt>8.12. <a href="disks.html#idp51233912">Why do I get Device not
+	      configured when mounting a CD?</a></dt><dt>8.13. <a href="disks.html#idp51236984">Why do all non-English characters in filenames show up
+	    as &#8220;?&#8221; on my CDs when mounted in FreeBSD?</a></dt><dt>8.14. <a href="disks.html#idp51240440">A CD burned under FreeBSD cannot be read
+	    under any other operating system.  Why?</a></dt><dt>8.15. <a href="disks.html#idp51243384">How can I create an image of a data CD?</a></dt><dt>8.16. <a href="disks.html#idp51246840">Why can I not mount an audio
+	    CD?</a></dt><dt>8.17. <a href="disks.html#idp51250424">How do I mount a multi-session
+	    CD?</a></dt><dt>8.18. <a href="disks.html#idp51279480">How do I let ordinary users mount CD-ROMs, DVDs,
+	    USB drives, and other removable media?</a></dt><dt>8.19. <a href="disks.html#idp51300472">The du and df
+	    commands show different amounts of disk space available.
+	    What is going on?</a></dt><dt>8.20. <a href="disks.html#idp51326968">How can I add more swap space?</a></dt><dt>8.21. <a href="disks.html#idp51329528">Why does FreeBSD see my disk as smaller than the
+	    manufacturer says it is?</a></dt><dt>8.22. <a href="disks.html#idp51332472">How is it possible for a partition to be more than
+	    100% full?</a></dt></dl><table border="0" style="width: 100%;"><colgroup><col align="left" width="1%" /><col /></colgroup><tbody><tr class="question"><td align="left" valign="top"><a id="idp51074040"></a><a id="adding-disks"></a><p><strong>8.1.</strong></p></td><td align="left" valign="top"><p>How can I add my new hard disk to my FreeBSD
+	    system?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>See the <a class="link" href="../../../../doc/en_US.ISO8859-1/books/handbook/disks-adding.html" target="_top">Adding
+	      Disks</a> section in the FreeBSD Handbook.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51076600"></a><a id="new-huge-disk"></a><p><strong>8.2.</strong></p></td><td align="left" valign="top"><p>How do I move my system over to my huge new
+	    disk?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>The best way is to reinstall the operating system on
+	    the new disk, then move the user data over.  This is
+	    highly recommended when tracking
+	    <span class="emphasis"><em>-STABLE</em></span> for more than one release or
+	    when updating a release instead of installing a new one.
+	    Install booteasy on both disks with <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=boot0cfg&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">boot0cfg</span>(8)</span></a> and
+	    dual boot until you are happy with the new configuration.
+	    Skip the next paragraph to find out how to move the data
+	    after doing this.</p><p>Alternatively, partition and label the new disk with
+	    either <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sade&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sade</span>(8)</span></a> or <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=gpart&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">gpart</span>(8)</span></a>.  If the disks are
+	    MBR-formatted, booteasy can be installed on both disks
+	    with <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=boot0cfg&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">boot0cfg</span>(8)</span></a> so that the computer can dual boot
+	    to the old or new system after the copying is done.</p><p>Once the new disk set up,
+	    the data cannot just be copied.  Instead, use tools that
+	    understand device files and system flags, such as
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=dump&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">dump</span>(8)</span></a>.  Although it is recommended
+	    to move the data while in single-user mode, it
+	    is not required.</p><p>When the disks are formatted with
+	    <acronym class="acronym">UFS</acronym>, never use anything but
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=dump&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">dump</span>(8)</span></a> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=restore&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">restore</span>(8)</span></a> to move the root file
+	    system.  These commands should also be used when moving a
+	    single partition to another empty partition.  The sequence
+	    of steps to use <code class="command">dump</code> to move the data
+	    from one <acronym class="acronym">UFS</acronym> partitions to a new
+	    partition is:</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p><code class="command">newfs</code> the new partition.</p></li><li class="step"><p><code class="command">mount</code> it on a temporary mount
+		point.</p></li><li class="step"><p><code class="command">cd</code> to that directory.</p></li><li class="step"><p><code class="command">dump</code> the old partition, piping
+		output to the new one.</p></li></ol></div><p>For example, to move
+	    <code class="filename">/dev/ada1s1a</code> with
+	    <code class="filename">/mnt</code> as the temporary mount point,
+	    type:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>newfs /dev/ada1s1a</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>mount /dev/ada1s1a /mnt</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>cd /mnt</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>dump 0af - / | restore rf -</code></strong></pre><p>Rearranging partitions with
+	    <code class="command">dump</code> takes a bit more work.  To merge a
+	    partition like <code class="filename">/var</code> into its parent,
+	    create the new partition large enough for both, move the
+	    parent partition as described above, then move the child
+	    partition into the empty directory that the first move
+	    created:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>newfs /dev/ada1s1a</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>mount /dev/ada1s1a /mnt</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>cd /mnt</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>dump 0af - / | restore rf -</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>cd var</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>dump 0af - /var | restore rf -</code></strong></pre><p>To split a directory from its parent, say putting
+	    <code class="filename">/var</code> on its own partition when it was
+	    not before, create both partitions, then mount the child
+	    partition on the appropriate directory in the temporary
+	    mount point, then move the old single partition:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>newfs /dev/ada1s1a</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>newfs /dev/ada1s1d</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>mount /dev/ada1s1a /mnt</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>mkdir /mnt/var</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>mount /dev/ada1s1d /mnt/var</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>cd /mnt</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>dump 0af - / | restore rf -</code></strong></pre><p>The <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=cpio&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">cpio</span>(1)</span></a> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=pax&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">pax</span>(1)</span></a> utilities are also
+	    available for moving user data.  These are known to lose
+	    file flag information, so use them with caution.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51130104"></a><a id="safe-softupdates"></a><p><strong>8.3.</strong></p></td><td align="left" valign="top"><p>Which partitions can safely use Soft Updates?  I have
+	    heard that Soft Updates on <code class="filename">/</code> can
+	    cause problems.  What about Journaled Soft Updates?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>Short answer: Soft Updates can usually be safely used
+	    on all partitions.</p><p>Long answer:  Soft Updates has two characteristics
+	    that may be undesirable on certain partitions.  First, a
+	    Soft Updates partition has a small chance of losing data
+	    during a system crash.  The partition will not be
+	    corrupted as the data will simply be lost.  Second, Soft
+	    Updates can cause temporary space shortages.</p><p>When using Soft Updates, the kernel can take up to
+	    thirty seconds to write changes to the physical disk.
+	    When a large file is deleted the file still resides on
+	    disk until the kernel actually performs the deletion.
+	    This can cause a very simple race condition.  Suppose
+	    one large file is deleted and another large file is
+	    immediately created.  The first large file is not yet
+	    actually removed from the physical disk, so the disk might
+	    not have enough room for the second large file.  This will
+	    produce an error that the partition does not have enough
+	    space, even though a large chunk of space has just been
+	    released.  A few seconds later, the file creation works as
+	    expected.</p><p>If a system should crash after the kernel accepts a
+	    chunk of data for writing to disk, but before that data is
+	    actually written out, data could be lost.  This risk is
+	    extremely small, but generally manageable.</p><p>These issues affect all partitions using Soft Updates.
+	    So, what does this mean for the root partition?</p><p>Vital information on the root partition changes very
+	    rarely.  If the system crashed during the thirty-second
+	    window after such a change is made, it is possible that
+	    data could be lost.  This risk is negligible for most
+	    applications, but be aware that it exists.  If
+	    the system cannot tolerate this much risk, do not use
+	    Soft Updates on the root file system!</p><p><code class="filename">/</code> is traditionally one of the
+	    smallest partitions.  If
+	    <code class="filename">/tmp</code> is on
+	    <code class="filename">/</code>, there may be intermittent
+	    space problems.  Symlinking <code class="filename">/tmp</code> to
+	    <code class="filename">/var/tmp</code> will solve this
+	    problem.</p><p>Finally, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=dump&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">dump</span>(8)</span></a> does not work in live mode (-L)
+	    on a filesystem, with Journaled Soft Updates
+	    (<acronym class="acronym">SU+J</acronym>).</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51142264"></a><a id="mount-foreign-fs"></a><p><strong>8.4.</strong></p></td><td align="left" valign="top"><p>Can I mount other foreign file systems under
+	    FreeBSD?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>FreeBSD supports a variety of other file systems.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">UFS</span></dt><dd><p>UFS CD-ROMs can be mounted directly on FreeBSD.
+		  Mounting disk partitions from Digital UNIX and other
+		  systems that support UFS may be more complex,
+		  depending on the details of the disk partitioning
+		  for the operating system in question.</p></dd><dt><span class="term">ext2/ext3</span></dt><dd><p>FreeBSD supports <code class="literal">ext2fs</code> and
+		  <code class="literal">ext3fs</code> partitions.  See
+		  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=ext2fs&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">ext2fs</span>(5)</span></a> for more information.</p></dd><dt><span class="term">NTFS</span></dt><dd><p>FUSE based NTFS support is available as a port
+		  (<a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/sysutils/fusefs-ntfs/pkg-descr">sysutils/fusefs-ntfs</a>).  For more
+		  information see <a class="link" href="http://www.tuxera.com/community/ntfs-3g-manual/" target="_top"><span class="application">ntfs-3g</span></a>.</p></dd><dt><span class="term">FAT</span></dt><dd><p>FreeBSD includes a read-write FAT driver.  For more
+		  information, see <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mount_msdosfs&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mount_msdosfs</span>(8)</span></a>.</p></dd><dt><span class="term">ZFS</span></dt><dd><p>FreeBSD includes a port of <span class="trademark">Sun</span>&#8482;'s ZFS driver.  The
+		  current recommendation is to use it only on
+		  amd64 platforms with sufficient memory.  For
+		  more information, see <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=zfs&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">zfs</span>(8)</span></a>.</p></dd></dl></div><p>FreeBSD includes the Network File System
+	    <acronym class="acronym">NFS</acronym> and the FreeBSD Ports Collection
+	    provides several FUSE applications to support many other
+	    file systems.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51161848"></a><a id="mount-dos"></a><p><strong>8.5.</strong></p></td><td align="left" valign="top"><p>How do I mount a secondary DOS partition?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>The secondary DOS partitions are found after
+	    <span class="emphasis"><em>all</em></span> the primary partitions.  For
+	    example, if <code class="literal">E</code> is the
+	    second DOS partition on the second SCSI drive, there will
+	    be a device file for <span class="quote">&#8220;<span class="quote">slice 5</span>&#8221;</span> in
+	    <code class="filename">/dev</code>.  To mount it:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>mount -t msdosfs /dev/da1s5 /dos/e</code></strong></pre></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51178616"></a><a id="crypto-file-system"></a><p><strong>8.6.</strong></p></td><td align="left" valign="top"><p>Is there a cryptographic file system for FreeBSD?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>Yes, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=gbde&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">gbde</span>(8)</span></a> and <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=geli&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">geli</span>(8)</span></a>.
+	    See the <a class="link" href="../../../../doc/en_US.ISO8859-1/books/handbook/disks-encrypting.html" target="_top">Encrypting
+	      Disk Partitions</a> section of the FreeBSD
+	    Handbook.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51182712"></a><a id="grub-loader"></a><p><strong>8.7.</strong></p></td><td align="left" valign="top"><p>How do I boot FreeBSD and <span class="trademark">Linux</span>® using
+	    <span class="application">GRUB</span>?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>To boot FreeBSD using <span class="application">GRUB</span>,
+	    add the following to either
+	    <code class="filename">/boot/grub/menu.lst</code> or
+	    <code class="filename">/boot/grub/grub.conf</code>, depending upon
+	    which is used by the <span class="trademark">Linux</span>® distribution.</p><pre class="programlisting">title FreeBSD 9.1
+	root <em class="replaceable"><code>(hd0,a)</code></em>
+	kernel /boot/loader</pre><p>Where <em class="replaceable"><code>hd0,a</code></em> points to the
+	    root partition on the first disk.  To specify
+	    the slice number, use something like this
+	    <em class="replaceable"><code>(hd0,2,a)</code></em>.  By default, if the
+	    slice number is omitted, <span class="application">GRUB</span>
+	    searches the first slice
+	    which has the <code class="literal">a</code> partition.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51194232"></a><a id="booteasy-loader"></a><p><strong>8.8.</strong></p></td><td align="left" valign="top"><p>How do I boot FreeBSD and <span class="trademark">Linux</span>® using
+	    <span class="application">BootEasy?</span></p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>Install LILO at the start of the <span class="trademark">Linux</span>® boot
+	    partition instead of in the Master Boot Record.  Then boot
+	    LILO from <span class="application">BootEasy</span>.</p><p>This is recommended when running <span class="trademark">Windows</span>® and <span class="trademark">Linux</span>®
+	    as it makes it simpler to get <span class="trademark">Linux</span>® booting again if
+	    <span class="trademark">Windows</span>® is reinstalled.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51200376"></a><a id="changing-bootprompt"></a><p><strong>8.9.</strong></p></td><td align="left" valign="top"><p>How do I change the boot prompt from
+	    <code class="literal">???</code> to something more
+	    meaningful?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>This cannot be accomplished with the standard boot
+	    manager without rewriting it.  There are a number of other
+	    boot managers in the <code class="filename">sysutils</code>
+	    category of the Ports Collection.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51203192"></a><a id="removable-drives"></a><p><strong>8.10.</strong></p></td><td align="left" valign="top"><p>How do I use a new removable drive?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>If the drive already has a file system on it,
+	    use a command like this:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>mount -t msdosfs /dev/da0s1 /mnt</code></strong></pre><p>If the drive will only be used with FreeBSD systems,
+	    partition it with <acronym class="acronym">UFS</acronym> or
+	    <acronym class="acronym">ZFS</acronym>.  This will provide long filename
+	    support, improvement in performance, and stability.  If
+	    the drive will be used by other operating systems, a more
+	    portable choice, such as msdosfs, is better.</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>dd if=/dev/zero of=/dev/da0 count=2</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>gpart create -s GPT /dev/da0</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>gpart add -t freebsd-ufs /dev/da0</code></strong></pre><p>Finally, create a new file system:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>newfs /dev/da0p1</code></strong></pre><p>and mount it:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>mount /dev/da0s1 /mnt</code></strong></pre><p>It is a good idea to add a line to
+	    <code class="filename">/etc/fstab</code> (see <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=fstab&amp;sektion=5&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">fstab</span>(5)</span></a>) so you
+	    can just type <code class="command">mount /mnt</code> in the
+	    future:</p><pre class="programlisting">/dev/da0p1 /mnt ufs rw,noauto 0 0</pre></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51230968"></a><a id="mount-cd-superblock"></a><p><strong>8.11.</strong></p></td><td align="left" valign="top"><p>Why do I get <span class="errorname">Incorrect super
+	      block</span> when mounting a CD?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>The type of device to mount must be specified.  This
+	    is described in the Handbook section on <a class="link" href="../../../../doc/en_US.ISO8859-1/books/handbook/creating-cds.html#mounting-cd" target="_top">Using
+	      Data CDs</a>.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51233912"></a><a id="cdrom-not-configured"></a><p><strong>8.12.</strong></p></td><td align="left" valign="top"><p>Why do I get <span class="errorname">Device not
+	      configured</span> when mounting a CD?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>This generally means that there is no CD in the
+	    drive, or the drive is not visible on the bus.
+	    Refer to the <a class="link" href="../../../../doc/en_US.ISO8859-1/books/handbook/creating-cds.html#mounting-cd" target="_top">Using
+	      Data CDs</a> section of the Handbook for a detailed
+	    discussion of this issue.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51236984"></a><a id="cdrom-unicode-filenames"></a><p><strong>8.13.</strong></p></td><td align="left" valign="top"><p>Why do all non-English characters in filenames show up
+	    as <span class="quote">&#8220;<span class="quote">?</span>&#8221;</span> on my CDs when mounted in FreeBSD?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>The CD probably uses the <span class="quote">&#8220;<span class="quote">Joliet</span>&#8221;</span>
+	    extension for storing information about files and
+	    directories.  This is discussed in the Handbook section on
+	   <a class="link" href="../../../../doc/en_US.ISO8859-1/books/handbook/creating-cds.html#mounting-cd" target="_top">Using
+	      Data CD-ROMs</a>.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51240440"></a><a id="burncd-isofs"></a><p><strong>8.14.</strong></p></td><td align="left" valign="top"><p>A CD burned under FreeBSD cannot be read
+	    under any other operating system.  Why?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>This means a raw file was burned to the CD, rather
+	    than creating an ISO 9660 file system.  Take a look
+	    at the Handbook section on <a class="link" href="../../../../doc/en_US.ISO8859-1/books/handbook/creating-cds.html#mounting-cd" target="_top">Using
+	      Data <acronym class="acronym">CD</acronym>s</a>.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51243384"></a><a id="copy-cd"></a><p><strong>8.15.</strong></p></td><td align="left" valign="top"><p>How can I create an image of a data CD?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>This is discussed in the Handbook section on <a class="link" href="../../../../doc/en_US.ISO8859-1/books/handbook/creating-cds.html#mkisofs" target="_top">Writing
+	      Data to an <acronym class="acronym">ISO</acronym> File System</a>.
+	    For more on working with CD-ROMs, see the <a class="link" href="../../../../doc/en_US.ISO8859-1/books/handbook/creating-cds.html" target="_top">Creating
+	      CDs Section</a> in the Storage chapter in the
+	    Handbook.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51246840"></a><a id="mount-audio-CD"></a><p><strong>8.16.</strong></p></td><td align="left" valign="top"><p>Why can I not <code class="command">mount</code> an audio
+	    CD?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>Trying to mount an audio CD will produce an error
+	    like <span class="errorname">cd9660: /dev/cd0: Invalid
+	      argument</span>.  This is because
+	    <code class="command">mount</code> only works on file systems.
+	    Audio CDs do not have file systems; they just have data.
+	    Instead, use a program that reads audio CDs, such as the
+	    <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/audio/xmcd/pkg-descr">audio/xmcd</a> package or port.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51250424"></a><a id="multi-session-CD"></a><p><strong>8.17.</strong></p></td><td align="left" valign="top"><p>How do I <code class="command">mount</code> a multi-session
+	    CD?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>By default, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mount&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mount</span>(8)</span></a> will attempt to mount the
+	    last data track (session) of a CD.  To
+	    load an earlier session, use the
+	    <code class="option">-s</code> command line argument.  Refer to
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=mount_cd9660&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">mount_cd9660</span>(8)</span></a> for specific examples.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51279480"></a><a id="user-floppymount"></a><p><strong>8.18.</strong></p></td><td align="left" valign="top"><p>How do I let ordinary users mount CD-ROMs, DVDs,
+	    USB drives, and other removable media?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>As <code class="systemitem">root</code> set
+	    the sysctl variable <code class="varname">vfs.usermount</code> to
+	    <code class="literal">1</code>.</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>sysctl vfs.usermount=1</code></strong></pre><p>To make this persist across reboots, add the line
+	    <code class="literal">vfs.usermount=1</code> to
+	    <code class="filename">/etc/sysctl.conf</code> so that it is reset
+	    at system boot time.</p><p>Users can only mount devices they have read
+	    permissions to.  To allow users to mount a device
+	    permissions must be set in
+	    <code class="filename">/etc/devfs.conf</code>.</p><p>For example, to allow users to mount the first USB
+	    drive add:</p><pre class="programlisting"># Allow all users to mount a USB drive.
+	    own       /dev/da0       root:operator
+	    perm      /dev/da0       0666</pre><p>All users can now mount devices they could read onto a
+	    directory that they own:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>mkdir ~/my-mount-point</code></strong>
+<code class="prompt">%</code> <strong class="userinput"><code>mount -t msdosfs /dev/da0 ~/my-mount-point</code></strong></pre><p>Unmounting the device is simple:</p><pre class="screen"><code class="prompt">%</code> <strong class="userinput"><code>umount ~/my-mount-point</code></strong></pre><p>Enabling <code class="varname">vfs.usermount</code>, however,
+	    has negative security implications.  A better way to
+	    access <span class="trademark">MS-DOS</span>® formatted media is to use the
+	    <a xmlns="" class="package" href="https://www.freebsd.org/cgi/url.cgi?ports/emulators/mtools/pkg-descr">emulators/mtools</a> package in the Ports
+	    Collection.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">The device name used in the previous examples must
+	      be changed according to the configuration.</p></div></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51300472"></a><a id="du-vs-df"></a><p><strong>8.19.</strong></p></td><td align="left" valign="top"><p>The <code class="command">du</code> and <code class="command">df</code>
+	    commands show different amounts of disk space available.
+	    What is going on?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>This is due to how these commands actually work.
+	    <code class="command">du</code> goes through the directory tree,
+	    measures how large each file is, and presents the totals.
+	    <code class="command">df</code> just asks the file system how much
+	    space it has left.  They seem to be the same thing, but a
+	    file without a directory entry will affect
+	    <code class="command">df</code> but not
+	    <code class="command">du</code>.</p><p>When a program is using a file, and the file is
+	    deleted, the file is not really removed from the file
+	    system until the program stops using it.  The file is
+	    immediately deleted from the directory listing, however.
+	    As an example, consider a file large enough
+	    to affect the output of
+	    <code class="command">du</code> and <code class="command">df</code>.  A
+	    file being viewed with <code class="command">more</code> can be
+	    deleted wihout causing an error.
+	    The entry is
+	    removed from the directory so no other program or user can
+	    access it.  However, <code class="command">du</code> shows that it
+	    is gone as it has walked the directory tree and the
+	    file is not listed.  <code class="command">df</code> shows that it
+	    is still there, as the file system knows that
+	    <code class="command">more</code> is still using that space.  Once
+	    the <code class="command">more</code> session ends,
+	    <code class="command">du</code> and <code class="command">df</code> will
+	    agree.</p><p>This situation is common on web servers.  Many people
+	    set up a FreeBSD web server and forget to rotate the log
+	    files.  The access log fills up <code class="filename">/var</code>.
+	    The new administrator deletes the file, but the system
+	    still complains that the partition is full.  Stopping and
+	    restarting the web server program would free the file,
+	    allowing the system to release the disk space.  To prevent
+	    this from happening, set up <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=newsyslog&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">newsyslog</span>(8)</span></a>.</p><p>Note that Soft Updates can delay the freeing of disk
+	    space and it can take up to 30 seconds for the
+	    change to be visible.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51326968"></a><a id="add-swap-space"></a><p><strong>8.20.</strong></p></td><td align="left" valign="top"><p>How can I add more swap space?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>This section <a class="link" href="../../../../doc/en_US.ISO8859-1/books/handbook/adding-swap-space.html" target="_top">of
+	      the Handbook</a> describes how to do this.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51329528"></a><a id="manufacturer-disk-size"></a><p><strong>8.21.</strong></p></td><td align="left" valign="top"><p>Why does FreeBSD see my disk as smaller than the
+	    manufacturer says it is?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>Disk manufacturers calculate gigabytes as a billion
+	    bytes each, whereas FreeBSD calculates them as
+	    1,073,741,824 bytes each.  This explains why, for
+	    example, FreeBSD's boot messages will report a disk that
+	    supposedly has 80 GB as holding
+	    76,319 MB.</p><p>Also note that FreeBSD will (by default) <a class="link" href="disks.html#disk-more-than-full" title="8.22.">reserve</a> 8% of the
+	    disk space.</p></td></tr><tr class="question"><td align="left" valign="top"><a id="idp51332472"></a><a id="disk-more-than-full"></a><p><strong>8.22.</strong></p></td><td align="left" valign="top"><p>How is it possible for a partition to be more than
+	    100% full?</p></td></tr><tr class="answer"><td align="left" valign="top"></td><td align="left" valign="top"><p>A portion of each UFS partition (8%, by default) is
+	    reserved for use by the operating system and the
+	    <code class="systemitem">root</code> user.
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=df&amp;sektion=1&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">df</span>(1)</span></a> does not count that space when calculating the
+	    <code class="literal">Capacity</code> column, so it can exceed 100%.
+	    Notice that the <code class="literal">Blocks</code>
+	    column is always greater than the sum of the
+	    <code class="literal">Used</code> and <code class="literal">Avail</code>
+	    columns, usually by a factor of 8%.</p><p>For more details, look up <code class="option">-m</code> in
+	    <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=tunefs&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">tunefs</span>(8)</span></a>.</p></td></tr></tbody></table></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="kernelconfig.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="all-about-zfs.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 7. Kernel Configuration </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 9. ZFS</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

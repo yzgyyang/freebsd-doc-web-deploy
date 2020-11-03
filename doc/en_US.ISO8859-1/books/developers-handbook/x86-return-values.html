@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>11.4. Return Values</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Developers' Handbook" /><link rel="up" href="x86.html" title="Chapter 11. x86 Assembly Language Programming" /><link rel="prev" href="x86-system-calls.html" title="11.3. System Calls" /><link rel="next" href="x86-portable-code.html" title="11.5. Creating Portable Code" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">11.4. Return Values</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="x86-system-calls.html">Prev</a> </td><th width="60%" align="center">Chapter 11. x86 Assembly Language Programming</th><td width="20%" align="right"> <a accesskey="n" href="x86-portable-code.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="x86-return-values"></a>11.4. Return Values</h2></div></div></div><p>A system call would not be useful most of the time if it did
+    not return some kind of a value: The file descriptor of an open
+    file, the number of bytes read to a buffer, the system time,
+    etc.</p><p>Additionally, the system needs to inform us if an error
+    occurs: A file does not exist, system resources are exhausted, we
+    passed an invalid parameter, etc.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-man-pages"></a>11.4.1. Man Pages</h3></div></div></div><p>The traditional place to look for information about various
+      system calls under <span class="trademark">UNIX</span>® systems are the manual pages.  FreeBSD
+      describes its system calls in section 2, sometimes in section
+      3.</p><p>For example,
+      <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=open&amp;sektion=2&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">open</span>(2)</span></a>
+      says:</p><div class="blockquote"><blockquote class="blockquote"><p>If successful, <code class="function">open()</code> returns a
+	non-negative integer, termed a file descriptor.  It returns
+	<code class="varname">-1</code> on failure, and sets
+	<code class="varname">errno</code> to indicate the error.</p></blockquote></div><p>The assembly language programmer new to <span class="trademark">UNIX</span>® and FreeBSD
+      will immediately ask the puzzling question: Where is
+      <code class="varname">errno</code> and how do I get to it?</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">The information presented in the manual pages applies to C
+	programs.  The assembly language programmer needs additional
+	information.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-where-return-values"></a>11.4.2. Where Are the Return Values?</h3></div></div></div><p>Unfortunately, it depends... For most system calls it is in
+      <code class="varname">EAX</code>, but not for all.  A good
+      rule of thumb, when working with a system call for the first
+      time, is to look for the return value in <code class="varname">EAX</code>.  If it is not there, you need
+      further research.</p><div xmlns="" class="note"><h3 class="admontitle">Note: </h3><p xmlns="http://www.w3.org/1999/xhtml">I am aware of one system call that returns the value in
+	<code class="varname">EDX</code>: <code class="function">SYS_fork</code>.  All others I have
+	worked with use <code class="varname">EAX</code>.  But I
+	have not worked with them all yet.</p></div><div xmlns="" class="tip"><h3 class="admontitle">Tip: </h3><p xmlns="http://www.w3.org/1999/xhtml">If you cannot find the answer here or anywhere else, study
+	<span class="application">libc</span> source code and see how it
+	interfaces with the kernel.</p></div></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-where-errno"></a>11.4.3. Where Is <code class="varname">errno</code>?</h3></div></div></div><p>Actually, nowhere...</p><p><code class="varname">errno</code> is part of the C language, not the
+      <span class="trademark">UNIX</span>® kernel.  When accessing kernel services directly, the
+      error code is returned in <code class="varname">EAX</code>, the same register the proper
+      return value generally ends up in.</p><p>This makes perfect sense.  If there is no error, there is no
+      error code.  If there is an error, there is no return value.
+      One register can contain either.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="x86-how-to-know-error"></a>11.4.4. Determining an Error Occurred</h3></div></div></div><p>When using the standard FreeBSD calling convention, the
+      <code class="varname">carry flag</code> is cleared upon
+      success, set upon failure.</p><p>When using the Linux emulation mode, the signed value in
+      <code class="varname">EAX</code> is non-negative upon
+      success, and contains the return value.  In case of an error,
+      the value is negative, i.e., <code class="varname">-errno</code>.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="x86-system-calls.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="x86.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="x86-portable-code.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">11.3. System Calls </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 11.5. Creating Portable Code</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

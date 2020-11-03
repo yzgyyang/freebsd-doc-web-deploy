@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>7.5. Comments</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Documentation Project Primer for New Contributors" /><link rel="up" href="xml-primer.html" title="Chapter 7. XML Primer" /><link rel="prev" href="xml-primer-xml-escape.html" title="7.4. Escaping Back to XML" /><link rel="next" href="xml-primer-entities.html" title="7.6. Entities" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">7.5. Comments</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="xml-primer-xml-escape.html">Prev</a> </td><th width="60%" align="center">Chapter 7. XML Primer</th><td width="20%" align="right"> <a accesskey="n" href="xml-primer-entities.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="xml-primer-comments"></a>7.5. Comments</h2></div></div></div><p>An <acronym class="acronym">XML</acronym> document may contain comments.
+      They may appear anywhere as long as they are not inside tags.
+      They are even allowed in some locations inside the
+      <acronym class="acronym">DTD</acronym> (e.g., between <a class="link" href="xml-primer-entities.html" title="7.6. Entities">entity
+	declarations</a>).</p><p><acronym class="acronym">XML</acronym> comments start with the string
+      <span class="quote">&#8220;<span class="quote"><code class="literal">&lt;!--</code></span>&#8221;</span> and end with the
+      string <span class="quote">&#8220;<span class="quote"><code class="literal">--&gt;</code></span>&#8221;</span>.</p><p>Here are some examples of valid <acronym class="acronym">XML</acronym>
+      comments:</p><div class="example"><a id="idp51236600"></a><div class="example-title">Example 7.6. <acronym class="acronym">XML</acronym> Generic Comments</div><div class="example-contents"><pre class="programlisting">&lt;!-- This is inside the comment --&gt;
+
+&lt;!--This is another comment--&gt;
+
+&lt;!-- This is how you
+     write multiline comments --&gt;
+
+&lt;p&gt;A simple &lt;!-- Comment inside an element's content --&gt; paragraph.&lt;/p&gt;</pre></div></div><br class="example-break" /><p><acronym class="acronym">XML</acronym> comments may contain any strings
+      except <span class="quote">&#8220;<span class="quote"><code class="literal">--</code></span>&#8221;</span>:</p><div class="example"><a id="idp51239160"></a><div class="example-title">Example 7.7. Erroneous <acronym class="acronym">XML</acronym> Comment</div><div class="example-contents"><pre class="programlisting">&lt;!-- This comment--is wrong --&gt;</pre></div></div><br class="example-break" /><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="xml-primer-comments-to-do"></a>7.5.1. To Do&#8230;</h3></div></div></div><div class="procedure"><ol class="procedure" type="1"><li class="step"><p>Add some comments to
+	    <code class="filename">example.xml</code>, and check that the file
+	    still validates using <code class="command">xmllint</code>.</p></li><li class="step"><p>Add some invalid comments to
+	    <code class="filename">example.xml</code>, and see the error
+	    messages that <code class="command">xmllint</code> gives when it
+	    encounters an invalid comment.</p></li></ol></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="xml-primer-xml-escape.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="xml-primer.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="xml-primer-entities.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">7.4. Escaping Back to <acronym class="acronym">XML</acronym> </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 7.6. Entities</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

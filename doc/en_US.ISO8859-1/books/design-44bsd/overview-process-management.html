@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>2.4. Process Management</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="The Design and Implementation of the 4.4BSD Operating System" /><link rel="up" href="overview.html" title="Chapter 2. Design Overview of 4.4BSD" /><link rel="prev" href="overview-kernel-service.html" title="2.3. Kernel Services" /><link rel="next" href="overview-memory-management.html" title="2.5. Memory Management" /><link rel="copyright" href="legalnotice.html" title="Legal Notice" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">2.4. Process Management</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="overview-kernel-service.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Design Overview of 4.4BSD</th><td width="20%" align="right"> <a accesskey="n" href="overview-memory-management.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="overview-process-management"></a>2.4. Process Management</h2></div></div></div><p>4.4BSD supports a multitasking environment.
+	Each task or thread of execution is termed a
+	<span class="emphasis"><em>process</em></span>.
+	The
+	<span class="emphasis"><em>context</em></span>
+	of a 4.4BSD process consists of user-level state,
+	including the contents of its address space
+	and the run-time environment, and kernel-level state,
+	which includes
+	scheduling parameters,
+	resource controls,
+	and identification information.
+	The context includes everything
+	used by the kernel in providing services for the process.
+	Users can create processes, control the processes' execution,
+	and receive notification when the processes' execution status changes.
+	Every process is assigned a unique value, termed a
+	<span class="emphasis"><em>process identifier</em></span>
+	(PID).
+	This value is used by the kernel to identify a process when reporting
+	status changes to a user, and by a user when referencing a process
+	in a system call.</p><p>The kernel creates a process by duplicating the context of another process.
+	The new process is termed a
+	<span class="emphasis"><em>child process</em></span>
+	of the original
+	<span class="emphasis"><em>parent process</em></span>
+	The context duplicated in process creation includes
+	both the user-level execution state of the process and
+	the process's system state managed by the kernel.
+	Important components of the kernel state are described in
+	Chapter 4.</p><div class="figure"><a id="fig-process-lifecycle"></a><div class="figure-title">Figure 2.1. Process lifecycle</div><div class="figure-contents"><div class="mediaobject"><img src="fig1.png" alt="Process-management system calls" /></div></div></div><br class="figure-break" /><p>The process lifecycle is depicted in <a class="xref" href="overview-process-management.html#fig-process-lifecycle" title="Figure 2.1. Process lifecycle">Figure 2.1, &#8220;Process lifecycle&#8221;</a>.
+	A process may create a new process that is a copy of the original
+	by using the
+	<span class="emphasis"><em>fork</em></span>
+	system call.
+	The
+	<span class="emphasis"><em>fork</em></span>
+	call returns twice: once in the parent process, where
+	the return value is the process identifier of the child,
+	and once in the child process, where the return value is 0.
+	The parent-child relationship induces a hierarchical structure on
+	the set of processes in the system.
+	The new process shares all its parent's resources, such as
+	file descriptors, signal-handling status, and memory layout.</p><p>Although there are occasions when the new process is intended
+	to be a copy of the parent,
+	the loading and execution of a different program is
+	a more useful and typical action.
+	A process can overlay itself with the memory image of another program,
+	passing to the newly created image a set of parameters,
+	using the system call
+	<span class="emphasis"><em>execve</em></span>.
+	One parameter is the name of a file whose contents are
+	in a format recognized by the system -- either a binary-executable file
+	or a file that causes
+	the execution of a specified interpreter program to process its contents.</p><p>A process may terminate by executing an
+	<span class="emphasis"><em>exit</em></span>
+	system call, sending 8 bits of
+	exit status to its parent.
+	If a process wants to communicate more than a single byte of
+	information with its parent,
+	it must either set up an interprocess-communication channel
+	using pipes or sockets,
+	or use an intermediate file.
+	Interprocess communication is discussed extensively in
+	Chapter 11.</p><p>A process can suspend execution until any of its child processes terminate
+	using the
+	<span class="emphasis"><em>wait</em></span>
+	system call, which returns the
+	PID
+	and
+	exit status of the terminated child process.
+	A parent process can arrange to be notified by a signal when
+	a child process exits or terminates abnormally.
+	Using the
+	<span class="emphasis"><em>wait4</em></span>
+	system call, the parent can retrieve information about
+	the event that caused termination of the child process
+	and about resources consumed by the process during its lifetime.
+	If a process is orphaned because its parent exits before it is finished,
+	then the kernel arranges for the child's exit status to be passed back
+	to a special system process
+	
+	<span class="emphasis"><em>init</em></span>:
+	see Sections 3.1 and 14.6).</p><p>The details of how the kernel creates and destroys processes are given in
+	Chapter 5.</p><p>Processes are scheduled for execution according to a
+	<span class="emphasis"><em>process-priority</em></span>
+	parameter.
+	This priority is managed by a kernel-based scheduling algorithm.
+	Users can influence the scheduling of a process by specifying
+	a parameter
+	(<span class="emphasis"><em>nice</em></span>)
+	that weights the overall scheduling priority,
+	but are still obligated to share the underlying
+	CPU
+	resources according to the kernel's scheduling policy.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47279352"></a>2.4.1. Signals</h3></div></div></div><p>The system defines a set of
+	  <span class="emphasis"><em>signals</em></span>
+	  that may be delivered to a process.
+	  Signals in 4.4BSD are modeled after hardware interrupts.
+	  A process may specify a user-level subroutine to be a
+	  <span class="emphasis"><em>handler</em></span>
+	  to which a signal should be delivered.
+	  When a signal is generated,
+	  it is blocked from further occurrence while it is being
+	  <span class="emphasis"><em>caught</em></span>
+	  by the handler.
+	  Catching a signal involves saving the current process context
+	  and building a new one in which to run the handler.
+	  The signal is then delivered to the handler, which can either abort
+	  the process or return to the executing process
+	  (perhaps after setting a global variable).
+	  If the handler returns, the signal is unblocked
+	  and can be generated (and caught) again.</p><p>Alternatively, a process may specify that a signal is to be
+	  <span class="emphasis"><em>ignored</em></span>,
+	  or that a default action, as determined by the kernel, is to be taken.
+	  The default action of certain signals is to terminate the process.
+	  This termination may be accompanied by creation of a
+	  <span class="emphasis"><em>core file</em></span>
+	  that contains the current memory image of the process for use
+	  in postmortem debugging.</p><p>Some signals cannot be caught or ignored.
+	  These signals include
+	  <span class="emphasis"><em>SIGKILL</em></span>,
+	  which kills runaway processes,
+	  and the
+	  job-control signal
+	  <span class="emphasis"><em>SIGSTOP</em></span>.</p><p>A process may choose to have signals delivered on a
+	  special stack so that sophisticated software stack manipulations
+	  are possible.
+	  For example, a language supporting
+	  coroutines needs to provide a stack for each coroutine.
+	  The language run-time system can allocate these stacks
+	  by dividing up the single stack provided by 4.4BSD.
+	  If the kernel does not support a separate signal stack,
+	  the space allocated for each coroutine must be expanded by the
+	  amount of space required to catch a signal.</p><p>All signals have the same <span class="emphasis"><em>priority</em></span>.
+	  If multiple signals are pending simultaneously, the order in which
+	  signals are delivered to a process is implementation specific.
+	  Signal handlers execute with the signal that caused their
+	  invocation to be blocked, but other signals may yet occur.
+	  Mechanisms are provided so that processes can protect critical sections
+	  of code against the occurrence of specified signals.</p><p>The detailed design and implementation of signals is described in
+	  Section 4.7.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp47294712"></a>2.4.2. Process Groups and Sessions</h3></div></div></div><p>Processes are organized into
+	  <span class="emphasis"><em>process groups</em></span>.
+	  Process groups are used to control access to terminals
+	  and to provide a means of distributing signals to collections of
+	  related processes.
+	  A process inherits its process group from its parent process.
+	  Mechanisms are provided by the kernel to allow a process to
+	  alter its process group or the process group of its descendents.
+	  Creating a new process group is easy;
+	  the value of a new process group is ordinarily the
+	  process identifier of the creating process.</p><p>The group of processes in a process group is sometimes
+	  referred to as a
+	  <span class="emphasis"><em>job</em></span>
+	  and is manipulated by high-level system software, such as the shell.
+	  A common kind of job created by a shell is a
+	  <span class="emphasis"><em>pipeline</em></span>
+	  of several processes connected by pipes, such that the output of the first
+	  process is the input of the second, the output of the second is the
+	  input of the third, and so forth.
+	  The shell creates such a job by forking a
+	  process for each stage of the pipeline,
+	  then putting all those processes into a separate process group.</p><p>A user process can send a signal to each process in
+	  a process group, as well as to a single process.
+	  A process in a specific process group may receive
+	  software interrupts affecting the group, causing the group to
+	  suspend or resume execution, or to be interrupted or terminated.</p><p>A terminal has a process-group identifier assigned to it.
+	  This identifier is normally set to the identifier of a process group
+	  associated with the terminal.
+	  A job-control shell may create a number of process groups
+	  associated with the same terminal; the terminal is the
+	  <span class="emphasis"><em>controlling terminal</em></span>
+	  for each process in these groups.
+	  A process may read from a descriptor for its controlling terminal
+	  only if the terminal's process-group identifier
+	  matches that of the process.
+	  If the identifiers do not match,
+	  the process will be blocked if it attempts to read from the terminal.
+	  By changing the process-group identifier of the terminal,
+	  a shell can arbitrate a terminal among several different jobs.
+	  This arbitration is called
+	  <span class="emphasis"><em>job control</em></span>
+	  and is described, with process groups, in
+	  Section 4.8.</p><p>Just as a set of related processes can be collected into a process group,
+	  a set of process groups can be collected into a
+	  <span class="emphasis"><em>session</em></span>.
+	  The main uses for sessions are to create an isolated environment for a
+	  daemon process and its children,
+	  and to collect together a user's login shell
+	  and the jobs that that shell spawns.</p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="overview-kernel-service.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="overview.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="overview-memory-management.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2.3. Kernel Services </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 2.5. Memory Management</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">Search</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="//www.FreeBSD.org/cgi/man.cgi">Manual Pages</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">Presentations and Papers</a>
                   </li>
                   <li>
                     <a href="../doc/en_US.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
@@ -296,6 +298,25 @@
             <h2>Consulting Services</h2>
             <dl>
               <dt>
+                <a name="afreebsdbrasil" href="https://www.freebsdbrasil.com.br/" id="afreebsdbrasil">A FreeBSD Brasil</a>
+              </dt>
+              <dd>FreeBSD Brasil. Established in 2002, we support FreeBSD in
+      LAC (Latin America and Caribbean). A FreeBSD-centric and FreeBSD-only
+      company, perhaps the only company worldwide focused exclusively in
+      FreeBSD technology. We offer specialized consulting, support (with SLA),
+      development and training, as well as ProApps, the FreeBSD Professional
+      Appliance empowering hundred of companies&#8217; mission-critical infrastructure,
+      security and advanced routing. We leverage FreeBSD power to add
+      military-grade cyber defense to banks, government, financial, space agencies
+      and top enterprises. We are the Diversity of Defense, the silent warhorse.
+      In the end of the battle day, FreeBSD makes the difference. Defense in depth
+      specialists. Diversity of defense specialists. Compliance, best practices,
+      pen test, threat intelligence. Advanced routing, netmap based firewalling
+      and IDS/IPS, web application firewall, multi-factor authentication,
+      identity management, facility threat absorption, SOA auditing,
+      response planning, offensive defense, red team, penetration testing.
+      It&#8217;s more than security; its cyber defense.</dd>
+              <dt>
                 <a name="ateamsystems" href="http://www.ateamsystems.com/" id="ateamsystems">A-Team Systems</a>
               </dt>
               <dd>
@@ -386,6 +407,16 @@
       970-925-3355
     </dd>
               <dt>
+                <a name="audacix" href="https://www.audacix.com" id="audacix">Audacix</a>
+              </dt>
+              <dd>At Audacix we help our customers maximise profits
+      by shipping bug-free and secure software. Talk to us if you
+      need help with your architecture, digital transformation,
+      DevOps practice and 
+      <a href="https://www.audacix.com/p/penetration-testing-services.html" shape="rect">cybersecurity</a>.
+      Call us on +61 3 7001 1430 or +44 20 3411 4974 to skyrocket
+      your software delivery to the next level.</dd>
+              <dt>
                 <a name="BMK" href="http://www.bmk.com.au" id="BMK">B.M.K. Industries</a>
               </dt>
               <dd>
@@ -395,21 +426,6 @@
       Setting up Permanent Modem &amp; ISDN Internet Connections is
       also a specialty.
       <a href="http://www.bmk.com.au" shape="rect">Please visit our web page.</a>
-    </dd>
-              <dt>
-                <a name="backwatcher" href="http://www.backwatcher.com" id="backwatcher">BackWatcher, Inc.</a>
-              </dt>
-              <dd>
-      While specialising in security, BackWatcher handles installation
-      and configuration, systems integration, performance tuning,
-      disaster recovery, network architecture, programming, and
-      general systems administration of FreeBSD, NetBSD, OpenBSD,
-      DragonFly BSD, Linux and many commercial UNIX flavors.  For
-      additional information, please visit our website at
-      <a href="http:www.backwatcher.com" shape="rect">http:www.backwatcher.com</a>,
-      email
-      <a href="mailto:info@backwatcher.com" shape="rect">info@backwatcher.com</a>,
-      or call +1-425-584-UNIX (US) or +1-778-819-UNIX (CA).
     </dd>
               <dt>
                 <a name="Bilch" href="http://www.bilch.com/" id="Bilch">Bilch International Consulting</a>
@@ -450,15 +466,6 @@
       <a href="mailto:service@bpanet.de" shape="rect">service@bpanet.de</a>.
     </dd>
               <dt>
-                <a name="BSDConsulting" href="http://www.bsdconsulting.no/" id="BSDConsulting">BSD Consulting</a>
-              </dt>
-              <dd>
-      BSD Consulting provides consulting services related to Internet
-      servers/infrastructure, programming, FreeBSD &amp; BSD operating
-      systems, security auditing/firewalls, system administration,
-      etc.  Based in Oslo, Norway.
-    </dd>
-              <dt>
                 <a name="BSDPIE" href="http://bsdpie.com/" id="BSDPIE">BSD Professionals In Europe (BSDPIE)</a>
               </dt>
               <dd>
@@ -494,18 +501,18 @@
       <a href="http://www.clone.co.nz" shape="rect">Clone website</a>.
     </dd>
               <dt>
-                <a name="CloudBT" href="http://www.it-support.com.au/" id="CloudBT">Cloud BT IT Support</a>
+                <a name="CloudBT" href="https://www.it-support.com.au/" id="CloudBT">Cloud Business Technology</a>
               </dt>
               <dd>
       Cloud BT provides IT support and other IT services to businesses
       in Australia, including system maintenance,
-      <a href="http://www.it-support.com.au/data-recovery/" shape="rect">data recovery</a>,
+      <a href="https://www.it-support.com.au/data-recovery/" shape="rect">data recovery</a>,
       and ongoing IT consulting.  We also provide a range of scalable
       cloud solutions to our business clients.  In our day-to-day
       operation we support numerous platforms including FreeBSD, Linux
       and other Unix-based environments.  Call us on 1300 737 205 or
       visit our
-      <a href="http://www.it-support.com.au/" shape="rect">website</a> for more
+      <a href="https://www.it-support.com.au/" shape="rect">website</a> for more
       information.
     </dd>
               <dt>
@@ -580,17 +587,6 @@
       Metropolitan &amp; Silicon Valley areas, Hong Kong and London,
       UK, DataPipe offers custom FreeBSD solutions and expert FreeBSD
       support 24 hours a day, 365 days a year.
-    </dd>
-              <dt>
-                <a name="eden-fx" href="http://www.eden-fx.com" id="eden-fx">EDEN-FX</a>
-              </dt>
-              <dd>
-      EDEN-FX is a company which develops high class technology.
-      Founded in 1999, we are working with a team of highly qualified
-      professionals specializing in hard and software engineering.  We
-      have broad experience with the FreeBSD operating system.
-      EDEN-FX solutions manufactures firewalls, wireless engineering
-      and develops network technologies.
     </dd>
               <dt>
                 <a name="EnvescentLCC" href="http://www.envescent.com/" id="EnvescentLCC">Envescent, LLC</a>
@@ -715,20 +711,6 @@
       <a href="http://www.hsdi.com/" shape="rect">visit our web site</a>.
     </dd>
               <dt>
-                <a name="imayatech" href="http://www.soportesoftwarelibre.com" id="imayatech">ImayaTech</a>
-              </dt>
-              <dd>
-      We offer professional services to companies implementing open
-      source in their IT infrastructure main in Argentina.  Our
-      solutions use OpenBSD firewalls, edge servers and authentication
-      servers.  FreeBSD used mainly in data servers.  We have over 20
-      years experience in BSD. We offer: professional services,
-      technical support, project development and infrastructure
-      analysis.  Visit our
-      <a href="http://www.soportesoftwarelibre.com/" shape="rect">website</a> for
-      more information.
-    </dd>
-              <dt>
                 <a name="improware" href="http://www.imp.ch/" id="improware">ImproWare AG</a>
               </dt>
               <dd>
@@ -760,21 +742,6 @@
       mission-critical server support and troubleshooting.  One of our
       specialist areas and preferred operating systems is FreeBSD.
       Visit our website for more information or call +44 203 002 2111.
-    </dd>
-              <dt>
-                <a name="Ipsure" href="http://www.ipsure.com/" id="Ipsure">Ipsure ICT Consultancy Services</a>
-              </dt>
-              <dd>
-      Ipsure offers IT strategic planning, system integration,
-      maintenance, administration and counsultancy services to SMEs
-      and large enterprises.  The scope of our services range from
-      initial setup of the physical layer components through the
-      application level tuning and auditing stages.  Although we
-      provide various solutions over any other *NIX systems, we have a
-      seasoned experience in building and managing clustered server
-      environments which are particularly based on FreeBSD for
-      delivering secure and stabile applications under ultra high
-      workloads.  Our company is located in Istanbul, Turkey.
     </dd>
               <dt>
                 <a name="ironkeep" href="http://www.ironkeep.net" id="ironkeep">Ironkeep Technologies L.L.C.</a>
@@ -857,26 +824,6 @@
       page!
     </dd>
               <dt>
-                <a name="LNC" href="http://www.linuxnetworkcare.com/" id="LNC">Linux Network Care</a>
-              </dt>
-              <dd>
-      Linux Network Care is based in Toronto, Ontario.  Our company is
-      specialized in providing Linux and FreeBSD based solutions for
-      small, medium and corporate sized businesses.  We provide
-      ourselves on our delivery of dependable network solutions, world
-      class server administration, tight server security and easy to
-      understand Linux training.  We also provide desktop integration
-      with Ubuntu Linux.
-    </dd>
-              <dt>
-                <a name="mejojose" href="http://www.kannayath.com" id="mejojose">Mejo Jose</a>
-              </dt>
-              <dd>
-      Open source technology consultant based in Dubai, UAE.  More
-      information on the website -
-      <a href="http://www.kannayath.com" shape="rect">www.kannayath.com</a>
-    </dd>
-              <dt>
                 <a name="Mike_Meyer" href="http://www.mired.org" id="Mike_Meyer">Mike_Meyer</a>
               </dt>
               <dd>
@@ -948,35 +895,12 @@
       information and rates.
     </dd>
               <dt>
-                <a name="NS3G" href="http://www.ns3g.com/" id="NS3G">NS3G.COM</a>
-              </dt>
-              <dd>
-      NS3G.COM, based out of Toronto, Ontario, Canada, offers a
-      variety of services and products.  We specialize in products
-      that run under FreeBSD and other *NIX systems but also support
-      other platforms.  Solutions for firewalls, LAN's, WAN'S and web
-      presence are just a few that we offer.  Please visit us at
-      <a href="http://www.ns3g.com/" shape="rect">www.ns3g.com</a> or contact us at
-      <a href="mailto:info@ns3g.com" shape="rect">info@ns3g.com</a> for more
-      information or to get a quote.
-    </dd>
-              <dt>
                 <a name="NSWITS" href="http://nswits.com.au/" id="NSWITS">NSW IT Support</a>
               </dt>
               <dd>
       NSW IT Support provides FreeBSD, OpenBSD and Linux installations
       services for secure antispam web servers that will make any
       customers happy.  Visit our <a href="http://nswits.com.au" shape="rect">website</a> for more information.
-    </dd>
-              <dt>
-                <a name="OKTS" href="http://www.okts.ca/" id="OKTS">Okanagan Technology Solutions</a>
-              </dt>
-              <dd>
-      Okanagan Technology Solutions specializes in open source
-      technologies, in particular FreeBSD, Perl, Apache, and MySQL for
-      clients in the beautiful Okanagan region of British Columbia.
-      For more information, please visit our
-      <a href="http://www.okts.ca" shape="rect">web site</a>.
     </dd>
               <dt>
                 <a name="OmarSiddique" href="http://www.heedme.com/resume" id="OmarSiddique">Omar Siddique</a>
@@ -1001,19 +925,6 @@
       information.
     </dd>
               <dt>
-                <a name="osre" href="http://www.osre.org/" id="osre">Open Software Research and Education (OSRE)</a>
-              </dt>
-              <dd>
-      Open Software Research and Education (OSRE) is a comprehensive
-      entity providing open infrastructure design, development,
-      deployment, maintenance and training.  We have extensive
-      experience with FreeBSD and most other open source operating
-      systems.  We are located in Longview, Texas and provide both
-      on-site and remote support at affordable rates.  Please visit
-      our <a href="http://www.osre.org" shape="rect">website</a> for more
-      information or call us toll-free at 1.866.235.1288.
-    </dd>
-              <dt>
                 <a name="OpenSOS" href="http://www.opensos.net/" id="OpenSOS">OpenSOS SB</a>
               </dt>
               <dd>
@@ -1025,21 +936,6 @@
       operational capability.  However we are willing to consider
       projects outside Malaysia.  We are specialized in FreeBSD,
       MacOSX and basically in all kinds of UNIX systems.
-    </dd>
-              <dt>
-                <a name="OpenWorld" href="http://www.stdio.com/" id="OpenWorld">OpenWorld</a>
-              </dt>
-              <dd>
-      OpenWorld has been providing computer, network, and security
-      consulting since 1994. Our clients? range from Fortune 500
-      companies to regional small businesses.  Our engineers each have
-      at least 10 years of experience in Unix systems and networks.
-      We provide full service consulting, implementation,
-      installation, security, and support for FreeBSD, SUN Solaris,
-      SCO Unixware, SCO OpenServer, SGI Irix, IBM AIX, Compaq Digital
-      Unix, and Cisco IOS. Please email us at
-      <a href="mailto:info@stdio.com" shape="rect">info@stdio.com</a> or call us at
-      606-514-1800 for further information.
     </dd>
               <dt>
                 <a name="oscillation" href="http://www.os-cillation.de" id="oscillation">os-cillation</a>
@@ -1069,23 +965,6 @@
       +1-850-510-6162.  Please see
       <a href="http://sirius.danosoft.com/oci/index.html" shape="rect">our website</a>
       for complete details on what we offer.
-    </dd>
-              <dt>
-                <a name="ParcProductions" href="http://www.bsdengineering.com/" id="ParcProductions">Parc Productions</a>
-              </dt>
-              <dd>
-      Parc Productions.  Located in the Netherlands.  Started in 1997.
-      We deliver professional system engineering services for FreeBSD,
-      OpenBSD and MacOS X. Our services include 24/7 support,
-      consultancy, maintenance of both hardware and software, assembly
-      and installation of hardware, remote and on-site support,
-      development of scripts and software for the machines we maintain
-      etcetera.  Of course we deliver hosting facilities and space for
-      your servers at low costs as well.  Visit our websites at
-      <a href="http://www.bsdengineering.com/" shape="rect">www.bsdengineering.com</a>.
-      Please contact us by
-      <a href="mailto:info@parcproductions.com" shape="rect">email</a> or by
-      telephone: +31-204892456.
     </dd>
               <dt>
                 <a name="pate" href="http://www.pateconsulting.com/" id="pate">Pate Consulting, Inc.</a>
@@ -1125,43 +1004,6 @@
       has been working closely on FreeBSD, Linux and proprietary OS
       environments.  For more information, visit
       <a href="http://www.paxym.com" shape="rect">http://www.paxym.com/</a>
-    </dd>
-              <dt>
-                <a name="Pendulosoftware" href="http://www.pendulosoftware.com" id="Pendulosoftware">Pendulo Software</a>
-              </dt>
-              <dd>
-      Based in Caracas, Venezuela, Pendulo Software provides and
-      specializes in support and consulting for FreeBSD and Linux
-      solutions.  We offer onsite as well as offsite support, web
-      development, design (2D and 3D), Multimedia, VPNs
-      implementation, Virtualization, VoIP, high performance servers,
-      Firewalls, custom application programming and many others
-      services.  Our experience covers the most important branches of
-      current IT industry, from routine of server management, security
-      audits and updates, to high performance computing and mitigating
-      attacks.  For more information about our services, please visit
-      our multilanguage
-      <a href="http://www.pendulosoftware.com" shape="rect">website</a>, send an
-      email to
-      <a href="mailto:atencioncliente@pendulosoftware.com" shape="rect">atencioncliente@pendulosoftware.com</a>
-      or
-      <a href="mailto:infocorp@pendulosoftware.com" shape="rect">infocorp@pendulosoftware.com</a>
-      or call us under +58 (212) 625-0708, +1 (407) 536-9895 or +1
-      (253) 642-6484.
-    </dd>
-              <dt>
-                <a name="Perceivon" href="http://www.perceivon.net" id="Perceivon">Perceivon OÜ</a>
-              </dt>
-              <dd>
-      Perceivon OÜ is an Estonian FreeBSD consulting firm with focus
-      on evaluation, implementation, and enhancement of complex
-      systems powered by the FreeBSD operating system.  We power
-      client infrastructure with ZFS, jails, bhyve, and higher-level
-      technologies including nginx, uwsgi, Django, and postgres.  We
-      proudly encourage our developers to spend up to 20% of their
-      time on contributing to the FreeBSD operating system.  For more
-      information, please send an email to
-      <a href="mailto:johannes@perceivon.net" shape="rect">johannes@perceivon.net</a>.
     </dd>
               <dt>
                 <a name="PeterDufault" href="mailto:dufault@hda.com" id="PeterDufault">Peter Dufault</a>
@@ -1230,13 +1072,13 @@
       or visit our <a href="http://www.questwork.com/" shape="rect">website</a>.
     </dd>
               <dt>
-                <a name="Raditex" href="http://www.raditex.nu/" id="Raditex">Raditex AB</a>
+                <a name="Raditex" href="http://www.raditex.nu/" id="Raditex">Raditex Control AB</a>
               </dt>
               <dd>
-      Raditex AB are a firm of consultants and also do education in
-      Unix.  We have long experience with all kinds of Unix systems
-      not only FreeBSD or Linux.  For more information phone us at +46
-      19 450105 or give us an email at
+      Raditex Control AB are a firm of consultants and also do
+      education in Unix.  We have long experience with all kinds of
+      Unix systems not only FreeBSD or Linux.  For more information
+      phone us at +46 19 450105 or give us an email at
       <a href="mailto:gorhas@raditex.nu" shape="rect">gorhas@raditex.nu</a> or
       <a href="http://raditex.nu/" shape="rect">visit our web site</a>.
     </dd>
@@ -1324,25 +1166,13 @@
       We operate in the United Kingdom.
     </dd>
               <dt>
-                <a name="siliconlandmark" href="http://siliconlandmark.com/" id="siliconlandmark">Silicon Landmark LLC</a>
+                <a name="smlan" href="https://www.smlan.de" id="smlan">SMLAN Software &amp; Management Training</a>
               </dt>
-              <dd>
-      Silicon Landmark's mission is to supply our customers with
-      fully customized, scalable, turn-key Information Technology
-      solutions at competitive prices.  We specialize in designing
-      package products that will meet and your business' needs
-      and budget.
-    </dd>
-              <dt>
-                <a name="sirius" href="http://www.siriusit.co.uk/" id="sirius">Sirius</a>
-              </dt>
-              <dd>
-      Sirius leads in the deployment, support and training of Open
-      Source technology, including FreeBSD.  We support organisations
-      across Europe in their pursuit of innovative, versatile and
-      robust technology solutions without the financial burden of
-      software licensing.
-    </dd>
+              <dd>SMLan Software &amp; Management Training is a
+      learning center for IT-Trainings. Seminars for Open Source 
+      Systems like <a href="https://www.smlan.de/seminarthemen/alle/freebsd-administration" shape="rect">
+      FreeBSD</a> are offered to companies and individuals.
+      Contact: 0049 30 4492545.</dd>
               <dt>
                 <a name="corbesero" href="mailto:corbesero@fast.net" id="corbesero">Stephen Corbesero</a>
               </dt>
@@ -1417,18 +1247,6 @@
       enterprise solution tailored to your needs.  See our website or
       email us at <a href="mailto:tecvd@tecvd.com" shape="rect">tecvd@tecvd.com</a>
       for further information.
-    </dd>
-              <dt>
-                <a name="TegtmeierInternetSolutions" href="http://www.tegtmeier.de/" id="TegtmeierInternetSolutions">Tegtmeier Internet Solutions</a>
-              </dt>
-              <dd>
-      Tegtmeier Internet Solutions is located in Hamburg / Germany.
-      We offer consulting, professional support and maintenance for
-      *BSD and Linux systems and are developing individual solutions
-      in C/Perl/PHP/SQL/HTML/shell, based on open source products.  We
-      are focused on internet security, high availability and
-      performance/optimization.  Visit our website at
-      <a href="http://www.tegtmeier.de" shape="rect">http://www.tegtmeier.de</a>.
     </dd>
               <dt>
                 <a name="TheFreeBSDMall" href="http://www.freebsdmall.com/" id="TheFreeBSDMall">The FreeBSD Mall</a>
@@ -1510,16 +1328,16 @@
       sales@tunix.nl or visit our website at www.firewall.nl.
     </dd>
               <dt>
-                <a name="UnitedWare" href="http://united-ware.com/" id="UnitedWare">UnitedWare, LLC</a>
+                <a name="ulbsdru" href="http://www.ulbsd.ru" id="ulbsdru">Ulyanovsk.BSD (ULBSD)</a>
               </dt>
-              <dd>
-      UnitedWare, LLC is a Cincinnati, Ohio based company that
-      provides FreeBSD server setup and custom web and desktop
-      applications.  We perform IT audits and solutions to identify
-      and manage the information needs of any business.  To contact us
-      visit our <a href="http://united-ware.com/" shape="rect">website</a> or give
-      us a call at (513) 563-0897.
-    </dd>
+              <dd>The Ulyanovsk.BSD (ULBSD) is a Russian company
+      located in Ulyanovsk.  We provide technical support and
+      consulting to users of ULBSD operating system that is based
+      on FreeBSD.  We provide free and paid versions of our operating
+      system.  We also answer many questions of users for free and
+      help them work in the FreeBSD and ULBSD.  For more information
+      send an email to
+      <a href="mailto:info@ulbsd.ru" shape="rect">info@ulbsd.ru</a>.</dd>
               <dt>
                 <a name="unixconsulting" href="http://www.unixconsulting.info" id="unixconsulting">Unix Consulting</a>
               </dt>
@@ -1544,24 +1362,6 @@
       <a href="http://www.UnixPorting.com/" shape="rect">our web site</a>.
     </dd>
               <dt>
-                <a name="UnixWorX" href="http://www.unixworx.ca/" id="UnixWorX">UnixWorX System Design</a>
-              </dt>
-              <dd>
-      UnixWorX System Design is a Vancouver, BC based BSD consulting
-      firm established in 1994.  For over 20 years we've provided
-      commercial support for BSD including FreeBSD, NetBSD and
-      OpenBSD.  Our specialties include Web Servers (Apache and
-      TomCat), Database, Content Management Systems (CMS), Email
-      servers such as Sendmail and Postfix, DNS (BIND 8 and 9),
-      Firewalls (PF and IPF), Routing, as well as application
-      development and Perl / C++ Programing.  We operate our own
-      server collocation facility situated on a GIG-E Backbone.
-      Additionally, the founder of the company, Glenn Graham, is an
-      author for O'Reilly Publishing.  We welcome new business!  For
-      more information, we invite you to visit our
-      <a href="http://www.unixworx.ca" shape="rect">website</a>.
-    </dd>
-              <dt>
                 <a name="venture37" href="http://www.venture37.com/" id="venture37">Venture 37 Ltd.</a>
               </dt>
               <dd>
@@ -1584,7 +1384,7 @@
       <a href="mailto:info@wirewalk.com" shape="rect">e-mail</a>.
     </dd>
               <dt>
-                <a name="Worria" href="http://worria.com/en/hosting.shtml" id="Worria">Worria Affordable Web Hosting</a>
+                <a name="Worria" href="https://worria.com" id="Worria">Worria Affordable Web Hosting</a>
               </dt>
               <dd>
       Worria Affordable Web Hosting is a privately owned company in
@@ -1620,7 +1420,7 @@
         </div>
         <div id="footer">
           <span><a href="../search/index-site.html">Site Map</a> |
-  <a href="../copyright/">Legal Notices</a> | © 1995&#8211;2018 The FreeBSD Project.
+  <a href="../copyright/">Legal Notices</a> | © 1995&#8211;2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

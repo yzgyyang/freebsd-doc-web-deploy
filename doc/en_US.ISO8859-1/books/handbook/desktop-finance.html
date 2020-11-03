@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>6.5. Finance</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="desktop.html" title="Chapter 6. Desktop Applications" /><link rel="prev" href="desktop-viewers.html" title="6.4. Document Viewers" /><link rel="next" href="multimedia.html" title="Chapter 7. Multimedia" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">6.5. Finance</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="desktop-viewers.html">Prev</a> </td><th width="60%" align="center">Chapter 6. Desktop Applications</th><td width="20%" align="right"> <a accesskey="n" href="multimedia.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="desktop-finance"></a>6.5. Finance</h2></div></div></div><p>For managing personal finances on a FreeBSD desktop, some
+      powerful and easy-to-use applications can be installed.  Some
+      are compatible with widespread file formats, such as the formats
+      used by <span class="application">Quicken</span> and
+      <span class="application">Excel</span>.</p><p>This section covers these programs:</p><div class="informaltable"><table class="informaltable" width="100%" border="0"><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th>Application Name</th><th>Resources Needed</th><th>Installation from Ports</th><th>Major Dependencies</th></tr></thead><tbody><tr><td><span class="application">GnuCash</span></td><td>light</td><td>heavy</td><td><span class="application">GNOME</span></td></tr><tr><td><span class="application">Gnumeric</span></td><td>light</td><td>heavy</td><td><span class="application">GNOME</span></td></tr><tr><td><span class="application">KMyMoney</span></td><td>light</td><td>heavy</td><td><span class="application">KDE</span></td></tr></tbody></table></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp55091320"></a>6.5.1. GnuCash</h3></div></div></div><a id="idp55091960" class="indexterm"></a><p><span class="application">GnuCash</span> is part of the
+	<span class="application">GNOME</span> effort to provide
+	user-friendly, yet powerful, applications to end-users.
+	<span class="application">GnuCash</span> can be used to keep track
+	of income and expenses, bank accounts, and stocks.  It
+	features an intuitive interface while remaining
+	professional.</p><p><span class="application">GnuCash</span> provides a smart
+	register, a hierarchical system of accounts, and many keyboard
+	accelerators and auto-completion methods.  It can split a
+	single transaction into several more detailed pieces.
+	<span class="application">GnuCash</span> can import and merge
+	<span class="application">Quicken</span> QIF files.  It also handles
+	most international date and currency formats.</p><p>To install the <span class="application">GnuCash</span>
+	package:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg install gnucash</code></strong></pre><p>If the package is not available, use the Ports
+	Collection:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/ports/finance/gnucash</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make install clean</code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp55099512"></a>6.5.2. Gnumeric</h3></div></div></div><a id="idp55100152" class="indexterm"></a><a id="idp55101048" class="indexterm"></a><p><span class="application">Gnumeric</span> is a spreadsheet
+	program developed by the <span class="application">GNOME</span>
+	community.  It features convenient automatic guessing of user
+	input according to the cell format with an autofill system
+	for many sequences.  It can import files in a number of
+	popular formats, including <span class="application">Excel</span>,
+	<span class="application">Lotus 1-2-3</span>, and
+	<span class="application">Quattro Pro</span>.  It has a large number
+	of built-in functions and allows all of the usual cell formats
+	such as number, currency, date, time, and much more.</p><p>To install <span class="application">Gnumeric</span> as a
+	package:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg install gnumeric</code></strong></pre><p>If the package is not available, use the Ports
+	Collection:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/ports/math/gnumeric</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make install clean</code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="idp55112440"></a>6.5.3. KMyMoney</h3></div></div></div><a id="idp55113080" class="indexterm"></a><a id="idp55113720" class="indexterm"></a><p><span class="application">KMyMoney</span> is a personal finance
+	application created by the <span class="application">KDE</span>
+	community.  <span class="application">KMyMoney</span> aims to
+	provide the important features found in commercial personal
+	finance manager applications.  It also highlights ease-of-use
+	and proper double-entry accounting among its features.
+	<span class="application">KMyMoney</span> imports from standard
+	<span class="application">Quicken</span> QIF files, tracks
+	investments, handles multiple currencies, and provides a
+	wealth of reports.</p><p>To install <span class="application">KMyMoney</span> as a
+	package:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>pkg install kmymoney-kde4</code></strong></pre><p>If the package is not available, use the Ports
+	Collection:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/ports/finance/kmymoney-kde4</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>make install clean</code></strong></pre></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="desktop-viewers.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="desktop.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="multimedia.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">6.4. Document Viewers </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 7. Multimedia</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>

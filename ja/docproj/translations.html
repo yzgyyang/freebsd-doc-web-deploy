@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">検索</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="../../cgi/man.cgi">マニュアルページ</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">プレゼンテーションと論文</a>
                   </li>
                   <li>
                     <a href="../../doc/en_US.ISO8859-1/books/fdp-primer">新しい貢献者のためのドキュメンテーションプロジェクト入門</a>
@@ -231,6 +233,9 @@
                   <a href="//www.FreeBSD.org/cgi/man.cgi">マニュアルページ</a>
                 </li>
                 <li>
+                  <a href="https://papers.FreeBSD.org">プレゼンテーションと論文</a>
+                </li>
+                <li>
                   <a href="../docs/books.html">Books と Articles</a>
                 </li>
                 <li>
@@ -269,92 +274,53 @@
   <li><a href="#korean" shape="rect">韓国語ドキュメンテーションプロジェクト</a></li>
   <li><a href="#mongolian" shape="rect">モンゴル語ドキュメンテーションプロジェクト</a></li>
   <li><a href="#polish" shape="rect">ポーランド語ドキュメンテーションプロジェクト</a></li>
-  <li><a href="#romanian" shape="rect">ルーマニア語ドキュメンテーションプロジェクト</a></li>
   <li><a href="#russian" shape="rect">ロシア語ドキュメンテーションプロジェクト</a></li>
   <li><a href="#spanish" shape="rect">スペイン語ドキュメンテーションプロジェクト</a></li>
   <li><a href="#turkish" shape="rect">トルコ語ドキュメンテーションプロジェクト</a></li>
+  <li><a href="#farsiPersian" shape="rect">ペルシャ語ドキュメンテーションプロジェクト</a></li>
 </ul>
 
 <a name="brazilian_portuguese" shape="rect" id="brazilian_portuguese"></a>
 <h2>FreeBSD ブラジル系ポルトガル語ドキュメンテーションプロジェクト</h2>
 
-<b>Web</b>: <a href="http://doc.fug.com.br/" shape="rect">http://doc.fug.com.br/</a><br clear="none" />
+<b>Web</b>: <a href="https://wiki.freebsd.org/BrazilianPortugueseDocumentationProject" shape="rect">
+  https://wiki.freebsd.org/BrazilianPortugueseDocumentationProject</a><br clear="none" />
 
-<b>E-Mail</b>: <a href="mailto:ebrandi@FreeBSD.org" shape="rect">ebrandi@FreeBSD.org</a><br clear="none" />
+<b>E-Mail</b>: <a href="mailto:ebrandi@FreeBSD.org" shape="rect">ebrandi@FreeBSD.org</a> もしくは
+  <a href="mailto:dbaio@FreeBSD.org" shape="rect">dbaio@FreeBSD.org</a><br clear="none" />
 
 <dl>
-  <dt><i>利用できるメーリングリスト</i></dt>
-
-  <dd>ブラジル系ポルトガル語翻訳グループのメーリングリストの購読方法は
-    次の URL <a href="https://www.fug.com.br/mailman/listinfo/doc/" shape="rect">
-    https://www.fug.com.br/mailman/listinfo/doc/</a>
-    をご覧ください。<br clear="none" />
-    メンバーのみが <a href="mailto:doc@fug.com.br" shape="rect">doc@fug.com.br</a>
-    に投稿することができます。
-  </dd>
-
   <dt><i>利用できるドキュメント</i></dt>
 
-  <dd><a href="../../doc/pt_BR.ISO8859-1/books/faq/index.html" shape="rect">FAQ</a></dd>
+  <dd><a href="../../doc/pt_BR.ISO8859-1/articles/" shape="rect">FreeBSD
+    Articles</a></dd>
 
-  <dd><a href="../../doc/pt_BR.ISO8859-1/books/fdp-primer/index.html" shape="rect">新しい貢献者のための
-    FreeBSD ドキュメンテーションプロジェクト入門</a></dd>
- 
-  <dd><a href="../../doc/pt_BR.ISO8859-1/articles/building-products/index.html" shape="rect">Building
-  Products with FreeBSD</a></dd>
-
-  <dd><a href="../../doc/pt_BR.ISO8859-1/articles/contributing/index.html" shape="rect">FreeBSD
-  への貢献</a></dd>
-
-  <dd><a href="../../doc/pt_BR.ISO8859-1/articles/explaining-bsd/index.html" shape="rect">Explaining
-  BSD</a></dd>
-
-  <dd><a href="../../doc/pt_BR.ISO8859-1/articles/freebsd-questions/index.html" shape="rect">How
-  to get best results from the FreeBSD-questions mailing list</a></dd>
-
-  <dd><a href="../../doc/pt_BR.ISO8859-1/articles/freebsd-update-server/index.html" shape="rect">Build
-  Your Own FreeBSD Update Server</a></dd>
-
-  <dd><a href="../../doc/pt_BR.ISO8859-1/articles/hubs/index.html" shape="rect">Mirroring
-  FreeBSD</a></dd>
-
-  <dd><a href="../../doc/pt_BR.ISO8859-1/articles/linux-users/index.html" shape="rect">FreeBSD
-  Quickstart Guide for Linux Users</a></dd>
-
-  <dd><a href="../../doc/pt_BR.ISO8859-1/articles/new-users/index.html" shape="rect">For
-  People New to Both FreeBSD and UNIX®</a></dd>
-
-  <dd><a href="../../doc/pt_BR.ISO8859-1/articles/problem-reports/index.html" shape="rect">FreeBSD
-  障害報告の書き方</a></dd>
+  <dd><a href="../../doc/pt_BR.ISO8859-1/books/" shape="rect">FreeBSD Books</a></dd>
 
   <dt><i>現在作業しているドキュメント</i></dt>
 
-  <dd>FreeBSD ハンドブック</dd>
+  <dd>FreeBSD アーキテクチャハンドブック</dd>
 
-  <dd>FreeBSD ウェブサイト</dd>
+  <dd>FreeBSD 開発者のためのハンドブック</dd>
 
-  <dd>FreeBSD Articles</dd>
+  <dd>4.4BSD の設計と実装</dd>
+
 </dl>
 
 <a name="bulgarian" shape="rect" id="bulgarian"></a>
 <h2>FreeBSD ブルガリア語ドキュメンテーションプロジェクト</h2>
-<b>Web</b>: <a href="http://fdp.bg-freebsd.org/" shape="rect">http://fdp.bg-freebsd.org/</a> <br clear="none" />
+<b>Web</b>: <a href="http://bg-freebsd.org/" shape="rect">http://bg-freebsd.org/</a> <br clear="none" />
 <b>E-Mail</b>: <a href="mailto:freebsd-fdp@bg-freebsd.org" shape="rect">freebsd-fdp@bg-freebsd.org</a><br clear="none" />
 
 <dl>
   <dt><i>利用できるメーリングリスト</i></dt>
 
-  <dd>ブルガリア語翻訳グループのメーリングリストの購読方法は次の URL <a href="http://lists.bg-freebsd.org/" shape="rect">http://lists.bg-freebsd.org/</a>
-    をご覧ください。<br clear="none" />
-    または、メールを <a href="mailto:freebsd-fdp-subscribe@bg-freebsd.org" shape="rect">freebsd-fdp-subscribe@bg-freebsd.org</a>
+  <dd>メールを <a href="mailto:freebsd-fdp-subscribe@bg-freebsd.org" shape="rect">freebsd-fdp-subscribe@bg-freebsd.org</a>
     へ送ってください。
     メンバーのみが <a href="mailto:freebsd-fdp@bg-freebsd.org" shape="rect">freebsd-fdp@bg-freebsd.org</a>
     に投稿することができます。</dd>
 
   <dt><i>利用できるドキュメント</i></dt>
-
-  <dd><a href="http://www.cybershade.us/freebsd/bg/fdp/split/" shape="rect">新しい
-    貢献者のための FreeBSD ドキュメンテーションプロジェクト入門</a></dd>
 
   <dt><i>現在作業しているドキュメント</i></dt>
 
@@ -379,21 +345,20 @@
 
 <a name="chinese-tw" shape="rect" id="chinese-tw"></a>
 <h2>FreeBSD 繁体字中国語ドキュメンテーションプロジェクト</h2>
-<b>Web</b>: <a href="https://opensvn.csie.org/traccgi/freebsddoc/" shape="rect">https://opensvn.csie.org/traccgi/freebsddoc/</a><br clear="none" />
+<b>Web</b>: <a href="https://www.freebsd.org/zh_TW/" shape="rect">https://www.freebsd.org/zh_TW/</a><br clear="none" />
 <b>E-Mail</b>: <a href="mailto:chinsan@FreeBSD.org" shape="rect">chinsan@FreeBSD.org</a><br clear="none" />
 
 <dl>
   <dt><i>利用できる USENET ネットグループ</i></dt>
   <dd>私たちは通常 <b>tw.bbs.comp.386bsd</b> で議論を行っています。<br clear="none" />
     以下の URL からアクセスできます。<br clear="none" />
-    <a href="http://www.cs.nctu.edu.tw/usenet/group//tw.bbs.comp.386bsd" shape="rect">NCTU CSIE Web News</a><br clear="none" />
     <a href="http://www.ptt.cc/bbs/FreeBSD/index.html" shape="rect">PTT WebBBS</a><br clear="none" />
     <a href="http://groups.google.com.tw/group/tw.bbs.comp.386bsd?lnk=sg" shape="rect">Google Group</a><br clear="none" />
     および <b>tw.bbs.comp.386bsd</b> を読むことのできるその他ニュースリーダ。
   </dd>
 
   <dt><i>利用できるドキュメント</i></dt>
-  <dd><a href="../../zh/FAQ/index.html" shape="rect">FAQ</a></dd>
+  <dd><a href="../../doc/zh_TW/books/faq/" shape="rect">FAQ</a></dd>
 
   <dt><i>現在作業しているドキュメント</i></dt>
   <dd>FreeBSD ウェブサイト</dd>
@@ -417,13 +382,8 @@
 <a name="estonian" shape="rect" id="estonian"></a>
 <h2>FreeBSD エストニア語ドキュメンテーションプロジェクト</h2>
 
-<b>Web</b>: <a href="http://www.bsd.ee/tolge.php" shape="rect">
-http://www.bsd.ee/tolge.php</a><br clear="none" />
-
-<dl>
-<dt><i>利用できるドキュメント</i></dt>
-   <dd><a href="http://www.bsd.ee/handbook/" shape="rect">FreeBSD ハンドブック</a></dd>
-</dl>
+<b>Web</b>: <a href="http://www.bsd.ee/" shape="rect">
+http://www.bsd.ee/</a><br clear="none" />
 
 <a name="french" shape="rect" id="french"></a>
 <h2>FreeBSD フランス語ドキュメンテーションプロジェクト</h2>
@@ -516,11 +476,6 @@ http://www.bsd.ee/tolge.php</a><br clear="none" />
     <a href="../../doc/hu/books/faq/" shape="rect">FAQ</a>、
     <a href="../../doc/hu/books/fdp-primer/" shape="rect">新しい貢献者のための FreeBSD ドキュメンテーションプロジェクト入門</a>
   </dd>
-<dt><i>進行中の作業用リポジトリ</i></dt>
-  <dd>
-    <a href="http://p4web.freebsd.org/@md=d&amp;cd=//depot/projects/docproj_hu/&amp;c=aXw@//depot/projects/docproj_hu/?ac=83" shape="rect">Perforce</a>
-      (doc, www および src/release/doc)。
-  </dd>
 </dl>
 
 <a name="italian" shape="rect" id="italian"></a>
@@ -561,7 +516,7 @@ http://www.bsd.ee/tolge.php</a><br clear="none" />
 <a name="korean" shape="rect" id="korean"></a>
 <h2>FreeBSD 韓国語ドキュメンテーションプロジェクト</h2>
 
-<b>Web</b>: <a href="http://www.kr.FreeBSD.org/projects/doc-kr/" shape="rect">http://www.kr.FreeBSD.org/projects/doc-kr/</a><br clear="none" />
+<b>Web</b>: <a href="https://wiki.kr.freebsd.org" shape="rect">https://wiki.kr.freebsd.org</a><br clear="none" />
 <b>E-Mail</b>: <a href="mailto:doc@kr.FreeBSD.org" shape="rect">doc@kr.FreeBSD.org</a><br clear="none" />
 
 <dl>
@@ -572,29 +527,13 @@ http://www.bsd.ee/tolge.php</a><br clear="none" />
 <a name="mongolian" shape="rect" id="mongolian"></a>
 <h2>FreeBSD モンゴル語ドキュメンテーションプロジェクト</h2>
 
-<b>Web</b>: <a href="http://www.mnbsd.org/staticpages/index.php?page=20061102180543371" shape="rect">http://www.mnbsd.org/staticpages/index.php?page=20061102180543371</a><br clear="none" />
 <b>E-Mail</b>:
   <a href="mailto:ganbold@micom.mng.net" shape="rect">ganbold@micom.mng.net</a>,
   <a href="mailto:natsag2000@yahoo.com" shape="rect">natsag2000@yahoo.com</a>,
   <a href="mailto:admin@mnbsd.org" shape="rect">admin@mnbsd.org</a><br clear="none" />
 
-<dl>
-<dt><i>現在作業中のドキュメント</i></dt>
-   <dd>FreeBSD ハンドブック。
-     FreeBSD ハンドブックのモンゴル語への翻訳は、
-     FreeBSD doc ツリーに取り込まれています。翻訳作業は続いており、
-     最新のドキュメントは、オンラインから
-     <a href="http://www.mnbsd.org/freebsd_mn_doc/" shape="rect">http://www.mnbsd.org/freebsd_mn_doc/</a>
-     で入手できます。
-     モンゴル語ドキュメンテーションプロジェクトを手助けしたい場合には、
-     <a href="http://www.mnbsd.org/freebsd_mn_doc/readme_translators.txt" shape="rect">readme_translators.txt</a>
-     や、<a href="http://www.mnbsd.org/" shape="rect">http://www.mnbsd.org/</a>
-     にあるミニガイドから読みはじめると良いでしょう。</dd>
-</dl>
-
 <a name="polish" shape="rect" id="polish"></a>
 <h2>FreeBSD ポーランド語ドキュメンテーションプロジェクト</h2>
-<b>Web</b>: <a href="http://freebsd.therek.net/" shape="rect">http://freebsd.therek.net</a><br clear="none" />
 <b>E-Mail</b>: <a href="mailto:bsd@therek.net" shape="rect">bsd@therek.net</a><br clear="none" />
 
 <dl>
@@ -602,28 +541,6 @@ http://www.bsd.ee/tolge.php</a><br clear="none" />
     <dd>いくつかのチュートリアル</dd>
 <dt><i>現在作業しているドキュメント</i></dt>
     <dd>ハンドブック</dd>
-</dl>
-
-<a name="romanian" shape="rect" id="romanian"></a>
-<h2>FreeBSD ルーマニア語ドキュメンテーションプロジェクト</h2>
-
-<b>Web</b>: <a href="http://www.rofug.ro/projects/ro-l10n/" shape="rect">http://www.rofug.ro/projects/ro-l10n/</a><br clear="none" />
-
-<b>E-Mail</b>: <a href="mailto:ady@rofug.ro" shape="rect">ady@rofug.ro</a><br clear="none" />
-
-<dl>
-  <dt><i>利用できるメーリングリスト</i></dt>
-
-  <dd>ルーマニア語翻訳グループのメーリングリストの購読方法はプロジェクトの
-    ウェブページをご覧ください。または、本文に "subscribe ro-l10n"
-    と書いたメールを <a href="mailto:listar@rofug.ro" shape="rect">listar@rofug.ro</a>
-    に送ってください。<br clear="none" />
-    メンバーのみが ro-l10n メーリングリストに投稿することができます。
-  </dd>
-
-  <dt><i>現在作業しているドキュメント</i></dt>
-
-  <dd>Handbook</dd>
 </dl>
 
 <a name="russian" shape="rect" id="russian"></a>
@@ -642,14 +559,10 @@ http://www.bsd.ee/tolge.php</a><br clear="none" />
 <a name="spanish" shape="rect" id="spanish"></a>
 <h2>FreeBSD スペイン語ドキュメンテーションプロジェクト</h2>
 
-<b>Web</b>: <a href="http://www.es.FreeBSD.org/es/" shape="rect">http://www.es.FreeBSD.org/es/</a><br clear="none" />
-<b>E-Mail</b>: <a href="mailto:jesusr@FreeBSD.org" shape="rect">jesusr@FreeBSD.org</a><br clear="none" />
+<b>Web</b>: <a href="https://www.FreeBSD.org/es/" shape="rect">https://www.FreeBSD.org/es/</a><br clear="none" />
+<b>E-Mail</b>: <a href="mailto:carlavilla@FreeBSD.org" shape="rect">carlavilla@FreeBSD.org</a><br clear="none" />
 
 <dl>
-  <dt><i>利用できるメーリングリスト</i></dt>
-
-  <dd><a href="https://listas.es.freebsd.org/mailman/listinfo/doc" shape="rect">スペイン語ドキュメンテーション</a></dd>
-
 <dt><i>利用できるドキュメント</i></dt>
    <dd><a href="../../doc/es_ES.ISO8859-1/books/faq/index.html" shape="rect">FAQ</a></dd>
    <dd><a href="../../doc/es_ES.ISO8859-1/books/handbook/index.html" shape="rect">ハンドブック</a></dd>
@@ -671,11 +584,15 @@ http://www.bsd.ee/tolge.php</a><br clear="none" />
   </dd>
 
 <dt><i>利用できるドキュメント</i></dt>
-   <dd><a href="../../tr/index.html" shape="rect">WWW</a></dd>
    <dd><a href="http://www.enderunix.org/ftdp/" shape="rect">その他のドキュメントのリスト</a></dd>
 <dt><i>現在作業しているドキュメント</i></dt>
    <dd>新しい貢献者のための FreeBSD ドキュメンテーションプロジェクト入門</dd>
 </dl>
+
+<a name="farsiPersian" shape="rect" id="farsiPersian"></a>
+<h2>FreeBSD ペルシャ語ドキュメンテーションプロジェクト</h2>
+<b>Web</b>: <a href="https://www.irbug.org/" shape="rect">Iran BSD ユーザグループ</a><br clear="none" />
+<b>E-Mail</b>: <a href="mailto:kfv@irbug.org" shape="rect">kfv@irbug.org</a><br clear="none" />
 
 <p></p><a href="docproj.html" shape="rect">FreeBSD ドキュメンテーションプロジェクトのページ</a>
 </div>
@@ -683,7 +600,7 @@ http://www.bsd.ee/tolge.php</a><br clear="none" />
         </div>
         <div id="footer">
           <span><a href="../search/index-site.html">サイトマップ</a> |
-  <a href="../copyright/">知的財産権について</a> | (C) 1995〓2018 The FreeBSD Project.
+  <a href="../copyright/">知的財産権について</a> | (C) 1995〓2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

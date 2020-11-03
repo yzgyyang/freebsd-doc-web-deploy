@@ -43,11 +43,10 @@
                 <ul id="searchnavlist"></ul>
               </div>
               <div id="search">
-                <form method="get" id="search" action="https://duckduckgo.com/">
+                <form method="get" id="search-form" action="https://duckduckgo.com/" onsubmit="document.getElementById('words').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'">
                   <h2 class="blockhide">
                     <label for="words">Search</label>
                   </h2>
-                  <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org,lists.FreeBSD.org,wiki.FreeBSD.org,forums.FreeBSD.org" />
                   <input type="hidden" name="ka" value="v" />
                   <input type="hidden" name="kt" value="v" />
                   <input type="hidden" name="kh" value="1" />
@@ -119,6 +118,9 @@
                   </li>
                   <li>
                     <a href="//www.FreeBSD.org/cgi/man.cgi">Manual Pages</a>
+                  </li>
+                  <li>
+                    <a href="https://papers.FreeBSD.org">Presentations and Papers</a>
                   </li>
                   <li>
                     <a href="../doc/en_US.ISO8859-1/books/fdp-primer">Documentation Project Primer</a>
@@ -306,12 +308,6 @@
             <h3>Asia</h3>
             <ul>
               <li>
-                <a href="consult.html#eden-fx">EDEN-FX</a>
-              </li>
-              <li>
-                <a href="consult.html#mejojose">Mejo Jose</a>
-              </li>
-              <li>
                 <a href="consult.html#OpenSOS">OpenSOS SB</a>
               </li>
               <li>
@@ -327,10 +323,13 @@
             <h3>Australia</h3>
             <ul>
               <li>
+                <a href="consult.html#audacix">Audacix</a>
+              </li>
+              <li>
                 <a href="consult.html#BMK">B.M.K. Industries</a>
               </li>
               <li>
-                <a href="consult.html#CloudBT">Cloud BT IT Support</a>
+                <a href="consult.html#CloudBT">Cloud Business Technology</a>
               </li>
               <li>
                 <a href="consult.html#Cybersource">Cybersource Pty. Ltd</a>
@@ -349,9 +348,6 @@
             <ul>
               <li>
                 <a href="consult.html#Adminia">Adminia Sistemas</a>
-              </li>
-              <li>
-                <a href="consult.html#BSDConsulting">BSD Consulting</a>
               </li>
               <li>
                 <a href="consult.html#BSDPIE">BSD Professionals In Europe (BSDPIE)</a>
@@ -393,9 +389,6 @@
                 <a href="consult.html#interfuture">Interfuture Systems Ltd</a>
               </li>
               <li>
-                <a href="consult.html#Ipsure">Ipsure ICT Consultancy Services</a>
-              </li>
-              <li>
                 <a href="consult.html#Schweikhardt">Jens Schweikhardt</a>
               </li>
               <li>
@@ -411,25 +404,19 @@
                 <a href="consult.html#NixSys">NixSys BVBA</a>
               </li>
               <li>
-                <a href="consult.html#ParcProductions">Parc Productions</a>
-              </li>
-              <li>
-                <a href="consult.html#Perceivon">Perceivon OÜ</a>
-              </li>
-              <li>
                 <a href="consult.html#RBJ-Consultants">RBJ-Consultants</a>
               </li>
               <li>
-                <a href="consult.html#Raditex">Raditex AB</a>
+                <a href="consult.html#Raditex">Raditex Control AB</a>
+              </li>
+              <li>
+                <a href="consult.html#smlan">SMLAN Software &amp; Management Training</a>
               </li>
               <li>
                 <a href="consult.html#Secnetix">Secnetix GmbH and Co KG</a>
               </li>
               <li>
                 <a href="consult.html#sheridan">Sheridan Computers Limited</a>
-              </li>
-              <li>
-                <a href="consult.html#sirius">Sirius</a>
               </li>
               <li>
                 <a href="consult.html#Supportodua">Support.od.ua</a>
@@ -441,13 +428,13 @@
                 <a href="consult.html#TecVD">TecVD</a>
               </li>
               <li>
-                <a href="consult.html#TegtmeierInternetSolutions">Tegtmeier Internet Solutions</a>
-              </li>
-              <li>
                 <a href="consult.html#Triona">Triona - Information und Technologie GmbH</a>
               </li>
               <li>
                 <a href="consult.html#tunix">Tunix</a>
+              </li>
+              <li>
+                <a href="consult.html#ulbsdru">Ulyanovsk.BSD (ULBSD)</a>
               </li>
               <li>
                 <a href="consult.html#unixconsulting">Unix Consulting</a>
@@ -498,9 +485,6 @@
                 <a href="consult.html#AspenWorks">AspenWorks, Ltd.</a>
               </li>
               <li>
-                <a href="consult.html#backwatcher">BackWatcher, Inc.</a>
-              </li>
-              <li>
                 <a href="consult.html#Clue">Clue Computing, Inc.</a>
               </li>
               <li>
@@ -531,31 +515,16 @@
                 <a href="consult.html#ironkeep">Ironkeep Technologies L.L.C.</a>
               </li>
               <li>
-                <a href="consult.html#LNC">Linux Network Care</a>
-              </li>
-              <li>
                 <a href="consult.html#Mike_Meyer">Mike_Meyer</a>
               </li>
               <li>
-                <a href="consult.html#NS3G">NS3G.COM</a>
-              </li>
-              <li>
                 <a href="consult.html#Nesbitt">Nesbitt &amp; Associates</a>
-              </li>
-              <li>
-                <a href="consult.html#OKTS">Okanagan Technology Solutions</a>
               </li>
               <li>
                 <a href="consult.html#OmarSiddique">Omar Siddique</a>
               </li>
               <li>
                 <a href="consult.html#Omniscient">Omniscient Technologies</a>
-              </li>
-              <li>
-                <a href="consult.html#osre">Open Software Research and Education (OSRE)</a>
-              </li>
-              <li>
-                <a href="consult.html#OpenWorld">OpenWorld</a>
               </li>
               <li>
                 <a href="consult.html#oullet">Ouellet Consulting Inc.</a>
@@ -579,9 +548,6 @@
                 <a href="consult.html#Puryear">Puryear Information Technology, LLC</a>
               </li>
               <li>
-                <a href="consult.html#siliconlandmark">Silicon Landmark LLC</a>
-              </li>
-              <li>
                 <a href="consult.html#corbesero">Stephen Corbesero</a>
               </li>
               <li>
@@ -600,13 +566,7 @@
                 <a href="consult.html#TundraWare">TundraWare Inc.</a>
               </li>
               <li>
-                <a href="consult.html#UnitedWare">UnitedWare, LLC</a>
-              </li>
-              <li>
                 <a href="consult.html#UnixPorting">UnixPorting</a>
-              </li>
-              <li>
-                <a href="consult.html#UnixWorX">UnixWorX System Design</a>
               </li>
               <li>
                 <a href="consult.html#Wirewalk">Wirewalk Technologies</a>
@@ -621,13 +581,10 @@
             <h3>South America</h3>
             <ul>
               <li>
+                <a href="consult.html#afreebsdbrasil">A FreeBSD Brasil</a>
+              </li>
+              <li>
                 <a href="consult.html#anonbsd">AnonBSD Inc.</a>
-              </li>
-              <li>
-                <a href="consult.html#imayatech">ImayaTech</a>
-              </li>
-              <li>
-                <a href="consult.html#Pendulosoftware">Pendulo Software</a>
               </li>
               <li>
                 <a href="consult.html#tecno21">Tecno21 - Openservices</a>
@@ -638,7 +595,7 @@
         </div>
         <div id="footer">
           <span><a href="../search/index-site.html">Site Map</a> |
-  <a href="../copyright/">Legal Notices</a> | © 1995&#8211;2018 The FreeBSD Project.
+  <a href="../copyright/">Legal Notices</a> | © 1995&#8211;2020 The FreeBSD Project.
   All rights reserved.</span>
           <br />
         </div>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /><title>18.5. Software RAID Devices</title><link rel="stylesheet" type="text/css" href="docbook.css" /><link rev="made" href="mailto:doc@FreeBSD.org" /><meta name="generator" content="DocBook XSL Stylesheets V1.79.1" /><link rel="home" href="index.html" title="FreeBSD Handbook" /><link rel="up" href="geom.html" title="Chapter 18. GEOM: Modular Disk Transformation Framework" /><link rel="prev" href="geom-raid3.html" title="18.4. RAID3 - Byte-level Striping with Dedicated Parity" /><link rel="next" href="geom-ggate.html" title="18.6. GEOM Gate Network" /><link rel="copyright" href="legalnotice.html" title="Copyright" /><script xmlns="" type="text/javascript" src="/layout/js/google.js"></script></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">18.5. Software <acronym class="acronym">RAID</acronym> Devices</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="geom-raid3.html">Prev</a> </td><th width="60%" align="center">Chapter 18. GEOM: Modular Disk Transformation Framework</th><td width="20%" align="right"> <a accesskey="n" href="geom-ggate.html">Next</a></td></tr></table><hr /></div><div class="sect1"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="geom-graid"></a>18.5. Software <acronym class="acronym">RAID</acronym> Devices</h2></div><div><span class="authorgroup">Originally contributed by <span xmlns="http://www.w3.org/1999/xhtml" class="author"><span class="firstname">Warren</span> <span class="surname">Block</span></span>. </span></div></div></div><a id="idp63665016" class="indexterm"></a><a id="idp63665912" class="indexterm"></a><p>Some motherboards and expansion cards add some simple
+      hardware, usually just a <acronym class="acronym">ROM</acronym>, that allows the
+      computer to boot from a <acronym class="acronym">RAID</acronym> array.  After
+      booting, access to the <acronym class="acronym">RAID</acronym> array is handled
+      by software running on the computer's main processor.  This
+      <span class="quote">&#8220;<span class="quote">hardware-assisted software
+	<acronym class="acronym">RAID</acronym></span>&#8221;</span> gives <acronym class="acronym">RAID</acronym>
+      arrays that are not dependent on any particular operating
+      system, and which are functional even before an operating system
+      is loaded.</p><p>Several levels of <acronym class="acronym">RAID</acronym> are supported,
+      depending on the hardware in use.  See <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=graid&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">graid</span>(8)</span></a> for a
+      complete list.</p><p><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=graid&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">graid</span>(8)</span></a> requires the <code class="filename">geom_raid.ko</code>
+      kernel module, which is included in the
+      <code class="filename">GENERIC</code> kernel starting with FreeBSD 9.1.
+      If needed, it can be loaded manually with
+      <code class="command">graid load</code>.</p><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="geom-graid-creating"></a>18.5.1. Creating an Array</h3></div></div></div><p>Software <acronym class="acronym">RAID</acronym> devices often have a menu
+	that can be entered by pressing special keys when the computer
+	is booting.  The menu can be used to create and delete
+	<acronym class="acronym">RAID</acronym> arrays.  <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=graid&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">graid</span>(8)</span></a> can also create
+	arrays directly from the command line.</p><p><code class="command">graid label</code> is used to create a new
+	array.  The motherboard used for this example has an Intel
+	software <acronym class="acronym">RAID</acronym> chipset, so the Intel
+	metadata format is specified.  The new array is given a label
+	of <code class="filename">gm0</code>, it is a mirror
+	(<acronym class="acronym">RAID1</acronym>), and uses drives
+	<code class="filename">ada0</code> and
+	<code class="filename">ada1</code>.</p><div xmlns="" class="caution"><h3 class="admontitle">Caution: </h3><p xmlns="http://www.w3.org/1999/xhtml">Some space on the drives will be overwritten when they
+	  are made into a new array.  Back up existing data
+	  first!</p></div><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>graid label Intel gm0 RAID1 ada0 ada1</code></strong>
+GEOM_RAID: Intel-a29ea104: Array Intel-a29ea104 created.
+GEOM_RAID: Intel-a29ea104: Disk ada0 state changed from NONE to ACTIVE.
+GEOM_RAID: Intel-a29ea104: Subdisk gm0:0-ada0 state changed from NONE to ACTIVE.
+GEOM_RAID: Intel-a29ea104: Disk ada1 state changed from NONE to ACTIVE.
+GEOM_RAID: Intel-a29ea104: Subdisk gm0:1-ada1 state changed from NONE to ACTIVE.
+GEOM_RAID: Intel-a29ea104: Array started.
+GEOM_RAID: Intel-a29ea104: Volume gm0 state changed from STARTING to OPTIMAL.
+Intel-a29ea104 created
+GEOM_RAID: Intel-a29ea104: Provider raid/r0 for volume gm0 created.</pre><p>A status check shows the new mirror is ready for
+	use:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>graid status</code></strong>
+   Name   Status  Components
+raid/r0  OPTIMAL  ada0 (ACTIVE (ACTIVE))
+                  ada1 (ACTIVE (ACTIVE))</pre><p>The array device appears in
+	<code class="filename">/dev/raid/</code>.  The first array is called
+	<code class="filename">r0</code>.  Additional arrays, if present, will
+	be <code class="filename">r1</code>, <code class="filename">r2</code>, and so
+	on.</p><p>The <acronym class="acronym">BIOS</acronym> menu on some of these devices
+	can create arrays with special characters in their names.  To
+	avoid problems with those special characters, arrays are given
+	simple numbered names like <code class="filename">r0</code>.  To show
+	the actual labels, like <code class="filename">gm0</code> in the
+	example above, use <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=sysctl&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">sysctl</span>(8)</span></a>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>sysctl kern.geom.raid.name_format=1</code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="geom-graid-volumes"></a>18.5.2. Multiple Volumes</h3></div></div></div><p>Some software <acronym class="acronym">RAID</acronym> devices support
+	more than one <span class="emphasis"><em>volume</em></span> on an array.
+	Volumes work like partitions, allowing space on the physical
+	drives to be split and used in different ways.  For example,
+	Intel software <acronym class="acronym">RAID</acronym> devices support two
+	volumes.  This example creates a 40 G mirror for safely
+	storing the operating system, followed by a 20 G
+	<acronym class="acronym">RAID0</acronym> (stripe) volume for fast temporary
+	storage:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>graid label -S 40G Intel gm0 RAID1 ada0 ada1</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>graid add -S 20G gm0 RAID0</code></strong></pre><p>Volumes appear as additional
+	<code class="filename">r<em class="replaceable"><code>X</code></em></code> entries
+	in <code class="filename">/dev/raid/</code>.  An array with two volumes
+	will show <code class="filename">r0</code> and
+	<code class="filename">r1</code>.</p><p>See <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=graid&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">graid</span>(8)</span></a> for the number of volumes supported by
+	different software <acronym class="acronym">RAID</acronym> devices.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="geom-graid-converting"></a>18.5.3. Converting a Single Drive to a Mirror</h3></div></div></div><p>Under certain specific conditions, it is possible to
+	convert an existing single drive to a <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=graid&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">graid</span>(8)</span></a> array
+	without reformatting.  To avoid data loss during the
+	conversion, the existing drive must meet these minimum
+	requirements:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>The drive must be partitioned with the
+	    <acronym class="acronym">MBR</acronym> partitioning scheme.
+	    <acronym class="acronym">GPT</acronym> or other partitioning schemes with
+	    metadata at the end of the drive will be overwritten and
+	    corrupted by the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=graid&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">graid</span>(8)</span></a> metadata.</p></li><li class="listitem"><p>There must be enough unpartitioned and unused space at
+	    the end of the drive to hold the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=graid&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">graid</span>(8)</span></a> metadata.
+	    This metadata varies in size, but the largest occupies
+	    64 M, so at least that much free space is
+	    recommended.</p></li></ul></div><p>If the drive meets these requirements, start by making a
+	full backup.  Then create a single-drive mirror with that
+	drive:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>graid label Intel gm0 RAID1 ada0 NONE</code></strong></pre><p><a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=graid&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">graid</span>(8)</span></a> metadata was written to the end of the drive
+	in the unused space.  A second drive can now be inserted into
+	the mirror:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>graid insert raid/r0 ada1</code></strong></pre><p>Data from the original drive will immediately begin to be
+	copied to the second drive.  The mirror will operate in
+	degraded status until the copy is complete.</p></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="geom-graid-inserting"></a>18.5.4. Inserting New Drives into the Array</h3></div></div></div><p>Drives can be inserted into an array as replacements for
+	drives that have failed or are missing.  If there are no
+	failed or missing drives, the new drive becomes a spare.  For
+	example, inserting a new drive into a working two-drive mirror
+	results in a two-drive mirror with one spare drive, not a
+	three-drive mirror.</p><p>In the example mirror array, data immediately begins to be
+	copied to the newly-inserted drive.  Any existing information
+	on the new drive will be overwritten.</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>graid insert raid/r0 ada1</code></strong>
+GEOM_RAID: Intel-a29ea104: Disk ada1 state changed from NONE to ACTIVE.
+GEOM_RAID: Intel-a29ea104: Subdisk gm0:1-ada1 state changed from NONE to NEW.
+GEOM_RAID: Intel-a29ea104: Subdisk gm0:1-ada1 state changed from NEW to REBUILD.
+GEOM_RAID: Intel-a29ea104: Subdisk gm0:1-ada1 rebuild start at 0.</pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="geom-graid-removing"></a>18.5.5. Removing Drives from the Array</h3></div></div></div><p>Individual drives can be permanently removed from a
+	from an array and their metadata erased:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>graid remove raid/r0 ada1</code></strong>
+GEOM_RAID: Intel-a29ea104: Disk ada1 state changed from ACTIVE to OFFLINE.
+GEOM_RAID: Intel-a29ea104: Subdisk gm0:1-[unknown] state changed from ACTIVE to NONE.
+GEOM_RAID: Intel-a29ea104: Volume gm0 state changed from OPTIMAL to DEGRADED.</pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="geom-graid-stopping"></a>18.5.6. Stopping the Array</h3></div></div></div><p>An array can be stopped without removing metadata from the
+	drives.  The array will be restarted when the system is
+	booted.</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>graid stop raid/r0</code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="geom-graid-status"></a>18.5.7. Checking Array Status</h3></div></div></div><p>Array status can be checked at any time.  After a drive
+	was added to the mirror in the example above, data is being
+	copied from the original drive to the new drive:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>graid status</code></strong>
+   Name    Status  Components
+raid/r0  DEGRADED  ada0 (ACTIVE (ACTIVE))
+                   ada1 (ACTIVE (REBUILD 28%))</pre><p>Some types of arrays, like <code class="literal">RAID0</code> or
+	<code class="literal">CONCAT</code>, may not be shown in the status
+	report if disks have failed.  To see these partially-failed
+	arrays, add <code class="option">-ga</code>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>graid status -ga</code></strong>
+          Name  Status  Components
+Intel-e2d07d9a  BROKEN  ada6 (ACTIVE (ACTIVE))</pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="geom-graid-deleting"></a>18.5.8. Deleting Arrays</h3></div></div></div><p>Arrays are destroyed by deleting all of the volumes from
+	them.  When the last volume present is deleted, the array is
+	stopped and metadata is removed from the drives:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>graid delete raid/r0</code></strong></pre></div><div class="sect2"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="geom-graid-unexpected"></a>18.5.9. Deleting Unexpected Arrays</h3></div></div></div><p>Drives may unexpectedly contain <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=graid&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">graid</span>(8)</span></a> metadata,
+	either from previous use or manufacturer testing.
+	<a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=graid&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">graid</span>(8)</span></a> will detect these drives and create an array,
+	interfering with access to the individual drive.  To remove
+	the unwanted metadata:</p><div class="procedure"><ol class="procedure" type="1"><li class="step"><p>Boot the system.  At the boot menu, select
+	    <code class="literal">2</code> for the loader prompt.  Enter:</p><pre class="screen">OK <strong class="userinput"><code>set kern.geom.raid.enable=0</code></strong>
+OK <strong class="userinput"><code>boot</code></strong></pre><p>The system will boot with <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=graid&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">graid</span>(8)</span></a>
+	    disabled.</p></li><li class="step"><p>Back up all data on the affected drive.</p></li><li class="step"><p>As a workaround, <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=graid&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">graid</span>(8)</span></a> array detection
+	    can be disabled by adding</p><pre class="programlisting">kern.geom.raid.enable=0</pre><p>to <code class="filename">/boot/loader.conf</code>.</p><p>To permanently remove the <a class="citerefentry" href="https://www.FreeBSD.org/cgi/man.cgi?query=graid&amp;sektion=8&amp;manpath=freebsd-release-ports"><span class="citerefentry"><span class="refentrytitle">graid</span>(8)</span></a> metadata
+	    from the affected drive, boot a FreeBSD installation
+	    <acronym class="acronym">CD-ROM</acronym> or memory stick, and select
+	    <code class="literal">Shell</code>.  Use <code class="command">status</code>
+	    to find the name of the array, typically
+	    <code class="literal">raid/r0</code>:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>graid status</code></strong>
+   Name   Status  Components
+raid/r0  OPTIMAL  ada0 (ACTIVE (ACTIVE))
+                  ada1 (ACTIVE (ACTIVE))</pre><p>Delete the volume by name:</p><pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>graid delete raid/r0</code></strong></pre><p>If there is more than one volume shown, repeat the
+	    process for each volume.  After the last array has been
+	    deleted, the volume will be destroyed.</p><p>Reboot and verify data, restoring from backup if
+	    necessary.  After the metadata has been removed, the
+	    <code class="literal">kern.geom.raid.enable=0</code> entry in
+	    <code class="filename">/boot/loader.conf</code> can also be
+	    removed.</p></li></ol></div></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="geom-raid3.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="geom.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="geom-ggate.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">18.4. <acronym class="acronym">RAID</acronym>3 - Byte-level Striping with
+	Dedicated Parity </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 18.6. <acronym class="acronym">GEOM</acronym> Gate Network</td></tr></table></div><p xmlns="" align="center"><small>All FreeBSD documents are available for download
+    at <a href="https://download.freebsd.org/ftp/doc/">https://download.freebsd.org/ftp/doc/</a></small></p><p xmlns="" align="center"><small>Questions that are not answered by the
+    <a href="https://www.FreeBSD.org/docs.html">documentation</a> may be
+    sent to &lt;<a href="mailto:freebsd-questions@FreeBSD.org">freebsd-questions@FreeBSD.org</a>&gt;.<br />
+    Send questions about this document to &lt;<a href="mailto:freebsd-doc@FreeBSD.org">freebsd-doc@FreeBSD.org</a>&gt;.</small></p></body></html>
