@@ -327,6 +327,43 @@ DESCRIPTION:On November 20th 2020 from 17:00 UTC there will be an 1 hour live
 END:VEVENT
 BEGIN:VEVENT
 SEQUENCE:26
+SUMMARY:FreeBSD Office Hours
+URL;VALUE=URI:https://live.freebsd.org/FreeBSD/officehours/
+LOCATION:live.FreeBSD.org
+
+DTSTART;VALUE=DATE:20201203
+DESCRIPTION:On December 3rd at 18:00 UTC we will hold a
+      "FreeBSD Office Hours", an interactive online event
+      where users, contributors, and developers can ask questions or to offer
+      comments. The topic will be "Git Q&A."
+      For more information please see the
+      Office Hours
+      page on the FreeBSD wiki.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:27
+SUMMARY:FreeBSD Friday: Intro to Capsicum
+URL;VALUE=URI:https://live.freebsd.org/FreeBSD/freebsdfriday/
+LOCATION:live.FreeBSD.org
+
+DTSTART;VALUE=DATE:20201211
+DESCRIPTION:On December 11th 2020 from 18:00 UTC there will be an 1 hour live
+      streaming session of the FreeBSD Fridays. The topic of this week is:
+      Intro to Capsicum by Mariusz Zaborski.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:28
+SUMMARY:FreeBSD Friday: Intro to Documentation
+URL;VALUE=URI:https://live.freebsd.org/FreeBSD/freebsdfriday/
+LOCATION:live.FreeBSD.org
+
+DTSTART;VALUE=DATE:20201218
+DESCRIPTION:On December 18th 2020 from 18:00 UTC there will be an 1 hour live
+      streaming session of the FreeBSD Fridays. The topic of this week is:
+      Intro to Documentation by Sergio Carlavilla.
+END:VEVENT
+BEGIN:VEVENT
+SEQUENCE:29
 SUMMARY:FOSDEM 2019
 URL;VALUE=URI:https://fosdem.org/2019/
 LOCATION:Free University of Brussels, Solbosch Campus, Brussels, Belgium
@@ -345,7 +382,7 @@ DESCRIPTION:The Free and Open Source Software Developers'
 	CfP.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:27
+SEQUENCE:30
 SUMMARY:AsiaBSDCon 2019
 URL;VALUE=URI:https://2019.asiabsdcon.org/
 LOCATION:Tokyo University of Science, Tokyo, Japan
@@ -362,7 +399,7 @@ DESCRIPTION:AsiaBSDCon is a conference for users and developers
       audience.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:28
+SEQUENCE:31
 SUMMARY:FreeBSD Community Day
 URL;VALUE=URI:https://wiki.freebsd.org/DevSummit/201904
 LOCATION:B3 Consulting Group, Kè´£mpegatan 6, Gothenburg, Sweden
@@ -374,7 +411,7 @@ DESCRIPTION:The FreeBSD Community Day in Gothenburg is hosted in
       an interest in FreeBSD, who wants to learn more about the project.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:29
+SEQUENCE:32
 SUMMARY:Hackathon 201904
 URL;VALUE=URI:https://wiki.freebsd.org/Hackathon/201904
 LOCATION:University of Aberdeen, Fraser Noble Building,
@@ -388,7 +425,7 @@ DESCRIPTION:The Aberdeen hackathon is placed at the half way
       March 31st, 2019.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:30
+SEQUENCE:33
 SUMMARY:BSDCan 2019
 URL;VALUE=URI:https://www.bsdcan.org/2019/
 LOCATION:University of Ottawa, Ottawa, Canada
@@ -400,7 +437,7 @@ DESCRIPTION:A four day BSD conference held in Ottawa, Canada.
       around the BSD family of operating systems.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:31
+SEQUENCE:34
 SUMMARY:Waterloo Hackathon 2019
 URL;VALUE=URI:https://wiki.freebsd.org/Hackathon/201905
 LOCATION:University of Waterloo, Kitchener-Waterloo, Canada
@@ -412,7 +449,7 @@ DESCRIPTION:Join fellow FreeBSD developers for a few days of collaborative
       after BSDCan.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:32
+SEQUENCE:35
 SUMMARY:BSDday Argentina 2019
 URL;VALUE=URI:http://bsdday.com.ar/
 LOCATION:Departamento de Computacion de la Facultad de Ciencias
@@ -429,7 +466,7 @@ DESCRIPTION:The BSDday is an event where users, administrators
       world.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:33
+SEQUENCE:36
 SUMMARY:Vienna Security Hackathon 2019
 URL;VALUE=URI:https://wiki.freebsd.org/Hackathon/201906
 LOCATION:SBA Research, Vienna, Austria
@@ -446,7 +483,7 @@ DESCRIPTION:This hackathon in Vienna is focused on security, but
       planned on the Monday after.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:34
+SEQUENCE:37
 SUMMARY:HKOSCON 2019
 URL;VALUE=URI:https://hkoscon.org/2019
 LOCATION:Convention Centre 2, Hong Kong Science Park, Shatin
@@ -461,7 +498,7 @@ DESCRIPTION:Hong Kong Open Source Conference is one of the major
       FreeBSD.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:35
+SEQUENCE:38
 SUMMARY:Berlin FreeBSD DevSummit
 URL;VALUE=URI:https://wiki.freebsd.org/DevSummit/201906
 LOCATION:Bally Wulff Games & Entertainment GmbH, Berlin, Germany
@@ -476,7 +513,7 @@ DESCRIPTION:This devsummit will be run "un-conference" style,
       event.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:36
+SEQUENCE:39
 SUMMARY:Comcast Labs Connect 2nd Annual Open Source
       Conference
 URL;VALUE=URI:https://www.comcastlabsconnect.com/open-source-2019
@@ -494,7 +531,7 @@ DESCRIPTION:Comcast Labs Connect in partnership with the Comcast
       driving the technology forward.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:37
+SEQUENCE:40
 SUMMARY:Rootconf 2019
 URL;VALUE=URI:https://rootconf.in/2019/
 LOCATION:, Bangalore, India
@@ -510,7 +547,7 @@ DESCRIPTION:Join members of the FreeBSD community at Rootconf
       distributed systems.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:38
+SEQUENCE:41
 SUMMARY:OSCON 2019
 URL;VALUE=URI:https://conferences.oreilly.com/oscon/oscon-or
 LOCATION:, Portland, United States
@@ -521,7 +558,7 @@ DESCRIPTION:The FreeBSD Foundation will have a table in the expo
       hall to promote FreeBSD.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:39
+SEQUENCE:42
 SUMMARY:COSCUP 2019
 URL;VALUE=URI:https://coscup.org/2019
 LOCATION:, Taipei, Taiwan
@@ -534,7 +571,7 @@ DESCRIPTION:COSCUP is an annual conference held by Taiwanese Open
       FreeBSD.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:40
+SEQUENCE:43
 SUMMARY:Open Source Summit North America
 URL;VALUE=URI:https://events.linuxfoundation.org/events/open-source-summit-north-america-2019/
 LOCATION:, San Diego, United States
@@ -549,7 +586,7 @@ DESCRIPTION:Join over 2,000 developers, technologists, and
       FreeBSD.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:41
+SEQUENCE:44
 SUMMARY:vBSDcon 2019
 URL;VALUE=URI:https://vbsdcon.com
 LOCATION:Hyatt Regency, Reston, United States
@@ -562,7 +599,7 @@ DESCRIPTION:vBSDCon will bring together members of the BSD
       opportunities.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:42
+SEQUENCE:45
 SUMMARY:EuroBSDcon 2019
 URL;VALUE=URI:https://2019.eurobsdcon.org
 LOCATION:Scandic Lillehammer Hotel, Lillehammer, Norway
@@ -575,7 +612,7 @@ DESCRIPTION:EuroBSDcon is the European annual technical
       family and related projects.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:43
+SEQUENCE:46
 SUMMARY:Bay Area FreeBSD Vendor and Developer Summit
 URL;VALUE=URI:https://wiki.freebsd.org/DevSummit/201910
 LOCATION:Intel Campus, SC12 building, 3600 Juliette Lane, Santa Clara, CA, United States
@@ -591,7 +628,7 @@ DESCRIPTION:This by-invitation event wants to bring together
      networking within the industry.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:44
+SEQUENCE:47
 SUMMARY:LISA19
 URL;VALUE=URI:https://www.usenix.org/conference/lisa19
 LOCATION:Portland Marriott Downtown Waterfront, Portland, United States
@@ -606,7 +643,7 @@ DESCRIPTION:LISA is the premier conference for operations
        critical systems of our interconnected world.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:45
+SEQUENCE:48
 SUMMARY:FOSDEM 2018
 URL;VALUE=URI:https://fosdem.org/2018/
 LOCATION:Free University of Brussels, Solbosch Campus, Brussels, Belgium
@@ -621,7 +658,7 @@ DESCRIPTION:FOSDEM is an event centered on free and open-source
       share information about the project.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:46
+SEQUENCE:49
 SUMMARY:AsiaBSDCon 2018
 URL;VALUE=URI:https://2018.asiabsdcon.org/
 LOCATION:Tokyo University of Science, Tokyo, Japan
@@ -638,7 +675,7 @@ DESCRIPTION:AsiaBSDCon is a conference for users and developers
       audience.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:47
+SEQUENCE:50
 SUMMARY:BSDCan 2018
 URL;VALUE=URI:https://www.bsdcan.org/2018/
 LOCATION:University of Ottawa, Ottawa, Canada
@@ -650,7 +687,7 @@ DESCRIPTION:A four day BSD conference held in Ottawa, Canada.
       around the BSD family of operating systems.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:48
+SEQUENCE:51
 SUMMARY:Essen Hackathon 2018
 URL;VALUE=URI:https://wiki.freebsd.org/DevSummit/201808Hackathon
 LOCATION:Linuxhotel Villa Vogelsang, Essen, Germany
@@ -663,7 +700,7 @@ DESCRIPTION:A weekend hackathon at the Linuxhotel in Essen,
       FreeBSD.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:49
+SEQUENCE:52
 SUMMARY:2018 Cambridge Devsummit (BSDCam)
 URL;VALUE=URI:https://bsdcam.cl.cam.ac.uk
 LOCATION:University of Cambridge Computer Laboratory, Cambridge, United Kingdom
@@ -682,7 +719,7 @@ DESCRIPTION:An unconference style developer summit with a focus
       testing.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:50
+SEQUENCE:53
 SUMMARY:EuroBSDcon 2018
 URL;VALUE=URI:https://2018.eurobsdcon.org
 LOCATION:University Politehnica of Bucharest, Bucharest, Romania
@@ -707,7 +744,7 @@ DESCRIPTION:EuroBSDcon is the European annual technical
       meeting.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:51
+SEQUENCE:54
 SUMMARY:MeetBSD 2018
 URL;VALUE=URI:https://www.meetbsd.com/
 LOCATION:Intel Campus, Santa Clara, CA, United States
@@ -720,7 +757,7 @@ DESCRIPTION:MeetBSD 2018 is a mixed unConference format event
       sessions.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:52
+SEQUENCE:55
 SUMMARY:FOSDEM 2017
 URL;VALUE=URI:https://fosdem.org/2017/
 LOCATION:Free University of Brussels, Solbosch Campus, Brussels, Belgium
@@ -735,7 +772,7 @@ DESCRIPTION:FOSDEM is an event centered on free and open-source
       share information about the project.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:53
+SEQUENCE:56
 SUMMARY:AsiaBSDCon 2017
 URL;VALUE=URI:https://2017.asiabsdcon.org/
 LOCATION:Tokyo University of Science, Tokyo, Japan
@@ -752,7 +789,7 @@ DESCRIPTION:AsiaBSDCon is a conference for users and developers
       audience.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:54
+SEQUENCE:57
 SUMMARY:BSDCan 2017
 URL;VALUE=URI:https://www.bsdcan.org/2017/
 LOCATION:University of Ottawa, Ottawa, Canada
@@ -764,7 +801,7 @@ DESCRIPTION:A four day BSD conference held in Ottawa, Canada.
       around the BSD family of operating systems.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:55
+SEQUENCE:58
 SUMMARY:FreeBSD Day Armenia
 URL;VALUE=URI:https://www.facebook.com/events/113662152573216/?active_tab=about
 LOCATION:IBM Innovative Solution & Technologies Center, Yerevan, Armenia
@@ -775,7 +812,7 @@ DESCRIPTION:Celebrate FreeBSD Day in Yerevan.  Install FreeBSD,
       more.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:56
+SEQUENCE:59
 SUMMARY:Essen Hackathon 2017
 URL;VALUE=URI:https://wiki.freebsd.org/DevSummit/201707
 LOCATION:Linuxhotel Villa Vogelsang, Essen, Germany
@@ -788,7 +825,7 @@ DESCRIPTION:A weekend hackathon at the Linuxhotel in Essen,
       FreeBSD.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:57
+SEQUENCE:60
 SUMMARY:2017 Cambridge Devsummit (BSDCam)
 URL;VALUE=URI:https://wiki.freebsd.org/DevSummit/201708
 LOCATION:University of Cambridge Computer Laboratory, Cambridge, United Kingdom
@@ -807,7 +844,7 @@ DESCRIPTION:An unconference style developer summit with a focus
       testing.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:58
+SEQUENCE:61
 SUMMARY:vBSDcon 2017
 URL;VALUE=URI:http://www.vbsdcon.com
 LOCATION:Hyatt Regency Reston, Reston, Virginia, United States
@@ -820,7 +857,7 @@ DESCRIPTION:This exciting weekend will bring together members of
       networking opportunities.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:59
+SEQUENCE:62
 SUMMARY:EuroBSDcon 2017
 URL;VALUE=URI:https://2017.eurobsdcon.org
 LOCATION:Espace Saint Martin, Paris, France
@@ -845,7 +882,7 @@ DESCRIPTION:EuroBSDcon is the European annual technical
       meeting.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:60
+SEQUENCE:63
 SUMMARY:BSDTW 2017
 URL;VALUE=URI:https://2017.bsdtw.org
 LOCATION:Beitou Resort, Taipei, Taiwan
@@ -859,7 +896,7 @@ DESCRIPTION:BSDTW is a conference that aims to bring out more
       presentations, food, and activities.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:61
+SEQUENCE:64
 SUMMARY:Building Products with FreeBSD
 URL;VALUE=URI:http://freebsd.kktix.cc/events/gnn-talk-2016
 LOCATION:Gandi Asia Co. Ltd, Taipei, Taiwan
@@ -870,7 +907,7 @@ DESCRIPTION:George Neville-Neil will be giving a talk entitled
       FreeBSD community and FreeBSD Foundation.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:62
+SEQUENCE:65
 SUMMARY:Usenix LISA 2016
 URL;VALUE=URI:https://www.usenix.org/conference/lisa16
 LOCATION:Sheraton Boston Hotel, Boston, MA, United States
@@ -885,7 +922,7 @@ DESCRIPTION:USENIX°«s Large Installation System Administration
       the critical systems of our interconnected world.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:63
+SEQUENCE:66
 SUMMARY:MeetBSD 2016
 URL;VALUE=URI:https://www.meetbsd.com/
 LOCATION:Clark Kerr Campus, UC Berkeley, Berkeley, CA, United States
@@ -898,7 +935,7 @@ DESCRIPTION:MeetBSD 2016 is a mixed unConference format featuring
       and speed geeking sessions.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:64
+SEQUENCE:67
 SUMMARY:Ohio Linux Fest 2016
 URL;VALUE=URI:https://ohiolinux.org/
 LOCATION:Hyatt Regency, Columbus, OH, United States
@@ -916,7 +953,7 @@ DESCRIPTION:The Ohio LinuxFest is a grassroots conference for the
       projects.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:65
+SEQUENCE:68
 SUMMARY:OpenZFS Developers Summit 2016
 URL;VALUE=URI:http://open-zfs.org/wiki/OpenZFS_Developer_Summit_2016
 LOCATION:Children's Creativity Museum, San Francisco, CA, United States
@@ -930,7 +967,7 @@ DESCRIPTION:The goal of the event is to foster cross-community
       open until August 1, 2016.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:66
+SEQUENCE:69
 SUMMARY:EuroBSDcon 2016
 URL;VALUE=URI:http://2016.eurobsdcon.org/
 LOCATION:Radisson Blu Old Mill Hotel, Belgrade, Serbia
@@ -947,7 +984,7 @@ DESCRIPTION:EuroBSDcon is the premier European conference on the
       developers.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:67
+SEQUENCE:70
 SUMMARY:Texas Linux Fest 2016
 URL;VALUE=URI:http://2016.texaslinuxfest.org/
 LOCATION:Austin Convention Center, San Marcos, TX, United States
@@ -962,7 +999,7 @@ DESCRIPTION:Texas Linux Fest is an open source software event for
       alike.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:68
+SEQUENCE:71
 SUMMARY:BSDCan 2016
 URL;VALUE=URI:http://www.bsdcan.org/2016/
 LOCATION:University of Ottawa, Ottawa, Canada
@@ -979,7 +1016,7 @@ DESCRIPTION:BSDCan is a technical conference for people working
       PGCon at the same location.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:69
+SEQUENCE:72
 SUMMARY:AsiaBSDCon 2016
 URL;VALUE=URI:http://2016.asiabsdcon.org/
 LOCATION:Tokyo University of Science, Tokyo, Japan
@@ -997,7 +1034,7 @@ DESCRIPTION:AsiaBSDCon is a conference for users and developers
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:70
+SEQUENCE:73
 SUMMARY:Fosdem 2016
 URL;VALUE=URI:https://fosdem.org/2016/
 LOCATION:ULB Campus Solbosch, Brussels, Belgium
@@ -1015,7 +1052,7 @@ DESCRIPTION:FOSDEM is a free event for software developers to
       BSDs.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:71
+SEQUENCE:74
 SUMMARY:FreeBSD Kernel Internals: An Intensive Code
       Walkthrough
 URL;VALUE=URI:https://www.mckusick.com/courses/adveveclass.html
@@ -1037,7 +1074,7 @@ DESCRIPTION:Marshall Kirk McKusick will be teaching his course
       classes week-by-week as they are recorded.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:72
+SEQUENCE:75
 SUMMARY:SCaLE 14x: The Southern California Linux Expo
 URL;VALUE=URI:https://www.socallinuxexpo.org
 LOCATION:Pasadena Convention Center, Pasadena, United States
@@ -1062,7 +1099,7 @@ DESCRIPTION:
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:73
+SEQUENCE:76
 SUMMARY:FreeBSD Kernel Class
 URL;VALUE=URI:https://www.mckusick.com/courses/introeveclass.html
 LOCATION:Hillside Club, Berkeley, United States
@@ -1081,7 +1118,7 @@ DESCRIPTION:Marshall Kirk McKusick will be teaching his FreeBSD
       classes week-by-week as they are recorded at https://www.mckusick.com/courses/introorderform.html.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:74
+SEQUENCE:77
 SUMMARY:FOSDEM '15
 URL;VALUE=URI:http://fosdem.org/2015/
 LOCATION:ULB Campus Solbosh, Brussels, Belgium
@@ -1096,7 +1133,7 @@ DESCRIPTION:FOSDEM '15 is a free and non-commercial event organized
       Several FreeBSD developers will be present.  
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:75
+SEQUENCE:78
 SUMMARY:AsiaBSDCon 2015
 URL;VALUE=URI:http://2015.asiabsdcon.org/
 LOCATION:Tokyo University of Science, Tokyo, Japan
@@ -1114,7 +1151,7 @@ DESCRIPTION:AsiaBSDCon is a conference for users and developers
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:76
+SEQUENCE:79
 SUMMARY:Solutions Linux'15
 URL;VALUE=URI:http://www.solutionslinux.fr/?lg=en
 LOCATION:CNIT, Paris - La Dè´±fense, France
@@ -1130,7 +1167,7 @@ DESCRIPTION:Solutions Linux is one of the major corporate events
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:77
+SEQUENCE:80
 SUMMARY:BSDCan 2015
 URL;VALUE=URI:http://www.bsdcan.org/
 LOCATION:University of Ottawa, Ottawa, Canada
@@ -1148,7 +1185,7 @@ DESCRIPTION:BSDCan is a technical conference for people working
       immediately by PGCon at the same location.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:78
+SEQUENCE:81
 SUMMARY:EuroBSDCon 2015
 URL;VALUE=URI:http://2015.eurobsdcon.org/
 LOCATION:Stockholm University, Stockholm, Sweden
@@ -1167,7 +1204,7 @@ DESCRIPTION:EuroBSDcon is the premier European conference on the
       conference.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:79
+SEQUENCE:82
 SUMMARY:vBSDCon 2015
 URL;VALUE=URI:http://www.vbsdcon.com/
 LOCATION:Sheraton Reston Hotel, Reston, United States
@@ -1180,7 +1217,7 @@ DESCRIPTION:This exciting weekend will bring together members of
       networking opportunities.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:80
+SEQUENCE:83
 SUMMARY:BSDCon Brazil 2015
 URL;VALUE=URI:http://www.bsdcon.com.br/
 LOCATION:, Fortaleza, Brazil
@@ -1194,7 +1231,7 @@ DESCRIPTION:BSDCon Brazil is the Brazilian BSD powered
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:81
+SEQUENCE:84
 SUMMARY:Paris Open Source Submit 2015
 URL;VALUE=URI:http://www.opensourcesummit.paris/
 LOCATION:
@@ -1209,7 +1246,7 @@ DESCRIPTION:The Paris Open Source Submit is one of the major professional
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:82
+SEQUENCE:85
 SUMMARY:NYCBSDCon 2014
 URL;VALUE=URI:http://www.nycbsdcon.org/2014/
 LOCATION:Suspender Bar & Restaurant, Manhattan, New York City, United States
@@ -1223,7 +1260,7 @@ DESCRIPTION:A day-long event with a theme of "The BSDs in
       *BSD User Group.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:83
+SEQUENCE:86
 SUMMARY:bhyvecon 2014
 URL;VALUE=URI:http://bhyvecon.org/
 LOCATION:SAKURA Internet Research Center, Tokyo, Japan
@@ -1234,7 +1271,7 @@ DESCRIPTION:See the bhyve hypervisor in action and ask a core bhyve
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:84
+SEQUENCE:87
 SUMMARY:AsiaBSDCon 2014
 URL;VALUE=URI:http://2014.asiabsdcon.org/
 LOCATION:Tokyo University of Science, Tokyo, Japan
@@ -1252,7 +1289,7 @@ DESCRIPTION:AsiaBSDCon is a conference for users and developers
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:85
+SEQUENCE:88
 SUMMARY:BSDCan 2014
 URL;VALUE=URI:http://www.bsdcan.org/
 LOCATION:University of Ottawa, Ottawa, Canada
@@ -1270,7 +1307,7 @@ DESCRIPTION:BSDCan is a technical conference for people working
       immediately by PGCon at the same location.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:86
+SEQUENCE:89
 SUMMARY:BSDCam 2014
 URL;VALUE=URI:http://bsdcam.cl.cam.ac.uk/
 LOCATION:University of Cambridge, Cambridge, United Kingdom
@@ -1287,7 +1324,7 @@ DESCRIPTION:The Cambridge FreeBSD Developers Summit is an annual
       FreeBSD.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:87
+SEQUENCE:90
 SUMMARY:BSDday
 URL;VALUE=URI:http://bsdday.org/
 LOCATION:University
@@ -1304,7 +1341,7 @@ DESCRIPTION:BSDday Argentina is a conference for users, sysadmins
       shared with the widest possible audience.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:88
+SEQUENCE:91
 SUMMARY:EuroBSDCon 2014
 URL;VALUE=URI:http://2014.eurobsdcon.org/
 LOCATION:InterExpo Congress Center, Sofia, Bulgaria
@@ -1323,7 +1360,7 @@ DESCRIPTION:EuroBSDcon is the premier European conference on the
       conference.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:89
+SEQUENCE:92
 SUMMARY:X Developer's Conference 2014
 URL;VALUE=URI:http://wiki.x.org/wiki/Events/XDC2014/
 LOCATION:LaBRI, Universitè´± de Bordeaux 1, Bordeaux, France
@@ -1341,7 +1378,7 @@ DESCRIPTION:XDC is the annual conference where people working
       these days.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:90
+SEQUENCE:93
 SUMMARY:MeetBSD California 2014
 URL;VALUE=URI:https://www.meetbsd.com/
 LOCATION:Western Digital Campus, San Jose, United States
@@ -1354,7 +1391,7 @@ DESCRIPTION:MeetBSD 2014 uses a mixed unConference format featuring
       sessions.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:91
+SEQUENCE:94
 SUMMARY:AsiaBSDCon 2013
 URL;VALUE=URI:http://2013.asiabsdcon.org/
 LOCATION:Tokyo University of Science, Tokyo, Japan
@@ -1372,7 +1409,7 @@ DESCRIPTION:AsiaBSDCon is a conference for users and developers
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:92
+SEQUENCE:95
 SUMMARY:Central European BSD-Day 2013
 URL;VALUE=URI:http://bsdday.eu/2013
 LOCATION:Institute of Biostructures and Bioimaging, Naples, Italy
@@ -1393,7 +1430,7 @@ DESCRIPTION:Watch out, another BSD-Day is rising: next April
       systems.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:93
+SEQUENCE:96
 SUMMARY:BSDCan 2013
 URL;VALUE=URI:http://www.bsdcan.org/
 LOCATION:University of Ottawa, Ottawa, Canada
@@ -1408,7 +1445,7 @@ DESCRIPTION:BSDCan is a developers conference with a strong focus
 URL;VALUE=URI:https://www.youtube.com/playlist?list=PLWW0CjV-TafZN1ArKy3j6X7YJ57_FFQ5e
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:94
+SEQUENCE:97
 SUMMARY:KyivBSD 2013
 URL;VALUE=URI:http://en.kyivbsd.org.ua/
 LOCATION:Taras Shevchenko National University of Kyiv, Kyiv, Ukraine
@@ -1421,7 +1458,7 @@ DESCRIPTION:We are glad to invite all to the fifth conference
       to attend.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:95
+SEQUENCE:98
 SUMMARY:EuroBSDcon 2013
 URL;VALUE=URI:http://2013.eurobsdcon.org/
 LOCATION:Hilton Conference Centre, St. Julian's, Malta
@@ -1441,7 +1478,7 @@ DESCRIPTION:We are happy to announce that the EuroBSDcon 2013
       cost.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:96
+SEQUENCE:99
 SUMMARY:vBSDCon 2013
 URL;VALUE=URI:http://www.vbsdcon.com/
 LOCATION:Dulles Hyatt, Dulles, United States
@@ -1454,7 +1491,7 @@ DESCRIPTION:This exciting weekend will bring together members of
       networking opportunities.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:97
+SEQUENCE:100
 SUMMARY:FreeBSD 20th Anniversary Party
 URL;VALUE=URI:http://rsvp.ixsystems.com/
 LOCATION:DNA Lounge, San Francisco, United States
@@ -1471,7 +1508,7 @@ DESCRIPTION:A one day event in honor of the users,
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:98
+SEQUENCE:101
 SUMMARY:ruBSD 2013
 URL;VALUE=URI:http://tech.yandex.ru/events/yagosti/ruBSD/
 LOCATION:St. Leo Tolstoy, Moscow, Russia
@@ -1488,7 +1525,7 @@ DESCRIPTION:The first Russian technical conference on the BSD
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:99
+SEQUENCE:102
 SUMMARY:Chemnitz Linux Days 2012
 URL;VALUE=URI:http://chemnitzer.linux-tage.de/2012/info/
 LOCATION:Chemnitz University of Technology, Chemnitz, Germany
@@ -1505,7 +1542,7 @@ DESCRIPTION:Chemnitz Linux Days is a conference that deals with
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:100
+SEQUENCE:103
 SUMMARY:AsiaBSDCon 2012
 URL;VALUE=URI:http://2012.asiabsdcon.org/
 LOCATION:Morito Memorial Hall, Tokyo University of Science, Tokyo, Japan
@@ -1523,7 +1560,7 @@ DESCRIPTION:AsiaBSDCon is a conference for users and developers
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:101
+SEQUENCE:104
 SUMMARY:BSDDay.eu/2012
 URL;VALUE=URI:http://bsdday.eu/2012
 LOCATION:UAS Technikum Wien, Vienna, Austria
@@ -1542,7 +1579,7 @@ DESCRIPTION:This year Beastie joins Tux on his tour in Vienna in
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:102
+SEQUENCE:105
 SUMMARY:Solutions Linux 2012
 URL;VALUE=URI:http://www.solutionslinux.fr
 LOCATION:CNIT La Dè´±fense, Paris, France
@@ -1556,7 +1593,7 @@ DESCRIPTION:
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:103
+SEQUENCE:106
 SUMMARY:BSDCan 2012
 URL;VALUE=URI:http://www.bsdcan.org/
 LOCATION:University of Ottawa, Ottawa, Canada
@@ -1571,7 +1608,7 @@ DESCRIPTION:BSDCan is a developers conference with a strong focus
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:104
+SEQUENCE:107
 SUMMARY:KyivBSD 2012
 URL;VALUE=URI:http://kyivbsd.org.ua/
 LOCATION:, Kyiv, Ukraine
@@ -1586,7 +1623,7 @@ DESCRIPTION:The fourth KyivBSD conference will take place in
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:105
+SEQUENCE:108
 SUMMARY:EuroBSDCon 2012
 URL;VALUE=URI:http://2012.eurobsdcon.org/
 LOCATION:, Warsaw, Poland
@@ -1603,7 +1640,7 @@ DESCRIPTION:EuroBSDcon is the European technical conference for
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:106
+SEQUENCE:109
 SUMMARY:meetBSD California 2012
 URL;VALUE=URI:http://www.meetbsd.com/
 LOCATION:Yahoo! Inc., Sunnyvale, California, United States
@@ -1620,7 +1657,7 @@ DESCRIPTION:MeetBSD California 2012 promises to be an experience
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:107
+SEQUENCE:110
 SUMMARY:BSDday Argentina 2012
 URL;VALUE=URI:http://www.bsdday.org/
 LOCATION:Universidad Tecnologica Nacional, Buenos Aires City, Argentina
@@ -1636,7 +1673,7 @@ DESCRIPTION:BSDday Argentina is a conference for users, sysadmins
       shared with the widest possible audience.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:108
+SEQUENCE:111
 SUMMARY:BSDday Argentina 2011
 URL;VALUE=URI:http://www.bsdday.org.ar/
 LOCATION:Universidad Tecnologica Nacional, Buenos Aires City, Argentina
@@ -1651,7 +1688,7 @@ DESCRIPTION:BSDday Argentina is a conference for users, sysadmins and
       community are shared with the widest possible audience.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:109
+SEQUENCE:112
 SUMMARY:bsd_day(2011)
 URL;VALUE=URI:http://bsdday.eu/2011
 LOCATION:Slovak University of Technology, Bratislava, Slovakia
@@ -1667,7 +1704,7 @@ DESCRIPTION:A new BSD-Day is approaching again to gather Central
       students to work with BSD systems.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:110
+SEQUENCE:113
 SUMMARY:EuroBSDCon 2011
 URL;VALUE=URI:http://2011.eurobsdcon.org/
 LOCATION:, The Netherlands
@@ -1685,7 +1722,7 @@ DESCRIPTION:EuroBSDCon is the annual European technical conference
       use.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:111
+SEQUENCE:114
 SUMMARY:KyivBSD 2011
 URL;VALUE=URI:http://ru.kyivbsd.org.ua/
 LOCATION:, Kiev, Ukraine
@@ -1695,7 +1732,7 @@ DESCRIPTION:The third KyivBSD conference will take place in Kiev,
       Ukraine.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:112
+SEQUENCE:115
 SUMMARY:World IPv6 Day
 URL;VALUE=URI:http://www.worldipv6day.org/
 LOCATION:
@@ -1708,7 +1745,7 @@ DESCRIPTION:World IPv6 Day is a 24-hour IPv6 test-flight organized by
       more information and how you can help as well.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:113
+SEQUENCE:116
 SUMMARY:BSDCan 2011
 URL;VALUE=URI:http://www.bsdcan.org/
 LOCATION:University of Ottawa, Ottawa, Canada
@@ -1722,7 +1759,7 @@ DESCRIPTION:BSDCan is a developers conference with a strong focus
       from commercial vendors.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:114
+SEQUENCE:117
 SUMMARY:Grazer Linuxtag 2011
 URL;VALUE=URI:http://www.linuxtage.at/
 LOCATION:FH Joanneum Graz, Graz, Austria
@@ -1735,7 +1772,7 @@ DESCRIPTION:The Grazer Linuxtag is a one day event on Linux and free
       different FreeBSD topics.  More information can be found here.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:115
+SEQUENCE:118
 SUMMARY:Indiana LinuxFest 2011
 URL;VALUE=URI:http://www.indianalinux.org/cms/
 LOCATION:Wyndam Indianapolis West Hotel, Indianapolis, USA
@@ -1752,7 +1789,7 @@ DESCRIPTION:
       possibility to take their BSDA certification exam.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:116
+SEQUENCE:119
 SUMMARY:AsiaBSDCon 2011
 URL;VALUE=URI:http://2011.asiabsdcon.org/
 LOCATION:Tokyo University of Science, Tokyo, Japan
@@ -1769,7 +1806,7 @@ DESCRIPTION:
       the widest possible audience.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:117
+SEQUENCE:120
 SUMMARY:NLLGG gathering
 URL;VALUE=URI:http://www.nllgg.nl/bijeenkomst_20101211
 LOCATION:Trajectum College, Utrecht, Utrecht, the Netherlands
@@ -1782,7 +1819,7 @@ DESCRIPTION:The "Nederlandse Linux Gebruikers Groep" (NLLGG)
       yet to be announced.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:118
+SEQUENCE:121
 SUMMARY:BSD-Day@2010
 URL;VALUE=URI:http://wiki.freebsd.org/BSDDay_2010
 LOCATION:Eè´”tvè´”s Lorè´°nd University, Budapest, Hungary
@@ -1799,7 +1836,7 @@ DESCRIPTION:This one-day event is to gather Central European
       systems.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:119
+SEQUENCE:122
 SUMMARY:NYCBSDCon 2010
 URL;VALUE=URI:http://www.nycbsdcon.org/
 LOCATION:Cooper Union, New York City, USA
@@ -1815,7 +1852,7 @@ DESCRIPTION:The New York City *BSD Conference (NYCBSDCon) 2010
       (NYC*BUG).
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:120
+SEQUENCE:123
 SUMMARY:BSDday Argentina 2010
 URL;VALUE=URI:http://www.bsdday.org.ar/
 LOCATION:University of Buenos Aires, Buenos Aires, Argentina
@@ -1833,7 +1870,7 @@ DESCRIPTION:BSDday Argentina is a conference for users, system
       audience.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:121
+SEQUENCE:124
 SUMMARY:MeetBSD California 2010
 URL;VALUE=URI:http://meetbsd.com/
 LOCATION:Hacker Dojo, Mountain View, California, USA
@@ -1847,7 +1884,7 @@ DESCRIPTION:meetBSD was started in Krakow, Poland in 2004 and
       emphasis towards FreeBSD.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:122
+SEQUENCE:125
 SUMMARY:EuroBSDCon 2010
 URL;VALUE=URI:http://2010.eurobsdcon.org/
 LOCATION:, Karlsruhe, Germany
@@ -1859,7 +1896,7 @@ DESCRIPTION:The ninth annual European BSD Conference will take place
       track, tutorials, and FreeBSD developer summit.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:123
+SEQUENCE:126
 SUMMARY:KyivBSD 2010
 URL;VALUE=URI:http://ru.kyivbsd.org.ua/
 LOCATION:, Kiev, Ukraine
@@ -1869,7 +1906,7 @@ DESCRIPTION:The second KyivBSD conference will take place in Kiev,
       Ukraine.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:124
+SEQUENCE:127
 SUMMARY:FrOSCamp 2010
 URL;VALUE=URI:http://www.froscamp.org/
 LOCATION:ETH Zurich, Zurich, Switzerland
@@ -1881,7 +1918,7 @@ DESCRIPTION:FrOSCamp is an open source event organized for the first
       committers attending the event.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:125
+SEQUENCE:128
 SUMMARY:Bugathon #7: PRs containing patches
 URL;VALUE=URI:http://wiki.freebsd.org/Bugathons/2010August
 LOCATION:
@@ -1900,7 +1937,7 @@ DESCRIPTION:A bugathon is an event coordinated by the FreeBSD
       submitters the issues with the supplied patches.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:126
+SEQUENCE:129
 SUMMARY:meetBSD 2010
 URL;VALUE=URI:http://www.meetBSD.org/
 LOCATION:Jagiellonian University, Krakow, Poland
@@ -1914,7 +1951,7 @@ DESCRIPTION:meetBSD is an annual event gathering users and developers of
       Poland.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:127
+SEQUENCE:130
 SUMMARY:11th Libre Software Meeting
 URL;VALUE=URI:http://2010.rmll.info/
 LOCATION:, Bordeaux, France
@@ -1926,7 +1963,7 @@ DESCRIPTION:The Libre Software Meeting has occurred each year
       camp to introduce new users to the Operating System.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:128
+SEQUENCE:131
 SUMMARY:BSDCan 2010
 URL;VALUE=URI:http://www.bsdcan.org/2010/
 LOCATION:University of Ottawa, Ottawa, Canada
@@ -1940,7 +1977,7 @@ DESCRIPTION:BSDCan is a developers conference with a strong focus
       from commercial vendors.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:129
+SEQUENCE:132
 SUMMARY:it 360°Î 2010
 URL;VALUE=URI:http://www.it360.ca/
 LOCATION:, Toronto, Canada
@@ -1952,7 +1989,7 @@ DESCRIPTION:IT360°Î Conference & Expo 2010 is an interactive experience
       certification exam.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:130
+SEQUENCE:133
 SUMMARY:OpenExpo 2010
 URL;VALUE=URI:http://www.openexpo.ch/
 LOCATION:, Bern, Switzerland
@@ -1964,7 +2001,7 @@ DESCRIPTION:The goal of OpenExpo is the promotion of Open Source
       will be a FreeBSD booth.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:131
+SEQUENCE:134
 SUMMARY:Solutions Linux 2010
 URL;VALUE=URI:http://www.solutionslinux.fr/
 LOCATION:Paris Expo, Paris, France
@@ -1977,7 +2014,7 @@ DESCRIPTION:A 3 days event to promote GNU/Linux and Open Source
       charge.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:132
+SEQUENCE:135
 SUMMARY:Chemnitzer Linux-Tage 2010
 URL;VALUE=URI:http://chemnitzer.linux-tage.de/2010/
 LOCATION:Technical University Chemnitz, Chemnitz, Germany
@@ -1990,7 +2027,7 @@ DESCRIPTION:Chemnitzer Linux-Tage is a two day event on Linux and Free
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:133
+SEQUENCE:136
 SUMMARY:AsiaBSDCon 2010
 URL;VALUE=URI:http://2010.asiabsdcon.org/
 LOCATION:Tokyo University of Science, Tokyo, Japan
@@ -2006,7 +2043,7 @@ DESCRIPTION:AsiaBSDCon is a conference for users and developers on BSD
       the widest possible audience.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:134
+SEQUENCE:137
 SUMMARY:SCALE: Southern California Linux Expo 2010
 URL;VALUE=URI:http://www.socallinuxexpo.org/
 LOCATION:The Westin Los Angeles Airport, Los Angeles, California, USA
@@ -2018,7 +2055,7 @@ DESCRIPTION:There will be a FreeBSD booth at the 8th annual
       give a talk about BSD for Linux users.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:135
+SEQUENCE:138
 SUMMARY:FOSDEM '10
 URL;VALUE=URI:http://fosdem.org/2010/
 LOCATION:ULB Campus Solbosh, Brussels, Belgium
@@ -2031,7 +2068,7 @@ DESCRIPTION:FOSDEM '10 is a free and non-commercial event organized
       developers will be present.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:136
+SEQUENCE:139
 SUMMARY:OpenRheinRuhr 2009
 URL;VALUE=URI:http://www.openrheinruhr.de/
 LOCATION:Saalbau, Bottrop, Germany
@@ -2044,7 +2081,7 @@ DESCRIPTION:This new event in the middle of Europe will
       BSDs.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:137
+SEQUENCE:140
 SUMMARY:discuss & discover 2009
 URL;VALUE=URI:http://en.discuss-discover.com/
 LOCATION:Messe Mè´‰nchen, Munich, Germany
@@ -2059,7 +2096,7 @@ DESCRIPTION:Discuss & discover is the successor of
       various projects.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:138
+SEQUENCE:141
 SUMMARY:Kyiv BSD 2009
 URL;VALUE=URI:http://kyivbsd.org.ua/
 LOCATION:, Kiev, Ukraine
@@ -2069,7 +2106,7 @@ DESCRIPTION:26th September 2009 in Kiev, Ukraine will take place
       first Ukrainian conference, dedicated to FreeBSD.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:139
+SEQUENCE:142
 SUMMARY:IT Security Expo 2009
 URL;VALUE=URI:http://www.it-sa.de/en/
 LOCATION:, Nuremberg, Germany
@@ -2084,7 +2121,7 @@ DESCRIPTION:Starting in 2009, Nuremberg will be staging
       FreeBSD booth and talks likely.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:140
+SEQUENCE:143
 SUMMARY:OpenExpo 2009
 URL;VALUE=URI:http://www.openexpo.ch/
 LOCATION:, Winterthur, Switzerland
@@ -2096,7 +2133,7 @@ DESCRIPTION:The goal of OpenExpo is the promotion of Open Source
       will be a FreeBSD booth.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:141
+SEQUENCE:144
 SUMMARY:EuroBSDCon 2009
 URL;VALUE=URI:http://2009.eurobsdcon.org/
 LOCATION:University of Cambridge, Cambridge, UK
@@ -2108,7 +2145,7 @@ DESCRIPTION:The eighth annual European BSD Conference will take place
       track, tutorials, and FreeBSD developer summit.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:142
+SEQUENCE:145
 SUMMARY:FrOSCon 2009
 URL;VALUE=URI:http://www.froscon.org/
 LOCATION:Fachhochschule Bonn-Rhein-Sieg, Sankt Augustin, Germany
@@ -2122,7 +2159,7 @@ DESCRIPTION:FrOSCon is a two day conference on Free Software
       Source.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:143
+SEQUENCE:146
 SUMMARY:Kernel Conference Australia 2009
 URL;VALUE=URI:http://www.kernelconference.net/
 LOCATION:University of Queensland, Brisbane, Australia
@@ -2135,7 +2172,7 @@ DESCRIPTION:Kernel Conference Australia is a Kernel-focused technical conference
       OSI-approved license.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:144
+SEQUENCE:147
 SUMMARY:10th Libre Software Meeting
 URL;VALUE=URI:http://2009.rmll.info/?lang=en
 LOCATION:Nantes University, Nantes, France
@@ -2147,7 +2184,7 @@ DESCRIPTION:The Libre Software Meeting has occurred each year
       camp to introduce new users to the Operating System.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:145
+SEQUENCE:148
 SUMMARY:LinuxTag 2009
 URL;VALUE=URI:http://www.linuxtag.org/2009/en/
 LOCATION:Messe Berlin, Berlin, Germany
@@ -2160,7 +2197,7 @@ DESCRIPTION:LinuxTag is Europe's largest event for Free
       OpenBSD and MirBSD and several BSD talks.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:146
+SEQUENCE:149
 SUMMARY:BSDday Argentina 2009
 URL;VALUE=URI:http://www.bsdday.com.ar/
 LOCATION:, Buenos Aires, Argentina
@@ -2176,7 +2213,7 @@ DESCRIPTION:BSDday Argentina is a conference for users and developers
       shared with the widest possible audience.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:147
+SEQUENCE:150
 SUMMARY:BSDCan 2009
 URL;VALUE=URI:http://www.bsdcan.org/2009/
 LOCATION:University of Ottawa, Ottawa, Canada
@@ -2190,7 +2227,7 @@ DESCRIPTION:BSDCan is a developers conference with a strong focus
       from commercial vendors.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:148
+SEQUENCE:151
 SUMMARY:ACM Talk on FreeBSD/PmcTools
 URL;VALUE=URI:http://acmbangalore.org/index.php?option=com_attend_events&task=view&id=3&Itemid=0
 LOCATION:, Bangalore, India
@@ -2200,7 +2237,7 @@ DESCRIPTION:A talk on FreeBSD/PmcTools, hosted by the Bangalore chapter
       of the ACM.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:149
+SEQUENCE:152
 SUMMARY:Solutions Linux 2009
 URL;VALUE=URI:http://www.solutionslinux.fr/
 LOCATION:Paris Expo, Paris, France
@@ -2214,7 +2251,7 @@ DESCRIPTION:A 3 days event to promote GNU/Linux and Open Source
       charge.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:150
+SEQUENCE:153
 SUMMARY:FreeBSD Kernel Internals: Intensive Evening Course
 URL;VALUE=URI:http://www.mckusick.com/courses/adveveclass.html
 LOCATION:, Berkeley, California, USA
@@ -2233,7 +2270,7 @@ DESCRIPTION:The
       Wednesday March 18th and finishing Thursday July 2nd.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:151
+SEQUENCE:154
 SUMMARY:AsiaBSDCon 2009
 URL;VALUE=URI:http://2009.asiabsdcon.org/
 LOCATION:Tokyo University of Science, Tokyo, Japan
@@ -2249,7 +2286,7 @@ DESCRIPTION:AsiaBSDCon is a conference for users and developers on BSD
       the widest possible audience.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:152
+SEQUENCE:155
 SUMMARY:FOSDEM '09
 URL;VALUE=URI:http://fosdem.org/2009/
 LOCATION:ULB Campus Solbosh, Brussels, Belgium
@@ -2263,7 +2300,7 @@ DESCRIPTION:FOSDEM '09 is a free and non-commercial event organized
       giving a talk about system performance.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:153
+SEQUENCE:156
 SUMMARY:DCBSDCon 2009
 URL;VALUE=URI:http://www.dcbsdcon.org/
 LOCATION:Marriott Wardman, Washington, D.C., USA
@@ -2275,7 +2312,7 @@ DESCRIPTION:The first large BSD Conference in the DC area.  Will
       security themes.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:154
+SEQUENCE:157
 SUMMARY:Network-related Bugathon #6
 URL;VALUE=URI:https://wiki.freebsd.org/Bugathons/January2009
 LOCATION:
@@ -2292,7 +2329,7 @@ DESCRIPTION:A bugathon is an event coordinated by the FreeBSD
       database.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:155
+SEQUENCE:158
 SUMMARY:NLLGG-bijeenkomst december 2008
 URL;VALUE=URI:http://www.nllgg.nl/bijeenkomst_20081213
 LOCATION:Liefland college, Utrecht, Utrecht, the Netherlands
@@ -2305,7 +2342,7 @@ DESCRIPTION:The "Nederlandse Linux Gebruikers Groep" (NLLGG)
       Linux community.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:156
+SEQUENCE:159
 SUMMARY:MeetBSD California 2008
 URL;VALUE=URI:http://meetbsd.com/
 LOCATION:Googleplex, Mountain View, California, USA
@@ -2322,7 +2359,7 @@ DESCRIPTION:meetBSD was started in Krakow, Poland in 2004 and
       to celebrate FreeBSD's 15th Anniversary!
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:157
+SEQUENCE:160
 SUMMARY:Ticino Informatica 2008
 LOCATION:Palazzo dei Congressi, Lugano, Switzerland
 
@@ -2332,7 +2369,7 @@ DESCRIPTION:FreeBSD and The FreeBSD Foundation
       Stand A13 Presented by OEMS Sagl
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:158
+SEQUENCE:161
 SUMMARY:EuroBSDCon 2008
 URL;VALUE=URI:http://2008.eurobsdcon.org/
 LOCATION:University of Strasbourg, Strasbourg, France
@@ -2345,7 +2382,7 @@ DESCRIPTION:The seventh annual European BSD Conference.  It is
       precede the conference.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:159
+SEQUENCE:162
 SUMMARY:NYCBSDCon 2008
 URL;VALUE=URI:http://www.nycbsdcon.org/
 LOCATION:Columbia University, New York City, USA
@@ -2361,7 +2398,7 @@ DESCRIPTION:The New York City *BSD Conference (NYCBSDCon) 2008
       (NYC*BUG).
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:160
+SEQUENCE:163
 SUMMARY:OpenExpo 2008
 URL;VALUE=URI:http://www.openexpo.ch/
 LOCATION:, Zurich, Switzerland
@@ -2373,7 +2410,7 @@ DESCRIPTION:The goal of OpenExpo is the promotion of Open Source
       will be a FreeBSD booth.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:161
+SEQUENCE:164
 SUMMARY:COSCUP 2008 - Conference for Open Source Coders, Users and Promoters
 URL;VALUE=URI:http://coscup.org/2008/
 LOCATION:International Conference Hall, Institute of Applied Mechanics,
@@ -2386,7 +2423,7 @@ DESCRIPTION:COSCUP 2008 is the 3rd incarnation of the series,
       Several FreeBSD contributions will be presenting on FreeBSD topics.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:162
+SEQUENCE:165
 SUMMARY:FrOSCon 2008
 URL;VALUE=URI:http://www.froscon.org/
 LOCATION:Fachhochschule Bonn-Rhein-Sieg, Sankt Augustin, Germany
@@ -2400,7 +2437,7 @@ DESCRIPTION:FrOSCon is a two day conference on Free Software
       Source.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:163
+SEQUENCE:166
 SUMMARY:O'Reilly Open Source Conference 2008
 URL;VALUE=URI:http://en.oreilly.com/oscon2008/public/content/home
 LOCATION:Oregon Convention Center, Portland, Oregon, USA
@@ -2413,7 +2450,7 @@ DESCRIPTION:The annual O'Reilly Open Source Conference will again
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:164
+SEQUENCE:167
 SUMMARY:9th Libre Software Meeting
 URL;VALUE=URI:http://2008.rmll.info/?lang=en
 LOCATION:Multiple Locations, Mont-de-Marsan, France
@@ -2425,7 +2462,7 @@ DESCRIPTION:The Libre Software Meeting has occurred each year
       camp to introduce new users to the Operating System.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:165
+SEQUENCE:168
 SUMMARY:LinuxTag 2008
 URL;VALUE=URI:http://www.linuxtag.org/2008/en/
 LOCATION:Messe Berlin, Berlin, Germany
@@ -2439,7 +2476,7 @@ DESCRIPTION:LinuxTag is Europe's largest event about Free
       30.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:166
+SEQUENCE:169
 SUMMARY:BSDCan 2008
 URL;VALUE=URI:http://www.bsdcan.org/2008/
 LOCATION:University of Ottawa, Ottawa, Canada
@@ -2453,7 +2490,7 @@ DESCRIPTION:BSDCan is a developers conference with a strong focus
       from commercial vendors.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:167
+SEQUENCE:170
 SUMMARY:BSDCon Barcelona 2008
 URL;VALUE=URI:http://bcn.bsdcon.net/
 LOCATION:Universitat Politecnica de Catalunya, Barcelona, Spain
@@ -2467,7 +2504,7 @@ DESCRIPTION:BSDCon Barcelona is a conference on all BSD-based operating
       tasks.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:168
+SEQUENCE:171
 SUMMARY:OSDC.tw 2008 - Open Source Developers' Conference in Taiwan
 URL;VALUE=URI:http://osdc.tw/
 LOCATION:School Of Continuing Education Chinese Culture University, Taipei, Taiwan (ROC)
@@ -2480,7 +2517,7 @@ DESCRIPTION:OSDC.tw is a major conference for open source developers and
       developers and contributions will be presenting on FreeBSD topics.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:169
+SEQUENCE:172
 SUMMARY:Linux-Infotag 2008
 URL;VALUE=URI:http://www.luga.de/Aktionen/LIT-2008/
 LOCATION:FH Augsburg, Augsburg, Germany
@@ -2492,7 +2529,7 @@ DESCRIPTION:The Augsburger Linux-Infotag offers two parallel
       as a FreeBSD booth.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:170
+SEQUENCE:173
 SUMMARY:AsiaBSDCon 2008
 URL;VALUE=URI:http://2008.asiabsdcon.org/
 LOCATION:Tokyo University of Science, Tokyo, Japan
@@ -2508,7 +2545,7 @@ DESCRIPTION:AsiaBSDCon is a conference for users and developers on BSD
       the widest possible audience.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:171
+SEQUENCE:174
 SUMMARY:Unigroup FreeBSD7 Launch Meeting
 URL;VALUE=URI:http://www.unigroup.org/unigroup-rsvp.html
 LOCATION:Alliance for Downtown NY Conference Facility, New York, USA
@@ -2523,7 +2560,7 @@ DESCRIPTION:UNIGROUP of New York presents FreeBSD 7, the latest
       question and answer period.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:172
+SEQUENCE:175
 SUMMARY:Linuxtage Chemnitz 2008
 URL;VALUE=URI:http://chemnitzer.linux-tage.de/2008/info/
 LOCATION:Technical University Chemnitz, Chemnitz, Germany
@@ -2536,7 +2573,7 @@ DESCRIPTION:Linuxtage Chemnitz is a two day event on Linux and Free
       well as several talks.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:173
+SEQUENCE:176
 SUMMARY:SCALE: Southern California Linux Expo 2008
 URL;VALUE=URI:http://www.socallinuxexpo.org/
 LOCATION:The Westin Los Angeles Airport, Los Angeles, California, USA
@@ -2548,7 +2585,7 @@ DESCRIPTION:There will be a FreeBSD presence at the sixth
       be representing the project.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:174
+SEQUENCE:177
 SUMMARY:FOSDEM 2008
 URL;VALUE=URI:http://www.fosdem.org/2008/
 LOCATION:Universite Libre de Bruxelles, Brussels, Belgium
@@ -2562,7 +2599,7 @@ DESCRIPTION:A 2-day event to promote the widespread use of Free and
       the conference days.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:175
+SEQUENCE:178
 SUMMARY:Solutions Linux 2008
 URL;VALUE=URI:http://www.solutionslinux.fr/
 LOCATION:CNIT, Paris, France
@@ -2575,7 +2612,7 @@ DESCRIPTION:A 3 day event to promote GNU/Linux and Open Source software.
 	of course !
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:176
+SEQUENCE:179
 SUMMARY:MeetBSD 2007
 URL;VALUE=URI:http://2007.meetbsd.org/en/
 LOCATION:Centrum Konferencyjno-Kongresowe PWSBiA, Warsaw, Poland
@@ -2588,7 +2625,7 @@ DESCRIPTION:The fourth annual MeetBSD conference will be held in
       topics.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:177
+SEQUENCE:180
 SUMMARY:come2linux - LinuxTage in Essen
 URL;VALUE=URI:http://www.come2linux.org/psp/
 LOCATION:Universitè´£t Duisburg-Essen, Glas-Pavilion, Essen, Germany
@@ -2604,7 +2641,7 @@ DESCRIPTION:Linuxtage in Essen is a two day event on Linux and
       new project www.BSDInstall.de.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:178
+SEQUENCE:181
 SUMMARY:COSCUP 2007 - Conference for Open Source Coders, Users and Promoters
 URL;VALUE=URI:http://coscup.org/2007/
 LOCATION:Techonology Building 2F, National Science Council, Taipei, Taiwan (ROC)
@@ -2629,7 +2666,7 @@ DESCRIPTION:COSCUP 2007 is a joint conference of ICOS (International
       to get more people involved and make OSS more brilliant in Taiwan.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:179
+SEQUENCE:182
 SUMMARY:Systems 2007
 URL;VALUE=URI:http://www.systems-world.de/id/58547/
 LOCATION:Messe Mè´‰nchen, Munich, Germany
@@ -2643,7 +2680,7 @@ DESCRIPTION:Systems is a four day IT fair with more than 50000
       talks and a theme park for various projects.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:180
+SEQUENCE:183
 SUMMARY:BSDConTR 2007
 URL;VALUE=URI:http://www.bsdcontr.org/
 LOCATION:Sultanahmet Campus Marmara University, Istanbul, Turkey
@@ -2659,7 +2696,7 @@ DESCRIPTION:BSDConTR is the first conference on BSD systems in
       knowledge about BSD Systems.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:181
+SEQUENCE:184
 SUMMARY:I Fè´—rum Software Livre
 URL;VALUE=URI:http://www.softwarelivre.com.pt/index.php
 LOCATION:Faculdade de Ciè´¥ncias da Universidade de Lisboa, Lisbon, Portugal
@@ -2672,7 +2709,7 @@ DESCRIPTION:I Fè´—rum Software Livre is a two day conference on
       FreeBSD.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:182
+SEQUENCE:185
 SUMMARY:Course: Building and Running an Open Source Community
 URL;VALUE=URI:http://www.unex.berkeley.edu/cat/course1557.html
 LOCATION:UC Extension San Francisco: Room 216, South of Market Center, San Francisco, USA
@@ -2693,7 +2730,7 @@ DESCRIPTION:The BSD community started at UC Berkeley in the late
       around the world.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:183
+SEQUENCE:186
 SUMMARY:Course: FreeBSD Kernel Internals
 URL;VALUE=URI:http://www.unex.berkeley.edu/cat/course927.html
 LOCATION:UC Extension Berkeley: Room 211, Golden Bear Building, Berkeley, USA
@@ -2728,7 +2765,7 @@ DESCRIPTION:This course will provide a firm background in the
       am-5:30 pm (no meetings Oct. 13 and Oct. 20).
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:184
+SEQUENCE:187
 SUMMARY:Course: A Narrative History of BSD
 URL;VALUE=URI:http://www.unex.berkeley.edu/cat/course1556.html
 LOCATION:UC Extension San Francisco: Room 216, South of Market Center, San Francisco, USA
@@ -2748,7 +2785,7 @@ DESCRIPTION:Learn the history of the BSD (Berkeley Software
       release of 4.4BSD-Lite.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:185
+SEQUENCE:188
 SUMMARY:OpenExpo 2007
 URL;VALUE=URI:http://www.openexpo.ch/
 LOCATION:Event550 Hall, Zurich, Switzerland
@@ -2760,7 +2797,7 @@ DESCRIPTION:The goal of OpenExpo is the promotion of Open Source
       will be a FreeBSD booth.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:186
+SEQUENCE:189
 SUMMARY:EuroBSDCon 2007
 URL;VALUE=URI:http://2007.eurobsdcon.org/
 LOCATION:Symbion Science Park, Copenhagen, Denmark
@@ -2773,7 +2810,7 @@ DESCRIPTION:The sixth annual European BSD Conference.  It is
       precede the conference.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:187
+SEQUENCE:190
 SUMMARY:FrOSCon 2007
 URL;VALUE=URI:http://www.froscon.org/
 LOCATION:Fachhochschule Bonn-Rhein-Sieg, Sankt Augustin, Germany
@@ -2787,7 +2824,7 @@ DESCRIPTION:FrOSCon is a two day conference on Free Software
       Source.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:188
+SEQUENCE:191
 SUMMARY:CoSin 2007
 URL;VALUE=URI:http://www.ccc.de/calendar/2007/cosin?language=en
 LOCATION:Kulturzentrum Bremgarten (KuZeB), Aargau, Switzerland
@@ -2800,7 +2837,7 @@ DESCRIPTION:CoSin is a three day conference on Open Source and
       as other BSDs.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:189
+SEQUENCE:192
 SUMMARY:LT Pact 2007
 URL;VALUE=URI:http://www.ltpact.com
 LOCATION:, Las Vegas, Nevada, USA
@@ -2815,7 +2852,7 @@ DESCRIPTION:LT Pact is a two day web hosting conference in Las
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:190
+SEQUENCE:193
 SUMMARY:LinuxTag 2007
 URL;VALUE=URI:http://www.linuxtag.org/2007/en/
 LOCATION:Messe Berlin, Berlin, Germany
@@ -2828,7 +2865,7 @@ DESCRIPTION:LinuxTag is Europe's largest event about Free Software,
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:191
+SEQUENCE:194
 SUMMARY:BSDCan 2007
 URL;VALUE=URI:http://www.bsdcan.org/
 LOCATION:University of Ottawa, Ottawa, Canada
@@ -2842,7 +2879,7 @@ DESCRIPTION:BSDCan is a developers conference with a strong focus
       from commercial vendors.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:192
+SEQUENCE:195
 SUMMARY:Unix and Linux Day 2007
 URL;VALUE=URI:http://www.unix-and-linux-day.de/index.html
 LOCATION:FH Kaiserslautern, Site Zweibrè´‰cken, Zweibrè´‰cken, Germany
@@ -2852,7 +2889,7 @@ DESCRIPTION:Among others, there will be a talk about FreeBSD by
       Alexander Leidinger.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:193
+SEQUENCE:196
 SUMMARY:Augsburger Linux-Infotag 2007
 URL;VALUE=URI:http://www.luga.de/Aktionen/LIT-2007/
 LOCATION:FH Augsburg, Augsburg, Germany
@@ -2864,7 +2901,7 @@ DESCRIPTION:The Augsburger Linux-Infotag offers two parallel tracks
       booth.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:194
+SEQUENCE:197
 SUMMARY:AsiaBSDCon 2007
 URL;VALUE=URI:http://2007.asiabsdcon.org/
 LOCATION:University of Tokyo, Tokyo, Japan
@@ -2880,7 +2917,7 @@ DESCRIPTION:AsiaBSDCon is a conference for users and developers on BSD
       the widest possible audience.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:195
+SEQUENCE:198
 SUMMARY:Linuxtage Chemnitz 2007
 URL;VALUE=URI:http://chemnitzer.linux-tage.de/2007/info/
 LOCATION:Technical University Chemnitz, Chemnitz, Germany
@@ -2893,7 +2930,7 @@ DESCRIPTION:Linuxtage Chemnitz is a two day event on Linux and Free
       well as several talks.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:196
+SEQUENCE:199
 SUMMARY:FOSDEM 2007
 URL;VALUE=URI:http://www.fosdem.org/2007/
 LOCATION:Universite Libre de Bruxelles, Brussels, Belgium
@@ -2905,7 +2942,7 @@ DESCRIPTION:A 2-day event to promote the widespread use of Free and
       will be present.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:197
+SEQUENCE:200
 SUMMARY:SCALE: Southern California Linux Expo 2007
 URL;VALUE=URI:http://www.socallinuxexpo.org/
 LOCATION:The Westin Los Angeles Airport, Los Angeles, California, USA
@@ -2919,7 +2956,7 @@ DESCRIPTION:The fifth Southern California Linux Expo will have
       will be handed out.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:198
+SEQUENCE:201
 SUMMARY:ChileBSDCon 2006
 URL;VALUE=URI:http://www.bsd.cl/index.php/BSDCon2006
 LOCATION:Universidad Diego Portales, Santiago, Chile
@@ -2934,7 +2971,7 @@ DESCRIPTION:The first BSD related conference in Chile. The objective is
       DragonFlyBSD, and Darwin as well as MacOS X and Solaris.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:199
+SEQUENCE:202
 SUMMARY:LISA '06
 URL;VALUE=URI:http://www.usenix.org/events/lisa06/
 LOCATION:, Washington, D.C., USA
@@ -2950,7 +2987,7 @@ DESCRIPTION:The annual LISA conference is the meeting place of choice
       exhibit hall.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:200
+SEQUENCE:203
 SUMMARY:MeetBSD 2006
 URL;VALUE=URI:http://2006.meetbsd.org/
 LOCATION:Centrum Konferencyjno-Kongresowe PWSBiA, Warsaw, Poland
@@ -2963,7 +3000,7 @@ DESCRIPTION:The third annual MeetBSD conference will be held in
       topics.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:201
+SEQUENCE:204
 SUMMARY:EuroBSDCon 2006
 URL;VALUE=URI:http://www.eurobsdcon.org/
 LOCATION:, Milan, Italy
@@ -2975,7 +3012,7 @@ DESCRIPTION:The fifth annual European BSD Conference.  It is
       FreeBSD of course.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:202
+SEQUENCE:205
 SUMMARY:NYCBSDCon 2006
 URL;VALUE=URI:http://www.nycbsdcon.org/2006/
 LOCATION:Davis Auditorium, Columbia University, New York City, USA
@@ -2990,7 +3027,7 @@ DESCRIPTION:Continuing on the success of last year, the New York City
       Group (NYC*BUG).
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:203
+SEQUENCE:206
 SUMMARY:CIMM 2006
 URL;VALUE=URI:http://www.ing.unal.edu.co/eventos/cimm2006/
 LOCATION:Universidad Nacional de Colombia, Bogota, Colombia
@@ -3005,7 +3042,7 @@ DESCRIPTION:Every two (sometimes three) years the leading Colombian
       been canceled but the related paper is available here.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:204
+SEQUENCE:207
 SUMMARY:come2linux - Linuxtage in Essen
 URL;VALUE=URI:http://www.com2linux.de/
 LOCATION:Universitè´£t Duisburg-Essen, Glas-Pavilion, Essen, Germany
@@ -3019,7 +3056,7 @@ DESCRIPTION:Linuxtage in Essen is a two day event on Linux and
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:205
+SEQUENCE:208
 SUMMARY:FrOSCon 2006
 URL;VALUE=URI:http://www.froscon.org/
 LOCATION:Fachhochschule Bonn-Rhein-Sieg, Sankt Augustin, Germany
@@ -3033,7 +3070,7 @@ DESCRIPTION:FrOSCon is a two day conference on Free Software
       including an introductory talk about FreeBSD.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:206
+SEQUENCE:209
 SUMMARY:FreeBSD Kernel Short Course at UC Berkeley Extension
 URL;VALUE=URI:http://www.unex.berkeley.edu/cat/course692.html
 LOCATION:University of California, Berkeley, USA
@@ -3047,7 +3084,7 @@ DESCRIPTION:The ``Using the FreeBSD Open-Source Operating
       class at: http://www.unex.berkeley.edu/cat/course692.html.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:207
+SEQUENCE:210
 SUMMARY:2006 USENIX Annual Technical Conference
 URL;VALUE=URI:http://www.usenix.org/events/usenix06/
 LOCATION:, Boston, Massachusetts, USA
@@ -3059,7 +3096,7 @@ DESCRIPTION:The 2006 USENIX ATC will have FREENIX and general
       for BSD enthusiasts in the U.S.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:208
+SEQUENCE:211
 SUMMARY:SANE 2006
 URL;VALUE=URI:http://www.sane.nl/
 LOCATION:Aula Congresscentre, Delft, The Netherlands
@@ -3073,7 +3110,7 @@ DESCRIPTION:The SANE conference program is filled with the latest
       presented.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:209
+SEQUENCE:212
 SUMMARY:BSDCan 2006
 URL;VALUE=URI:http://www.bsdcan.org/
 LOCATION:University of Ottawa, Ottawa, Canada
@@ -3087,7 +3124,7 @@ DESCRIPTION:BSDCan is a developers conference with a strong focus
       from commercial vendors.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:210
+SEQUENCE:213
 SUMMARY:LinuxTag 2006
 URL;VALUE=URI:http://www.linuxtag.org/2006/en/
 LOCATION:Rhein-Main-Hallen, Wiesbaden, Germany
@@ -3101,7 +3138,7 @@ DESCRIPTION:LinuxTag is Europe's largest event about Free Software,
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:211
+SEQUENCE:214
 SUMMARY:UKUUG LISA/Spring Conference 2006
 URL;VALUE=URI:http://www.ukuug.org/events/spring2006/
 LOCATION:University of Durham, Durham, UK
@@ -3119,7 +3156,7 @@ DESCRIPTION:UKUUG's annual Large Installation Systems Administration
       administration stream.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:212
+SEQUENCE:215
 SUMMARY:CeBIT 2006
 URL;VALUE=URI:http://www.cebit.de/homepage_e?x=1
 LOCATION:Messegelè´£nde, Hannover, Germany
@@ -3132,7 +3169,7 @@ DESCRIPTION:CeBIT is a large trade fair in Germany.  FreeBSD will be
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:213
+SEQUENCE:216
 SUMMARY:LinuxForum 2006
 URL;VALUE=URI:http://linuxforum.dk/2006/
 LOCATION:Kunstakademiets Arkitektskole, Copenhagen, Denmark
@@ -3145,7 +3182,7 @@ DESCRIPTION:Annual Danish Open Source conference.  The Danish BSD
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:214
+SEQUENCE:217
 SUMMARY:Fosdem 2006
 URL;VALUE=URI:http://www.fosdem.org/
 LOCATION:Universite Libre de Bruxelles, Brussels, Belgium
@@ -3158,7 +3195,7 @@ DESCRIPTION:A 2 day event to promote the widespread use of Free
       talks.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:215
+SEQUENCE:218
 SUMMARY:FreeBSD Kernel Code Reading Evening Course
 URL;VALUE=URI:http://www.mckusick.com/courses/adveveclass.html
 LOCATION:, Berkeley, California, USA
@@ -3174,7 +3211,7 @@ DESCRIPTION:The ``FreeBSD Kernel Internals: An Intensive Code
       information or sign up for the class at http://www.mckusick.com/courses/adveveclass.html.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:216
+SEQUENCE:219
 SUMMARY:FreeBSD System Administration Training Course
 URL;VALUE=URI:http://www.pugetsoundtechnology.com/training/freebsd/
 LOCATION:, Fort Worth, Texas, USA
@@ -3187,7 +3224,7 @@ DESCRIPTION:Four-day hands-on class taught by BSD developer and
       administration.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:217
+SEQUENCE:220
 SUMMARY:GUFICon #6
 URL;VALUE=URI:http://www.gufi.org/guficon/
 LOCATION:, Perugia, Italy
@@ -3204,7 +3241,7 @@ DESCRIPTION:The Italian FreeBSD users group (G.U.F.I. - Gruppo
       free registration.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:218
+SEQUENCE:221
 SUMMARY:EuroBSDCon 2005
 URL;VALUE=URI:http://2005.eurobsdcon.org/
 LOCATION:University of Basel, Basel, Switzerland
@@ -3216,7 +3253,7 @@ DESCRIPTION:The fourth annual European BSD Conference.  It is
       FreeBSD of course.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:219
+SEQUENCE:222
 SUMMARY:USENIX Bay Area Super User Group Meeting (BaySUG '05)
 URL;VALUE=URI:http://www.usenix.org/events/baysug05/
 LOCATION:Computer History Museum, Mountain View, CA, USA
@@ -3230,7 +3267,7 @@ DESCRIPTION:Join USENIX and BayLISA for the first Bay Area Super
       FreeBSD at the event.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:220
+SEQUENCE:223
 SUMMARY:Korean FreeBSD users group Conference 2005
 URL;VALUE=URI:http://seminar.freebsdcity.org
 LOCATION:HP Korea Conference Room 20th floor, Seoul, Korea
@@ -3240,7 +3277,7 @@ DESCRIPTION:A Conference for Everyone Who is interested in
     FreeBSD in Korea.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:221
+SEQUENCE:224
 SUMMARY:O'Reilly European Open Source Convention
 URL;VALUE=URI:http://conferences.oreillynet.com/eurooscon/
 LOCATION:NH Grand Hotel Krasnapolsky, Amsterdam, The Netherlands
@@ -3252,7 +3289,7 @@ DESCRIPTION:The popular O'Reilly Open Source Conference is coming
       sessions, and opportunities for general advocacy.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:222
+SEQUENCE:225
 SUMMARY:New York City BSD Conference (NYCBSDCon)
 URL;VALUE=URI:http://www.nycbsdcon.org/2005/
 LOCATION:Columbia University, New York City, USA
@@ -3264,7 +3301,7 @@ DESCRIPTION:New York City BSD Conference (NYCBSDCon) is a one day
       BSD projects and the open source community.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:223
+SEQUENCE:226
 SUMMARY:O'Reilly Open Source Conference 2005
 URL;VALUE=URI:http://conferences.oreillynet.com/os2005/
 LOCATION:Oregon Convention Center, Portland, Oregon, USA
@@ -3278,7 +3315,7 @@ DESCRIPTION:The annual O'Reilly Open Source Conference had a
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:224
+SEQUENCE:227
 SUMMARY:BSDCon Japan 2005
 URL;VALUE=URI:http://bsdcon.jp/
 LOCATION:NADYA PARK, Nagoya, Japan
@@ -3289,7 +3326,7 @@ DESCRIPTION:BSD Conference Japan 2005, the fourth conference
       on July 23th, 2005.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:225
+SEQUENCE:228
 SUMMARY:Linuxtag 2005
 URL;VALUE=URI:http://www.linuxtag.org/2005/
 LOCATION:Kongresszentrum, Karlsruhe, Germany
@@ -3301,7 +3338,7 @@ DESCRIPTION:The Linuxtag is one of Europe's biggest Linux and Open Source
       present with a booth.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:226
+SEQUENCE:229
 SUMMARY:MeetBSD 2005
 URL;VALUE=URI:http://2005.meetbsd.org/
 LOCATION:Hotel Chopin, Krakè´—w, Poland
@@ -3314,7 +3351,7 @@ DESCRIPTION:The second annual MeetBSD conference will be held in
       topics.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:227
+SEQUENCE:230
 SUMMARY:BSDCan 2005
 URL;VALUE=URI:http://www.bsdcan.org/
 LOCATION:University of Ottawa, Ottawa, Canada
@@ -3328,7 +3365,7 @@ DESCRIPTION:BSDCan is a developers conference with a strong focus
       from commercial vendors.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:228
+SEQUENCE:231
 SUMMARY:Open Source Forum Russia 2005
 URL;VALUE=URI:http://www.opensource-forum.ru/
 LOCATION:Radisson SAS Hotel, Moscow, Russia
@@ -3345,7 +3382,7 @@ DESCRIPTION:Open Source Forum Russia is the first conference and
       Case for BSD.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:229
+SEQUENCE:232
 SUMMARY:2005 USENIX Annual Technical Conference
 URL;VALUE=URI:http://www.usenix.org/events/usenix05/
 LOCATION:, Anaheim, California, USA
@@ -3357,7 +3394,7 @@ DESCRIPTION:The 2005 USENIX ATC will have FREENIX and general
       for BSD enthusiasts in the U.S.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:230
+SEQUENCE:233
 SUMMARY:LinuxForum 2005
 URL;VALUE=URI:http://www.linuxforum.dk/
 LOCATION:Kunstakademiets Arkitektskole, Copenhagen, Denmark
@@ -3369,7 +3406,7 @@ DESCRIPTION:Annual Danish Open Source conference.  The Danish BSD
       the BSD's.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:231
+SEQUENCE:234
 SUMMARY:Fosdem 2005
 URL;VALUE=URI:http://www.fosdem.org/
 LOCATION:Universite Libre de Bruxelles, Brussels, Belgium
@@ -3381,7 +3418,7 @@ DESCRIPTION:A 2 day event to promote the widespread use of Free
       will be Mozilla, KDE and, of course, FreeBSD.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:232
+SEQUENCE:235
 SUMMARY:GUUG-Frè´‰hjahrsfachgesprè´£ch 2005
 URL;VALUE=URI:http://www.guug.de/veranstaltungen/ffg2005/index.html
 LOCATION:Munich University of Applied Sciences, Munich, Germany
@@ -3396,7 +3433,7 @@ DESCRIPTION:
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:233
+SEQUENCE:236
 SUMMARY:SCALE: Southern California Linux Expo 2005
 URL;VALUE=URI:http://www.socallinuxexpo.org/
 LOCATION:Los Angeles Convention Center, Los Angeles, California, USA
@@ -3410,7 +3447,7 @@ DESCRIPTION:The third Southern California Linux Expo will have
       will be handed out.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:234
+SEQUENCE:237
 SUMMARY:21. Chaos Communication Congress
 URL;VALUE=URI:http://www.ccc.de/congress/2004/
 LOCATION:Berliner Congress Center, Berlin, Germany
@@ -3424,7 +3461,7 @@ DESCRIPTION:The Chaos Communication Congress is a three-day
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:235
+SEQUENCE:238
 SUMMARY:Free Software Development and the FreeBSD Operating System
 URL;VALUE=URI:http://www.enderunix.org/events/metu2004
 LOCATION:ODTU Culture and Congress Center, Ankara, Turkey
@@ -3438,7 +3475,7 @@ DESCRIPTION:This conference is organized with the cooperation of
       see the website.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:236
+SEQUENCE:239
 SUMMARY:EuroBSDCon 2004
 URL;VALUE=URI:http://2004.eurobsdcon.org/
 LOCATION:Queens Hotel Karlsruhe, Karlsruhe, Germany
@@ -3450,7 +3487,7 @@ DESCRIPTION:The third annual European BSD Conference.  It is
       FreeBSD of course.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:237
+SEQUENCE:240
 SUMMARY:BSDCon Japan 2004
 URL;VALUE=URI:http://bsdcon.jp/
 LOCATION:Business Innovation Center Osaka, Osaka, Japan
@@ -3463,7 +3500,7 @@ DESCRIPTION:BSD Conference Japan 2004, the third conference
       will be held in the same place also.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:238
+SEQUENCE:241
 SUMMARY:Systems 2004
 URL;VALUE=URI:http://www.systems.de/
 LOCATION:New Munich Trade Fair Centre, Munich, Germany
@@ -3476,7 +3513,7 @@ DESCRIPTION:Systems is a trade fair for IT, media and communications.
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:239
+SEQUENCE:242
 SUMMARY:Italian FreeBSD User Group (GUFI) Conference 2004
 URL;VALUE=URI:http://www.gufi.org/guficon5/
 LOCATION:, Milan, Italy
@@ -3488,7 +3525,7 @@ DESCRIPTION:The Italian FreeBSD User Group (GUFI) Conference.
       website.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:240
+SEQUENCE:243
 SUMMARY:The AUUG'2004 Annual Conference
 URL;VALUE=URI:http://www.auug.org.au/events/2004/auug2004/
 LOCATION:, Melbourne, Australia
@@ -3501,7 +3538,7 @@ DESCRIPTION:AUUG'2004 is the annual technical conference of AUUG,
       along with issues of computer security and anonymity.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:241
+SEQUENCE:244
 SUMMARY:2nd Swiss Unix Conference
 URL;VALUE=URI:http://www.sucon.ch/
 LOCATION:, Zè´‰rich, Switzerland
@@ -3517,7 +3554,7 @@ DESCRIPTION:SUCON is an emerging conference focused on topics
       Josef El-Rayes.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:242
+SEQUENCE:245
 SUMMARY:Linux Expo Shanghai
 URL;VALUE=URI:http://www.linuxexposhanghai.com/
 LOCATION:, Shanghai, China
@@ -3532,7 +3569,7 @@ URL;VALUE=URI:http://www.stokely.org/20040910-shanghai-linuxexpo/
 URL;VALUE=URI:https://people.FreeBSD.org/~murray/
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:243
+SEQUENCE:246
 SUMMARY:2004 USENIX Annual Technical Conference
 URL;VALUE=URI:http://www.usenix.org/events/usenix04/
 LOCATION:, Boston, Massachusetts, USA
@@ -3548,7 +3585,7 @@ DESCRIPTION:The 2004 USENIX ATC will have FREENIX
 URL;VALUE=URI:http://apollo.backplane.com/USENIX2004/
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:244
+SEQUENCE:247
 SUMMARY:Linuxtag 2004
 URL;VALUE=URI:http://www.linuxtag.org/2004/
 LOCATION:Kongresszentrum, Karlsruhe, Germany
@@ -3560,7 +3597,7 @@ DESCRIPTION:The Linuxtag is one of Europe's biggest Linux and Open Source
       present with a booth.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:245
+SEQUENCE:248
 SUMMARY:Linuxwochen Wien
 URL;VALUE=URI:http://www.linuxwochen.at
 LOCATION:Museumsquartier, A-1070 Wien Museumsplatz 1, Vienna, Austria
@@ -3574,7 +3611,7 @@ DESCRIPTION:Linuxwochen is an annual roadshow of open source
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:246
+SEQUENCE:249
 SUMMARY:BSDCan
 URL;VALUE=URI:http://www.bsdcan.org/
 LOCATION:University of Ottawa, Ottawa, Canada
@@ -3588,7 +3625,7 @@ DESCRIPTION:BSDCan is a developers conference with a strong focus
       from commercial vendors.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:247
+SEQUENCE:250
 SUMMARY:Asia BSDCon 2004
 URL;VALUE=URI:http://www.asiabsdcon.org/
 LOCATION:Academica Sinica, Taipei, Taiwan (ROC)
@@ -3600,7 +3637,7 @@ DESCRIPTION:The first BSDCon held in Asia, and sponsored by USENIX Association. 
       vendor exhibit.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:248
+SEQUENCE:251
 SUMMARY:LinuxForum 2004
 URL;VALUE=URI:http://www.linuxforum.dk/
 LOCATION:Symbion, Copenhagen, Denmark
@@ -3612,7 +3649,7 @@ DESCRIPTION:Annual Danish Open Source conference.  The Danish BSD
       the BSD's.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:249
+SEQUENCE:252
 SUMMARY:Fosdem 2004
 URL;VALUE=URI:http://www.fosdem.org/
 LOCATION:Universite Libre de Bruxelles, Brussels, Belgium
@@ -3624,7 +3661,7 @@ DESCRIPTION:A 2 day event to promote the widespread use of Free
       will be Mozilla, KDE and, of course, FreeBSD.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:250
+SEQUENCE:253
 SUMMARY:Solutions Linux 2004
 URL;VALUE=URI:http://www.linuxsolutions.fr/
 LOCATION:CNIT, Paris, France
@@ -3637,7 +3674,7 @@ DESCRIPTION:A 3 day event to promote GNU/Linux and Open Source software.
 	of course !
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:251
+SEQUENCE:254
 SUMMARY:20. Chaos Communication Congress
 URL;VALUE=URI:http://www.ccc.de/congress/2003/
 LOCATION:Berliner Congress Center, Berlin, Germany
@@ -3651,7 +3688,7 @@ DESCRIPTION:The Chaos Communication Congress is a three-day
     
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:252
+SEQUENCE:255
 SUMMARY:BSDCon Brasil
 URL;VALUE=URI:http://bsdcon.myfreebsd.com.br/
 LOCATION:, Rio de Janeiro, Brazil
@@ -3665,7 +3702,7 @@ DESCRIPTION:This is the first edition of BSDCon Brasil.  BSDCon
       large.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:253
+SEQUENCE:256
 SUMMARY:BSD/Linux Day
 URL;VALUE=URI:http://www.jus.or.jp/events/bsd-linux-day/
 LOCATION:, Yokohama, Japan
@@ -3676,7 +3713,7 @@ DESCRIPTION:During the InternetWeek 2003 Conference, which takes
       BSD/Linux Day, organized by the Japan Unix Society.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:254
+SEQUENCE:257
 SUMMARY:FreeBSD 10 Year Anniversary Party
 URL;VALUE=URI:http://www.offmyserver.com/cgi-bin/store/rsvp.html
 LOCATION:DNA Lounge, San Francisco, USA
@@ -3688,7 +3725,7 @@ DESCRIPTION:Join us Monday November 24th to celebrate 10 years of
 URL;VALUE=URI:http://apollo.backplane.com/pics.bsdparty/
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:255
+SEQUENCE:258
 SUMMARY:SCALE: Southern California Linux Expo 2003
 URL;VALUE=URI:http://www.socallinuxexpo.com/
 LOCATION:Los Angeles Convention Center, Los Angeles, California, USA
@@ -3699,7 +3736,7 @@ DESCRIPTION:The Second Annual Southern California Linux Expo.
       material.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:256
+SEQUENCE:259
 SUMMARY:5. Linuxday Vorarlberg
 URL;VALUE=URI:http://www.linuxday.at/
 LOCATION:HTL Dornbirn, Dornbirn, Austria
@@ -3711,7 +3748,7 @@ DESCRIPTION:The Linuxday in Vorarlberg is an event where
       a talk about FreeBSD.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:257
+SEQUENCE:260
 SUMMARY:BSDCon Japan 2003
 URL;VALUE=URI:http://bsdcon.jp/
 LOCATION:BIZ Shinjuku, Tokyo, Japan
@@ -3725,7 +3762,7 @@ DESCRIPTION:BSD Conference Japan 2003, the second conference
       were presented during the conference.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:258
+SEQUENCE:261
 SUMMARY:Linux-Kongress 2003
 URL;VALUE=URI:http://www.linux-kongress.org/2003/
 LOCATION:University of the Saarland, Saarbrè´‰cken, Germany
@@ -3738,7 +3775,7 @@ DESCRIPTION:FreeBSD will be present with a booth at the Linux-Kongress,
       merchandising.
 END:VEVENT
 BEGIN:VEVENT
-SEQUENCE:259
+SEQUENCE:262
 SUMMARY:BSDCon '03
 URL;VALUE=URI:http://www.usenix.org/events/bsdcon03/
 LOCATION:, San Mateo, California, USA

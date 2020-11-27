@@ -15,5 +15,17 @@
       <link>https://www.FreeBSD.org/events/</link>
     </image>
     <atom:link rel="self" type="application/rss+xml" href="https://www.FreeBSD.org/events/rss.xml"/>
+    <item>
+      <title>FreeBSD Office Hours</title>
+      <description>FreeBSD Office Hours (https://live.freebsd.org/FreeBSD/officehours/), live.FreeBSD.org 03 December, 2020. On December 3rd at 18:00 UTC we will hold a
+      "FreeBSD Office Hours", an interactive online event
+      where users, contributors, and developers can ask questions or to offer
+      comments. The topic will be "Git Q&amp;A."
+      For more information please see the
+      Office Hours
+      page on the FreeBSD wiki.</description>
+      <link>https://live.freebsd.org/FreeBSD/officehours/</link>
+      <guid>https://live.freebsd.org/FreeBSD/officehours/</guid>
+    </item>
   </channel>
 </rss>

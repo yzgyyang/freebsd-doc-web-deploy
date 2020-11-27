@@ -21,7 +21,7 @@
    claim, the designations have been followed by the "(TM)" or the "(R)"
    symbol.
 
-   Last modified on 2020-11-20 18:05:48 +0800 by Guangyuan Yang.
+   Last modified on 2020-11-26 19:15:09 +0000 by bhd.
    Abstract
 
    This document lists errata items for FreeBSD 12.2-RELEASE, containing
@@ -112,3 +112,11 @@
        Those installing GNOME on a new installation from the upstream pkg(8)
        mirrors, or upgrading from a previous FreeBSD release should not
        experience any issues.
+
+     * [2020-11-11] Due to slight changes to the ABI and KBI between
+       FreeBSD 12.1 and FreeBSD 12.2, it is important to note that certain
+       third-party kernel modules may need to be rebuilt locally, until
+       FreeBSD 12.1 reaches end of life.
+
+       Of note, this includes, but is not limited to, graphics/*-kmod,
+       net/*-kmod, and possibly others that are too extensive to list.
