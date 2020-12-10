@@ -17,6 +17,24 @@
     </image>
     <atom:link xmlns="http://www.w3.org/1999/xhtml" rel="self" type="application/rss+xml" href="http://www.FreeBSD.org/security/rss.xml"/>
     <item>
+      <title>FreeBSD-SA-20:33.openssl</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-20:33.openssl.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-20:33.openssl.asc</guid>
+      <pubDate>2020 dec 8 00:00:00 CET, Tue</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-SA-20:32.rtsold</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-20:32.rtsold.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-20:32.rtsold.asc</guid>
+      <pubDate>2020 dec 1 00:00:00 CET, Tue</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-SA-20:31.icmp6</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-20:31.icmp6.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-20:31.icmp6.asc</guid>
+      <pubDate>2020 dec 1 00:00:00 CET, Tue</pubDate>
+    </item>
+    <item>
       <title>FreeBSD-SA-20:30.ftpd</title>
       <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-20:30.ftpd.asc</link>
       <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-20:30.ftpd.asc</guid>
@@ -57,24 +75,6 @@
       <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-20:24.ipv6.asc</link>
       <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-20:24.ipv6.asc</guid>
       <pubDate>2020 szep 2 00:00:00 CET, Wed</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-SA-20:23.sendmsg</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-20:23.sendmsg.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-20:23.sendmsg.asc</guid>
-      <pubDate>2020 aug 5 00:00:00 CET, Wed</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-SA-20:22.sqlite</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-20:22.sqlite.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-20:22.sqlite.asc</guid>
-      <pubDate>2020 aug 5 00:00:00 CET, Wed</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-SA-20:21.usb_net</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-SA-20:21.usb_net.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-SA-20:21.usb_net.asc</guid>
-      <pubDate>2020 aug 5 00:00:00 CET, Wed</pubDate>
     </item>
   </channel>
 </rss>

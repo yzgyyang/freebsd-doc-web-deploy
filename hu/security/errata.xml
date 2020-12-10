@@ -17,6 +17,30 @@
     </image>
     <atom:link xmlns="http://www.w3.org/1999/xhtml" rel="self" type="application/rss+xml" href="http://www.FreeBSD.org/security/rss.xml"/>
     <item>
+      <title>FreeBSD-EN-20:22.callout</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:22.callout.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:22.callout.asc</guid>
+      <pubDate>2020 dec 1 00:00:00 CET, Tue</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-EN-20:21.ipfw</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:21.ipfw.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:21.ipfw.asc</guid>
+      <pubDate>2020 dec 1 00:00:00 CET, Tue</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-EN-20:20.tzdata</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:20.tzdata.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:20.tzdata.asc</guid>
+      <pubDate>2020 dec 1 00:00:00 CET, Tue</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD-EN-20:19.audit</title>
+      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:19.audit.asc</link>
+      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:19.audit.asc</guid>
+      <pubDate>2020 dec 1 00:00:00 CET, Tue</pubDate>
+    </item>
+    <item>
       <title>FreeBSD-EN-20:18.getfsstat</title>
       <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:18.getfsstat.asc</link>
       <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:18.getfsstat.asc</guid>
@@ -51,30 +75,6 @@
       <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:13.bhyve.asc</link>
       <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:13.bhyve.asc</guid>
       <pubDate>2020 júl 8 00:00:00 CET, Wed</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-EN-20:12.iflib</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:12.iflib.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:12.iflib.asc</guid>
-      <pubDate>2020 jún 9 00:00:00 CET, Tue</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-EN-20:11.ena</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:11.ena.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:11.ena.asc</guid>
-      <pubDate>2020 jún 9 00:00:00 CET, Tue</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-EN-20:10.build</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:10.build.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:10.build.asc</guid>
-      <pubDate>2020 máj 12 00:00:00 CET, Tue</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD-EN-20:09.igb</title>
-      <link>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:09.igb.asc</link>
-      <guid>https://security.FreeBSD.org/advisories/FreeBSD-EN-20:09.igb.asc</guid>
-      <pubDate>2020 máj 12 00:00:00 CET, Tue</pubDate>
     </item>
   </channel>
 </rss>

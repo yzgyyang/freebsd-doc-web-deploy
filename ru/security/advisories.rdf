@@ -6,6 +6,18 @@
     <description>Security advisories published from the FreeBSD Project</description>
   </channel>
   <item>
+    <title>FreeBSD-SA-20:33.openssl</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-20:33.openssl.asc</link>
+  </item>
+  <item>
+    <title>FreeBSD-SA-20:32.rtsold</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-20:32.rtsold.asc</link>
+  </item>
+  <item>
+    <title>FreeBSD-SA-20:31.icmp6</title>
+    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-20:31.icmp6.asc</link>
+  </item>
+  <item>
     <title>FreeBSD-SA-20:30.ftpd</title>
     <link>//security.FreeBSD.org/advisories/FreeBSD-SA-20:30.ftpd.asc</link>
   </item>
@@ -32,17 +44,5 @@
   <item>
     <title>FreeBSD-SA-20:24.ipv6</title>
     <link>//security.FreeBSD.org/advisories/FreeBSD-SA-20:24.ipv6.asc</link>
-  </item>
-  <item>
-    <title>FreeBSD-SA-20:23.sendmsg</title>
-    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-20:23.sendmsg.asc</link>
-  </item>
-  <item>
-    <title>FreeBSD-SA-20:22.sqlite</title>
-    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-20:22.sqlite.asc</link>
-  </item>
-  <item>
-    <title>FreeBSD-SA-20:21.usb_net</title>
-    <link>//security.FreeBSD.org/advisories/FreeBSD-SA-20:21.usb_net.asc</link>
   </item>
 </rdf:RDF>
