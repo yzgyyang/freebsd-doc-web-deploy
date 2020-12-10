@@ -21,7 +21,7 @@
    claim, the designations have been followed by the "(TM)" or the "(R)"
    symbol.
 
-   Last modified on 2020-12-10 16:59:58 +0000 by Guangyuan Yang.
+   Last modified on 2020-12-10 12:49:20 -0500 by Glen Barber.
    Abstract
 
    This document lists errata items for FreeBSD 12.2-RELEASE, containing
@@ -71,13 +71,22 @@
 
 2. Security Advisories
 
-             Advisory                    Date                  Topic          
-   No advisories                                                              
+           Advisory              Date                     Topic               
+   FreeBSD-SA-20:31.icmp6   1 December 2019 Use-after-free in error message   
+                                            handling                          
+   FreeBSD-SA-20:32.rtsold  1 December 2019 Multiple vulnerabilities          
+   FreeBSD-SA-20:33.openssl 8 December 2019 NULL pointer de-reference         
 
 3. Errata Notices
 
-              Errata                     Date                  Topic          
-   No notices                                                                 
+            Errata               Date                     Topic               
+   FreeBSD-EN-20:19.audit   1 December 2020 execve/fexecve system call        
+                                            auditing                          
+   FreeBSD-EN-20:20.tzdata  1 December 2020 Timezone database information     
+                                            update                            
+   FreeBSD-EN-20:21.ipfw    1 December 2020 Uninitialized variable            
+   FreeBSD-EN-20:22.callout 1 December 2020 Race condition in callout CPU     
+                                            migration                         
 
 4. Open Issues
 

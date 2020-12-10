@@ -25,7 +25,7 @@
    claim, the designations have been followed by the "(TM)" or the "(R)"
    symbol.
 
-   Last modified on 2020-12-10 16:59:58 +0000 by Guangyuan Yang.
+   Last modified on 2020-12-10 12:49:20 -0500 by Glen Barber.
    Abstract
 
    This document gives a brief introduction to FreeBSD 12.0-RELEASE. It
