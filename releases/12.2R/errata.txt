@@ -21,7 +21,7 @@
    claim, the designations have been followed by the "(TM)" or the "(R)"
    symbol.
 
-   Last modified on 2020-12-13 20:04:26 +0800 by Guangyuan Yang.
+   Last modified on 2020-12-13 12:32:17 +0000 by Guangyuan Yang.
    Abstract
 
    This document lists errata items for FreeBSD 12.2-RELEASE, containing
