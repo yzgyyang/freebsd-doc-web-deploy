@@ -16,6 +16,12 @@
     </image>
     <atom:link href="https://www.FreeBSD.org/news/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>FreeBSD src repo to be converted to git. Please see the git wiki for details.</title>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20201219:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20201219:01</guid>
+      <pubDate>Sat, 19 Dec 2020 00:00:00 PST</pubDate>
+    </item>
+    <item>
       <title>New committer: Juraj Lutter (ports)</title>
       <link>https://www.FreeBSD.org/news/newsflash.html#event20201212:01</link>
       <guid>https://www.FreeBSD.org/news/newsflash.html#event20201212:01</guid>
@@ -75,13 +81,6 @@
       <link>https://www.FreeBSD.org/news/newsflash.html#event20200918:01</link>
       <guid>https://www.FreeBSD.org/news/newsflash.html#event20200918:01</guid>
       <pubDate>Fri, 18 Sep 2020 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>FreeBSD 12.2-BETA1 Available</title>
-      <description>The first BETA build for the FreeBSD 12.2 release cycle is now available. ISO images for the amd64, armv6, armv7, arm64, i386, powerpc, powerpc64, powerpcspe, and sparc64 architectures are available on most of our FreeBSD mirror sites.</description>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20200912:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20200912:01</guid>
-      <pubDate>Sat, 12 Sep 2020 00:00:00 PST</pubDate>
     </item>
   </channel>
 </rss>

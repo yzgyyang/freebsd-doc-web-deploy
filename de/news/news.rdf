@@ -6,6 +6,10 @@
     <description>News from the FreeBSD Project</description>
   </channel>
   <item>
+    <title>FreeBSD src repo to be converted to git. Please see the git wiki for details.</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20201219:01</link>
+  </item>
+  <item>
     <title>New committer: Juraj Lutter (ports)</title>
     <link>https://www.FreeBSD.org/news/newsflash.html#event20201212:01</link>
   </item>
@@ -40,9 +44,5 @@
   <item>
     <title>FreeBSD 12.2-BETA2 Available</title>
     <link>https://www.FreeBSD.org/news/newsflash.html#event20200918:01</link>
-  </item>
-  <item>
-    <title>FreeBSD 12.2-BETA1 Available</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20200912:01</link>
   </item>
 </rdf:RDF>
