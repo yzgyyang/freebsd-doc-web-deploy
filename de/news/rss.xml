@@ -16,6 +16,18 @@
     </image>
     <atom:link href="https://www.FreeBSD.org/news/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>New committer: Juraj Lutter (ports)</title>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20201212:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20201212:01</guid>
+      <pubDate>Sat, 12 Dec 2020 00:00:00 PST</pubDate>
+    </item>
+    <item>
+      <title>FreeBSD doc repo converted to git.</title>
+      <link>https://www.FreeBSD.org/news/newsflash.html#event20201205:01</link>
+      <guid>https://www.FreeBSD.org/news/newsflash.html#event20201205:01</guid>
+      <pubDate>Sat, 5 Dec 2020 00:00:00 PST</pubDate>
+    </item>
+    <item>
       <title>FreeBSD 12.2-RELEASE Available</title>
       <description>FreeBSD 12.2-RELEASE is now available. Please be sure to check the Release Notes and Release Errata before installation for any late-breaking news and/or issues with 12.2. More information about FreeBSD releases can be found on the Release Information page.</description>
       <link>https://www.FreeBSD.org/news/newsflash.html#event20201027:01</link>
@@ -70,18 +82,6 @@
       <link>https://www.FreeBSD.org/news/newsflash.html#event20200912:01</link>
       <guid>https://www.FreeBSD.org/news/newsflash.html#event20200912:01</guid>
       <pubDate>Sat, 12 Sep 2020 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>New committer: Rainer Hurling (ports)</title>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20200831:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20200831:01</guid>
-      <pubDate>Mon, 31 Aug 2020 00:00:00 PST</pubDate>
-    </item>
-    <item>
-      <title>New committer: Daniel Ebdrup Jensen (doc)</title>
-      <link>https://www.FreeBSD.org/news/newsflash.html#event20200726:01</link>
-      <guid>https://www.FreeBSD.org/news/newsflash.html#event20200726:01</guid>
-      <pubDate>Sun, 26 Jul 2020 00:00:00 PST</pubDate>
     </item>
   </channel>
 </rss>

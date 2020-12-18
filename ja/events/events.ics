@@ -358,7 +358,7 @@ URL;VALUE=URI:https://live.freebsd.org/FreeBSD/officehours/
 LOCATION:live.FreeBSD.org
 
 DTSTART;VALUE=DATE:20201216
-DESCRIPTION:On December 16th at 18:00 UTC we will hold a
+DESCRIPTION:On December 16th at 21:00 UTC we will hold a
       "FreeBSD Office Hours", an interactive online event
       where users, contributors, and developers can ask questions or to offer
       comments. The topic will be "Bhyve", hosted by

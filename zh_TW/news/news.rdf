@@ -6,6 +6,14 @@
     <description>News from the FreeBSD Project</description>
   </channel>
   <item>
+    <title>New committer: Juraj Lutter (ports)</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20201212:01</link>
+  </item>
+  <item>
+    <title>FreeBSD doc repo converted to git.</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20201205:01</link>
+  </item>
+  <item>
     <title>FreeBSD 12.2-RELEASE Available</title>
     <link>https://www.FreeBSD.org/news/newsflash.html#event20201027:01</link>
   </item>
@@ -36,13 +44,5 @@
   <item>
     <title>FreeBSD 12.2-BETA1 Available</title>
     <link>https://www.FreeBSD.org/news/newsflash.html#event20200912:01</link>
-  </item>
-  <item>
-    <title>New committer: Rainer Hurling (ports)</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20200831:01</link>
-  </item>
-  <item>
-    <title>New committer: Daniel Ebdrup Jensen (doc)</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20200726:01</link>
   </item>
 </rdf:RDF>
