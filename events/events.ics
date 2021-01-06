@@ -31,7 +31,7 @@ BEGIN:VEVENT
 SEQUENCE:3
 SUMMARY:FreeBSD Office Hours
 URL;VALUE=URI:https://www.youtube.com/watch?v=6qBm5NM3zTQ
-LOCATION:Online, Google Hangout
+LOCATION:Google Hangout
 
 DTSTART;VALUE=DATE:20200401
 DESCRIPTION:On April 1st at 18:00 UTC we will hold the first
