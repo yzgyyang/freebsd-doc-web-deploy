@@ -164,10 +164,13 @@
                     <a href="https://wiki.FreeBSD.org/IdeasPage">Project Ideas</a>
                   </li>
                   <li>
+                    <a href="https://cgit.FreeBSD.org">Git Repository</a>
+                  </li>
+                  <li>
                     <a href="https://svnweb.FreeBSD.org">Subversion Repository</a>
                   </li>
                   <li>
-                    <a href="https://github.com/freebsd">Git Mirror</a>
+                    <a href="https://github.com/freebsd">GitHub Mirror</a>
                   </li>
                   <li>
                     <a href="https://reviews.FreeBSD.org">Code Review (Phabricator)</a>
@@ -244,18 +247,17 @@
     <p><a href="opensearch/" shape="rect">List of FreeBSD OpenSearch Plugins</a></p>
     <hr noshade="noshade" />
 
-    <a name="web" shape="rect" id="web"></a><h2>Web pages (including <a href="../doc/en_US.ISO8859-1/books/faq/index.html" shape="rect">FAQ</a> and <a href="../doc/en_US.ISO8859-1/books/handbook/index.html" shape="rect">Handbook</a>)</h2>
+    <a name="web" shape="rect" id="web"></a><h2>Web pages (including <a href="../doc/en_US.ISO8859-1/books/faq/index.html" shape="rect">FAQ</a>, <a href="../doc/en_US.ISO8859-1/books/handbook/index.html" shape="rect">Handbook</a>, <a href="https://lists.freebsd.org" shape="rect">Mailing Lists</a>, <a href="https://wiki.freebsd.org" shape="rect">Wiki</a> and <a href="https://forums.freebsd.org" shape="rect">Forums</a>)</h2>
 
     <h3>Search within sites:</h3>
 
-    <form action="https://duckduckgo.com/" method="get" enctype="application/x-www-form-urlencoded">
-      <h2 class="blockhide"><label for="words">Search</label></h2>
-      <input type="hidden" name="sites" value="www.FreeBSD.org,docs.FreeBSD.org/doc,wiki.FreeBSD.org,forums.FreeBSD.org" />
+    <form action="https://duckduckgo.com/" method="get" onsubmit="document.getElementById('words2').value+=' (site:www.FreeBSD.org OR site:docs.FreeBSD.org OR site:lists.FreeBSD.org OR site:wiki.FreeBSD.org OR site:forums.FreeBSD.org)'" enctype="application/x-www-form-urlencoded">
+      <h2 class="blockhide"><label for="words2">Search</label></h2>
       <input type="hidden" name="ka" value="v" />
       <input type="hidden" name="kt" value="v" />
       <input type="hidden" name="kh" value="1" />
       <input type="hidden" name="kj" value="r2" />
-      <input id="words" name="q" type="text" size="50" maxlength="255" />
+      <input id="words2" name="q" type="text" size="50" maxlength="255" />
       <br clear="none" />
       <input id="submit" name="submit" type="submit" value="Submit Query" />
       <input id="reset" type="reset" value="Reset" />
