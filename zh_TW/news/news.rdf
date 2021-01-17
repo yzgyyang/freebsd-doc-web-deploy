@@ -6,6 +6,14 @@
     <description>News from the FreeBSD Project</description>
   </channel>
   <item>
+    <title>October-December 2020 Status Report</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20210116:01</link>
+  </item>
+  <item>
+    <title>New committer: Lutz Donnerhacke (src)</title>
+    <link>https://www.FreeBSD.org/news/newsflash.html#event20210114:01</link>
+  </item>
+  <item>
     <title>New committer: Neel Chauhan (ports)</title>
     <link>https://www.FreeBSD.org/news/newsflash.html#event20210102:01</link>
   </item>
@@ -36,13 +44,5 @@
   <item>
     <title>FreeBSD 12.2-RC2 Available</title>
     <link>https://www.FreeBSD.org/news/newsflash.html#event20201010:01</link>
-  </item>
-  <item>
-    <title>FreeBSD 12.2-RC1 Available</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20201003:01</link>
-  </item>
-  <item>
-    <title>FreeBSD 12.2-BETA3 Available</title>
-    <link>https://www.FreeBSD.org/news/newsflash.html#event20200926:01</link>
   </item>
 </rdf:RDF>
